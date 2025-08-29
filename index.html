@@ -4,219 +4,147 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>فاضل الريس | تصميم مواقع إلكترونية احترافية</title>
-  <meta name="description" content="فاضل الريس — تصميم وتطوير مواقع إلكترونية احترافية بمعايير عالمية، تحسين لمحركات البحث (SEO)، وأمان متقدم ضد الهجمات والمتطفلين." />
-  <meta name="keywords" content="تصميم مواقع, شركة تصميم مواقع, تطوير مواقع, البحرين, فاضل الريس, Web Design, SEO, حماية مواقع, أمن معلومات" />
+  <title>فاضل الريس | موقع بمواصفات احترافية</title>
+  <meta name="description" content="موقع فاضل الريس — صفحة مواصفات موقع احترافية: توافق كامل مع الهاتف والتابلت والكمبيوتر، سرعة عالية، حماية أساسية (CSP/روابط آمنة)، تهيئة لمحركات البحث (SEO)، وإمكانية وصول ممتازة." />
+  <meta name="keywords" content="مواصفات موقع, تصميم مواقع, تطوير مواقع, فاضل الريس, البحرين, Web Design, SEO, حماية مواقع" />
   <meta name="robots" content="index, follow" />
   <meta name="referrer" content="no-referrer" />
-  <!-- أمان أساسي عبر CSP على مستوى الصفحة (يفضّل ضبطها كرؤوس سيرفر أيضاً) -->
+  <!-- CSP أساسية (يوصى أيضاً برؤوس أمان من الخادم) -->
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'none'; frame-ancestors 'none'; object-src 'none'; img-src 'self' data:; connect-src 'none'; font-src 'self' data:; media-src 'self'; form-action 'self' mailto: https://api.whatsapp.com; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; upgrade-insecure-requests">
   <meta name="theme-color" content="#0ea5e9" />
-  <!-- Open Graph -->
-  <meta property="og:title" content="فاضل الريس | تصميم مواقع إلكترونية احترافية" />
-  <meta property="og:description" content="نصمم مواقع سريعة، آمنة، ومتصدّرة لمحركات البحث." />
+  <meta property="og:title" content="فاضل الريس | موقع بمواصفات احترافية" />
+  <meta property="og:description" content="توافق كامل، سرعة، أمان، وتهيئة لمحركات البحث." />
   <meta property="og:type" content="website" />
-  <meta property="og:locale" content="ar_AR" />  <style>
+  <meta property="og:locale" content="ar_AR" />
+  <style>
     :root{
-      --bg1:#0ea5e9; /* sky-500 */
-      --bg2:#7c3aed; /* violet-600 */
-      --bg3:#14b8a6; /* teal-500 */
-      --txt:#0b132b; /* dark */
-      --txt-contrast:#0b132b;
-      --muted:#6b7280; /* gray-500 */
-      --card-bg: rgba(255,255,255,.75);
-      --glass: rgba(255,255,255,.6);
-      --shadow: 0 10px 30px rgba(2,6,23,.15);
-      --radius: 18px;
-      --max:1200px;
+      --bg1:#0ea5e9; --bg2:#7c3aed; --bg3:#14b8a6;
+      --txt:#0b132b; --muted:#6b7280; --card-bg: rgba(255,255,255,.75);
+      --shadow: 0 10px 30px rgba(2,6,23,.15); --radius: 18px; --max:1200px;
     }
     *{box-sizing:border-box}
     html,body{height:100%}
-    body{
-      margin:0; font-family: system-ui, -apple-system, Segoe UI, Tahoma, "Noto Kufi Arabic", "Cairo", sans-serif;
-      color:#0f172a; background: radial-gradient(1200px 600px at 80% -10%, rgba(20,184,166,.25), transparent 60%),
-                       linear-gradient(135deg, #f7fafc 0%, #eef2ff 100%);
-      overflow-x:hidden;
-    }
-    /* Animated hero gradient */
-    .hero-wrap{
-      position:relative; isolation:isolate;
-      background: conic-gradient(from 180deg at 50% 50%, var(--bg1), var(--bg2), var(--bg3), var(--bg1));
-      background-size: 200% 200%;
-      animation: spinGrad 12s linear infinite;
-      --mask: radial-gradient(1200px 600px at 50% -20%, #000 40%, transparent 60%);
-      -webkit-mask: var(--mask); mask: var(--mask);
-      height: 46vh; min-height: 380px;
-      filter: saturate(1.05);
-    }
-    @keyframes spinGrad{to{background-position:200% 200%}}
-
-    header{
-      position:sticky; top:0; z-index:40; backdrop-filter:saturate(1.2) blur(10px);
-      background: rgba(255,255,255,.7); box-shadow: 0 1px 0 rgba(2,6,23,.06);
-    }
+    body{margin:0; font-family: system-ui, -apple-system, Segoe UI, Tahoma, "Noto Kufi Arabic", "Cairo", sans-serif; color:#0f172a;
+      background: radial-gradient(1200px 600px at 80% -10%, rgba(20,184,166,.25), transparent 60%), linear-gradient(135deg, #f7fafc 0%, #eef2ff 100%);
+      overflow-x:hidden}
+    header{position:sticky; top:0; z-index:40; backdrop-filter:saturate(1.2) blur(10px); background: rgba(255,255,255,.7); box-shadow: 0 1px 0 rgba(2,6,23,.06)}
     .nav{max-width:var(--max); margin:auto; display:flex; align-items:center; gap:16px; padding:10px 20px}
     .brand{display:flex; align-items:center; gap:10px; text-decoration:none}
-    .brand .logo{
-      width:40px; height:40px; border-radius:12px; background:linear-gradient(135deg,var(--bg1),var(--bg2));
-      box-shadow: var(--shadow);
-      display:grid; place-items:center; color:#fff; font-weight:700;
-    }
+    .brand .logo{width:40px; height:40px; border-radius:12px; background:linear-gradient(135deg,var(--bg1),var(--bg2)); box-shadow: var(--shadow); display:grid; place-items:center; color:#fff; font-weight:700}
     .brand span{font-weight:800; font-size:1.05rem; background: linear-gradient(135deg,var(--bg1),var(--bg2)); -webkit-background-clip:text; background-clip:text; color:transparent}
-
-    /* Mobile nav (CSS only) */
     #nav-toggle{display:none}
     .links{margin-inline-start:auto; display:flex; gap:14px; align-items:center}
-    .links a{color:#1f2937; text-decoration:none; font-weight:600; padding:8px 12px; border-radius:10px}
+    .links a{color:#1f2937; text-decoration:none; font-weight:700; padding:10px 14px; border-radius:12px; min-height:44px; display:inline-flex; align-items:center}
     .links a:hover{background:rgba(2,6,23,.06)}
-    .btn{display:inline-flex; align-items:center; gap:8px; border:none; border-radius:12px; padding:10px 16px; cursor:pointer; font-weight:700; text-decoration:none}
+    .btn{display:inline-flex; align-items:center; gap:8px; border:none; border-radius:12px; padding:12px 18px; cursor:pointer; font-weight:800; text-decoration:none; min-height:44px}
     .btn-primary{background:linear-gradient(135deg,var(--bg1),var(--bg2)); color:white; box-shadow: var(--shadow)}
     .btn-ghost{background:transparent; color:#1f2937; border:2px solid rgba(2,6,23,.08)}
-
     @media (max-width: 900px){
-      .links{position:fixed; inset-inline:16px; top:62px; display:grid; gap:10px; padding:14px; background:var(--glass); border:1px solid rgba(2,6,23,.06); border-radius:14px; transform:scale(.98); opacity:0; pointer-events:none; transition:.25s}
+      .links{position:fixed; inset-inline:16px; top:62px; display:grid; gap:12px; padding:16px; background:rgba(255,255,255,.8); border:1px solid rgba(2,6,23,.06); border-radius:14px; transform:translateY(-8px); opacity:0; pointer-events:none; transition:.25s}
       .menu{margin-inline-start:auto; display:grid; place-items:center}
-      .menu label{display:inline-flex; padding:8px 10px; border-radius:10px; border:2px solid rgba(2,6,23,.08); cursor:pointer; font-weight:700}
-      #nav-toggle:checked ~ .links{transform:scale(1); opacity:1; pointer-events:auto}
-    }
+      .menu label{display:inline-flex; padding:10px 12px; border-radius:12px; border:2px solid rgba(2,6,23,.08); cursor:pointer; font-weight:800}
+      #nav-toggle:checked ~ .links{transform:translateY(0); opacity:1; pointer-events:auto}
+    }.hero-wrap{position:relative; isolation:isolate; background: conic-gradient(from 180deg at 50% 50%, var(--bg1), var(--bg2), var(--bg3), var(--bg1)); background-size: 200% 200%; animation: spinGrad 12s linear infinite; --mask: radial-gradient(1200px 600px at 50% -20%, #000 40%, transparent 60%); -webkit-mask: var(--mask); mask: var(--mask); min-height: 260px; height: 42vh; filter: saturate(1.05)}
+@keyframes spinGrad{to{background-position:200% 200%}}
+@media (prefers-reduced-motion: reduce){.hero-wrap{animation:none}}
 
-    main{max-width:var(--max); margin:auto}
-    .hero{display:grid; grid-template-columns:1.1fr .9fr; gap:28px; padding:28px 20px 40px}
-    .tag{display:inline-flex; align-items:center; gap:8px; padding:6px 10px; border-radius:999px; background:rgba(14,165,233,.09); color:#0369a1; font-weight:700; border:1px solid rgba(14,165,233,.2)}
-    h1{font-size:clamp(26px, 3.6vw, 44px); line-height:1.25; margin:12px 0; font-weight:900; color:#0b132b}
-    .grad-text{background: linear-gradient(135deg,var(--bg1),var(--bg2)); -webkit-background-clip:text; background-clip:text; color:transparent}
-    .lead{font-size:1.1rem; color:#374151}
-    .cta{display:flex; gap:12px; flex-wrap:wrap; margin-top:18px}
-    .badges{display:flex; gap:10px; flex-wrap:wrap; margin-top:16px}
-    .badge{font-weight:700; color:#0f172a; background:white; border:1px solid rgba(2,6,23,.06); padding:8px 10px; border-radius:999px}
-    .mock{
-      position:relative; background:white; border-radius:var(--radius); box-shadow: var(--shadow); border:1px solid rgba(2,6,23,.05);
-      aspect-ratio: 16/10; overflow:hidden; min-height: 260px;
-    }
-    .mock::before{content:""; position:absolute; inset:0; background: conic-gradient(from 0deg, rgba(14,165,233,.12), rgba(124,58,237,.12), rgba(20,184,166,.12), rgba(14,165,233,.12)); filter:blur(30px)}
-    .mock-inner{position:absolute; inset:14px; border-radius:14px; background:linear-gradient(180deg,#fff, #f8fafc); border:1px solid rgba(2,6,23,.08)}
+main{max-width:var(--max); margin:auto}
+.hero{display:grid; grid-template-columns:1.1fr .9fr; gap:28px; padding:22px 20px 36px}
+h1{font-size:clamp(22px, 4.8vw, 40px); line-height:1.35; margin:12px 0; font-weight:900; color:#0b132b}
+.grad-text{background: linear-gradient(135deg,var(--bg1),var(--bg2)); -webkit-background-clip:text; background-clip:text; color:transparent}
+.lead{font-size:1.05rem; color:#374151}
+.cta{display:flex; gap:12px; flex-wrap:wrap; margin-top:18px}
 
-    .section{padding:60px 20px}
-    .section h2{font-size:clamp(22px, 2.4vw, 30px); margin:0 0 24px 0}
-    .grid{display:grid; grid-template-columns: repeat(3, 1fr); gap:18px}
-    .card{background:var(--card-bg); backdrop-filter: blur(10px) saturate(1.2); border:1px solid rgba(2,6,23,.06); border-radius:var(--radius); padding:18px; box-shadow: var(--shadow)}
-    .card h3{margin:0 0 8px 0; font-size:1.15rem}
-    .card p{margin:0; color:#334155}
-    @media (max-width: 900px){
-      .hero{grid-template-columns:1fr; padding-top:12px}
-      .grid{grid-template-columns:1fr}
-    }
+.section{padding:44px 20px}
+.section h2{font-size:clamp(20px, 3vw, 30px); margin:0 0 18px 0}
 
-    .portfolio{display:grid; grid-template-columns: repeat(12, 1fr); gap:12px}
-    .shot{grid-column: span 4; background:white; border:1px solid rgba(2,6,23,.06); border-radius:14px; aspect-ratio: 4/3; position:relative; overflow:hidden}
-    .shot:nth-child(2){grid-column: span 8; aspect-ratio: 16/7}
-    .shot::after{content:"نموذج عمل"; position:absolute; inset:auto 12px 12px auto; background:linear-gradient(135deg,var(--bg1),var(--bg2)); color:white; padding:6px 10px; border-radius:999px; font-weight:800}
+.grid{display:grid; grid-template-columns: repeat(3, 1fr); gap:18px}
+.card{background:var(--card-bg); backdrop-filter: blur(10px) saturate(1.2); border:1px solid rgba(2,6,23,.06); border-radius:var(--radius); padding:18px; box-shadow: var(--shadow)}
+.card h3{margin:0 0 8px 0; font-size:1.1rem}
+.card p{margin:0; color:#334155}
 
-    .process{display:grid; grid-template-columns: repeat(4, 1fr); gap:14px}
-    .step{position:relative; padding:18px; border-radius:14px; background:white; border:1px solid rgba(2,6,23,.06)}
-    .step .num{width:34px; height:34px; display:grid; place-items:center; border-radius:10px; background:linear-gradient(135deg,var(--bg1),var(--bg2)); color:#fff; font-weight:900; box-shadow:var(--shadow)}
+@media (max-width: 900px){
+  .hero{grid-template-columns:1fr; padding-top:12px}
+  .grid{grid-template-columns:1fr}
+}
 
-    details{background:white; border:1px solid rgba(2,6,23,.06); border-radius:12px; padding:12px 14px}
-    details+details{margin-top:10px}
-    details summary{cursor:pointer; font-weight:800}
+.process{display:grid; grid-template-columns: repeat(4, 1fr); gap:14px}
+.step{position:relative; padding:18px; border-radius:14px; background:white; border:1px solid rgba(2,6,23,.06)}
+.step .num{width:34px; height:34px; display:grid; place-items:center; border-radius:10px; background:linear-gradient(135deg,var(--bg1),var(--bg2)); color:#fff; font-weight:900; box-shadow:var(--shadow)}
+@media (max-width: 900px){.process{grid-template-columns:1fr}}
 
-    .contact{display:grid; grid-template-columns: 1.1fr .9fr; gap:18px}
-    .info{display:grid; gap:12px}
-    .info a{color:#0b132b}
-    .form{background:white; border:1px solid rgba(2,6,23,.06); border-radius:14px; padding:16px}
-    .form label{display:block; font-weight:700; margin:10px 0 6px}
-    .form input,.form textarea{width:100%; padding:12px 14px; border:1px solid rgba(2,6,23,.2); border-radius:12px; font:inherit}
-    .form textarea{min-height:120px; resize:vertical}
-    .hp{position:absolute !important; left:-9999px !important; top:auto; width:1px; height:1px; overflow:hidden}
+.contact{display:grid; grid-template-columns: 1.1fr .9fr; gap:18px}
+.info{display:grid; gap:10px}
+.form{background:white; border:1px solid rgba(2,6,23,.06); border-radius:14px; padding:16px}
+.form label{display:block; font-weight:800; margin:10px 0 6px}
+.form input,.form textarea{width:100%; padding:12px 14px; border:1px solid rgba(2,6,23,.2); border-radius:12px; font:inherit}
+.form textarea{min-height:120px; resize:vertical}
+.hp{position:absolute !important; left:-9999px !important; top:auto; width:1px; height:1px; overflow:hidden}
+@media (max-width: 900px){.contact{grid-template-columns:1fr}}
 
-    footer{padding:30px 20px; text-align:center; color:#334155}
+footer{padding:28px 20px; text-align:center; color:#334155}
 
-    /* زر واتساب العائم */
-    .wa-float{position:fixed; inset:auto 16px 16px auto; z-index:50}
-    .wa-float a{display:inline-grid; place-items:center; width:58px; height:58px; border-radius:16px;
-      background: radial-gradient(circle at 30% 30%, #25D366 0%, #1ebe57 60%);
-      box-shadow: 0 12px 30px rgba(37,211,102,.35); text-decoration:none}
-    .wa-float a:hover{transform:translateY(-2px)}
+.wa-float{position:fixed; inset:auto 16px 16px auto; z-index:50}
+.wa-float a{display:inline-grid; place-items:center; width:58px; height:58px; border-radius:16px; background: radial-gradient(circle at 30% 30%, #25D366 0%, #1ebe57 60%); box-shadow: 0 12px 30px rgba(37,211,102,.35); text-decoration:none}
+.wa-float a:hover{transform:translateY(-2px)}
+@media (prefers-reduced-motion: reduce){.wa-float a:hover{transform:none}}
 
-    /* تحسينات وصول وحركة أقل */
-    @media (prefers-reduced-motion: reduce){
-      .hero-wrap{animation:none}
-      .wa-float a:hover{transform:none}
-    }
-  </style></head>
+  </style>
+</head>
 <body>
   <a id="top" class="sr-only" href="#content">تخطي إلى المحتوى</a>
   <header>
     <nav class="nav" aria-label="التنقل الرئيسي">
-      <a class="brand" href="#top" aria-label="الانتقال إلى الأعلى">
+      <a class="brand" href="#top" aria-label="العودة للأعلى">
         <div class="logo" aria-hidden="true">ف</div>
         <span>فاضل الريس</span>
       </a>
       <div class="menu"><label for="nav-toggle" aria-label="إظهار/إخفاء القائمة">القائمة</label></div>
       <input type="checkbox" id="nav-toggle" />
       <div class="links" role="menubar">
-        <a role="menuitem" href="#services">خدماتنا</a>
-        <a role="menuitem" href="#portfolio">أعمال مختارة</a>
+        <a role="menuitem" href="#specs">مواصفات الموقع</a>
         <a role="menuitem" href="#process">آلية العمل</a>
-        <a role="menuitem" href="#faq">الأسئلة</a>
-        <a role="menuitem" href="#contact" class="btn btn-primary">ابدأ مشروعك</a>
+        <a role="menuitem" href="#contact" class="btn btn-primary">اطلب موقعك الآن</a>
       </div>
     </nav>
   </header>  <div class="hero-wrap" aria-hidden="true"></div>  <main id="content">
     <section class="hero">
       <div>
-        <span class="tag"># معايير عالمية · # SEO · # أمان</span>
-        <h1>نصمم ونُبرمج مواقع <span class="grad-text">إبداعية</span>، سريعة وآمنة —<br> تستهدف محركات البحث وتحوّل الزوار إلى عملاء.</h1>
-        <p class="lead">موقعك هو بوابة عملك. مع <strong>فاضل الريس</strong> تحصل على هوية رقمية مصقولة، أداء متفوق، وحماية مُحكمة ضد الهجمات والمتطفلين.</p>
+        <h1>موقع <span class="grad-text">فاضل الريس</span> — صفحة هبوط تُبرز <u>مواصفات</u> الموقع: سرعة، أمان، توافق كامل، وتهيئة لمحركات البحث.</h1>
+        <p class="lead">هذه نسخة جاهزة تُبيّن المعايير الفنية التي سنبني عليها موقعك: من التوافق الكامل مع الهاتف إلى صلابة الأمان وتجهيز SEO من البداية.</p>
         <div class="cta">
-          <a class="btn btn-primary" href="#contact" aria-label="ابدأ مشروعك الآن">ابدأ مشروعك</a>
+          <a class="btn btn-primary" href="#contact" aria-label="ابدأ مشروعك الآن">ابدأ الآن</a>
           <a class="btn btn-ghost" href="https://api.whatsapp.com/send/?phone=97333330081&text&type=phone_number&app_absent=0&wame_ctl=1&fbclid=PAVERDUAMe4BBleHRuA2FlbQIxMAABp1pnaXV6328z20_x_Oxl_uUUj1FhrZXP6pdikVRrFmepllfC1DgM64GxtBcY_aem_igcyAOXYSA66NARKAX313Q" target="_blank" rel="noopener noreferrer" aria-label="تحدث عبر واتساب">تحدث عبر واتساب</a>
         </div>
-        <div class="badges" aria-label="تقنيات ومعايير">
-          <span class="badge">HTML5</span>
-          <span class="badge">CSS3</span>
-          <span class="badge">Best‑Practice SEO</span>
-          <span class="badge">CSP & حماية أساسية</span>
-          <span class="badge">أداء عالي</span>
-        </div>
       </div>
-      <div class="mock" aria-hidden="true"><div class="mock-inner"></div></div>
-    </section><section id="services" class="section">
-  <h2>خدماتنا</h2>
-  <div class="grid">
-    <article class="card" aria-labelledby="s1"><h3 id="s1">تصميم واجهات وتجربة مستخدم</h3><p>تصميمات حديثة بلمسات احترافية متوافقة مع الهواتف، مع تركيز على القابلية والاستخدام.</p></article>
-    <article class="card" aria-labelledby="s2"><h3 id="s2">تطوير مواقع سريعة</h3><p>كود نظيف ومحسن، بنية دلالية (Semantic HTML) وأساليب تزيد سرعة التحميل.</p></article>
-    <article class="card" aria-labelledby="s3"><h3 id="s3">تحسين محركات البحث (SEO)</h3><p>عناوين وأوصاف محسنة، مخطط بيانات منظّمة (JSON‑LD)، وعناوين متسلسلة واضحة.</p></article>
-    <article class="card" aria-labelledby="s4"><h3 id="s4">أمان وحماية</h3><p>تخفيف مخاطر XSS وClickjacking وحقن المحتوى مع إعدادات محتوى آمنة وارتباطات آمنة.</p></article>
-    <article class="card" aria-labelledby="s5"><h3 id="s5">هوية بصرية وعلامة تجارية</h3><p>ألوان متدرجة جذابة، خطوط متناسقة، ولمسات جمالية تُبرز علامتك.</p></article>
-    <article class="card" aria-labelledby="s6"><h3 id="s6">صيانة ودعم</h3><p>تحديثات وتحسينات مستمرة لضمان موثوقية ونتائج دائمة.</p></article>
-  </div>
-</section>
-
-<section id="portfolio" class="section">
-  <h2>أعمال مختارة</h2>
-  <div class="portfolio" aria-label="معرض أعمال تجريبي">
-    <figure class="shot" aria-label="واجهة متجر إلكتروني"></figure>
-    <figure class="shot" aria-label="موقع شركة خدمات"></figure>
-    <figure class="shot" aria-label="صفحة هبوط تسويقية"></figure>
+      <div class="card" aria-label="ملاحظة تقنية" style="background:white; border:1px solid rgba(2,6,23,.06); border-radius:18px; padding:18px">
+        <strong>مُلاحظات توافق الهاتف:</strong>
+        <ul style="margin:8px 0 0; padding: 0 18px; color:#334155; line-height:1.7">
+          <li>أزرار وروابط بارتفاع لا يقل عن 44px لسهولة اللمس.</li>
+          <li>خطوط مرنة <code>clamp()</code> لضمان قراءة واضحة على الشاشات الصغيرة.</li>
+          <li>قائمة موبايل قابلة للفتح/الإغلاق بدون جافاسكربت خارجي.</li>
+        </ul>
+      </div>
+    </section><section id="specs" class="section">
+  <h2>مواصفات الموقع</h2>
+  <div class="grid" role="list">
+    <article class="card" role="listitem" aria-labelledby="sp1"><h3 id="sp1">توافق كامل مع الأجهزة</h3><p>تصميم متجاوب 100% يعمل على الهاتف، التابلت، والكمبيوتر مع أحجام لمسية مناسبة.</p></article>
+    <article class="card" role="listitem" aria-labelledby="sp2"><h3 id="sp2">أداء وسرعة</h3><p>كود نظيف وخفيف، أنماط مدمجة وتقليل الطلبات، وتحسين الخلفيات لتسريع التحميل.</p></article>
+    <article class="card" role="listitem" aria-labelledby="sp3"><h3 id="sp3">تهيئة لمحركات البحث (SEO)</h3><p>عناوين وأوصاف دقيقة، بنية دلالية سليمة، وبيانات منظَّمة JSON‑LD.</p></article>
+    <article class="card" role="listitem" aria-labelledby="sp4"><h3 id="sp4">حماية أساسية</h3><p>سياسة محتوى (CSP)، روابط خارجية آمنة، وتوصيات رؤوس أمان على الخادم (HSTS/X‑Frame‑Options/NoSniff).</p></article>
+    <article class="card" role="listitem" aria-labelledby="sp5"><h3 id="sp5">إمكانية الوصول</h3><p>تباين ألوان جيد، أدوار ARIA، تنقّل لوحة المفاتيح، وحجم عناصر تفاعلية مناسب للمس.</p></article>
+    <article class="card" role="listitem" aria-labelledby="sp6"><h3 id="sp6">قابلية التوسع</h3><p>بنية HTML واضحة تُسهل إضافة أقسام مستقبلية (مدونة، معرض، نماذج، تحليلات).</p></article>
   </div>
 </section>
 
 <section id="process" class="section">
-  <h2>آلية العمل</h2>
+  <h2>آلية العمل (باختصار)</h2>
   <div class="process">
-    <div class="step"><div class="num">1</div><h3>استكشاف الأهداف</h3><p>نفهم نشاطك وجمهورك وقيمك لنحدد أفضل الحلول.</p></div>
-    <div class="step"><div class="num">2</div><h3>التصميم الأولي</h3><p>مخططات أولية ونظام ألوان وهوية بصرية متناسقة.</p></div>
-    <div class="step"><div class="num">3</div><h3>البرمجة والتحسين</h3><p>تطوير سريع مع تحسين الأداء وتهيئة SEO وأمان أساسي.</p></div>
-    <div class="step"><div class="num">4</div><h3>الإطلاق والقياس</h3><p>نشر آمن، تكامل أدوات القياس، وخطة تحسين مستمر.</p></div>
+    <div class="step"><div class="num">1</div><h3>ملاءمة الأهداف</h3><p>نحدد أهداف الموقع وجمهوره ومؤشرات الأداء.</p></div>
+    <div class="step"><div class="num">2</div><h3>تصميم متجاوب</h3><p>نظام ألوان متدرج وهوية بصرية مناسبة.</p></div>
+    <div class="step"><div class="num">3</div><h3>برمجة محسّنة</h3><p>تحسين سرعة، أمان، وتهيئة SEO منذ البداية.</p></div>
+    <div class="step"><div class="num">4</div><h3>إطلاق وقياس</h3><p>نشر آمن، وإعداد قياسات لتحسين مستمر.</p></div>
   </div>
-</section>
-
-<section id="faq" class="section">
-  <h2>أسئلة متكررة</h2>
-  <details><summary>هل الموقع متوافق مع محركات البحث؟</summary><p>نعم، نستخدم بنية دلالية وبيانات منظّمة وعناوين محسّنة وسرعة تحميل ممتازة.</p></details>
-  <details><summary>هل تهتمون بأمان الموقع؟</summary><p>نُقلل المخاطر عبر سياسات محتوى (CSP) وروابط خارجية آمنة وغياب أكواد خطيرة، ويوصى دائماً بإضافة رؤوس أمان من السيرفر (X‑Frame‑Options, HSTS, X‑Content‑Type‑Options).</p></details>
-  <details><summary>هل يدعم الموقع الأجهزة المحمولة؟</summary><p>بالطبع، التصميم «Responsive» يعمل بسلاسة على جميع الشاشات.</p></details>
 </section>
 
 <section id="contact" class="section contact">
@@ -225,7 +153,6 @@
     <p><strong>الاسم:</strong> فاضل الريس</p>
     <p><strong>البريد:</strong> <a href="mailto:richadvadv@gmail.com">richadvadv@gmail.com</a></p>
     <p><strong>الهاتف / واتساب:</strong> <a href="tel:+973333375858">0097333375858</a></p>
-    <p>زر واتساب العائم يقودك مباشرة للمحادثة.</p>
     <div class="cta">
       <a class="btn btn-primary" href="https://api.whatsapp.com/send/?phone=97333330081&text&type=phone_number&app_absent=0&wame_ctl=1&fbclid=PAVERDUAMe4BBleHRuA2FlbQIxMAABp1pnaXV6328z20_x_Oxl_uUUj1FhrZXP6pdikVRrFmepllfC1DgM64GxtBcY_aem_igcyAOXYSA66NARKAX313Q" target="_blank" rel="noopener noreferrer">تواصل واتساب الآن</a>
       <a class="btn btn-ghost" href="mailto:richadvadv@gmail.com">راسلنا بالبريد</a>
@@ -249,20 +176,19 @@
 
   </main>  <footer>
     <p>© <span id="y"></span> فاضل الريس — جميع الحقوق محفوظة.</p>
-  </footer>  <!-- زر واتساب العائم -->  <div class="wa-float" aria-label="زر واتساب عائم">
+  </footer>  <div class="wa-float" aria-label="زر واتساب عائم">
     <a href="https://api.whatsapp.com/send/?phone=97333330081&text&type=phone_number&app_absent=0&wame_ctl=1&fbclid=PAVERDUAMe4BBleHRuA2FlbQIxMAABp1pnaXV6328z20_x_Oxl_uUUj1FhrZXP6pdikVRrFmepllfC1DgM64GxtBcY_aem_igcyAOXYSA66NARKAX313Q" target="_blank" rel="noopener noreferrer" aria-label="تحدث عبر واتساب" title="تحدث عبر واتساب">
-      <!-- أيقونة واتساب SVG -->
       <svg width="30" height="30" viewBox="0 0 32 32" role="img" aria-label="واتساب" xmlns="http://www.w3.org/2000/svg" fill="#fff">
         <path d="M19.11 17.38c-.29-.15-1.67-.82-1.93-.91-.26-.1-.45-.15-.64.15-.19.29-.74.91-.9 1.1-.17.19-.33.22-.62.08-.29-.15-1.24-.46-2.36-1.47-.87-.78-1.45-1.74-1.62-2.03-.17-.29-.02-.45.13-.6.13-.13.29-.33.43-.5.15-.17.19-.29.29-.48.1-.19.05-.36-.03-.51-.08-.15-.64-1.55-.88-2.12-.23-.56-.47-.49-.64-.5l-.55-.01c-.19 0-.5.07-.76.36-.26.29-1 1-1 2.43 0 1.43 1.03 2.81 1.17 3 .15.19 2.02 3.08 4.89 4.32.68.29 1.21.46 1.62.59.68.22 1.29.19 1.77.11.54-.08 1.67-.68 1.9-1.34.24-.66.24-1.22.17-1.34-.07-.12-.26-.19-.55-.34z"/>
         <path d="M26.7 5.31A12.6 12.6 0 0 0 4.9 21.95L3.5 27.8l6-1.56A12.59 12.59 0 1 0 26.7 5.3zM16 27.17c-2.1 0-4.07-.55-5.78-1.51l-.41-.24-3.44.9.92-3.36-.26-.43A11.17 11.17 0 1 1 27.17 16 11.18 11.18 0 0 1 16 27.17z"/>
       </svg>
     </a>
-  </div>  <!-- بيانات منظَّمة لنتائج أغنى وSEO أفضل -->  <script type="application/ld+json" id="schema-json">
+  </div>  <script type="application/ld+json" id="schema-json">
   {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
     "name": "فاضل الريس",
-    "description": "تصميم مواقع إلكترونية احترافية مع تحسين محركات البحث وحماية متقدمة.",
+    "description": "موقع مواصفات احترافية: توافق كامل، سرعة، تهيئة لمحركات البحث، وحماية أساسية.",
     "areaServed": "البحرين",
     "telephone": "+973333375858",
     "email": "mailto:richadvadv@gmail.com",
@@ -270,10 +196,5 @@
       "https://api.whatsapp.com/send/?phone=97333330081&text&type=phone_number&app_absent=0&wame_ctl=1&fbclid=PAVERDUAMe4BBleHRuA2FlbQIxMAABp1pnaXV6328z20_x_Oxl_uUUj1FhrZXP6pdikVRrFmepllfC1DgM64GxtBcY_aem_igcyAOXYSA66NARKAX313Q"
     ]
   }
-  </script>  <script>
-    // سنة تلقائية في الفوتر (بدون أطر خارجية)
-    (function(){
-      var y=document.getElementById('y'); if(y){ y.textContent = new Date().getFullYear(); }
-    })();
-  </script></body>
+  </script>  <script>(function(){var y=document.getElementById('y'); if(y){ y.textContent = new Date().getFullYear(); }})();</script></body>
 </html>
