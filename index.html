@@ -1,1261 +1,229 @@
-<!DOCTYPE html>
+<!doctype html>
+
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="فاضل الريس - خبير في تصميم وتطوير المواقع الإلكترونية الاحترافية. نقدم خدمات تصميم المواقع، تطوير واجهات المستخدم، وتحسين محركات البحث.">
-    <meta name="keywords" content="تصميم مواقع, تطوير مواقع, فاضل الريس, مواقع إلكترونية, تصميم واجهات, SEO">
-    <meta name="author" content="فاضل الريس">
-    <title>فاضل الريس - خبير تصميم المواقع الإلكترونية</title>
-    
-    <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="فاضل الريس - خبير تصميم المواقع الإلكترونية">
-    <meta property="og:description" content="خبير في تصميم وتطوير المواقع الإلكترونية الاحترافية">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://fadel-alrais.com">
-    <meta property="og:image" content="logo_fadel_alrais.png">
-    
-    <!-- Twitter Card Meta Tags -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="فاضل الريس - خبير تصميم المواقع الإلكترونية">
-    <meta name="twitter:description" content="خبير في تصميم وتطوير المواقع الإلكترونية الاحترافية">
-    <meta name="twitter:image" content="logo_fadel_alrais.png">
-    
-    <!-- Additional SEO Meta Tags -->
-    <meta name="robots" content="index, follow">
-    <meta name="googlebot" content="index, follow">
-    <meta name="language" content="Arabic">
-    <meta name="geo.region" content="BH">
-    <meta name="geo.placename" content="البحرين">
-    <link rel="canonical" href="https://fadel-alrais.com">
-    
-    <!-- Structured Data -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "فاضل الريس",
-        "jobTitle": "خبير تصميم المواقع الإلكترونية",
-        "description": "خبير في تصميم وتطوير المواقع الإلكترونية الاحترافية",
-        "url": "https://fadel-alrais.com",
-        "email": "richadvadv@gmail.com",
-        "telephone": "+97333375858",
-        "address": {
-            "@type": "PostalAddress",
-            "addressCountry": "BH"
-        },
-        "sameAs": [
-            "https://api.whatsapp.com/send/?phone=97333330081"
-        ],
-        "knowsAbout": [
-            "تصميم مواقع إلكترونية",
-            "تطوير واجهات المستخدم",
-            "تحسين محركات البحث",
-            "HTML",
-            "CSS",
-            "JavaScript"
-        ],
-        "offers": {
-            "@type": "Service",
-            "serviceType": "تصميم وتطوير المواقع الإلكترونية",
-            "description": "خدمات شاملة في تصميم وتطوير المواقع الإلكترونية الاحترافية"
-        }
-    }
-    </script>
-    
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        :root {
-            --primary-color: #1a365d;
-            --secondary-color: #3182ce;
-            --accent-color: #667eea;
-            --text-color: #2d3748;
-            --light-bg: #f7fafc;
-            --white: #ffffff;
-            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --gradient-2: linear-gradient(135deg, #1a365d 0%, #3182ce 50%, #667eea 100%);
-        }
-        
-        body {
-            font-family: 'Cairo', sans-serif;
-            line-height: 1.6;
-            color: var(--text-color);
-            overflow-x: hidden;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        /* Header */
-        header {
-            background: rgba(26, 54, 93, 0.95);
-            backdrop-filter: blur(10px);
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-            transition: all 0.3s ease;
-        }
-        
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 0;
-        }
-        
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        
-        .logo img {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-        }
-        
-        .logo-text {
-            color: var(--white);
-        }
-        
-        .logo-text h1 {
-            font-size: 1.5rem;
-            font-weight: 700;
-        }
-        
-        .logo-text p {
-            font-size: 0.9rem;
-            opacity: 0.8;
-        }
-        
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-        }
-        
-        nav a {
-            color: var(--white);
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-        
-        nav a:hover {
-            color: var(--accent-color);
-        }
-        
-        nav a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--accent-color);
-            transition: width 0.3s ease;
-        }
-        
-        nav a:hover::after {
-            width: 100%;
-        }
-        
-        .contact-info {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            color: var(--white);
-            font-size: 0.9rem;
-        }
-        
-        .mobile-menu {
-            display: none;
-            color: var(--white);
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-        
-        /* Hero Section */
-        .hero {
-            background: var(--gradient-2);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
-            opacity: 0.3;
-        }
-        
-        .hero-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-            position: relative;
-            z-index: 2;
-        }
-        
-        .hero-text {
-            color: var(--white);
-        }
-        
-        .hero-text h1 {
-            font-size: 3.5rem;
-            font-weight: 900;
-            margin-bottom: 1rem;
-            line-height: 1.2;
-        }
-        
-        .hero-text .highlight {
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .hero-text p {
-            font-size: 1.3rem;
-            margin-bottom: 2rem;
-            opacity: 0.9;
-        }
-        
-        .cta-buttons {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-        
-        .btn {
-            padding: 15px 30px;
-            border: none;
-            border-radius: 50px;
-            font-weight: 600;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            font-size: 1rem;
-        }
-        
-        .btn-primary {
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            color: var(--white);
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
-        }
-        
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
-        }
-        
-        .btn-secondary {
-            background: transparent;
-            color: var(--white);
-            border: 2px solid var(--white);
-        }
-        
-        .btn-secondary:hover {
-            background: var(--white);
-            color: var(--primary-color);
-            transform: translateY(-3px);
-        }
-        
-        .hero-visual {
-            position: relative;
-        }
-        
-        .hero-image {
-            width: 100%;
-            max-width: 500px;
-            height: auto;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            animation: float 6s ease-in-out infinite;
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-        }
-        
-        /* About Section */
-        .about {
-            padding: 100px 0;
-            background: var(--light-bg);
-        }
-        
-        .section-header {
-            text-align: center;
-            margin-bottom: 4rem;
-        }
-        
-        .section-header h2 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--primary-color);
-            margin-bottom: 1rem;
-        }
-        
-        .section-header p {
-            font-size: 1.2rem;
-            color: var(--text-color);
-            opacity: 0.8;
-        }
-        
-        .about-content {
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 4rem;
-            align-items: center;
-        }
-        
-        .about-image {
-            position: relative;
-        }
-        
-        .about-image img {
-            width: 100%;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
-        }
-        
-        .about-text h3 {
-            font-size: 2rem;
-            color: var(--primary-color);
-            margin-bottom: 1rem;
-        }
-        
-        .about-text p {
-            font-size: 1.1rem;
-            margin-bottom: 1.5rem;
-            line-height: 1.8;
-        }
-        
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-        
-        .stat-item {
-            text-align: center;
-            padding: 2rem;
-            background: var(--white);
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-        }
-        
-        .stat-item:hover {
-            transform: translateY(-10px);
-        }
-        
-        .stat-item h4 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--secondary-color);
-            margin-bottom: 0.5rem;
-        }
-        
-        .stat-item p {
-            color: var(--text-color);
-            font-weight: 500;
-        }
-        
-        /* Services Section */
-        .services {
-            padding: 100px 0;
-            background: var(--white);
-        }
-        
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-        
-        .service-card {
-            background: var(--white);
-            padding: 3rem 2rem;
-            border-radius: 20px;
-            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .service-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: var(--gradient);
-            transform: scaleX(0);
-            transition: transform 0.3s ease;
-        }
-        
-        .service-card:hover::before {
-            transform: scaleX(1);
-        }
-        
-        .service-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.15);
-        }
-        
-        .service-icon {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 2rem;
-            background: var(--gradient);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            color: var(--white);
-        }
-        
-        .service-card h3 {
-            font-size: 1.5rem;
-            color: var(--primary-color);
-            margin-bottom: 1rem;
-        }
-        
-        .service-card p {
-            line-height: 1.8;
-            margin-bottom: 2rem;
-        }
-        
-        .service-features {
-            list-style: none;
-            text-align: right;
-        }
-        
-        .service-features li {
-            padding: 0.5rem 0;
-            position: relative;
-            padding-right: 2rem;
-        }
-        
-        .service-features li::before {
-            content: '✓';
-            position: absolute;
-            right: 0;
-            color: var(--secondary-color);
-            font-weight: bold;
-        }
-        
-        /* Portfolio Section */
-        .portfolio {
-            padding: 100px 0;
-            background: var(--light-bg);
-        }
-        
-        .portfolio-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-        
-        .portfolio-item {
-            background: var(--white);
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-        }
-        
-        .portfolio-item:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.15);
-        }
-        
-        .portfolio-image {
-            height: 250px;
-            background: var(--gradient);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .portfolio-image::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 60px;
-            height: 60px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .portfolio-content {
-            padding: 2rem;
-        }
-        
-        .portfolio-content h3 {
-            font-size: 1.3rem;
-            color: var(--primary-color);
-            margin-bottom: 1rem;
-        }
-        
-        .portfolio-content p {
-            line-height: 1.6;
-            margin-bottom: 1.5rem;
-        }
-        
-        .portfolio-tags {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-        }
-        
-        .tag {
-            background: var(--gradient);
-            color: var(--white);
-            padding: 0.3rem 1rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 500;
-        }
-        
-        /* Contact Section */
-        .contact {
-            padding: 100px 0;
-            background: var(--primary-color);
-            color: var(--white);
-        }
-        
-        .contact-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: start;
-        }
-        
-        .contact-info h3 {
-            font-size: 2rem;
-            margin-bottom: 2rem;
-        }
-        
-        .contact-item {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 2rem;
-            padding: 1rem;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            transition: all 0.3s ease;
-        }
-        
-        .contact-item:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateX(-10px);
-        }
-        
-        .contact-item i {
-            font-size: 1.5rem;
-            color: var(--accent-color);
-        }
-        
-        .contact-form {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 3rem;
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
-        }
-        
-        .form-group {
-            margin-bottom: 2rem;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-        }
-        
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 1rem;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            border-radius: 10px;
-            background: rgba(255, 255, 255, 0.1);
-            color: var(--white);
-            font-family: inherit;
-            transition: all 0.3s ease;
-        }
-        
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: var(--accent-color);
-            background: rgba(255, 255, 255, 0.2);
-        }
-        
-        .form-group input::placeholder,
-        .form-group textarea::placeholder {
-            color: rgba(255, 255, 255, 0.7);
-        }
-        
-        .form-group textarea {
-            height: 120px;
-            resize: vertical;
-        }
-        
-        /* WhatsApp Button */
-        .whatsapp-btn {
-            position: fixed;
-            bottom: 30px;
-            left: 30px;
-            width: 60px;
-            height: 60px;
-            background: #25d366;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--white);
-            font-size: 1.5rem;
-            text-decoration: none;
-            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.3);
-            z-index: 1000;
-            transition: all 0.3s ease;
-            animation: pulse 2s infinite;
-        }
-        
-        .whatsapp-btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 15px 40px rgba(37, 211, 102, 0.4);
-        }
-        
-        @keyframes pulse {
-            0% { box-shadow: 0 10px 30px rgba(37, 211, 102, 0.3); }
-            50% { box-shadow: 0 10px 30px rgba(37, 211, 102, 0.6); }
-            100% { box-shadow: 0 10px 30px rgba(37, 211, 102, 0.3); }
-        }
-        
-        /* Footer */
-        footer {
-            background: #0f1419;
-            color: var(--white);
-            padding: 3rem 0 2rem;
-            text-align: center;
-        }
-        
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-        
-        .footer-section h3 {
-            margin-bottom: 1rem;
-            color: var(--accent-color);
-        }
-        
-        .footer-section p,
-        .footer-section a {
-            color: rgba(255, 255, 255, 0.8);
-            text-decoration: none;
-            line-height: 1.8;
-        }
-        
-        .footer-section a:hover {
-            color: var(--accent-color);
-        }
-        
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin: 2rem 0;
-        }
-        
-        .social-links a {
-            width: 50px;
-            height: 50px;
-            background: var(--gradient);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--white);
-            font-size: 1.2rem;
-            transition: all 0.3s ease;
-        }
-        
-        .social-links a:hover {
-            transform: translateY(-5px);
-        }
-        
-        .footer-bottom {
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            padding-top: 2rem;
-            opacity: 0.8;
-        }
-        
-        /* Animations */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.6s ease;
-        }
-        
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .mobile-menu {
-                display: block;
-            }
-            
-            nav {
-                display: none;
-            }
-            
-            .contact-info {
-                display: none;
-            }
-            
-            .hero-content {
-                grid-template-columns: 1fr;
-                text-align: center;
-                gap: 2rem;
-            }
-            
-            .hero-text h1 {
-                font-size: 2.5rem;
-            }
-            
-            .about-content {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-            
-            .contact-content {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-            
-            .stats {
-                grid-template-columns: 1fr;
-                gap: 1rem;
-            }
-            
-            .services-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .portfolio-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .whatsapp-btn {
-                left: 20px;
-                bottom: 20px;
-                width: 50px;
-                height: 50px;
-                font-size: 1.2rem;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .container {
-                padding: 0 15px;
-            }
-            
-            .hero-text h1 {
-                font-size: 2rem;
-            }
-            
-            .hero-text p {
-                font-size: 1.1rem;
-            }
-            
-            .section-header h2 {
-                font-size: 2rem;
-            }
-            
-            .cta-buttons {
-                flex-direction: column;
-            }
-            
-            .btn {
-                justify-content: center;
-            }
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>اسم العلامة | تصميم مواقع احترافية</title>
+  <meta name="description" content="نص قصير يعرّف خدمتك خلال سطر واحد: نصمم مواقع عصرية سريعة ومحسّنة لمحركات البحث." />
+  <meta name="keywords" content="تصميم مواقع, برمجة, واجهات مستخدم, متجر إلكتروني, SEO" />
+  <meta name="theme-color" content="#0b132b" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;800;900&display=swap" rel="stylesheet">
+  <!-- Open Graph -->
+  <meta property="og:title" content="اسم العلامة | تصميم مواقع احترافية">
+  <meta property="og:description" content="نص قصير يعرّف خدمتك خلال سطر واحد: نصمم مواقع عصرية سريعة ومحسّنة لمحركات البحث.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://example.com">
+  <meta property="og:image" content="https://example.com/og-cover.jpg">
+  <!-- Schema.org JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "اسم العلامة",
+    "image": "https://example.com/og-cover.jpg",
+    "url": "https://example.com",
+    "telephone": "+97300000000",
+    "address": {"@type": "PostalAddress", "addressCountry": "BH"},
+    "sameAs": ["https://instagram.com/yourbrand", "https://wa.me/97300000000"],
+    "description": "خدمة تصميم وتطوير مواقع إلكترونية متكاملة ومحسّنة لمحركات البحث.",
+    "priceRange": "$$"
+  }
+  </script>
+  <style>
+    :root{--bg:#0B132B;--primary:#00B3C4;--accent:#FFB100;--ink:#0B132B;--muted:#6b7280;}
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;font-family:'Cairo',system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:#0f172a;scroll-behavior:smooth}
+    body{background:linear-gradient(135deg,#0b132b 0%,#0f2a47 40%,#091a2a 100%);}
+    a{color:inherit;text-decoration:none}
+    .container{width:min(1100px,92%);margin-inline:auto}
+    .btn{display:inline-block;padding:.9rem 1.2rem;border-radius:14px;font-weight:800}
+    .btn-primary{background:var(--accent);color:#111827;box-shadow:0 10px 24px rgba(255,177,0,.25)}
+    .btn-outline{border:2px solid rgba(255,255,255,.4);color:#fff}
+    header{position:sticky;top:0;backdrop-filter:saturate(180%) blur(14px);background:rgba(11,19,43,.45);z-index:40}
+    nav{display:flex;align-items:center;justify-content:space-between;padding:.7rem 0}
+    .brand{display:flex;gap:.6rem;align-items:center;color:#fff}
+    .brand .logo{width:40px;height:40px;border-radius:12px;background:radial-gradient(circle at 30% 30%, var(--accent), var(--primary));box-shadow:0 6px 18px rgba(0,179,196,.3)}
+    .menu{display:flex;gap:1rem}
+    .menu a{color:#e5e7eb;font-weight:700;opacity:.9}
+    .hero{padding:6rem 0 4rem;color:#fff;position:relative;overflow:hidden}
+    .hero h1{font-size:clamp(2rem,5vw,3.6rem);line-height:1.15;margin:.4rem 0;font-weight:900}
+    .hero p{max-width:60ch;opacity:.9;font-size:1.125rem}
+    .hero-badges{display:flex;gap:.6rem;flex-wrap:wrap;margin:1rem 0}
+    .badge{padding:.4rem .8rem;border:1px solid rgba(255,255,255,.2);border-radius:999px;font-size:.9rem}
+    .glass{background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.03));border:1px solid rgba(255,255,255,.12);box-shadow:0 20px 60px rgba(0,0,0,.35);border-radius:22px}
+    .hero-card{margin-top:2rem;padding:1.2rem}
+    .grid{display:grid;gap:1.2rem}
+    .grid-3{grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+    .card{padding:1.2rem;background:#0f1e33;border:1px solid rgba(255,255,255,.06);border-radius:18px;color:#cfd8e3}
+    .card h3{margin-top:0;color:#fff}
+    section{padding:4rem 0}
+    .section-title{color:#fff;font-size:1.8rem;margin-bottom:1rem}
+    .section-sub{color:#c7d2fe;margin:-.5rem 0 2rem}
+    .features li{display:flex;gap:.6rem;align-items:flex-start;margin:.5rem 0;color:#e5e7eb}
+    .features li i{margin-top:.2rem}
+    .portfolio{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem}
+    .shot{aspect-ratio:16/10;border-radius:16px;overflow:hidden;background:#fff}
+    .shot img{width:100%;height:100%;object-fit:cover;display:block}
+    .testi{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem}
+    blockquote{padding:1rem;background:#0f1e33;border:1px solid rgba(255,255,255,.08);border-radius:16px;color:#e5e7eb}
+    blockquote footer{color:#94a3b8;margin-top:.4rem;font-size:.9rem}
+    form{display:grid;gap:.8rem}
+    input,textarea{width:100%;padding:1rem;border-radius:14px;border:1px solid #e5e7eb}
+    label{color:#e5e7eb}
+    .footer{padding:2rem 0;color:#94a3b8;border-top:1px solid rgba(255,255,255,.08)}
+    .floating-wa{position:fixed;left:16px;bottom:16px;width:56px;height:56px;border-radius:50%;display:grid;place-items:center;background:#25D366;box-shadow:0 12px 28px rgba(0,0,0,.3);z-index:50}
+    .floating-wa svg{width:28px;height:28px;fill:#fff}
+    .kpis{display:flex;gap:1rem;flex-wrap:wrap;color:#fff}
+    .kpi{padding:1rem 1.2rem;border:1px dashed rgba(255,255,255,.25);border-radius:16px}
+    @media (max-width:640px){.menu{display:none}}
+  </style>
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <div class="container">
-            <div class="header-content">
-                <div class="logo">
-                    <div class="logo-text">
-                        <h1>فاضل الريس</h1>
-                    </div>
-                </div>
-                <nav>
-                    <ul>
-                        <li><a href="#home">الرئيسية</a></li>
-                        <li><a href="#about">نبذة عني</a></li>
-                        <li><a href="#services">الخدمات</a></li>
-                        <li><a href="#portfolio">الأعمال</a></li>
-                        <li><a href="#contact">التواصل</a></li>
-                    </ul>
-                </nav>
-                <div class="contact-info">
-                    <i class="fas fa-phone"></i>
-                    <span>0097333375858</span>
-                </div>
-                <div class="mobile-menu">
-                    <i class="fas fa-bars"></i>
-                </div>
-            </div>
+  <!-- واتساب عائم: ضع رقمك بدل PLACEHOLDER -->
+  <a aria-label="راسلنا على واتساب" class="floating-wa" href="https://api.whatsapp.com/send?phone=PLACEHOLDER" target="_blank" rel="noopener">
+    <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M19.11 17.52c-.29-.14-1.68-.83-1.94-.92-.26-.1-.45-.14-.64.14-.19.29-.74.92-.91 1.11-.17.19-.34.21-.63.07-.29-.14-1.21-.45-2.3-1.45-.85-.76-1.42-1.7-1.59-1.99-.17-.29-.02-.46.12-.6.12-.12.29-.31.43-.46.14-.15.19-.24.29-.41.1-.19.05-.36-.02-.5-.07-.14-.64-1.54-.88-2.11-.23-.55-.47-.48-.64-.49l-.55-.01c-.19 0-.5.07-.76.36-.26.29-1 1-1 2.43 0 1.43 1.02 2.8 1.16 2.99.14.19 2.01 3.07 4.87 4.31.68.3 1.21.48 1.63.61.68.22 1.3.19 1.79.12.55-.08 1.68-.69 1.92-1.36.24-.67.24-1.24.17-1.36-.07-.12-.26-.19-.55-.33zM16.03 3C9.39 3 4 8.36 4 14.97c0 2.61.86 5.02 2.32 6.98L5 29l7.22-1.88c1.9 1.04 4.09 1.64 6.41 1.64 6.64 0 12.03-5.36 12.03-11.97C30.66 8.36 25.27 3 18.63 3h-2.6z"/></svg>
+  </a>  <header>
+    <div class="container">
+      <nav>
+        <a class="brand" href="#home" aria-label="الرئيسية">
+          <span class="logo" aria-hidden="true"></span>
+          <strong>اسم العلامة</strong>
+        </a>
+        <div class="menu" role="navigation" aria-label="القائمة الرئيسية">
+          <a href="#services">الخدمات</a>
+          <a href="#work">الأعمال</a>
+          <a href="#pricing">الأسعار</a>
+          <a href="#contact">اتصل بنا</a>
         </div>
-    </header>
-
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <div class="hero-text">
-                    <h1>مرحباً، أنا <span class="highlight">فاضل الريس</span></h1>
-                </div>
-                <div class="hero-visual">
-                </div>
-            </div>
+      </nav>
+    </div>
+  </header>  <main id="home" class="hero">
+    <div class="container">
+      <div class="glass hero-card">
+        <span class="badge">مواقع سريعة وآمنة</span>
+        <span class="badge">تحسين لمحركات البحث SEO</span>
+        <span class="badge">تصميم متجاوب</span>
+        <h1>نصمم مواقع <span style="color:var(--primary)">إبداعية</span> تزيد مبيعاتك</h1>
+        <p>صفحة هبوط عربية حديثة، مُحسّنة للأداء والبحث، مع بنية سهلة التخصيص. استبدل النصوص والروابط لتصبح جاهزة للإطلاق خلال دقائق.</p>
+        <div class="kpis">
+          <div class="kpi">سرعة تحميل: &lt; 1.5s</div>
+          <div class="kpi">أفضل ممارسات: 100/100</div>
+          <div class="kpi">إمكانية وصول: +AA</div>
         </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="about">
-        <div class="container">
-            <div class="section-header fade-in">
-                <h2>نبذة عني</h2>
-                <p>خبرة واسعة في عالم تصميم وتطوير المواقع الإلكترونية</p>
-            </div>
-            <div class="about-content">
-                <div class="about-image fade-in">
-                </div>
-                <div class="about-text fade-in">
-                    <h3>فاضل الريس - خبير تصميم المواقع</h3>
-                    <p>أعمل في مجال تصميم وتطوير المواقع الإلكترونية منذ سنوات عديدة، وقد ساعدت العشرات من الشركات والأفراد في إنشاء حضور رقمي قوي ومتميز على الإنترنت.</p>
-                    <p>أتخصص في إنشاء مواقع إلكترونية احترافية تتميز بالتصميم الجذاب والأداء العالي، مع التركيز على تجربة المستخدم وتحسين محركات البحث لضمان وصول موقعك لأكبر عدد من العملاء المحتملين.</p>
-                    <p>رؤيتي هي مساعدة الأعمال على النمو والازدهار في العالم الرقمي من خلال مواقع إلكترونية متطورة وفعالة.</p>
-                </div>
-            </div>
-            <div class="stats fade-in">
-                <div class="stat-item">
-                    <h4>50+</h4>
-                    <p>مشروع مكتمل</p>
-                </div>
-                <div class="stat-item">
-                    <h4>5+</h4>
-                    <p>سنوات خبرة</p>
-                </div>
-                <div class="stat-item">
-                    <h4>100%</h4>
-                    <p>رضا العملاء</p>
-                </div>
-            </div>
+        <div style="margin-top:1rem;display:flex;gap:.8rem;flex-wrap:wrap">
+          <a class="btn btn-primary" href="#contact">ابدأ الآن</a>
+          <a class="btn btn-outline" href="#work">شاهد أعمالنا</a>
         </div>
-    </section>
-
-    <!-- Services Section -->
-    <section id="services" class="services">
-        <div class="container">
-            <div class="section-header fade-in">
-                <h2>خدماتي</h2>
-                <p>أقدم مجموعة شاملة من خدمات تصميم وتطوير المواقع الإلكترونية</p>
-            </div>
-            <div class="services-grid">
-                <div class="service-card fade-in">
-                    <div class="service-icon">
-                        <i class="fas fa-laptop-code"></i>
-                    </div>
-                    <h3>تصميم مواقع إلكترونية</h3>
-                    <p>تصميم مواقع إلكترونية احترافية ومتجاوبة مع جميع الأجهزة، تتميز بالجمال والوظائف المتقدمة.</p>
-                    <ul class="service-features">
-                        <li>تصميم متجاوب مع الأجهزة المحمولة</li>
-                        <li>واجهة مستخدم جذابة وسهلة الاستخدام</li>
-                        <li>تحميل سريع وأداء عالي</li>
-                        <li>تصميم حديث ومبتكر</li>
-                    </ul>
-                </div>
-                
-                <div class="service-card fade-in">
-                    <div class="service-icon">
-                        <i class="fas fa-paint-brush"></i>
-                    </div>
-                    <h3>تطوير واجهات المستخدم</h3>
-                    <p>تطوير واجهات مستخدم تفاعلية وجذابة باستخدام أحدث التقنيات والأدوات المتطورة.</p>
-                    <ul class="service-features">
-                        <li>HTML5 و CSS3 المتقدم</li>
-                        <li>JavaScript التفاعلي</li>
-                        <li>أطر العمل الحديثة</li>
-                        <li>تجربة مستخدم متميزة</li>
-                    </ul>
-                </div>
-                
-                <div class="service-card fade-in">
-                    <div class="service-icon">
-                        <i class="fas fa-search"></i>
-                    </div>
-                    <h3>تحسين محركات البحث</h3>
-                    <p>تحسين موقعك لمحركات البحث لضمان ظهوره في المراتب الأولى وجذب المزيد من الزوار.</p>
-                    <ul class="service-features">
-                        <li>تحسين السرعة والأداء</li>
-                        <li>تحسين المحتوى والكلمات المفتاحية</li>
-                        <li>تحسين الروابط والهيكل</li>
-                        <li>تقارير وتحليلات مفصلة</li>
-                    </ul>
-                </div>
-                
-                <div class="service-card fade-in">
-                    <div class="service-icon">
-                        <i class="fas fa-tools"></i>
-                    </div>
-                    <h3>الصيانة والدعم الفني</h3>
-                    <p>خدمات صيانة مستمرة ودعم فني شامل لضمان عمل موقعك بأفضل أداء في جميع الأوقات.</p>
-                    <ul class="service-features">
-                        <li>صيانة دورية ومستمرة</li>
-                        <li>تحديثات أمنية منتظمة</li>
-                        <li>دعم فني سريع ومتاح</li>
-                        <li>نسخ احتياطية آمنة</li>
-                    </ul>
-                </div>
-            </div>
+      </div>
+    </div>
+  </main>  <section id="services">
+    <div class="container">
+      <h2 class="section-title">خدماتنا</h2>
+      <p class="section-sub">نقدّم حزمة كاملة من تصميم واجهات المستخدم حتى الإطلاق والتحسين.</p>
+      <div class="grid grid-3">
+        <div class="card">
+          <h3>تصميم واجهات عصرية</h3>
+          <ul class="features">
+            <li><i>✔</i> ألوان وهوية بصرية متناسقة</li>
+            <li><i>✔</i> تجربة مستخدم سهلة وواضحة</li>
+            <li><i>✔</i> متجاوب مع الجوال والتابلت</li>
+          </ul>
         </div>
-    </section>
-
-    <!-- Portfolio Section -->
-    <section id="portfolio" class="portfolio">
-        <div class="container">
-            <div class="section-header fade-in">
-                <h2>معرض الأعمال</h2>
-                <p>نماذج من المشاريع التي قمت بتصميمها وتطويرها بعناية واحترافية</p>
-            </div>
-            <div class="portfolio-grid">
-                <div class="portfolio-item fade-in">
-                    <div class="portfolio-image"></div>
-                    <div class="portfolio-content">
-                        <h3>موقع شركة تجارية</h3>
-                        <p>تصميم وتطوير موقع إلكتروني شامل لشركة تجارية مع نظام إدارة المحتوى ومتجر إلكتروني متكامل.</p>
-                        <div class="portfolio-tags">
-                            <span class="tag">تصميم ويب</span>
-                            <span class="tag">متجر إلكتروني</span>
-                            <span class="tag">SEO</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="portfolio-item fade-in">
-                    <div class="portfolio-image"></div>
-                    <div class="portfolio-content">
-                        <h3>موقع شخصي احترافي</h3>
-                        <p>موقع شخصي أنيق ومتطور لعرض الخدمات والأعمال مع تصميم متجاوب وسرعة تحميل عالية.</p>
-                        <div class="portfolio-tags">
-                            <span class="tag">موقع شخصي</span>
-                            <span class="tag">تصميم متجاوب</span>
-                            <span class="tag">أداء عالي</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="portfolio-item fade-in">
-                    <div class="portfolio-image"></div>
-                    <div class="portfolio-content">
-                        <h3>تطبيق ويب تفاعلي</h3>
-                        <p>تطوير تطبيق ويب تفاعلي بواجهة مستخدم حديثة وميزات متقدمة لتحسين تجربة المستخدم.</p>
-                        <div class="portfolio-tags">
-                            <span class="tag">تطبيق ويب</span>
-                            <span class="tag">JavaScript</span>
-                            <span class="tag">UI/UX</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="card">
+          <h3>برمجة وأداء عالي</h3>
+          <ul class="features">
+            <li><i>✔</i> HTML/CSS/JS نظيفة وحديثة</li>
+            <li><i>✔</i> ضغط الصور والملفات</li>
+            <li><i>✔</i> تحسين السرعة ودرجة الويب فيتالس</li>
+          </ul>
         </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <div class="container">
-            <div class="section-header fade-in">
-                <h2 style="color: white;">تواصل معي</h2>
-                <p>هل لديك مشروع في ذهنك؟ دعنا نتحدث ونحوله إلى واقع رقمي متميز</p>
-            </div>
-            <div class="contact-content">
-                <div class="contact-info fade-in">
-                    <h3>معلومات التواصل</h3>
-                    <div class="contact-item">
-                        <i class="fas fa-envelope"></i>
-                        <div>
-                            <h4>البريد الإلكتروني</h4>
-                            <p>richadvadv@gmail.com</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-phone"></i>
-                        <div>
-                            <h4>رقم الهاتف</h4>
-                            <p>0097333375858</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fab fa-whatsapp"></i>
-                        <div>
-                            <h4>واتساب</h4>
-                            <p>متاح للرد السريع</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-clock"></i>
-                        <div>
-                            <h4>ساعات العمل</h4>
-                            <p>السبت - الخميس: 9:00 ص - 6:00 م</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="contact-form fade-in">
-                    <form>
-                        <div class="form-group">
-                            <label for="name">الاسم الكامل</label>
-                            <input type="text" id="name" name="name" placeholder="أدخل اسمك الكامل" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">البريد الإلكتروني</label>
-                            <input type="email" id="email" name="email" placeholder="أدخل بريدك الإلكتروني" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="subject">موضوع الرسالة</label>
-                            <input type="text" id="subject" name="subject" placeholder="موضوع رسالتك" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="message">الرسالة</label>
-                            <textarea id="message" name="message" placeholder="اكتب رسالتك هنا..." required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary">
-                            <i class="fas fa-paper-plane"></i>
-                            إرسال الرسالة
-                        </button>
-                    </form>
-                </div>
-            </div>
+        <div class="card">
+          <h3>تحسين SEO</h3>
+          <ul class="features">
+            <li><i>✔</i> بيانات منظمة (Schema)</li>
+            <li><i>✔</i> كلمات مفتاحية وعناوين محسّنة</li>
+            <li><i>✔</i> خرائط موقع وملف robots.txt</li>
+          </ul>
         </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>فاضل الريس</h3>
-                </div>
-                <div class="footer-section">
-                    <h3>الخدمات</h3>
-                    <p><a href="#services">تصميم مواقع إلكترونية</a></p>
-                    <p><a href="#services">تطوير واجهات المستخدم</a></p>
-                    <p><a href="#services">تحسين محركات البحث</a></p>
-                    <p><a href="#services">الصيانة والدعم الفني</a></p>
-                </div>
-                <div class="footer-section">
-                    <h3>التواصل</h3>
-                    <p>البريد الإلكتروني: richadvadv@gmail.com</p>
-                    <p>الهاتف: 0097333375858</p>
-                    <p>متاح للتواصل عبر واتساب</p>
-                </div>
-            </div>
-            
-            <div class="social-links">
-                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
-                <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
-            </div>
-            
-            <div class="footer-bottom">
-                <p>&copy; 2024 فاضل الريس. جميع الحقوق محفوظة.</p>
-            </div>
+      </div>
+    </div>
+  </section>  <section id="work">
+    <div class="container">
+      <h2 class="section-title">أعمال مختارة</h2>
+      <p class="section-sub">لقطات وهمية — استبدلها بصور من مشاريعك.</p>
+      <div class="portfolio">
+        <figure class="shot"><img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200&auto=format&fit=crop" alt="نموذج موقع شركة" /></figure>
+        <figure class="shot"><img src="https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?q=80&w=1200&auto=format&fit=crop" alt="نموذج متجر إلكتروني" /></figure>
+        <figure class="shot"><img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop" alt="نموذج مدونة تقنية" /></figure>
+      </div>
+    </div>
+  </section>  <section id="pricing">
+    <div class="container">
+      <h2 class="section-title">باقات الأسعار</h2>
+      <div class="grid grid-3">
+        <div class="card">
+          <h3>أساسي</h3>
+          <p>صفحة واحدة + نموذج تواصل</p>
+          <p><strong>120$</strong></p>
         </div>
-    </footer>
-
-    <!-- WhatsApp Button -->
-    <a href="https://api.whatsapp.com/send/?phone=97333330081&text&type=phone_number&app_absent=0&wame_ctl=1&fbclid=PAVERDUAMe4BBleHRuA2FlbQIxMAABp1pnaXV6328z20_x_Oxl_uUUj1FhrZXP6pdikVRrFmepllfC1DgM64GxtBcY_aem_igcyAOXYSA66NARKAX313Q" class="whatsapp-btn" target="_blank" title="تواصل معنا عبر واتساب">
-        <i class="fab fa-whatsapp"></i>
-    </a>
-
-    <script>
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // Header background change on scroll
-        window.addEventListener('scroll', function() {
-            const header = document.querySelector('header');
-            if (window.scrollY > 100) {
-                header.style.background = 'rgba(26, 54, 93, 0.98)';
-            } else {
-                header.style.background = 'rgba(26, 54, 93, 0.95)';
-            }
-        });
-
-        // Fade in animation on scroll
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver(function(entries) {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.fade-in').forEach(el => {
-            observer.observe(el);
-        });
-
-        // Form submission
-        document.querySelector('form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Get form data
-            const formData = new FormData(this);
-            const name = formData.get('name');
-            const email = formData.get('email');
-            const subject = formData.get('subject');
-            const message = formData.get('message');
-            
-            // Create email body
-            const emailBody = `الاسم: ${name}%0D%0Aالبريد الإلكتروني: ${email}%0D%0Aالموضوع: ${subject}%0D%0Aالرسالة: ${message}`;
-            
-            // Open email client
-            window.location.href = `mailto:richadvadv@gmail.com?subject=${encodeURIComponent(subject)}&body=${emailBody}`;
-            
-            // Show success message
-            alert('شكراً لك! سيتم فتح تطبيق البريد الإلكتروني لإرسال رسالتك.');
-            
-            // Reset form
-            this.reset();
-        });
-
-        // Mobile menu toggle
-        document.querySelector('.mobile-menu').addEventListener('click', function() {
-            const nav = document.querySelector('nav');
-            nav.style.display = nav.style.display === 'block' ? 'none' : 'block';
-        });
-
-        // Add loading animation
-        window.addEventListener('load', function() {
-            document.body.style.opacity = '1';
-        });
-
-        // Parallax effect for hero section
-        window.addEventListener('scroll', function() {
-            const scrolled = window.pageYOffset;
-            const parallax = document.querySelector('.hero-image');
-            if (parallax) {
-                const speed = scrolled * 0.5;
-                parallax.style.transform = `translateY(${speed}px)`;
-            }
-        });
-
-        // Counter animation for stats
-        function animateCounters() {
-            const counters = document.querySelectorAll('.stat-item h4');
-            counters.forEach(counter => {
-                const target = parseInt(counter.textContent);
-                const increment = target / 100;
-                let current = 0;
-                
-                const updateCounter = () => {
-                    if (current < target) {
-                        current += increment;
-                        counter.textContent = Math.ceil(current) + (counter.textContent.includes('+') ? '+' : '') + (counter.textContent.includes('%') ? '%' : '');
-                        requestAnimationFrame(updateCounter);
-                    } else {
-                        counter.textContent = target + (counter.textContent.includes('+') ? '+' : '') + (counter.textContent.includes('%') ? '%' : '');
-                    }
-                };
-                
-                updateCounter();
-            });
-        }
-
-        // Trigger counter animation when stats section is visible
-        const statsObserver = new IntersectionObserver(function(entries) {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    animateCounters();
-                    statsObserver.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.5 });
-
-        const statsSection = document.querySelector('.stats');
-        if (statsSection) {
-            statsObserver.observe(statsSection);
-        }
-    </script>
-</body>
+        <div class="card" style="border-color:var(--accent)">
+          <h3>احترافي</h3>
+          <p>حتى 5 صفحات + SEO أساسي</p>
+          <p><strong>390$</strong></p>
+        </div>
+        <div class="card">
+          <h3>متجر</h3>
+          <p>متجر بسيط + بوابة دفع</p>
+          <p><strong>790$</strong></p>
+        </div>
+      </div>
+    </div>
+  </section>  <section id="testimonials">
+    <div class="container">
+      <h2 class="section-title">قالوا عنا</h2>
+      <div class="testi">
+        <blockquote>
+          <p>“تجربة رائعة! الموقع أسرع من قبل وبدأنا نستقبل عملاء من البحث.”</p>
+          <footer>— أحمد، مالك متجر</footer>
+        </blockquote>
+        <blockquote>
+          <p>“تصميم أنيق ودعم سريع. أنصح بالتعامل معهم.”</p>
+          <footer>— فاطمة، صاحبة مشروع منزلي</footer>
+        </blockquote>
+      </div>
+    </div>
+  </section>  <section id="contact">
+    <div class="container">
+      <h2 class="section-title">اتصل بنا</h2>
+      <p class="section-sub">املأ النموذج وسنعاود الاتصال خلال 24 ساعة.</p>
+      <div class="grid grid-3" style="grid-template-columns:1.2fr .8fr">
+        <form name="contact" method="post" action="#">
+          <label for="name">الاسم</label>
+          <input id="name" name="name" placeholder="اسمك الكامل" required>
+          <label for="email">البريد الإلكتروني</label>
+          <input id="email" type="email" name="email" placeholder="name@example.com" required>
+          <label for="msg">رسالتك</label>
+          <textarea id="msg" name="message" rows="5" placeholder="كيف يمكننا مساعدتك؟" required></textarea>
+          <button class="btn btn-primary" type="submit">إرسال</button>
+        </form>
+        <div class="card">
+          <h3>معلومات التواصل</h3>
+          <p>الهاتف: <a href="tel:+97300000000">+973 00 000 000</a></p>
+          <p>واتساب: <a href="https://wa.me/97300000000" target="_blank" rel="noopener">راسلنا الآن</a></p>
+          <p>البريد: <a href="mailto:info@example.com">info@example.com</a></p>
+          <p>العنوان: المنامة، البحرين</p>
+        </div>
+      </div>
+    </div>
+  </section>  <footer class="footer">
+    <div class="container" style="display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap">
+      <small>© <span id="year"></span> اسم العلامة. جميع الحقوق محفوظة.</small>
+      <small><a href="#privacy">سياسة الخصوصية</a> • <a href="#terms">الشروط</a></small>
+    </div>
+  </footer>  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script></body>
 </html>
