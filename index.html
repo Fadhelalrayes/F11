@@ -1,423 +1,1276 @@
-<!doctype html>
-
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>فاضل الريس | تصميم مواقع إلكترونية احترافية</title>
-  <meta name="description" content="فاضل الريس لتصميم المواقع الإلكترونية الاحترافية في البحرين: مواقع سريعة، متجاوبة، مُهيّأة لمحركات البحث مع لمسات إبداعية ومعايير عالمية." />
-  <meta name="keywords" content="تصميم مواقع, تطوير مواقع, سيو, تسويق رقمي, البحرين, مواقع احترافية, فاضل الريس" />
-  <meta name="robots" content="index,follow" />
-  <link rel="canonical" href="https://example.com/" />  <!-- Open Graph -->  <meta property="og:title" content="فاضل الريس | تصميم مواقع إلكترونية احترافية" />
-  <meta property="og:description" content="مواقع سريعة، متجاوبة، مُهيّأة لمحركات البحث مع لمسات إبداعية ومعايير عالمية." />
-  <meta property="og:type" content="website" />
-  <meta property="og:locale" content="ar_AR" />
-  <meta property="og:url" content="https://example.com/" />  <!-- Fonts -->  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">  <style>
-    :root{
-      --bg:#0b1020; /* base */
-      --fg:#eaf2ff; /* text */
-      --muted:#a8b3cf;
-      --pri1:#6a5cff; /* primary gradient start */
-      --pri2:#00d4ff; /* primary gradient end */
-      --acc1:#ff7a59; /* accent */
-      --glass:rgba(255,255,255,0.06);
-      --glass-b:rgba(255,255,255,0.12);
-      --radius:22px;
-      --shadow: 0 10px 30px rgba(0,0,0,.25);
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="فاضل الريس - خبير في تصميم وتطوير المواقع الإلكترونية الاحترافية. نقدم خدمات تصميم المواقع، تطوير واجهات المستخدم، وتحسين محركات البحث.">
+    <meta name="keywords" content="تصميم مواقع, تطوير مواقع, فاضل الريس, مواقع إلكترونية, تصميم واجهات, SEO">
+    <meta name="author" content="فاضل الريس">
+    <title>فاضل الريس - خبير تصميم المواقع الإلكترونية</title>
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="فاضل الريس - خبير تصميم المواقع الإلكترونية">
+    <meta property="og:description" content="خبير في تصميم وتطوير المواقع الإلكترونية الاحترافية">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://fadel-alrais.com">
+    <meta property="og:image" content="logo_fadel_alrais.png">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="فاضل الريس - خبير تصميم المواقع الإلكترونية">
+    <meta name="twitter:description" content="خبير في تصميم وتطوير المواقع الإلكترونية الاحترافية">
+    <meta name="twitter:image" content="logo_fadel_alrais.png">
+    
+    <!-- Additional SEO Meta Tags -->
+    <meta name="robots" content="index, follow">
+    <meta name="googlebot" content="index, follow">
+    <meta name="language" content="Arabic">
+    <meta name="geo.region" content="BH">
+    <meta name="geo.placename" content="البحرين">
+    <link rel="canonical" href="https://fadel-alrais.com">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "فاضل الريس",
+        "jobTitle": "خبير تصميم المواقع الإلكترونية",
+        "description": "خبير في تصميم وتطوير المواقع الإلكترونية الاحترافية",
+        "url": "https://fadel-alrais.com",
+        "email": "richadvadv@gmail.com",
+        "telephone": "+97333375858",
+        "address": {
+            "@type": "PostalAddress",
+            "addressCountry": "BH"
+        },
+        "sameAs": [
+            "https://api.whatsapp.com/send/?phone=97333330081"
+        ],
+        "knowsAbout": [
+            "تصميم مواقع إلكترونية",
+            "تطوير واجهات المستخدم",
+            "تحسين محركات البحث",
+            "HTML",
+            "CSS",
+            "JavaScript"
+        ],
+        "offers": {
+            "@type": "Service",
+            "serviceType": "تصميم وتطوير المواقع الإلكترونية",
+            "description": "خدمات شاملة في تصميم وتطوير المواقع الإلكترونية الاحترافية"
+        }
     }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0; font-family:'Cairo', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      background: radial-gradient(1200px 600px at 85% -10%, rgba(106,92,255,.25), transparent 60%),
-                  radial-gradient(1000px 500px at 10% -10%, rgba(0,212,255,.18), transparent 60%),
-                  linear-gradient(180deg, #0b1020 0%, #0e1530 100%);
-      color:var(--fg); line-height:1.7; scroll-behavior:smooth;
-    }
-    a{color:inherit;text-decoration:none}
-    .container{width:min(1200px, 92%); margin-inline:auto}
-
-    /* Header */
-    header{
-      position:sticky; top:0; z-index:50; backdrop-filter: saturate(140%) blur(10px);
-      background:linear-gradient(180deg, rgba(11,16,32,0.85), rgba(11,16,32,0.55));
-      border-bottom:1px solid rgba(255,255,255,.06);
-    }
-    .nav{display:flex; align-items:center; justify-content:space-between; padding:12px 0}
-    .brand{display:flex; align-items:center; gap:12px; font-weight:900; letter-spacing:.3px}
-    .logo{
-      width:42px; height:42px; border-radius:14px; display:grid; place-items:center; box-shadow:var(--shadow);
-      background: conic-gradient(from 120deg, var(--pri1), var(--pri2));
-      outline:1px solid rgba(255,255,255,.2)
-    }
-    nav ul{display:flex; gap:18px; list-style:none; padding:0; margin:0}
-    nav a{opacity:.9}
-    nav a:hover{opacity:1}
-    .cta{display:inline-flex; align-items:center; gap:10px; padding:10px 18px; border-radius:999px;
-         background:linear-gradient(135deg, var(--pri1), var(--pri2)); color:#061222; font-weight:800}
-    .menu-btn{display:none}
-
-    /* Hero */
-    .hero{position:relative; padding:90px 0 70px; overflow:hidden}
-    .hero::before{
-      content:""; position:absolute; inset:-40% -20% auto -20%; height:120%; pointer-events:none; z-index:-1;
-      background: radial-gradient(550px 350px at 70% 10%, rgba(255,122,89,.20), transparent 60%),
-                  radial-gradient(650px 420px at 30% -5%, rgba(0,212,255,.16), transparent 60%);
-      filter: blur(10px);
-    }
-    .hero-grid{display:grid; grid-template-columns: 1.1fr .9fr; gap:30px; align-items:center}
-    .kicker{display:inline-block; font-weight:800; letter-spacing:.5px; padding:6px 12px; border-radius:999px;
-            background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.12); color:var(--muted)}
-    h1{font-size:clamp(28px, 3.2vw + 10px, 56px); margin:16px 0 10px; line-height:1.2}
-    .lead{font-size:clamp(16px, 1.1vw + 10px, 21px); color:var(--muted)}
-    .hero-cta{display:flex; gap:12px; flex-wrap:wrap; margin-top:18px}
-    .ghost{padding:10px 18px; border-radius:999px; border:1px solid rgba(255,255,255,.18)}
-
-    .hero-card{
-      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
-      border:1px solid rgba(255,255,255,.12); border-radius:var(--radius); padding:20px; box-shadow:var(--shadow)
-    }
-    .hero-checks{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; margin-top:10px}
-    .chip{display:inline-flex; align-items:center; gap:8px; font-weight:700}
-    .chip svg{flex:0 0 auto}
-
-    /* Sections */
-    section{padding:64px 0}
-    .section-title{font-size:clamp(22px, 1.8vw + 10px, 34px); margin:0 0 14px}
-    .section-lead{color:var(--muted); margin:0 0 26px}
-
-    .features{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:16px}
-    .card{
-      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
-      border:1px solid rgba(255,255,255,.10); border-radius:18px; padding:18px; position:relative; overflow:hidden
-    }
-    .card::after{content:""; position:absolute; inset:auto 0 -2px; height:2px;
-      background:linear-gradient(90deg, transparent, var(--pri1), var(--pri2), transparent)}
-    .icon{width:36px; height:36px; display:grid; place-items:center; border-radius:12px;
-          background:linear-gradient(135deg, var(--pri1), var(--pri2)); color:#071226; font-weight:900}
-
-    .grid-3{display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:16px}
-    .grid-2{display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:16px}
-
-    /* Portfolio */
-    .mock{aspect-ratio:16/10; border-radius:16px; border:1px solid rgba(255,255,255,.12);
-          background-image:radial-gradient(120% 160% at 80% -10%, rgba(106,92,255,.25), transparent),
-                           radial-gradient(140% 140% at 10% -10%, rgba(0,212,255,.20), transparent);
-          display:grid; place-items:center; color:var(--muted)}
-
-    /* Pricing */
-    .price{font-size:32px; font-weight:900}
-    .badge{display:inline-block; font-size:14px; font-weight:800; padding:4px 10px; border-radius:999px;
-           background:linear-gradient(135deg, var(--pri1), var(--pri2)); color:#061222}
-
-    /* Testimonials */
-    .testi{display:flex; gap:14px; align-items:flex-start}
-    .avatar{width:44px; height:44px; border-radius:50%;
-            background:linear-gradient(135deg, var(--pri1), var(--pri2)); box-shadow:var(--shadow)}
-
-    /* FAQ */
-    details{border:1px solid rgba(255,255,255,.1); border-radius:14px; padding:12px 14px; background:rgba(255,255,255,.04)}
-    summary{font-weight:800; cursor:pointer}
-    details[open]{background:rgba(255,255,255,.06)}
-
-    /* Contact */
-    .contact-card{display:grid; grid-template-columns: 1.2fr .8fr; gap:16px}
-    .contact-item{display:flex; gap:10px; align-items:center}
-
-    footer{padding:28px 0; border-top:1px solid rgba(255,255,255,.08); color:var(--muted)}
-
-    /* WhatsApp Floating Button */
-    .wa-float{
-      position:fixed; left:16px; bottom:16px; z-index:60; display:grid; place-items:center; width:58px; height:58px;
-      border-radius:50%; background:#25D366; box-shadow:0 8px 20px rgba(37,211,102,.45)
-    }
-    .wa-float svg{width:30px; height:30px; fill:#04130a}
-    .wa-float:focus-visible{outline:3px solid #fff}
-
-    /* Responsive */
-    @media (max-width: 980px){
-      .hero-grid{grid-template-columns:1fr}
-      .features{grid-template-columns:repeat(2,minmax(0,1fr))}
-      .grid-3{grid-template-columns:1fr}
-      .grid-2{grid-template-columns:1fr}
-      .contact-card{grid-template-columns:1fr}
-      nav ul{display:none}
-      .menu-btn{display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border:1px solid rgba(255,255,255,.2); border-radius:999px}
-      .mobile{display:none; position:absolute; top:64px; right:4%; left:4%; background:var(--bg);
-              border:1px solid rgba(255,255,255,.08); border-radius:14px; padding:12px}
-      .mobile a{display:block; padding:8px 10px}
-    }
-
-    /* Subtle animations */
-    .reveal{opacity:0; transform:translateY(12px); transition: all .6s ease}
-    .reveal.show{opacity:1; transform:none}
-  </style>  <!-- Structured Data -->  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "ProfessionalService",
-    "name": "فاضل الريس",
-    "description": "تصميم مواقع إلكترونية احترافية وسريعة مُهيّأة لمحركات البحث في البحرين.",
-    "areaServed": ["البحرين", "GCC"],
-    "telephone": "+9730097333375858",
-    "email": "richadvadv@gmail.com",
-    "url": "https://example.com/",
-    "contactPoint": [{
-      "@type": "ContactPoint",
-      "contactType": "customer support",
-      "telephone": "+9730097333375858",
-      "email": "richadvadv@gmail.com",
-      "availableLanguage": ["ar", "en"]
-    }]
-  }
-  </script>  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {"@type":"Question","name":"هل المواقع مُهيّأة لمحركات البحث؟","acceptedAnswer":{"@type":"Answer","text":"نعم، نعتمد بنية سليمة وعناوين منظمة وسرعة تحميل عالية، مع وسوم ميتا ومخططات Schema لتعزيز الظهور."}},
-      {"@type":"Question","name":"كم يستغرق تنفيذ الموقع؟","acceptedAnswer":{"@type":"Answer","text":"تعتمد المدة على حجم المشروع، لكن ننفذ مواقع الصفحات القليلة خلال أسابيع قليلة مع جدول تنفيذ واضح."}},
-      {"@type":"Question","name":"هل الموقع متجاوب مع الجوال؟","acceptedAnswer":{"@type":"Answer","text":"بالتأكيد، جميع التصاميم متجاوبة 100% وتُختبر عبر مقاسات شاشات متعددة."}}
-    ]
-  }
-  </script></head>
+    </script>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary-color: #1a365d;
+            --secondary-color: #3182ce;
+            --accent-color: #667eea;
+            --text-color: #2d3748;
+            --light-bg: #f7fafc;
+            --white: #ffffff;
+            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-2: linear-gradient(135deg, #1a365d 0%, #3182ce 50%, #667eea 100%);
+        }
+        
+        body {
+            font-family: 'Cairo', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        header {
+            background: rgba(26, 54, 93, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+        
+        .logo-text {
+            color: var(--white);
+        }
+        
+        .logo-text h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .logo-text p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        nav a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        nav a:hover {
+            color: var(--accent-color);
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-color);
+            transition: width 0.3s ease;
+        }
+        
+        nav a:hover::after {
+            width: 100%;
+        }
+        
+        .contact-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: var(--white);
+            font-size: 0.9rem;
+        }
+        
+        .mobile-menu {
+            display: none;
+            color: var(--white);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: var(--gradient-2);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+        
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero-text {
+            color: var(--white);
+        }
+        
+        .hero-text h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+        
+        .hero-text .highlight {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero-text p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: var(--white);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid var(--white);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--white);
+            color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+        
+        .hero-visual {
+            position: relative;
+        }
+        
+        .hero-image {
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        /* About Section */
+        .about {
+            padding: 100px 0;
+            background: var(--light-bg);
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        
+        .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .section-header p {
+            font-size: 1.2rem;
+            color: var(--text-color);
+            opacity: 0.8;
+        }
+        
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        
+        .about-image {
+            position: relative;
+        }
+        
+        .about-image img {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+        }
+        
+        .about-text h3 {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .about-text p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 2rem;
+            background: var(--white);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .stat-item:hover {
+            transform: translateY(-10px);
+        }
+        
+        .stat-item h4 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--secondary-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-item p {
+            color: var(--text-color);
+            font-weight: 500;
+        }
+        
+        /* Services Section */
+        .services {
+            padding: 100px 0;
+            background: var(--white);
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .service-card {
+            background: var(--white);
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.15);
+        }
+        
+        .service-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 2rem;
+            background: var(--gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--white);
+        }
+        
+        .service-card h3 {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .service-card p {
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+        
+        .service-features {
+            list-style: none;
+            text-align: right;
+        }
+        
+        .service-features li {
+            padding: 0.5rem 0;
+            position: relative;
+            padding-right: 2rem;
+        }
+        
+        .service-features li::before {
+            content: '✓';
+            position: absolute;
+            right: 0;
+            color: var(--secondary-color);
+            font-weight: bold;
+        }
+        
+        /* Portfolio Section */
+        .portfolio {
+            padding: 100px 0;
+            background: var(--light-bg);
+        }
+        
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .portfolio-item {
+            background: var(--white);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .portfolio-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.15);
+        }
+        
+        .portfolio-image {
+            height: 250px;
+            background: var(--gradient);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .portfolio-image::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .portfolio-content {
+            padding: 2rem;
+        }
+        
+        .portfolio-content h3 {
+            font-size: 1.3rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .portfolio-content p {
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+        
+        .portfolio-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .tag {
+            background: var(--gradient);
+            color: var(--white);
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        /* Contact Section */
+        .contact {
+            padding: 100px 0;
+            background: var(--primary-color);
+            color: var(--white);
+        }
+        
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+        
+        .contact-info h3 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .contact-item:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateX(-10px);
+        }
+        
+        .contact-item i {
+            font-size: 1.5rem;
+            color: var(--accent-color);
+        }
+        
+        .contact-form {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 3rem;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .form-group {
+            margin-bottom: 2rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--white);
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .form-group textarea {
+            height: 120px;
+            resize: vertical;
+        }
+        
+        /* WhatsApp Button */
+        .whatsapp-btn {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            width: 60px;
+            height: 60px;
+            background: #25d366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 1.5rem;
+            text-decoration: none;
+            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.3);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+        }
+        
+        .whatsapp-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 40px rgba(37, 211, 102, 0.4);
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 10px 30px rgba(37, 211, 102, 0.3); }
+            50% { box-shadow: 0 10px 30px rgba(37, 211, 102, 0.6); }
+            100% { box-shadow: 0 10px 30px rgba(37, 211, 102, 0.3); }
+        }
+        
+        /* Footer */
+        footer {
+            background: #0f1419;
+            color: var(--white);
+            padding: 3rem 0 2rem;
+            text-align: center;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: var(--accent-color);
+        }
+        
+        .footer-section p,
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            line-height: 1.8;
+        }
+        
+        .footer-section a:hover {
+            color: var(--accent-color);
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        
+        .social-links a {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            transform: translateY(-5px);
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 2rem;
+            opacity: 0.8;
+        }
+        
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .mobile-menu {
+                display: block;
+            }
+            
+            nav {
+                display: none;
+            }
+            
+            .contact-info {
+                display: none;
+            }
+            
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 2rem;
+            }
+            
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+            
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .contact-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .stats {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .whatsapp-btn {
+                left: 20px;
+                bottom: 20px;
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            .hero-text h1 {
+                font-size: 2rem;
+            }
+            
+            .hero-text p {
+                font-size: 1.1rem;
+            }
+            
+            .section-header h2 {
+                font-size: 2rem;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+            }
+            
+            .btn {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
 <body>
-  <a class="skip" href="#main" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden">تخطي إلى المحتوى</a>  <header aria-label="شريط التنقل">
-    <div class="container nav">
-      <a href="#" class="brand" aria-label="العودة للصفحة الرئيسية">
-        <span class="logo" aria-hidden="true">⚡️</span>
-        <span>فاضل الريس</span>
-      </a>
-      <button class="menu-btn" aria-expanded="false" aria-controls="mobileMenu" id="menuBtn">القائمة</button>
-      <nav>
-        <ul id="desktopNav">
-          <li><a href="#services">الخدمات</a></li>
-          <li><a href="#portfolio">الأعمال</a></li>
-          <li><a href="#pricing">الباقات</a></li>
-          <li><a href="#reviews">آراء العملاء</a></li>
-          <li><a href="#faq">الأسئلة</a></li>
-          <li><a href="#contact" class="cta">اطلب عرض سعر</a></li>
-        </ul>
-      </nav>
-    </div>
-    <div class="mobile container" id="mobileMenu" role="dialog" aria-modal="true" aria-labelledby="menuBtn">
-      <a href="#services">الخدمات</a>
-      <a href="#portfolio">الأعمال</a>
-      <a href="#pricing">الباقات</a>
-      <a href="#reviews">آراء العملاء</a>
-      <a href="#faq">الأسئلة</a>
-      <a href="#contact" class="cta" style="display:inline-block;margin-top:8px">اطلب عرض سعر</a>
-    </div>
-  </header>  <main id="main">
-    <!-- HERO -->
-    <section class="hero">
-      <div class="container hero-grid">
-        <div>
-          <span class="kicker">تصميم مواقع بمعايير عالمية</span>
-          <h1>نحو حضور رقمي قوي<br>بتصميم <span style="background:linear-gradient(135deg,var(--pri1),var(--pri2));-webkit-background-clip:text;background-clip:text;color:transparent">إبداعي واحترافي</span></h1>
-          <p class="lead">نصمّم ونبرمج مواقع إلكترونية سريعة، متجاوبة، ومُحسّنة لمحركات البحث لتُحوِّل زوّارك إلى عملاء.
-            نلتزم بالجودة والتجربة البصرية الراقية.</p>
-          <div class="hero-cta">
-            <a class="cta" href="#contact" aria-label="تواصل لطلب عرض سعر">ابدأ الآن</a>
-            <a class="ghost" href="mailto:richadvadv@gmail.com" aria-label="تواصل عبر البريد">مراسلة عبر البريد</a>
-          </div>
-          <div class="hero-checks">
-            <span class="chip"><svg width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg> جاهزية SEO</span>
-            <span class="chip"><svg width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M21 16V8a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v8h2v-2h14v2zM5 8h14v4H5z"/></svg> سرعة عالية</span>
-            <span class="chip"><svg width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12c5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg> أمان واستقرار</span>
-            <span class="chip"><svg width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M6 2h12a2 2 0 0 1 2 2v16l-8-3l-8 3V4a2 2 0 0 1 2-2z"/></svg> تصميم مميز</span>
-          </div>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-text">
+                        <h1>فاضل الريس</h1>
+                        <p>خبير تصميم المواقع</p>
+                    </div>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#home">الرئيسية</a></li>
+                        <li><a href="#about">نبذة عني</a></li>
+                        <li><a href="#services">الخدمات</a></li>
+                        <li><a href="#portfolio">الأعمال</a></li>
+                        <li><a href="#contact">التواصل</a></li>
+                    </ul>
+                </nav>
+                <div class="contact-info">
+                    <i class="fas fa-phone"></i>
+                    <span>0097333375858</span>
+                </div>
+                <div class="mobile-menu">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
         </div>
-        <div class="hero-card" aria-label="بطاقة عرض القيمة">
-          <div style="display:grid; gap:12px">
-            <div class="card" style="padding:14px">
-              <div class="icon" aria-hidden="true">UI</div>
-              <div style="font-weight:800;margin-top:8px">واجهة أنيقة وتجربة سلسة</div>
-              <div style="color:var(--muted)">تصاميم متدرجة بألوان جذابة وخطوط عربية واضحة.</div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>مرحباً، أنا <span class="highlight">فاضل الريس</span></h1>
+                    <p>خبير في تصميم وتطوير المواقع الإلكترونية الاحترافية. أحول أفكارك إلى مواقع رقمية متميزة تجذب العملاء وتحقق أهدافك التجارية.</p>
+                    <div class="cta-buttons">
+                        <a href="#contact" class="btn btn-primary">
+                            <i class="fas fa-rocket"></i>
+                            ابدأ مشروعك الآن
+                        </a>
+                        <a href="#portfolio" class="btn btn-secondary">
+                            <i class="fas fa-eye"></i>
+                            شاهد أعمالي
+                        </a>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <img src="hero_background.png" alt="تصميم مواقع احترافية" class="hero-image">
+                </div>
             </div>
-            <div class="card" style="padding:14px">
-              <div class="icon" aria-hidden="true">SEO</div>
-              <div style="font-weight:800;margin-top:8px">هيكلة ذكية للسيو</div>
-              <div style="color:var(--muted)">وسوم ميتا، مخططات Schema، عناوين H1‑H3 مرتبة وروابط نظيفة.</div>
-            </div>
-            <div class="card" style="padding:14px">
-              <div class="icon" aria-hidden="true">DEV</div>
-              <div style="font-weight:800;margin-top:8px">برمجة بمعايير عالمية</div>
-              <div style="color:var(--muted)">كود نظيف، سرعة تحميل، تجاوب كامل ودعم فني.</div>
-            </div>
-          </div>
         </div>
-      </div>
-    </section><!-- SERVICES -->
-<section id="services" class="reveal container">
-  <h2 class="section-title">الخدمات</h2>
-  <p class="section-lead">نقدم حلولاً متكاملة من التصميم إلى الإطلاق مع تركيز على الأداء والتحويل.</p>
-  <div class="features">
-    <div class="card">
-      <div class="icon">🎯</div>
-      <h3>تصميم واجهات UI/UX</h3>
-      <p style="color:var(--muted)">لوحات ألوان متدرجة، نظام شبكي حديث، ومسارات استخدام مدروسة.</p>
-    </div>
-    <div class="card">
-      <div class="icon">⚙️</div>
-      <h3>تطوير مواقع سريعة</h3>
-      <p style="color:var(--muted)">أداء ممتاز، تحسين الصور، وتهيئة الكاش لتحقيق وقت تحميل منخفض.</p>
-    </div>
-    <div class="card">
-      <div class="icon">📈</div>
-      <h3>تهيئة لمحركات البحث</h3>
-      <p style="color:var(--muted)">بنية محتوى، بيانات منظمة، وعناوين محسنة للنتائج الأولى.</p>
-    </div>
-    <div class="card">
-      <div class="icon">🔒</div>
-      <h3>أمان واستضافة</h3>
-      <p style="color:var(--muted)">أفضل ممارسات الأمان ودعم SSL وشهادات الثقة.</p>
-    </div>
-  </div>
-</section>
+    </section>
 
-<!-- PORTFOLIO -->
-<section id="portfolio" class="reveal container">
-  <h2 class="section-title">نماذج أعمال</h2>
-  <p class="section-lead">معاينات سريعة لتصاميم بلمسات إبداعية.
-    استبدل هذه النماذج بصور مشاريعك لاحقاً.</p>
-  <div class="grid-3">
-    <div class="card">
-      <div class="mock">Landing Page — متدرج أرجواني</div>
-    </div>
-    <div class="card">
-      <div class="mock">متجر إلكتروني — واجهة حديثة</div>
-    </div>
-    <div class="card">
-      <div class="mock">موقع شركة — عرض خدمات</div>
-    </div>
-  </div>
-</section>
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2>نبذة عني</h2>
+                <p>خبرة واسعة في عالم تصميم وتطوير المواقع الإلكترونية</p>
+            </div>
+            <div class="about-content">
+                <div class="about-image fade-in">
+                    <img src="logo_fadel_alrais.png" alt="فاضل الريس">
+                </div>
+                <div class="about-text fade-in">
+                    <h3>فاضل الريس - خبير تصميم المواقع</h3>
+                    <p>أعمل في مجال تصميم وتطوير المواقع الإلكترونية منذ سنوات عديدة، وقد ساعدت العشرات من الشركات والأفراد في إنشاء حضور رقمي قوي ومتميز على الإنترنت.</p>
+                    <p>أتخصص في إنشاء مواقع إلكترونية احترافية تتميز بالتصميم الجذاب والأداء العالي، مع التركيز على تجربة المستخدم وتحسين محركات البحث لضمان وصول موقعك لأكبر عدد من العملاء المحتملين.</p>
+                    <p>رؤيتي هي مساعدة الأعمال على النمو والازدهار في العالم الرقمي من خلال مواقع إلكترونية متطورة وفعالة.</p>
+                </div>
+            </div>
+            <div class="stats fade-in">
+                <div class="stat-item">
+                    <h4>50+</h4>
+                    <p>مشروع مكتمل</p>
+                </div>
+                <div class="stat-item">
+                    <h4>5+</h4>
+                    <p>سنوات خبرة</p>
+                </div>
+                <div class="stat-item">
+                    <h4>100%</h4>
+                    <p>رضا العملاء</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<!-- PRICING -->
-<section id="pricing" class="reveal container">
-  <h2 class="section-title">الباقات</h2>
-  <p class="section-lead">خطط مرنة تبدأ من صفحة هبوط حتى مواقع متعددة الصفحات.</p>
-  <div class="grid-3">
-    <div class="card">
-      <div class="badge">مبتدئ</div>
-      <h3>صفحة هبوط</h3>
-      <p class="price">89 BHD</p>
-      <ul style="margin:0 0 10px 0; padding:0 18px; color:var(--muted)">
-        <li>تصميم متجاوب</li>
-        <li>تحسين أساسي للسيو</li>
-        <li>تكامل واتساب وبريد</li>
-      </ul>
-      <a class="cta" href="#contact">ابدأ</a>
-    </div>
-    <div class="card" style="border-color:var(--glass-b)">
-      <div class="badge">الأكثر طلباً</div>
-      <h3>موقع شركة</h3>
-      <p class="price">299 BHD</p>
-      <ul style="margin:0 0 10px 0; padding:0 18px; color:var(--muted)">
-        <li>حتى 5 صفحات</li>
-        <li>سيو متقدم وSchema</li>
-        <li>نموذج تواصل وخرائط</li>
-      </ul>
-      <a class="cta" href="#contact">اطلب عرض</a>
-    </div>
-    <div class="card">
-      <div class="badge">مخصص</div>
-      <h3>حلول متقدمة</h3>
-      <p class="price">حسب الطلب</p>
-      <ul style="margin:0 0 10px 0; padding:0 18px; color:var(--muted)">
-        <li>متاجر/حجوزات/بوابات</li>
-        <li>تكاملات API</li>
-        <li>صيانة ودعم</li>
-      </ul>
-      <a class="cta" href="#contact">تواصل معنا</a>
-    </div>
-  </div>
-</section>
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2>خدماتي</h2>
+                <p>أقدم مجموعة شاملة من خدمات تصميم وتطوير المواقع الإلكترونية</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card fade-in">
+                    <div class="service-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3>تصميم مواقع إلكترونية</h3>
+                    <p>تصميم مواقع إلكترونية احترافية ومتجاوبة مع جميع الأجهزة، تتميز بالجمال والوظائف المتقدمة.</p>
+                    <ul class="service-features">
+                        <li>تصميم متجاوب مع الأجهزة المحمولة</li>
+                        <li>واجهة مستخدم جذابة وسهلة الاستخدام</li>
+                        <li>تحميل سريع وأداء عالي</li>
+                        <li>تصميم حديث ومبتكر</li>
+                    </ul>
+                </div>
+                
+                <div class="service-card fade-in">
+                    <div class="service-icon">
+                        <i class="fas fa-paint-brush"></i>
+                    </div>
+                    <h3>تطوير واجهات المستخدم</h3>
+                    <p>تطوير واجهات مستخدم تفاعلية وجذابة باستخدام أحدث التقنيات والأدوات المتطورة.</p>
+                    <ul class="service-features">
+                        <li>HTML5 و CSS3 المتقدم</li>
+                        <li>JavaScript التفاعلي</li>
+                        <li>أطر العمل الحديثة</li>
+                        <li>تجربة مستخدم متميزة</li>
+                    </ul>
+                </div>
+                
+                <div class="service-card fade-in">
+                    <div class="service-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3>تحسين محركات البحث</h3>
+                    <p>تحسين موقعك لمحركات البحث لضمان ظهوره في المراتب الأولى وجذب المزيد من الزوار.</p>
+                    <ul class="service-features">
+                        <li>تحسين السرعة والأداء</li>
+                        <li>تحسين المحتوى والكلمات المفتاحية</li>
+                        <li>تحسين الروابط والهيكل</li>
+                        <li>تقارير وتحليلات مفصلة</li>
+                    </ul>
+                </div>
+                
+                <div class="service-card fade-in">
+                    <div class="service-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <h3>الصيانة والدعم الفني</h3>
+                    <p>خدمات صيانة مستمرة ودعم فني شامل لضمان عمل موقعك بأفضل أداء في جميع الأوقات.</p>
+                    <ul class="service-features">
+                        <li>صيانة دورية ومستمرة</li>
+                        <li>تحديثات أمنية منتظمة</li>
+                        <li>دعم فني سريع ومتاح</li>
+                        <li>نسخ احتياطية آمنة</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<!-- REVIEWS -->
-<section id="reviews" class="reveal container">
-  <h2 class="section-title">آراء العملاء</h2>
-  <div class="grid-2">
-    <div class="card testi">
-      <div class="avatar"></div>
-      <div>
-        <strong>شركة الأفق</strong>
-        <p style="color:var(--muted)">موقع سريع وأنيق ونتائج سيو ملموسة خلال أسابيع. تجربة رائعة.</p>
-      </div>
-    </div>
-    <div class="card testi">
-      <div class="avatar"></div>
-      <div>
-        <strong>عيادة سمايل</strong>
-        <p style="color:var(--muted)">التواصل سهل والتنفيذ احترافي. التصميم المتدرج أعجب عملاءنا.</p>
-      </div>
-    </div>
-  </div>
-</section>
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="portfolio">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2>معرض الأعمال</h2>
+                <p>نماذج من المشاريع التي قمت بتصميمها وتطويرها بعناية واحترافية</p>
+            </div>
+            <div class="portfolio-grid">
+                <div class="portfolio-item fade-in">
+                    <div class="portfolio-image"></div>
+                    <div class="portfolio-content">
+                        <h3>موقع شركة تجارية</h3>
+                        <p>تصميم وتطوير موقع إلكتروني شامل لشركة تجارية مع نظام إدارة المحتوى ومتجر إلكتروني متكامل.</p>
+                        <div class="portfolio-tags">
+                            <span class="tag">تصميم ويب</span>
+                            <span class="tag">متجر إلكتروني</span>
+                            <span class="tag">SEO</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="portfolio-item fade-in">
+                    <div class="portfolio-image"></div>
+                    <div class="portfolio-content">
+                        <h3>موقع شخصي احترافي</h3>
+                        <p>موقع شخصي أنيق ومتطور لعرض الخدمات والأعمال مع تصميم متجاوب وسرعة تحميل عالية.</p>
+                        <div class="portfolio-tags">
+                            <span class="tag">موقع شخصي</span>
+                            <span class="tag">تصميم متجاوب</span>
+                            <span class="tag">أداء عالي</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="portfolio-item fade-in">
+                    <div class="portfolio-image"></div>
+                    <div class="portfolio-content">
+                        <h3>تطبيق ويب تفاعلي</h3>
+                        <p>تطوير تطبيق ويب تفاعلي بواجهة مستخدم حديثة وميزات متقدمة لتحسين تجربة المستخدم.</p>
+                        <div class="portfolio-tags">
+                            <span class="tag">تطبيق ويب</span>
+                            <span class="tag">JavaScript</span>
+                            <span class="tag">UI/UX</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<!-- FAQ -->
-<section id="faq" class="reveal container">
-  <h2 class="section-title">أسئلة شائعة</h2>
-  <div class="grid-2">
-    <details>
-      <summary>هل يشمل العمل كتابة المحتوى؟</summary>
-      <p style="color:var(--muted)">نوفر إرشادات صياغة وأمثلة للعناوين المتوافقة مع السيو، ويمكن إضافة خدمة كتابة احترافية.</p>
-    </details>
-    <details>
-      <summary>هل أستطيع تعديل موقعي لاحقاً؟</summary>
-      <p style="color:var(--muted)">نعم، نُسلمك كوداً منظماً مع دليل تحديث بسيط، ويمكن توفير لوحة إدارة عند الطلب.</p>
-    </details>
-  </div>
-</section>
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2 style="color: white;">تواصل معي</h2>
+                <p>هل لديك مشروع في ذهنك؟ دعنا نتحدث ونحوله إلى واقع رقمي متميز</p>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info fade-in">
+                    <h3>معلومات التواصل</h3>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h4>البريد الإلكتروني</h4>
+                            <p>richadvadv@gmail.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h4>رقم الهاتف</h4>
+                            <p>0097333375858</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fab fa-whatsapp"></i>
+                        <div>
+                            <h4>واتساب</h4>
+                            <p>متاح للرد السريع</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <h4>ساعات العمل</h4>
+                            <p>السبت - الخميس: 9:00 ص - 6:00 م</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form fade-in">
+                    <form>
+                        <div class="form-group">
+                            <label for="name">الاسم الكامل</label>
+                            <input type="text" id="name" name="name" placeholder="أدخل اسمك الكامل" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">البريد الإلكتروني</label>
+                            <input type="email" id="email" name="email" placeholder="أدخل بريدك الإلكتروني" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">موضوع الرسالة</label>
+                            <input type="text" id="subject" name="subject" placeholder="موضوع رسالتك" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">الرسالة</label>
+                            <textarea id="message" name="message" placeholder="اكتب رسالتك هنا..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-paper-plane"></i>
+                            إرسال الرسالة
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<!-- CONTACT -->
-<section id="contact" class="reveal container">
-  <h2 class="section-title">تواصل معنا</h2>
-  <p class="section-lead">نسعد بخدمتك عبر البريد أو الهاتف أو الواتس آب.</p>
-  <div class="contact-card">
-    <div class="card">
-      <div class="contact-item"><strong>البريد:</strong> <a href="mailto:richadvadv@gmail.com">richadvadv@gmail.com</a></div>
-      <div class="contact-item"><strong>الهاتف / واتساب:</strong> <a href="tel:0097333375858">0097333375858</a></div>
-      <div class="contact-item"><strong>زر واتساب:</strong> يتوفر أسفل الشاشة للتواصل الفوري.</div>
-      <div style="margin-top:14px"><a class="cta" href="mailto:richadvadv@gmail.com?subject=طلب عرض سعر — فاضل الريس&body=السلام عليكم، أود منكم عرض سعر لموقعي (اذكر التفاصيل)">راسلنا الآن</a></div>
-    </div>
-    <div class="card">
-      <h3 style="margin-top:0">لماذا نحن؟</h3>
-      <ul style="color:var(--muted); margin:0 0 10px 0; padding:0 18px">
-        <li>تصاميم متوافقة مع الذوق العربي</li>
-        <li>كود نظيف وأداء متقدم</li>
-        <li>التزام بالمواعيد ودعم مستمر</li>
-      </ul>
-    </div>
-  </div>
-</section>
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>فاضل الريس</h3>
+                    <p>خبير في تصميم وتطوير المواقع الإلكترونية الاحترافية. نحول أفكارك إلى مواقع رقمية متميزة.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>الخدمات</h3>
+                    <p><a href="#services">تصميم مواقع إلكترونية</a></p>
+                    <p><a href="#services">تطوير واجهات المستخدم</a></p>
+                    <p><a href="#services">تحسين محركات البحث</a></p>
+                    <p><a href="#services">الصيانة والدعم الفني</a></p>
+                </div>
+                <div class="footer-section">
+                    <h3>التواصل</h3>
+                    <p>البريد الإلكتروني: richadvadv@gmail.com</p>
+                    <p>الهاتف: 0097333375858</p>
+                    <p>متاح للتواصل عبر واتساب</p>
+                </div>
+            </div>
+            
+            <div class="social-links">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 فاضل الريس. جميع الحقوق محفوظة.</p>
+            </div>
+        </div>
+    </footer>
 
-  </main>  <footer>
-    <div class="container" style="display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap">
-      <div>© <span id="year"></span> فاضل الريس — جميع الحقوق محفوظة</div>
-      <div>صُمّم بإبداع متدرّج ✦</div>
-    </div>
-  </footer>  <!-- Floating WhatsApp Button (links to the provided chat URL) -->  <a class="wa-float" href="https://api.whatsapp.com/send/?phone=97333330081&text&type=phone_number&app_absent=0&wame_ctl=1&fbclid=PAVERDUAMe4BBleHRuA2FlbQIxMAABp1pnaXV6328z20_x_Oxl_uUUj1FhrZXP6pdikVRrFmepllfC1DgM64GxtBcY_aem_igcyAOXYSA66NARKAX313Q" target="_blank" rel="noopener" aria-label="تواصل عبر واتساب">
-    <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M19.11 17.34c-.26-.13-1.53-.76-1.78-.85-.24-.09-.42-.13-.6.13-.18.26-.69.85-.85 1.03-.16.18-.31.2-.57.07-.26-.13-1.09-.4-2.08-1.26-.77-.68-1.29-1.52-1.44-1.78-.15-.26-.02-.4.11-.53.11-.11.26-.29.4-.44.13-.15.18-.26.27-.44.09-.18.04-.33-.02-.46-.06-.13-.6-1.45-.82-1.99-.22-.53-.44-.46-.6-.46-.15 0-.33-.02-.51-.02-.18 0-.46.07-.71.33-.24.26-.93.91-.93 2.22 0 1.31.95 2.57 1.08 2.75.13.18 1.87 2.86 4.58 4.01.64.28 1.14.45 1.53.57.64.2 1.22.17 1.68.1.51-.08 1.53-.62 1.75-1.22.22-.6.22-1.11.15-1.22-.06-.11-.24-.18-.5-.31zM16.1 27.5h-.01c-1.94 0-3.86-.5-5.56-1.46l-.4-.24-4.13 1.08 1.1-4.02-.26-.41a11.48 11.48 0 0 1-1.74-6c.01-6.37 5.2-11.55 11.6-11.55 3.11 0 6.03 1.21 8.23 3.41a11.56 11.56 0 0 1 3.4 8.23c-.01 6.38-5.2 11.56-11.63 11.56zm9.9-21.47A13.94 13.94 0 0 0 16.1 1.6C8.37 1.6 2.07 7.9 2.05 15.62c0 2.79.74 5.52 2.17 7.91L2 30.4l7-1.84a14.1 14.1 0 0 0 7.1 1.91h.01c7.72 0 14.03-6.31 14.05-14.03a13.96 13.96 0 0 0-4.12-9.41z"/></svg>
-  </a>  <script>
-    // Year
-    document.getElementById('year').textContent = new Date().getFullYear();
+    <!-- WhatsApp Button -->
+    <a href="https://api.whatsapp.com/send/?phone=97333330081&text&type=phone_number&app_absent=0&wame_ctl=1&fbclid=PAVERDUAMe4BBleHRuA2FlbQIxMAABp1pnaXV6328z20_x_Oxl_uUUj1FhrZXP6pdikVRrFmepllfC1DgM64GxtBcY_aem_igcyAOXYSA66NARKAX313Q" class="whatsapp-btn" target="_blank" title="تواصل معنا عبر واتساب">
+        <i class="fab fa-whatsapp"></i>
+    </a>
 
-    // Mobile nav toggle
-    const btn = document.getElementById('menuBtn');
-    const mobile = document.getElementById('mobileMenu');
-    btn?.addEventListener('click', ()=>{
-      const open = mobile.style.display === 'block';
-      mobile.style.display = open ? 'none' : 'block';
-      btn.setAttribute('aria-expanded', String(!open));
-    });
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
 
-    // Reveal on scroll
-    const io = new IntersectionObserver((entries)=>{
-      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('show'); io.unobserve(e.target); } });
-    }, {threshold: .12});
-    document.querySelectorAll('.reveal').forEach(el=> io.observe(el));
-  </script></body>
+        // Header background change on scroll
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(26, 54, 93, 0.98)';
+            } else {
+                header.style.background = 'rgba(26, 54, 93, 0.95)';
+            }
+        });
+
+        // Fade in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Form submission
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(this);
+            const name = formData.get('name');
+            const email = formData.get('email');
+            const subject = formData.get('subject');
+            const message = formData.get('message');
+            
+            // Create email body
+            const emailBody = `الاسم: ${name}%0D%0Aالبريد الإلكتروني: ${email}%0D%0Aالموضوع: ${subject}%0D%0Aالرسالة: ${message}`;
+            
+            // Open email client
+            window.location.href = `mailto:richadvadv@gmail.com?subject=${encodeURIComponent(subject)}&body=${emailBody}`;
+            
+            // Show success message
+            alert('شكراً لك! سيتم فتح تطبيق البريد الإلكتروني لإرسال رسالتك.');
+            
+            // Reset form
+            this.reset();
+        });
+
+        // Mobile menu toggle
+        document.querySelector('.mobile-menu').addEventListener('click', function() {
+            const nav = document.querySelector('nav');
+            nav.style.display = nav.style.display === 'block' ? 'none' : 'block';
+        });
+
+        // Add loading animation
+        window.addEventListener('load', function() {
+            document.body.style.opacity = '1';
+        });
+
+        // Parallax effect for hero section
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const parallax = document.querySelector('.hero-image');
+            if (parallax) {
+                const speed = scrolled * 0.5;
+                parallax.style.transform = `translateY(${speed}px)`;
+            }
+        });
+
+        // Counter animation for stats
+        function animateCounters() {
+            const counters = document.querySelectorAll('.stat-item h4');
+            counters.forEach(counter => {
+                const target = parseInt(counter.textContent);
+                const increment = target / 100;
+                let current = 0;
+                
+                const updateCounter = () => {
+                    if (current < target) {
+                        current += increment;
+                        counter.textContent = Math.ceil(current) + (counter.textContent.includes('+') ? '+' : '') + (counter.textContent.includes('%') ? '%' : '');
+                        requestAnimationFrame(updateCounter);
+                    } else {
+                        counter.textContent = target + (counter.textContent.includes('+') ? '+' : '') + (counter.textContent.includes('%') ? '%' : '');
+                    }
+                };
+                
+                updateCounter();
+            });
+        }
+
+        // Trigger counter animation when stats section is visible
+        const statsObserver = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounters();
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        const statsSection = document.querySelector('.stats');
+        if (statsSection) {
+            statsObserver.observe(statsSection);
+        }
+    </script>
+</body>
 </html>
