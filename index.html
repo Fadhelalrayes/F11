@@ -1,388 +1,848 @@
-<!doctype html>
-<html lang="ar" dir="rtl" data-theme="light">
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>الصحيفة السجّادية | فهرس الأدعية</title>
-  <meta name="description" content="واجهة عربية أنيقة لعرض أدعية الصحيفة السجّادية مع فهرس وبحث ووضع ليلي، وإظهار الدعاء كاملاً عند النقر." />
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@500;700&family=Noto+Naskh+Arabic:wght@400;600;700&display=swap" rel="stylesheet">
-  <style>
-    :root{
-      --bg:#f8fafc; --fg:#0f172a; --muted:#64748b; --card:#ffffff; --border:#e2e8f0;
-      --accent:#5b8aff; --accent2:#06b6d4; --shadow:0 10px 28px rgba(2,6,23,.08)
-    }
-    html[data-theme="dark"]{
-      --bg:#0b1220; --fg:#e6edf7; --muted:#9aa7bd; --card:#0f172a; --border:#1f2a3a;
-      --accent:#7aa2ff; --accent2:#22d3ee; --shadow:0 14px 30px rgba(0,0,0,.5)
-    }
-    *{box-sizing:border-box}  body{margin:0;background:var(--bg);color:var(--fg);
-      font-family:"Noto Naskh Arabic",system-ui,-apple-system,"Segoe UI",sans-serif; line-height:1.9}
-    a{color:inherit} code{direction:ltr}
-    header.appbar{position:sticky;top:0;z-index:50;background:
-      linear-gradient(135deg,rgba(91,138,255,.15),rgba(6,182,212,.12));
-      border-bottom:1px solid var(--border); backdrop-filter:saturate(130%) blur(6px)}
-    .appbar-inner{max-width:1200px;margin:auto;display:flex;gap:12px;align-items:center;padding:10px 14px}
-    .logo{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;
-      font-family:Cairo,sans-serif;font-weight:700;color:#fff;
-      background:conic-gradient(from 270deg,var(--accent),var(--accent2));
-      box-shadow:0 10px 24px rgba(91,138,255,.35)}
-    .title{margin:0;font-family:Cairo,sans-serif;font-weight:700;font-size:1.16rem}
-    .subtitle{margin:0;color:var(--muted);font-size:.9rem}
-    .controls{margin-inline-start:auto;display:flex;gap:8px;align-items:center}
-    .btn{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:9px 12px;cursor:pointer;
-      display:inline-flex;gap:8px;align-items:center;box-shadow:var(--shadow);font-size:.95rem;transition:.2s}
-    .btn:hover{transform:translateY(-1px)} .btn.icon{padding:8px;aspect-ratio:1/1}
-    .btn.primary{background:linear-gradient(135deg,var(--accent),var(--accent2));border-color:transparent;color:#fff}
-    main.layout{max-width:1200px;margin:auto;display:grid;grid-template-columns:320px 1fr;gap:22px;padding:16px}
-    aside{position:sticky;top:64px;height:calc(100dvh - 64px);overflow:auto;background:var(--card);
-      border:1px solid var(--border);border-radius:18px;box-shadow:var(--shadow);padding:14px}
-    .content{background:var(--card);border:1px solid var(--border);border-radius:20px;box-shadow:var(--shadow);padding:22px}
-    .panel{display:grid;gap:10px;margin-bottom:10px}
-    .search{position:relative}
-    .search input{width:100%;padding:12px 42px 12px 12px;border-radius:12px;border:1px solid var(--border);
-      background:var(--bg);color:var(--fg);outline:none;font-size:.98rem}
-    .search svg{position:absolute;inset-inline-end:10px;inset-block-start:50%;transform:translateY(-50%);opacity:.65}
-    .pill{background:var(--bg);border:1px solid var(--border);border-radius:999px;color:var(--muted);font-size:.86rem;padding:6px 10px}
-    .toc{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
-    .toc li{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--border);background:var(--card);
-      border-radius:12px;padding:10px 12px;cursor:pointer;transition:.2s}
-    .toc li:hover{background:linear-gradient(135deg,rgba(91,138,255,.07),rgba(6,182,212,.06));transform:translateY(-1px)}
-    .idx{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;color:#fff;flex:0 0 auto;
-      font-family:Cairo,sans-serif;font-weight:700;background:linear-gradient(135deg,var(--accent),var(--accent2))}
-    .meta{flex:1 1 auto;min-width:0} .meta .t{font-weight:700;margin:0 0 4px} .meta .s{margin:0;color:var(--muted);font-size:.9rem}
-    .tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
-    .tag{border:1px dashed var(--border);border-radius:999px;padding:3px 9px;font-size:.8rem;color:var(--muted)}
-    .dua-header{display:flex;gap:10px;align-items:center;justify-content:space-between;margin-bottom:8px}
-    .dua-title{margin:0;font-family:Cairo,sans-serif;font-weight:700;font-size:1.4rem}
-    .dua-sub{margin:.2em 0 .4em;color:var(--muted)}
-    .toolbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-    .range{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:.9rem}
-    .dua-body{font-size:1.12rem;text-align:justify} .dua-body p{margin:.6em 0}
-    .divider{border:0;border-top:1px solid var(--border);margin:12px 0}
-    .empty{text-align:center;color:var(--muted);padding:30px}
-    .footer-line{color:var(--muted);font-size:.88rem;display:flex;gap:10px;justify-content:space-between;align-items:center}
-    @media (max-width:980px){
-      main.layout{grid-template-columns:1fr}
-      aside{position:static;height:auto}
-    }
-    @media print{
-      header,aside,.toolbar .range,.toolbar button,.footer-line{display:none !important}
-      main.layout{display:block;padding:0} .content{border:none;box-shadow:none}
-      .dua-title{font-size:1.6rem} .dua-body{font-size:1.15em}
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="فاضل الريس - مصمم ومطور مواقع إلكترونية احترافية، نقدم حلولاً مبتكرة وجذابة لعملائنا مع التركيز على الجودة والأداء.">
+    <meta name="keywords" content="تصميم مواقع, تطوير مواقع, برمجة, ويب, فاضل الريس, تصميم احترافي">
+    <meta name="author" content="فاضل الريس">
+    <meta property="og:title" content="فاضل الريس - تصميم مواقع إلكترونية">
+    <meta property="og:description" content="مصمم ومطور مواقع إلكترونية احترافية">
+    <meta name="robots" content="index, follow">
+    <title>فاضل الريس - تصميم مواقع إلكترونية احترافية</title>
+    
+    <!-- الأمان والحماية -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://trusted.cdn.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com;">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+    
+    <style>
+        :root {
+            --primary-color: #2D5BFF;
+            --secondary-color: #FF6B35;
+            --accent-color: #00C2FF;
+            --dark-color: #1A2238;
+            --light-color: #F4F7FF;
+            --gradient: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* إعادة تعيين بعض العناصر لأسباب أمنية */
+        a, button, input, textarea {
+            outline: none;
+            border: none;
+            text-decoration: none;
+        }
+        
+        /* التخصيص لمنع حقن الأنماط */
+        style#inline-styles {
+            display: none !important;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Header Styles */
+        header {
+            background: var(--gradient);
+            padding: 1.5rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo span {
+            color: var(--secondary-color);
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-menu li {
+            margin-left: 2rem;
+        }
+        
+        .nav-menu a {
+            color: white;
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+            padding: 0.5rem 0;
+        }
+        
+        .nav-menu a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--secondary-color);
+            transition: var(--transition);
+        }
+        
+        .nav-menu a:hover:after {
+            width: 100%;
+        }
+        
+        .menu-toggle {
+            display: none;
+            cursor: pointer;
+            color: white;
+            font-size: 1.5rem;
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 10rem 0 5rem;
+            background: var(--gradient);
+            color: white;
+            clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background: var(--secondary-color);
+            color: white;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: var(--transition);
+            cursor: pointer;
+            box-shadow: var(--shadow);
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><rect fill="none" width="200" height="200"/><path fill="rgba(255,255,255,0.1)" d="M100,0c55.2,0,100,44.8,100,100s-44.8,100-100,100S0,155.2,0,100S44.8,0,100,0z"/></svg>') no-repeat center center;
+            background-size: cover;
+            opacity: 0.2;
+        }
+        
+        /* Services Section */
+        .services {
+            padding: 6rem 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--dark-color);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title h2:after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 4px;
+            background: var(--gradient);
+            bottom: -10px;
+            left: 25%;
+            border-radius: 2px;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .service-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            text-align: center;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .service-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+        
+        .service-card h3 {
+            margin-bottom: 1rem;
+            color: var(--dark-color);
+        }
+        
+        /* Portfolio Section */
+        .portfolio {
+            padding: 6rem 0;
+            background: #f8faff;
+        }
+        
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .portfolio-item {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            height: 250px;
+        }
+        
+        .portfolio-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        
+        .portfolio-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(45, 91, 255, 0.8);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: var(--transition);
+            padding: 2rem;
+            text-align: center;
+            color: white;
+        }
+        
+        .portfolio-item:hover .portfolio-overlay {
+            opacity: 1;
+        }
+        
+        .portfolio-item:hover .portfolio-img {
+            transform: scale(1.1);
+        }
+        
+        /* Contact Section */
+        .contact {
+            padding: 6rem 0;
+        }
+        
+        .contact-form {
+            background: white;
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(45, 91, 255, 0.2);
+        }
+        
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark-color);
+            color: white;
+            padding: 4rem 0 2rem;
+            clip-path: polygon(0 10%, 100% 0, 100% 100%, 0 100%);
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            display: block;
+        }
+        
+        .footer-logo span {
+            color: var(--secondary-color);
+        }
+        
+        .social-links {
+            display: flex;
+            margin-top: 1.5rem;
+        }
+        
+        .social-links a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            margin-right: 1rem;
+            transition: var(--transition);
+        }
+        
+        .social-links a:hover {
+            background: var(--primary-color);
+            transform: translateY(-3px);
+        }
+        
+        .footer-heading {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .footer-heading:after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 3px;
+            background: var(--secondary-color);
+            bottom: 0;
+            left: 0;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-links a {
+            color: #ccc;
+            transition: var(--transition);
+        }
+        
+        .footer-links a:hover {
+            color: white;
+            padding-right: 5px;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .nav-menu {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 70%;
+                height: 100vh;
+                background: var(--dark-color);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                transition: var(--transition);
+                z-index: 999;
+            }
+            
+            .nav-menu.active {
+                right: 0;
+            }
+            
+            .nav-menu li {
+                margin: 1.5rem 0;
+            }
+            
+            .menu-toggle {
+                display: block;
+                z-index: 1000;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .contact-form {
+                padding: 2rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero {
+                padding: 8rem 0 4rem;
+            }
+            
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .btn {
+                padding: 0.7rem 1.5rem;
+            }
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .fade-in {
+            animation: fadeIn 1s ease forwards;
+        }
+        
+        .delay-1 {
+            animation-delay: 0.2s;
+        }
+        
+        .delay-2 {
+            animation-delay: 0.4s;
+        }
+        
+        .delay-3 {
+            animation-delay: 0.6s;
+        }
+        
+        /* حماية إضافية ضد هجمات الحقن */
+        .no-inject {
+            display: none !important;
+        }
+    </style>
+    
+    <!-- حماية إضافية ضد هجمات الحقن -->
+    <script>
+        // منع فتح النافذة المنبثقة (التي يمكن استغلالها)
+        if (window.opener) {
+            window.opener = null;
+        }
+        
+        // منع استغلال الثغرات عبر التاريخ
+        history.pushState(null, document.title, location.href);
+        window.addEventListener('popstate', function (event) {
+            history.pushState(null, document.title, location.href);
+        });
+        
+        // حماية ضد هجمات الـ XSS
+        document.addEventListener('DOMContentLoaded', function() {
+            // التأكد من أن الروابط آمنة
+            const allLinks = document.querySelectorAll('a');
+            allLinks.forEach(link => {
+                if (link.href && link.href.indexOf('javascript:') > -1) {
+                    link.removeAttribute('href');
+                }
+            });
+            
+            // حماية النماذج
+            const forms = document.querySelectorAll('form');
+            forms.forEach(form => {
+                form.setAttribute('autocomplete', 'on');
+                form.setAttribute('novalidate', 'true');
+            });
+        });
+    </script>
 </head>
 <body>
-  <header class="appbar" role="banner">
-    <div class="appbar-inner">
-      <button class="btn icon" id="menuBtn" title="إظهار/إخفاء الفهرس" aria-label="إظهار/إخفاء الفهرس">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-      </button>
-      <div style="display:flex;align-items:center;gap:10px">
-        <div class="logo" aria-hidden="true">س</div>
-        <div>
-          <h1 class="title">الصحيفة السجّادية</h1>
-          <p class="subtitle">فهرس الأدعية • اضغط لعرض الدعاء كاملاً</p>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="#" class="logo">فاضل <span>الريس</span></a>
+            
+            <div class="menu-toggle">☰</div>
+            
+            <ul class="nav-menu">
+                <li><a href="#home">الرئيسية</a></li>
+                <li><a href="#services">خدماتي</a></li>
+                <li><a href="#portfolio">أعمالي</a></li>
+                <li><a href="#about">عني</a></li>
+                <li><a href="#contact">اتصل بي</a></li>
+            </ul>
         </div>
-      </div>
-      <div class="controls">
-        <button class="btn" id="importBtn" title="استيراد أدعية (JSON)">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 21h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-          استيراد
-        </button>
-        <button class="btn" id="exportBtn" title="تصدير الأدعية (JSON)">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 21V9m0 0l4 4m-4-4l-4 4M4 3h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-          تصدير
-        </button>
-        <button class="btn icon" id="themeBtn" aria-label="تبديل الوضع الليلي/النهاري" title="الوضع الليلي">
-          <svg id="themeIcon" width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="2"/></svg>
-        </button>
-      </div>
-    </div>
-  </header>
+    </header>
 
-  <main class="layout">
-    <aside id="sidebar" aria-label="فهرس الأدعية">
-      <div class="panel">
-        <div class="search">
-          <input id="search" type="search" placeholder="ابحث في العناوين أو النص…" aria-label="بحث">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M20 20l-3.5-3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-bg"></div>
+        <div class="container hero-content">
+            <h1 class="fade-in">تصميم مواقع إلكترونية <span>إبداعية</span> و<span>احترافية</span></h1>
+            <p class="fade-in delay-1">أقدم حلولاً مبتكرة وجذابة لعملائي مع التركيز على الجودة، الأداء، وتجربة المستخدم الفريدة.</p>
+            <a href="#contact" class="btn fade-in delay-2">أبدأ مشروعك الآن</a>
         </div>
-        <div class="pill">إجمالي: <b id="count">0</b> دعاء</div>
-      </div>
-      <ol class="toc" id="toc" role="listbox" aria-label="قائمة الأدعية"></ol>
-      <div class="pill" style="margin-top:10px">💡 انقر على أي دعاء لعرضه كاملاً</div>
-    </aside>
-
-    <section class="content" id="content" aria-live="polite">
-      <div class="empty">
-        <h2 style="margin:0 0 6px;font-family:Cairo">مرحباً بك</h2>
-        <p>اختر دعاءً من الفهرس أو استخدم البحث. يمكنك أيضاً استيراد ملف JSON للأدعية الكاملة.</p>
-      </div>
     </section>
-  </main>
 
-  <input type="file" id="fileInput" accept="application/json" hidden />
-
-  <script>
-    // --- بيانات عيّنية (استبدلها بالنصوص الموثّقة أو استورد JSON) ---
-    const samplePrayers = [
-      {
-        id: 1,
-        title: "الدعاء الأوّل: في حمدِ الله تعالى",
-        subtitle: "افتتاح بالحمد والثناء",
-        tags: ["حمد","ثناء"],
-        text: [
-          "الحمدُ للهِ الَّذي لا يَبْلُغُ مِدْحَتَهُ القائلونَ، ولا يُحصي نعماءَهُ العادّونَ، ولا يُؤدّي حقَّهُ المُجتهدونَ.",
-          "اللّهمَّ لكَ الحمدُ حمداً كثيراً طيّباً مباركاً فيه كما تُحبّ وترضى.",
-          "*نصّ مختصر تجريبي — استبدله بالنصّ الكامل عند الاستيراد.*"
-        ]
-      },
-      {
-        id: 2,
-        title: "الدعاء الثاني: في الصلاة على محمّدٍ وآله",
-        subtitle: "الصلاة والبركة",
-        tags: ["صلاة","رحمة"],
-        text: [
-          "اللّهمَّ صلِّ على محمّدٍ وآلِ محمّد، واجعل صلواتك وبركاتك ورحمتك عليهم أبداً.",
-          "وزِدنا بهم إيماناً ويقيناً واتباعاً.",
-          "*نصّ مختصر تجريبي.*"
-        ]
-      },
-      {
-        id: 3,
-        title: "الدعاء الثالث: في الاعتراف بالذنب وطلب العفو",
-        subtitle: "توبة واستغفار",
-        tags: ["توبة","استغفار"],
-        text: [
-          "إلهي إن لم تغفر لي وترحمني لأكوننّ من الخاسرين.",
-          "تبْ عليَّ توبةً نصوحاً واغسل قلبي من الذنوب.",
-          "*نصّ مختصر تجريبي.*"
-        ]
-      },
-      {
-        id: 4,
-        title: "الدعاء الرابع: في المسألة والابتهال",
-        subtitle: "سؤال الفضل واللطف",
-        tags: ["دعاء","مسألة"],
-        text: [
-          "يا واسع الرحمة، يا مُجيب المضطرّ إذا دعاه، نسألك من فضلك العظيم.",
-          "ألهمنا ذكرك وشكرك وحسن عبادتك.",
-          "*نصّ مختصر تجريبي.*"
-        ]
-      },
-      {
-        id: 5,
-        title: "الدعاء الخامس: في التوكّل على الله",
-        subtitle: "تفويض الأمر إلى الله",
-        tags: ["توكّل","يقين"],
-        text: [
-          "توكّلتُ على الحيّ الذي لا يموت، وفوّضتُ أمري إلى الله.",
-          "اللّهمّ اكفني ما أهمّني من أمر الدنيا والآخرة.",
-          "*نصّ مختصر تجريبي.*"
-        ]
-      }
-    ];
-
-    // --- الحالة ---
-    const state = {
-      prayers: [...samplePrayers],
-      filtered: null,
-      currentId: null,
-      fontScale: parseFloat(localStorage.getItem("fontScale") || "1.0"),
-      theme: localStorage.getItem("theme") || "light"
-    };
-
-    // --- عناصر DOM ---
-    const root = document.documentElement;
-    const tocEl = document.getElementById("toc");
-    const contentEl = document.getElementById("content");
-    const searchEl = document.getElementById("search");
-    const countEl = document.getElementById("count");
-
-    // --- تهيئة الثيم ---
-    root.setAttribute("data-theme", state.theme);
-
-    // --- أدوات ---
-    const getList = () => state.filtered ?? state.prayers;
-
-    function escapeHtml(s){
-      return String(s).replaceAll("&","&amp;").replaceAll("<","&lt;")
-        .replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#39;");
-    }
-    function normalizeArabic(s){
-      return s.toLowerCase()
-        .replace(/[\u064B-\u0652]/g,"")
-        .replace(/[إأٱآ]/g,"ا").replace(/ى/g,"ي").replace(/ؤ/g,"و").replace(/ئ/g,"ي").replace(/ة/g,"ه");
-    }
-    function includesNorm(hay, needle){
-      return normalizeArabic(hay).includes(needle);
-    }
-    function toast(msg){
-      const t=document.createElement("div");
-      t.textContent=msg;
-      t.style.cssText="position:fixed;inset-inline-start:50%;transform:translateX(-50%);inset-block-end:20px;background:var(--fg);color:var(--bg);padding:8px 12px;border-radius:999px;z-index:9999;box-shadow:var(--shadow);font-size:.9rem";
-      document.body.appendChild(t); setTimeout(()=>t.remove(),1600);
-    }
-
-    // --- فهرس ---
-    function renderTOC(){
-      const list = getList();
-      countEl.textContent = list.length;
-      tocEl.innerHTML = "";
-      list.forEach(d=>{
-        const li = document.createElement("li");
-        li.dataset.id = d.id;
-        li.innerHTML = `
-          <div class="idx">${d.id}</div>
-          <div class="meta">
-            <p class="t">${escapeHtml(d.title)}</p>
-            ${d.subtitle?`<p class="s">${escapeHtml(d.subtitle)}</p>`:""}
-            <div class="tags">${(d.tags||[]).map(t=>`<span class="tag">#${escapeHtml(t)}</span>`).join("")}</div>
-          </div>
-          <button class="btn icon" data-copy-title="${d.id}" title="نسخ العنوان فقط">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="9" y="9" width="10" height="12" rx="2" stroke="currentColor" stroke-width="2"/><rect x="5" y="3" width="10" height="12" rx="2" stroke="currentColor" stroke-width="2"/></svg>
-          </button>
-        `;
-        li.addEventListener("click",(e)=>{
-          if(e.target.closest("[data-copy-title]")) return;
-          showPrayer(d.id);
-        });
-        li.querySelector("[data-copy-title]")?.addEventListener("click",(e)=>{
-          e.stopPropagation();
-          navigator.clipboard.writeText(d.title).then(()=>toast("نُسِخ العنوان"));
-        });
-        tocEl.appendChild(li);
-      });
-    }
-
-    // --- عرض الدعاء ---
-    function showPrayer(id){
-      const d = state.prayers.find(x=>x.id===id);
-      if(!d){ contentEl.innerHTML = `<div class="empty">تعذّر العثور على الدعاء.</div>`; return; }
-
-      state.currentId = id;
-      location.hash = `#dua-${id}`;
-
-      contentEl.innerHTML = `
-        <div class="dua-header">
-          <div style="min-inline-size:0">
-            <h2 class="dua-title">${escapeHtml(d.title)}</h2>
-            ${d.subtitle?`<p class="dua-sub">${escapeHtml(d.subtitle)}</p>`:""}
-            <div class="tags">${(d.tags||[]).map(t=>`<span class="tag">#${escapeHtml(t)}</span>`).join("")}</div>
-          </div>
-          <div class="toolbar">
-            <button class="btn" id="copyBtn" title="نسخ الدعاء كاملاً">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="9" y="9" width="10" height="12" rx="2" stroke="currentColor" stroke-width="2"/><rect x="5" y="3" width="10" height="12" rx="2" stroke="currentColor" stroke-width="2"/></svg>
-              نسخ
-            </button>
-            <button class="btn" id="printBtn" title="طباعة الدعاء">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M6 9V3h12v6M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2M6 14h12v7H6v-7z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              طباعة
-            </button>
-            <span class="range"><label for="fs">حجم الخط</label><input id="fs" type="range" min="0.9" max="1.4" step="0.01" value="${state.fontScale}"></span>
-          </div>
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="container">
+            <div class="section-title">
+                <h2>خدماتي</h2>
+                <p>أقدم مجموعة متكاملة من خدمات تصميم وتطوير المواقع</p>
+            </div>
+            
+            <div class="services-grid">
+                <div class="service-card fade-in">
+                    <div class="service-icon">💻</div>
+                    <h3>تصميم مواقع متجاوبة</h3>
+                    <p>تصميم مواقع تتكيف مع جميع أحجام الشاشات بدءًا من الأجهزة المكتبية إلى الهواتف المحمولة.</p>
+                </div>
+                
+                <div class="service-card fade-in delay-1">
+                    <div class="service-icon">🚀</div>
+                    <h3>تطوير متكامل</h3>
+                    <p>تطوير مواقع كاملة الوظائف باستخدام أحدث التقنيات وأفضل الممارسات البرمجية.</p>
+                </div>
+                
+                <div class="service-card fade-in delay-2">
+                    <div class="service-icon">🔍</div>
+                    <h3>تحسين محركات البحث</h3>
+                    <p>تحسين موقعك لمحركات البحث لزيادة ظهورك ووصولك إلى شريحة أكبر من العملاء.</p>
+                </div>
+                
+                <div class="service-card fade-in delay-3">
+                    <div class="service-icon">🛡️</div>
+                    <h3>حماية وأمان</h3>
+                    <p>تأمين المواقع ضد الهجمات الإلكترونية والمخترقين لضمان حماية بياناتك وبيانات عملائك.</p>
+                </div>
+            </div>
         </div>
-        <hr class="divider"/>
-        <article class="dua-body" style="font-size:${state.fontScale}em">
-          ${(d.text||[]).map(p=>`<p>${escapeHtml(p)}</p>`).join("")}
-        </article>
-        <hr class="divider"/>
-        <div class="footer-line">
-          <span>📎 رابط مباشر: <code>${location.href}</code></span>
-          <span class="pill">ID: ${d.id}</span>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section class="portfolio" id="portfolio">
+        <div class="container">
+            <div class="section-title">
+                <h2>أعمالي السابقة</h2>
+                <p>بعض المشاريع التي قمت بتنفيذها لعملائي</p>
+            </div>
+            
+            <div class="portfolio-grid">
+                <div class="portfolio-item">
+                    <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'><rect width='400' height='300' fill='%232D5BFF'/><text x='200' y='150' font-family='Arial' font-size='20' fill='white' text-anchor='middle'>مشروع تجارة إلكترونية</text></svg>" alt="مشروع تجارة إلكترونية" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <h3>متجر إلكتروني</h3>
+                        <p>تصميم وتطوير متجر إلكتروني متكامل مع نظام دفع آمن.</p>
+                    </div>
+                </div>
+                
+                <div class="portfolio-item">
+                    <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'><rect width='400' height='300' fill='%23FF6B35'/><text x='200' y='150' font-family='Arial' font-size='20' fill='white' text-anchor='middle'>موقع شركة</text></svg>" alt="موقع شركة" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <h3>موقع مؤسسي</h3>
+                        <p>تصميم موقع احترافي لشركة بميزات متعددة.</p>
+                    </div>
+                </div>
+                
+                <div class="portfolio-item">
+                    <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'><rect width='400' height='300' fill='%2300C2FF'/><text x='200' y='150' font-family='Arial' font-size='20' fill='white' text-anchor='middle'>مدونة شخصية</text></svg>" alt="مدونة شخصية" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <h3>مدونة تقنية</h3>
+                        <p>تصميم مدونة بتجربة مستخدم متميزة وسهولة في إدارة المحتوى.</p>
+                    </div>
+                </div>
+            </div>
         </div>
-      `;
+    </section>
 
-      document.getElementById("copyBtn").onclick = ()=>{
-        const txt = (d.text||[]).join("\n\n");
-        navigator.clipboard.writeText(`${d.title}\n\n${txt}`).then(()=>toast("تم نسخ الدعاء كاملاً"));
-      };
-      document.getElementById("printBtn").onclick = ()=>window.print();
-      document.getElementById("fs").oninput = (e)=>{
-        state.fontScale = parseFloat(e.target.value);
-        localStorage.setItem("fontScale", String(state.fontScale));
-        contentEl.querySelector(".dua-body").style.fontSize = state.fontScale + "em";
-      };
-    }
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>اتصل بي</h2>
+                <p>تواصل معنا لبدء مشروعك القادم</p>
+            </div>
+            
+            <div class="contact-form">
+                <form id="contactForm" onsubmit="return validateForm()">
+                    <div class="form-group">
+                        <label for="name">الاسم الكامل</label>
+                        <input type="text" id="name" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">البريد الإلكتروني</label>
+                        <input type="email" id="email" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="subject">الموضوع</label>
+                        <input type="text" id="subject" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">الرسالة</label>
+                        <textarea id="message" class="form-control" required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn">إرسال الرسالة</button>
+                </form>
+            </div>
+        </div>
+    </section>
 
-    // --- بحث ---
-    function applySearch(q){
-      const k = normalizeArabic(q.trim());
-      if(!k){ state.filtered=null; renderTOC(); return; }
-      state.filtered = state.prayers.filter(d =>
-        includesNorm(d.title,k) || includesNorm(d.subtitle||"",k) ||
-        (d.text||[]).some(p=>includesNorm(p,k))
-      );
-      renderTOC();
-    }
-    document.getElementById("search").addEventListener("input", e=>applySearch(e.target.value));
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <a href="#" class="footer-logo">فاضل <span>الريس</span></a>
+                    <p>مصمم ومطور مواقع إلكترونية احترافية، أقدم حلولاً مبتكرة وجذابة لعملائي مع التركيز على الجودة والأداء.</p>
+                    
+                    <div class="social-links">
+                        <a href="#"><span>FB</span></a>
+                        <a href="#"><span>TW</span></a>
+                        <a href="#"><span>IN</span></a>
+                        <a href="#"><span>BE</span></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links-container">
+                    <h4 class="footer-heading">روابط سريعة</h4>
+                    <ul class="footer-links">
+                        <li><a href="#home">الرئيسية</a></li>
+                        <li><a href="#services">خدماتي</a></li>
+                        <li><a href="#portfolio">أعمالي</a></li>
+                        <li><a href="#about">عني</a></li>
+                        <li><a href="#contact">اتصل بي</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-contact">
+                    <h4 class="footer-heading">معلومات التواصل</h4>
+                    <ul class="footer-links">
+                        <li>البريد الإلكتروني: info@fadhel.com</li>
+                        <li>الهاتف: +966 123 456 789</li>
+                        <li>العنوان: الرياض، المملكة العربية السعودية</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>جميع الحقوق محفوظة &copy; 2023 فاضل الريس</p>
+            </div>
+        </div>
+    </footer>
 
-    // --- استيراد/تصدير ---
-    document.getElementById("importBtn").onclick = ()=>document.getElementById("fileInput").click();
-    document.getElementById("fileInput").onchange = (e)=>{
-      const file = e.target.files?.[0]; if(!file) return;
-      const reader = new FileReader();
-      reader.onload = ()=>{
-        try{
-          const data = JSON.parse(reader.result);
-          if(!Array.isArray(data)) throw new Error("يجب أن يكون الملف مصفوفة أدعية");
-          data.forEach((d,i)=>{
-            if(typeof d.id!=="number" || !d.title || !Array.isArray(d.text)){
-              throw new Error(`عنصر ${i+1} لا يطابق البنية {id:number,title:string,text:string[]}`);
+    <!-- JavaScript -->
+    <script>
+        // Menu Toggle
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+        
+        menuToggle.addEventListener('click', function() {
+            navMenu.classList.toggle('active');
+        });
+        
+        // Close menu when clicking on a link
+        const navLinks = document.querySelectorAll('.nav-menu a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                navMenu.classList.remove('active');
+            });
+        });
+        
+        // Scroll animations
+        function checkScroll() {
+            const elements = document.querySelectorAll('.fade-in');
+            
+            elements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.3;
+                
+                if (elementPosition < screenPosition) {
+                    element.style.opacity = 1;
+                    element.style.transform = 'translateY(0)';
+                }
+            });
+        }
+        
+        window.addEventListener('scroll', checkScroll);
+        window.addEventListener('load', checkScroll);
+        
+        // Form validation
+        function validateForm() {
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+            
+            // Basic validation
+            if (name.trim() === '' || email.trim() === '' || subject.trim() === '' || message.trim() === '') {
+                alert('يرجى ملء جميع الحقول');
+                return false;
             }
-          });
-          state.prayers = data.sort((a,b)=>a.id-b.id);
-          state.filtered=null; renderTOC();
-          toast("تم الاستيراد بنجاح");
-          if(state.prayers[0]) showPrayer(state.prayers[0].id);
-        }catch(err){ alert("خطأ في الملف: " + err.message); }
-      };
-      reader.readAsText(file,"utf-8");
-      e.target.value="";
-    };
-
-    document.getElementById("exportBtn").onclick = ()=>{
-      const blob = new Blob([JSON.stringify(state.prayers,null,2)], {type:"application/json"});
-      const a = document.createElement("a");
-      a.href = URL.createObjectURL(blob);
-      a.download = "al-sahifa-al-sajjadiyya.json";
-      a.click();
-      URL.revokeObjectURL(a.href);
-    };
-
-    // --- وضع ليلي/نهاري ---
-    const themeBtn = document.getElementById("themeBtn");
-    themeBtn.onclick = ()=>{
-      state.theme = state.theme==="dark" ? "light" : "dark";
-      root.setAttribute("data-theme", state.theme);
-      localStorage.setItem("theme", state.theme);
-      document.getElementById("themeIcon").innerHTML =
-        state.theme==="dark"
-        ? '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="2"/>'
-        : '<circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2" fill="none"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="currentColor" stroke-width="2"/>';
-    };
-
-    // --- القائمة في الجوال ---
-    const sidebar = document.getElementById("sidebar");
-    document.getElementById("menuBtn").onclick = ()=>{
-      sidebar.style.display = sidebar.style.display === "none" ? "" : "none";
-    };
-    const mq = window.matchMedia("(max-width: 980px)");
-    function handleMQ(e){ sidebar.style.display = e.matches ? "none" : ""; }
-    mq.addEventListener("change", handleMQ); handleMQ(mq);
-
-    // --- توجيه بالرابط ---
-    window.addEventListener("hashchange", ()=>{
-      const m = location.hash.match(/#dua-(\d+)/);
-      if(m) showPrayer(parseInt(m[1],10));
-    });
-
-    // --- بدء التشغيل ---
-    renderTOC();
-    const m0 = location.hash.match(/#dua-(\d+)/);
-    if(m0){ showPrayer(parseInt(m0[1],10)); }
-    if(!state.currentId && state.prayers[0]) showPrayer(state.prayers[0].id);
-  </script>
+            
+            // Email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert('يرجى إدخال بريد إلكتروني صحيح');
+                return false;
+            }
+            
+            // If everything is OK
+            alert('شكراً لتواصلك معنا! سنرد عليك في أقرب وقت.');
+            document.getElementById('contactForm').reset();
+            return false; // Prevent form submission for demo
+        }
+        
+        // حماية إضافية ضد هجمات الـ XSS
+        document.addEventListener('input', function(e) {
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+                const value = e.target.value;
+                if (value.includes('<script>') || value.includes('javascript:')) {
+                    e.target.value = value.replace(/<script>|javascript:/gi, '');
+                    alert('تم منع إدخال محتوى ضار');
+                }
+            }
+        });
+    </script>
+    
+    <!-- حماية ضد محاولات التطفل -->
+    <noscript>
+        <style>
+            .no-script-message {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                background: #ff4757;
+                color: white;
+                padding: 1rem;
+                text-align: center;
+                z-index: 9999;
+            }
+        </style>
+        <div class="no-script-message">
+            يبدو أن JavaScript غير مفعل في متصفحك. يرجى تفعيله للحصول على تجربة أفضل.
+        </div>
+    </noscript>
+    
+    <!-- منع محاولات التطفل عبر iframe -->
+    <script>
+        if (window !== window.top) {
+            window.top.location = window.location;
+        }
+    </script>
+    
+    <!-- حماية ضد هجمات الـ CSRF (سيتم تنفيذها من جانب الخادم في التطبيق الحقيقي) -->
+    <meta name="csrf-token" content="secure-random-token-here">
 </body>
 </html>
