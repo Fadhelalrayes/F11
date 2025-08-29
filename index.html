@@ -4,226 +4,368 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>اسم العلامة | تصميم مواقع احترافية</title>
-  <meta name="description" content="نص قصير يعرّف خدمتك خلال سطر واحد: نصمم مواقع عصرية سريعة ومحسّنة لمحركات البحث." />
-  <meta name="keywords" content="تصميم مواقع, برمجة, واجهات مستخدم, متجر إلكتروني, SEO" />
-  <meta name="theme-color" content="#0b132b" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;800;900&display=swap" rel="stylesheet">
-  <!-- Open Graph -->
-  <meta property="og:title" content="اسم العلامة | تصميم مواقع احترافية">
-  <meta property="og:description" content="نص قصير يعرّف خدمتك خلال سطر واحد: نصمم مواقع عصرية سريعة ومحسّنة لمحركات البحث.">
+  <title>تصاميم البحرين | خدمات إنشاء مواقع إلكترونية</title>
+  <meta name="description" content="تصاميم البحرين — وكالة متخصصة في تصميم وتطوير مواقع إلكترونية احترافية، متاجر إلكترونية، تحسين محركات البحث، استضافة وصيانة. تواصل عبر واتساب أو الهاتف.">
+  <meta property="og:title" content="تصاميم البحرين | خدمات إنشاء مواقع إلكترونية">
+  <meta property="og:description" content="نصمم مواقع سريعة، آمنة، ومتجاوبة تناسب نشاطك التجاري في البحرين.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://example.com">
-  <meta property="og:image" content="https://example.com/og-cover.jpg">
-  <!-- Schema.org JSON-LD -->
+  <meta name="theme-color" content="#0ea5e9">
+  <style>
+    :root{
+      --bg:#0b1220;          /* خلفية داكنة أنيقة */
+      --card:#10192e;        /* بطاقات */
+      --muted:#94a3b8;       /* نص ثانوي */
+      --text:#e5e7eb;        /* نص أساسي */
+      --brand:#0ea5e9;       /* سماوي */
+      --brand-2:#22d3ee;     /* سماوي فاتح */
+      --accent:#f59e0b;      /* برتقالي */
+      --ok:#10b981;          /* أخضر */
+      --danger:#ef4444;      /* أحمر */
+      --radius:18px;
+      --shadow:0 10px 30px rgba(0,0,0,.25);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Noto Kufi Arabic",Tahoma,Arial,sans-serif;
+      background: radial-gradient(1200px 600px at 80% -10%, rgba(34,211,238,.15), transparent 50%),
+                  radial-gradient(800px 500px at 10% 10%, rgba(14,165,233,.18), transparent 60%),
+                  var(--bg);
+      color:var(--text);
+      line-height:1.7;
+    }
+    a{color:inherit; text-decoration:none}
+    .container{max-width:1100px; margin-inline:auto; padding:0 20px}/* شريط التنقل */
+.nav{position:sticky; top:0; z-index:40; backdrop-filter:saturate(1.2) blur(8px); background:rgba(11,18,32,.6); border-bottom:1px solid rgba(255,255,255,.08)}
+.nav-inner{display:flex; align-items:center; justify-content:space-between; gap:16px; padding:12px 0}
+.brand{display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.3px}
+.brand .logo{width:34px; height:34px; display:grid; place-items:center; border-radius:12px; background:linear-gradient(135deg,var(--brand),var(--brand-2)); box-shadow:var(--shadow)}
+.brand span{font-size:1.05rem}
+.links{display:flex; gap:18px; align-items:center}
+.links a{opacity:.9}
+.links a:hover{opacity:1}
+.cta{display:flex; gap:10px; align-items:center}
+.btn{border:none; cursor:pointer; padding:10px 16px; border-radius:14px; font-weight:700; transition:.2s transform, .2s opacity; box-shadow:var(--shadow); background:linear-gradient(135deg,var(--brand),var(--brand-2)); color:#03111a}
+.btn:hover{transform:translateY(-2px)}
+.btn.outline{background:transparent; border:1px solid rgba(255,255,255,.15); color:var(--text); box-shadow:none}
+.menu-btn{display:none}
+
+/* البطل */
+.hero{padding:64px 0 32px}
+.hero-grid{display:grid; grid-template-columns:1.1fr .9fr; gap:28px; align-items:center}
+.hero h1{margin:0 0 12px; font-size:clamp(1.6rem, 3.2vw + .5rem, 2.8rem); line-height:1.25}
+.hero p{color:var(--muted); margin:0 0 22px}
+.bullet{display:flex; gap:10px; align-items:center; margin:8px 0; color:#d1fae5}
+.card{background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.01)); border:1px solid rgba(255,255,255,.08); border-radius:var(--radius); padding:18px; box-shadow:var(--shadow)}
+.preview{height:320px; border-radius:var(--radius); background:
+  radial-gradient(300px 160px at 80% 10%, rgba(245,158,11,.25), transparent),
+  radial-gradient(400px 200px at 20% 90%, rgba(16,185,129,.22), transparent),
+  linear-gradient(135deg,#0e1b2e 0%, #0b1220 60%);
+  display:grid; place-items:center; position:relative; overflow:hidden; border:1px solid rgba(255,255,255,.08)
+}
+.preview .mock{width:min(92%, 500px); border-radius:14px; background:#0f172a; border:1px solid rgba(255,255,255,.08); box-shadow:0 20px 50px rgba(0,0,0,.35); aspect-ratio:16/9; position:relative}
+.status-dot{position:absolute; inset-inline-start:14px; top:14px; width:10px; height:10px; border-radius:50%; background:var(--ok); box-shadow:0 0 0 6px rgba(16,185,129,.18)}
+.badge{display:inline-flex; align-items:center; gap:8px; background:rgba(34,211,238,.12); color:#a5f3fc; padding:6px 10px; border-radius:999px; border:1px solid rgba(34,211,238,.25); font-weight:700; font-size:.9rem}
+
+/* الأقسام */
+section{padding:42px 0}
+.section-head{display:flex; align-items:flex-end; justify-content:space-between; gap:12px; margin-bottom:18px}
+h2{margin:0; font-size:clamp(1.2rem, 2vw + .5rem, 2rem)}
+.grid{display:grid; gap:16px}
+.grid-3{grid-template-columns:repeat(3,1fr)}
+.grid-4{grid-template-columns:repeat(4,1fr)}
+
+.service{display:flex; flex-direction:column; gap:8px}
+.service h3{margin:0; font-size:1.05rem}
+.muted{color:var(--muted)}
+
+/* الأسعار */
+.plan{display:flex; flex-direction:column; gap:10px; border:1px solid rgba(255,255,255,.08); border-radius:var(--radius); padding:18px; background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.01))}
+.plan .price{font-weight:900; font-size:1.4rem; color:#dbeafe}
+.plan ul{margin:0; padding:0 18px}
+
+/* معرض أعمال */
+.portfolio{grid-auto-rows:180px}
+.tile{position:relative; border-radius:16px; overflow:hidden; border:1px solid rgba(255,255,255,.08); background:linear-gradient(135deg,rgba(14,165,233,.2),rgba(34,197,94,.2))}
+.tile span{position:absolute; inset-inline-start:12px; bottom:10px; font-weight:800; text-shadow:0 2px 8px rgba(0,0,0,.6)}
+
+/* تذييل */
+footer{padding:26px 0 60px; color:var(--muted); border-top:1px solid rgba(255,255,255,.08)}
+
+/* زر واتساب ثابت */
+.wa-float{position:fixed; inset-inline-end:18px; inset-block-end:18px; z-index:60}
+.wa-btn{display:flex; align-items:center; gap:10px; padding:12px 16px; border-radius:999px; background:#25D366; color:#063; font-weight:900; box-shadow:0 12px 30px rgba(0,0,0,.35)}
+.wa-btn:hover{transform:translateY(-2px)}
+
+/* تجاوبية */
+@media (max-width: 900px){
+  .hero-grid{grid-template-columns:1fr}
+  .grid-3{grid-template-columns:1fr 1fr}
+  .grid-4{grid-template-columns:1fr 1fr}
+  .links{display:none}
+  .menu-btn{display:inline-flex}
+}
+@media (max-width: 520px){
+  .grid-3,.grid-4{grid-template-columns:1fr}
+  .cta{flex-wrap:wrap}
+}
+
+/* شارات صغيرة */
+.chip{display:inline-flex; align-items:center; gap:8px; padding:6px 10px; border-radius:999px; border:1px solid rgba(255,255,255,.1); color:#cbd5e1; font-weight:700; font-size:.85rem}
+
+  </style>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
-    "name": "اسم العلامة",
-    "image": "https://example.com/og-cover.jpg",
-    "url": "https://example.com",
-    "telephone": "+97300000000",
-    "address": {"@type": "PostalAddress", "addressCountry": "BH"},
-    "sameAs": ["https://instagram.com/yourbrand", "https://wa.me/97300000000"],
-    "description": "خدمة تصميم وتطوير مواقع إلكترونية متكاملة ومحسّنة لمحركات البحث.",
-    "priceRange": "$$"
+    "name": "تصاميم البحرين",
+    "areaServed": "Bahrain",
+    "founder": "فاضل الريس",
+    "telephone": "+97333375858",
+    "email": "Richadvadv@gmail.com",
+    "sameAs": [
+      "https://api.whatsapp.com/send/?phone=009733375858&text&type=phone_number&app_absent=0&wame_ctl=1&fbclid=PAVERDUAMe-PRleHRuA2FlbQIxMAABpy2YNJeLRL-4zNdK9fFfRNj8CnZmUeY4VYnZasWv9_t7PH9yrv_ljD2SOO5P_aem_NJ1dXRE6r62r9Hh0br7slA"
+    ],
+    "description": "وكالة تصميم وتطوير مواقع إلكترونية وواجهات مستخدم متقدمة مع تحسين سرعة وأمان واستضافة وصيانة."
   }
   </script>
-  <style>
-    :root{--bg:#0B132B;--primary:#00B3C4;--accent:#FFB100;--ink:#0B132B;--muted:#6b7280;}
-    *{box-sizing:border-box}
-    html,body{margin:0;padding:0;font-family:'Cairo',system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:#0f172a;scroll-behavior:smooth}
-    body{background:linear-gradient(135deg,#0b132b 0%,#0f2a47 40%,#091a2a 100%);}
-    a{color:inherit;text-decoration:none}
-    .container{width:min(1100px,92%);margin-inline:auto}
-    .btn{display:inline-block;padding:.9rem 1.2rem;border-radius:14px;font-weight:800}
-    .btn-primary{background:var(--accent);color:#111827;box-shadow:0 10px 24px rgba(255,177,0,.25)}
-    .btn-outline{border:2px solid rgba(255,255,255,.4);color:#fff}
-    header{position:sticky;top:0;backdrop-filter:saturate(180%) blur(14px);background:rgba(11,19,43,.45);z-index:40}
-    nav{display:flex;align-items:center;justify-content:space-between;padding:.7rem 0}
-    .brand{display:flex;gap:.6rem;align-items:center;color:#fff}
-    .brand .logo{width:40px;height:40px;border-radius:12px;background:radial-gradient(circle at 30% 30%, var(--accent), var(--primary));box-shadow:0 6px 18px rgba(0,179,196,.3)}
-    .menu{display:flex;gap:1rem}
-    .menu a{color:#e5e7eb;font-weight:700;opacity:.9}
-    .hero{padding:6rem 0 4rem;color:#fff;position:relative;overflow:hidden}
-    .hero h1{font-size:clamp(2rem,5vw,3.6rem);line-height:1.15;margin:.4rem 0;font-weight:900}
-    .hero p{max-width:60ch;opacity:.9;font-size:1.125rem}
-    .hero-badges{display:flex;gap:.6rem;flex-wrap:wrap;margin:1rem 0}
-    .badge{padding:.4rem .8rem;border:1px solid rgba(255,255,255,.2);border-radius:999px;font-size:.9rem}
-    .glass{background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.03));border:1px solid rgba(255,255,255,.12);box-shadow:0 20px 60px rgba(0,0,0,.35);border-radius:22px}
-    .hero-card{margin-top:2rem;padding:1.2rem}
-    .grid{display:grid;gap:1.2rem}
-    .grid-3{grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
-    .card{padding:1.2rem;background:#0f1e33;border:1px solid rgba(255,255,255,.06);border-radius:18px;color:#cfd8e3}
-    .card h3{margin-top:0;color:#fff}
-    section{padding:4rem 0}
-    .section-title{color:#fff;font-size:1.8rem;margin-bottom:1rem}
-    .section-sub{color:#c7d2fe;margin:-.5rem 0 2rem}
-    .features li{display:flex;gap:.6rem;align-items:flex-start;margin:.5rem 0;color:#e5e7eb}
-    .features li i{margin-top:.2rem}
-    .portfolio{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem}
-    .shot{aspect-ratio:16/10;border-radius:16px;overflow:hidden;background:#fff}
-    .shot img{width:100%;height:100%;object-fit:cover;display:block}
-    .testi{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem}
-    blockquote{padding:1rem;background:#0f1e33;border:1px solid rgba(255,255,255,.08);border-radius:16px;color:#e5e7eb}
-    blockquote footer{color:#94a3b8;margin-top:.4rem;font-size:.9rem}
-    form{display:grid;gap:.8rem}
-    input,textarea{width:100%;padding:1rem;border-radius:14px;border:1px solid #e5e7eb}
-    label{color:#e5e7eb}
-    .footer{padding:2rem 0;color:#94a3b8;border-top:1px solid rgba(255,255,255,.08)}
-    .floating-wa{position:fixed;left:16px;bottom:16px;width:56px;height:56px;border-radius:50%;display:grid;place-items:center;background:#25D366;box-shadow:0 12px 28px rgba(0,0,0,.3);z-index:50}
-    .floating-wa svg{width:28px;height:28px;fill:#fff}
-    .kpis{display:flex;gap:1rem;flex-wrap:wrap;color:#fff}
-    .kpi{padding:1rem 1.2rem;border:1px dashed rgba(255,255,255,.25);border-radius:16px}
-    @media (max-width:640px){.menu{display:none}}
-  </style>
 </head>
 <body>
-  <!-- واتساب عائم: ضع رقمك بدل PLACEHOLDER -->
-  <a aria-label="راسلنا على واتساب" class="floating-wa" href="https://api.whatsapp.com/send?phone=PLACEHOLDER" target="_blank" rel="noopener">
-    <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M19.11 17.52c-.29-.14-1.68-.83-1.94-.92-.26-.1-.45-.14-.64.14-.19.29-.74.92-.91 1.11-.17.19-.34.21-.63.07-.29-.14-1.21-.45-2.3-1.45-.85-.76-1.42-1.7-1.59-1.99-.17-.29-.02-.46.12-.6.12-.12.29-.31.43-.46.14-.15.19-.24.29-.41.1-.19.05-.36-.02-.5-.07-.14-.64-1.54-.88-2.11-.23-.55-.47-.48-.64-.49l-.55-.01c-.19 0-.5.07-.76.36-.26.29-1 1-1 2.43 0 1.43 1.02 2.8 1.16 2.99.14.19 2.01 3.07 4.87 4.31.68.3 1.21.48 1.63.61.68.22 1.3.19 1.79.12.55-.08 1.68-.69 1.92-1.36.24-.67.24-1.24.17-1.36-.07-.12-.26-.19-.55-.33zM16.03 3C9.39 3 4 8.36 4 14.97c0 2.61.86 5.02 2.32 6.98L5 29l7.22-1.88c1.9 1.04 4.09 1.64 6.41 1.64 6.64 0 12.03-5.36 12.03-11.97C30.66 8.36 25.27 3 18.63 3h-2.6z"/></svg>
-  </a>  <header>
-    <div class="container">
-      <nav>
-        <a class="brand" href="#home" aria-label="الرئيسية">
-          <span class="logo" aria-hidden="true"></span>
-          <strong>اسم العلامة</strong>
-        </a>
-        <div class="menu" role="navigation" aria-label="القائمة الرئيسية">
-          <a href="#services">الخدمات</a>
-          <a href="#work">الأعمال</a>
-          <a href="#pricing">الأسعار</a>
-          <a href="#contact">اتصل بنا</a>
-        </div>
+  <!-- زر واتساب ثابت -->
+  <a class="wa-float" aria-label="تواصل عبر واتساب" target="_blank"
+     href="https://api.whatsapp.com/send/?phone=009733375858&text&type=phone_number&app_absent=0&wame_ctl=1&fbclid=PAVERDUAMe-PRleHRuA2FlbQIxMAABpy2YNJeLRL-4zNdK9fFfRNj8CnZmUeY4VYnZasWv9_t7PH9yrv_ljD2SOO5P_aem_NJ1dXRE6r62r9Hh0br7slA">
+    <span class="wa-btn">
+      <svg width="22" height="22" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+        <path fill="#fff" d="M19.11 17.63c-.28-.14-1.67-.82-1.93-.91-.26-.1-.45-.14-.64.14-.19.28-.73.91-.9 1.09-.17.19-.33.21-.61.07-.28-.14-1.17-.43-2.23-1.36-.82-.73-1.37-1.64-1.53-1.92-.16-.28-.02-.43.12-.57.12-.12.28-.31.4-.47.14-.16.19-.28.28-.47.09-.19.05-.35-.02-.5-.07-.14-.64-1.55-.88-2.12-.23-.56-.47-.49-.64-.49-.16 0-.35-.02-.54-.02-.19 0-.5.07-.76.35-.26.28-1 1-.99 2.45.01 1.45 1.03 2.85 1.18 3.04.14.19 2.03 3.11 4.93 4.36.69.3 1.23.48 1.65.61.69.22 1.32.19 1.82.12.56-.08 1.67-.68 1.9-1.34.23-.66.23-1.23.16-1.34-.07-.11-.26-.18-.54-.32z"/>
+        <path fill="#fff" d="M16 2.67c-7.33 0-13.33 6-13.33 13.33 0 2.35.62 4.68 1.8 6.71L2.67 29.33l6.83-1.77A13.25 13.25 0 0 0 29.33 16C29.33 8.67 23.33 2.67 16 2.67zm7.74 20.93c-1.01 1.01-2.19 1.8-3.51 2.35-1.36.56-2.81.85-4.3.85-1.86 0-3.66-.43-5.29-1.25l-.38-.19-3.92 1.02 1.05-3.82-.2-.39a10.62 10.62 0 0 1-1.22-5.04c0-1.49.29-2.94.85-4.3.56-1.32 1.34-2.5 2.35-3.51 1.01-1.01 2.19-1.8 3.51-2.35 1.36-.56 2.81-.85 4.3-.85s2.94.29 4.3.85c1.32.56 2.5 1.34 3.51 2.35 1.01 1.01 1.8 2.19 2.35 3.51.56 1.36.85 2.81.85 4.3s-.29 2.94-.85 4.3c-.56 1.32-1.34 2.5-2.35 3.51z"/>
+      </svg>
+      واتساب الآن
+    </span>
+  </a>  <header class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="#home">
+        <span class="logo" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <path fill="#03111a" d="M5 12c0-4.418 3.582-8 8-8 1.657 0 3 1.343 3 3v1h1c1.657 0 3 1.343 3 3 0 4.418-3.582 8-8 8S5 16.418 5 12z"/>
+          </svg>
+        </span>
+        <span>تصاميم البحرين</span>
+      </a>
+      <nav class="links" aria-label="التنقل">
+        <a href="#services">الخدمات</a>
+        <a href="#portfolio">معرض الأعمال</a>
+        <a href="#pricing">الباقات</a>
+        <a href="#about">من نحن</a>
+        <a href="#contact">تواصل</a>
       </nav>
+      <div class="cta">
+        <a class="btn outline" href="tel:+97333375858" aria-label="اتصال هاتف">اتصل الآن: 0097333375858</a>
+        <a class="btn" target="_blank"
+           href="https://api.whatsapp.com/send/?phone=009733375858&text&type=phone_number&app_absent=0&wame_ctl=1&fbclid=PAVERDUAMe-PRleHRuA2FlbQIxMAABpy2YNJeLRL-4zNdK9fFfRNj8CnZmUeY4VYnZasWv9_t7PH9yrv_ljD2SOO5P_aem_NJ1dXRE6r62r9Hh0br7slA">تواصل واتساب</a>
+        <button class="menu-btn btn outline" id="menuBtn" aria-expanded="false" aria-controls="mobileNav">القائمة</button>
+      </div>
     </div>
   </header>  <main id="home" class="hero">
-    <div class="container">
-      <div class="glass hero-card">
-        <span class="badge">مواقع سريعة وآمنة</span>
-        <span class="badge">تحسين لمحركات البحث SEO</span>
-        <span class="badge">تصميم متجاوب</span>
-        <h1>نصمم مواقع <span style="color:var(--primary)">إبداعية</span> تزيد مبيعاتك</h1>
-        <p>صفحة هبوط عربية حديثة، مُحسّنة للأداء والبحث، مع بنية سهلة التخصيص. استبدل النصوص والروابط لتصبح جاهزة للإطلاق خلال دقائق.</p>
-        <div class="kpis">
-          <div class="kpi">سرعة تحميل: &lt; 1.5s</div>
-          <div class="kpi">أفضل ممارسات: 100/100</div>
-          <div class="kpi">إمكانية وصول: +AA</div>
+    <div class="container hero-grid">
+      <div>
+        <span class="badge">مواقع حديثة — سريعة — آمنة</span>
+        <h1>نصمم مواقع إلكترونية ترفع مبيعاتك وتُبرز علامتك في البحرين</h1>
+        <p>واجهات عربية أنيقة، تحسين سرعة وSEO، تكامل واتساب ودفع إلكتروني، ولوحة تحكم سهلة — كل ما تحتاجه للانطلاق بثقة.</p>
+        <div class="card">
+          <div class="bullet"><strong>✓</strong> تصميم متجاوب يعمل على الجوال والكمبيوتر</div>
+          <div class="bullet"><strong>✓</strong> استضافة وشهادة أمان SSL وإيميلات مهنية</div>
+          <div class="bullet"><strong>✓</strong> دعم فني سريع بإشراف <b>فاضل الريس</b></div>
         </div>
-        <div style="margin-top:1rem;display:flex;gap:.8rem;flex-wrap:wrap">
-          <a class="btn btn-primary" href="#contact">ابدأ الآن</a>
-          <a class="btn btn-outline" href="#work">شاهد أعمالنا</a>
+        <div class="cta" style="margin-top:14px">
+          <a class="btn" target="_blank" href="https://api.whatsapp.com/send/?phone=009733375858&text&type=phone_number&app_absent=0&wame_ctl=1&fbclid=PAVERDUAMe-PRleHRuA2FlbQIxMAABpy2YNJeLRL-4zNdK9fFfRNj8CnZmUeY4VYnZasWv9_t7PH9yrv_ljD2SOO5P_aem_NJ1dXRE6r62r9Hh0br7slA">اطلب عرض سعر الآن</a>
+          <a class="btn outline" href="#services">تعرّف على خدماتنا</a>
+        </div>
+      </div>
+      <div class="preview card" aria-hidden="true">
+        <div class="mock">
+          <span class="status-dot"></span>
         </div>
       </div>
     </div>
   </main>  <section id="services">
     <div class="container">
-      <h2 class="section-title">خدماتنا</h2>
-      <p class="section-sub">نقدّم حزمة كاملة من تصميم واجهات المستخدم حتى الإطلاق والتحسين.</p>
+      <div class="section-head">
+        <h2>الخدمات</h2>
+        <span class="chip">نخدم جميع محافظات البحرين</span>
+      </div>
       <div class="grid grid-3">
-        <div class="card">
-          <h3>تصميم واجهات عصرية</h3>
-          <ul class="features">
-            <li><i>✔</i> ألوان وهوية بصرية متناسقة</li>
-            <li><i>✔</i> تجربة مستخدم سهلة وواضحة</li>
-            <li><i>✔</i> متجاوب مع الجوال والتابلت</li>
-          </ul>
-        </div>
-        <div class="card">
-          <h3>برمجة وأداء عالي</h3>
-          <ul class="features">
-            <li><i>✔</i> HTML/CSS/JS نظيفة وحديثة</li>
-            <li><i>✔</i> ضغط الصور والملفات</li>
-            <li><i>✔</i> تحسين السرعة ودرجة الويب فيتالس</li>
-          </ul>
-        </div>
-        <div class="card">
-          <h3>تحسين SEO</h3>
-          <ul class="features">
-            <li><i>✔</i> بيانات منظمة (Schema)</li>
-            <li><i>✔</i> كلمات مفتاحية وعناوين محسّنة</li>
-            <li><i>✔</i> خرائط موقع وملف robots.txt</li>
-          </ul>
-        </div>
+        <article class="service card">
+          <h3>تصميم وتطوير مواقع</h3>
+          <p class="muted">مواقع مؤسسية وهبوط بإطارات حديثة وتجربة مستخدم عالية.</p>
+        </article>
+        <article class="service card">
+          <h3>متاجر إلكترونية</h3>
+          <p class="muted">إدارة منتجات، طرق دفع محلية، تتبع طلبات، وتكامل شحن.</p>
+        </article>
+        <article class="service card">
+          <h3>SEO وسرعة</h3>
+          <p class="muted">تحسين محركات البحث، بنية تقنية نظيفة، وقياس الأداء Core Web Vitals.</p>
+        </article>
+        <article class="service card">
+          <h3>استضافة وصيانة</h3>
+          <p class="muted">نسخ احتياطي، حماية، تحديثات شهرية، ومراقبة مستمرة.</p>
+        </article>
+        <article class="service card">
+          <h3>هوية بصرية</h3>
+          <p class="muted">شعارات وأدلة استخدام الألوان والخطوط لمظهر متناسق.</p>
+        </article>
+        <article class="service card">
+          <h3>تكاملات وأتمتة</h3>
+          <p class="muted">واتساب، بريد، خرائط، تحليلات، ونماذج تواصل موجهة.</p>
+        </article>
       </div>
     </div>
-  </section>  <section id="work">
+  </section>  <section id="portfolio">
     <div class="container">
-      <h2 class="section-title">أعمال مختارة</h2>
-      <p class="section-sub">لقطات وهمية — استبدلها بصور من مشاريعك.</p>
-      <div class="portfolio">
-        <figure class="shot"><img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200&auto=format&fit=crop" alt="نموذج موقع شركة" /></figure>
-        <figure class="shot"><img src="https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?q=80&w=1200&auto=format&fit=crop" alt="نموذج متجر إلكتروني" /></figure>
-        <figure class="shot"><img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop" alt="نموذج مدونة تقنية" /></figure>
+      <div class="section-head">
+        <h2>معرض الأعمال (نماذج)</h2>
+        <span class="muted">صور توضيحية — تُستبدل بأعمالك لاحقًا</span>
+      </div>
+      <div class="grid grid-4 portfolio">
+        <div class="tile"><span>مشروع 1</span></div>
+        <div class="tile"><span>مشروع 2</span></div>
+        <div class="tile"><span>مشروع 3</span></div>
+        <div class="tile"><span>مشروع 4</span></div>
+        <div class="tile"><span>مشروع 5</span></div>
+        <div class="tile"><span>مشروع 6</span></div>
+        <div class="tile"><span>مشروع 7</span></div>
+        <div class="tile"><span>مشروع 8</span></div>
       </div>
     </div>
   </section>  <section id="pricing">
     <div class="container">
-      <h2 class="section-title">باقات الأسعار</h2>
+      <div class="section-head">
+        <h2>باقات مرنة تناسب مشروعك</h2>
+        <span class="muted">سعر مخصص حسب الاحتياجات — تواصل لعرض دقيق</span>
+      </div>
       <div class="grid grid-3">
-        <div class="card">
-          <h3>أساسي</h3>
-          <p>صفحة واحدة + نموذج تواصل</p>
-          <p><strong>120$</strong></p>
+        <div class="plan">
+          <h3>صفحة هبوط</h3>
+          <div class="price">مناسبة للإعلانات</div>
+          <ul>
+            <li>قسم بطل + خدمات + نموذج</li>
+            <li>تكامل واتساب ومكالمات</li>
+            <li>تسليم سريع</li>
+          </ul>
+          <a class="btn" target="_blank" href="https://api.whatsapp.com/send/?phone=009733375858&text&type=phone_number&app_absent=0&wame_ctl=1&fbclid=PAVERDUAMe-PRleHRuA2FlbQIxMAABpy2YNJeLRL-4zNdK9fFfRNj8CnZmUeY4VYnZasWv9_t7PH9yrv_ljD2SOO5P_aem_NJ1dXRE6r62r9Hh0br7slA">اطلب الآن</a>
         </div>
-        <div class="card" style="border-color:var(--accent)">
-          <h3>احترافي</h3>
-          <p>حتى 5 صفحات + SEO أساسي</p>
-          <p><strong>390$</strong></p>
+        <div class="plan" style="outline:2px solid rgba(34,211,238,.35)">
+          <h3>موقع شركة</h3>
+          <div class="price">الأكثر طلبًا</div>
+          <ul>
+            <li>حتى 6 صفحات (من نحن/خدمات/أعمال/اتصال)</li>
+            <li>SEO أساسي، خريطة، نماذج</li>
+            <li>دعم وصيانة أول 3 أشهر</li>
+          </ul>
+          <a class="btn" target="_blank" href="https://api.whatsapp.com/send/?phone=009733375858&text&type=phone_number&app_absent=0&wame_ctl=1&fbclid=PAVERDUAMe-PRleHRuA2FlbQIxMAABpy2YNJeLRL-4zNdK9fFfRNj8CnZmUeY4VYnZasWv9_t7PH9yrv_ljD2SOO5P_aem_NJ1dXRE6r62r9Hh0br7slA">اطلب الآن</a>
         </div>
-        <div class="card">
-          <h3>متجر</h3>
-          <p>متجر بسيط + بوابة دفع</p>
-          <p><strong>790$</strong></p>
+        <div class="plan">
+          <h3>متجر إلكتروني</h3>
+          <div class="price">بيع أونلاين بسهولة</div>
+          <ul>
+            <li>إدارة منتجات وسلال شراء</li>
+            <li>تكامل دفع محلي</li>
+            <li>تقارير ومتابعة الطلبات</li>
+          </ul>
+          <a class="btn" target="_blank" href="https://api.whatsapp.com/send/?phone=009733375858&text&type=phone_number&app_absent=0&wame_ctl=1&fbclid=PAVERDUAMe-PRleHRuA2FlbQIxMAABpy2YNJeLRL-4zNdK9fFfRNj8CnZmUeY4VYnZasWv9_t7PH9yrv_ljD2SOO5P_aem_NJ1dXRE6r62r9Hh0br7slA">اطلب الآن</a>
         </div>
       </div>
     </div>
-  </section>  <section id="testimonials">
+  </section>  <section id="about">
     <div class="container">
-      <h2 class="section-title">قالوا عنا</h2>
-      <div class="testi">
-        <blockquote>
-          <p>“تجربة رائعة! الموقع أسرع من قبل وبدأنا نستقبل عملاء من البحث.”</p>
-          <footer>— أحمد، مالك متجر</footer>
-        </blockquote>
-        <blockquote>
-          <p>“تصميم أنيق ودعم سريع. أنصح بالتعامل معهم.”</p>
-          <footer>— فاطمة، صاحبة مشروع منزلي</footer>
-        </blockquote>
+      <div class="section-head">
+        <h2>من نحن</h2>
+      </div>
+      <div class="card">
+        <p>«تصاميم البحرين» فريق بحريني بقيادة <strong>فاضل الريس</strong> يقدّم حلول الويب الحديثة للشركات وروّاد الأعمال: مواقع سريعة وآمنة، متاجر متكاملة، وتحسين ظهور في محركات البحث. نعمل بشغف على بناء حضور رقمي يُحدث فرقًا في نتائج عملك.</p>
       </div>
     </div>
   </section>  <section id="contact">
     <div class="container">
-      <h2 class="section-title">اتصل بنا</h2>
-      <p class="section-sub">املأ النموذج وسنعاود الاتصال خلال 24 ساعة.</p>
-      <div class="grid grid-3" style="grid-template-columns:1.2fr .8fr">
-        <form name="contact" method="post" action="#">
-          <label for="name">الاسم</label>
-          <input id="name" name="name" placeholder="اسمك الكامل" required>
-          <label for="email">البريد الإلكتروني</label>
-          <input id="email" type="email" name="email" placeholder="name@example.com" required>
-          <label for="msg">رسالتك</label>
-          <textarea id="msg" name="message" rows="5" placeholder="كيف يمكننا مساعدتك؟" required></textarea>
-          <button class="btn btn-primary" type="submit">إرسال</button>
+      <div class="section-head">
+        <h2>تواصل معنا</h2>
+        <span class="muted">نرد خلال ساعات العمل في البحرين</span>
+      </div>
+      <div class="grid grid-3">
+        <div class="card">
+          <h3>المعلومات</h3>
+          <p class="muted">الهاتف: <a href="tel:+97333375858">0097333375858</a></p>
+          <p class="muted">واتساب: <a target="_blank" href="https://api.whatsapp.com/send/?phone=009733375858&text&type=phone_number&app_absent=0&wame_ctl=1&fbclid=PAVERDUAMe-PRleHRuA2FlbQIxMAABpy2YNJeLRL-4zNdK9fFfRNj8CnZmUeY4VYnZasWv9_t7PH9yrv_ljD2SOO5P_aem_NJ1dXRE6r62r9Hh0br7slA">راسلنا الآن</a></p>
+          <p class="muted">الإيميل: <a href="mailto:Richadvadv@gmail.com?subject=طلب عرض سعر — تصاميم البحرين">Richadvadv@gmail.com</a></p>
+        </div>
+        <form class="card" onsubmit="return handleSubmit(event)">
+          <h3>نموذج سريع</h3>
+          <label>الاسم
+            <input name="name" required placeholder="الاسم الكامل" />
+          </label>
+          <label>رقم التواصل
+            <input name="phone" required placeholder="مثال: 33375858" />
+          </label>
+          <label>وصف مشروعك
+            <textarea name="msg" rows="4" placeholder="موقع شركة، متجر، صفحة هبوط…"></textarea>
+          </label>
+          <button class="btn" type="submit">إرسال</button>
+          <p id="formNote" class="muted" style="margin:8px 0 0">سنرسل رسالتك عبر بريدك الإلكتروني.</p>
         </form>
         <div class="card">
-          <h3>معلومات التواصل</h3>
-          <p>الهاتف: <a href="tel:+97300000000">+973 00 000 000</a></p>
-          <p>واتساب: <a href="https://wa.me/97300000000" target="_blank" rel="noopener">راسلنا الآن</a></p>
-          <p>البريد: <a href="mailto:info@example.com">info@example.com</a></p>
-          <p>العنوان: المنامة، البحرين</p>
+          <h3>لماذا نحن؟</h3>
+          <ul>
+            <li>خبرة محلية وحلول مناسبة للسوق البحريني</li>
+            <li>تصميم عربي أنيق وتجربة مستخدم ممتازة</li>
+            <li>التزام بالمواعيد وجودة التسليم</li>
+          </ul>
         </div>
       </div>
     </div>
-  </section>  <footer class="footer">
-    <div class="container" style="display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap">
-      <small>© <span id="year"></span> اسم العلامة. جميع الحقوق محفوظة.</small>
-      <small><a href="#privacy">سياسة الخصوصية</a> • <a href="#terms">الشروط</a></small>
+  </section>  <footer>
+    <div class="container" style="display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap">
+      <div>© <span id="year"></span> تصاميم البحرين — جميع الحقوق محفوظة</div>
+      <div style="display:flex; gap:10px">
+        <a class="chip" href="mailto:Richadvadv@gmail.com?subject=استفسار — تصاميم البحرين">بريد</a>
+        <a class="chip" href="tel:+97333375858">اتصال</a>
+        <a class="chip" target="_blank" href="https://api.whatsapp.com/send/?phone=009733375858&text&type=phone_number&app_absent=0&wame_ctl=1&fbclid=PAVERDUAMe-PRleHRuA2FlbQIxMAABpy2YNJeLRL-4zNdK9fFfRNj8CnZmUeY4VYnZasWv9_t7PH9yrv_ljD2SOO5P_aem_NJ1dXRE6r62r9Hh0br7slA">واتساب</a>
+      </div>
     </div>
   </footer>  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script></body>
+    const yearEl = document.getElementById('year');
+    if(yearEl) yearEl.textContent = new Date().getFullYear();
+
+    function handleSubmit(e){
+      e.preventDefault();
+      const data = new FormData(e.target);
+      const name = data.get('name');
+      const phone = data.get('phone');
+      const msg = (data.get('msg')||'').toString();
+      const subject = encodeURIComponent('طلب تواصل من الموقع — تصاميم البحرين');
+      const body = encodeURIComponent(`الاسم: ${name}\nالهاتف: ${phone}\n\nالرسالة:\n${msg}`);
+      window.location.href = `mailto:Richadvadv@gmail.com?subject=${subject}&body=${body}`;
+      return false;
+    }
+
+    // قائمة الجوال (إظهار الروابط عند الضغط)
+    const menuBtn = document.getElementById('menuBtn');
+    if(menuBtn){
+      menuBtn.addEventListener('click', ()=>{
+        const nav = document.querySelector('.links');
+        const open = nav && getComputedStyle(nav).display !== 'none';
+        if(nav){
+          nav.style.display = open ? 'none' : 'flex';
+          menuBtn.setAttribute('aria-expanded', String(!open));
+        }
+      });
+    }
+
+    // تحسين الوصول عبر لوحة المفاتيح لزر واتساب العائم
+    const wa = document.querySelector('.wa-float');
+    if(wa){ wa.addEventListener('keydown', (ev)=>{ if(ev.key==='Enter'||ev.key===' '){ wa.click(); }}); }
+  </script>  <!-- ملاحظات:
+    1) استبدل البلايسهولدر في معرض الأعمال بصور مشاريعك.
+    2) لتفعيل نموذج الإرسال فعليًا، أضف تكاملًا عبر خادم أو خدمة نماذج.
+    3) تم تضمين زر واتساب بالرابط المرسل منكم كما هو.
+  --></body>
 </html>
