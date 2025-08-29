@@ -1,0 +1,348 @@
+<!DOCTYPE html><html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>2048 — نسخة صفحة واحدة</title>
+  <style>
+    :root{
+      --bg:#0c1026; --panel:#12183a; --panel2:#0a0f28; --text:#eaf0ff; --muted:#9fb0d1;
+      --accent:#7dd3fc; --gold:#ffd166; --danger:#ff6b6b; --ok:#34d399; --grid:#1a2a5a;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Noto Kufi Arabic", "Noto Sans Arabic", Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      color:var(--text);
+      background:
+        radial-gradient(900px 500px at 80% -10%, #1d2360 0%, var(--bg) 60%) fixed,
+        linear-gradient(180deg, #0a0e22, #0b0f29) fixed;
+      display:grid; place-items:center; padding:18px;
+    }
+    .wrap{ width:min(94vw, 880px); }
+    .card{ background:linear-gradient(180deg, var(--panel), var(--panel2)); border:1px solid #263466;
+      border-radius:20px; box-shadow:0 12px 34px rgba(0,0,0,.45); padding:16px; }
+    .top{ display:flex; gap:12px; align-items:center; justify-content:space-between; border-bottom:1px dashed #2a3a6d; padding-bottom:10px; }
+    .title{ font-size:20px; font-weight:800; letter-spacing:.3px }
+    .right{ display:flex; gap:10px; align-items:center; flex-wrap:wrap }
+    .chip{ background:#0d1332; border:1px solid #203063; color:var(--text); padding:8px 12px; border-radius:12px; font-weight:700; font-size:14px; min-width:110px; text-align:center }
+    .btns{ display:flex; gap:8px; flex-wrap:wrap }
+    button{ appearance:none; cursor:pointer; border:1px solid #24356b; background:#101941; color:var(--text);
+      padding:9px 14px; border-radius:12px; font-weight:800; font-size:14px; min-width:92px; transition:transform .06s ease, box-shadow .2s ease }
+    button:hover{ transform:translateY(-1px) }
+    .accent{ background:#112b44; border-color:#2c4f76 }
+    .danger{ background:#2a1320; border-color:#6a2137 }
+    .ok{ background:#0f2a21; border-color:#1f6a52 }.content{ display:grid; grid-template-columns: 1fr; gap:14px; margin-top:12px }
+.board-wrap{ display:grid; grid-template-columns: 1fr 320px; gap:14px }
+@media (max-width: 850px){ .board-wrap{ grid-template-columns: 1fr } }
+
+.board{
+  position:relative; user-select:none; -webkit-user-select:none; touch-action:none;
+  border-radius:16px; background:#0b1128; border:1px solid #1d2b58; padding:14px; display:grid; gap:10px;
+  grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(4, 1fr);
+}
+.cell{ background:#0f173b; border:1px solid #24356a; border-radius:12px; height: min(19vw, 120px) }
+@media (min-width: 700px){ .cell{ height:110px } }
+.tile{
+  display:flex; align-items:center; justify-content:center; font-weight:900; font-size:34px;
+  border-radius:12px; border:1px solid rgba(255,255,255,.08); text-shadow:0 2px 0 rgba(0,0,0,.2);
+  box-shadow: inset 0 2px 0 rgba(255,255,255,.08), inset 0 -2px 0 rgba(0,0,0,.25);
+}
+.empty{opacity:.24; color:transparent}
+
+/* ألوان المربعات */
+.v2{ background:#edf2ff; color:#1f2540 }
+.v4{ background:#dbe4ff; color:#1f2540 }
+.v8{ background:#c7f9cc; color:#0b2b1e }
+.v16{ background:#b5f7e0; color:#093a2c }
+.v32{ background:#a0f0ff; color:#0a2a37 }
+.v64{ background:#90dbf4; color:#05212b }
+.v128{ background:#ffd166; color:#5a3a00; font-size:30px }
+.v256{ background:#fca5a5; color:#3a0a0a; font-size:30px }
+.v512{ background:#f9a8d4; color:#351328; font-size:30px }
+.v1024{ background:#c4b5fd; color:#22124b; font-size:26px }
+.v2048{ background:#facc15; color:#1e1600; font-size:26px }
+.v4096{ background:#fb923c; color:#2b0b05; font-size:24px }
+
+.side{
+  background:#0c132f; border:1px solid #203061; border-radius:14px; padding:12px; display:grid; gap:10px;
+}
+.legend{ color:var(--muted); line-height:1.7; font-size:14px }
+.kbd{ background:#0a0f26; padding:2px 8px; border:1px solid #1b2856; border-radius:8px }
+
+.footer{ color:var(--muted); font-size:12px; text-align:center; margin-top:8px }
+
+.overlay{ position:fixed; inset:0; display:none; place-items:center; background:rgba(6,9,20,.65); backdrop-filter:blur(4px); z-index:10 }
+.panel{ width:min(92vw, 680px); background:#0e1434; border:1px solid #243266; border-radius:16px; padding:18px }
+.panel h2{ margin:0 0 8px }
+.panel .row{ display:flex; gap:10px; justify-content:end; margin-top:10px }
+
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card" role="region" aria-label="لعبة 2048">
+      <div class="top">
+        <div class="title">🎰 2048 — نسخة جميلة وخفيفة (HTML واحدة)</div>
+        <div class="right">
+          <div class="chip">النقاط: <span id="score">0</span></div>
+          <div class="chip">أفضل نتيجة: <span id="best">0</span></div>
+          <div class="btns" role="toolbar" aria-label="أزرار التحكم">
+            <button id="newBtn" class="accent">لعبة جديدة</button>
+            <button id="undoBtn" class="ok" title="تراجع لآخر حركة (U)">تراجع</button>
+            <button id="helpBtn" title="تعليمات (؟)">تعليمات</button>
+            <button id="resetBestBtn" class="danger" title="إعادة أفضل نتيجة">تصـفير الأفضل</button>
+          </div>
+        </div>
+      </div><div class="content">
+    <div class="board-wrap">
+      <div>
+        <div id="board" class="board" aria-label="لوح 4×4">
+          <!-- خلايا الخلفية -->
+          <div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
+          <div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
+          <div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
+          <div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
+        </div>
+      </div>
+      <div class="side">
+        <div class="legend">
+          الهدف: اجمع المربعات للوصول إلى <b>2048</b> (وأبعد إن أردت).
+        </div>
+        <div class="legend">
+          التحكم:
+          <span class="kbd">↑</span> <span class="kbd">↓</span> <span class="kbd">←</span> <span class="kbd">→</span>
+          أو <span class="kbd">W/A/S/D</span> — وعلى الجوال اسحب باتجاه الحركة.
+        </div>
+        <div class="legend">المسافة: إيقاف مؤقت/استئناف — <span class="kbd">U</span> تراجع لآخر حركة — <span class="kbd">N</span> لعبة جديدة.</div>
+        <div class="legend">تحفَظ أفضل نتيجة تلقائيًا على جهازك.</div>
+      </div>
+    </div>
+    <div class="footer">برمجة وتطوير : <b>فاضل الريس</b></div>
+  </div>
+</div>
+
+  </div>  <!-- طبقة الرسائل -->  <div id="overlay" class="overlay" aria-hidden="true">
+    <div class="panel">
+      <h2 id="ovTitle">رسالة</h2>
+      <div id="ovBody" class="legend"></div>
+      <div class="row">
+        <button id="ovClose" class="accent">حسنًا</button>
+      </div>
+    </div>
+  </div>  <script>
+  (()=>{
+    const SIZE = 4;
+    const PROB_4 = 0.1; // نسبة ظهور 4 بدل 2
+
+    const scoreEl = document.getElementById('score');
+    const bestEl = document.getElementById('best');
+    const boardEl = document.getElementById('board');
+    const overlay = document.getElementById('overlay');
+    const ovTitle = document.getElementById('ovTitle');
+    const ovBody = document.getElementById('ovBody');
+
+    let board, score, best=0, won=false, paused=false;
+    let prevBoard=null, prevScore=0; // للتراجع
+
+    // تحميل/حفظ
+    function load(){
+      try {
+        best = Number(localStorage.getItem('g2048_best')||0);
+        const saved = localStorage.getItem('g2048_state');
+        if(saved){
+          const st = JSON.parse(saved);
+          if(st && st.board && Array.isArray(st.board) && st.board.length===SIZE) {
+            board = st.board; score = st.score||0; won = !!st.won; render(); updateScores();
+            return;
+          }
+        }
+      } catch(e) {}
+      // إن لم يوجد حفظ
+      newGame();
+    }
+    function save(){
+      try { localStorage.setItem('g2048_state', JSON.stringify({board, score, won})); } catch(e) {}
+      try { localStorage.setItem('g2048_best', String(best)); } catch(e) {}
+    }
+
+    function newEmpty(){ return Array.from({length:SIZE}, ()=> Array(SIZE).fill(0)); }
+    function clone(b){ return b.map(r=>r.slice()); }
+
+    function newGame(){
+      board = newEmpty(); score = 0; won = false; paused = false; hideOverlay();
+      addRandomTile(); addRandomTile();
+      updateScores(); render(); save();
+    }
+
+    function updateScores(){
+      scoreEl.textContent = score;
+      best = Math.max(best, score);
+      bestEl.textContent = best;
+      save();
+    }
+
+    // رسم اللوح
+    function render(){
+      // امسح كل ما عدا خلايا الخلفية
+      boardEl.querySelectorAll('.tile, .empty').forEach(el=> el.remove());
+      // أنشئ شبكة البلاطات
+      for(let r=0;r<SIZE;r++){
+        for(let c=0;c<SIZE;c++){
+          const v = board[r][c];
+          const cell = document.createElement('div');
+          cell.className = 'tile ' + (v? ('v'+v) : 'empty');
+          cell.textContent = v? v : '·';
+          cell.setAttribute('aria-label', v? String(v) : 'فارغ');
+          // ضع في المكان المناسب داخل الشبكة
+          cell.style.gridColumn = (c+1);
+          cell.style.gridRow = (r+1);
+          boardEl.appendChild(cell);
+        }
+      }
+    }
+
+    // منطق الحركة
+    function slideLine(line){
+      // إزالة الأصفار
+      const arr = line.filter(v=>v!==0);
+      // دمج مرة واحدة لكل زوج
+      for(let i=0;i<arr.length-1;i++){
+        if(arr[i]!==0 && arr[i]===arr[i+1]){
+          arr[i] *= 2; score += arr[i]; arr[i+1]=0; i++; // تخطِ التالي بعد الدمج
+        }
+      }
+      // ضغط مرة أخرى
+      const out = arr.filter(v=>v!==0);
+      while(out.length<SIZE) out.push(0);
+      return out;
+    }
+
+    function move(dir){
+      if(paused) return;
+      prevBoard = clone(board); prevScore = score; // لحفظ حالة التراجع
+      let moved = false;
+      if(dir==='left'){
+        for(let r=0;r<SIZE;r++){
+          const orig = board[r].slice();
+          const sl = slideLine(orig);
+          if(!arraysEqual(sl, orig)) moved=true;
+          board[r]=sl;
+        }
+      } else if(dir==='right'){
+        for(let r=0;r<SIZE;r++){
+          const orig = board[r].slice();
+          const rev = slideLine(orig.slice().reverse()).reverse();
+          if(!arraysEqual(rev, orig)) moved=true;
+          board[r]=rev;
+        }
+      } else if(dir==='up'){
+        for(let c=0;c<SIZE;c++){
+          const col = []; for(let r=0;r<SIZE;r++) col.push(board[r][c]);
+          const sl = slideLine(col);
+          for(let r=0;r<SIZE;r++){ if(board[r][c]!==sl[r]) moved=true; board[r][c]=sl[r]; }
+        }
+      } else if(dir==='down'){
+        for(let c=0;c<SIZE;c++){
+          const col = []; for(let r=0;r<SIZE;r++) col.push(board[r][c]);
+          const rev = slideLine(col.reverse()).reverse();
+          for(let r=0;r<SIZE;r++){ if(board[r][c]!==rev[r]) moved=true; board[r][c]=rev[r]; }
+        }
+      }
+      if(moved){
+        addRandomTile();
+        updateScores();
+        render();
+        checkWin();
+        checkGameOver();
+        save();
+      } else {
+        // لم تتحرك، لا شيء
+      }
+    }
+
+    function arraysEqual(a,b){ if(a.length!==b.length) return false; for(let i=0;i<a.length;i++){ if(a[i]!==b[i]) return false; } return true; }
+
+    function addRandomTile(){
+      const empties = [];
+      for(let r=0;r<SIZE;r++) for(let c=0;c<SIZE;c++) if(board[r][c]===0) empties.push([r,c]);
+      if(empties.length===0) return;
+      const [r,c] = empties[Math.floor(Math.random()*empties.length)];
+      board[r][c] = Math.random()<PROB_4 ? 4 : 2;
+    }
+
+    function canMove(){
+      // يوجد فراغ؟
+      for(let r=0;r<SIZE;r++) for(let c=0;c<SIZE;c++) if(board[r][c]===0) return true;
+      // فحص دمج ممكن
+      for(let r=0;r<SIZE;r++){
+        for(let c=0;c<SIZE;c++){
+          const v = board[r][c];
+          if(r+1<SIZE && board[r+1][c]===v) return true;
+          if(c+1<SIZE && board[r][c+1]===v) return true;
+        }
+      }
+      return false;
+    }
+
+    function checkGameOver(){
+      if(!canMove()){
+        showOverlay('انتهت اللعبة', 'لا مزيد من الحركات المتاحة. ابدأ من جديد للمحاولة مرة أخرى.');
+      }
+    }
+
+    function checkWin(){
+      if(won) return;
+      for(let r=0;r<SIZE;r++) for(let c=0;c<SIZE;c++) if(board[r][c]===2048){
+        won = true; save();
+        showOverlay('ممتاز! وصلت إلى 2048 🎉', 'يمكنك المتابعة لتحطيم رقمك أو بدء لعبة جديدة.');
+        return;
+      }
+    }
+
+    // تراجع
+    function undo(){
+      if(!prevBoard) return; board = clone(prevBoard); score = prevScore; render(); updateScores(); save(); hideOverlay();
+    }
+
+    // طبقة الرسائل
+    function showOverlay(title, body){ ovTitle.textContent=title; ovBody.textContent=body; overlay.style.display='grid'; overlay.setAttribute('aria-hidden','false'); }
+    function hideOverlay(){ overlay.style.display='none'; overlay.setAttribute('aria-hidden','true'); }
+
+    // إدخال المستخدم
+    document.addEventListener('keydown', e=>{
+      if(e.code.startsWith('Arrow')) e.preventDefault();
+      switch(e.code){
+        case 'ArrowLeft': case 'KeyA': move('left'); break;
+        case 'ArrowRight': case 'KeyD': move('right'); break;
+        case 'ArrowUp': case 'KeyW': move('up'); break;
+        case 'ArrowDown': case 'KeyS': move('down'); break;
+        case 'Space': paused = !paused; if(!paused) hideOverlay(); else showOverlay('إيقاف مؤقت', 'اضغط مسافة للمتابعة.'); break;
+        case 'KeyU': undo(); break;
+        case 'KeyN': newGame(); break;
+      }
+    });
+
+    // لمس للجوال (سحب)
+    let tStart=null;
+    boardEl.addEventListener('touchstart', e=>{ if(e.touches[0]) tStart={x:e.touches[0].clientX,y:e.touches[0].clientY}; }, {passive:true});
+    boardEl.addEventListener('touchend', e=>{
+      if(!tStart) return; const t = e.changedTouches[0]; const dx = t.clientX - tStart.x; const dy = t.clientY - tStart.y; const ax=Math.abs(dx), ay=Math.abs(dy);
+      if(Math.max(ax,ay) < 24) { tStart=null; return; }
+      if(ax>ay) move(dx>0? 'right':'left'); else move(dy>0? 'down':'up');
+      tStart=null;
+    }, {passive:true});
+
+    // أزرار
+    document.getElementById('newBtn').onclick = ()=> newGame();
+    document.getElementById('undoBtn').onclick = ()=> undo();
+    document.getElementById('helpBtn').onclick = ()=> showOverlay('تعليمات سريعة', 'حرّك المربعات بجهات الاتجاه أو اسحب على الجوال. دمج مربعات متساوية يمنحك نقاطًا. الهدف الوصول إلى 2048. زر التراجع يرجعك حركة واحدة.');
+    document.getElementById('resetBestBtn').onclick = ()=>{
+      if(confirm('هل تريد تصفير أفضل نتيجة؟')){ best=0; bestEl.textContent='0'; save(); }
+    };
+    document.getElementById('ovClose').onclick = ()=> hideOverlay();
+
+    // بدء
+    load();
+  })();
+  </script></body>
+</html>
