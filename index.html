@@ -24,7 +24,7 @@
   .label{font-size:.85rem; color:var(--muted); font-weight:700}
   .value{font-weight:800; font-size:1rem; font-variant-numeric:tabular-nums}
   .card{background:#fff; border:1px solid var(--border); border-radius:12px; box-shadow:var(--shadow); padding:12px}
-  .card h3{margin:0 0 10px; font-size:1rem; font-weight:800; text-align:center;} /* ← الوسط */
+  .card h3{margin:0 0 10px; font-size:1rem; font-weight:800; text-align:center;} /* العنوان بالوسط */
   table{width:100%; border-collapse:collapse}
   th,td{padding:12px; border-bottom:1px solid #f0f0f0; font-size:1rem}
   th{background:#fafafa; font-weight:800}
@@ -88,12 +88,12 @@
       </table>
     </section>
 
-    <!-- يبقى مخفيًا إن لم توجد مناسبات -->
+    <!-- صندوق المناسبات: يظهر فقط عند وجود مناسبات -->
     <section class="events" id="eventsBox">
       <h3>مناسبات اليوم</h3>
       <div class="evtGrid">
-        <div class="evtCol"><h4>اليوم</h4><div id="eventsToday"></div></div>
-        <div class="evtCol"><h4>الليلة</h4><div id="eventsTonight"></div></div>
+        <div class="evtCol" id="colToday"><h4>اليوم</h4><div id="eventsToday"></div></div>
+        <div class="evtCol" id="colNight"><h4>الليلة</h4><div id="eventsTonight"></div></div>
       </div>
     </section>
 
@@ -129,7 +129,6 @@
 
 <script>
 /* ========================= إعدادات عامة ========================= */
-const START_HIJRI_AFTER_MAGHRIB = false; // ← أوقفنا انتقال اليوم بعد المغرب لتصحيح الخلل
 const MAP=[
  {ar:"البحرين",en:"Bahrain",tz:"Asia/Bahrain",cities:[
    {ar:"المنامة",en:"Manama"},{ar:"المحرق",en:"Muharraq"},{ar:"مدينة عيسى",en:"Isa Town"},
@@ -145,7 +144,6 @@ const MAP=[
 const DEFAULT={countryEn:"Bahrain",countryAr:"البحرين",cityEn:"Manama",cityAr:"المنامة",tz:"Asia/Bahrain"};
 let current = JSON.parse(localStorage.getItem("jaq_prayer_place")||"null") || {...DEFAULT};
 let HIJRI_OFFSET_DAYS = Number(localStorage.getItem("jaq_hijri_offset_days")||"0");
-const EVENTS_SOURCE_URL = null;
 
 /* أحاديث */
 const HADITHS=[
@@ -162,7 +160,7 @@ function setHadith(){
   hadithText.textContent=h.t; hadithSource.textContent=h.s;
 }
 
-/* مناسبات مختصرة قابلة للتوسعة */
+/* تقويم مناسبات (مختصر قابل للتوسعة) */
 let EVENTS={
   "1-1":[{t:"رأس السنة الهجرية"}],
   "1-2":[{t:"دخول الإمام الحسين ع كربلاء"}],
@@ -214,19 +212,6 @@ let EVENTS={
   "12-24":[{t:"يوم المباهلة"}],
   "12-25":[{t:"يوم نزول سورة الإنسان"}]
 };
-async function mergeExternalEvents(){
-  if(!EVENTS_SOURCE_URL) return;
-  try{
-    const r=await fetch(EVENTS_SOURCE_URL,{cache:"no-store"});
-    if(!r.ok) throw new Error();
-    const j=await r.json();
-    const extra = j?.events || {};
-    for (const k of Object.keys(extra)){
-      EVENTS[k] = (EVENTS[k]||[]).concat(extra[k]);
-    }
-    try { renderEvents(); } catch {}
-  }catch(e){}
-}
 
 /* أدوات وقت/تنسيق */
 function to12h(raw){
@@ -245,7 +230,7 @@ function ymdInTZ(date, tz){
   return {Y:p.find(x=>x.type==='year').value, M:p.find(x=>x.type==='month').value, D:p.find(x=>x.type==='day').value};
 }
 
-/* ====== الهجري (Aladhan + تعويض) بدون “بعد المغرب” ====== */
+/* الهجري (Aladhan + تعويض) مع مطابقة اسم يوم الميلادي */
 const HIJRI_MONTHS_AR=["","محرم","صفر","ربيع الأول","ربيع الآخر","جمادى الأولى","جمادى الآخرة","رجب","شعبان","رمضان","شوال","ذو القعدة","ذو الحجة"];
 function hasIntlIslamic(){ try{ new Intl.DateTimeFormat('ar-SA-u-ca-islamic',{day:'numeric'}).format(new Date()); return true; }catch{ return false; } }
 function g2jd(y,m,d){ const a=Math.floor((14-m)/12); y=y+4800-a; m=m+12*a-3; return d + Math.floor((153*m+2)/5) + 365*y + Math.floor(y/4) - Math.floor(y/100) + Math.floor(y/400) - 32045; }
@@ -259,13 +244,6 @@ function jd2islamic(jd){
   const d = l2 - Math.floor((709*m)/24);
   const y = 30*n + j - 30;
   return {y,m,d};
-}
-
-/* أوقات الصلاة (مطلوبة للجدول فقط) */
-let lastTimings=null;
-function refGregorianDateForHijri(baseDate){
-  // بعد الإصلاح: نُبقي اليوم كما هو مدنيًا (لا انتقال بعد المغرب)
-  return new Date(baseDate);
 }
 async function fetchHijriFromAladhan(refDate){
   const {Y,M,D}=ymdInTZ(refDate, current.tz);
@@ -298,7 +276,8 @@ function localHijriFallback(refDate, civilWeekday){
   }catch{ return "التاريخ الهجري (غير متاح)"; }
 }
 
-/* تحديد الحدث القادم */
+/* أوقات الصلاة + تحديد القادم */
+let lastTimings=null;
 function nextKey(t, tz){
   const order=["Imsak","Fajr","Sunrise","Dhuhr","Asr","Sunset","Maghrib","Isha","Midnight"];
   const nowTZ=new Date(new Date().toLocaleString('en-US',{timeZone:tz}));
@@ -313,11 +292,7 @@ function nextKey(t, tz){
   if(!n) n=cand.sort((a,b)=>Math.abs(a.diff)-Math.abs(b.diff))[0];
   return n?.k||null;
 }
-
-/* صف جدول */
 function tr(name,val,next=false){return `<tr class="${next?'next':''}"><td class="name">${name}</td><td class="time">${to12h(val||'')}</td></tr>`;}
-
-/* تقدير الإمساك إذا غاب */
 function ensureImsak(t){
   if(!t.Imsak && t.Fajr){
     const pure=String(t.Fajr).replace(/\s*\(.*?\)\s*/g,"").trim();
@@ -327,8 +302,6 @@ function ensureImsak(t){
   }
   return t;
 }
-
-/* مواقيت الصلاة (method=0 جعفري) */
 async function fetchTimings(countryEn, cityEn){
   const url=`https://api.aladhan.com/v1/timingsByCity?city=${encodeURIComponent(cityEn)}&country=${encodeURIComponent(countryEn)}&method=0`;
   const r=await fetch(url); if(!r.ok) throw new Error("تعذّر جلب المواقيت");
@@ -336,7 +309,7 @@ async function fetchTimings(countryEn, cityEn){
   return j.data.timings;
 }
 
-/* الرسم العام */
+/* رسم الجدول + التاريخين + المناسبات */
 async function renderTimes(t, tz){
   const timings=ensureImsak({...t}); 
   lastTimings=timings;
@@ -359,18 +332,17 @@ async function renderTimes(t, tz){
   greg.textContent = new Intl.DateTimeFormat('ar',{timeZone:current.tz,weekday:'long',year:'numeric',month:'long',day:'numeric'}).format(nowTZ);
 
   const civilWeekday = new Intl.DateTimeFormat('ar',{timeZone:current.tz,weekday:'long'}).format(nowTZ);
-  const ref = refGregorianDateForHijri(nowTZ); // بدون انتقال بعد المغرب
   try{
-    const hijriObj = await fetchHijriFromAladhan(ref);
+    const hijriObj = await fetchHijriFromAladhan(nowTZ); // لليوم المدني الحالي
     hijri.textContent = formatHijriFromObj(hijriObj, civilWeekday);
-    await renderEventsWithHijri(hijriObj, ref);
+    await renderEventsWithHijri(hijriObj, nowTZ);
   }catch(e){
-    hijri.textContent = localHijriFallback(ref, civilWeekday);
-    renderEvents();
+    hijri.textContent = localHijriFallback(nowTZ, civilWeekday);
+    renderEventsFallback(nowTZ);
   }
 }
 
-/* مناسبات API */
+/* مناسبات باستخدام كائن الهجري من API */
 async function renderEventsWithHijri(hijriObjToday, refToday){
   const todayM = Number(hijriObjToday?.month?.number||0);
   const todayD = Number(hijriObjToday?.day||0);
@@ -386,10 +358,7 @@ async function renderEventsWithHijri(hijriObjToday, refToday){
 }
 
 /* مناسبات Fallback */
-function renderEvents(){
-  const nowTZ=new Date(new Date().toLocaleString('en-US',{timeZone:current.tz}));
-  const ref = refGregorianDateForHijri(nowTZ);
-
+function renderEventsFallback(ref){
   let todayM,todayD,nightM,nightD;
   if(hasIntlIslamic()){
     const p1=new Intl.DateTimeFormat('en-TN-u-ca-islamic',{timeZone:current.tz,year:'numeric',month:'numeric',day:'numeric'}).formatToParts(ref);
@@ -406,37 +375,44 @@ function renderEvents(){
   drawEvents(todayM, todayD, nightM, nightD);
 }
 
-/* إظهار/إخفاء المناسبات حسب القوائم */
+/* ——— هنا منطق الإظهار/الإخفاء حسب وجود المناسبات ——— */
 function drawEvents(todayM,todayD,nightM,nightD){
   const box=document.getElementById('eventsBox');
+  const colToday=document.getElementById('colToday');
+  const colNight=document.getElementById('colNight');
   const todayEl=document.getElementById('eventsToday');
   const nightEl=document.getElementById('eventsTonight');
 
   const todayList = EVENTS[`${todayM}-${todayD}`] || [];
   const nightList = EVENTS[`${nightM}-${nightD}`] || [];
 
+  // إذا لا توجد أي مناسبة إطلاقًا → أخفِ الصندوق كاملًا
   if(todayList.length===0 && nightList.length===0){
     box.style.display='none';
+    todayEl.innerHTML=""; nightEl.innerHTML="";
     return;
   }
+
+  // يوجد مناسبات: أظهر الصندوق
   box.style.display='block';
 
-  const itemHTML=(e)=>`<div class="evtItem"><span class="evtText">${e.t}</span></div>`;
-  todayEl.innerHTML = todayList.length ? todayList.map(itemHTML).join("") : `<div class="evtItem"><span class="evtText">لا توجد مناسبة.</span></div>`;
-  nightEl.innerHTML = nightList.length ? nightList.map(itemHTML).join("") : `<div class="evtItem"><span class="evtText">لا توجد مناسبة.</span></div>`;
-}
+  // أعرض عمود اليوم فقط عند وجود مناسبات فيه
+  if(todayList.length){
+    colToday.style.display='block';
+    todayEl.innerHTML = todayList.map(e=>`<div class="evtItem"><span class="evtText">${e.t}</span></div>`).join("");
+  }else{
+    colToday.style.display='none';
+    todayEl.innerHTML="";
+  }
 
-/* تحميل مناسبات خارجية (اختياري) */
-async function mergeExternalEvents(){
-  if(!EVENTS_SOURCE_URL) return;
-  try{
-    const r=await fetch(EVENTS_SOURCE_URL,{cache:"no-store"});
-    if(!r.ok) throw new Error();
-    const j=await r.json();
-    const extra=j?.events||{};
-    for(const k of Object.keys(extra)){ EVENTS[k]=(EVENTS[k]||[]).concat(extra[k]); }
-    try{ renderEvents(); }catch{}
-  }catch(e){}
+  // أعرض عمود الليلة فقط عند وجود مناسبات فيه
+  if(nightList.length){
+    colNight.style.display='block';
+    nightEl.innerHTML = nightList.map(e=>`<div class="evtItem"><span class="evtText">${e.t}</span></div>`).join("");
+  }else{
+    colNight.style.display='none';
+    nightEl.innerHTML="";
+  }
 }
 
 /* ========================= التشغيل ========================= */
@@ -453,16 +429,14 @@ async function load(){
     times.innerHTML=`<tr><td colspan="2" style="color:#b91c1c">تعذّر جلب المواقيت.</td></tr>`;
     document.getElementById('eventsBox').style.display='none';
     const nowTZ = new Date(new Date().toLocaleString('en-US',{timeZone:current.tz}));
-    const ref = refGregorianDateForHijri(nowTZ);
     const civilWeekday = new Intl.DateTimeFormat('ar',{timeZone:current.tz,weekday:'long'}).format(nowTZ);
     try{
-      const hj = await fetchHijriFromAladhan(ref);
+      const hj = await fetchHijriFromAladhan(nowTZ);
       hijri.textContent = formatHijriFromObj(hj, civilWeekday);
     }catch{
-      hijri.textContent = localHijriFallback(ref, civilWeekday);
+      hijri.textContent = localHijriFallback(nowTZ, civilWeekday);
     }
   }
-  mergeExternalEvents();
 }
 
 /* ساعة + حديث */
