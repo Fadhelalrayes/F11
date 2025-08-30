@@ -32,16 +32,18 @@ body{
   background:linear-gradient(180deg,var(--navy1),var(--navy2));
   border-radius:28px;
   box-shadow:0 25px 70px rgba(0,0,0,.6);
-  overflow:hidden;
+  overflow:hidden; /* لازم عشان الزوايا الدائرية */
   display:flex; flex-direction:column;
 }
 
-/* الشريط العلوي (واضح + ثابت) */
+/* الشريط العلوي (ثابت وواضح) */
 .topbar{
   position:sticky; top:0; z-index:20;
   display:flex; align-items:center; justify-content:space-between; gap:12px;
-  padding: calc(12px + env(safe-area-inset-top)) 20px 12px 20px; /* يبعد عن الحافة العلوية */
-  background:linear-gradient(180deg,rgba(10,25,49,.95),rgba(16,37,66,.78));
+  /* نزّله زيادة عشان ما ينقص داخل الإطار الدائري أو تحت شريط المتصفح */
+  margin-top: 8px;
+  padding: calc(28px + env(safe-area-inset-top, 0px)) 22px 14px 22px;
+  background:linear-gradient(180deg,rgba(10,25,49,.96),rgba(16,37,66,.82));
   border-bottom:2px solid var(--gold1);
   border-radius:0 0 16px 16px;
 }
@@ -63,6 +65,13 @@ body{
 }
 .icon-btn svg{
   width:28px; height:28px; stroke:var(--gold2); stroke-width:2.8; fill:none; overflow:visible;
+}
+
+/* أمان إضافي على الشاشات القصيرة */
+@media (max-height:700px){
+  .topbar{ padding-top: calc(34px + env(safe-area-inset-top, 0px)); }
+  .icon-btn{ width:46px; height:46px; }
+  .icon-btn svg{ width:24px; height:24px; }
 }
 
 /* تبويبات */
@@ -106,7 +115,7 @@ body{
   background:radial-gradient(circle at 30% 30%, var(--white), var(--gold2), var(--gold1));
   border:3px solid var(--gold1);
   display:grid; place-items:center;
-  font-family:"Amiri","Tahoma",serif; font-weight:700; font-size:34px; color:var(--navy1);
+  font-family:"Amiri","Tahoma",serif; font-weight:700; font-size:clamp(26px,5.2vw,34px); color:var(--navy1);
   cursor:pointer;
   box-shadow:0 0 35px rgba(212,175,55,.65);
   transition:transform .1s, box-shadow .25s ease;
