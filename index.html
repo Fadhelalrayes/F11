@@ -4,23 +4,20 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>الخِيرة بالقرآن | استخارة من الصفحة اليمنى</title>
-<meta name="description" content="الخِيرة بالقرآن: استخارة من الصفحة اليمنى (السطر الأول) مع إظهار رقم الصفحة، السورة والآية، والنتيجة المرافقة. بحث برقم الصفحة أو كلمات أو السورة والآية.">
+<meta name="description" content="الخِيرة بالقرآن: استخارة من الصفحة اليمنى (السطر الأول) مع عرض رقم الصفحة، السورة والآية، ونص الآية والنتيجة. بحث برقم الصفحة أو كلمات أو السورة والآية.">
 <meta name="keywords" content="استخارة, الخيرة, الخيرة بالقرآن, استخارة بالقرآن, صفحة يمين, السطر الأول, فاضل الريس">
 <link rel="canonical" href="https://example.com/">
-<meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
+<meta name="robots" content="index,follow">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ar_AR">
 <meta property="og:title" content="الخِيرة بالقرآن | استخارة بالقرآن الكريم">
-<meta property="og:description" content="استخارة دقيقة من الصفحة اليمنى (السطر الأول) مع نتائج مرتَّبة وإمكانيات بحث.">
+<meta property="og:description" content="استخارة دقيقة من الصفحة اليمنى (السطر الأول) مع نتائج مرتبة وإمكانيات بحث.">
 <meta property="og:url" content="https://example.com/">
 <meta property="og:site_name" content="الخِيرة بالقرآن">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="الخِيرة بالقرآن | استخارة بالقرآن الكريم">
-<meta name="twitter:description" content="استخارة من الصفحة اليمنى مع عرض السطر الأول والنتيجة.">
 <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@600;700;800&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
-<noscript><style>section.view{display:block !important}</style></noscript>
+<noscript><style>section.view{display:block!important}</style></noscript>
 <style>
 :root{
   --gold1:#fff4cc; --gold2:#f6d478; --gold3:#e9b84f; --gold4:#cf9a38;
@@ -43,14 +40,13 @@ body{
     url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="260" height="260" viewBox="0 0 260 260"><path d="M130 10l120 120-120 120L10 130z" fill="%23f2ead1" fill-opacity=".25"/></svg>') repeat;
   background-blend-mode:soft-light,normal,soft-light;
   font-family:"Tajawal",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
-  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
 }
 .container{width:min(1200px,96%);margin-inline:auto;padding:clamp(16px,2.5vw,28px) 0 36px}
 
 /* زخرفة */
 .medallion{
   width:clamp(70px,9vw,110px);height:clamp(70px,9vw,110px);
-  margin:0 auto calc(var(--space) * -1.3);
+  margin:0 auto calc(var(--space)*-1.3);
   position:relative;z-index:2;border-radius:50%;
   background:
     radial-gradient(circle at 38% 28%, rgba(255,255,255,.5), transparent 40%),
@@ -65,16 +61,13 @@ body{
 
 /* Hero */
 .hero{
-  position:relative;padding:calc(var(--space) * 1.8) var(--space) calc(var(--space) * 1.2);
+  position:relative;padding:calc(var(--space)*1.8) var(--space) calc(var(--space)*1.2);
   border-radius:var(--radius);
   background:radial-gradient(120% 180% at 50% -70%, rgba(255,255,255,.18), transparent 70%),
              linear-gradient(180deg,#141414 0%, #0c0c0c 55%, #070707 100%);
   color:#fff;box-shadow:var(--sh-xl);overflow:hidden;text-align:center
 }
-.title{
-  font-family:"Noto Kufi Arabic";font-weight:800;font-size:var(--fs-h1);
-  letter-spacing:.3px;margin:0 0 6px
-}
+.title{font-family:"Noto Kufi Arabic";font-weight:800;font-size:var(--fs-h1);margin:0 0 6px}
 .divider{
   width:min(240px,40%);height:16px;margin:12px auto 0;border-radius:999px;
   background:linear-gradient(90deg, transparent, rgba(255,255,255,.35), transparent),
@@ -82,7 +75,7 @@ body{
   box-shadow:0 8px 20px rgba(185,130,31,.35)
 }
 
-/* أزرار (روابط تعمل دائمًا) */
+/* أزرار */
 .row{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
 a.btn,button.btn{display:inline-block;text-decoration:none;position:relative;border:0;cursor:pointer;
   padding:12px clamp(18px,2.6vw,28px);border-radius:18px;min-width:clamp(150px,22vw,220px);
@@ -109,7 +102,7 @@ a.btn:hover,button.btn:hover{transform:translateY(-2px);filter:saturate(1.06);bo
 input,select{width:100%;padding:14px;border:1px solid #ead79f;border-radius:14px;background:#fff;font-size:clamp(14px,1.4vw,18px);box-shadow:inset 0 1px 3px rgba(0,0,0,.03)}
 .hidden{display:none}
 
-/* حديث */
+/* الحديث على الرئيسية: محاذاة الأطراف */
 .hadith-box{
   margin:16px auto 0;max-width:1100px;padding:clamp(14px,2vw,20px);
   border-radius:18px;text-align:right;
@@ -117,9 +110,11 @@ input,select{width:100%;padding:14px;border:1px solid #ead79f;border-radius:14px
              linear-gradient(180deg, var(--gold1), var(--gold2) 56%, var(--gold3));
   border:1px solid rgba(185,130,31,.35);box-shadow:var(--sh-md);color:#2b1f08
 }
-.hadith-box .q,.hadith-box .src{font-family:"Noto Kufi Arabic",sans-serif}
-.hadith-box .q{font-size:clamp(16px,1.7vw,20px);line-height:2}
+.hadith-box .q{font-family:"Noto Kufi Arabic",sans-serif;font-size:clamp(16px,1.6vw,19px);line-height:2.1;text-align:justify;text-justify:inter-word}
 .hadith-box .src{margin-top:8px;font-size:clamp(12px,1.2vw,13px);text-align:center;opacity:.9}
+
+/* الدعاء الكامل بخط أصغر */
+.dua-text{font-family:"Noto Kufi Arabic",sans-serif;font-size:clamp(14px,1.4vw,17px);line-height:2.15;text-align:justify;text-justify:inter-word;margin-bottom:8px}
 
 /* نتيجة */
 .result{background:#fffdf3;border:1px solid #f1e2b0;border-radius:18px;padding:var(--space)}
@@ -129,7 +124,7 @@ input,select{width:100%;padding:14px;border:1px solid #ead79f;border-radius:14px
 .blackbar{background:#0b0b0b;color:#fff;border-radius:12px;padding:10px 12px;margin:-6px 0 10px;overflow:auto}
 .verse-card{background:#fff;border-radius:16px;border:1px solid #eee;box-shadow:var(--sh-md);padding:12px;margin:10px 0;cursor:pointer}
 .verse-card:hover{box-shadow:0 18px 32px rgba(0,0,0,.12)}
-@media (min-width: 900px){ #search .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px} }
+@media (min-width:900px){ #search .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px} }
 .footer{margin-top:26px;text-align:center}
 .credit{display:inline-block;background:linear-gradient(180deg,#1a1a1a,#000);color:#fff;padding:10px 18px;border-radius:999px;border:1px solid rgba(255,255,255,.08);box-shadow:0 12px 26px rgba(0,0,0,.35)}
 
@@ -140,12 +135,6 @@ section.view.active{display:block}
 
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"WebSite","name":"الخِيرة بالقرآن","url":"https://example.com/","potentialAction":{"@type":"SearchAction","target":"https://example.com/#search","query-input":"required name=query"}}
-</script>
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
-{"@type":"ListItem","position":1,"name":"الصفحة الرئيسية","item":"https://example.com/#home"},
-{"@type":"ListItem","position":2,"name":"خيرة جديدة","item":"https://example.com/#khira"},
-{"@type":"ListItem","position":3,"name":"بحث","item":"https://example.com/#search"}]}
 </script>
 </head>
 <body>
@@ -172,11 +161,15 @@ section.view.active{display:block}
     <h2 id="khiraTitle" class="section-title">مراحل الخِيرة</h2>
     <ol style="margin:0 0 10px 0;line-height:2">
       <li>الأفضل الطهارة بالوضوء أو الغُسل، مع النية لله تعالى.</li>
-      <li>قراءة الدعاء المأثور.</li>
+      <li>قراءة الدعاء المأثور:</li>
     </ol>
     <div class="hadith-box" style="margin-top:10px">
-      <div class="q">
-        اللّهم إنّي أستخيرُك بعِلمك وأستقدِرُك بقدرتك وأسألك من فضلك العظيم…
+      <div class="dua-text">
+        اللّهم إنّي أستخيرُكَ بعِلمِكَ، وأستقدِرُكَ بقُدرَتِكَ، وأسألُكَ من فضلكَ العظيم،
+        فإنّكَ تقدِرُ ولا أقدِر، وتعلَمُ ولا أعلَم، وأنتَ علّامُ الغُيوب.
+        اللّهم إن كنتَ تعلمُ أنّ هذا الأمرَ — <b>وتُسمّيه باسمه</b> — خيرٌ لي في ديني ومعاشي وعاقبةِ أمري عاجلِه وآجلِه،
+        فاقدُرْه لي ويسّرْه لي ثم بارِكْ لي فيه، وإن كنتَ تعلمُ أنّ هذا الأمرَ شرٌّ لي في ديني ومعاشي وعاقبةِ أمري عاجلِه وآجلِه،
+        فاصرِفْه عنّي واصرِفْني عنه، واقدُرْ لي الخيرَ حيث كان، ثم أرضِني به.
       </div>
       <div class="src">دعاء الاستخارة</div>
     </div>
@@ -265,79 +258,76 @@ section.view.active{display:block}
 </div>
 
 <script>
-/* ========== إظهار الأقسام حسب الهاش (وتأكيد افتراضي) ========== */
+/* ===== تنقّل + إعادة ضبط تمنع ظهور النتائج قبل الطلب ===== */
+function resetKhira(){
+  const bx=document.getElementById('res-box');
+  if(bx) bx.classList.add('hidden');
+  ['vVerdict','vNotes','vPage','vSA','res-text','res-tags'].forEach(id=>{
+    const el=document.getElementById(id); if(!el) return;
+    if(id==='res-tags') el.innerHTML=''; else el.textContent='—';
+  });
+}
+function resetSearch(){
+  ['pBox','kBox','sBox'].forEach(id=>{const el=document.getElementById(id); if(el) el.classList.add('hidden');});
+  const sRes=document.getElementById('searchResult'); if(sRes) sRes.classList.add('hidden');
+  const vList=document.getElementById('versesList'); if(vList) vList.classList.add('hidden');
+  const vWrap=document.getElementById('versesWrap'); if(vWrap) vWrap.innerHTML='';
+  const pg=document.getElementById('pageInput'); if(pg) pg.value='';
+  const kw=document.getElementById('kwInput'); if(kw) kw.value='';
+  const ss=document.getElementById('suraSelect'); if(ss) ss.value='';
+  ['sPage','sSA','sVerdict','sNotes','searchText','searchTags'].forEach(id=>{
+    const el=document.getElementById(id); if(!el) return;
+    if(id==='searchTags') el.innerHTML=''; else el.textContent='—';
+  });
+}
 function activate(id){
   document.querySelectorAll('section.view').forEach(s=>s.classList.remove('active'));
   const el=document.getElementById(id||'home'); if(el) el.classList.add('active');
+  if(id==='khira') resetKhira();
+  if(id==='search') resetSearch();
 }
-function showFromHash(){
-  const id=(location.hash||'#home').slice(1);
-  activate(id);
-}
+function showFromHash(){ const id=(location.hash||'#home').slice(1); activate(id); }
 window.addEventListener('hashchange',showFromHash);
 
-/* ======== أدوات ======== */
+/* ===== أدوات ===== */
 const $=id=>document.getElementById(id);
-
-/* حكم مختصر */
-function verdictFrom(t=""){
-  if(/نهي|ناه[ية]/.test(t)) return "ناهية";
-  if(/ممتاز/.test(t)) return "ممتازة";
-  if(/حسنة/.test(t)) return "حسنة";
-  if(/وسط/.test(t)) return "وسط";
-  if(/جيدة|جيد/.test(t)) return "جيدة";
-  return "—";
-}
+function verdictFrom(t=""){ if(/نهي|ناه[ية]/.test(t)) return "ناهية"; if(/ممتاز/.test(t)) return "ممتازة"; if(/حسنة/.test(t)) return "حسنة"; if(/وسط/.test(t)) return "وسط"; if(/جيدة|جيد/.test(t)) return "جيدة"; return "—"; }
 function validatePage(p){
   if(!Number.isInteger(p)||p<1||p>603||p%2===0){alert("خطأ في رقم الصفحة\nالاستخارة على اليمين فقط: اختر عدد فردي بين 1 و 603.");return false;}
   if(!(p in window.PAGE_RESULT)){alert("هذه الصفحة ليست ضمن جدول الاستخارة الذي زوّدتني به.");return false;}
   return true;
 }
-
-/* جلب أول آية من الصفحة */
 async function firstAyahByPage(page){
   try{
     const r=await fetch(`https://api.quran.com/api/v4/verses/by_page/${page}?language=ar&fields=text_uthmani,verse_key,chapter_id,page_number`);
-    if(r.ok){const j=await r.json();const v=j.verses?.[0];
-      if(v){const s=v.chapter_id;const a=(v.verse_key||"").split(":")[1]||v.verse_number;return {text:v.text_uthmani||v.text,sura:s,ayah:a};}}
+    if(r.ok){const j=await r.json();const v=j.verses?.[0]; if(v){const s=v.chapter_id;const a=(v.verse_key||"").split(":")[1]||v.verse_number;return {text:v.text_uthmani||v.text,sura:s,ayah:a};}}
   }catch(e){}
   try{
     const r2=await fetch(`https://api.alquran.cloud/v1/page/${page}/quran-uthmani`);
-    if(r2.ok){const j2=await r2.json();const v=j2?.data?.ayahs?.[0];
-      if(v){return {text:v.text,sura:v.surah.number,ayah:v.numberInSurah};}}
+    if(r2.ok){const j2=await r2.json();const v=j2?.data?.ayahs?.[0]; if(v){return {text:v.text,sura:v.surah.number,ayah:v.numberInSurah};}}
   }catch(e){}
   return {text:null,sura:null,ayah:null};
 }
-
-/* عرض النتائج */
 function renderResult(target, page, notes, ay){
   const verdict=verdictFrom(notes||"");
   if(target==="kh"){
-    $('vVerdict').textContent=verdict;
-    $('vNotes').textContent=notes||"—";
-    $('vPage').textContent=page;
+    $('vVerdict').textContent=verdict; $('vNotes').textContent=notes||"—"; $('vPage').textContent=page;
     $('vSA').textContent=`سورة ${window.SURAH[+ay.sura]||("رقم "+ay.sura)} - الآية ${ay.ayah||"—"}`;
     $('res-text').textContent=ay.text||"(تعذّر جلب نص الآية)";
     $('res-tags').innerHTML=`<span class="badge">صفحة: ${page}</span><span class="badge">يمين · السطر الأول</span>`;
-    $('res-box').classList.remove('hidden');
-    $('res-box').scrollIntoView({behavior:"smooth",block:"center"});
+    $('res-box').classList.remove('hidden'); $('res-box').scrollIntoView({behavior:"smooth",block:"center"});
   }else{
-    $('sPage').textContent=page;
-    $('sSA').textContent=`سورة ${window.SURAH[+ay.sura]||("رقم "+ay.sura)} - الآية ${ay.ayah||"—"}`;
-    $('sVerdict').textContent=verdict;
-    $('sNotes').textContent=notes||"—";
+    $('sPage').textContent=page; $('sSA').textContent=`سورة ${window.SURAH[+ay.sura]||("رقم "+ay.sura)} - الآية ${ay.ayah||"—"}`;
+    $('sVerdict').textContent=verdict; $('sNotes').textContent=notes||"—";
     $('searchText').textContent=ay.text||"(تعذّر جلب نص الآية)";
     $('searchTags').innerHTML=`<span class="badge">صفحة: ${page}</span><span class="badge">يمين · السطر الأول</span>`;
-    $('searchResult').classList.remove('hidden');
-    $('searchResult').scrollIntoView({behavior:"smooth",block:"center"});
+    $('searchResult').classList.remove('hidden'); $('searchResult').scrollIntoView({behavior:"smooth",block:"center"});
   }
 }
 
-/* ========== تشغيل ========== */
+/* ===== تشغيل ===== */
 document.addEventListener('DOMContentLoaded',()=>{
-  // إظهار القسم الصحيح
-  showFromHash();
-  if(!document.querySelector('section.view.active')) activate('home');
+  showFromHash(); if(!document.querySelector('section.view.active')) activate('home');
 
   // أحاديث
   const HADITHS=[
@@ -347,56 +337,52 @@ document.addEventListener('DOMContentLoaded',()=>{
     {t:"قال رسول الله (صلى الله عليه وآله): من سعادة ابن آدم استخارته الله ورضاه بما قضى الله، ومن شقوة ابن آدم تركه استخارة الله.", s:"المصدر : ميزان الحكمة"}
   ];
   const h=HADITHS[Math.floor(Math.random()*HADITHS.length)];
-  $('hadithText').textContent=h.t;
-  $('hadithSrc').textContent=h.s;
+  $('hadithText').textContent=h.t; $('hadithSrc').textContent=h.s;
 
-  // أسماء السور
+  // السور
   const SURAH=["","الفاتحة","البقرة","آل عمران","النساء","المائدة","الأنعام","الأعراف","الأنفال","التوبة","يونس","هود","يوسف","الرعد","إبراهيم","الحجر","النحل","الإسراء","الكهف","مريم","طه","الأنبياء","الحج","المؤمنون","النور","الفرقان","الشعراء","النمل","القصص","العنكبوت","الروم","لقمان","السجدة","الأحزاب","سبإ","فاطر","يس","الصافات","ص","الزمر","غافر","فصلت","الشورى","الزخرف","الدخان","الجاثية","الأحقاف","محمد","الفتح","الحجرات","ق","الذاريات","الطور","النجم","القمر","الرحمن","الواقعة","الحديد","المجادلة","الحشر","الممتحنة","الصف","الجمعة","المنافقون","التغابن","الطلاق","التحريم","الملك","القلم","الحاقة","المعارج","نوح","الجن","المزمل","المدثر","القيامة","الإنسان","المرسلات","النبإ","النازعات","عبس","التكوير","الانفطار","المطففين","الانشقاق","البروج","الطارق","الأعلى","الغاشية","الفجر","البلد","الشمس","الليل","الضحى","الشرح","التين","العلق","القدر","البينة","الزلزلة","العاديات","القارعة","التكاثر","العصر","الهمزة","الفيل","قريش","الماعون","الكوثر","الكافرون","النصر","المسد","الإخلاص","الفلق","الناس"];
   window.SURAH=SURAH;
-  if($('suraSelect')){
-    $('suraSelect').innerHTML = `<option value="">— اختر سورة —</option>` +
-      SURAH.slice(1).map((n,i)=>`<option value="${i+1}">${i+1}. ${n}</option>`).join("");
-  }
+  if($('suraSelect')) $('suraSelect').innerHTML=`<option value="">— اختر سورة —</option>`+SURAH.slice(1).map((n,i)=>`<option value="${i+1}">${i+1}. ${n}</option>`).join("");
 
-  // جدول نتائج (مقتطف كبير – أكمل حسب قائمتك عند الحاجة)
-  window.PAGE_RESULT={
-    51:"غير جيدة والنتيجة فيها ندم وخسارة",53:"فيها لوم وغرور وخسران",55:"ممتازة – فيها بركة وتوفيق وصلاح",
-    57:"استجابة وتوفيق، معارضة من العدو",59:"لوم وخسارة",61:"استجابة وتوفيق",63:"فيها صعوبة وملامة",
-    65:"النتيجة فيها تعب وخسارة",67:"ممتازة – يفضَّل الإسراع",69:"خسارة وندم",71:"وسط وتحتاج إلى تأمل وفيها رحمة",
-    73:"ممتازة – نعمة قريبة ونجاة",75:"فيها خسران",77:"ممتازة – رحمة وخير",79:"وسط – تعديل",81:"نهي – تعب وندم",
-    83:"ممتازة – رحمة وتخفيف",85:"لوم وخسارة",87:"نهي شديد",89:"مع العناية والإصرار ممتازة",91:"حفظ وتوفيق",
-    93:"وسط – صلاح لما فات",95:"جيدة مع الحذر",97:"نهي",99:"جيدة – الإتقان مهم",101:"نهي – صعوبات",
-    103:"نهي شديد",105:"نهي شديد",107:"نهي تام",109:"نهي – حراسة إلهية",111:"نهي – ملامة",
-    127:"جيدة – رزق",133:"جيدة – رحمة",141:"جيدة – انتظار",143:"جيدة – لا مانع",
-    171:"حسنة – نعمة",177:"ممتازة – رحمة ونصر",179:"ممتازة – توفيق",185:"جيدة – نجاح",189:"جيدة – فرج",
-    199:"جيدة – نصر المؤمن",203:"ممتازة – فرج سريع",205:"ممتازة – خاتمة حسنة",207:"جيدة – تحتاج شدة",
-    217:"جيدة – معارضة",219:"جيدة – توفيق",243:"جيدة – حفظ",247:"ممتازة – بشارة",249:"ممتازة – تيسير",
-    253:"ممتازة – ثمار",257:"جيدة – انتظار",259:"ممتازة – نجاح",263:"ممتازة – رعاية",265:"ممتازة – حفظ",
-    269:"جيدة – تيسير",271:"وسط – تأخر",279:"وسط – اختيار",281:"جيدة – إصلاح",291:"جيدة – نعمة",293:"ممتازة",
-    295:"جيدة – فرج",297:"جيدة – صبر",299:"جيدة – الآخرة",301:"جيدة – تغيّرات",303:"ممتازة – فرج متكرر",
-    305:"ممتازة – رحمة كبيرة",307:"ممتازة – استقرار",309:"ممتازة – دعم",313:"ممتازة جدًا",317:"ممتازة – فرج",
-    319:"جيدة – استفادة",329:"ممتازة – حفظ",331:"ممتازة – أمان",333:"جيدة – فرج",335:"ممتازة – هداية",
-    337:"جيدة – نصر",339:"ممتازة – ممتازة",343:"جيدة – ثمار",355:"ممتازة – صلاح",357:"جيدة – صبر",
-    359:"جيدة – التزام",363:"جيدة – موفقة",365:"جيدة – إتقان",367:"حسنة – رحمة",371:"ممتازة – مباركة",
-    375:"وسط – نهاية جيدة",377:"ممتازة – بشارة",385:"ممتازة – أمان",387:"ممتازة – حفظ",389:"ممتازة – نصر",
-    391:"جيدة – رحمة",393:"جيدة – يوجد أفضل",397:"ممتازة – إصلاح",399:"جيدة – رحمة",405:"وسط – نصر لاحق",
-    407:"وسط – فرج لاحق",411:"حسنة – هداية",413:"جيدة – تيسير",415:"ممتازة – تيسير",419:"جيدة – لصالح عام",
-    421:"ممتازة – رضا الله",423:"وسط قريب للجيد",425:"جيدة – تسهيل",427:"وسط – قرب حصول",
-    439:"جيدة – معارضة",443:"جيدة – عناد",445:"جيدة – منافع",449:"ممتازة – متتابع",453:"ممتازة – تغلب",
-    459:"وسط – مراحل",461:"جيدة – هداية",463:"وسط – تأخر",467:"ممتازة – فرج",469:"جيدة – مرحلية",
-    475:"وسط – انتظار",477:"ممتازة – بشارة",481:"ممتازة – ثمار",483:"ممتازة – رحمة",487:"ممتازة – نعم",
-    489:"ممتازة – توفيق",497:"نهي – ثم تغلب",499:"ممتازة – للأفضل",511:"ممتازة – فرج",513:"وسط – امتحان",
-    515:"ممتازة – تطور",519:"وسط – غيبي",535:"ممتازة – رزق",537:"ممتازة – حفظ",539:"ممتازة – سعة",
-    541:"جيدة – صبر",545:"جيدة – نتيجة طيبة",547:"ممتازة – إصلاح",549:"ممتازة – صبر",551:"جيدة – إتقان",
-    553:"ممتازة – تفضيل",559:"جيدة – تيسير",561:"جيدة – نجاة",563:"مخيّر – تيسير",571:"ممتازة – فرج كبير",
-    573:"جيدة – هداية",575:"جيدة – نجاح",579:"ممتازة – سعادة",583:"ممتازة – وافرة",585:"حسنة – رحمة",
-    587:"ممتازة – رحمة",589:"ممتازة – سعادة",591:"ممتازة – حفظ",593:"ممتازة – هلاك",595:"ممتازة – رحمة",
-    597:"ممتازة – رحمة",599:"ممتازة – رضا",601:"ممتازة – رحمة",603:"جيدة – رحمة ونصير"
+  // جدول نتائج (مقتطف كبير — أكمل قائمتك عند الحاجة)
+  window.PAGE_RESULT={51:"غير جيدة والنتيجة فيها ندم وخسارة",53:"فيها لوم وغرور وخسران",55:"ممتازة – فيها بركة وتوفيق وصلاح",
+    57:"استجابة وتوفيق، معارضة من العدو",59:"لوم وخسارة",61:"استجابة وتوفيق",63:"فيها صعوبة وملامة",65:"النتيجة فيها تعب وخسارة",
+    67:"ممتازة – يفضَّل الإسراع",69:"خسارة وندم",71:"وسط وتحتاج إلى تأمل وفيها رحمة",73:"ممتازة – نعمة قريبة ونجاة",75:"فيها خسران",
+    77:"ممتازة – رحمة وخير",79:"وسط – تعديل",81:"نهي – تعب وندم",83:"ممتازة – رحمة وتخفيف",85:"لوم وخسارة",87:"نهي شديد",
+    89:"مع العناية والإصرار ممتازة",91:"حفظ وتوفيق",93:"وسط – صلاح لما فات",95:"جيدة مع الحذر",97:"نهي",99:"جيدة – الإتقان مهم",
+    101:"نهي – صعوبات",103:"نهي شديد",105:"نهي شديد",107:"نهي تام",109:"نهي – حراسة إلهية",111:"نهي – ملامة",
+    127:"جيدة – رزق",133:"جيدة – رحمة",141:"جيدة – انتظار",143:"جيدة – لا مانع",171:"حسنة – نعمة",177:"ممتازة – رحمة ونصر",
+    179:"ممتازة – توفيق",185:"جيدة – نجاح",189:"جيدة – فرج",199:"جيدة – نصر المؤمن",203:"ممتازة – فرج سريع",
+    205:"ممتازة – خاتمة حسنة",207:"جيدة – تحتاج شدة",217:"جيدة – معارضة",219:"جيدة – توفيق",243:"جيدة – حفظ",
+    247:"ممتازة – بشارة",249:"ممتازة – تيسير",253:"ممتازة – ثمار",257:"جيدة – انتظار",259:"ممتازة – نجاح",
+    263:"ممتازة – رعاية",265:"ممتازة – حفظ",269:"جيدة – تيسير",271:"وسط – تأخر",279:"وسط – اختيار",281:"جيدة – إصلاح",
+    291:"جيدة – نعمة",293:"ممتازة",295:"جيدة – فرج",297:"جيدة – صبر",299:"جيدة – الآخرة",301:"جيدة – تغيّرات",
+    303:"ممتازة – فرج متكرر",305:"ممتازة – رحمة كبيرة",307:"ممتازة – استقرار",309:"ممتازة – دعم",313:"ممتازة جدًا",
+    317:"ممتازة – فرج",319:"جيدة – استفادة",329:"ممتازة – حفظ",331:"ممتازة – أمان",333:"جيدة – فرج",335:"ممتازة – هداية",
+    337:"جيدة – نصر",339:"ممتازة – ممتازة",343:"جيدة – ثمار",355:"ممتازة – صلاح",357:"جيدة – صبر",359:"جيدة – التزام",
+    363:"جيدة – موفقة",365:"جيدة – إتقان",367:"حسنة – رحمة",371:"ممتازة – مباركة",375:"وسط – نهاية جيدة",377:"ممتازة – بشارة",
+    385:"ممتازة – أمان",387:"ممتازة – حفظ",389:"ممتازة – نصر",391:"جيدة – رحمة",393:"جيدة – يوجد أفضل",397:"ممتازة – إصلاح",
+    399:"جيدة – رحمة",405:"وسط – نصر لاحق",407:"وسط – فرج لاحق",411:"حسنة – هداية",413:"جيدة – تيسير",415:"ممتازة – تيسير",
+    419:"جيدة – لصالح عام",421:"ممتازة – رضا الله",423:"وسط قريب للجيد",425:"جيدة – تسهيل",427:"وسط – قرب حصول",
+    439:"جيدة – معارضة",443:"جيدة – عناد",445:"جيدة – منافع",449:"ممتازة – متتابع",453:"ممتازة – تغلب",459:"وسط – مراحل",
+    461:"جيدة – هداية",463:"وسط – تأخر",467:"ممتازة – فرج",469:"جيدة – مرحلية",475:"وسط – انتظار",477:"ممتازة – بشارة",
+    481:"ممتازة – ثمار",483:"ممتازة – رحمة",487:"ممتازة – نعم",489:"ممتازة – توفيق",497:"نهي – ثم تغلب",499:"ممتازة – للأفضل",
+    511:"ممتازة – فرج",513:"وسط – امتحان",515:"ممتازة – تطور",519:"وسط – غيبي",535:"ممتازة – رزق",537:"ممتازة – حفظ",
+    539:"ممتازة – سعة",541:"جيدة – صبر",545:"جيدة – نتيجة طيبة",547:"ممتازة – إصلاح",549:"ممتازة – صبر",551:"جيدة – إتقان",
+    553:"ممتازة – تفضيل",559:"جيدة – تيسير",561:"جيدة – نجاة",563:"مخيّر – تيسير",571:"ممتازة – فرج كبير",573:"جيدة – هداية",
+    575:"جيدة – نجاح",579:"ممتازة – سعادة",583:"ممتازة – وافرة",585:"حسنة – رحمة",587:"ممتازة – رحمة",589:"ممتازة – سعادة",
+    591:"ممتازة – حفظ",593:"ممتازة – هلاك",595:"ممتازة – رحمة",597:"ممتازة – رحمة",599:"ممتازة – رضا",601:"ممتازة – رحمة",
+    603:"جيدة – رحمة ونصير"
   };
 
   // فتح/إغلاق صناديق البحث
-  document.querySelectorAll('[data-open]').forEach(b=>b.addEventListener('click',()=>{$(b.dataset.open).classList.remove('hidden');}));
-  document.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',()=>{$(b.dataset.close).classList.add('hidden');}));
+  document.querySelectorAll('[data-open]').forEach(b=>b.addEventListener('click',()=>{
+    if(['pBox','kBox','sBox'].includes(b.dataset.open)){
+      const sRes=document.getElementById('searchResult'); if(sRes) sRes.classList.add('hidden');
+    }
+    document.getElementById(b.dataset.open).classList.remove('hidden');
+  }));
+  document.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',()=>{document.getElementById(b.dataset.close).classList.add('hidden');}));
 
   // ربط الأزرار
   const on=(id,ev,fn)=>{const e=$(id); if(e) e.addEventListener(ev,fn);};
@@ -406,7 +392,7 @@ document.addEventListener('DOMContentLoaded',()=>{
   on('suraBtn','click',loadSuraOddPageVerses);
 });
 
-/* ========== العمليات ========== */
+/* ===== عمليات ===== */
 async function doIstikhara(){
   const keys=Object.keys(window.PAGE_RESULT).map(Number).filter(n=>n%2===1 && n>=1 && n<=603);
   const page=keys[Math.floor(Math.random()*keys.length)];
