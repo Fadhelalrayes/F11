@@ -4,158 +4,220 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>مواقيت الصلاة</title>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
 <style>
   :root{
-    /* لوحة مضغوطة راقية */
-    --ink:#111827; --muted:#6b7280; --bg:#f7f8fb;
-    --card:#ffffff; --border:#e5e7eb; --line:#dbe2ea;
-    --brand:#0ea5a6; --brand2:#2563eb; --accent:#0ea5a633;
-    --chip:#f3f6fb; --chip-ink:#0f3b6a;
-    --shadow:0 8px 20px rgba(2,6,23,.06);
-    --radius:14px;
+    /* لوحة حديثة أنيقة */
+    --ink:#0b132b; --muted:#67738a; --bg:#f6f8fb;
+    --card:#ffffff; --border:#e6e8ef; --line:#dfe4ec;
+    --brand:#06b6d4; --brand2:#2563eb; --accent:#06b6d433;
+    --shadow:0 10px 28px rgba(2,6,23,.08);
+    --radius:16px; --rsm:12px;
   }
   *{box-sizing:border-box}
   body{
-    margin:0; font-family:"Cairo", system-ui, -apple-system, Segoe UI, "Noto Kufi Arabic", sans-serif;
+    margin:0; font-family:"Tajawal", system-ui, -apple-system, Segoe UI, "Noto Kufi Arabic", sans-serif;
     color:var(--ink);
     background:
-      radial-gradient(700px 500px at 10% 0%, #eef5ff 0%, transparent 55%),
-      radial-gradient(600px 400px at 92% 8%, #e9fbf6 0%, transparent 50%),
+      radial-gradient(700px 480px at 12% -10%, #ecfbff 0%, transparent 55%),
+      radial-gradient(640px 420px at 95% 5%, #eef0ff 0%, transparent 50%),
       var(--bg);
     min-height:100svh; padding:18px;
   }
-  .wrap{width:min(1060px,100%); margin-inline:auto; display:flex; flex-direction:column; gap:14px; animation:fade .4s ease both}
+  .wrap{width:min(1180px,100%); margin-inline:auto; display:flex; flex-direction:column; gap:14px; animation:fade .45s ease both}
   @keyframes fade{from{opacity:0; transform:translateY(4px)}to{opacity:1; transform:translateY(0)}}
 
-  /* رأس صغير مرتب */
-  .header{
-    position:relative;
+  /* شريط علوي نحيف + ساعة ثابتة يسار */
+  .topbar{
+    position:relative; display:flex; align-items:center; justify-content:center;
     background:linear-gradient(180deg,#ffffff,#fbfdff);
-    border:1px solid var(--border);
-    border-radius:var(--radius);
-    box-shadow:var(--shadow);
-    padding:14px 16px;
-    display:grid; grid-template-columns: 1fr auto; gap:10px; align-items:center;
+    border:1px solid var(--border); border-radius:var(--radius); box-shadow:var(--shadow);
+    padding:10px 16px;
   }
-  .title{
-    display:flex; flex-direction:column; gap:6px;
-  }
-  .title h1{margin:0; font-size:1.15rem; font-weight:800; letter-spacing:.1px}
-  /* شريط معلومات صغير جداً بدلاً من بطاقات كبيرة */
-  .badges{display:flex; gap:8px; flex-wrap:wrap}
-  .badge{
-    display:inline-flex; align-items:center; gap:6px;
-    background:var(--chip); color:var(--chip-ink);
-    border:1px solid var(--border); border-radius:999px;
-    padding:.28rem .55rem; font-size:.9rem; font-weight:700;
-  }
-  .badge i{font-style:normal; opacity:.7}
-
-  /* الساعة ثابتة أعلى اليسار ومضغوطة */
   .clock{
-    position:absolute; left:10px; top:10px; z-index:3;
-    background:#fff; border:1px solid var(--border); border-radius:12px;
-    padding:.38rem .6rem; font-variant-numeric:tabular-nums; font-weight:800; color:#0b3a37;
-    box-shadow:0 8px 18px rgba(0,0,0,.06); font-size:.98rem;
+    position:absolute; left:12px; top:10px; z-index:3;
+    background:#fff; border:1px solid var(--border); border-radius:10px;
+    padding:.34rem .6rem; font-variant-numeric:tabular-nums; font-weight:800; color:#0c3a3b;
+    box-shadow:0 8px 18px rgba(0,0,0,.06); font-size:.95rem;
+  }
+  .brandTitle{margin:0; font-size:1.05rem; font-weight:800}
+
+  /* قطاع الدولة/المدينة والتواريخ */
+  .panel{
+    display:grid; gap:12px;
+    grid-template-columns: 1.1fr .9fr;
+  }
+  @media (max-width: 950px){ .panel{grid-template-columns:1fr} }
+
+  /* 1) دول كـ Pills قابلة للتمرير */
+  .countryPills{
+    background:var(--card); border:1px solid var(--border); border-radius:var(--radius);
+    box-shadow:var(--shadow); padding:10px; display:flex; align-items:center; gap:10px;
+    overflow:auto; scrollbar-width:none;
+  }
+  .countryPills::-webkit-scrollbar{display:none}
+  .pill{
+    flex:0 0 auto;
+    border:1px solid var(--border); background:#fff; color:#0b2749;
+    padding:.45rem .75rem; border-radius:999px; font-weight:800; font-size:.95rem;
+    transition:.15s transform, .15s background;
+    cursor:pointer; user-select:none;
+  }
+  .pill[aria-selected="true"]{
+    background:linear-gradient(135deg, #e9fbff, #eef2ff);
+    border-color:#cae9ff; color:#0b2749; box-shadow:0 6px 16px rgba(6,182,212,.15);
+  }
+  .pill:hover{ transform: translateY(-1px) }
+
+  /* 2) اختيار مدينة: حقل ذكي + لوحة منسدلة ببطاقات */
+  .cityPicker{
+    background:var(--card); border:1px solid var(--border); border-radius:var(--radius);
+    box-shadow:var(--shadow); padding:12px;
+  }
+  .cityHeader{display:flex; gap:8px; align-items:center}
+  .cityInput{
+    flex:1; border:1px solid var(--border); border-radius:999px; padding:.55rem .9rem; font-weight:700; outline:none;
+  }
+  .openBtn{
+    border:1px solid var(--border); background:#fff; padding:.55rem .75rem; border-radius:999px; font-weight:800; cursor:pointer;
   }
 
-  /* أدوات اختيار مضغوطة */
-  .controls{
+  .overlay{
+    position:relative; margin-top:10px;
+  }
+  .sheet{
+    display:none;
+    position:absolute; inset-inline:0; z-index:5;
     background:#fff; border:1px solid var(--border); border-radius:12px; box-shadow:var(--shadow);
-    padding:10px; display:flex; gap:8px; align-items:center; flex-wrap:wrap;
+    padding:10px; max-height:280px; overflow:auto;
   }
-  .controls label{color:var(--muted); font-weight:700; font-size:.9rem}
-  select{
-    appearance:none; padding:10px 38px 10px 12px; border-radius:10px;
-    border:1px solid var(--border); background:
-      #fff url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 20 20" fill="none"><path d="M5 7l5 6 5-6" stroke="%236b7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>') no-repeat left 10px center/11px;
-    color:#0b132b; font-weight:700;
+  .sheet.open{display:block}
+  .cityGrid{
+    display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap:8px;
+  }
+  @media (max-width: 720px){ .cityGrid{grid-template-columns: repeat(2,1fr)} }
+  .cityCard{
+    border:1px solid var(--border); border-radius:12px; padding:.6rem .7rem; background:#fff; cursor:pointer;
+    display:flex; align-items:center; gap:8px; font-weight:800; color:#0b2749;
+  }
+  .cityCard:hover{ background:#f8fbff }
+  .ccDot{width:22px; height:22px; border-radius:999px; background:linear-gradient(180deg,#ecfeff,#fff); border:1px solid #cde8ff; display:grid; place-items:center; font-size:.9rem; color:#0b5aa5}
+
+  /* 3) تذكرتا التاريخ (الهجري/الميلادي) */
+  .tickets{
+    display:flex; gap:10px; align-items:stretch;
+  }
+  @media (max-width: 480px){ .tickets{flex-direction:column} }
+  .ticket{
+    position:relative; flex:1; background:linear-gradient(180deg,#ffffff,#fbfdff);
+    border:1px solid var(--border); border-radius:14px; box-shadow:var(--shadow);
+    padding:10px 14px; display:flex; align-items:center; gap:10px;
+  }
+  .ticket .ico{
+    width:34px; height:34px; border-radius:10px; display:grid; place-items:center; font-size:1.05rem;
+    background:linear-gradient(135deg,#effaff,#ffffff); border:1px solid #d9e9ff; color:#0c5a88; flex:0 0 auto;
+  }
+  .ticket .stack{display:flex; flex-direction:column; line-height:1.35}
+  .ticket .label{font-size:.85rem; color:var(--muted); font-weight:700}
+  .ticket .value{font-size:1.05rem; font-weight:800; font-variant-numeric:tabular-nums; color:#0b213f}
+  /* ثقوب القصّ بين التذكرتين */
+  .tickets:before{
+    content:""; align-self:stretch; width:10px; background:
+      radial-gradient(circle at center, #d9dee6 2px, transparent 2px) left/10px 10px repeat-y;
+    display:block; border-radius:6px;
   }
 
-  /* بطاقة الجدول */
+  /* جدول المواقيت */
   .card{
     background:var(--card); border:1px solid var(--border); border-radius:var(--radius);
-    box-shadow:var(--shadow); padding:10px 12px;
+    box-shadow:var(--shadow); padding:12px;
   }
-  .card h3{margin:0 0 8px; font-size:1rem; font-weight:800; color:#0b213f}
-
-  /* جدول مضغوط وأنيق */
+  .card h3{margin:0 0 8px; font-size:1rem; font-weight:800}
   table{width:100%; border-collapse:separate; border-spacing:0}
   thead th{
-    text-align:right; font-weight:700; color:#1f2937; font-size:.92rem; padding:10px 10px;
+    text-align:right; font-weight:800; color:#1f2937; font-size:.92rem; padding:10px 10px;
     background:#f6f8fc; border-bottom:1px solid var(--line);
   }
-  tbody tr{transition:.15s background}
-  tbody tr:hover{background:#fafcff}
-  tbody td{
-    padding:10px; border-bottom:1px dashed var(--line); font-size:1rem;
-  }
+  tbody tr{transition:.12s background}
+  tbody tr:hover{background:#fbfdff}
+  tbody td{padding:10px; border-bottom:1px dashed var(--line); font-size:1rem}
   tbody tr:last-child td{border-bottom:none}
-  .row{display:flex; align-items:center; gap:8px; font-weight:700}
-  .ico{
-    width:24px; height:24px; border-radius:9px; display:grid; place-items:center;
-    background:linear-gradient(135deg,#effaff,#ffffff); border:1px solid #d9e9ff; color:#0c5a88; font-size:.95rem;
-  }
-  .t{font-variant-numeric:tabular-nums; font-weight:800}
-  /* تمييز الصلاة القادمة بسطر رفيع ونغمة خفيفة */
+  .row{display:flex; align-items:center; gap:8px; font-weight:800}
+  .icoTime{width:24px; height:24px; border-radius:9px; display:grid; place-items:center; background:linear-gradient(135deg,#ecfeff,#ffffff); border:1px solid #d9eef2; color:#0b5a64; font-size:.95rem}
+  .time{font-variant-numeric:tabular-nums; font-weight:800}
   tr.next td{background:linear-gradient(90deg,var(--accent),transparent 40%)}
   tr.next td:first-child{border-inline-start:3px solid var(--brand)}
 
-  /* حديث اليوم صغير */
+  /* حديث اليوم */
   .hadith{
     background:#fff; border:1px solid var(--border); border-radius:12px;
     box-shadow:var(--shadow); padding:12px 14px; font-size:.98rem; color:#0b213f;
   }
-  .h-meta{color:var(--muted); font-size:.9rem; margin-top:6px}
+  .hMeta{color:var(--muted); font-size:.9rem; margin-top:6px}
 
   footer{ text-align:center; color:var(--muted); font-weight:700; padding:4px 0 }
-  .brand{ color:var(--brand); }
+  .brand{ color:var(--brand) }
 </style>
 </head>
 <body>
   <div class="wrap">
-    <section class="header" aria-live="polite">
+    <!-- شريط علوي -->
+    <div class="topbar" aria-live="polite">
       <div id="clock" class="clock">--:-- --</div>
+      <h1 class="brandTitle">مواقيت الصلاة</h1>
+    </div>
 
-      <div class="title">
-        <h1>مواقيت الصلاة</h1>
-        <div class="badges">
-          <span class="badge"><i>🗓</i><span id="hijri">--</span></span>
-          <span class="badge"><i>📅</i><span id="greg">--</span></span>
-          <span class="badge"><i>📍</i><span id="placeLabel">البحرين – المنامة</span></span>
+    <!-- لوحة الدول/المدن + التواريخ بتصميم جديد -->
+    <section class="panel">
+      <!-- دول كـ Pills -->
+      <div class="countryPills" id="countryPills" role="tablist" aria-label="اختيار الدولة"></div>
+
+      <!-- تذاكر التاريخ -->
+      <div class="tickets">
+        <div class="ticket">
+          <div class="ico">🗓</div>
+          <div class="stack">
+            <div class="label">التاريخ الهجري</div>
+            <div class="value" id="hijri">--</div>
+          </div>
         </div>
-      </div>
-
-      <div class="controls">
-        <label for="country">الدولة</label>
-        <select id="country" aria-label="اختر الدولة">
-          <option value="Bahrain" selected>البحرين</option>
-          <option value="Lebanon">لبنان</option>
-          <option value="Iraq">العراق</option>
-          <option value="Iran">إيران</option>
-          <option value="Kuwait">الكويت</option>
-          <option value="Saudi Arabia">السعودية</option>
-        </select>
-
-        <label for="city">المدينة</label>
-        <select id="city" aria-label="اختر المدينة"><!-- يُملأ ديناميكياً --></select>
+        <div class="ticket">
+          <div class="ico">📅</div>
+          <div class="stack">
+            <div class="label">التاريخ الميلادي</div>
+            <div class="value" id="greg">--</div>
+          </div>
+        </div>
       </div>
     </section>
 
+    <!-- منتقي المدينة الإبداعي -->
+    <section class="cityPicker" aria-label="اختيار المدينة">
+      <div class="cityHeader">
+        <input id="citySearch" class="cityInput" type="search" placeholder="ابحث عن مدينة…" />
+        <button id="cityOpen" class="openBtn" type="button">قائمة المدن</button>
+        <span id="placeLabel" style="color:var(--muted); font-weight:800; margin-inline-start:auto;">البحرين – المنامة</span>
+      </div>
+      <div class="overlay">
+        <div class="sheet" id="citySheet">
+          <div class="cityGrid" id="cityGrid"><!-- بطاقات المدن --></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- جدول المواقيت -->
     <section class="card">
       <h3>الجدول اليومي</h3>
       <table>
-        <thead>
-          <tr><th>الوقت</th><th>الساعة (12h)</th></tr>
-        </thead>
-        <tbody id="times"><!-- يُولّد ديناميكياً --></tbody>
+        <thead><tr><th>الوقت</th><th>الساعة (12h)</th></tr></thead>
+        <tbody id="times"><!-- يُولّد --></tbody>
       </table>
     </section>
 
+    <!-- حديث اليوم -->
     <section class="hadith">
       <div id="hadithText"></div>
-      <div class="h-meta" id="hadithSource"></div>
+      <div class="hMeta" id="hadithSource"></div>
     </section>
 
     <footer>برمجة وتطوير <span class="brand">فاضل الريس</span></footer>
@@ -171,6 +233,7 @@
     "Kuwait":  { tz:"Asia/Kuwait",  cities:[{en:"Kuwait City",ar:"مدينة الكويت"},{en:"Hawalli",ar:"حولي"},{en:"Al Ahmadi",ar:"الأحمدي"}]},
     "Saudi Arabia":{ tz:"Asia/Riyadh", cities:[{en:"Riyadh",ar:"الرياض"},{en:"Jeddah",ar:"جدة"},{en:"Dammam",ar:"الدمام"},{en:"Mecca",ar:"مكة"},{en:"Medina",ar:"المدينة"}]}
   };
+  const DEFAULT_COUNTRY = "Bahrain";
 
   /* أحاديث */
   const HADITHS = [
@@ -181,11 +244,11 @@
   ];
   function setRandomHadith(){
     const h = HADITHS[Math.floor(Math.random()*HADITHS.length)];
-    document.getElementById('hadithText').textContent = h.text;
-    document.getElementById('hadithSource').textContent = h.src;
+    hadithText.textContent = h.text;
+    hadithSource.textContent = h.src;
   }
 
-  /* 12 ساعة */
+  /* 12h */
   function to12h(t){
     if(!t) return "--:-- --";
     const pure = t.replace(/\s*\(.*?\)\s*/g, "");
@@ -209,15 +272,15 @@
     }catch{ return "التاريخ الهجري (متصفح غير مدعوم)"; }
   }
 
-  /* TR helper */
+  /* بناء صف الجدول */
   function trHTML(label, icon, val, next=false){
     return `<tr class="${next?'next':''}">
-      <td><div class="row"><span class="ico">${icon}</span> ${label}</div></td>
-      <td class="t">${to12h(val||'')}</td>
+      <td><div class="row"><span class="icoTime">${icon}</span> ${label}</div></td>
+      <td class="time">${to12h(val||'')}</td>
     </tr>`;
   }
 
-  /* تحديد الصلاة القادمة */
+  /* الصلاة القادمة */
   function nextPrayerKey(timings, tz){
     const order = ["Imsak","Fajr","Dhuhr","Asr","Maghrib","Isha","Midnight"];
     const nowTZ = new Date(new Date().toLocaleString('en-US',{timeZone:tz}));
@@ -235,29 +298,27 @@
     return next?.k || null;
   }
 
-  /* تقدير الإمساك عند غيابه */
+  /* ضمان الإمساك */
   function ensureImsak(t){
     if(!t.Imsak && t.Fajr){
       const pure = t.Fajr.replace(/\s*\(.*?\)\s*/g,"");
       const [H,M] = pure.split(":").map(Number);
       const d = new Date(); d.setHours(H, M-10, 0, 0);
-      const hh = String(d.getHours()).padStart(2,"0");
-      const mm = String(d.getMinutes()).padStart(2,"0");
-      t.Imsak = `${hh}:${mm}`;
+      t.Imsak = `${String(d.getHours()).padStart(2,"0")}:${String(d.getMinutes()).padStart(2,"0")}`;
     }
     return t;
   }
 
-  /* جلب المواقيت (من المزود – الحساب المناسب) */
+  /* API (method=0) */
   async function fetchTimings(country, city){
     const url = `https://api.aladhan.com/v1/timingsByCity?city=${encodeURIComponent(city)}&country=${encodeURIComponent(country)}&method=0`;
     const res = await fetch(url);
-    if(!res.ok) throw new Error("تعذّر الاتصال بمزود المواقيت");
+    if(!res.ok) throw new Error("تعذّر الاتصال بمزوّد المواقيت");
     const json = await res.json();
     return json.data.timings;
   }
 
-  /* بناء الجدول المدمج */
+  /* رسم المواقيت */
   function renderTimes(timings, tz){
     const t = ensureImsak({...timings});
     const rows = [
@@ -270,62 +331,116 @@
       {label:"منتصف الليل",key:"Midnight",icon:"🌌"}
     ];
     const nextK = nextPrayerKey(t, tz);
-    const tbody = document.getElementById('times');
-    tbody.innerHTML = rows.map(r=>trHTML(r.label, r.icon, t[r.key], r.key===nextK)).join("");
+    times.innerHTML = rows.map(r=>trHTML(r.label, r.icon, t[r.key], r.key===nextK)).join("");
   }
 
-  /* تعبئة المدن */
-  function populateCities(country){
-    const citySel = document.getElementById('city');
-    citySel.innerHTML = "";
-    (MAP[country]?.cities || []).forEach((c,i)=>{
-      const op = document.createElement('option');
-      op.value = c.en; op.textContent = c.ar;
-      if(i===0) op.selected = true;
-      citySel.appendChild(op);
+  /* الدولة: بناء الحبوب (Pills) */
+  function renderCountryPills(active){
+    countryPills.innerHTML = "";
+    Object.keys(MAP).forEach(code=>{
+      const pill = document.createElement('button');
+      pill.type = "button";
+      pill.className = "pill";
+      pill.textContent = countryAR(code);
+      pill.setAttribute('aria-selected', code===active ? 'true' : 'false');
+      pill.addEventListener('click', ()=> setCountry(code));
+      countryPills.appendChild(pill);
+    });
+  }
+  function countryAR(code){
+    return ({
+      "Bahrain":"البحرين","Lebanon":"لبنان","Iraq":"العراق","Iran":"إيران","Kuwait":"الكويت","Saudi Arabia":"السعودية"
+    })[code] || code;
+  }
+
+  /* المدينة: إنشاء اللوحة */
+  function openCitySheet(){ citySheet.classList.add('open'); }
+  function closeCitySheet(){ citySheet.classList.remove('open'); }
+  function buildCityGrid(country){
+    const list = MAP[country]?.cities || [];
+    cityGrid.innerHTML = list.map(c=>(
+      `<div class="cityCard" data-en="${c.en}" data-ar="${c.ar}">
+        <span class="ccDot">🏙</span><span>${c.ar}</span>
+      </div>`
+    )).join("");
+    Array.from(cityGrid.querySelectorAll('.cityCard')).forEach(card=>{
+      card.addEventListener('click', ()=>{
+        const en = card.getAttribute('data-en'); const ar = card.getAttribute('data-ar');
+        citySearch.value = ar;
+        closeCitySheet();
+        setCity(currentCountry, en, ar);
+      });
+    });
+  }
+  function filterCityGrid(q){
+    q = (q||"").trim();
+    Array.from(cityGrid.children).forEach(c=>{
+      const ar = c.getAttribute('data-ar'); const en = c.getAttribute('data-en');
+      const show = !q || ar.includes(q) || en.toLowerCase().includes(q.toLowerCase());
+      c.style.display = show ? "" : "none";
     });
   }
 
-  /* تحديث العلوية (المكان/التواريخ/الساعة) */
-  function updateTop(country, city){
-    const tz = MAP[country]?.tz || "Asia/Bahrain";
-    const cityObj = (MAP[country]?.cities || []).find(x=>x.en===city) || {ar:city};
-    document.getElementById('placeLabel').textContent = `${countryAR(country)} – ${cityObj.ar}`;
-    document.getElementById('greg').textContent  = fmtGreg(tz);
-    document.getElementById('hijri').textContent = fmtHijri(tz);
+  /* تحديث أعلى الصفحة (التواريخ + المكان + الساعة) */
+  function updateTop(country, cityEn){
+    const tz = MAP[country]?.tz || MAP[DEFAULT_COUNTRY].tz;
+    const cityObj = (MAP[country]?.cities || []).find(x=>x.en===cityEn) || {ar:cityEn};
+    placeLabel.textContent = `${countryAR(country)} – ${cityObj.ar}`;
+    hijri.textContent = fmtHijri(tz);
+    greg.textContent  = fmtGreg(tz);
     clearInterval(window._clk);
-    document.getElementById('clock').textContent = fmtClock(tz);
-    window._clk = setInterval(()=>{ document.getElementById('clock').textContent = fmtClock(tz); }, 1000);
+    clock.textContent = fmtClock(tz);
+    window._clk = setInterval(()=>{ clock.textContent = fmtClock(tz); }, 1000);
     return tz;
   }
-  function countryAR(c){
-    return ({"Bahrain":"البحرين","Lebanon":"لبنان","Iraq":"العراق","Iran":"إيران","Kuwait":"الكويت","Saudi Arabia":"السعودية"})[c] || c;
+
+  /* حالات وتدفق */
+  let currentCountry = DEFAULT_COUNTRY;
+  let currentCityEn  = MAP[DEFAULT_COUNTRY].cities[0].en;
+
+  function setCountry(code){
+    currentCountry = code;
+    renderCountryPills(code);
+    citySearch.value = ""; openCitySheet(); buildCityGrid(code); filterCityGrid("");
+    // تعيين أول مدينة افتراضيًا
+    const first = MAP[code]?.cities?.[0]; if(first){ setCity(code, first.en, first.ar, {skipFetch:true}); }
+    load(); // جلب المواقيت فورًا للمدينة الافتراضية
+  }
+  function setCity(country, en, ar, opts={}){
+    currentCountry = country;
+    currentCityEn = en;
+    citySearch.value = ar || citySearch.value;
+    load(opts);
   }
 
-  /* تحميل كامل */
-  async function load(){
-    const country = document.getElementById('country').value;
-    const city    = document.getElementById('city').value;
-    const tz = updateTop(country, city);
-    document.getElementById('times').innerHTML = `<tr><td colspan="2">جاري تحميل المواقيت…</td></tr>`;
+  async function load(opts={}){
+    const tz = updateTop(currentCountry, currentCityEn);
+    times.innerHTML = `<tr><td colspan="2">جاري تحميل المواقيت…</td></tr>`;
     try{
-      const timings = await fetchTimings(country, city);
-      renderTimes(timings, tz);
+      const timings = opts.skipFetch ? null : await fetchTimings(currentCountry, currentCityEn);
+      if(timings) renderTimes(timings, tz);
+      else { // في حالة التبديل السريع للدولة قبل الجلب
+        const t = await fetchTimings(currentCountry, currentCityEn);
+        renderTimes(t, tz);
+      }
     }catch(e){
       console.error(e);
-      document.getElementById('times').innerHTML = `<tr><td colspan="2" style="color:#b91c1c">تعذّر جلب المواقيت. حاول لاحقًا.</td></tr>`;
+      times.innerHTML = `<tr><td colspan="2" style="color:#b91c1c">تعذّر جلب المواقيت. حاول لاحقًا.</td></tr>`;
     }
   }
 
-  /* تهيئة */
+  /* بدء التشغيل */
   function init(){
     setRandomHadith();
-    const countrySel = document.getElementById('country');
-    const citySel = document.getElementById('city');
-    populateCities(countrySel.value);
-    countrySel.addEventListener('change', ()=>{ populateCities(countrySel.value); load(); });
-    citySel.addEventListener('change', load);
-    load(); // افتراضي البحرين – المنامة
+    renderCountryPills(currentCountry);
+    buildCityGrid(currentCountry);
+    // افتراضي: البحرين – المنامة
+    setCountry(DEFAULT_COUNTRY);
+    cityOpen.addEventListener('click', ()=> citySheet.classList.toggle('open'));
+    citySearch.addEventListener('input', (e)=> filterCityGrid(e.target.value));
+    document.addEventListener('click', (e)=>{
+      if(!e.target.closest('.cityPicker')) closeCitySheet();
+    });
   }
   init();
 </script>
