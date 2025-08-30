@@ -24,7 +24,7 @@
   .label{font-size:.85rem; color:var(--muted); font-weight:700}
   .value{font-weight:800; font-size:1rem; font-variant-numeric:tabular-nums}
   .card{background:#fff; border:1px solid var(--border); border-radius:12px; box-shadow:var(--shadow); padding:12px}
-  .card h3{margin:0 0 10px; font-size:1rem; font-weight:800; text-align:center;} /* العنوان بالوسط */
+  .card h3{margin:0 0 10px; font-size:1rem; font-weight:800; text-align:center;} /* وسط */
   table{width:100%; border-collapse:collapse}
   th,td{padding:12px; border-bottom:1px solid #f0f0f0; font-size:1rem}
   th{background:#fafafa; font-weight:800}
@@ -32,7 +32,7 @@
   td.time{text-align:left; font-weight:800}
   tr.next td{background:linear-gradient(90deg,#0ea5a61a,transparent)}
   .events{display:none; background:#fff; border:1px solid var(--border); border-radius:12px; box-shadow:var(--shadow); padding:14px}
-  .events h3{margin:0 0 8px; font-size:1rem; font-weight:800}
+  .events h3{margin:0 0 8px; font-size:1rem; font-weight:800; text-align:center;} /* وسط */
   .evtGrid{display:grid; grid-template-columns:1fr 1fr; gap:12px}
   @media(max-width:720px){.evtGrid{grid-template-columns:1fr}}
   .evtCol{border:1px dashed #e3e8f0; border-radius:10px; padding:10px}
@@ -88,7 +88,7 @@
       </table>
     </section>
 
-    <!-- صندوق المناسبات: يظهر فقط عند وجود مناسبات -->
+    <!-- يظهر فقط عند وجود مناسبات -->
     <section class="events" id="eventsBox">
       <h3>مناسبات اليوم</h3>
       <div class="evtGrid">
@@ -375,7 +375,7 @@ function renderEventsFallback(ref){
   drawEvents(todayM, todayD, nightM, nightD);
 }
 
-/* ——— هنا منطق الإظهار/الإخفاء حسب وجود المناسبات ——— */
+/* إظهار/إخفاء المناسبات حسب وجودها */
 function drawEvents(todayM,todayD,nightM,nightD){
   const box=document.getElementById('eventsBox');
   const colToday=document.getElementById('colToday');
@@ -386,17 +386,14 @@ function drawEvents(todayM,todayD,nightM,nightD){
   const todayList = EVENTS[`${todayM}-${todayD}`] || [];
   const nightList = EVENTS[`${nightM}-${nightD}`] || [];
 
-  // إذا لا توجد أي مناسبة إطلاقًا → أخفِ الصندوق كاملًا
   if(todayList.length===0 && nightList.length===0){
     box.style.display='none';
     todayEl.innerHTML=""; nightEl.innerHTML="";
     return;
   }
 
-  // يوجد مناسبات: أظهر الصندوق
   box.style.display='block';
 
-  // أعرض عمود اليوم فقط عند وجود مناسبات فيه
   if(todayList.length){
     colToday.style.display='block';
     todayEl.innerHTML = todayList.map(e=>`<div class="evtItem"><span class="evtText">${e.t}</span></div>`).join("");
@@ -405,7 +402,6 @@ function drawEvents(todayM,todayD,nightM,nightD){
     todayEl.innerHTML="";
   }
 
-  // أعرض عمود الليلة فقط عند وجود مناسبات فيه
   if(nightList.length){
     colNight.style.display='block';
     nightEl.innerHTML = nightList.map(e=>`<div class="evtItem"><span class="evtText">${e.t}</span></div>`).join("");
@@ -488,3 +484,4 @@ load();
 </script>
 </body>
 </html>
+```0
