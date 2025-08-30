@@ -7,26 +7,36 @@
 <link href="https://fonts.googleapis.com/css2?family=Reem+Kufi:wght@500;700&family=Tajawal:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root{
+    /* ألوان أساسية */
     --ink:#0f172a; --muted:#6b7280;
     --bg:#f6f8fb; --surface:#fff; --border:#e5e7eb; --line:#e9edf3;
-    --brand:#0ea5a6; --brand2:#2563eb;
+    --accent:#0ea5a6; /* لمسات خفيفة */
     --shadow:0 8px 20px rgba(2,6,23,.08);
     --r:14px;
+    /* لون موحّد لخط الأحاديث — سنربطه بالفوتر (فاضل الريس) */
+    --hadith-color:#0d2a58;
   }
-  body{margin:0; color:var(--ink); font-family:"Tajawal",sans-serif; background:var(--bg); padding:16px;}
+
+  *{box-sizing:border-box}
+  body{
+    margin:0; color:var(--ink); font-family:"Tajawal",system-ui,-apple-system,"Noto Kufi Arabic",sans-serif;
+    background:var(--bg); padding:16px;
+  }
   .container{width:min(1000px,100%); margin:auto; display:flex; flex-direction:column; gap:16px}
 
-  /* ساعة صغيرة بالأعلى */
+  /* الساعة الصغيرة أعلى الصفحة */
   .topClock{text-align:right; font-size:.95rem; font-weight:800; color:#084241}
 
-  /* العنوان */
+  /* العنوان داخل صندوق */
   .hero{
     background:#fff; border:1px solid var(--border); border-radius:18px;
-    box-shadow:var(--shadow); padding:18px; text-align:center;
+    box-shadow:var(--shadow); padding:18px; text-align:center
   }
-  .heroTitle{ margin:0; font-family:"Reem Kufi",sans-serif; font-weight:700; font-size:1.4rem; color:#0f172a; }
+  .heroTitle{
+    margin:0; font-family:"Reem Kufi",sans-serif; font-weight:700; font-size:1.4rem; color:#0f172a;
+  }
 
-  /* المكان */
+  /* صندوق المكان */
   .locationBox{
     background:#fff; border:1px solid var(--border); border-radius:var(--r);
     box-shadow:var(--shadow); padding:12px 14px;
@@ -42,7 +52,7 @@
   .infoRow{display:grid; grid-template-columns:1fr 1fr; gap:16px}
   @media(max-width:720px){.infoRow{grid-template-columns:1fr}}
   .chip{background:#fff; border:1px solid var(--border); border-radius:12px; box-shadow:var(--shadow);
-    padding:12px 14px; display:flex; gap:12px; align-items:center}
+    padding:12px 14px; display:flex; gap:12px; align-items:center; min-height:64px}
   .ico{width:34px; height:34px; border-radius:10px; display:grid; place-items:center;
     background:#f0f8ff; border:1px solid #d9e9ff; color:#0b5aa5}
   .stack{display:flex; flex-direction:column}
@@ -60,14 +70,9 @@
   td.name{text-align:right; font-weight:700}
   td.time{text-align:left; font-weight:800; font-variant-numeric:tabular-nums}
   tr.next td{background:linear-gradient(90deg,#0ea5a61a,transparent 40%)}
-  tr.next td.name{border-right:3px solid var(--brand)}
+  tr.next td.name{border-right:3px solid var(--accent)}
 
-  /* الحديث (بلا علامات اقتباس) */
-  .hadith{background:#fff; border:1px solid var(--border); border-radius:14px; box-shadow:var(--shadow); padding:18px}
-  .htext{margin:0; font-size:1.06rem; line-height:1.9}
-  .hsrc{margin-top:8px; color:var(--muted); font-weight:700}
-
-  /* مناسبات اليوم (تُخفى عند عدم وجود مناسبات) */
+  /* مربّع “مناسبات اليوم” — يُخفى تلقائيًا إذا لا يوجد */
   .events{display:none; background:#fff; border:1px solid var(--border); border-radius:14px; box-shadow:var(--shadow); padding:14px;}
   .events h3{margin:0 0 8px; font-size:1rem; font-weight:800}
   .evtGrid{display:grid; grid-template-columns:1fr 1fr; gap:12px}
@@ -79,39 +84,49 @@
   .evtTag{font-size:.78rem; font-weight:800; padding:.2rem .5rem; border-radius:999px; border:1px solid #d9e9ff; background:#f5fbff; color:#0b5aa5}
   .evtText{font-weight:700}
 
-  footer{text-align:center; color:var(--muted); font-weight:700; margin-top:8px}
-  .brand{color:var(--brand2)}
+  /* صندوق الحديث */
+  .hadith{background:#fff; border:1px solid var(--border); border-radius:14px; box-shadow:var(--shadow); padding:18px; text-align:center}
+  .htext{margin:0; font-size:1.06rem; line-height:1.9; color:var(--hadith-color)}
+  .hsrc{
+    display:inline-block; margin-top:14px; padding:6px 14px; border-radius:10px;
+    background:linear-gradient(135deg,#f9fafb,#eef2ff); border:1px solid var(--border);
+    font-weight:800; color:#3e4a5a;
+  }
 
-  /* نافذة تغيير البلد/المدينة */
-  .modal{position:fixed; inset:0; display:none; place-items:center; background:rgba(15,23,42,.28); z-index:60}
-  .modal.open{display:grid}
-  .box{width:min(520px,96%); background:#fff; border:1px solid var(--border); border-radius:16px; box-shadow:var(--shadow); padding:16px}
-  .rowCtrl{display:flex; gap:10px; align-items:center; margin:8px 0}
-  .rowCtrl label{width:80px; color:var(--muted); font-weight:700}
-  select{flex:1; padding:12px; border-radius:12px; border:1px solid var(--border); font-weight:700}
-  .actions{display:flex; gap:10px; margin-top:12px}
-  .btn{border:1px solid var(--border); border-radius:10px; padding:.55rem .9rem; font-weight:800; cursor:pointer; background:#fff}
-  .btn.primary{background:linear-gradient(135deg,#e9fbff,#eef2ff); color:#0b2749}
+  footer{text-align:center; color:var(--muted); font-weight:700; margin-top:8px}
+  /* “فاضل الريس” بنفس لون خط الأحاديث */
+  .brand{color:var(--hadith-color); font-weight:800}
 </style>
 </head>
 <body>
   <div class="container">
+    <!-- ساعة صغيرة -->
     <div class="topClock" id="topClock">--:-- --</div>
 
+    <!-- عنوان -->
     <section class="hero">
       <h1 class="heroTitle">مواقيت الصلاة وفق المذهب الجعفري</h1>
     </section>
 
+    <!-- المكان -->
     <div class="locationBox">
       <div class="place" id="place">المنامة، البحرين</div>
       <button class="changeBtn" id="openPicker" type="button">تغيير</button>
     </div>
 
+    <!-- التاريخين -->
     <section class="infoRow">
-      <div class="chip"><div class="ico">🗓</div><div class="stack"><div class="label">التاريخ الهجري</div><div class="value" id="hijri">--</div></div></div>
-      <div class="chip"><div class="ico">📅</div><div class="stack"><div class="label">التاريخ الميلادي</div><div class="value" id="greg">--</div></div></div>
+      <div class="chip">
+        <div class="ico">🗓</div>
+        <div class="stack"><div class="label">التاريخ الهجري</div><div class="value" id="hijri">--</div></div>
+      </div>
+      <div class="chip">
+        <div class="ico">📅</div>
+        <div class="stack"><div class="label">التاريخ الميلادي</div><div class="value" id="greg">--</div></div>
+      </div>
     </section>
 
+    <!-- الجدول -->
     <section class="card">
       <h3>الجدول اليومي</h3>
       <table>
@@ -120,7 +135,7 @@
       </table>
     </section>
 
-    <!-- يظهر فقط عند وجود مناسبات -->
+    <!-- مناسبات (تظهر فقط عند وجود مناسبات) -->
     <section class="events" id="eventsBox">
       <h3>مناسبات اليوم</h3>
       <div class="evtGrid">
@@ -135,28 +150,29 @@
       </div>
     </section>
 
+    <!-- الحديث -->
     <section class="hadith">
       <p class="htext" id="hadithText"></p>
       <div class="hsrc" id="hadithSource"></div>
     </section>
 
-    <footer>برمجة وتطوير <span class="brand">فاضل الريس</span></footer>
+    <footer>برمجة هنا وتطوير <span class="brand">فاضل الريس</span></footer>
   </div>
 
-  <!-- نافذة تغيير -->
-  <div class="modal" id="modal">
-    <div class="box">
-      <div class="rowCtrl"><label>البلد</label><select id="countrySel"></select></div>
-      <div class="rowCtrl"><label>المدينة</label><select id="citySel"></select></div>
-      <div class="actions">
-        <button class="btn primary" id="savePlace">حفظ</button>
-        <button class="btn" id="cancelPlace">إلغاء</button>
+  <!-- نافذة تغيير البلد/المدينة -->
+  <div class="modal" id="modal" style="position:fixed; inset:0; display:none; place-items:center; background:rgba(15,23,42,.28); z-index:60">
+    <div class="box" style="width:min(520px,96%); background:#fff; border:1px solid var(--border); border-radius:16px; box-shadow:var(--shadow); padding:16px">
+      <div class="rowCtrl" style="display:flex; gap:10px; align-items:center; margin:8px 0"><label style="width:80px; color:var(--muted); font-weight:700">البلد</label><select id="countrySel" style="flex:1; padding:12px; border-radius:12px; border:1px solid var(--border); font-weight:700"></select></div>
+      <div class="rowCtrl" style="display:flex; gap:10px; align-items:center; margin:8px 0"><label style="width:80px; color:var(--muted); font-weight:700">المدينة</label><select id="citySel" style="flex:1; padding:12px; border-radius:12px; border:1px solid var(--border); font-weight:700"></select></div>
+      <div class="actions" style="display:flex; gap:10px; margin-top:12px">
+        <button class="btn primary" id="savePlace" type="button" style="border:1px solid var(--border); border-radius:10px; padding:.55rem .9rem; font-weight:800; cursor:pointer; background:linear-gradient(135deg,#e9fbff,#eef2ff); color:#0b2749">حفظ</button>
+        <button class="btn" id="cancelPlace" type="button" style="border:1px solid var(--border); border-radius:10px; padding:.55rem .9rem; font-weight:800; cursor:pointer; background:#fff">إلغاء</button>
       </div>
     </div>
   </div>
 
 <script>
-/* دول ومدن */
+/* ===== خريطة الدول والمدن ===== */
 const MAP=[
  {ar:"البحرين",en:"Bahrain",tz:"Asia/Bahrain",cities:[
    {ar:"المنامة",en:"Manama"},{ar:"المحرق",en:"Muharraq"},{ar:"مدينة عيسى",en:"Isa Town"},
@@ -173,7 +189,7 @@ const MAP=[
 const DEFAULT={countryEn:"Bahrain",countryAr:"البحرين",cityEn:"Manama",cityAr:"المنامة",tz:"Asia/Bahrain"};
 let current={...DEFAULT};
 
-/* أحاديث — تشمل ما ذكرت */
+/* ===== أحاديث (تتضمن ما طلبت) ===== */
 const HADITHS=[
   {t:"قال الإمام الباقر (عليه السلام): إذا استقبل المصلي القبلة استقبل الرحمن بوجهه لا إله غيره.",s:"المصدر: ميزان الحكمة"},
   {t:"قال الإمام علي (عليه السلام): إذا قام الرجل إلى الصلاة أقبل إبليس ينظر إليه حسداً لما يرى من رحمة الله التي تغشاه.",s:"المصدر: ميزان الحكمة"},
@@ -183,18 +199,22 @@ const HADITHS=[
   {t:"قال رسول الله صلى الله عليه وآله: من ترك صلاته متعمداً فقد هدم دينه، ومن ترك أوقاتها يدخل الويل، والويل وادٍ في جهنم كما قال تعالى: فويل للمصلين الذين هم عن صلاتهم ساهون.",s:"المصدر: جامع الأخبار"},
   {t:"قال عبد الله بن مسعود: سألت رسول الله صلى الله عليه وآله: أيّ الأعمال أحب إلى الله جل جلاله؟ قال: الصلاة لوقتها.",s:"المصدر: الخصال"}
 ];
-function setHadith(){ const h=HADITHS[Math.floor(Math.random()*HADITHS.length)];
-  hadithText.textContent=h.t; hadithSource.textContent=h.s; }
+function setHadith(){
+  const h=HADITHS[Math.floor(Math.random()*HADITHS.length)];
+  hadithText.textContent=h.t;
+  hadithSource.textContent=h.s;
+}
 
-/* 12h */
+/* ===== تنسيق 12 ساعة ===== */
 function to12h(raw){
   if(!raw) return "--:-- --";
   const pure=String(raw).replace(/\s*\(.*?\)\s*/g,"");
   const [H,M]=pure.split(":").map(Number); if(Number.isNaN(H)||Number.isNaN(M)) return raw;
-  let h=H%12; if(h===0)h=12; return `${String(h).padStart(2,"0")}:${String(M).padStart(2,"0")} ${H<12?"AM":"PM"}`;
+  let h=H%12; if(h===0)h=12;
+  return `${String(h).padStart(2,"0")}:${String(M).padStart(2,"0")} ${H<12?"AM":"PM"}`;
 }
 
-/* ساعة وتواريخ */
+/* ===== ساعة وتواريخ ===== */
 function updateClock(){ topClock.textContent=new Intl.DateTimeFormat('en-GB',{timeZone:current.tz,hour:'2-digit',minute:'2-digit',hour12:true}).format(new Date()); }
 function fmtGreg(){ return new Intl.DateTimeFormat('ar',{timeZone:current.tz,weekday:'long',year:'numeric',month:'long',day:'numeric'}).format(new Date()); }
 function fmtHijri(){
@@ -202,7 +222,7 @@ function fmtHijri(){
   catch{ return "التاريخ الهجري (غير مدعوم)"; }
 }
 
-/* تحويل التاريخ الهجري (أرقام) */
+/* تحويل التاريخ الهجري إلى (ي/ش/س) رقمية */
 function hijriYMD(date){
   const parts=new Intl.DateTimeFormat('en-TN-u-ca-islamic',{timeZone:current.tz,year:'numeric',month:'numeric',day:'numeric'}).formatToParts(date);
   const y=+parts.find(p=>p.type==='year').value;
@@ -211,7 +231,7 @@ function hijriYMD(date){
   return {y,m,d};
 }
 
-/* مناسبات شيعية (قائمة واسعة شائعة) — المفتاح m-d */
+/* ===== مناسبات شيعية شائعة (مفتاح: m-d) ===== */
 const EVENTS={
   /* محرم */
   "1-1":[{t:"رأس السنة الهجرية"}],
@@ -222,7 +242,7 @@ const EVENTS={
   /* صفر */
   "2-7":[{t:"(بعض الأقوال) شهادة الإمام الحسن المجتبى ع"}],
   "2-20":[{t:"الأربعين – زيارة الإمام الحسين ع"}],
-  "2-28":[{t:"وفاة النبي الأكرم ﷺ عند الشيعة",tag:"وفاة"},{t:"شهادة الإمام الحسن المجتبى ع",tag:"شهادة"}],
+  "2-28":[{t:"وفاة النبي الأكرم ﷺ عند الشيعة"},{t:"شهادة الإمام الحسن المجتبى ع"}],
   /* ربيع الأول */
   "3-8":[{t:"شهادة الإمام الحسن العسكري ع"}],
   "3-9":[{t:"فرحة الزهراء (عيد البَقر)"}],
@@ -246,7 +266,7 @@ const EVENTS={
   /* شعبان */
   "8-3":[{t:"مولد الإمام الحسين ع"}],
   "8-4":[{t:"مولد أبي الفضل العباس ع"}],
-  "8-5":[{t:"مولد الإمام علي بن الحسين زين العابدين ع"}],
+  "8-5":[{t:"مولد الإمام زين العابدين ع"}],
   "8-15":[{t:"مولد الإمام المهدي عجل الله فرجه"}],
   /* رمضان */
   "9-15":[{t:"مولد الإمام الحسن المجتبى ع"}],
@@ -264,17 +284,17 @@ const EVENTS={
   "12-10":[{t:"عيد الأضحى المبارك"}],
   "12-18":[{t:"عيد الغدير الأغر"}],
   "12-24":[{t:"يوم المباهلة"}],
-  "12-25":[{t:"يوم نزول سورة الإنسان (حديث الولاية والإطعام)"}]
+  "12-25":[{t:"يوم نزول سورة الإنسان"}]
 };
-/* ملاحظة: قد تختلف بعض التواريخ باختلاف البلدان ورؤية الهلال/القول الفقهي. يمكنك تعديل/توسعة القائمة بسهولة. */
+/* ملاحظة: قد تختلف بعض التواريخ بحسب البلدان ورؤية الهلال. */
 
 let lastTimings=null;
 
-/* الصلاة القادمة (لتمييز الصف) */
+/* الصلاة القادمة لتمييز الصف */
 function nextKey(t, tz){
   const order=["Imsak","Fajr","Dhuhr","Asr","Maghrib","Isha","Midnight"];
   const nowTZ=new Date(new Date().toLocaleString('en-US',{timeZone:tz}));
-  const dstr=new Intl.DateTimeFormat('en-CA',{timeZone:tz,year:'numeric',month:'2-digit',day:'numeric'}).format(nowTZ);
+  const dstr=new Intl.DateTimeFormat('en-CA',{timeZone:tz,year:'numeric',month:'2-digit',day:'2-digit'}).format(nowTZ);
   const [Y,M,D]=dstr.split('-').map(Number);
   const cand=order.map(k=>{
     const raw=(t[k]||"").replace(/\s*\(.*?\)\s*/g,""); if(!raw.includes(':')) return {k,diff:Infinity};
@@ -298,7 +318,7 @@ function ensureImsak(t){
   return t;
 }
 
-/* API (method=0 جعفري) */
+/* جلب المواقيت (method=0 — جعفري) */
 async function fetchTimings(countryEn, cityEn){
   const url=`https://api.aladhan.com/v1/timingsByCity?city=${encodeURIComponent(cityEn)}&country=${encodeURIComponent(countryEn)}&method=0`;
   const r=await fetch(url); if(!r.ok) throw new Error("تعذّر جلب المواقيت");
@@ -319,50 +339,42 @@ function renderTimes(t, tz){
   ];
   const k=nextKey(timings,tz);
   times.innerHTML=rows.map(r=>tr(r.n,timings[r.k],r.k===k)).join("");
-  renderEvents(); // حدّث المناسبات بعد معرفة المغرب
+  renderEvents(); // بعد معرفة المغرب
 }
 
-/* ---- مناسبات اليوم/الليلة ---- */
-function eventsForHijri(hm, hd){
-  const key=`${hm}-${hd}`;
-  return EVENTS[key] || [];
-}
+/* المناسبات لليوم/الليلة */
+function eventsForHijri(hm, hd){ return EVENTS[`${hm}-${hd}`] || []; }
 function renderEvents(){
-  // التاريخ الهجري "اليوم"
   const now=new Date(new Date().toLocaleString('en-US',{timeZone:current.tz}));
   const {m:tm,d:td}=hijriYMD(now);
 
-  // تحديد "الليلة": إن كان الوقت بعد أذان المغرب → الليلة للهجري التالي، وإلا فهي ليلة اليوم الحالي
-  let tonightDate = new Date(now);
+  // “الليلة”: بعد المغرب نعتبر الليلة للهجري التالي
+  let tonightDate=new Date(now);
   if(lastTimings?.Maghrib){
     const [H,M]=lastTimings.Maghrib.replace(/\s*\(.*?\)\s*/g,"").split(":").map(Number);
     const magh=new Date(now); magh.setHours(H,M,0,0);
-    if(now >= magh){ tonightDate = new Date(now.getTime()+24*60*60*1000); }
+    if(now>=magh) tonightDate=new Date(now.getTime()+24*60*60*1000);
   }else{
-    tonightDate = new Date(now.getTime()+24*60*60*1000);
+    tonightDate=new Date(now.getTime()+24*60*60*1000);
   }
   const {m:nm,d:nd}=hijriYMD(tonightDate);
 
-  const todayList = eventsForHijri(tm, td);
-  const nightList = eventsForHijri(nm, nd);
+  const todayList=eventsForHijri(tm,td);
+  const nightList=eventsForHijri(nm,nd);
 
   const box=document.getElementById('eventsBox');
   const todayEl=document.getElementById('eventsToday');
   const nightEl=document.getElementById('eventsTonight');
 
-  // إذا لا توجد أي مناسبة اليوم ولا الليلة → إخفاء الصندوق بالكامل
-  if(todayList.length===0 && nightList.length===0){
-    box.style.display='none';
-    return;
-  }
+  if(todayList.length===0 && nightList.length===0){ box.style.display='none'; return; }
   box.style.display='block';
 
-  const itemHTML = (e)=>`<div class="evtItem"><span class="evtTag">${e.tag||"مناسبة"}</span><span class="evtText">${e.t}</span></div>`;
+  const itemHTML=(e)=>`<div class="evtItem"><span class="evtTag">مناسبة</span><span class="evtText">${e.t}</span></div>`;
   todayEl.innerHTML = todayList.length ? todayList.map(itemHTML).join("") : `<div class="evtItem"><span class="evtText">لا توجد مناسبة.</span></div>`;
   nightEl.innerHTML = nightList.length ? nightList.map(itemHTML).join("") : `<div class="evtItem"><span class="evtText">لا توجد مناسبة.</span></div>`;
 }
 
-/* تحميل عام */
+/* تحميل الصفحة */
 async function load(){
   place.textContent=`${current.cityAr}، ${current.countryAr}`;
   hijri.textContent=fmtHijri(); greg.textContent=fmtGreg();
@@ -370,10 +382,13 @@ async function load(){
   try{
     const t=await fetchTimings(current.countryEn,current.cityEn);
     renderTimes(t,current.tz);
-  }catch{ times.innerHTML=`<tr><td colspan="2" style="color:#b91c1c">تعذّر جلب المواقيت.</td></tr>`; }
+  }catch{
+    times.innerHTML=`<tr><td colspan="2" style="color:#b91c1c">تعذّر جلب المواقيت.</td></tr>`;
+    document.getElementById('eventsBox').style.display='none';
+  }
 }
 
-/* ساعة */
+/* ساعة أعلى الصفحة */
 setInterval(updateClock,1000); updateClock();
 
 /* حديث */
@@ -392,20 +407,22 @@ function openModal(){
   countrySel.value=current.countryEn;
   populateCities(countrySel.value);
   citySel.value=current.cityEn;
-  modal.classList.add("open");
+  modal.style.display='grid';
   document.body.style.overflow='hidden';
 }
-function closeModal(){ modal.classList.remove("open"); document.body.style.overflow=''; }
+function closeModal(){
+  modal.style.display='none';
+  document.body.style.overflow='';
+}
 function populateCities(countryEn){
   const c=MAP.find(x=>x.en===countryEn);
   citySel.innerHTML=(c?.cities||[]).map(m=>`<option value="${m.en}">${m.ar}</option>`).join("");
 }
-
-countrySel.addEventListener("change",()=>populateCities(countrySel.value));
-openPicker.addEventListener("click",openModal);
-cancelPlace.addEventListener("click",closeModal);
-modal.addEventListener("click",(e)=>{ if(e.target===modal) closeModal(); });
-savePlace.addEventListener("click",()=>{
+countrySel?.addEventListener("change",()=>populateCities(countrySel.value));
+openPicker?.addEventListener("click",openModal);
+cancelPlace?.addEventListener("click",closeModal);
+modal?.addEventListener("click",(e)=>{ if(e.target===modal) closeModal(); });
+savePlace?.addEventListener("click",()=>{
   const c=MAP.find(x=>x.en===countrySel.value);
   const m=(c?.cities||[]).find(x=>x.en===citySel.value);
   if(c&&m){
