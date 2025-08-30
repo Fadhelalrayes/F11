@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 <title>المسبحة الفاخرة</title>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;900&family=Amiri:wght@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;900&family=Amiri:wght@700&display=swap" rel="stylesheet" />
 <style>
 :root{
   --navy1:#0a1931; --navy2:#102542;
@@ -20,58 +20,49 @@ body{
   font-family:"Cairo",sans-serif;
   background:linear-gradient(160deg,var(--navy1),var(--navy2));
   color:var(--white);
-  -webkit-tap-highlight-color: transparent;
-  padding: max(8px, env(safe-area-inset-top)) 8px max(8px, env(safe-area-inset-bottom)) 8px;
+  -webkit-tap-highlight-color:transparent;
+  /* ندفع المحتوى لأسفل ليأخذ مكان الشريط الثابت */
+  padding: calc(84px + env(safe-area-inset-top, 0px)) 8px max(8px, env(safe-area-inset-bottom)) 8px;
   display:grid; place-items:center;
 }
 
-/* إطار التطبيق */
-.screen{
-  width:min(480px,100%);
-  min-height:calc(100vh - 16px);
-  background:linear-gradient(180deg,var(--navy1),var(--navy2));
-  border-radius:28px;
-  box-shadow:0 25px 70px rgba(0,0,0,.6);
-  overflow:hidden; /* لازم عشان الزوايا الدائرية */
-  display:flex; flex-direction:column;
-}
-
-/* الشريط العلوي (ثابت وواضح) */
-.topbar{
-  position:sticky; top:0; z-index:20;
+/* شريط علوي ثابت خارج البطاقة */
+.appbar{
+  position:fixed; inset-inline:0; top:0; z-index:9999;
   display:flex; align-items:center; justify-content:space-between; gap:12px;
-  /* نزّله زيادة عشان ما ينقص داخل الإطار الدائري أو تحت شريط المتصفح */
-  margin-top: 8px;
-  padding: calc(28px + env(safe-area-inset-top, 0px)) 22px 14px 22px;
-  background:linear-gradient(180deg,rgba(10,25,49,.96),rgba(16,37,66,.82));
+  padding: calc(18px + env(safe-area-inset-top, 0px)) 16px 12px 16px;
+  background:linear-gradient(180deg,rgba(10,25,49,.98),rgba(16,37,66,.85));
   border-bottom:2px solid var(--gold1);
-  border-radius:0 0 16px 16px;
 }
-.title{
+.appbar .title{
   font-weight:900; font-size:22px;
   background:linear-gradient(90deg,var(--gold1),var(--gold2));
   -webkit-background-clip:text; -webkit-text-fill-color:transparent;
   white-space:nowrap;
 }
-
-/* أزرار الشريط */
 .icon-btn{
-  width:52px; height:52px; border-radius:50%; cursor:pointer;
+  width:50px; height:50px; border-radius:50%; cursor:pointer;
   background:radial-gradient(circle at 30% 30%, #1b2c49, #0a1931);
   border:2px solid var(--gold1);
   display:flex; align-items:center; justify-content:center;
   box-shadow:0 0 12px rgba(212,175,55,.6), inset 0 0 8px rgba(0,0,0,.3);
-  outline:none !important;
+  outline:none!important;
 }
-.icon-btn svg{
-  width:28px; height:28px; stroke:var(--gold2); stroke-width:2.8; fill:none; overflow:visible;
+.icon-btn svg{ width:28px; height:28px; stroke:var(--gold2); stroke-width:2.8; fill:none; overflow:visible }
+@media (max-height:700px){
+  body{ padding-top: calc(96px + env(safe-area-inset-top, 0px)); }
+  .icon-btn{ width:46px; height:46px } .icon-btn svg{ width:24px; height:24px }
 }
 
-/* أمان إضافي على الشاشات القصيرة */
-@media (max-height:700px){
-  .topbar{ padding-top: calc(34px + env(safe-area-inset-top, 0px)); }
-  .icon-btn{ width:46px; height:46px; }
-  .icon-btn svg{ width:24px; height:24px; }
+/* بطاقة التطبيق */
+.screen{
+  width:min(480px,100%);
+  min-height:calc(100vh - 16px - (84px + env(safe-area-inset-top, 0px)));
+  background:linear-gradient(180deg,var(--navy1),var(--navy2));
+  border-radius:28px;
+  box-shadow:0 25px 70px rgba(0,0,0,.6);
+  overflow:hidden;           /* للحواف الدائرية */
+  display:flex; flex-direction:column;
 }
 
 /* تبويبات */
@@ -80,12 +71,11 @@ body{
   flex:1; padding:12px; border-radius:14px; cursor:pointer; text-align:center;
   background:rgba(255,255,255,.08);
   border:2px solid rgba(212,175,55,.4);
-  color:#d6dbff; font-weight:800;
-  outline:none !important;
+  color:#d6dbff; font-weight:800; outline:none!important;
 }
 .tab.active{ background:linear-gradient(145deg,var(--gold1),var(--gold2)); color:var(--navy1) }
 
-/* الذِكر والعداد */
+/* الذكر والعداد */
 .phrase{ text-align:center; font-size:40px; font-weight:900; margin:12px 0 }
 .counter{
   width:86%; margin:10px auto; display:flex; justify-content:space-between;
@@ -108,7 +98,7 @@ body{
   opacity:.35;
 }
 
-/* زر إضغط */
+/* زر اضغط */
 .center-btn{
   position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
   width:70%; height:70%; border-radius:50%;
@@ -119,12 +109,12 @@ body{
   cursor:pointer;
   box-shadow:0 0 35px rgba(212,175,55,.65);
   transition:transform .1s, box-shadow .25s ease;
-  outline:none !important;
+  outline:none!important;
 }
 .center-btn:active{ transform:translate(-50%,-50%) scale(.95) }
 .glow{ box-shadow:0 0 55px 20px rgba(212,175,55,.85)!important }
 
-/* الحديث */
+/* الحديث والمصدر */
 .hadith-box{
   background:linear-gradient(160deg,rgba(255,255,255,.10),rgba(255,255,255,.05));
   border:2px solid var(--gold1);
@@ -137,21 +127,18 @@ body{
 .hadith-title{ color:var(--gold2); font-weight:900; margin-bottom:10px; font-size:16px }
 .hadith-text{ font-size:16px; line-height:1.85 }
 
-/* المصدر */
 .source-box{
   background:linear-gradient(160deg,rgba(255,255,255,.08),rgba(255,255,255,.04));
   border:2px dashed var(--gold1);
   border-radius:12px;
   margin:6px 16px 18px;
   padding:10px 14px;
-  color:#e8eaf3;
-  font-size:14px;
-  text-align:center;
+  color:#e8eaf3; font-size:14px; text-align:center;
 }
 .source-title{ color:var(--gold2); font-weight:800; margin-bottom:4px }
 
 /* إزالة أي فوكس/هالة افتراضية */
-.center-btn,.icon-btn,.tab{ -webkit-tap-highlight-color: transparent; outline:none!important; }
+.center-btn,.icon-btn,.tab{ -webkit-tap-highlight-color:transparent; outline:none!important; }
 .center-btn:focus,.center-btn:focus-visible,.center-btn:active,
 .icon-btn:focus,.icon-btn:focus-visible,.icon-btn:active,
 .tab:focus,.tab:focus-visible,.tab:active{ outline:none!important; box-shadow:none!important }
@@ -159,40 +146,38 @@ body{
 </style>
 </head>
 <body>
-<div class="screen" role="application" aria-label="المسبحة">
-  <!-- الشريط العلوي -->
-  <div class="topbar">
-    <button class="icon-btn" id="btn-reset" title="إعادة">
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M3 12a9 9 0 1 0 3-6.7M3 4v4h4"/>
-      </svg>
-    </button>
-    <div class="title">المسبحة</div>
-    <button class="icon-btn" id="btn-next" title="التالي">
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M9 6l6 6-6 6"/>
-      </svg>
-    </button>
-  </div>
 
-  <!-- تبويبات -->
+<!-- الشريط العلوي الثابت (خارج البطاقة) -->
+<div class="appbar" role="banner">
+  <button class="icon-btn" id="btn-reset" title="إعادة">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M3 12a9 9 0 1 0 3-6.7M3 4v4h4"/>
+    </svg>
+  </button>
+  <div class="title">المسبحة</div>
+  <button class="icon-btn" id="btn-next" title="التالي">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M9 6l6 6-6 6"/>
+    </svg>
+  </button>
+</div>
+
+<!-- بطاقة التطبيق -->
+<div class="screen" role="application" aria-label="المسبحة">
   <div class="tabs" role="tablist">
     <button id="tabZ" class="tab active" role="tab" aria-selected="true">تسبيح الزهراء</button>
     <button id="tabO" class="tab" role="tab" aria-selected="false">التسبيح المفتوح</button>
   </div>
 
-  <!-- الذكر والعداد -->
   <div class="phrase" id="phrase">الله أكبر</div>
   <div class="counter"><div id="leftNum">34</div><div id="rightNum">0</div></div>
 
-  <!-- المؤشر والزر -->
   <div class="ring-wrap">
     <div class="outer-ring" id="ring"></div>
     <div class="ticks"></div>
     <button class="center-btn" id="press" type="button" aria-label="إضغط">إضغط</button>
   </div>
 
-  <!-- الحديث والمصدر -->
   <div class="hadith-box" id="hadithBox"></div>
   <div class="source-box" id="sourceBox"></div>
 </div>
@@ -251,7 +236,7 @@ function tick(){
       zh.count++;
       if(zh.count>=c.max){
         zh.step++; zh.count=0;
-        vibrate([120,60,120]);          // نهاية مرحلة
+        vibrate([120,60,120]);
         press.classList.add('glow'); setTimeout(()=>press.classList.remove('glow'),800);
       }
     }
@@ -259,44 +244,25 @@ function tick(){
       phrase.textContent='تم التسبيح ✔';
       left.textContent='0'; right.textContent='0';
       ring.style.setProperty('--deg','360deg');
-      vibrate([200,100,200]);           // إتمام الكل
+      vibrate([200,100,200]);
       press.classList.add('glow'); setTimeout(()=>press.classList.remove('glow'),1500);
     }
   }else{
     op.count++;
     if(op.target>0 && op.count>=op.target){
-      vibrate([200,100,200]);           // بلوغ الهدف
+      vibrate([200,100,200]);
       press.classList.add('glow'); setTimeout(()=>press.classList.remove('glow'),1200);
     }
   }
   render();
 }
 
-/* تفعيل */
 press.addEventListener('click', tick);
-
-/* تبديل الأوضاع */
-document.getElementById('btn-next').onclick=()=>{
-  mode = (mode==='zahra') ? 'open' : 'zahra';
-  tabZ.classList.toggle('active',mode==='zahra');
-  tabO.classList.toggle('active',mode==='open');
-  render();
-};
-
-/* إعادة */
-document.getElementById('btn-reset').onclick=()=>{
-  if(confirm('تصفير العدّاد؟')){
-    zh={step:0,count:0};
-    op={text:'سبحان الله',count:0,target:0};
-    render();
-  }
-};
-
-/* تبويبات */
+document.getElementById('btn-next').onclick=()=>{ mode = (mode==='zahra') ? 'open' : 'zahra'; tabZ.classList.toggle('active',mode==='zahra'); tabO.classList.toggle('active',mode==='open'); render(); };
+document.getElementById('btn-reset').onclick=()=>{ if(confirm('تصفير العدّاد؟')){ zh={step:0,count:0}; op={text:'سبحان الله',count:0,target:0}; render(); } };
 tabZ.onclick=()=>{ mode='zahra'; tabZ.classList.add('active'); tabO.classList.remove('active'); render(); };
 tabO.onclick=()=>{ mode='open';  tabO.classList.add('active'); tabZ.classList.remove('active'); render(); };
 
-/* أول رسم */
 render();
 </script>
 </body>
