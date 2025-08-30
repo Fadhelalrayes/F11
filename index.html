@@ -3,23 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>الخِيرة بالقرآن | استخارة بالقرآن الكريم من الصفحة اليمنى</title>
-<meta name="description" content="الخِيرة بالقرآن: تنفيذ استخارة من الصفحة اليمنى (السطر الأول) مع عرض رقم الصفحة، السورة والآية، والنتيجة المرافقة. بحث برقم الصفحة أو كلمات أو السورة والآية.">
-<meta name="keywords" content="استخارة, الخيرة, الخيرة بالقرآن, استخارة بالقرآن, صفحة يمين, السطر الأول, فاضل الريس">
-<link rel="canonical" href="https://example.com/">
-<meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
-<!-- Open Graph -->
-<meta property="og:type" content="website">
-<meta property="og:locale" content="ar_AR">
-<meta property="og:title" content="الخِيرة بالقرآن | استخارة بالقرآن الكريم">
-<meta property="og:description" content="استخارة دقيقة من الصفحة اليمنى (السطر الأول) مع نتائج مرتَّبة وإمكانيات بحث متقدمة.">
-<meta property="og:url" content="https://example.com/">
-<meta property="og:site_name" content="الخِيرة بالقرآن">
-<!-- Twitter -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="الخِيرة بالقرآن | استخارة بالقرآن الكريم">
-<meta name="twitter:description" content="استخارة من الصفحة اليمنى مع عرض السطر الأول والنتيجة.">
-<!-- Fonts -->
+<title>الخِيرة بالقرآن | استخارة من الصفحة اليمنى</title>
+<meta name="description" content="الخِيرة بالقرآن: استخارة من الصفحة اليمنى (السطر الأول) مع إظهار رقم الصفحة، السورة والآية، والنتيجة المرافقة.">
 <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@600;700;800&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
@@ -36,23 +21,21 @@
   --space:clamp(12px,2vw,22px);
 }
 *{box-sizing:border-box}
-html,body{height:100%}
 body{
   margin:0;color:var(--ink);font-size:var(--fs-body);
   background:
     radial-gradient(1200px 420px at 50% -120px, rgba(0,0,0,.28), transparent 60%),
-    linear-gradient(180deg,#1a1a1a 0%, #0e0e0e 20%, #000 22%),
+    linear-gradient(180deg,#1a1a1a 0%, #0e0e0e 20%, #000 22%, #000 22%),
     url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="260" height="260" viewBox="0 0 260 260"><path d="M130 10l120 120-120 120L10 130z" fill="%23f2ead1" fill-opacity=".25"/></svg>') repeat;
   background-blend-mode:soft-light,normal,soft-light;
   font-family:"Tajawal",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
-  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
 }
 .container{width:min(1200px,96%);margin-inline:auto;padding:clamp(16px,2.5vw,28px) 0 36px}
 
 /* زخرفة */
 .medallion{
   width:clamp(70px,9vw,110px);height:clamp(70px,9vw,110px);
-  margin:0 auto calc(var(--space) * -1.3);
+  margin:0 auto calc(var(--space)*-1.3);
   position:relative;z-index:2;border-radius:50%;
   background:
     radial-gradient(circle at 38% 28%, rgba(255,255,255,.5), transparent 40%),
@@ -67,17 +50,13 @@ body{
 
 /* Hero */
 .hero{
-  position:relative;padding:calc(var(--space) * 1.8) var(--space) calc(var(--space) * 1.2);
+  position:relative;padding:calc(var(--space)*1.8) var(--space) calc(var(--space)*1.2);
   border-radius:var(--radius);
   background:radial-gradient(120% 180% at 50% -70%, rgba(255,255,255,.18), transparent 70%),
              linear-gradient(180deg,#141414 0%, #0c0c0c 55%, #070707 100%);
   color:#fff;box-shadow:var(--sh-xl);overflow:hidden;text-align:center
 }
-.hero:after{content:"";position:absolute;inset:0;background:linear-gradient(135deg, rgba(255,255,255,.08), transparent 35% 65%, rgba(255,255,255,.06))}
-.title{
-  font-family:"Noto Kufi Arabic",system-ui;font-weight:800;font-size:var(--fs-h1);
-  letter-spacing:.3px;margin:0 0 6px
-}
+.title{font-family:"Noto Kufi Arabic";font-weight:800;font-size:var(--fs-h1);margin:0 0 6px}
 .divider{
   width:min(240px,40%);height:16px;margin:12px auto 0;border-radius:999px;
   background:linear-gradient(90deg, transparent, rgba(255,255,255,.35), transparent),
@@ -85,28 +64,22 @@ body{
   box-shadow:0 8px 20px rgba(185,130,31,.35)
 }
 
-/* أزرار — روابط داخلية تعمل بدون JS */
+/* أزرار */
 .row{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
-.btn, .btn:link, .btn:visited{
-  display:inline-block;text-decoration:none;
-  position:relative;border:0;cursor:pointer;
-  padding:12px clamp(18px,2.6vw,28px);
-  border-radius:18px;min-width:clamp(150px,22vw,220px);
-  font-family:"Noto Kufi Arabic",system-ui;font-weight:800;font-size:var(--fs-btn);
-  color:#3a2706;letter-spacing:.2px;
+a.btn,button.btn{display:inline-block;text-decoration:none;position:relative;border:0;cursor:pointer;
+  padding:12px clamp(18px,2.6vw,28px);border-radius:18px;min-width:clamp(150px,22vw,220px);
+  font-family:"Noto Kufi Arabic";font-weight:800;font-size:var(--fs-btn);color:#3a2706;letter-spacing:.2px;
   background:linear-gradient(180deg, rgba(255,255,255,.70), rgba(255,255,255,0) 45%),
              linear-gradient(180deg,var(--gold1),var(--gold2) 30%,var(--gold3) 62%,var(--gold4));
   box-shadow:0 12px 26px rgba(185,130,31,.30), inset 0 1px 0 rgba(255,255,255,.85);
-  transition:transform .15s ease, box-shadow .25s ease, filter .25s ease
-}
-.btn:before{content:"";position:absolute;inset:0;border-radius:inherit;box-shadow:inset 0 0 0 1px rgba(185,130,31,.55), inset 0 -8px 14px rgba(0,0,0,.08);pointer-events:none}
-.btn:hover{transform:translateY(-2px);filter:saturate(1.06);box-shadow:0 18px 36px rgba(185,130,31,.36), inset 0 1px 0 rgba(255,255,255,.92)}
+  transition:transform .15s ease, box-shadow .25s ease, filter .25s ease}
+a.btn:before,button.btn:before{content:"";position:absolute;inset:0;border-radius:inherit;box-shadow:inset 0 0 0 1px rgba(185,130,31,.55), inset 0 -8px 14px rgba(0,0,0,.08);pointer-events:none}
+a.btn:hover,button.btn:hover{transform:translateY(-2px);filter:saturate(1.06);box-shadow:0 18px 36px rgba(185,130,31,.36), inset 0 1px 0 rgba(255,255,255,.92)}
 .btn.black{color:#fff;background:
   linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,0) 45%),
-  linear-gradient(180deg,#272727,#161616 55%,#0b0b0b);
-  box-shadow:0 12px 26px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.07)}
+  linear-gradient(180deg,#272727,#161616 55%,#0b0b0b)}
 
-/* بطاقات عامة */
+/* بطاقات */
 .card{background:#fff;border-radius:22px;box-shadow:var(--sh-xl);padding:var(--space);margin:18px 0}
 .section-title{font-family:"Noto Kufi Arabic";font-size:var(--fs-h2);margin:6px 0 12px;text-align:center}
 .block-btn{width:100%;padding:18px;border-radius:18px;margin:12px 0;border:0;cursor:pointer;
@@ -118,23 +91,23 @@ body{
 input,select{width:100%;padding:14px;border:1px solid #ead79f;border-radius:14px;background:#fff;font-size:clamp(14px,1.4vw,18px);box-shadow:inset 0 1px 3px rgba(0,0,0,.03)}
 .hidden{display:none}
 
-/* مربع الحديث (الآن مخفي افتراضيًا على الرئيسية) */
+/* الحديث (ظاهر الآن في الرئيسية) */
 .hadith-box{
-  display:none; /* مخفي بالصفحة الرئيسية كما طلبت */
   margin:16px auto 0;max-width:1100px;padding:clamp(14px,2vw,20px);
   border-radius:18px;text-align:right;
   background: radial-gradient(160% 120% at 18% -30%, rgba(255,255,255,.55), transparent 55%),
              linear-gradient(180deg, var(--gold1), var(--gold2) 56%, var(--gold3));
   border:1px solid rgba(185,130,31,.35);box-shadow:var(--sh-md);color:#2b1f08
 }
-/* الخط المطلوب: مثل المصدر والعنوان (Noto Kufi Arabic) */
-.hadith-box .q{font-family:"Noto Kufi Arabic",sans-serif;font-size:clamp(16px,1.7vw,20px);line-height:2}
-.hadith-box .src{margin-top:8px;font-family:"Noto Kufi Arabic";font-size:clamp(12px,1.2vw,13px);text-align:center;opacity:.9}
+/* نفس خط العنوان والمصدر */
+.hadith-box .q,.hadith-box .src{font-family:"Noto Kufi Arabic",sans-serif}
+.hadith-box .q{font-size:clamp(16px,1.7vw,20px);line-height:2}
+.hadith-box .src{margin-top:8px;font-size:clamp(12px,1.2vw,13px);text-align:center;opacity:.9}
 
 /* نتيجة */
 .result{background:#fffdf3;border:1px solid #f1e2b0;border-radius:18px;padding:var(--space)}
 .item{background:linear-gradient(180deg,#fff7d4,#fff);border:1px solid #edd899;border-radius:14px;padding:10px 14px;margin:8px 0}
-.ayah{font-family:"Tajawal",system-ui;font-weight:700;font-size:var(--fs-ayah);line-height:2;color:#1b1406;margin-top:10px}
+.ayah{font-family:"Tajawal";font-weight:700;font-size:var(--fs-ayah);line-height:2;color:#1b1406;margin-top:10px}
 .badge{display:inline-block;background:linear-gradient(180deg,#fff7d4,#fbe9b1);border:1px solid #edd899;border-radius:999px;padding:6px 12px;margin:4px 6px 0 0;white-space:nowrap}
 .blackbar{background:#0b0b0b;color:#fff;border-radius:12px;padding:10px 12px;margin:-6px 0 10px;overflow:auto}
 .verse-card{background:#fff;border-radius:16px;border:1px solid #eee;box-shadow:var(--sh-md);padding:12px;margin:10px 0;cursor:pointer}
@@ -143,85 +116,52 @@ input,select{width:100%;padding:14px;border:1px solid #ead79f;border-radius:14px
 .footer{margin-top:26px;text-align:center}
 .credit{display:inline-block;background:linear-gradient(180deg,#1a1a1a,#000);color:#fff;padding:10px 18px;border-radius:999px;border:1px solid rgba(255,255,255,.08);box-shadow:0 12px 26px rgba(0,0,0,.35)}
 
-/* ====== تنقّل بدون JS عبر :target ====== */
-.view{display:none}
-.view:target{display:block}
-#home.view:target, body:not(:target) #home.view{display:block}
+/* إظهار/إخفاء الأقسام بالـ JS */
+section.view{display:none}
+section.view.active{display:block}
 </style>
-
-<!-- Schema.org JSON-LD: WebSite + SearchAction + Breadcrumbs + QAPage (وصف موجز للمحتوى) -->
-<script type="application/ld+json">
-{
-  "@context":"https://schema.org",
-  "@type":"WebSite",
-  "name":"الخِيرة بالقرآن",
-  "url":"https://example.com/",
-  "potentialAction":{
-    "@type":"SearchAction",
-    "target":"https://example.com/#search",
-    "query-input":"required name=query"
-  }
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context":"https://schema.org",
-  "@type":"BreadcrumbList",
-  "itemListElement":[
-    {"@type":"ListItem","position":1,"name":"الصفحة الرئيسية","item":"https://example.com/#home"},
-    {"@type":"ListItem","position":2,"name":"خيرة جديدة","item":"https://example.com/#khira"},
-    {"@type":"ListItem","position":3,"name":"بحث","item":"https://example.com/#search"}
-  ]
-}
-</script>
 </head>
 <body>
 <div class="container">
 
   <div class="medallion" aria-hidden="true"></div>
 
-  <!-- Hero (الرئيسية بسيطة بلا صناديق إضافية) -->
-  <section id="home" class="hero view" role="region" aria-labelledby="title">
+  <!-- الرئيسية -->
+  <section id="home" class="hero view active" aria-labelledby="title">
     <h1 id="title" class="title">الخِيرة بالقرآن</h1>
     <div class="divider" aria-hidden="true"></div>
-    <nav class="row" style="margin-top:12px" aria-label="التنقّل الرئيسي">
-      <!-- أزرار تعمل كرابط داخلي حتى بدون JS -->
+    <nav class="row" style="margin-top:12px" aria-label="التنقّل">
       <a class="btn" href="#khira">خيرة جديدة</a>
       <a class="btn black" href="#search">بحث</a>
     </nav>
-    <!-- صندوق الأحاديث مخفي افتراضيًا حسب طلبك -->
     <div class="hadith-box" id="hadithBox">
       <div class="q" id="hadithText"></div>
       <div class="src" id="hadithSrc"></div>
     </div>
   </section>
 
-  <!-- مراحل الخيرة -->
-  <section id="khira" class="card view" role="region" aria-labelledby="khiraTitle">
+  <!-- الخيرة -->
+  <section id="khira" class="card view" aria-labelledby="khiraTitle">
     <h2 id="khiraTitle" class="section-title">مراحل الخِيرة</h2>
     <ol style="margin:0 0 10px 0;line-height:2">
-      <li>الأفضل الطهارة بالوضوء أو الغُسل.</li>
-      <li>التوجه والنية لله تعالى.</li>
-      <li>قراءة الدعاء المأثور:</li>
+      <li>الطهارة والنية.</li>
+      <li>قراءة الدعاء.</li>
     </ol>
-    <div class="hadith-box" style="display:block;margin-top:10px">
+    <div class="hadith-box" style="margin-top:10px">
       <div class="q">
         اللّهم إنّي أستخيرُك بعِلمك وأستقدِرُك بقدرتك وأسألك من فضلك العظيم…
-        اللّهم إن كنتَ تعلم أن هذا الأمر خيرٌ لي في ديني ومعاشي وعاقبة أمري عاجله وآجله فاقدُره لي ويسِّره لي ثم بارك لي فيه،
-        وإن كنت تعلم أنّ هذا الأمر شرٌّ لي فاصرفه عنّي واصرفني عنه، واقدُر لي الخير حيث كان ثم رضِّني به.
       </div>
       <div class="src">دعاء الاستخارة</div>
     </div>
-    <ol start="4" style="margin:10px 0 0;line-height:2">
+    <ol start="3" style="margin:10px 0 0;line-height:2">
       <li>الصلاة على محمد وآل محمد.</li>
-      <li>اضغط زر <b>استخارة</b> لتظهر الصفحة والنتيجة (اليمين فقط).</li>
+      <li>اضغط <b>استخارة</b> لتظهر النتيجة (اليمين فقط).</li>
     </ol>
     <div class="row" style="margin-top:12px">
       <button class="btn" id="doBtn" type="button">استخارة</button>
       <a class="btn black" href="#home">رجوع</a>
     </div>
 
-    <!-- نتيجة -->
     <div id="res-box" class="result hidden" style="margin-top:12px">
       <div id="res-tags"></div>
       <div class="item"><b>الخيرة:</b> <span id="vVerdict">—</span><br><b>الملاحظات:</b> <span id="vNotes">—</span></div>
@@ -232,7 +172,7 @@ input,select{width:100%;padding:14px;border:1px solid #ead79f;border-radius:14px
   </section>
 
   <!-- البحث -->
-  <section id="search" class="card view" role="region" aria-labelledby="searchTitle">
+  <section id="search" class="card view" aria-labelledby="searchTitle">
     <h2 id="searchTitle" class="section-title">صفحة البحث</h2>
 
     <div class="grid">
@@ -261,7 +201,7 @@ input,select{width:100%;padding:14px;border:1px solid #ead79f;border-radius:14px
       <div>
         <button class="block-btn" type="button" data-open="sBox">السورة والآية</button>
         <div id="sBox" class="card hidden">
-          <div class="label">اختر سورة لعرض الآيات التي تقع على صفحات الاستخارة (الصفحات الفردية):</div>
+          <div class="label">اختر سورة لعرض الآيات على صفحات فردية:</div>
           <div class="row">
             <select id="suraSelect" aria-label="اختيار سورة"></select>
             <button class="btn" id="suraBtn" type="button">عرض الآيات</button>
@@ -298,16 +238,23 @@ input,select{width:100%;padding:14px;border:1px solid #ead79f;border-radius:14px
 </div>
 
 <script>
-/* أدوات بسيطة */
+/* مختصر DOM */
 const $ = id => document.getElementById(id);
 
-/* محتوى ثابت SEO-friendly (روابط داخلية قابلة للفهرسة) */
+/* تنقّل ثابت: تفعيل القسم حسب الهاش */
+function activate(id){
+  document.querySelectorAll('section.view').forEach(s=>s.classList.remove('active'));
+  const el = document.getElementById(id||'home'); if(el) el.classList.add('active');
+}
+function showFromHash(){
+  const h = (location.hash||'#home').replace('#','');
+  activate(h);
+}
+window.addEventListener('hashchange', showFromHash);
 document.addEventListener('DOMContentLoaded', () => {
-  // أزرار الفتح/الإغلاق للأقسام داخل البحث
-  document.querySelectorAll('[data-open]').forEach(b=>b.addEventListener('click',()=>{$(b.dataset.open).classList.remove('hidden');}));
-  document.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',()=>{$(b.dataset.close).classList.add('hidden');}));
+  showFromHash(); // عند التحميل
 
-  // تعبئة الأحاديث (الصندوق مخفي في الرئيسية حسب طلبك، يُستخدم في khira)
+  /* أحاديث */
   const HADITHS=[
     {t:"قال الإمام الصادق (عليه السلام): يقول الله عز وجل: من شقاء عبدي أن يعمل الأعمال ولا يستخير بي.", s:"المصدر : ميزان الحكمة"},
     {t:"قال الإمام الصادق (عليه السلام): من دخل في أمر بغير استخارة ثم ابتلي لم يؤجر.", s:"المصدر : ميزان الحكمة"},
@@ -315,19 +262,18 @@ document.addEventListener('DOMContentLoaded', () => {
     {t:"قال رسول الله (صلى الله عليه وآله): من سعادة ابن آدم استخارته الله ورضاه بما قضى الله، ومن شقوة ابن آدم تركه استخارة الله.", s:"المصدر : ميزان الحكمة"}
   ];
   const h=HADITHS[Math.floor(Math.random()*HADITHS.length)];
-  if ($('hadithText')) $('hadithText').textContent=h.t;
-  if ($('hadithSrc')) $('hadithSrc').textContent=h.s;
+  if($('hadithText')) $('hadithText').textContent=h.t;
+  if($('hadithSrc')) $('hadithSrc').textContent=h.s;
 
-  // أسماء السور
+  /* أسماء السور */
   const SURAH=["","الفاتحة","البقرة","آل عمران","النساء","المائدة","الأنعام","الأعراف","الأنفال","التوبة","يونس","هود","يوسف","الرعد","إبراهيم","الحجر","النحل","الإسراء","الكهف","مريم","طه","الأنبياء","الحج","المؤمنون","النور","الفرقان","الشعراء","النمل","القصص","العنكبوت","الروم","لقمان","السجدة","الأحزاب","سبإ","فاطر","يس","الصافات","ص","الزمر","غافر","فصلت","الشورى","الزخرف","الدخان","الجاثية","الأحقاف","محمد","الفتح","الحجرات","ق","الذاريات","الطور","النجم","القمر","الرحمن","الواقعة","الحديد","المجادلة","الحشر","الممتحنة","الصف","الجمعة","المنافقون","التغابن","الطلاق","التحريم","الملك","القلم","الحاقة","المعارج","نوح","الجن","المزمل","المدثر","القيامة","الإنسان","المرسلات","النبإ","النازعات","عبس","التكوير","الانفطار","المطففين","الانشقاق","البروج","الطارق","الأعلى","الغاشية","الفجر","البلد","الشمس","الليل","الضحى","الشرح","التين","العلق","القدر","البينة","الزلزلة","العاديات","القارعة","التكاثر","العصر","الهمزة","الفيل","قريش","الماعون","الكوثر","الكافرون","النصر","المسد","الإخلاص","الفلق","الناس"];
   window.SURAH = SURAH;
-
-  if ($('suraSelect')){
+  if($('suraSelect')){
     $('suraSelect').innerHTML = `<option value="">— اختر سورة —</option>` +
       SURAH.slice(1).map((n,i)=>`<option value="${i+1}">${i+1}. ${n}</option>`).join("");
   }
 
-  // جدول النتائج (مقتطف كبير؛ يمكنك إكمال قائمتك)
+  /* جدول النتائج (مقتطف كبير؛ أكمل قائمتك عند الحاجة) */
   window.PAGE_RESULT = {
     51:"غير جيدة والنتيجة فيها ندم وخسارة",53:"فيها لوم وغرور وخسران",55:"ممتازة – فيها بركة وتوفيق وصلاح",
     57:"استجابة وتوفيق، معارضة من العدو",59:"لوم وخسارة",61:"استجابة وتوفيق",63:"فيها صعوبة وملامة",
@@ -363,22 +309,20 @@ document.addEventListener('DOMContentLoaded', () => {
     597:"ممتازة – رحمة",599:"ممتازة – رضا",601:"ممتازة – رحمة",603:"جيدة – رحمة ونصير"
   };
 
-  // أحداث الأزرار العملية
-  if ($('doBtn')) $('doBtn').addEventListener('click', doIstikhara);
-  if ($('lookupBtn')) $('lookupBtn').addEventListener('click', lookupByPage);
-  if ($('kwBtn')) $('kwBtn').addEventListener('click', searchByKeyword);
-  if ($('suraBtn')) $('suraBtn').addEventListener('click', loadSuraOddPageVerses);
+  /* أزرار الفتح/الإغلاق داخل البحث */
+  document.querySelectorAll('[data-open]').forEach(b=>b.addEventListener('click',()=>{$(b.dataset.open).classList.remove('hidden');}));
+  document.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',()=>{$(b.dataset.close).classList.add('hidden');}));
+
+  /* أزرار العمليات */
+  const on = (id,ev,fn)=>{const e=$(id); if(e) e.addEventListener(ev,fn);};
+  on('doBtn','click', doIstikhara);
+  on('lookupBtn','click', lookupByPage);
+  on('kwBtn','click', searchByKeyword);
+  on('suraBtn','click', loadSuraOddPageVerses);
 });
 
-/* وظائف مشتركة */
-function verdictFrom(t=""){
-  if(/نهي|ناه[ية]/.test(t)) return "ناهية";
-  if(/ممتاز/.test(t)) return "ممتازة";
-  if(/حسنة/.test(t)) return "حسنة";
-  if(/وسط/.test(t)) return "وسط";
-  if(/جيدة|جيد/.test(t)) return "جيدة";
-  return "—";
-}
+/* أدوات */
+function verdictFrom(t=""){ if(/نهي|ناه[ية]/.test(t)) return "ناهية"; if(/ممتاز/.test(t)) return "ممتازة"; if(/حسنة/.test(t)) return "حسنة"; if(/وسط/.test(t)) return "وسط"; if(/جيدة|جيد/.test(t)) return "جيدة"; return "—"; }
 function validatePage(p){
   if(!Number.isInteger(p)||p<1||p>603||p%2===0){alert("خطأ في رقم الصفحة\nالاستخارة على اليمين فقط: اختر عدد فردي بين 1 و 603.");return false;}
   if(!(p in window.PAGE_RESULT)){alert("هذه الصفحة ليست ضمن جدول الاستخارة الذي زوّدتني به.");return false;}
@@ -386,14 +330,12 @@ function validatePage(p){
 }
 async function firstAyahByPage(page){
   try{
-    const r=await fetch(`https://api.quran.com/api/v4/verses/by_page/${page}?language=ar&fields=text_uthmani,verse_key,chapter_id,page_number`);
-    if(r.ok){const j=await r.json();const v=j.verses?.[0];
-      if(v){const s=v.chapter_id;const a=(v.verse_key||"").split(":")[1]||v.verse_number;return {text:v.text_uthmani||v.text,sura:s,ayah:a};}}
+    const r=await fetch(`https://api.quran.com/api/v4/verses/by_page/${page}?language=ar&fields=text_uthmani,verse_key,chapter_id&page_number`);
+    if(r.ok){const j=await r.json();const v=j.verses?.[0]; if(v){const s=v.chapter_id;const a=(v.verse_key||"").split(":")[1]||v.verse_number;return {text:v.text_uthmani||v.text,sura:s,ayah:a};}}
   }catch(e){}
   try{
     const r2=await fetch(`https://api.alquran.cloud/v1/page/${page}/quran-uthmani`);
-    if(r2.ok){const j2=await r2.json();const v=j2?.data?.ayahs?.[0];
-      if(v){return {text:v.text,sura:v.surah.number,ayah:v.numberInSurah};}}
+    if(r2.ok){const j2=await r2.json();const v=j2?.data?.ayahs?.[0]; if(v){return {text:v.text,sura:v.surah.number,ayah:v.numberInSurah};}}
   }catch(e){}
   return {text:null,sura:null,ayah:null};
 }
@@ -420,7 +362,7 @@ function renderResult(target, page, notes, ay){
   }
 }
 
-/* أحداث العمل */
+/* عمليات */
 async function doIstikhara(){
   const keys=Object.keys(window.PAGE_RESULT).map(Number).filter(n=>n%2===1 && n>=1 && n<=603);
   const page=keys[Math.floor(Math.random()*keys.length)];
@@ -442,7 +384,7 @@ function searchByKeyword(){
   res.forEach(h=>{
     const d=document.createElement("div"); d.className="verse-card";
     d.innerHTML=`<div style="font-weight:800">صفحة ${h.p}</div><div style="font-size:16px;margin-top:4px">${h.t}</div>`;
-    d.onclick=()=>{$('pageInput').value=h.p; window.location.hash="#search"; window.scrollTo({top:$('pBox').offsetTop-40,behavior:"smooth"});}
+    d.onclick=()=>{$('pageInput').value=h.p; location.hash="#search"; window.scrollTo({top:$('pBox').offsetTop-40,behavior:"smooth"});}
     w.appendChild(d);
   });
   $('versesList').classList.remove("hidden");
