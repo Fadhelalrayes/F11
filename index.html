@@ -10,6 +10,8 @@
   --navy1:#0a1931; --navy2:#102542;
   --gold1:#d4af37; --gold2:#f9e79f;
   --white:#ffffff;
+  /* ارتفاع الهيدر الثابت */
+  --APPBAR-H: calc(70px + env(safe-area-inset-top, 0px));
 }
 
 /* أساسيات */
@@ -21,18 +23,15 @@ body{
   background:linear-gradient(160deg,var(--navy1),var(--navy2));
   color:var(--white);
   -webkit-tap-highlight-color:transparent;
-  /* ندفع المحتوى لأسفل ليأخذ مكان الشريط الثابت */
-  padding: calc(84px + env(safe-area-inset-top, 0px)) 8px max(8px, env(safe-area-inset-bottom)) 8px;
-  display:grid; place-items:center;
 }
 
-/* شريط علوي ثابت خارج البطاقة */
+/* هيدر ثابت خارج البطاقة (لا خطوط تقطع المحتوى) */
 .appbar{
   position:fixed; inset-inline:0; top:0; z-index:9999;
   display:flex; align-items:center; justify-content:space-between; gap:12px;
-  padding: calc(18px + env(safe-area-inset-top, 0px)) 16px 12px 16px;
+  height:var(--APPBAR-H);
+  padding: calc(10px + env(safe-area-inset-top, 0px)) 16px 10px 16px;
   background:linear-gradient(180deg,rgba(10,25,49,.98),rgba(16,37,66,.85));
-  border-bottom:2px solid var(--gold1);
 }
 .appbar .title{
   font-weight:900; font-size:22px;
@@ -49,19 +48,21 @@ body{
   outline:none!important;
 }
 .icon-btn svg{ width:28px; height:28px; stroke:var(--gold2); stroke-width:2.8; fill:none; overflow:visible }
-@media (max-height:700px){
-  body{ padding-top: calc(96px + env(safe-area-inset-top, 0px)); }
-  .icon-btn{ width:46px; height:46px } .icon-btn svg{ width:24px; height:24px }
-}
+
+@media (max-height:720px){ :root{ --APPBAR-H: calc(88px + env(safe-area-inset-top,0px)); } }
+@media (max-width:360px){ .icon-btn{width:46px;height:46px} .icon-btn svg{width:24px;height:24px} }
+
+/* مساحة فارغة تحت الهيدر حتى ما يغطي أي شيء */
+.header-spacer{ height:var(--APPBAR-H) }
 
 /* بطاقة التطبيق */
+.container{ display:grid; place-items:center; padding:8px }
 .screen{
   width:min(480px,100%);
-  min-height:calc(100vh - 16px - (84px + env(safe-area-inset-top, 0px)));
   background:linear-gradient(180deg,var(--navy1),var(--navy2));
   border-radius:28px;
   box-shadow:0 25px 70px rgba(0,0,0,.6);
-  overflow:hidden;           /* للحواف الدائرية */
+  overflow:hidden;                 /* للحواف الدائرية لكن كل شيء داخل البطاقة */
   display:flex; flex-direction:column;
 }
 
@@ -147,8 +148,8 @@ body{
 </head>
 <body>
 
-<!-- الشريط العلوي الثابت (خارج البطاقة) -->
-<div class="appbar" role="banner">
+<!-- هيدر ثابت خارج البطاقة -->
+<div class="appbar" role="banner" aria-label="التحكم">
   <button class="icon-btn" id="btn-reset" title="إعادة">
     <svg viewBox="0 0 24 24" aria-hidden="true">
       <path d="M3 12a9 9 0 1 0 3-6.7M3 4v4h4"/>
@@ -162,24 +163,29 @@ body{
   </button>
 </div>
 
+<!-- مسافة تحت الهيدر -->
+<div class="header-spacer" aria-hidden="true"></div>
+
 <!-- بطاقة التطبيق -->
-<div class="screen" role="application" aria-label="المسبحة">
-  <div class="tabs" role="tablist">
-    <button id="tabZ" class="tab active" role="tab" aria-selected="true">تسبيح الزهراء</button>
-    <button id="tabO" class="tab" role="tab" aria-selected="false">التسبيح المفتوح</button>
+<div class="container">
+  <div class="screen" role="application" aria-label="المسبحة">
+    <div class="tabs" role="tablist">
+      <button id="tabZ" class="tab active" role="tab" aria-selected="true">تسبيح الزهراء</button>
+      <button id="tabO" class="tab" role="tab" aria-selected="false">التسبيح المفتوح</button>
+    </div>
+
+    <div class="phrase" id="phrase">الله أكبر</div>
+    <div class="counter"><div id="leftNum">34</div><div id="rightNum">0</div></div>
+
+    <div class="ring-wrap">
+      <div class="outer-ring" id="ring"></div>
+      <div class="ticks"></div>
+      <button class="center-btn" id="press" type="button" aria-label="إضغط">إضغط</button>
+    </div>
+
+    <div class="hadith-box" id="hadithBox"></div>
+    <div class="source-box" id="sourceBox"></div>
   </div>
-
-  <div class="phrase" id="phrase">الله أكبر</div>
-  <div class="counter"><div id="leftNum">34</div><div id="rightNum">0</div></div>
-
-  <div class="ring-wrap">
-    <div class="outer-ring" id="ring"></div>
-    <div class="ticks"></div>
-    <button class="center-btn" id="press" type="button" aria-label="إضغط">إضغط</button>
-  </div>
-
-  <div class="hadith-box" id="hadithBox"></div>
-  <div class="source-box" id="sourceBox"></div>
 </div>
 
 <script>
