@@ -24,7 +24,7 @@
   .label{font-size:.85rem; color:var(--muted); font-weight:700}
   .value{font-weight:800; font-size:1rem; font-variant-numeric:tabular-nums}
   .card{background:#fff; border:1px solid var(--border); border-radius:12px; box-shadow:var(--shadow); padding:12px}
-  .card h3{margin:0 0 10px; font-size:1rem; font-weight:800}
+  .card h3{margin:0 0 10px; font-size:1rem; font-weight:800; text-align:center;} /* ← الوسط */
   table{width:100%; border-collapse:collapse}
   th,td{padding:12px; border-bottom:1px solid #f0f0f0; font-size:1rem}
   th{background:#fafafa; font-weight:800}
@@ -128,7 +128,8 @@
   </div>
 
 <script>
-/* ========================= البيانات الأساسية ========================= */
+/* ========================= إعدادات عامة ========================= */
+const START_HIJRI_AFTER_MAGHRIB = false; // ← أوقفنا انتقال اليوم بعد المغرب لتصحيح الخلل
 const MAP=[
  {ar:"البحرين",en:"Bahrain",tz:"Asia/Bahrain",cities:[
    {ar:"المنامة",en:"Manama"},{ar:"المحرق",en:"Muharraq"},{ar:"مدينة عيسى",en:"Isa Town"},
@@ -141,12 +142,9 @@ const MAP=[
  {ar:"الكويت",en:"Kuwait",tz:"Asia/Kuwait",cities:[{ar:"مدينة الكويت",en:"Kuwait City"},{ar:"حولي",en:"Hawalli"},{ar:"الأحمدي",en:"Al Ahmadi"}]},
  {ar:"السعودية",en:"Saudi Arabia",tz:"Asia/Riyadh",cities:[{ar:"الرياض",en:"Riyadh"},{ar:"جدة",en:"Jeddah"},{ar:"الدمام",en:"Dammam"},{ar:"مكة",en:"Mecca"},{ar:"المدينة",en:"Medina"}]}
 ];
-
 const DEFAULT={countryEn:"Bahrain",countryAr:"البحرين",cityEn:"Manama",cityAr:"المنامة",tz:"Asia/Bahrain"};
 let current = JSON.parse(localStorage.getItem("jaq_prayer_place")||"null") || {...DEFAULT};
 let HIJRI_OFFSET_DAYS = Number(localStorage.getItem("jaq_hijri_offset_days")||"0");
-
-/* ملف خارجي اختياري لإضافة مناسباتك الخاصة */
 const EVENTS_SOURCE_URL = null;
 
 /* أحاديث */
@@ -164,7 +162,7 @@ function setHadith(){
   hadithText.textContent=h.t; hadithSource.textContent=h.s;
 }
 
-/* ========================= تقويم المناسبات الشيعية (مختصر قابل للتوسعة) ========================= */
+/* مناسبات مختصرة قابلة للتوسعة */
 let EVENTS={
   "1-1":[{t:"رأس السنة الهجرية"}],
   "1-2":[{t:"دخول الإمام الحسين ع كربلاء"}],
@@ -230,7 +228,7 @@ async function mergeExternalEvents(){
   }catch(e){}
 }
 
-/* ========================= أدوات عامة ========================= */
+/* أدوات وقت/تنسيق */
 function to12h(raw){
   if(!raw) return "--:-- --";
   const pure=String(raw).replace(/\s*\(.*?\)\s*/g,"").trim();
@@ -247,7 +245,7 @@ function ymdInTZ(date, tz){
   return {Y:p.find(x=>x.type==='year').value, M:p.find(x=>x.type==='month').value, D:p.find(x=>x.type==='day').value};
 }
 
-/* ====== الهجري عبر Aladhan (أم القرى) مع منطق بعد المغرب وتعويض ====== */
+/* ====== الهجري (Aladhan + تعويض) بدون “بعد المغرب” ====== */
 const HIJRI_MONTHS_AR=["","محرم","صفر","ربيع الأول","ربيع الآخر","جمادى الأولى","جمادى الآخرة","رجب","شعبان","رمضان","شوال","ذو القعدة","ذو الحجة"];
 function hasIntlIslamic(){ try{ new Intl.DateTimeFormat('ar-SA-u-ca-islamic',{day:'numeric'}).format(new Date()); return true; }catch{ return false; } }
 function g2jd(y,m,d){ const a=Math.floor((14-m)/12); y=y+4800-a; m=m+12*a-3; return d + Math.floor((153*m+2)/5) + 365*y + Math.floor(y/4) - Math.floor(y/100) + Math.floor(y/400) - 32045; }
@@ -263,17 +261,11 @@ function jd2islamic(jd){
   return {y,m,d};
 }
 
-/* أوقات الصلاة (لاحتساب "بعد المغرب") */
+/* أوقات الصلاة (مطلوبة للجدول فقط) */
 let lastTimings=null;
 function refGregorianDateForHijri(baseDate){
-  let ref = new Date(baseDate);
-  if(lastTimings?.Maghrib){
-    const pure=lastTimings.Maghrib.replace(/\s*\(.*?\)\s*/g,"").trim();
-    let [H,M]=pure.split(":").map(Number); H=(H===24)?0:H;
-    const magh = new Date(baseDate); magh.setHours(H||0,M||0,0,0);
-    if(baseDate >= magh) ref = new Date(ref.getTime() + 86400000);
-  }
-  return ref;
+  // بعد الإصلاح: نُبقي اليوم كما هو مدنيًا (لا انتقال بعد المغرب)
+  return new Date(baseDate);
 }
 async function fetchHijriFromAladhan(refDate){
   const {Y,M,D}=ymdInTZ(refDate, current.tz);
@@ -284,8 +276,6 @@ async function fetchHijriFromAladhan(refDate){
   const hj=j?.data?.hijri; if(!hj) throw new Error("Hijri API malformed");
   return hj;
 }
-
-/* ——— هنا التعديل المهم: تثبيت اسم اليوم على اليوم المدني الحالي ——— */
 function formatHijriFromObj(h, civilWeekday){
   const day = Number(h.day||h.date?.split('-')[0]);
   const monthName = h?.month?.ar || HIJRI_MONTHS_AR[h?.month?.number||0] || '';
@@ -346,7 +336,7 @@ async function fetchTimings(countryEn, cityEn){
   return j.data.timings;
 }
 
-/* رسم الجدول + التاريخين + المناسبات */
+/* الرسم العام */
 async function renderTimes(t, tz){
   const timings=ensureImsak({...t}); 
   lastTimings=timings;
@@ -368,20 +358,19 @@ async function renderTimes(t, tz){
   const nowTZ = new Date(new Date().toLocaleString('en-US',{timeZone:current.tz}));
   greg.textContent = new Intl.DateTimeFormat('ar',{timeZone:current.tz,weekday:'long',year:'numeric',month:'long',day:'numeric'}).format(nowTZ);
 
-  // نحسب الهجري لليوم المرجعي (بعد المغرب) لكن نثبت "اسم اليوم" على اليوم المدني الحالي
   const civilWeekday = new Intl.DateTimeFormat('ar',{timeZone:current.tz,weekday:'long'}).format(nowTZ);
-  const ref = refGregorianDateForHijri(nowTZ);
+  const ref = refGregorianDateForHijri(nowTZ); // بدون انتقال بعد المغرب
   try{
     const hijriObj = await fetchHijriFromAladhan(ref);
     hijri.textContent = formatHijriFromObj(hijriObj, civilWeekday);
-    await renderEventsWithHijri(hijriObj, ref); // سيُظهر/يخفي صندوق المناسبات حسب الحال
+    await renderEventsWithHijri(hijriObj, ref);
   }catch(e){
     hijri.textContent = localHijriFallback(ref, civilWeekday);
-    renderEvents(); // Fallback
+    renderEvents();
   }
 }
 
-/* مناسبات اليوم/الليلة — باستخدام كائن الهجري من API */
+/* مناسبات API */
 async function renderEventsWithHijri(hijriObjToday, refToday){
   const todayM = Number(hijriObjToday?.month?.number||0);
   const todayD = Number(hijriObjToday?.day||0);
@@ -396,7 +385,7 @@ async function renderEventsWithHijri(hijriObjToday, refToday){
   drawEvents(todayM, todayD, nightM, nightD);
 }
 
-/* مناسبات Fallback عندما لا يتوفر كائن الهجري من API */
+/* مناسبات Fallback */
 function renderEvents(){
   const nowTZ=new Date(new Date().toLocaleString('en-US',{timeZone:current.tz}));
   const ref = refGregorianDateForHijri(nowTZ);
@@ -417,7 +406,7 @@ function renderEvents(){
   drawEvents(todayM, todayD, nightM, nightD);
 }
 
-/* رسم صناديق المناسبات — لن يظهر الصندوق إن كانت القائمتان فارغتين */
+/* إظهار/إخفاء المناسبات حسب القوائم */
 function drawEvents(todayM,todayD,nightM,nightD){
   const box=document.getElementById('eventsBox');
   const todayEl=document.getElementById('eventsToday');
@@ -437,7 +426,20 @@ function drawEvents(todayM,todayD,nightM,nightD){
   nightEl.innerHTML = nightList.length ? nightList.map(itemHTML).join("") : `<div class="evtItem"><span class="evtText">لا توجد مناسبة.</span></div>`;
 }
 
-/* ========================= التحميل العام ========================= */
+/* تحميل مناسبات خارجية (اختياري) */
+async function mergeExternalEvents(){
+  if(!EVENTS_SOURCE_URL) return;
+  try{
+    const r=await fetch(EVENTS_SOURCE_URL,{cache:"no-store"});
+    if(!r.ok) throw new Error();
+    const j=await r.json();
+    const extra=j?.events||{};
+    for(const k of Object.keys(extra)){ EVENTS[k]=(EVENTS[k]||[]).concat(extra[k]); }
+    try{ renderEvents(); }catch{}
+  }catch(e){}
+}
+
+/* ========================= التشغيل ========================= */
 function fmtGreg(){ return new Intl.DateTimeFormat('ar',{timeZone:current.tz,weekday:'long',year:'numeric',month:'long',day:'numeric'}).format(new Date()); }
 async function load(){
   place.textContent=`${current.cityAr}، ${current.countryAr}`;
@@ -460,14 +462,14 @@ async function load(){
       hijri.textContent = localHijriFallback(ref, civilWeekday);
     }
   }
-  mergeExternalEvents(); // تحميل مناسبات خارجية (إن وُجد رابط)
+  mergeExternalEvents();
 }
 
 /* ساعة + حديث */
 setInterval(updateClock,1000); updateClock();
 setHadith();
 
-/* ========================= نافذة الإعداد ========================= */
+/* نافذة الإعداد */
 const modal=document.getElementById("modal");
 const openPicker=document.getElementById("openPicker");
 const cancelPlace=document.getElementById("cancelPlace");
@@ -512,4 +514,3 @@ load();
 </script>
 </body>
 </html>
-```0
