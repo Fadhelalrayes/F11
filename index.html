@@ -11,7 +11,7 @@
   --navy2:#102542;
   --gold1:#d4af37;
   --gold2:#f9e79f;
-  --white:#fff;
+  --white:#ffffff;
 }
 
 /* أساسيات */
@@ -22,14 +22,14 @@ body{
   font-family:"Cairo",sans-serif;
   background:linear-gradient(160deg,var(--navy1),var(--navy2));
   display:grid;place-items:center;color:var(--white);
-  -webkit-tap-highlight-color: transparent; /* إزالة وميض أزرق على الموبايل */
-  padding:10px; /* مساحة صغيرة للحواف على الشاشات الصغيرة */
+  -webkit-tap-highlight-color: transparent;
+  padding:10px;
 }
 
 /* شاشة التطبيق */
 .screen{
   width:min(480px,100%);
-  min-height:calc(100vh - 28px);          /* يتمدد حسب المحتوى */
+  min-height:calc(100vh - 28px);
   border-radius:32px;overflow:hidden;position:relative;
   background:linear-gradient(180deg,var(--navy1),var(--navy2));
   box-shadow:0 25px 70px rgba(0,0,0,.6);
@@ -37,27 +37,33 @@ body{
 }
 
 /* الشريط العلوي */
-.topbar{display:flex;justify-content:space-between;align-items:center;padding:16px 20px}
+.topbar{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:16px 20px;
+}
 .title{
   font-weight:900;font-size:22px;
   background:linear-gradient(90deg,var(--gold1),var(--gold2));
   -webkit-background-clip:text;-webkit-text-fill-color:transparent
 }
+
+/* أزرار واضحة جداً */
 .icon-btn{
-  width:44px;height:44px;border-radius:50%;cursor:pointer;
-  background:linear-gradient(145deg,var(--navy2),#070f20);
-  border:2px solid var(--gold1);display:grid;place-items:center;
-  box-shadow:0 0 10px rgba(212,175,55,.35),inset 0 0 10px rgba(212,175,55,.12);
-  color:var(--gold2);
+  width:46px;height:46px;border-radius:14px;cursor:pointer;
+  background:linear-gradient(145deg,rgba(255,255,255,.15),rgba(255,255,255,.06));
+  border:2px solid var(--gold1);
+  display:grid;place-items:center;
+  box-shadow:0 0 10px rgba(212,175,55,.35),inset 0 0 8px rgba(0,0,0,.25);
 }
+.icon-btn svg{display:block}
 
 /* تبويبات */
 .tabs{display:flex;gap:12px;justify-content:center;padding:12px}
 .tab{
-  flex:1;padding:12px;border-radius:14px;cursor:pointer;
+  flex:1;padding:12px;border-radius:14px;cursor:pointer;text-align:center;
   background:rgba(255,255,255,.08);
   border:2px solid rgba(212,175,55,.4);
-  color:#d6dbff;font-weight:800;text-align:center
+  color:#d6dbff;font-weight:800;
 }
 .tab.active{
   background:linear-gradient(145deg,var(--gold1),var(--gold2));
@@ -73,7 +79,7 @@ body{
   font-size:26px;font-weight:900;color:var(--gold2)
 }
 
-/* مؤشر فخم (بدل الدائرة التقليدية) */
+/* مؤشر فخم */
 .ring-wrap{width:86%;aspect-ratio:1/1;margin:22px auto;position:relative}
 .outer-ring{
   position:absolute;inset:0;border-radius:50%;
@@ -87,14 +93,14 @@ body{
   opacity:.35;
 }
 
-/* زر إضغط (محوّط بلمعة ذهبية) */
+/* زر إضغط */
 .center-btn{
   position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
   width:70%;height:70%;border-radius:50%;
   background:radial-gradient(circle at 30% 30%,var(--white),var(--gold2),var(--gold1));
   border:3px solid var(--gold1);
   display:grid;place-items:center;
-  font-family:"Amiri","Tahoma",serif; /* خط كلمة إضغط */
+  font-family:"Amiri","Tahoma",serif;
   font-weight:700;font-size:34px;color:var(--navy1);
   cursor:pointer;
   box-shadow:0 0 35px rgba(212,175,55,.65);
@@ -103,37 +109,64 @@ body{
 .center-btn:active{transform:translate(-50%,-50%) scale(.95)}
 .glow{box-shadow:0 0 55px 20px rgba(212,175,55,.85)!important}
 
-/* إزالة المربع/الهالة الزرقاء نهائياً */
-.center-btn,.icon-btn,.tab { outline:none!important; -webkit-tap-highlight-color: transparent; }
+/* إزالة أي فوكس/مربع أزرق */
+.center-btn,.icon-btn,.tab{outline:none!important; -webkit-tap-highlight-color: transparent;}
 .center-btn:focus,.center-btn:focus-visible,.center-btn:active,
 .icon-btn:focus,.icon-btn:focus-visible,.icon-btn:active,
-.tab:focus,.tab:focus-visible,.tab:active { outline:none!important; box-shadow:none!important; }
+.tab:focus,.tab:focus-visible,.tab:active{outline:none!important;box-shadow:none!important}
 .center-btn::-moz-focus-inner,.icon-btn::-moz-focus-inner,.tab::-moz-focus-inner{border:0}
 
-/* مربع الأحاديث (موسّع بدون قص) */
+/* صندوق الحديث */
 .hadith-box{
-  background:linear-gradient(160deg,rgba(255,255,255,.1),rgba(255,255,255,.05));
+  background:linear-gradient(160deg,rgba(255,255,255,.10),rgba(255,255,255,.05));
   border:2px solid var(--gold1);
   border-radius:16px;
-  margin:6px 16px 18px;
-  padding:18px 16px;
-  font-size:16px;
-  line-height:1.85;
-  color:#fdfdfd;
-  box-shadow:inset 0 0 12px rgba(212,175,55,.25);
-  text-align:justify;
+  margin:6px 16px 10px;
+  padding:16px 16px 10px;
+  color:#f7f8fb;                 /* لون نص واحد هادئ */
+  box-shadow:inset 0 0 12px rgba(212,175,55,.20);
 }
-.hadith-box b{color:var(--gold2)}
-.hadith-title{font-weight:900;margin-bottom:8px;color:var(--gold2)}
-.hadith-src{opacity:.9;font-size:14px}
+.hadith-title{
+  font-weight:900;margin-bottom:8px;
+  color:var(--gold2);            /* فقط العنوان ذهبي */
+  font-size:16px;
+}
+.hadith-text{
+  font-size:16px; line-height:1.85; text-align:justify;
+}
+
+/* صندوق المصدر المستقل */
+.source-box{
+  background:linear-gradient(160deg,rgba(255,255,255,.08),rgba(255,255,255,.04));
+  border:2px dashed var(--gold1);
+  border-radius:12px;
+  margin:8px 16px 18px;
+  padding:10px 14px;
+  color:#e8eaf3;
+  font-size:14px;
+}
+.source-title{color:var(--gold2);font-weight:800;margin-bottom:4px}
 </style>
 </head>
 <body>
 <div class="screen" role="application" aria-label="المسبحة">
   <div class="topbar">
-    <button class="icon-btn" id="btn-reset" title="إعادة">⟳</button>
+    <!-- زر إعادة واضح -->
+    <button class="icon-btn" id="btn-reset" title="إعادة">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M3 12a9 9 0 1 0 3-6.708" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+        <path d="M3 4v4h4" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+
     <div class="title">المسبحة</div>
-    <button class="icon-btn" id="btn-next" title="التالي">→</button>
+
+    <!-- زر التالي واضح -->
+    <button class="icon-btn" id="btn-next" title="التالي">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M9 6l6 6-6 6" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
   </div>
 
   <div class="tabs" role="tablist">
@@ -150,33 +183,38 @@ body{
     <button class="center-btn" id="press" type="button" aria-label="إضغط">إضغط</button>
   </div>
 
-  <!-- مربع الأحاديث (موسّع) -->
+  <!-- حديث -->
   <div class="hadith-box" id="hadithBox"></div>
+  <!-- المصدر في صندوق مستقل -->
+  <div class="source-box" id="sourceBox"></div>
 </div>
 
 <script>
-/* الأحاديث (يظهر حديث عشوائي كل تصفّح) */
+/* أحاديث + مصادر (يتغير عشوائي كل تصفح) */
 const ahadith = [
   {
-    text: 'قال <b>الصادق (عليه السلام)</b>: من سبّح تسبيح فاطمة (عليها السلام) قبل أن يثني رجليه بعد انصرافه من صلاة الغداة غفر له، ويبدأ بالتكبير، ثمّ قال (عليه السلام) لحمزة بن حمران: حسبك بها يا حمزة.',
-    src: 'المصدر: قرب الإسناد'
+    text: 'قال الصادق (عليه السلام): من سبّح تسبيح فاطمة (عليها السلام) قبل أن يثني رجليه بعد انصرافه من صلاة الغداة غفر له، ويبدأ بالتكبير، ثمّ قال (عليه السلام) لحمزة بن حمران: حسبك بها يا حمزة.',
+    src: 'قرب الإسناد'
   },
   {
-    text: 'قال <b>أبو هارون المكفوف</b>: قال الصادق (عليه السلام): يا أبا هارون، إنّا نأمر صبياننا بتسبيح فاطمة (عليها السلام) كما نأمرهم بالصلاة فالزمه، فإنّه لم يلزمه عبد فشقي.',
-    src: 'المصدر: بحار الأنوار: ج٨٢، ص٣٢٨'
+    text: 'قال أبو هارون المكفوف: قال الصادق (عليه السلام): يا أبا هارون، إنّا نأمر صبياننا بتسبيح فاطمة (عليها السلام) كما نأمرهم بالصلاة فالزمه، فإنّه لم يلزمه عبد فشقي.',
+    src: 'بحار الأنوار: ج٨٢، ص٣٢٨'
   },
   {
-    text: 'قال <b>الباقر (عليه السلام)</b>: من سبّح تسبيح الزهراء (عليها السلام) ثمّ استغفر غفر له، وهي مائة باللسان وألف في الميزان، وتطرد الشيطان وترضي الرحمن.',
-    src: 'المصدر الأصلي: ثواب الأعمال / بحار الأنوار: ج٨٢، ص٣٣٢'
+    text: 'قال الباقر (عليه السلام): من سبّح تسبيح الزهراء (عليها السلام) ثمّ استغفر غفر له، وهي مائة باللسان وألف في الميزان، وتطرد الشيطان وترضي الرحمن.',
+    src: 'ثواب الأعمال / بحار الأنوار: ج٨٢، ص٣٣٢'
   }
 ];
 
+// عرض حديث عشوائي + المصدر في صندوق مستقل
 (function showRandomHadith(){
   const h = ahadith[Math.floor(Math.random()*ahadith.length)];
   document.getElementById('hadithBox').innerHTML =
     `<div class="hadith-title">ثواب تسبيح فاطمة الزهراء (عليها السلام)</div>
-     <div class="hadith-text">${h.text}</div>
-     <div class="hadith-src">${h.src}</div>`;
+     <div class="hadith-text">${h.text}</div>`;
+  document.getElementById('sourceBox').innerHTML =
+    `<div class="source-title">المصدر</div>
+     <div>${h.src}</div>`;
 })();
 
 /* منطق التسبيح والاهتزاز */
