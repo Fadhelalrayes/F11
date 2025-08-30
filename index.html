@@ -3,241 +3,328 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>مواقيت الصلاة – البحرين</title>
+  <title>مواقيت الصلاة – وفق المذهب الجعفري</title>
+  <!-- خط عربي أنيق -->
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     :root{
-      --bg1:#f8fbff; --bg2:#e9f2ff;
-      --card-bg:#ffffffcc; --text:#1f2937;
-      --muted:#4b5563; --accent:#2563eb20; --border:#e5e7eb;
-      --radius:18px; --shadow:0 10px 30px rgba(0,0,0,.06);
+      /* لوحة ألوان جديدة: تدرّج هادئ أزرق/بنفسجي + لمسات ذهبية */
+      --bg1:#e6f0ff; --bg2:#efe7ff;
+      --card:#ffffffee; --text:#0f172a; --sub:#475569;
+      --accent:#8b5cf6; --accent-2:#0ea5e9; --gold:#b9852f;
+      --border:#e6e8ef; --shadow:0 10px 30px rgba(2, 6, 23, .08);
+      --radius:20px;
+      --muted:#64748b;
     }
     *{box-sizing:border-box}
     body{
-      margin:0; font-family: "Tahoma", system-ui, -apple-system, Segoe UI, "Noto Kufi Arabic", "Amiri", sans-serif;
+      margin:0; font-family:"Cairo", system-ui, -apple-system, Segoe UI, "Noto Kufi Arabic", sans-serif;
       color:var(--text);
-      background: linear-gradient(135deg,var(--bg1),var(--bg2));
-      min-height:100svh; display:flex; flex-direction:column; justify-content:space-between; padding:24px;
+      background: radial-gradient(1200px 800px at 10% 10%, #f0f7ff, transparent 60%),
+                  radial-gradient(900px 700px at 90% 20%, #f5f0ff, transparent 55%),
+                  linear-gradient(135deg, var(--bg1), var(--bg2));
+      min-height:100svh; display:flex; flex-direction:column; gap:20px; padding:24px;
     }
-    .app{width:min(950px,100%); margin:auto; animation:fade .6s ease both}
+    .container{width:min(1100px, 100%); margin-inline:auto; animation:fade .6s ease both}
     @keyframes fade{from{opacity:0; transform:translateY(8px)}to{opacity:1; transform:translateY(0)}}
+
+    /* رأس الصفحة */
     .header{
-      background:var(--card-bg); border:1px solid var(--border);
-      border-radius:var(--radius); box-shadow:var(--shadow); padding:18px 20px; margin-bottom:14px;
-      display:grid; grid-template-columns: 1fr auto; gap:10px; align-items:center;
+      background: var(--card);
+      border:1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 20px clamp(16px, 3vw, 28px);
+      display:grid; grid-template-columns: 1fr auto; gap:16px; align-items:center;
     }
-    .title{font-size:1.25rem; font-weight:700}
-    .meta{display:flex; gap:12px; flex-wrap:wrap; color:var(--muted); font-size:.95rem}
-    .clock{font-variant-numeric:tabular-nums; font-weight:700}
-    .location{color:var(--muted)}
-
-    .grid{
-      display:grid; grid-template-columns: 1.35fr .65fr; gap:14px;
+    .title{
+      display:flex; flex-direction:column; gap:6px;
     }
-    @media (max-width:800px){ .grid{grid-template-columns:1fr} }
+    .title h1{margin:0; font-size: clamp(1.1rem, 2.2vw, 1.5rem); font-weight:700}
+    .title .subtitle{
+      display:flex; flex-wrap:wrap; gap:10px; align-items:center; color:var(--sub);
+      font-size: .98rem;
+    }
+    .clock{
+      font-variant-numeric: tabular-nums; font-weight:700; color:#111827;
+      padding:.4rem .7rem; background:#fff; border:1px solid var(--border);
+      border-radius:12px; box-shadow:0 2px 10px rgba(0,0,0,.05);
+    }
 
+    /* شريط التحكم */
+    .controls{
+      display:flex; gap:10px; align-items:center; flex-wrap:wrap;
+      background: linear-gradient(145deg,#ffffff, #f7fbff);
+      border:1px solid var(--border); border-radius:12px; padding:8px 10px;
+    }
+    label{color:var(--muted); font-size:.95rem}
+    select{
+      appearance:none; padding:12px 14px; border-radius:12px; border:1px solid var(--border);
+      background:#fff url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 20 20" fill="none"><path d="M5 7l5 6 5-6" stroke="%2362748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>') no-repeat left 10px center/10px;
+      padding-left:32px; color:#111; font-weight:600; box-shadow:0 1px 0 #00000008;
+    }
+
+    /* الشبكة الرئيسية */
+    .grid{display:grid; grid-template-columns: 1.2fr .8fr; gap:16px}
+    @media (max-width: 900px){ .grid{grid-template-columns:1fr} }
+
+    /* البطاقات */
     .card{
-      background:var(--card-bg); border:1px solid var(--border);
-      border-radius:var(--radius); box-shadow:var(--shadow); padding:18px;
+      background: var(--card);
+      border:1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: clamp(16px, 2.4vw, 22px);
     }
-    .section-title{margin:0 0 10px; font-size:1.05rem; color:#0f172a; font-weight:700}
+    .card h3{
+      margin:0 0 12px; font-size:1.05rem; font-weight:700; color:#0b1220;
+      display:flex; align-items:center; gap:8px;
+    }
+    .chip{
+      font-size:.78rem; color:#fff; background:linear-gradient(135deg, var(--accent), var(--accent-2));
+      padding:.25rem .55rem; border-radius:999px; box-shadow:0 6px 18px rgba(14,165,233,.25);
+    }
 
-    table{width:100%; border-collapse:separate; border-spacing:0; overflow:hidden}
+    /* جدول المواقيت */
+    table{width:100%; border-collapse:separate; border-spacing:0}
     thead th{
-      text-align:right; font-weight:600; color:var(--muted); font-size:.9rem; padding:10px 12px;
-      background:var(--accent);
+      text-align:right; font-weight:700; color:#111827; font-size:.92rem; padding:12px 14px;
+      background:linear-gradient(180deg,#f7f7ff,#f1f5ff); border:1px solid var(--border);
     }
-    tbody td{
-      padding:14px 12px; border-bottom:1px solid var(--border); background:#fff;
+    thead th:first-child{border-top-right-radius:14px}
+    thead th:last-child{border-top-left-radius:14px}
+    tbody tr td{
+      padding:14px; background:#fff; border:1px solid var(--border);
     }
-    tbody tr:last-child td{border-bottom:none; border-radius:0 0 var(--radius) var(--radius)}
-    .row{
-      display:flex; gap:10px; align-items:center; font-weight:600;
+    tbody tr:nth-child(even) td{background:#fcfdff}
+    tbody tr:last-child td:first-child{border-bottom-right-radius:14px}
+    tbody tr:last-child td:last-child{border-bottom-left-radius:14px}
+    .row{display:flex; align-items:center; gap:10px; font-weight:600}
+    .icon{
+      width:28px; height:28px; border-radius:10px;
+      background:linear-gradient(135deg,#f7f3ff,#ffffff);
+      border:1px solid var(--border); display:grid; place-items:center; font-size:1rem;
+      box-shadow:0 1px 0 #00000008;
     }
-    .badge{
-      display:inline-flex; align-items:center; justify-content:center; width:26px; height:26px;
-      border-radius:10px; background:linear-gradient(135deg,#eff6ff,#ffffff);
-      border:1px solid var(--border); font-size:.9rem;
-    }
+    .time{font-variant-numeric: tabular-nums; font-weight:700}
+
+    /* بطاقة الأحاديث */
     .hadith{
-      font-size: .98rem; line-height:1.8; color:#0f172a;
-      background:linear-gradient(180deg,#ffffff,#fbfdff);
-      border:1px solid var(--border); border-radius:var(--radius); box-shadow:var(--shadow);
-      padding:16px 18px; position:relative;
+      position:relative; background:linear-gradient(180deg,#ffffff,#fbfdff);
+      border:1px solid var(--border); border-radius:16px; padding:18px 18px 22px;
+      box-shadow: var(--shadow);
     }
-    .hadith small{display:block; color:var(--muted); margin-top:8px}
-    .hadith .tag{
-      position:absolute; inset-inline-start:12px; top:-12px; padding:6px 10px; font-size:.8rem;
-      background:#fff; border:1px solid var(--border); border-radius:999px; color:#374151;
-      box-shadow:0 4px 16px rgba(0,0,0,.04);
+    .hadith .pill{
+      position:absolute; top:-12px; inset-inline-start:12px; padding:.35rem .6rem;
+      background:linear-gradient(135deg,#fff,#f6f7fb); border:1px solid var(--border); color:var(--muted);
+      border-radius:999px; font-size:.78rem; box-shadow:0 8px 18px rgba(0,0,0,.06);
     }
-    .footer-note{margin-top:10px; color:var(--muted); font-size:.85rem}
+    .hadith p{margin:0; line-height:1.9; font-size:1.02rem}
+    .hadith small{display:block; margin-top:10px; color:var(--sub)}
+
+    /* تذييل */
     footer{
-      text-align:center; color:var(--muted); font-size:.9rem; margin-top:20px;
+      text-align:center; color:var(--muted); font-size:.92rem; margin-top:6px;
     }
+    .brand{font-weight:700; color:var(--gold)}
   </style>
 </head>
 <body>
-  <main class="app" aria-live="polite">
-    <header class="header">
-      <div>
-        <div class="title">مواقيت الصلاة – البحرين</div>
-        <div class="meta">
+  <div class="container">
+    <!-- الرأس -->
+    <header class="header" aria-live="polite">
+      <div class="title">
+        <h1>مواقيت الصلاة – وفق المذهب الجعفري</h1>
+        <div class="subtitle">
+          <span id="placeLabel">البحرين – المنامة</span>
+          <span>•</span>
           <span id="hijri"></span>
           <span>•</span>
           <span id="greg"></span>
-          <span>•</span>
-          <span class="clock" id="clock">--:-- --</span>
         </div>
       </div>
-      <div class="location">البحرين – المنامة</div>
+      <div class="controls">
+        <label for="country">الدولة</label>
+        <select id="country" aria-label="اختر الدولة">
+          <option value="Bahrain" selected>البحرين</option>
+          <option value="Lebanon">لبنان</option>
+          <option value="Iraq">العراق</option>
+          <option value="Iran">إيران</option>
+          <option value="Kuwait">الكويت</option>
+          <option value="Saudi Arabia">السعودية</option>
+        </select>
+        <span class="clock" id="clock">--:-- --</span>
+      </div>
     </header>
 
+    <!-- الشبكة الرئيسية -->
     <section class="grid">
-      <section class="card" id="times-card">
-        <h3 class="section-title">الجدول اليومي</h3>
+      <!-- جدول المواقيت -->
+      <section class="card">
+        <h3>الجدول اليومي <span class="chip" title="منهج الحساب: جعفري">حساب جعفري</span></h3>
         <table aria-describedby="times">
           <thead>
-            <tr><th>الوقت</th><th>الساعة (12h)</th></tr>
+            <tr>
+              <th>الوقت</th>
+              <th>الساعة (12h)</th>
+            </tr>
           </thead>
           <tbody id="times">
-            <!-- يُملأ تلقائياً -->
+            <!-- يُولّد ديناميكياً -->
           </tbody>
         </table>
-        <div class="footer-note">يتم التحديث يوميًا تلقائيًا. المنطقة الزمنية: Asia/Bahrain</div>
       </section>
 
+      <!-- بطاقة الأحاديث -->
       <aside class="card">
-        <h3 class="section-title">حديث اليوم</h3>
-        <div class="hadith" id="hadithBox">
-          <span class="tag">📖 ميزان الحكمة</span>
-          <div id="hadithText"></div>
+        <h3>حديث اليوم</h3>
+        <div class="hadith">
+          <span class="pill">📖 ميزان الحكمة</span>
+          <p id="hadithText"></p>
           <small id="hadithSource"></small>
         </div>
       </aside>
     </section>
-  </main>
 
-  <footer>
-    برمجة وتطوير فاضل الريس
-  </footer>
+    <!-- التذييل -->
+    <footer>
+      برمجة وتطوير <span class="brand">فاضل الريس</span>
+    </footer>
+  </div>
 
   <script>
-    const tz = "Asia/Bahrain";
+    /* إعدادات عامة */
+    const COUNTRY_CAPITAL = {
+      "Bahrain":     { city:"Manama",      tz:"Asia/Bahrain",     label:"البحرين – المنامة" },
+      "Lebanon":     { city:"Beirut",      tz:"Asia/Beirut",      label:"لبنان – بيروت" },
+      "Iraq":        { city:"Baghdad",     tz:"Asia/Baghdad",     label:"العراق – بغداد" },
+      "Iran":        { city:"Tehran",      tz:"Asia/Tehran",      label:"إيران – طهران" },
+      "Kuwait":      { city:"Kuwait City", tz:"Asia/Kuwait",      label:"الكويت – مدينة الكويت" },
+      "Saudi Arabia":{ city:"Riyadh",      tz:"Asia/Riyadh",      label:"السعودية – الرياض" }
+    };
 
-    function to12h(t) {
-      if (!t) return "--:-- --";
-      const [H,M] = t.split(":").map(Number);
-      let h = H % 12; if (h === 0) h = 12;
+    /* صيغة 12 ساعة */
+    function to12h(t){
+      if(!t) return "--:-- --";
+      // يدعم قيم مثل "04:50 (AST)" من بعض APIs
+      const pure = t.replace(/\s*\(.*?\)\s*/g, "");
+      const [H,M] = pure.split(":").map(Number);
+      if(Number.isNaN(H)||Number.isNaN(M)) return t;
+      let h = H % 12; if(h===0) h = 12;
       const ampm = H < 12 ? "AM" : "PM";
       return `${String(h).padStart(2,"0")}:${String(M).padStart(2,"0")} ${ampm}`;
     }
 
-    function nowInTZ() {
+    /* الساعة الحية */
+    function formatClock(tz){
       const f = new Intl.DateTimeFormat('en-GB', { timeZone: tz, hour:'2-digit', minute:'2-digit', hour12:true });
       return f.format(new Date());
     }
-
-    function formatGreg() {
-      const fmt = new Intl.DateTimeFormat('ar', {
-        timeZone: tz, weekday:'long', year:'numeric', month:'long', day:'numeric'
-      });
+    function formatGreg(tz){
+      const fmt = new Intl.DateTimeFormat('ar', { timeZone: tz, weekday:'long', year:'numeric', month:'long', day:'numeric' });
       return fmt.format(new Date());
     }
-
-    function formatHijri() {
-      try {
+    function formatHijri(tz){
+      try{
         const fmt = new Intl.DateTimeFormat('ar-SA-u-ca-islamic', {
           timeZone: tz, weekday:'long', year:'numeric', month:'long', day:'numeric'
         });
         return fmt.format(new Date());
-      } catch {
-        return "التاريخ الهجري (غير مدعوم في هذا المتصفح)";
+      }catch{
+        return "التاريخ الهجري (قد لا يكون مدعومًا في هذا المتصفح)";
       }
     }
 
+    /* أحاديث */
     const HADITHS = [
-      {
-        text: "قال الإمام الباقر (عليه السلام): إذا استقبل المصلي القبلة استقبل الرحمن بوجهه لا إله غيره.",
-        src: "المصدر: ميزان الحكمة"
-      },
-      {
-        text: "قال الإمام علي (عليه السلام): إذا قام الرجل إلى الصلاة أقبل إبليس ينظر إليه حسداً لما يرى من رحمة الله التي تغشاه.",
-        src: "المصدر: ميزان الحكمة"
-      },
-      {
-        text: "قال الإمام الرضا (عليه السلام): الصلاة لها أربعة آلاف باب.",
-        src: "المصدر: ميزان الحكمة"
-      },
-      {
-        text: "قال الإمام علي (عليه السلام): يا كميل! ليس الشأن أن تصلي وتصوم وتتصدق، إنما الشأن أن تكون الصلاة فعلت بقلب نقي، وعمل عند الله مرضي، وخشوع سوي.",
-        src: "المصدر: ميزان الحكمة"
-      }
+      { text:"قال الإمام الباقر (عليه السلام): إذا استقبل المصلي القبلة استقبل الرحمن بوجهه لا إله غيره.", src:"المصدر: ميزان الحكمة" },
+      { text:"قال الإمام علي (عليه السلام): إذا قام الرجل إلى الصلاة أقبل إبليس ينظر إليه حسداً لما يرى من رحمة الله التي تغشاه.", src:"المصدر: ميزان الحكمة" },
+      { text:"قال الإمام الرضا (عليه السلام): الصلاة لها أربعة آلاف باب.", src:"المصدر: ميزان الحكمة" },
+      { text:"قال الإمام علي (عليه السلام): يا كميل! ليس الشأن أن تصلي وتصوم وتتصدق، إنما الشأن أن تكون الصلاة فعلت بقلب نقي، وعمل عند الله مرضي، وخشوع سوي.", src:"المصدر: ميزان الحكمة" },
     ];
-
     function setRandomHadith(){
       const h = HADITHS[Math.floor(Math.random()*HADITHS.length)];
       document.getElementById('hadithText').textContent = h.text;
       document.getElementById('hadithSource').textContent = h.src;
     }
 
-    async function fetchTimes(){
-      const url = `https://api.aladhan.com/v1/timingsByCity?city=Manama&country=Bahrain`;
+    /* جلب المواقيت وفق المذهب الجعفري (Aladhan method=0) */
+    async function fetchTimings(country){
+      const meta = COUNTRY_CAPITAL[country] || COUNTRY_CAPITAL["Bahrain"];
+      const url = `https://api.aladhan.com/v1/timingsByCity?city=${encodeURIComponent(meta.city)}&country=${encodeURIComponent(country)}&method=0`;
       const res = await fetch(url);
-      if(!res.ok) throw new Error("فشل الجلب");
+      if(!res.ok) throw new Error("فشل الاتصال بمزود المواقيت");
       const json = await res.json();
-      return json.data.timings;
+      return { timings: json.data.timings, tz: meta.tz, label: meta.label };
     }
 
-    function renderTimes(t) {
+    /* رسم الجدول */
+    function renderTimes(timings){
       const rows = [
-        {label:"الإمساك",    key:"Imsak",       icon:"🌙"},
-        {label:"أذان الفجر", key:"Fajr",        icon:"🕌"},
-        {label:"أذان الظهر", key:"Dhuhr",       icon:"☀️"},
-        {label:"أذان العصر", key:"Asr",         icon:"🌤️"},
-        {label:"أذان المغرب",key:"Maghrib",     icon:"🌆"},
-        {label:"أذان العشاء",key:"Isha",        icon:"🌙"},
-        {label:"منتصف الليل",key:"Midnight",    icon:"🌌"},
+        {label:"الإمساك",    key:"Imsak",    icon:"🌙"},
+        {label:"أذان الفجر", key:"Fajr",     icon:"🕌"},
+        {label:"أذان الظهر", key:"Dhuhr",    icon:"☀️"},
+        {label:"أذان العصر", key:"Asr",      icon:"🌤️"},
+        {label:"أذان المغرب",key:"Maghrib",  icon:"🌆"},
+        {label:"أذان العشاء",key:"Isha",     icon:"🌙"},
+        {label:"منتصف الليل",key:"Midnight", icon:"🌌"},
       ];
       const tbody = document.getElementById('times');
       tbody.innerHTML = "";
       rows.forEach(r=>{
-        let val = t[r.key] || "";
-        if(r.key==="Imsak" && !val && t.Fajr){
-          const [H,M]=t.Fajr.split(":").map(Number);
-          const date = new Date();
-          date.setHours(H, M-10, 0, 0);
-          const hh = String(date.getHours()).padStart(2,"0");
-          const mm = String(date.getMinutes()).padStart(2,"0");
+        let val = timings[r.key] || "";
+        // تقدير الإمساك إن لم يتوفر: 10 دقائق قبل الفجر
+        if(r.key==="Imsak" && !val && timings.Fajr){
+          const m = timings.Fajr.replace(/\s*\(.*?\)\s*/g, "");
+          const [H,M] = m.split(":").map(Number);
+          const d = new Date(); d.setHours(H, M-10, 0, 0);
+          const hh = String(d.getHours()).padStart(2,"0");
+          const mm = String(d.getMinutes()).padStart(2,"0");
           val = `${hh}:${mm}`;
         }
         const tr = document.createElement('tr');
         tr.innerHTML = `
-          <td><span class="row"><span class="badge" aria-hidden="true">${r.icon}</span> ${r.label}</span></td>
-          <td>${to12h(val)}</td>
+          <td><div class="row"><span class="icon">${r.icon}</span><span>${r.label}</span></div></td>
+          <td><span class="time">${to12h(val)}</span></td>
         `;
         tbody.appendChild(tr);
       });
     }
 
-    function tick(){
-      document.getElementById('clock').textContent = nowInTZ();
-      document.getElementById('greg').textContent = formatGreg();
-      document.getElementById('hijri').textContent = formatHijri();
+    /* تحديث الرأس */
+    function updateHeader(tz, label){
+      document.getElementById('clock').textContent = formatClock(tz);
+      document.getElementById('greg').textContent  = formatGreg(tz);
+      document.getElementById('hijri').textContent = formatHijri(tz);
+      document.getElementById('placeLabel').textContent = label;
     }
 
-    async function init(){
-      setRandomHadith();
-      tick();
-      setInterval(tick, 1000);
-
+    /* تهيئة */
+    async function load(country){
+      const meta = COUNTRY_CAPITAL[country] || COUNTRY_CAPITAL["Bahrain"];
+      // حالة تحميل
+      document.getElementById('times').innerHTML = `<tr><td colspan="2">... جاري تحديث المواقيت</td></tr>`;
       try{
-        document.getElementById('times').innerHTML = `<tr><td colspan="2">... جاري تحديث المواقيت</td></tr>`;
-        const times = await fetchTimes();
-        renderTimes(times);
+        const {timings, tz, label} = await fetchTimings(country);
+        renderTimes(timings);
+        updateHeader(tz, label);
+        // الساعة الحية
+        clearInterval(window._clk);
+        window._clk = setInterval(()=> {
+          document.getElementById('clock').textContent = formatClock(tz);
+        }, 1000);
       }catch(e){
-        document.getElementById('times').innerHTML = `<tr><td colspan="2" style="color:#b91c1c">تعذّر جلب المواقيت. حاول لاحقًا.</td></tr>`;
         console.error(e);
+        document.getElementById('times').innerHTML = `<tr><td colspan="2" style="color:#b91c1c">تعذّر جلب المواقيت. حاول لاحقًا.</td></tr>`;
       }
+    }
+
+    function init(){
+      setRandomHadith();
+      const countrySel = document.getElementById('country');
+      countrySel.addEventListener('change', ()=> load(countrySel.value));
+      // افتراضي: البحرين
+      load(countrySel.value);
     }
     init();
   </script>
