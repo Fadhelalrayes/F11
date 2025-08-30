@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>مسبحة فاخرة</title>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;900&family=Amiri:wght@700&display=swap" rel="stylesheet">
 <style>
 :root{
   --navy1:#0a1931;
@@ -41,7 +41,6 @@ body{
   padding:12px 20px;border-radius:16px;border:2px solid var(--gold1);
   background:linear-gradient(145deg,rgba(255,255,255,.08),rgba(255,255,255,.02));
   font-size:26px;font-weight:900;color:var(--gold2)}
-/* الحلقة الجديدة */
 .ring-wrap{width:85%;aspect-ratio:1/1;margin:22px auto;position:relative}
 .outer-ring{
   position:absolute;inset:0;border-radius:50%;
@@ -60,11 +59,15 @@ body{
   background:radial-gradient(circle at 30% 30%,var(--white),var(--gold2),var(--gold1));
   border:3px solid var(--gold1);
   display:grid;place-items:center;
-  font-weight:900;font-size:32px;color:var(--navy1);
+  font-family:"Amiri","Tahoma",serif;   /* ← خط كلمة اضغط */
+  font-weight:700;font-size:34px;
+  color:var(--navy1);
   cursor:pointer;
   box-shadow:0 0 35px rgba(212,175,55,.65);
   transition:transform .1s;
+  outline:none;        /* ← إزالة المربع الأزرق */
 }
+.center-btn:focus{outline:none}  /* ← تأكيد إلغاء الفوكس */
 .center-btn:active{transform:translate(-50%,-50%) scale(.95)}
 .glow{box-shadow:0 0 55px 20px rgba(212,175,55,.85)!important}
 .footer{position:absolute;bottom:14px;inset-inline:0;text-align:center;color:#ccc;font-weight:700}
