@@ -6,151 +6,207 @@
 <title>المِسْبَحة</title>
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;800&display=swap" rel="stylesheet">
 <style>
-  /* استبدل المسار أدناه بصورة الخلفية (نفس الصورة التي أرسلتها) */
+  /* ✦ ضع نفس الصورة التي أرسلتها هنا (غيّر المسار فقط) */
   :root{
-    --bg-img:url("bg.jpg");
-    --g1:#d90429;   /* أحمر */
-    --g2:#ff3b3b;   /* أحمر فاتح */
-    --glass:rgba(255,255,255,.14);
-    --border:rgba(255,255,255,.28);
+    --bg-img:url("bg.jpg");                 /* ← نفس الصورة */
+    --navy1:#0b1b3b;                        /* كحلي غامق */
+    --navy2:#152c55;                        /* كحلي أفتح */
+    --gold:#d4af37;                         /* لمسة ذهبية إسلامية */
     --white:#fff;
-    --muted:rgba(255,255,255,.8);
+    --glass:rgba(255,255,255,.10);
+    --border:rgba(212,175,55,.45);
+    --shadow:0 25px 60px rgba(0,0,0,.38);
   }
   *{box-sizing:border-box}
   html,body{height:100%}
   body{
-    margin:0;
-    font-family:"Tajawal", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-    color:#fff;
+    margin:0; color:var(--white);
+    font-family:"Tajawal",system-ui,Segoe UI,Roboto,Arial,sans-serif;
     background:
-      linear-gradient(180deg, rgba(0,0,0,.25), rgba(0,0,0,.25)),
+      linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.35)),
       var(--bg-img) center/cover no-repeat fixed;
+    display:grid; place-items:center;
   }
 
+  /* شاشة التطبيق */
   .screen{
     position:relative;
-    width:min(420px,96vw);
-    height:calc(100vh - 24px);
-    margin:12px auto;
-    border-radius:28px;
-    overflow:hidden;
-    box-shadow:0 25px 50px rgba(0,0,0,.35);
-    background:
-      linear-gradient(160deg,var(--g1),var(--g2));
+    width:min(430px,96vw);
+    height:calc(100vh - 26px);
+    margin:13px auto;
+    border-radius:30px; overflow:hidden; box-shadow:var(--shadow);
+    background:linear-gradient(165deg,var(--navy1),var(--navy2));
     isolation:isolate;
   }
-  .veil{
-    position:absolute; inset:0;
+
+  /* زخرفة هندسية إسلامية خفيفة */
+  .pattern{
+    position:absolute; inset:0; z-index:0; opacity:.22; pointer-events:none;
     background:
-      radial-gradient(120% 90% at 80% -10%, rgba(255,255,255,.12), transparent 50%),
-      linear-gradient(160deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
-    z-index:0;
+      radial-gradient(90px 90px at 15% 20%, rgba(212,175,55,.25), transparent 55%),
+      radial-gradient(140px 140px at 85% -10%, rgba(212,175,55,.18), transparent 55%),
+      url('data:image/svg+xml;utf8,\
+<svg xmlns="http://www.w3.org/2000/svg" width=\'220\' height=\'220\' viewBox=\'0 0 220 220\'>\
+<defs><pattern id=\'g\' width=\'55\' height=\'55\' patternUnits=\'userSpaceOnUse\'>\
+<path d=\'M27.5 0l27.5 27.5L27.5 55 0 27.5Z\' fill=\'none\' stroke=\'rgba(212,175,55,.28)\' stroke-width=\'1.4\'/>\
+<circle cx=\'27.5\' cy=\'27.5\' r=\'3.5\' fill=\'rgba(212,175,55,.33)\'/>\
+</pattern></defs><rect width=\'100%\' height=\'100%\' fill=\'url(#g)\'/></svg>') center/auto repeat;
+    mix-blend-mode:overlay;
   }
 
   /* شريط علوي */
   .topbar{
     position:relative; z-index:2;
     display:flex; align-items:center; justify-content:space-between;
-    padding:16px 16px 6px;
+    padding:16px;
   }
+
+  /* أزرار بأطراف عربية (زخارف ذهبية) */
   .icon-btn{
-    width:36px;height:36px;border-radius:50%;
-    display:grid;place-items:center;
-    background:var(--glass); border:1px solid var(--border);
-    box-shadow:inset 0 0 0 1px rgba(255,255,255,.08);
-    cursor:pointer;
+    width:44px;height:44px;border-radius:14px; cursor:pointer;
+    background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+    border:2px solid transparent; position:relative; color:var(--white);
   }
-  .title{font-weight:800;font-size:22px;letter-spacing:.3px}
+  .icon-btn::before,
+  .icon-btn::after{
+    content:""; position:absolute; inset:-2px; border-radius:14px;
+    padding:2px; background:
+      linear-gradient(var(--gold),var(--gold)) padding-box,
+      conic-gradient(from 45deg, rgba(212,175,55,.85), rgba(212,175,55,.35), rgba(212,175,55,.85)) border-box;
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor; mask-composite: exclude; opacity:.9;
+  }
+  .title{font-weight:800;font-size:22px; letter-spacing:.4px}
 
-  /* تبويبات */
-  .tabs{display:flex;gap:12px; justify-content:center; padding:14px 16px}
+  /* تبويبات مع أيقونات إسلامية صغيرة */
+  .tabs{display:flex; gap:12px; justify-content:center; padding:10px 16px 6px}
   .tab{
-    flex:1; text-align:center; padding:12px 10px;
-    background:var(--glass); border:1px solid var(--border);
-    border-radius:14px; color:var(--muted); font-weight:800; cursor:pointer;
+    flex:1; padding:12px 10px; display:flex; align-items:center; justify-content:center; gap:8px;
+    border-radius:16px; cursor:pointer; font-weight:800; color:#d7e0ff;
+    background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.05));
+    border:2px solid rgba(212,175,55,.28);
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.06);
   }
-  .tab.active{ color:var(--white); box-shadow:inset 0 0 0 2px rgba(255,255,255,.25) }
+  .tab.active{
+    color:#fff;
+    background:linear-gradient(180deg, rgba(212,175,55,.18), rgba(255,255,255,.08));
+    border-color:var(--gold);
+  }
+  .tab svg{filter:drop-shadow(0 2px 2px rgba(0,0,0,.25))}
 
-  /* العبارة والعداد */
-  .phrase{ text-align:center; font-size:40px; font-weight:800; margin:2px 0 8px }
+  .phrase{ text-align:center; font-size:42px; font-weight:800; margin:10px 0 8px}
+
+  /* عداد مزدوج مثل الصورة */
   .counter{
-    width:80%; margin:8px auto 14px; display:grid; grid-template-columns:1fr 1fr;
-    background:var(--glass); border:1px solid var(--border); border-radius:12px; overflow:hidden;
+    width:82%; margin:10px auto 16px; display:grid; grid-template-columns:1fr 1fr;
+    border-radius:14px; overflow:hidden;
+    background:rgba(255,255,255,.10);
+    border:2px solid rgba(212,175,55,.35);
   }
-  .counter div{ padding:14px 0; text-align:center; font-size:30px; font-weight:800 }
-  .counter div+div{ border-right:1px solid var(--border) }
+  .counter div{ padding:14px 0; text-align:center; font-size:32px; font-weight:800 }
+  .counter div+div{ border-right:2px solid rgba(212,175,55,.35) }
 
-  /* زر اضغط + الحلقة */
-  .ring-wrap{ width:82%; aspect-ratio:1/1; margin:14px auto 10px; position:relative }
+  /* حلقة تقدم وزر */
+  .ring-wrap{ width:82%; aspect-ratio:1/1; margin:14px auto 8px; position:relative }
   .ring{
-    --p:0;
-    position:absolute; inset:0; border-radius:50%;
+    --p:0; position:absolute; inset:0; border-radius:50%;
     background:
-      radial-gradient(closest-side, transparent 70%, rgba(255,255,255,.10) 71% 72%, transparent 73%),
-      conic-gradient(#fff calc(var(--p)*1turn), rgba(255,255,255,.25) 0);
-    display:grid; place-items:center; padding:18px; filter:drop-shadow(0 20px 30px rgba(0,0,0,.25));
+      radial-gradient(closest-side, transparent 70%, rgba(212,175,55,.18) 71% 72.5%, transparent 73%),
+      conic-gradient(var(--gold) calc(var(--p)*1turn), rgba(255,255,255,.22) 0);
+    display:grid; place-items:center; padding:18px; filter:drop-shadow(0 22px 32px rgba(0,0,0,.32));
   }
+
   .press{
-    width:72%; height:72%;
-    display:grid; place-items:center;
-    background:#fff; color:#b0001a;
-    border-radius:28px; border:1px solid var(--border);
-    font-weight:800; font-size:40px; letter-spacing:.6px; cursor:pointer;
-    box-shadow:0 20px 45px rgba(0,0,0,.28), inset 0 0 0 2px rgba(255,255,255,.55);
+    width:72%; height:72%; cursor:pointer;
+    display:grid; place-items:center; letter-spacing:.7px;
+    background:linear-gradient(180deg,#ffffff,#f7f4ea);
+    color:#0b1b3b; border-radius:28px;
+    border:2px solid var(--gold);
+    box-shadow:0 20px 45px rgba(0,0,0,.25), inset 0 0 0 2px rgba(212,175,55,.18);
+    font-weight:900; font-size:40px;
+    position:relative;
   }
+  /* زخارف زوايا عربية للزر */
+  .press::before,.press::after{
+    content:""; position:absolute; width:34px;height:34px;
+    background:
+      radial-gradient(circle at 50% 50%, var(--gold) 28%, transparent 30%),
+      conic-gradient(from 45deg, transparent 0 25%, var(--gold) 25% 35%, transparent 35% 65%, var(--gold) 65% 75%, transparent 75% 100%);
+    opacity:.65;
+  }
+  .press::before{ inset-inline-start:10px; inset-block-start:10px; border-radius:12px }
+  .press::after { inset-inline-end:10px;  inset-block-end:10px;  border-radius:12px }
 
   .footer{
-    position:absolute; inset-inline:0; bottom:10px; z-index:2;
-    text-align:center; color:var(--muted); font-weight:700
+    position:absolute; inset-inline:0; bottom:12px; text-align:center; z-index:2;
+    color:#e7e3cf; font-weight:700
   }
-  .footer b{color:#fff}
+  .footer b{ color:var(--gold) }
 </style>
 </head>
 <body>
 
 <div class="screen" role="application" aria-label="المسبحة">
-  <div class="veil"></div>
+  <div class="pattern" aria-hidden="true"></div>
 
-  <!-- الشريط العلوي (نفس الأيقونات) -->
+  <!-- الشريط العلوي بأيقونات مزخرفة -->
   <div class="topbar">
-    <!-- تدوير/إعادة -->
+    <!-- إعادة -->
     <button class="icon-btn" id="btn-reset" title="إعادة">
-      <!-- أيقونة تدوير -->
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M3 12a9 9 0 1 0 3-6.708" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
-        <path d="M3 4v4h4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <!-- هلال نجمة -->
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M13 3a9 9 0 1 0 8 12.5A8 8 0 1 1 13 3Z" stroke="url(#g1)" stroke-width="2" />
+        <defs><linearGradient id="g1" x1="0" x2="24"><stop stop-color="#d4af37"/><stop offset="1" stop-color="#f2e3a3"/></linearGradient></defs>
       </svg>
     </button>
 
     <div class="title">المسبحة</div>
 
-    <!-- سهم يمين -->
+    <!-- سهم -->
     <button class="icon-btn" id="btn-next" title="التالي">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M9 6l6 6-6 6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M9 6l6 6-6 6" stroke="#d4af37" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
     </button>
   </div>
 
-  <!-- التبويبات -->
+  <!-- تبويبات مع أيقونات: زهرة + مسبحة -->
   <div class="tabs" role="tablist">
-    <button id="tabZ" class="tab active" role="tab" aria-selected="true">تسبيح الزهراء</button>
-    <button id="tabO" class="tab" role="tab" aria-selected="false">التسبيح المفتوح</button>
+    <button id="tabZ" class="tab active" role="tab" aria-selected="true" title="تسبيح الزهراء">
+      <!-- زهرة بسيطة ذهبية -->
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M12 7c0-3 3-4 4.5-2.5S18 8 15 9c3 0 4 3 2.5 4.5S12 15 12 12c0 3-3 4-4.5 2.5S6 12 9 12c-3-1-2.5-4.5-.5-5.5S12 4 12 7Z" stroke="#d4af37" stroke-width="1.6" />
+        <circle cx="12" cy="12" r="1.8" fill="#d4af37"/>
+      </svg>
+      <span>تسبيح الزهراء</span>
+    </button>
+
+    <button id="tabO" class="tab" role="tab" aria-selected="false" title="التسبيح المفتوح">
+      <!-- مسبحة -->
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M9 7a5 5 0 1 0 6 0" stroke="#d4af37" stroke-width="1.8" stroke-linecap="round"/>
+        <circle cx="12" cy="4" r="1.6" fill="#d4af37"/>
+        <circle cx="7" cy="10" r="1.3" fill="#d4af37"/>
+        <circle cx="17" cy="10" r="1.3" fill="#d4af37"/>
+        <circle cx="12" cy="16" r="1.3" fill="#d4af37"/>
+      </svg>
+      <span>التسبيح المفتوح</span>
+    </button>
   </div>
 
-  <!-- عبارة الذكر -->
+  <!-- العبارة الرئيسية -->
   <div class="phrase" id="phrase">الله أكبر</div>
 
-  <!-- العدادين على نمط الصورة -->
+  <!-- عدادان مثل التصميم -->
   <div class="counter">
     <div id="leftNum">34</div>
     <div id="rightNum">0</div>
   </div>
 
-  <!-- زر اضغط داخل حلقة تقدم -->
+  <!-- حلقة تقدم + زر مزخرف -->
   <div class="ring-wrap">
     <div class="ring" id="ring" style="--p:0">
-      <button class="press" id="press">إضغط</button>
+      <button class="press" id="press" type="button" aria-label="إضغط">إضغط</button>
     </div>
   </div>
 
@@ -158,109 +214,82 @@
 </div>
 
 <script>
-  /* منطق مطابق لتسبيح الزهراء + وضع مفتوح */
-  const SEQ = [
-    {text:"الله أكبر", max:34},
-    {text:"الحمد لله", max:33},
-    {text:"سبحان الله", max:33}
-  ];
-  const isStored = k => localStorage.getItem(k)!==null;
-  const save = (k,v)=> localStorage.setItem(k, JSON.stringify(v));
-  const load = (k,d)=> isStored(k)? JSON.parse(localStorage.getItem(k)) : d;
-  const vibe = ms=>{ try{ navigator.vibrate && navigator.vibrate(ms);}catch(e){} };
+  /* منطق العد */
+  const SEQ=[{text:"الله أكبر",max:34},{text:"الحمد لله",max:33},{text:"سبحان الله",max:33}];
+  const save=(k,v)=>localStorage.setItem(k,JSON.stringify(v));
+  const load=(k,d)=>{try{const v=JSON.parse(localStorage.getItem(k));return v??d;}catch{return d;}};
+  const vib=(n)=>{try{navigator.vibrate&&navigator.vibrate(n);}catch{}};
 
-  const phrase = document.getElementById("phrase");
-  const leftNum = document.getElementById("leftNum");
-  const rightNum = document.getElementById("rightNum");
-  const ring = document.getElementById("ring");
-  const press = document.getElementById("press");
+  const phrase=document.getElementById('phrase');
+  const left=document.getElementById('leftNum');
+  const right=document.getElementById('rightNum');
+  const ring=document.getElementById('ring');
+  const press=document.getElementById('press');
+  const tabZ=document.getElementById('tabZ');
+  const tabO=document.getElementById('tabO');
 
-  const tabZ = document.getElementById("tabZ");
-  const tabO = document.getElementById("tabO");
-  const btnReset = document.getElementById("btn-reset");
+  let mode=load('mode','zahra');         // 'zahra' | 'open'
+  let zh=load('zh',{step:0,count:0});
+  let op=load('op',{text:'سبحان الله',count:0,target:0});
 
-  let mode = load("mode","zahra");           // zahra | open
-  let zh = load("zh",{step:0,count:0});      // للحفظ
-  let open = load("open",{text:"سبحان الله", count:0, target:0});
-
-  function setTabs(){
-    tabZ.classList.toggle("active", mode==="zahra");
-    tabO.classList.toggle("active", mode==="open");
-    save("mode", mode);
+  function setTab(m){
+    mode=m; save('mode',mode);
+    tabZ.classList.toggle('active',mode==='zahra');
+    tabO.classList.toggle('active',mode==='open');
     render();
   }
 
   function render(){
-    if(mode==="zahra"){
-      const cur = SEQ[zh.step] || {text:"تم التسبيح", max:1};
-      phrase.textContent = cur.text;
-      leftNum.textContent  = cur.max;
-      rightNum.textContent = zh.count;
-      ring.style.setProperty("--p", Math.min(1, zh.count/cur.max));
+    if(mode==='zahra'){
+      const cur=SEQ[zh.step] || {text:'تم التسبيح',max:1};
+      phrase.textContent=cur.text;
+      left.textContent=cur.max;
+      right.textContent=zh.count;
+      ring.style.setProperty('--p',Math.min(1,zh.count/(cur.max||1)));
     }else{
-      phrase.textContent = open.text || "—";
-      leftNum.textContent  = open.target>0 ? open.target : "∞";
-      rightNum.textContent = open.count;
-      const p = open.target>0 ? Math.min(1, open.count/open.target) : 0;
-      ring.style.setProperty("--p", p);
+      phrase.textContent=op.text||'—';
+      left.textContent=op.target>0?op.target:'∞';
+      right.textContent=op.count;
+      ring.style.setProperty('--p',op.target>0?Math.min(1,op.count/op.target):0);
     }
   }
 
   function tick(){
-    if(mode==="zahra"){
-      const cur = SEQ[zh.step];
-      if(!cur){ zh={step:0,count:0}; save("zh",zh); render(); return; }
+    if(mode==='zahra'){
+      const cur=SEQ[zh.step]; if(!cur){ zh={step:0,count:0}; save('zh',zh); return render(); }
       zh.count++;
-      if(zh.count>=cur.max){
-        zh.step++;
-        zh.count=0;
-        vibe(50);
-        if(zh.step>=SEQ.length){ // أنهى الدورة
-          phrase.textContent="تم التسبيح 👌";
-          leftNum.textContent="0"; rightNum.textContent="0";
-          ring.style.setProperty("--p",1);
-        }
-      }else{ vibe(12); }
-      save("zh",zh);
-    }else{ // open
-      open.count++;
-      vibe(10);
-      save("open",open);
-    }
+      if(zh.count>=cur.max){ zh.step++; zh.count=0; vib(55); }
+      if(zh.step>=SEQ.length){
+        phrase.textContent='تم التسبيح ✔';
+        left.textContent='0'; right.textContent='0'; ring.style.setProperty('--p',1);
+      }
+      save('zh',zh);
+    }else{ op.count++; save('op',op); vib(20); }
     render();
   }
 
-  // نفس الإحساس: نقرة واحدة = زيادة
-  press.addEventListener("click", tick);
-  // تنقّل للوضع المفتوح مع السهم
-  document.getElementById("btn-next").onclick = ()=>{
-    mode = (mode==="zahra")? "open" : "zahra";
-    setTabs();
-  };
-
-  tabZ.onclick = ()=>{ mode="zahra"; setTabs(); };
-  tabO.onclick = ()=>{ mode="open";  setTabs(); };
-
-  // إعادة
-  btnReset.onclick = ()=>{
-    if(confirm("تصفير العدّاد؟")){
-      zh={step:0,count:0};
-      open={text:"سبحان الله",count:0,target:0};
-      save("zh",zh); save("open",open);
-      render();
+  document.getElementById('btn-next').onclick=()=> setTab(mode==='zahra'?'open':'zahra');
+  document.getElementById('btn-reset').onclick=()=>{
+    if(confirm('هل تريد تصفير العدّاد؟')){
+      zh={step:0,count:0}; op={text:'سبحان الله',count:0,target:0};
+      save('zh',zh); save('op',op); render();
     }
   };
+  tabZ.onclick=()=>setTab('zahra');
+  tabO.onclick=()=>setTab('open');
 
-  // ضغطة طويلة على زر العد في الوضع المفتوح لإنقاص 1
-  press.addEventListener("pointerdown", e=>{
-    if(mode!=="open") return;
-    let held = false;
-    const t = setTimeout(()=>{ held=true; open.count = Math.max(0, open.count-1); save("open",open); render(); }, 450);
-    const cancel=()=>{ clearTimeout(t); press.removeEventListener("pointerup",cancel); press.removeEventListener("pointerleave",cancel); if(!held) tick(); };
-    press.addEventListener("pointerup",cancel); press.addEventListener("pointerleave",cancel);
+  press.addEventListener('click', tick);
+
+  // لمسة عملية: ضغط مطوّل في الوضع المفتوح لإنقاص 1
+  press.addEventListener('pointerdown', e=>{
+    if(mode!=='open') return;
+    let held=false;
+    const t=setTimeout(()=>{held=true; op.count=Math.max(0,op.count-1); save('op',op); render(); vib(35);},500);
+    const cancel=()=>{ clearTimeout(t); press.removeEventListener('pointerup',cancel); press.removeEventListener('pointerleave',cancel); if(!held) tick(); };
+    press.addEventListener('pointerup',cancel); press.addEventListener('pointerleave',cancel);
   });
 
-  setTabs();
+  setTab(mode);
 </script>
 </body>
 </html>
