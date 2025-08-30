@@ -3,411 +3,172 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>مواقيت الصلاة</title>
-<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+<title>مواقيت الصلاة وفق المذهب الجعفري</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root{
-    /* نظام مسافات 8px */
-    --s1:8px; --s2:16px; --s3:24px; --s4:32px;
-
-    /* لوحة ألوان هادئة راقية */
-    --ink:#0f172a; --muted:#657085;
-    --bg:#f6f8fb; --surface:#ffffff; --border:#e7eaf0; --line:#dde3eb;
-    --brand:#0ea5a6; --brand2:#2563eb; --accent:#0ea5a61a;
-
-    --shadow:0 10px 28px rgba(2,6,23,.08);
-    --radius:16px; --rsm:12px;
+    --ink:#0f172a; --muted:#6b7280;
+    --bg:#f6f8fb; --surface:#fff; --border:#e5e7eb;
+    --brand:#0ea5a6; --brand2:#2563eb;
+    --shadow:0 8px 20px rgba(2,6,23,.08);
+    --radius:14px;
   }
-  *{box-sizing:border-box}
-  html,body{height:100%}
   body{
-    margin:0; font-family:"Tajawal", system-ui, -apple-system, "Noto Kufi Arabic", Segoe UI, sans-serif;
-    color:var(--ink);
-    background:
-      radial-gradient(700px 480px at 12% -10%, #ecfbff 0%, transparent 55%),
-      radial-gradient(640px 420px at 95% 5%, #eef0ff 0%, transparent 50%),
-      var(--bg);
-    -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
-    padding: var(--s2);
+    margin:0; font-family:"Tajawal", sans-serif; color:var(--ink);
+    background:var(--bg); padding:16px;
   }
-  .container{
-    width:min(1120px, 100%);
-    margin:0 auto;
-    display:flex; flex-direction:column; gap:var(--s2);
-  }
-
-  /* شريط علوي نحيف + ساعة يسار */
-  .topbar{
-    position:relative;
-    background:linear-gradient(180deg,#fff,#fbfdff);
-    border:1px solid var(--border);
-    border-radius:var(--radius);
-    box-shadow:var(--shadow);
-    padding:var(--s2) var(--s3);
-    display:flex; align-items:center; justify-content:center;
-  }
-  .brandTitle{margin:0; font-weight:800; font-size:1.15rem; letter-spacing:.2px}
-  .clock{
-    position:absolute; left:var(--s2); top:var(--s2);
-    background:#fff; border:1px solid var(--border); border-radius:12px;
-    padding:.38rem .6rem; font-size:.98rem; font-weight:800;
-    font-variant-numeric:tabular-nums; color:#084241; box-shadow:0 8px 18px rgba(0,0,0,.06);
-  }
-
-  /* صف المعلومات (المكان/التواريخ) محاذاة كتاب */
-  .infoRow{
-    display:grid; grid-template-columns: 1fr 1fr 1fr; gap:var(--s2);
-  }
-  @media (max-width:900px){ .infoRow{grid-template-columns:1fr} }
-
-  .chipCard{
-    background:var(--surface); border:1px solid var(--border); border-radius:var(--rsm);
-    box-shadow:var(--shadow); padding:var(--s2);
-    display:flex; align-items:center; gap:var(--s2); min-height:66px;
-  }
-  .chipIcon{
-    width:36px; height:36px; border-radius:10px; display:grid; place-items:center;
-    background:linear-gradient(135deg,#effaff,#fff); border:1px solid #d9e9ff; color:#0b5aa5; font-size:1.05rem;
-    flex:0 0 auto;
-  }
-  .chipStack{display:flex; flex-direction:column; gap:2px}
-  .chipLabel{font-size:.86rem; color:var(--muted); font-weight:700}
-  .chipValue{font-size:1.06rem; font-weight:800; color:#0b213f; font-variant-numeric:tabular-nums; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
-
-  /* اختيار الدولة/المدينة — زر واحد أنيق يفتح لوح سفلي */
-  .pickerBar{
-    background:var(--surface); border:1px solid var(--border); border-radius:var(--rsm);
-    box-shadow:var(--shadow); padding:var(--s2);
-    display:flex; gap:var(--s2); align-items:center; justify-content:space-between;
-  }
-  .pickBtn{
-    border:1px solid var(--border); background:#fff; border-radius:999px;
-    padding:.55rem .9rem; font-weight:800; cursor:pointer;
-  }
-  .pickBtn span{opacity:.8}
-  .pickHint{color:var(--muted); font-weight:700}
-
-  /* اللوح السفلي (Bottom Sheet) منظم */
-  .sheet{
-    position:fixed; inset:0; display:none; place-items:end center; z-index:50;
-    background:rgba(15,23,42,.25);
-  }
-  .sheet.open{display:grid}
-  .sheetPanel{
-    width:min(800px,100%); background:#fff; border-radius:16px 16px 0 0; border:1px solid var(--border);
-    box-shadow:var(--shadow); padding:var(--s3);
-  }
-  .sheetHeader{display:flex; gap:var(--s2); align-items:center; margin-bottom:var(--s2)}
-  .search{
-    flex:1; border:1px solid var(--border); border-radius:999px; padding:.6rem .9rem; font-weight:700; outline:none;
-  }
-  .close{border:1px solid var(--border); background:#fff; border-radius:999px; padding:.55rem .9rem; font-weight:800; cursor:pointer}
-  .gridCities{display:grid; grid-template-columns:repeat(3,1fr); gap:var(--s2)}
-  @media (max-width:700px){ .gridCities{grid-template-columns:repeat(2,1fr)} }
-  .cityItem{
-    border:1px solid var(--border); border-radius:12px; padding:.7rem .8rem; cursor:pointer;
-    display:flex; align-items:center; gap:var(--s2); font-weight:800; color:#0b2749; background:#fff;
-  }
-  .cityItem:hover{background:#f6fbff}
-  .cityDot{width:22px; height:22px; border-radius:999px; display:grid; place-items:center; background:linear-gradient(135deg,#ecfeff,#fff); border:1px solid #cde8ff; color:#0b5aa5}
-
-  /* جدول المواقيت */
-  .card{
+  .container{max-width:900px; margin:auto; display:flex; flex-direction:column; gap:16px;}
+  h1{margin:0; text-align:center; font-size:1.3rem; font-weight:800}
+  /* اختيار الموقع */
+  .locationBox{
     background:var(--surface); border:1px solid var(--border); border-radius:var(--radius);
-    box-shadow:var(--shadow); padding:var(--s2);
+    box-shadow:var(--shadow); padding:12px 16px;
+    display:flex; justify-content:space-between; align-items:center;
   }
-  .card h3{margin:0 0 var(--s2); font-size:1rem; font-weight:800}
-  table{width:100%; border-collapse:separate; border-spacing:0}
-  thead th{
-    text-align:right; font-weight:800; color:#1f2937; font-size:.92rem; padding:var(--s2) var(--s2);
-    background:#f6f8fc; border-bottom:1px solid var(--line);
+  .locLabel{font-weight:700}
+  .changeBtn{
+    border:none; background:var(--brand); color:#fff;
+    padding:6px 12px; border-radius:8px; cursor:pointer; font-weight:700;
   }
-  tbody tr{transition:.12s background}
-  tbody tr:hover{background:#fbfdff}
-  tbody td{padding:var(--s2); border-bottom:1px dashed var(--line); font-size:1rem}
-  tbody tr:last-child td{border-bottom:none}
-  .row{display:flex; align-items:center; gap:var(--s1); font-weight:800}
-  .ico{width:24px; height:24px; border-radius:9px; display:grid; place-items:center; background:linear-gradient(135deg,#ecfeff,#fff); border:1px solid #d9eef2; color:#0b5a64}
-  .t{font-variant-numeric:tabular-nums; font-weight:800}
-  tr.next td{background:linear-gradient(90deg,var(--accent),transparent 40%)}
-  tr.next td:first-child{border-inline-start:3px solid var(--brand)}
-
-  /* صندوق الحديث – اقتباس احترافي */
-  .quote{
-    background:var(--surface); border:1px solid var(--border); border-radius:var(--rsm);
-    box-shadow:var(--shadow); padding:var(--s3);
-    position:relative; overflow:hidden;
+  /* قائمة اختيار */
+  .sheet{display:none; position:fixed; inset:0; background:rgba(0,0,0,.35); place-items:center; z-index:50;}
+  .sheet.open{display:grid;}
+  .panel{
+    background:#fff; border-radius:16px; max-height:80vh; overflow:auto;
+    padding:20px; width:90%; max-width:600px;
   }
-  .quote:before{
-    content:"“"; position:absolute; inset-inline-start:var(--s2); top:var(--s2); font-size:56px; line-height:1; color:#e7eef7;
-    font-weight:800; pointer-events:none;
+  .panel h3{margin-top:0; font-size:1.1rem;}
+  .country{margin-bottom:12px;}
+  .country h4{margin:8px 0; font-size:1rem; color:var(--brand2);}
+  .cityList{display:flex; flex-wrap:wrap; gap:8px;}
+  .cityBtn{
+    background:#f9fafb; border:1px solid var(--border); border-radius:8px;
+    padding:6px 12px; cursor:pointer; font-weight:600;
   }
-  .qtext{margin:0; font-size:1.02rem; line-height:1.95}
-  .qsrc{margin-top:var(--s1); color:var(--muted); font-size:.92rem; font-weight:700}
-
-  footer{ text-align:center; color:var(--muted); font-weight:700; padding:var(--s1) 0 }
-  .brand{ color:var(--brand) }
+  .cityBtn:hover{background:#eefaff}
+  /* جدول المواقيت */
+  table{width:100%; border-collapse:collapse; background:#fff; border-radius:var(--radius); box-shadow:var(--shadow);}
+  th,td{padding:10px; border-bottom:1px solid #f0f2f5; text-align:right}
+  th{background:#f9fafb; font-weight:700}
+  tr:last-child td{border-bottom:none}
+  .time{font-weight:800}
+  tr.next{background:linear-gradient(90deg,#e0f7f9,transparent)}
+  /* صندوق الحديث */
+  .hadith{
+    background:#fff; border:1px solid var(--border); border-radius:var(--radius);
+    box-shadow:var(--shadow); padding:20px; position:relative;
+  }
+  .hadith:before{
+    content:"“"; position:absolute; top:10px; right:15px; font-size:48px; color:#e0e7f1; font-weight:800;
+  }
+  .hadith p{margin:0; font-size:1.05rem; line-height:1.9}
+  .hadith small{display:block; margin-top:10px; color:var(--muted); font-weight:600}
+  footer{text-align:center; color:var(--muted); font-weight:700; margin-top:12px}
+  .brand{color:var(--brand2)}
 </style>
 </head>
 <body>
   <div class="container">
-    <!-- شريط علوي -->
-    <div class="topbar" aria-live="polite">
-      <div id="clock" class="clock">--:-- --</div>
-      <h1 class="brandTitle">مواقيت الصلاة</h1>
+    <h1>مواقيت الصلاة وفق المذهب الجعفري</h1>
+
+    <!-- اختيار الموقع -->
+    <div class="locationBox">
+      <div class="locLabel" id="place">المنامة، البحرين</div>
+      <button class="changeBtn" id="open">تغيير</button>
     </div>
 
-    <!-- معلومات مرتبة كـ “كتب”: المكان/التاريخين -->
-    <section class="infoRow">
-      <div class="chipCard">
-        <div class="chipIcon">📍</div>
-        <div class="chipStack">
-          <div class="chipLabel">المكان</div>
-          <div class="chipValue" id="place">المنامة، البحرين</div>
-        </div>
-      </div>
-      <div class="chipCard">
-        <div class="chipIcon">🗓</div>
-        <div class="chipStack">
-          <div class="chipLabel">التاريخ الهجري</div>
-          <div class="chipValue" id="hijri">--</div>
-        </div>
-      </div>
-      <div class="chipCard">
-        <div class="chipIcon">📅</div>
-        <div class="chipStack">
-          <div class="chipLabel">التاريخ الميلادي</div>
-          <div class="chipValue" id="greg">--</div>
-        </div>
-      </div>
-    </section>
+    <!-- جدول -->
+    <table>
+      <thead><tr><th>الوقت</th><th>الساعة (12h)</th></tr></thead>
+      <tbody id="times"><tr><td colspan="2">جاري تحميل المواقيت…</td></tr></tbody>
+    </table>
 
-    <!-- شريط اختيار موحّد للدولة والمدينة -->
-    <section class="pickerBar">
-      <button class="pickBtn" id="openPicker" type="button">اختيار الدولة/المدينة</button>
-      <div class="pickHint">اضغط للاختيار أو اكتب اسم المدينة لتصفية القائمة</div>
-    </section>
-
-    <!-- جدول المواقيت -->
-    <section class="card">
-      <h3>الجدول اليومي</h3>
-      <table>
-        <thead><tr><th>الوقت</th><th>الساعة (12h)</th></tr></thead>
-        <tbody id="times"><tr><td colspan="2">جاري تحميل المواقيت…</td></tr></tbody>
-      </table>
-    </section>
-
-    <!-- صندوق الحديث -->
-    <section class="quote">
-      <p class="qtext" id="hadithText"></p>
-      <div class="qsrc" id="hadithSource"></div>
-    </section>
+    <!-- حديث -->
+    <div class="hadith">
+      <p id="hadithText"></p>
+      <small id="hadithSource"></small>
+    </div>
 
     <footer>برمجة وتطوير <span class="brand">فاضل الريس</span></footer>
   </div>
 
-  <!-- اللوح السفلي لاختيار الدولة/المدينة -->
+  <!-- اللوح للاختيار -->
   <div class="sheet" id="sheet">
-    <div class="sheetPanel">
-      <div class="sheetHeader">
-        <input id="search" class="search" type="search" placeholder="ابحث عن المدينة… (مثال: المنامة)">
-        <button class="close" id="closeSheet" type="button">إغلاق</button>
-      </div>
-      <div class="gridCities" id="gridCities"></div>
+    <div class="panel">
+      <h3>اختر الدولة والمدينة</h3>
+      <div id="countries"><!-- توليد تلقائي --></div>
     </div>
   </div>
 
 <script>
-  /* الدول والمدن + المنطقة الزمنية (AR/EN) */
-  const MAP = {
-    "Bahrain": { tz:"Asia/Bahrain",  cities:[{en:"Manama",ar:"المنامة"},{en:"Muharraq",ar:"المحرق"},{en:"Isa Town",ar:"مدينة عيسى"},{en:"Hamad Town",ar:"مدينة حمد"},{en:"Sitra",ar:"سترة"},{en:"Saar",ar:"سار"},{en:"Draz",ar:"الدراز"},{en:"Jidhafs",ar:"جدحفص"}], ar:"البحرين" },
-    "Lebanon": { tz:"Asia/Beirut",   cities:[{en:"Beirut",ar:"بيروت"},{en:"Tripoli",ar:"طرابلس"},{en:"Sidon",ar:"صيدا"}], ar:"لبنان" },
-    "Iraq":    { tz:"Asia/Baghdad",  cities:[{en:"Baghdad",ar:"بغداد"},{en:"Basrah",ar:"البصرة"},{en:"Erbil",ar:"أربيل"}], ar:"العراق" },
-    "Iran":    { tz:"Asia/Tehran",   cities:[{en:"Tehran",ar:"طهران"},{en:"Mashhad",ar:"مشهد"},{en:"Isfahan",ar:"أصفهان"}], ar:"إيران" },
-    "Kuwait":  { tz:"Asia/Kuwait",   cities:[{en:"Kuwait City",ar:"مدينة الكويت"},{en:"Hawalli",ar:"حولي"},{en:"Al Ahmadi",ar:"الأحمدي"}], ar:"الكويت" },
-    "Saudi Arabia":{ tz:"Asia/Riyadh", cities:[{en:"Riyadh",ar:"الرياض"},{en:"Jeddah",ar:"جدة"},{en:"Dammam",ar:"الدمام"},{en:"Mecca",ar:"مكة"},{en:"Medina",ar:"المدينة"}], ar:"السعودية" }
-  };
-  const DEFAULT = { country:"Bahrain", city:"Manama" };
+const MAP={
+  "البحرين":[ "المنامة","المحرق","مدينة عيسى","مدينة حمد","سترة","سار","الدراز","جدحفص"],
+  "لبنان":[ "بيروت","طرابلس","صيدا"],
+  "العراق":[ "بغداد","البصرة","أربيل"],
+  "إيران":[ "طهران","مشهد","أصفهان"],
+  "الكويت":[ "مدينة الكويت","حولي","الأحمدي"],
+  "السعودية":[ "الرياض","جدة","الدمام","مكة","المدينة"]
+};
+const HADITHS=[
+ {t:"قال الإمام الباقر (ع): إذا استقبل المصلي القبلة استقبل الرحمن بوجهه لا إله غيره.",s:"ميزان الحكمة"},
+ {t:"قال الإمام علي (ع): إذا قام الرجل إلى الصلاة أقبل إبليس ينظر إليه حسداً.",s:"ميزان الحكمة"},
+ {t:"قال الإمام الرضا (ع): الصلاة لها أربعة آلاف باب.",s:"ميزان الحكمة"},
+ {t:"قال الإمام علي (ع): يا كميل! ليس الشأن أن تصلي وتصوم وتتصدق، إنما الشأن أن تكون الصلاة بقلب نقي وخشوع.",s:"ميزان الحكمة"},
+];
+let current={country:"البحرين",city:"المنامة"};
 
-  /* أحاديث */
-  const HADITHS = [
-    { text:"قال الإمام الباقر (عليه السلام): إذا استقبل المصلي القبلة استقبل الرحمن بوجهه لا إله غيره.", src:"المصدر: ميزان الحكمة" },
-    { text:"قال الإمام علي (عليه السلام): إذا قام الرجل إلى الصلاة أقبل إبليس ينظر إليه حسداً لما يرى من رحمة الله التي تغشاه.", src:"المصدر: ميزان الحكمة" },
-    { text:"قال الإمام الرضا (عليه السلام): الصلاة لها أربعة آلاف باب.", src:"المصدر: ميزان الحكمة" },
-    { text:"قال الإمام علي (عليه السلام): يا كميل! ليس الشأن أن تصلي وتصوم وتتصدق، إنما الشأن أن تكون الصلاة فعلت بقلب نقي، وعمل عند الله مرضي، وخشوع سوي.", src:"المصدر: ميزان الحكمة" }
-  ];
-  function setRandomHadith(){
-    const h = HADITHS[Math.floor(Math.random()*HADITHS.length)];
-    hadithText.textContent = h.text;
-    hadithSource.textContent = h.src;
-  }
+function to12h(t){
+ if(!t)return"--"; const [H,M]=t.split(":").map(Number);
+ let h=H%12; if(h===0)h=12; return `${String(h).padStart(2,"0")}:${String(M).padStart(2,"0")} ${H<12?"AM":"PM"}`;
+}
+function renderHadith(){
+ const h=HADITHS[Math.floor(Math.random()*HADITHS.length)];
+ hadithText.textContent=h.t; hadithSource.textContent=h.s;
+}
+function nextKey(timings){
+ const order=["Imsak","Fajr","Dhuhr","Asr","Maghrib","Isha","Midnight"];
+ const now=new Date();
+ return order.find(k=>timings[k] && new Date("1970/01/01 "+timings[k])>now) || "Fajr";
+}
+async function load(){
+ place.textContent=`${current.city}، ${current.country}`;
+ times.innerHTML="<tr><td colspan=2>...</td></tr>";
+ try{
+   const url=`https://api.aladhan.com/v1/timingsByCity?city=${encodeURIComponent(current.city)}&country=${encodeURIComponent(current.country)}&method=0`;
+   const res=await fetch(url); const j=await res.json(); const t=j.data.timings;
+   const rows=[
+     {l:"الإمساك",k:"Imsak",i:"🌙"},
+     {l:"أذان الفجر",k:"Fajr",i:"🕌"},
+     {l:"أذان الظهر",k:"Dhuhr",i:"☀️"},
+     {l:"أذان العصر",k:"Asr",i:"🌤️"},
+     {l:"أذان المغرب",k:"Maghrib",i:"🌆"},
+     {l:"أذان العشاء",k:"Isha",i:"🌙"},
+     {l:"منتصف الليل",k:"Midnight",i:"🌌"}
+   ];
+   const nk=nextKey(t);
+   times.innerHTML=rows.map(r=>`<tr class="${r.k===nk?'next':''}"><td>${r.i} ${r.l}</td><td class="time">${to12h((t[r.k]||"").split(" ")[0])}</td></tr>`).join("");
+ }catch{ times.innerHTML="<tr><td colspan=2>تعذر</td></tr>"; }
+}
+function buildList(){
+ const box=document.getElementById("countries");
+ box.innerHTML="";
+ for(const c in MAP){
+   const div=document.createElement("div"); div.className="country";
+   div.innerHTML=`<h4>${c}</h4><div class="cityList">${MAP[c].map(m=>`<button class="cityBtn" data-c="${c}" data-m="${m}">${m}</button>`).join("")}</div>`;
+   box.appendChild(div);
+ }
+ box.querySelectorAll(".cityBtn").forEach(btn=>{
+   btn.onclick=()=>{current={country:btn.dataset.c,city:btn.dataset.m}; closeSheet(); load();}
+ });
+}
+function openSheet(){sheet.classList.add("open");}
+function closeSheet(){sheet.classList.remove("open");}
 
-  /* 12h */
-  function to12h(t){
-    if(!t) return "--:-- --";
-    const pure = t.replace(/\s*\(.*?\)\s*/g,"");
-    const [H,M] = pure.split(":").map(Number);
-    if(Number.isNaN(H)||Number.isNaN(M)) return t;
-    let h = H % 12; if(h===0) h = 12;
-    const ampm = H < 12 ? "AM" : "PM";
-    return `${String(h).padStart(2,"0")}:${String(M).padStart(2,"0")} ${ampm}`;
-  }
+open.onclick=openSheet;
+closeSheet.onclick=closeSheet;
+sheet.onclick=e=>{if(e.target===sheet)closeSheet();}
 
-  /* الوقت والتواريخ */
-  function fmtClock(tz){
-    return new Intl.DateTimeFormat('en-GB',{timeZone:tz,hour:'2-digit',minute:'2-digit',hour12:true}).format(new Date());
-  }
-  function fmtGreg(tz){
-    return new Intl.DateTimeFormat('ar',{timeZone:tz,weekday:'long',year:'numeric',month:'long',day:'numeric'}).format(new Date());
-  }
-  function fmtHijri(tz){
-    try{
-      return new Intl.DateTimeFormat('ar-SA-u-ca-islamic',{timeZone:tz,weekday:'long',year:'numeric',month:'long',day:'numeric'}).format(new Date());
-    }catch{ return "التاريخ الهجري (متصفح غير مدعوم)"; }
-  }
-
-  /* جدول المواقيت */
-  function tr(label, icon, val, next=false){
-    return `<tr class="${next?'next':''}">
-      <td><div class="row"><span class="ico">${icon}</span>${label}</div></td>
-      <td class="t">${to12h(val||'')}</td>
-    </tr>`;
-  }
-  function ensureImsak(t){
-    if(!t.Imsak && t.Fajr){
-      const pure = t.Fajr.replace(/\s*\(.*?\)\s*/g,"");
-      const [H,M] = pure.split(":").map(Number);
-      const d = new Date(); d.setHours(H, M-10, 0, 0);
-      t.Imsak = `${String(d.getHours()).padStart(2,"0")}:${String(d.getMinutes()).padStart(2,"0")}`;
-    }
-    return t;
-  }
-  function nextKey(timings, tz){
-    const order=["Imsak","Fajr","Dhuhr","Asr","Maghrib","Isha","Midnight"];
-    const nowTZ=new Date(new Date().toLocaleString('en-US',{timeZone:tz}));
-    const dstr=new Intl.DateTimeFormat('en-CA',{timeZone:tz,year:'numeric',month:'2-digit',day:'2-digit'}).format(nowTZ);
-    const [Y,M,D]=dstr.split('-').map(Number);
-    const cand=order.map(k=>{
-      const raw=(timings[k]||"").replace(/\s*\(.*?\)\s*/g,"");
-      if(!raw.includes(':')) return {k,diff:Infinity};
-      const [HH,MM]=raw.split(':').map(Number);
-      return {k,diff:new Date(Y,M-1,D,HH,MM,0)-nowTZ};
-    });
-    let n=cand.filter(x=>x.diff>=0).sort((a,b)=>a.diff-b.diff)[0];
-    if(!n) n=cand.sort((a,b)=>Math.abs(a.diff)-Math.abs(b.diff))[0];
-    return n?.k||null;
-  }
-  function renderTimes(timings, tz){
-    const t=ensureImsak({...timings});
-    const rows=[
-      {label:"الإمساك",key:"Imsak",icon:"🌙"},
-      {label:"أذان الفجر",key:"Fajr",icon:"🕌"},
-      {label:"أذان الظهر",key:"Dhuhr",icon:"☀️"},
-      {label:"أذان العصر",key:"Asr",icon:"🌤️"},
-      {label:"أذان المغرب",key:"Maghrib",icon:"🌆"},
-      {label:"أذان العشاء",key:"Isha",icon:"🌙"},
-      {label:"منتصف الليل",key:"Midnight",icon:"🌌"}
-    ];
-    const k=nextKey(t,tz);
-    times.innerHTML = rows.map(r=>tr(r.label, r.icon, t[r.key], r.key===k)).join("");
-  }
-
-  /* API (method=0 جعفري) */
-  async function fetchTimings(country, city){
-    const url=`https://api.aladhan.com/v1/timingsByCity?city=${encodeURIComponent(city)}&country=${encodeURIComponent(country)}&method=0`;
-    const res=await fetch(url);
-    if(!res.ok) throw new Error("تعذّر جلب المواقيت");
-    const json=await res.json();
-    return json.data.timings;
-  }
-
-  /* اللوح السفلي: بناء قائمة مدن جميع الدول لبحث سريع */
-  function buildCityList(){
-    const all=[];
-    for(const code of Object.keys(MAP)){
-      const countryAR=MAP[code].ar;
-      MAP[code].cities.forEach(c=> all.push({country:code, countryAR, cityEN:c.en, cityAR:c.ar}));
-    }
-    gridCities.innerHTML = all.map(x=>`
-      <div class="cityItem" data-country="${x.country}" data-city="${x.cityEN}" data-label="${x.cityAR}، ${x.countryAR}">
-        <span class="cityDot">🏙</span><span>${x.cityAR}، ${x.countryAR}</span>
-      </div>
-    `).join("");
-    Array.from(gridCities.children).forEach(el=>{
-      el.addEventListener('click',()=>{
-        const country=el.getAttribute('data-country');
-        const cityEN=el.getAttribute('data-city');
-        const label=el.getAttribute('data-label');
-        setPlace(country, cityEN, label);
-        closeSheet();
-      });
-    });
-  }
-  function filterCities(q){
-    q=(q||"").trim();
-    Array.from(gridCities.children).forEach(el=>{
-      const label=el.getAttribute('data-label');
-      const cityEN=el.getAttribute('data-city');
-      const show=!q || label.includes(q) || cityEN.toLowerCase().includes(q.toLowerCase());
-      el.style.display = show ? "" : "none";
-    });
-  }
-
-  /* تحديث العناوين والساعة */
-  function updateTop(country, city){
-    const tz=MAP[country]?.tz || MAP[DEFAULT.country].tz;
-    place.textContent = `${cityLabelAR(country, city)}`;
-    hijri.textContent = fmtHijri(tz);
-    greg.textContent  = fmtGreg(tz);
-    clearInterval(window._clk);
-    clock.textContent = fmtClock(tz);
-    window._clk=setInterval(()=> clock.textContent=fmtClock(tz), 1000);
-    return tz;
-  }
-  function cityLabelAR(country, cityEN){
-    const c = MAP[country];
-    const cityObj = (c?.cities||[]).find(x=>x.en===cityEN);
-    return `${cityObj ? cityObj.ar : cityEN}، ${c?.ar||country}`;
-  }
-
-  /* حالة حالية */
-  let current = { country: DEFAULT.country, city: DEFAULT.city };
-
-  async function setPlace(country, cityEN, labelAR){
-    current.country = country;
-    current.city    = cityEN;
-    place.textContent = labelAR || cityLabelAR(country, cityEN);
-    await load();
-  }
-
-  async function load(){
-    const tz=updateTop(current.country, current.city);
-    times.innerHTML = `<tr><td colspan="2">جاري تحميل المواقيت…</td></tr>`;
-    try{
-      const t=await fetchTimings(current.country, current.city);
-      renderTimes(t, tz);
-    }catch(e){
-      console.error(e);
-      times.innerHTML = `<tr><td colspan="2" style="color:#b91c1c">تعذّر جلب المواقيت. حاول لاحقًا.</td></tr>`;
-    }
-  }
-
-  /* فتح/إغلاق اللوح */
-  function openSheet(){ sheet.classList.add('open'); search.focus(); }
-  function closeSheet(){ sheet.classList.remove('open'); search.value=""; filterCities(""); }
-
-  /* بدء التشغيل */
-  function init(){
-    setRandomHadith();
-    buildCityList();
-    openPicker.addEventListener('click', openSheet);
-    closeSheetBtn = document.getElementById('closeSheet');
-    closeSheetBtn.addEventListener('click', closeSheet);
-    search.addEventListener('input', e=> filterCities(e.target.value));
-    document.addEventListener('click', e=> { if(!e.target.closest('.sheetPanel') && !e.target.closest('#openPicker')) sheet.classList.remove('open'); });
-    setPlace(DEFAULT.country, DEFAULT.city); // افتراضي: المنامة، البحرين
-  }
-  init();
+buildList(); renderHadith(); load();
 </script>
 </body>
 </html>
