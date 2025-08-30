@@ -88,7 +88,7 @@
       </table>
     </section>
 
-    <!-- صندوق المناسبات: سيبقى مخفيًا إن لم توجد مناسبات -->
+    <!-- يبقى مخفيًا إن لم توجد مناسبات -->
     <section class="events" id="eventsBox">
       <h3>مناسبات اليوم</h3>
       <div class="evtGrid">
@@ -147,7 +147,7 @@ let current = JSON.parse(localStorage.getItem("jaq_prayer_place")||"null") || {.
 let HIJRI_OFFSET_DAYS = Number(localStorage.getItem("jaq_hijri_offset_days")||"0");
 
 /* ملف خارجي اختياري لإضافة مناسباتك الخاصة */
-const EVENTS_SOURCE_URL = null; // ضع رابط JSON إن رغبت
+const EVENTS_SOURCE_URL = null;
 
 /* أحاديث */
 const HADITHS=[
@@ -164,74 +164,50 @@ function setHadith(){
   hadithText.textContent=h.t; hadithSource.textContent=h.s;
 }
 
-/* ========================= تقويم المناسبات الشيعية الموسّع ========================= */
+/* ========================= تقويم المناسبات الشيعية (مختصر قابل للتوسعة) ========================= */
 let EVENTS={
-  /* محرم */
   "1-1":[{t:"رأس السنة الهجرية"}],
   "1-2":[{t:"دخول الإمام الحسين ع كربلاء"}],
   "1-7":[{t:"بدء منع الماء عن خيام الحسين ع"}],
   "1-9":[{t:"تاسوعاء – يوم أبي الفضل العباس ع"}],
-  "1-10":[{t:"عاشوراء – شهادة الإمام الحسين ع وأهل بيته وأصحابه"}],
+  "1-10":[{t:"عاشوراء – شهادة الإمام الحسين ع"}],
   "1-12":[{t:"دفن الأجساد الطاهرة بكربلاء"}],
   "1-25":[{t:"شهادة الإمام زين العابدين ع"}],
-
-  /* صفر */
   "2-7":[{t:"شهادة الإمام الحسن المجتبى ع (اختلاف الروايات)"}],
   "2-20":[{t:"الأربعين – زيارة الإمام الحسين ع"}],
-  "2-28":[{t:"وفاة النبي الأكرم ﷺ (على المشهور)"},
-          {t:"شهادة الإمام الحسن المجتبى ع (قول مشهور)"}],
-
-  /* ربيع الأول */
+  "2-28":[{t:"وفاة النبي الأكرم ﷺ (على المشهور)"},{t:"شهادة الإمام الحسن المجتبى ع (قول مشهور)"}],
   "3-8":[{t:"شهادة الإمام الحسن العسكري ع"}],
   "3-9":[{t:"فرحة الزهراء (يوم البراءة)"}],
   "3-17":[{t:"المولد النبوي الشريف (عند الإمامية)"}],
-
-  /* ربيع الآخر */
   "4-8":[{t:"ولادة الإمام الحسن العسكري ع (اختلاف الروايات)"}],
   "4-10":[{t:"ولادة الإمام الحسن العسكري ع (اختلاف الروايات)"}],
-
-  /* جمادى الأولى */
   "5-5":[{t:"مولد السيدة زينب بنت علي ع"}],
   "5-13":[{t:"شهادة السيدة فاطمة الزهراء ع (إحدى الروايات)"}],
-
-  /* جمادى الآخرة */
   "6-3":[{t:"شهادة السيدة فاطمة الزهراء ع (قول مشهور)"}],
   "6-20":[{t:"مولد السيدة فاطمة الزهراء ع"}],
-
-  /* رجب */
   "7-1":[{t:"مولد الإمام محمد الباقر ع"}],
   "7-3":[{t:"شهادة الإمام علي الهادي ع"}],
   "7-10":[{t:"مولد الإمام محمد الجواد ع"}],
   "7-13":[{t:"مولد الإمام علي بن أبي طالب ع"}],
   "7-25":[{t:"شهادة الإمام موسى الكاظم ع"}],
   "7-27":[{t:"المبعث النبوي"}],
-
-  /* شعبان */
   "8-3":[{t:"مولد الإمام الحسين ع"}],
   "8-4":[{t:"مولد أبي الفضل العباس ع"}],
   "8-5":[{t:"مولد الإمام زين العابدين ع"}],
   "8-11":[{t:"مولد علي الأكبر ع"}],
   "8-15":[{t:"مولد الإمام المهدي عجل الله فرجه"}],
-
-  /* رمضان */
   "9-10":[{t:"وفاة السيدة خديجة الكبرى ع"}],
   "9-15":[{t:"مولد الإمام الحسن المجتبى ع"}],
   "9-19":[{t:"ضربة الإمام علي ع – ليلة قدر"}],
   "9-21":[{t:"شهادة الإمام علي ع – ليلة قدر"}],
   "9-23":[{t:"ليلة القدر (قول مشهور)"}],
-
-  /* شوّال */
   "10-1":[{t:"عيد الفطر المبارك"}],
   "10-8":[{t:"ذكرى هدم قبور البقيع"}],
   "10-25":[{t:"شهادة الإمام جعفر الصادق ع"}],
-
-  /* ذو القعدة */
   "11-1":[{t:"مولد السيدة فاطمة المعصومة ع"}],
   "11-11":[{t:"مولد الإمام علي بن موسى الرضا ع"}],
   "11-23":[{t:"دحو الأرض"}],
   "11-29":[{t:"شهادة الإمام محمد الجواد ع"}],
-
-  /* ذو الحجة */
   "12-7":[{t:"يوم التروية"}],
   "12-8":[{t:"الخروج إلى عرفة"}],
   "12-9":[{t:"يوم عرفة (وشهادة مسلم بن عقيل ع عند بعض الروايات)"}],
@@ -240,8 +216,6 @@ let EVENTS={
   "12-24":[{t:"يوم المباهلة"}],
   "12-25":[{t:"يوم نزول سورة الإنسان"}]
 };
-
-/* دمج مناسبات إضافية من ملف خارجي (اختياري) */
 async function mergeExternalEvents(){
   if(!EVENTS_SOURCE_URL) return;
   try{
@@ -253,7 +227,7 @@ async function mergeExternalEvents(){
       EVENTS[k] = (EVENTS[k]||[]).concat(extra[k]);
     }
     try { renderEvents(); } catch {}
-  }catch(e){ /* تجاهل الخطأ */ }
+  }catch(e){}
 }
 
 /* ========================= أدوات عامة ========================= */
@@ -310,22 +284,26 @@ async function fetchHijriFromAladhan(refDate){
   const hj=j?.data?.hijri; if(!hj) throw new Error("Hijri API malformed");
   return hj;
 }
-function formatHijriFromObj(h){
-  const weekdayAr = h?.weekday?.ar ?? new Intl.DateTimeFormat('ar',{timeZone:current.tz,weekday:'long'}).format(new Date());
+
+/* ——— هنا التعديل المهم: تثبيت اسم اليوم على اليوم المدني الحالي ——— */
+function formatHijriFromObj(h, civilWeekday){
   const day = Number(h.day||h.date?.split('-')[0]);
   const monthName = h?.month?.ar || HIJRI_MONTHS_AR[h?.month?.number||0] || '';
   const year = h.year || (h.date? h.date.split('-')[2] : '');
-  return `${weekdayAr}، ${day} ${monthName} ${year} هـ`;
+  return `${civilWeekday}، ${day} ${monthName} ${year} هـ`;
 }
-function localHijriFallback(refDate){
+function localHijriFallback(refDate, civilWeekday){
   try{
     if(hasIntlIslamic()){
-      return new Intl.DateTimeFormat('ar-SA-u-ca-islamic',{timeZone:current.tz,weekday:'long',year:'numeric',month:'long',day:'numeric'}).format(refDate);
+      const parts=new Intl.DateTimeFormat('en-TN-u-ca-islamic',{timeZone:current.tz,year:'numeric',month:'numeric',day:'numeric'}).formatToParts(refDate);
+      const y=+parts.find(p=>p.type==='year').value;
+      const m=+parts.find(p=>p.type==='month').value;
+      const d=+parts.find(p=>p.type==='day').value;
+      return `${civilWeekday}، ${d} ${HIJRI_MONTHS_AR[m]} ${y} هـ`;
     }else{
       const p=ymdInTZ(refDate,current.tz);
       const jd=g2jd(+p.Y,+p.M,+p.D), h=jd2islamic(jd);
-      const wd=new Intl.DateTimeFormat('ar',{timeZone:current.tz,weekday:'long'}).format(refDate);
-      return `${wd}، ${h.d} ${HIJRI_MONTHS_AR[h.m]} ${h.y} هـ`;
+      return `${civilWeekday}، ${h.d} ${HIJRI_MONTHS_AR[h.m]} ${h.y} هـ`;
     }
   }catch{ return "التاريخ الهجري (غير متاح)"; }
 }
@@ -390,16 +368,16 @@ async function renderTimes(t, tz){
   const nowTZ = new Date(new Date().toLocaleString('en-US',{timeZone:current.tz}));
   greg.textContent = new Intl.DateTimeFormat('ar',{timeZone:current.tz,weekday:'long',year:'numeric',month:'long',day:'numeric'}).format(nowTZ);
 
-  // الهجري الموثوق + منطق بعد المغرب
+  // نحسب الهجري لليوم المرجعي (بعد المغرب) لكن نثبت "اسم اليوم" على اليوم المدني الحالي
+  const civilWeekday = new Intl.DateTimeFormat('ar',{timeZone:current.tz,weekday:'long'}).format(nowTZ);
   const ref = refGregorianDateForHijri(nowTZ);
   try{
     const hijriObj = await fetchHijriFromAladhan(ref);
-    hijri.textContent = formatHijriFromObj(hijriObj);
+    hijri.textContent = formatHijriFromObj(hijriObj, civilWeekday);
     await renderEventsWithHijri(hijriObj, ref); // سيُظهر/يخفي صندوق المناسبات حسب الحال
   }catch(e){
-    // Fallback
-    hijri.textContent = localHijriFallback(ref);
-    renderEvents(); // سيخفي الصندوق إن لم توجد مناسبات
+    hijri.textContent = localHijriFallback(ref, civilWeekday);
+    renderEvents(); // Fallback
   }
 }
 
@@ -474,15 +452,15 @@ async function load(){
     document.getElementById('eventsBox').style.display='none';
     const nowTZ = new Date(new Date().toLocaleString('en-US',{timeZone:current.tz}));
     const ref = refGregorianDateForHijri(nowTZ);
+    const civilWeekday = new Intl.DateTimeFormat('ar',{timeZone:current.tz,weekday:'long'}).format(nowTZ);
     try{
       const hj = await fetchHijriFromAladhan(ref);
-      hijri.textContent = formatHijriFromObj(hj);
+      hijri.textContent = formatHijriFromObj(hj, civilWeekday);
     }catch{
-      hijri.textContent = localHijriFallback(ref);
+      hijri.textContent = localHijriFallback(ref, civilWeekday);
     }
   }
-  // تحميل مناسبات خارجية (إن وُجد رابط)
-  mergeExternalEvents();
+  mergeExternalEvents(); // تحميل مناسبات خارجية (إن وُجد رابط)
 }
 
 /* ساعة + حديث */
@@ -534,3 +512,4 @@ load();
 </script>
 </body>
 </html>
+```0
