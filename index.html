@@ -1,393 +1,266 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>المِسْبَحة</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>المِسْبَحة</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+  /* استبدل المسار أدناه بصورة الخلفية (نفس الصورة التي أرسلتها) */
+  :root{
+    --bg-img:url("bg.jpg");
+    --g1:#d90429;   /* أحمر */
+    --g2:#ff3b3b;   /* أحمر فاتح */
+    --glass:rgba(255,255,255,.14);
+    --border:rgba(255,255,255,.28);
+    --white:#fff;
+    --muted:rgba(255,255,255,.8);
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;
+    font-family:"Tajawal", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    color:#fff;
+    background:
+      linear-gradient(180deg, rgba(0,0,0,.25), rgba(0,0,0,.25)),
+      var(--bg-img) center/cover no-repeat fixed;
+  }
 
-  <!-- احترافي وخفيف -->
-  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;600;800&display=swap" rel="stylesheet">
+  .screen{
+    position:relative;
+    width:min(420px,96vw);
+    height:calc(100vh - 24px);
+    margin:12px auto;
+    border-radius:28px;
+    overflow:hidden;
+    box-shadow:0 25px 50px rgba(0,0,0,.35);
+    background:
+      linear-gradient(160deg,var(--g1),var(--g2));
+    isolation:isolate;
+  }
+  .veil{
+    position:absolute; inset:0;
+    background:
+      radial-gradient(120% 90% at 80% -10%, rgba(255,255,255,.12), transparent 50%),
+      linear-gradient(160deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+    z-index:0;
+  }
 
-  <style>
-    :root{
-      --bg1:#6a11cb;
-      --bg2:#8e54e9;
-      --card:rgba(255,255,255,.14);
-      --card-border:rgba(255,255,255,.28);
-      --text:#fff;
-      --muted:rgba(255,255,255,.75);
-      --accent:#fff;
-      --ring:#ffffff;
-      --shadow: 0 10px 35px rgba(0,0,0,.25);
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family:"Tajawal",system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial,sans-serif;
-      color:var(--text);
-      background: radial-gradient(1000px 700px at 80% 0%, rgba(255,255,255,.09), transparent 55%),
-                  linear-gradient(160deg,var(--bg1),var(--bg2));
-      display:grid;
-      place-items:center;
-    }
+  /* شريط علوي */
+  .topbar{
+    position:relative; z-index:2;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 16px 6px;
+  }
+  .icon-btn{
+    width:36px;height:36px;border-radius:50%;
+    display:grid;place-items:center;
+    background:var(--glass); border:1px solid var(--border);
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.08);
+    cursor:pointer;
+  }
+  .title{font-weight:800;font-size:22px;letter-spacing:.3px}
 
-    .app{
-      width:min(740px,94vw);
-      margin:auto;
-      padding:28px 24px 34px;
-      background:linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.06));
-      border:1px solid var(--card-border);
-      border-radius:28px;
-      box-shadow:var(--shadow);
-      backdrop-filter: blur(10px);
-    }
+  /* تبويبات */
+  .tabs{display:flex;gap:12px; justify-content:center; padding:14px 16px}
+  .tab{
+    flex:1; text-align:center; padding:12px 10px;
+    background:var(--glass); border:1px solid var(--border);
+    border-radius:14px; color:var(--muted); font-weight:800; cursor:pointer;
+  }
+  .tab.active{ color:var(--white); box-shadow:inset 0 0 0 2px rgba(255,255,255,.25) }
 
-    .top{
-      display:flex; align-items:center; gap:14px; justify-content:space-between;
-      margin-bottom:12px;
-    }
-    .title{
-      font-weight:800; letter-spacing:.3px; font-size:28px;
-    }
-    .reset{
-      border:1px solid var(--card-border);
-      background: var(--card);
-      color:var(--text);
-      padding:10px 14px;
-      border-radius:14px;
-      cursor:pointer; font-weight:600;
-      transition:transform .06s ease;
-    }
-    .reset:active{ transform:scale(.98) }
+  /* العبارة والعداد */
+  .phrase{ text-align:center; font-size:40px; font-weight:800; margin:2px 0 8px }
+  .counter{
+    width:80%; margin:8px auto 14px; display:grid; grid-template-columns:1fr 1fr;
+    background:var(--glass); border:1px solid var(--border); border-radius:12px; overflow:hidden;
+  }
+  .counter div{ padding:14px 0; text-align:center; font-size:30px; font-weight:800 }
+  .counter div+div{ border-right:1px solid var(--border) }
 
-    .tabs{
-      display:flex; gap:10px; margin:14px 0 22px;
-    }
-    .tab{
-      flex:1;
-      padding:14px 12px;
-      border:1px solid var(--card-border);
-      background:var(--card);
-      border-radius:16px;
-      color:var(--muted);
-      font-weight:700;
-      text-align:center;
-      cursor:pointer;
-      user-select:none;
-      transition: all .2s ease;
-    }
-    .tab.active{
-      color:var(--accent);
-      background: rgba(255,255,255,.18);
-      box-shadow: inset 0 0 0 2px rgba(255,255,255,.25);
-    }
+  /* زر اضغط + الحلقة */
+  .ring-wrap{ width:82%; aspect-ratio:1/1; margin:14px auto 10px; position:relative }
+  .ring{
+    --p:0;
+    position:absolute; inset:0; border-radius:50%;
+    background:
+      radial-gradient(closest-side, transparent 70%, rgba(255,255,255,.10) 71% 72%, transparent 73%),
+      conic-gradient(#fff calc(var(--p)*1turn), rgba(255,255,255,.25) 0);
+    display:grid; place-items:center; padding:18px; filter:drop-shadow(0 20px 30px rgba(0,0,0,.25));
+  }
+  .press{
+    width:72%; height:72%;
+    display:grid; place-items:center;
+    background:#fff; color:#b0001a;
+    border-radius:28px; border:1px solid var(--border);
+    font-weight:800; font-size:40px; letter-spacing:.6px; cursor:pointer;
+    box-shadow:0 20px 45px rgba(0,0,0,.28), inset 0 0 0 2px rgba(255,255,255,.55);
+  }
 
-    /* لوحة الذكر */
-    .panel{ display:none }
-    .panel.active{ display:block }
-
-    .phrase{
-      text-align:center;
-      font-size:40px;
-      font-weight:800;
-      margin:10px 0 6px;
-    }
-    .sub{
-      text-align:center;
-      color:var(--muted);
-      font-size:14px;
-      margin-bottom:14px;
-    }
-
-    .stats{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:12px;
-      margin: 6px auto 18px;
-      max-width:520px;
-    }
-    .stat{
-      background: var(--card);
-      border:1px solid var(--card-border);
-      border-radius:16px;
-      padding:12px 16px;
-      display:flex; align-items:center; justify-content:space-between;
-      font-size:20px; font-weight:800;
-    }
-    .stat small{ color:var(--muted); font-weight:600; font-size:12px; letter-spacing:.2px }
-
-    /* زر العد + الحلقة المتحركة */
-    .ring-wrap{
-      width:min(420px,88vw); aspect-ratio:1/1;
-      margin: 8px auto 6px; position:relative;
-    }
-    .ring{
-      --p:0; /* 0..1 */
-      position:absolute; inset:0;
-      border-radius:50%;
-      background:
-        radial-gradient(closest-side, transparent 70%, rgba(255,255,255,.08) 71% 72%, transparent 73%),
-        conic-gradient(var(--ring) calc(var(--p)*1turn), rgba(255,255,255,.22) 0);
-      filter: drop-shadow(0 20px 25px rgba(0,0,0,.25));
-      display:grid; place-items:center;
-      padding:18px;
-    }
-    .btn{
-      width:72%; height:72%;
-      display:grid; place-items:center;
-      border-radius:32px;
-      border:1px solid var(--card-border);
-      background:#ffffff;
-      color:#5a39c6;
-      font-weight:800; font-size:42px;
-      letter-spacing:.6px;
-      box-shadow: 0 18px 40px rgba(0,0,0,.24), inset 0 0 0 2px rgba(106,17,203,.04);
-      cursor:pointer;
-      user-select:none;
-      transition: transform .06s ease, box-shadow .15s ease;
-    }
-    .btn:active{ transform: scale(.985) }
-    .btn:focus-visible{ outline: 4px solid rgba(255,255,255,.55) }
-
-    .inputs{
-      display:grid; gap:10px;
-      grid-template-columns: 1fr 160px;
-      max-width:620px; margin:8px auto 4px;
-    }
-    .in{
-      background:var(--card); border:1px solid var(--card-border);
-      border-radius:12px; padding:12px 14px;
-      color:var(--text); font-weight:700; width:100%;
-    }
-    .in::placeholder{ color: rgba(255,255,255,.6) }
-
-    .footer{
-      margin-top:18px; color:var(--muted); text-align:center; font-weight:600
-    }
-    .footer b{color:#fff}
-
-    @media (max-width:520px){
-      .phrase{font-size:34px}
-      .btn{font-size:36px}
-      .stat{font-size:18px}
-    }
-  </style>
+  .footer{
+    position:absolute; inset-inline:0; bottom:10px; z-index:2;
+    text-align:center; color:var(--muted); font-weight:700
+  }
+  .footer b{color:#fff}
+</style>
 </head>
 <body>
 
-  <main class="app" role="application" aria-label="المسبحة">
-    <div class="top">
-      <div class="title">المسبحة</div>
-      <button class="reset" id="resetAll" type="button" title="إعادة التعيين">إعادة التعيين ↺</button>
+<div class="screen" role="application" aria-label="المسبحة">
+  <div class="veil"></div>
+
+  <!-- الشريط العلوي (نفس الأيقونات) -->
+  <div class="topbar">
+    <!-- تدوير/إعادة -->
+    <button class="icon-btn" id="btn-reset" title="إعادة">
+      <!-- أيقونة تدوير -->
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M3 12a9 9 0 1 0 3-6.708" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+        <path d="M3 4v4h4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+
+    <div class="title">المسبحة</div>
+
+    <!-- سهم يمين -->
+    <button class="icon-btn" id="btn-next" title="التالي">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M9 6l6 6-6 6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- التبويبات -->
+  <div class="tabs" role="tablist">
+    <button id="tabZ" class="tab active" role="tab" aria-selected="true">تسبيح الزهراء</button>
+    <button id="tabO" class="tab" role="tab" aria-selected="false">التسبيح المفتوح</button>
+  </div>
+
+  <!-- عبارة الذكر -->
+  <div class="phrase" id="phrase">الله أكبر</div>
+
+  <!-- العدادين على نمط الصورة -->
+  <div class="counter">
+    <div id="leftNum">34</div>
+    <div id="rightNum">0</div>
+  </div>
+
+  <!-- زر اضغط داخل حلقة تقدم -->
+  <div class="ring-wrap">
+    <div class="ring" id="ring" style="--p:0">
+      <button class="press" id="press">إضغط</button>
     </div>
+  </div>
 
-    <div class="tabs" role="tablist" aria-label="الوضع">
-      <button class="tab active" id="tab-zahra" role="tab" aria-selected="true">تسبيح الزهراء</button>
-      <button class="tab" id="tab-open" role="tab" aria-selected="false">التسبيح المفتوح</button>
-    </div>
+  <div class="footer">برمجة وتطوير : <b>فاضل الريس</b></div>
+</div>
 
-    <!-- تسبيح الزهراء -->
-    <section id="panel-zahra" class="panel active" role="tabpanel" aria-labelledby="tab-zahra">
-      <div class="phrase" id="zh-phrase">الله أكبر</div>
-      <div class="sub" id="zh-step-info">المرحلة 1 من 3</div>
+<script>
+  /* منطق مطابق لتسبيح الزهراء + وضع مفتوح */
+  const SEQ = [
+    {text:"الله أكبر", max:34},
+    {text:"الحمد لله", max:33},
+    {text:"سبحان الله", max:33}
+  ];
+  const isStored = k => localStorage.getItem(k)!==null;
+  const save = (k,v)=> localStorage.setItem(k, JSON.stringify(v));
+  const load = (k,d)=> isStored(k)? JSON.parse(localStorage.getItem(k)) : d;
+  const vibe = ms=>{ try{ navigator.vibrate && navigator.vibrate(ms);}catch(e){} };
 
-      <div class="stats" aria-live="polite">
-        <div class="stat">
-          <small>العد الحالي</small>
-          <span id="zh-count">0 / 34</span>
-        </div>
-        <div class="stat">
-          <small>الإجمالي اليومي</small>
-          <span id="zh-total">0</span>
-        </div>
-      </div>
+  const phrase = document.getElementById("phrase");
+  const leftNum = document.getElementById("leftNum");
+  const rightNum = document.getElementById("rightNum");
+  const ring = document.getElementById("ring");
+  const press = document.getElementById("press");
 
-      <div class="ring-wrap">
-        <div class="ring" id="zh-ring" style="--p:0">
-          <button class="btn" id="zh-btn" type="button" aria-label="اضغط للذكر">إضغط</button>
-        </div>
-      </div>
-    </section>
+  const tabZ = document.getElementById("tabZ");
+  const tabO = document.getElementById("tabO");
+  const btnReset = document.getElementById("btn-reset");
 
-    <!-- التسبيح المفتوح -->
-    <section id="panel-open" class="panel" role="tabpanel" aria-labelledby="tab-open">
-      <div class="phrase"><span id="op-current-text">سبحان الله</span></div>
-      <div class="sub">يمكنك تعديل الذكر والهدف</div>
+  let mode = load("mode","zahra");           // zahra | open
+  let zh = load("zh",{step:0,count:0});      // للحفظ
+  let open = load("open",{text:"سبحان الله", count:0, target:0});
 
-      <div class="inputs">
-        <input id="op-text" class="in" type="text" placeholder="اكتب الذكر هنا…" />
-        <input id="op-target" class="in" type="number" min="0" step="1" placeholder="هدف (اختياري: 33/99…)" />
-      </div>
+  function setTabs(){
+    tabZ.classList.toggle("active", mode==="zahra");
+    tabO.classList.toggle("active", mode==="open");
+    save("mode", mode);
+    render();
+  }
 
-      <div class="stats" aria-live="polite">
-        <div class="stat"><small>العد الحالي</small><span id="op-count">0</span></div>
-        <div class="stat">
-          <small>الهدف</small><span id="op-show-target">∞</span>
-        </div>
-      </div>
-
-      <div class="ring-wrap">
-        <div class="ring" id="op-ring" style="--p:0">
-          <button class="btn" id="op-btn" type="button" aria-label="اضغط للذكر">إضغط</button>
-        </div>
-      </div>
-
-      <div class="top" style="margin-top:12px">
-        <button class="reset" id="op-dec" type="button" title="إنقاص 1">− إنقاص</button>
-        <button class="reset" id="op-reset" type="button" title="تصفير">تصفير</button>
-      </div>
-    </section>
-
-    <div class="footer">برمجة وتطوير : <b>فاضل الريس</b></div>
-  </main>
-
-  <script>
-    /* أدوات عامة */
-    const vibrate = (ms=12)=>{ try{ navigator.vibrate && navigator.vibrate(ms);}catch(e){} };
-    const save = (k,v)=> localStorage.setItem(k, JSON.stringify(v));
-    const load = (k,def)=> {
-      try{ const v = JSON.parse(localStorage.getItem(k)); return (v??def); }
-      catch{ return def; }
-    };
-
-    /* تبويب */
-    const tabs = {
-      zahra: { tab: document.getElementById('tab-zahra'), panel: document.getElementById('panel-zahra') },
-      open : { tab: document.getElementById('tab-open'),  panel: document.getElementById('panel-open')  }
-    };
-    function setTab(which){
-      for(const k in tabs){
-        const on = (k===which);
-        tabs[k].tab.classList.toggle('active', on);
-        tabs[k].tab.setAttribute('aria-selected', on);
-        tabs[k].panel.classList.toggle('active', on);
-      }
-      save('tasbih_active_tab', which);
+  function render(){
+    if(mode==="zahra"){
+      const cur = SEQ[zh.step] || {text:"تم التسبيح", max:1};
+      phrase.textContent = cur.text;
+      leftNum.textContent  = cur.max;
+      rightNum.textContent = zh.count;
+      ring.style.setProperty("--p", Math.min(1, zh.count/cur.max));
+    }else{
+      phrase.textContent = open.text || "—";
+      leftNum.textContent  = open.target>0 ? open.target : "∞";
+      rightNum.textContent = open.count;
+      const p = open.target>0 ? Math.min(1, open.count/open.target) : 0;
+      ring.style.setProperty("--p", p);
     }
-    tabs.zahra.tab.onclick = ()=> setTab('zahra');
-    tabs.open.tab.onclick  = ()=> setTab('open');
-    setTab(load('tasbih_active_tab','zahra'));
+  }
 
-    // ====== تسبيح الزهراء (34/33/33) ======
-    const ZSEQ = [
-      { text:'الله أكبر', target:34 },
-      { text:'الحمد لله', target:33 },
-      { text:'سبحان الله', target:33 }
-    ];
-    const zh = {
-      phrase: document.getElementById('zh-phrase'),
-      stepInfo: document.getElementById('zh-step-info'),
-      countLbl: document.getElementById('zh-count'),
-      totalLbl: document.getElementById('zh-total'),
-      ring: document.getElementById('zh-ring'),
-      btn: document.getElementById('zh-btn')
-    };
-    let zhState = load('tasbih_zahra_state', {step:0, count:0, total:0});
-    function zhRender(){
-      const step = ZSEQ[zhState.step];
-      if(!step){
-        zh.phrase.textContent = 'تَمَّ التسبيح 👌';
-        zh.stepInfo.textContent = 'ابدأ دورة جديدة';
-        zh.countLbl.textContent = '0 / 0';
-        zh.ring.style.setProperty('--p', 1);
-        return;
-      }
-      zh.phrase.textContent = step.text;
-      zh.stepInfo.textContent = `المرحلة ${zhState.step+1} من ${ZSEQ.length}`;
-      zh.countLbl.textContent = `${zhState.count} / ${step.target}`;
-      zh.totalLbl.textContent = zhState.total;
-      zh.ring.style.setProperty('--p', Math.min(1, zhState.count / step.target));
-    }
-    function zhTick(delta=1){
-      const step = ZSEQ[zhState.step];
-      if(!step){ zhState = {step:0, count:0, total:zhState.total}; save('tasbih_zahra_state', zhState); zhRender(); return; }
-      zhState.count += delta;
-      if(zhState.count < 0) zhState.count = 0;
-      if(zhState.count >= step.target){
-        zhState.total += step.target;
-        zhState.step += 1;
-        zhState.count = 0;
-        // عند نهاية الدورة كلها
-        if(zhState.step >= ZSEQ.length){
-          vibrate(50);
-          zhState.step = ZSEQ.length; // يوقف على "تمّ"
-        } else {
-          vibrate(30);
+  function tick(){
+    if(mode==="zahra"){
+      const cur = SEQ[zh.step];
+      if(!cur){ zh={step:0,count:0}; save("zh",zh); render(); return; }
+      zh.count++;
+      if(zh.count>=cur.max){
+        zh.step++;
+        zh.count=0;
+        vibe(50);
+        if(zh.step>=SEQ.length){ // أنهى الدورة
+          phrase.textContent="تم التسبيح 👌";
+          leftNum.textContent="0"; rightNum.textContent="0";
+          ring.style.setProperty("--p",1);
         }
-      }else{
-        vibrate(10);
-      }
-      save('tasbih_zahra_state', zhState);
-      zhRender();
+      }else{ vibe(12); }
+      save("zh",zh);
+    }else{ // open
+      open.count++;
+      vibe(10);
+      save("open",open);
     }
-    zh.btn.onclick = ()=> zhTick(1);
-    // دعم لوحة المفاتيح
-    zh.btn.addEventListener('keydown', e=>{
-      if(e.code==='Space' || e.code==='Enter'){ e.preventDefault(); zhTick(1); }
-      if(e.code==='Backspace'){ e.preventDefault(); zhTick(-1); }
-    });
-    zhRender();
+    render();
+  }
 
-    // ====== التسبيح المفتوح ======
-    const op = {
-      textIn: document.getElementById('op-text'),
-      targetIn: document.getElementById('op-target'),
-      currentText: document.getElementById('op-current-text'),
-      countLbl: document.getElementById('op-count'),
-      showTarget: document.getElementById('op-show-target'),
-      ring: document.getElementById('op-ring'),
-      btn: document.getElementById('op-btn'),
-      dec: document.getElementById('op-dec'),
-      reset: document.getElementById('op-reset')
-    };
-    let opState = load('tasbih_open_state', {text:'سبحان الله', target:0, count:0});
-    function opRender(){
-      op.currentText.textContent = opState.text || '—';
-      op.countLbl.textContent = opState.count;
-      op.textIn.value = opState.text;
-      op.targetIn.value = opState.target || '';
-      op.showTarget.textContent = opState.target>0 ? opState.target : '∞';
-      let p = 0;
-      if(opState.target>0) p = Math.min(1, opState.count / opState.target);
-      op.ring.style.setProperty('--p', p);
+  // نفس الإحساس: نقرة واحدة = زيادة
+  press.addEventListener("click", tick);
+  // تنقّل للوضع المفتوح مع السهم
+  document.getElementById("btn-next").onclick = ()=>{
+    mode = (mode==="zahra")? "open" : "zahra";
+    setTabs();
+  };
+
+  tabZ.onclick = ()=>{ mode="zahra"; setTabs(); };
+  tabO.onclick = ()=>{ mode="open";  setTabs(); };
+
+  // إعادة
+  btnReset.onclick = ()=>{
+    if(confirm("تصفير العدّاد؟")){
+      zh={step:0,count:0};
+      open={text:"سبحان الله",count:0,target:0};
+      save("zh",zh); save("open",open);
+      render();
     }
-    function opTick(delta=1){
-      opState.count += delta;
-      if(opState.count<0) opState.count=0;
-      const reached = opState.target>0 && opState.count>=opState.target;
-      vibrate(reached?45:10);
-      save('tasbih_open_state', opState);
-      opRender();
-    }
-    op.btn.onclick = ()=> opTick(1);
-    op.dec.onclick = ()=> opTick(-1);
-    op.reset.onclick = ()=> { opState.count=0; save('tasbih_open_state',opState); opRender(); };
+  };
 
-    op.textIn.addEventListener('input', e=>{
-      opState.text = e.target.value.trim();
-      save('tasbih_open_state', opState);
-      opRender();
-    });
-    op.targetIn.addEventListener('input', e=>{
-      const v = parseInt(e.target.value,10);
-      opState.target = (Number.isFinite(v) && v>0) ? v : 0;
-      save('tasbih_open_state', opState);
-      opRender();
-    });
-    opRender();
+  // ضغطة طويلة على زر العد في الوضع المفتوح لإنقاص 1
+  press.addEventListener("pointerdown", e=>{
+    if(mode!=="open") return;
+    let held = false;
+    const t = setTimeout(()=>{ held=true; open.count = Math.max(0, open.count-1); save("open",open); render(); }, 450);
+    const cancel=()=>{ clearTimeout(t); press.removeEventListener("pointerup",cancel); press.removeEventListener("pointerleave",cancel); if(!held) tick(); };
+    press.addEventListener("pointerup",cancel); press.addEventListener("pointerleave",cancel);
+  });
 
-    // إعادة التعيين الكلي
-    document.getElementById('resetAll').onclick = ()=>{
-      if(confirm('هل تريد تصفير كل العدادات؟')){
-        zhState = {step:0, count:0, total:0};
-        opState = {text:'سبحان الله', target:0, count:0};
-        save('tasbih_zahra_state', zhState);
-        save('tasbih_open_state', opState);
-        vibrate(60);
-        zhRender(); opRender();
-      }
-    };
-  </script>
+  setTabs();
+</script>
 </body>
 </html>
