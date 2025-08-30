@@ -6,11 +6,7 @@
 <title>مواقيت الصلاة وفق المذهب الجعفري</title>
 <link href="https://fonts.googleapis.com/css2?family=Reem+Kufi:wght@600&family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --ink:#0f172a; --muted:#6b7280; --bg:#f6f8fb; --border:#e5e7eb;
-    --accent:#0ea5a6; --shadow:0 8px 20px rgba(2,6,23,.08);
-    --hadith-color:#0d2a58;
-  }
+  :root{ --ink:#0f172a; --muted:#6b7280; --bg:#f6f8fb; --border:#e5e7eb; --accent:#0ea5a6; --shadow:0 8px 20px rgba(2,6,23,.08); --hadith-color:#0d2a58; }
   *{box-sizing:border-box}
   body{margin:0; background:var(--bg); font-family:"Tajawal",sans-serif; color:var(--ink); padding:16px;}
   .container{width:min(1000px,100%); margin:auto; display:flex; flex-direction:column; gap:16px}
@@ -92,6 +88,7 @@
       </table>
     </section>
 
+    <!-- صندوق المناسبات: سيبقى مخفيًا إن لم توجد مناسبات -->
     <section class="events" id="eventsBox">
       <h3>مناسبات اليوم</h3>
       <div class="evtGrid">
@@ -142,16 +139,15 @@ const MAP=[
  {ar:"العراق",en:"Iraq",tz:"Asia/Baghdad",cities:[{ar:"بغداد",en:"Baghdad"},{ar:"البصرة",en:"Basrah"},{ar:"أربيل",en:"Erbil"}]},
  {ar:"إيران",en:"Iran",tz:"Asia/Tehran",cities:[{ar:"طهران",en:"Tehran"},{ar:"مشهد",en:"Mashhad"},{ar:"أصفهان",en:"Isfahan"}]},
  {ar:"الكويت",en:"Kuwait",tz:"Asia/Kuwait",cities:[{ar:"مدينة الكويت",en:"Kuwait City"},{ar:"حولي",en:"Hawalli"},{ar:"الأحمدي",en:"Al Ahmadi"}]},
- {ar:"السعودية",en:"Saudi Arabia",tz:"Asia/Riyadh",cities:[
-   {ar:"الرياض",en:"Riyadh"},{ar:"جدة",en:"Jeddah"},{ar:"الدمام",en:"Dammam"},{ar:"مكة",en:"Mecca"},{ar:"المدينة",en:"Medina"}]}
+ {ar:"السعودية",en:"Saudi Arabia",tz:"Asia/Riyadh",cities:[{ar:"الرياض",en:"Riyadh"},{ar:"جدة",en:"Jeddah"},{ar:"الدمام",en:"Dammam"},{ar:"مكة",en:"Mecca"},{ar:"المدينة",en:"Medina"}]}
 ];
 
 const DEFAULT={countryEn:"Bahrain",countryAr:"البحرين",cityEn:"Manama",cityAr:"المنامة",tz:"Asia/Bahrain"};
 let current = JSON.parse(localStorage.getItem("jaq_prayer_place")||"null") || {...DEFAULT};
 let HIJRI_OFFSET_DAYS = Number(localStorage.getItem("jaq_hijri_offset_days")||"0");
 
-/* مصدر هجري خارجي (JSON) إن رغبت — اتركه null إن لا يوجد */
-const HIJRI_SOURCE_URL = null;
+/* ملف خارجي اختياري لإضافة مناسباتك الخاصة */
+const EVENTS_SOURCE_URL = null; // ضع رابط JSON إن رغبت
 
 /* أحاديث */
 const HADITHS=[
@@ -168,43 +164,76 @@ function setHadith(){
   hadithText.textContent=h.t; hadithSource.textContent=h.s;
 }
 
-/* مناسبات (مفتاح m-d هجري) */
-const EVENTS={
+/* ========================= تقويم المناسبات الشيعية الموسّع ========================= */
+let EVENTS={
+  /* محرم */
   "1-1":[{t:"رأس السنة الهجرية"}],
   "1-2":[{t:"دخول الإمام الحسين ع كربلاء"}],
   "1-7":[{t:"بدء منع الماء عن خيام الحسين ع"}],
   "1-9":[{t:"تاسوعاء – يوم أبي الفضل العباس ع"}],
   "1-10":[{t:"عاشوراء – شهادة الإمام الحسين ع وأهل بيته وأصحابه"}],
-  "2-7":[{t:"(بعض الأقوال) شهادة الإمام الحسن المجتبى ع"}],
+  "1-12":[{t:"دفن الأجساد الطاهرة بكربلاء"}],
+  "1-25":[{t:"شهادة الإمام زين العابدين ع"}],
+
+  /* صفر */
+  "2-7":[{t:"شهادة الإمام الحسن المجتبى ع (اختلاف الروايات)"}],
   "2-20":[{t:"الأربعين – زيارة الإمام الحسين ع"}],
-  "2-28":[{t:"وفاة النبي الأكرم ﷺ عند الشيعة"},{t:"شهادة الإمام الحسن المجتبى ع"}],
+  "2-28":[{t:"وفاة النبي الأكرم ﷺ (على المشهور)"},
+          {t:"شهادة الإمام الحسن المجتبى ع (قول مشهور)"}],
+
+  /* ربيع الأول */
   "3-8":[{t:"شهادة الإمام الحسن العسكري ع"}],
-  "3-9":[{t:"فرحة الزهراء (عيد البَقر)"}],
-  "3-17":[{t:"المولد النبوي الشريف (عند الشيعة)"}],
-  "4-8":[{t:"(بعض الأقوال) ولادة الإمام الحسن العسكري ع"}],
-  "4-10":[{t:"(أقوال) ولادة الإمام الحسن العسكري ع"}],
+  "3-9":[{t:"فرحة الزهراء (يوم البراءة)"}],
+  "3-17":[{t:"المولد النبوي الشريف (عند الإمامية)"}],
+
+  /* ربيع الآخر */
+  "4-8":[{t:"ولادة الإمام الحسن العسكري ع (اختلاف الروايات)"}],
+  "4-10":[{t:"ولادة الإمام الحسن العسكري ع (اختلاف الروايات)"}],
+
+  /* جمادى الأولى */
   "5-5":[{t:"مولد السيدة زينب بنت علي ع"}],
-  "5-13":[{t:"(قول) شهادة السيدة فاطمة الزهراء ع"}],
+  "5-13":[{t:"شهادة السيدة فاطمة الزهراء ع (إحدى الروايات)"}],
+
+  /* جمادى الآخرة */
   "6-3":[{t:"شهادة السيدة فاطمة الزهراء ع (قول مشهور)"}],
   "6-20":[{t:"مولد السيدة فاطمة الزهراء ع"}],
+
+  /* رجب */
   "7-1":[{t:"مولد الإمام محمد الباقر ع"}],
   "7-3":[{t:"شهادة الإمام علي الهادي ع"}],
   "7-10":[{t:"مولد الإمام محمد الجواد ع"}],
   "7-13":[{t:"مولد الإمام علي بن أبي طالب ع"}],
   "7-25":[{t:"شهادة الإمام موسى الكاظم ع"}],
   "7-27":[{t:"المبعث النبوي"}],
+
+  /* شعبان */
   "8-3":[{t:"مولد الإمام الحسين ع"}],
   "8-4":[{t:"مولد أبي الفضل العباس ع"}],
   "8-5":[{t:"مولد الإمام زين العابدين ع"}],
+  "8-11":[{t:"مولد علي الأكبر ع"}],
   "8-15":[{t:"مولد الإمام المهدي عجل الله فرجه"}],
+
+  /* رمضان */
+  "9-10":[{t:"وفاة السيدة خديجة الكبرى ع"}],
   "9-15":[{t:"مولد الإمام الحسن المجتبى ع"}],
   "9-19":[{t:"ضربة الإمام علي ع – ليلة قدر"}],
   "9-21":[{t:"شهادة الإمام علي ع – ليلة قدر"}],
   "9-23":[{t:"ليلة القدر (قول مشهور)"}],
+
+  /* شوّال */
   "10-1":[{t:"عيد الفطر المبارك"}],
+  "10-8":[{t:"ذكرى هدم قبور البقيع"}],
+  "10-25":[{t:"شهادة الإمام جعفر الصادق ع"}],
+
+  /* ذو القعدة */
+  "11-1":[{t:"مولد السيدة فاطمة المعصومة ع"}],
   "11-11":[{t:"مولد الإمام علي بن موسى الرضا ع"}],
   "11-23":[{t:"دحو الأرض"}],
+  "11-29":[{t:"شهادة الإمام محمد الجواد ع"}],
+
+  /* ذو الحجة */
   "12-7":[{t:"يوم التروية"}],
+  "12-8":[{t:"الخروج إلى عرفة"}],
   "12-9":[{t:"يوم عرفة (وشهادة مسلم بن عقيل ع عند بعض الروايات)"}],
   "12-10":[{t:"عيد الأضحى المبارك"}],
   "12-18":[{t:"عيد الغدير الأغر"}],
@@ -212,80 +241,105 @@ const EVENTS={
   "12-25":[{t:"يوم نزول سورة الإنسان"}]
 };
 
+/* دمج مناسبات إضافية من ملف خارجي (اختياري) */
+async function mergeExternalEvents(){
+  if(!EVENTS_SOURCE_URL) return;
+  try{
+    const r=await fetch(EVENTS_SOURCE_URL,{cache:"no-store"});
+    if(!r.ok) throw new Error();
+    const j=await r.json();
+    const extra = j?.events || {};
+    for (const k of Object.keys(extra)){
+      EVENTS[k] = (EVENTS[k]||[]).concat(extra[k]);
+    }
+    try { renderEvents(); } catch {}
+  }catch(e){ /* تجاهل الخطأ */ }
+}
+
 /* ========================= أدوات عامة ========================= */
 function to12h(raw){
   if(!raw) return "--:-- --";
   const pure=String(raw).replace(/\s*\(.*?\)\s*/g,"").trim();
   if(!/^\d{1,2}:\d{2}$/.test(pure)) return raw;
   let [H,M]=pure.split(":").map(Number);
-  H = (H===24)?0:H; // بعض APIs تعطي 24:00
+  H = (H===24)?0:H;
   const h=H%12||12; return `${h}:${String(M).padStart(2,"0")} ${H<12?"AM":"PM"}`;
 }
 function updateClock(){
   topClock.textContent=new Intl.DateTimeFormat('en-GB',{timeZone:current.tz,hour:'2-digit',minute:'2-digit',hour12:true}).format(new Date());
 }
-function fmtGreg(){
-  return new Intl.DateTimeFormat('ar',{timeZone:current.tz,weekday:'long',year:'numeric',month:'long',day:'numeric'}).format(new Date());
+function ymdInTZ(date, tz){
+  const p=new Intl.DateTimeFormat('en-CA',{timeZone:tz,year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(date);
+  return {Y:p.find(x=>x.type==='year').value, M:p.find(x=>x.type==='month').value, D:p.find(x=>x.type==='day').value};
 }
 
-/* ====== دعم هجري: Intl ثم تبويبي كاحتياطي ====== */
-function hasIntlIslamic(){
-  try{ new Intl.DateTimeFormat('ar-SA-u-ca-islamic',{day:'numeric'}).format(new Date()); return true; }
-  catch{ return false; }
-}
-// g→JD
-function g2jd(y,m,d){
-  const a=Math.floor((14-m)/12);
-  y=y+4800-a; m=m+12*a-3;
-  return d + Math.floor((153*m+2)/5) + 365*y + Math.floor(y/4) - Math.floor(y/100) + Math.floor(y/400) - 32045;
-}
-// JD→Hijri (Kuwaiti civil)
+/* ====== الهجري عبر Aladhan (أم القرى) مع منطق بعد المغرب وتعويض ====== */
+const HIJRI_MONTHS_AR=["","محرم","صفر","ربيع الأول","ربيع الآخر","جمادى الأولى","جمادى الآخرة","رجب","شعبان","رمضان","شوال","ذو القعدة","ذو الحجة"];
+function hasIntlIslamic(){ try{ new Intl.DateTimeFormat('ar-SA-u-ca-islamic',{day:'numeric'}).format(new Date()); return true; }catch{ return false; } }
+function g2jd(y,m,d){ const a=Math.floor((14-m)/12); y=y+4800-a; m=m+12*a-3; return d + Math.floor((153*m+2)/5) + 365*y + Math.floor(y/4) - Math.floor(y/100) + Math.floor(y/400) - 32045; }
 function jd2islamic(jd){
   const l = jd - 1948440 + 10632;
   const n = Math.floor((l - 1) / 10631);
   let l2 = l - 10631*n + 354;
-  const j = (Math.floor((10985 - l2)/5316)) * (Math.floor((50*l2)/17719))
-          + (Math.floor(l2/5670)) * (Math.floor((43*l2)/15238));
-  l2 = l2 - (Math.floor((30 - j)/15)) * (Math.floor((17719*j)/50))
-           - (Math.floor(j/16)) * (Math.floor((15238*j)/43)) + 29;
+  const j = (Math.floor((10985 - l2)/5316)) * (Math.floor((50*l2)/17719)) + (Math.floor(l2/5670)) * (Math.floor((43*l2)/15238));
+  l2 = l2 - (Math.floor((30 - j)/15)) * (Math.floor((17719*j)/50)) - (Math.floor(j/16)) * (Math.floor((15238*j)/43)) + 29;
   const m = Math.floor((24*l2)/709);
   const d = l2 - Math.floor((709*m)/24);
   const y = 30*n + j - 30;
   return {y,m,d};
 }
-const HIJRI_MONTHS_AR=["","محرم","صفر","ربيع الأول","ربيع الآخر","جمادى الأولى","جمادى الآخرة","رجب","شعبان","رمضان","شوال","ذو القعدة","ذو الحجة"];
 
-/* محاولة جلب الهجري من مصدر خارجي إن وُجد */
-async function fetchHijriFromSource(){
-  if (!HIJRI_SOURCE_URL) return null;
+/* أوقات الصلاة (لاحتساب "بعد المغرب") */
+let lastTimings=null;
+function refGregorianDateForHijri(baseDate){
+  let ref = new Date(baseDate);
+  if(lastTimings?.Maghrib){
+    const pure=lastTimings.Maghrib.replace(/\s*\(.*?\)\s*/g,"").trim();
+    let [H,M]=pure.split(":").map(Number); H=(H===24)?0:H;
+    const magh = new Date(baseDate); magh.setHours(H||0,M||0,0,0);
+    if(baseDate >= magh) ref = new Date(ref.getTime() + 86400000);
+  }
+  return ref;
+}
+async function fetchHijriFromAladhan(refDate){
+  const {Y,M,D}=ymdInTZ(refDate, current.tz);
+  const url=`https://api.aladhan.com/v1/gToH?date=${encodeURIComponent(`${D}-${M}-${Y}`)}&adjustment=${encodeURIComponent(HIJRI_OFFSET_DAYS||0)}`;
+  const r=await fetch(url,{cache:"no-store"});
+  if(!r.ok) throw new Error("Hijri API HTTP "+r.status);
+  const j=await r.json();
+  const hj=j?.data?.hijri; if(!hj) throw new Error("Hijri API malformed");
+  return hj;
+}
+function formatHijriFromObj(h){
+  const weekdayAr = h?.weekday?.ar ?? new Intl.DateTimeFormat('ar',{timeZone:current.tz,weekday:'long'}).format(new Date());
+  const day = Number(h.day||h.date?.split('-')[0]);
+  const monthName = h?.month?.ar || HIJRI_MONTHS_AR[h?.month?.number||0] || '';
+  const year = h.year || (h.date? h.date.split('-')[2] : '');
+  return `${weekdayAr}، ${day} ${monthName} ${year} هـ`;
+}
+function localHijriFallback(refDate){
   try{
-    const r = await fetch(HIJRI_SOURCE_URL, {cache:"no-store"});
-    if(!r.ok) throw new Error("HTTP "+r.status);
-    const j = await r.json();
-    const hijriObj = j.hijri || j.Hijri || j["الهجري"] || j;
-    const y = Number(hijriObj.year || hijriObj.y || hijriObj.hijriYear);
-    let  m = hijriObj.month || hijriObj.m || hijriObj.hijriMonth;
-    const d = Number(hijriObj.day || hijriObj.d || hijriObj.hijriDay);
-    if (typeof m === "string"){ const idx = HIJRI_MONTHS_AR.indexOf(m.trim()); if(idx>0) m=idx; }
-    m = Number(m);
-    if (!y || !m || !d) return null;
-    const weekday = new Intl.DateTimeFormat('ar',{timeZone:current.tz,weekday:'long'}).format(new Date());
-    return `${weekday}، ${d} ${HIJRI_MONTHS_AR[m]} ${y} هـ`;
-  }catch{ return null; }
+    if(hasIntlIslamic()){
+      return new Intl.DateTimeFormat('ar-SA-u-ca-islamic',{timeZone:current.tz,weekday:'long',year:'numeric',month:'long',day:'numeric'}).format(refDate);
+    }else{
+      const p=ymdInTZ(refDate,current.tz);
+      const jd=g2jd(+p.Y,+p.M,+p.D), h=jd2islamic(jd);
+      const wd=new Intl.DateTimeFormat('ar',{timeZone:current.tz,weekday:'long'}).format(refDate);
+      return `${wd}، ${h.d} ${HIJRI_MONTHS_AR[h.m]} ${h.y} هـ`;
+    }
+  }catch{ return "التاريخ الهجري (غير متاح)"; }
 }
 
-/* تحديد “الحدث القادم” */
+/* تحديد الحدث القادم */
 function nextKey(t, tz){
   const order=["Imsak","Fajr","Sunrise","Dhuhr","Asr","Sunset","Maghrib","Isha","Midnight"];
   const nowTZ=new Date(new Date().toLocaleString('en-US',{timeZone:tz}));
-  const parts=new Intl.DateTimeFormat('en-CA',{timeZone:tz,year:'numeric',month:'2-digit',day:'2-digit'}).format(nowTZ).split('-').map(Number);
-  const [Y,M,D]=parts;
+  const {Y,M,D}=ymdInTZ(nowTZ, tz);
   const cand=order.map(k=>{
     const raw=(t[k]||"").replace(/\s*\(.*?\)\s*/g,"").trim();
     if(!/^\d{1,2}:\d{2}$/.test(raw)) return {k,diff:Infinity};
-    let [HH,MM]=raw.split(':').map(Number);
-    HH = (HH===24)?0:HH;
-    return {k,diff:new Date(Y,M-1,D,HH||0,MM||0,0)-nowTZ};
+    let [HH,MM]=raw.split(':').map(Number); HH=(HH===24)?0:HH;
+    return {k,diff:new Date(+Y,+M-1,+D,HH||0,MM||0,0)-nowTZ};
   });
   let n=cand.filter(x=>x.diff>=0).sort((a,b)=>a.diff-b.diff)[0];
   if(!n) n=cand.sort((a,b)=>Math.abs(a.diff)-Math.abs(b.diff))[0];
@@ -295,82 +349,26 @@ function nextKey(t, tz){
 /* صف جدول */
 function tr(name,val,next=false){return `<tr class="${next?'next':''}"><td class="name">${name}</td><td class="time">${to12h(val||'')}</td></tr>`;}
 
-/* تقدير الإمساك إذا لم يأتِ من الـ API */
+/* تقدير الإمساك إذا غاب */
 function ensureImsak(t){
   if(!t.Imsak && t.Fajr){
     const pure=String(t.Fajr).replace(/\s*\(.*?\)\s*/g,"").trim();
     let [H,M]=pure.split(":").map(Number);
     const d=new Date(); d.setHours((H||0), (M||0)-10, 0, 0);
-    const hh=String(d.getHours()).padStart(2,"0"), mm=String(d.getMinutes()).padStart(2,"0");
-    t.Imsak = `${hh}:${mm}`;
+    t.Imsak = `${String(d.getHours()).padStart(2,"0")}:${String(d.getMinutes()).padStart(2,"0")}`;
   }
   return t;
 }
 
-/* جلب المواقيت (method=0 جعفري) */
+/* مواقيت الصلاة (method=0 جعفري) */
 async function fetchTimings(countryEn, cityEn){
   const url=`https://api.aladhan.com/v1/timingsByCity?city=${encodeURIComponent(cityEn)}&country=${encodeURIComponent(countryEn)}&method=0`;
-  const r=await fetch(url); if(!r.ok) throw new Error("تعذّر جلب المواقيت"); const j=await r.json();
+  const r=await fetch(url); if(!r.ok) throw new Error("تعذّر جلب المواقيت");
+  const j=await r.json();
   return j.data.timings;
 }
 
-/* ===== منطق اليوم الهجري (بعد المغرب + تعويض) ===== */
-let lastTimings=null;
-
-function buildHijriDate(baseDate){
-  // 1) تطبيق “بعد المغرب”
-  let ref = new Date(baseDate);
-  if(lastTimings?.Maghrib){
-    const pure=lastTimings.Maghrib.replace(/\s*\(.*?\)\s*/g,"").trim();
-    let [H,M]=pure.split(":").map(Number); H=(H===24)?0:H;
-    const magh = new Date(baseDate); magh.setHours(H||0,M||0,0,0);
-    if(baseDate >= magh) ref = new Date(ref.getTime() + 86400000);
-  }
-  // 2) التعويض اليدوي
-  if(HIJRI_OFFSET_DAYS) ref = new Date(ref.getTime() + HIJRI_OFFSET_DAYS*86400000);
-
-  // 3) Intl أو تبويبي
-  if (hasIntlIslamic()){
-    return new Intl.DateTimeFormat('ar-SA-u-ca-islamic',{timeZone:current.tz,weekday:'long',year:'numeric',month:'long',day:'numeric'}).format(ref);
-  } else {
-    // نثبّت اليوم في المنطقة الزمنية (منتصف النهار) لتفادي فروقات المناطق
-    const ymd = new Intl.DateTimeFormat('en-CA',{timeZone:current.tz,year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(ref);
-    const y=+ymd.find(p=>p.type==='year').value, m=+ymd.find(p=>p.type==='month').value, d=+ymd.find(p=>p.type==='day').value;
-    const jd=g2jd(y,m,d), h=jd2islamic(jd);
-    const weekday = new Intl.DateTimeFormat('ar',{timeZone:current.tz,weekday:'long'}).format(ref);
-    return `${weekday}، ${h.d} ${HIJRI_MONTHS_AR[h.m]} ${h.y} هـ`;
-  }
-}
-
-/* لاستخراج (y,m,d) بنفس منطق “بعد المغرب + التعويض” */
-function hijriYMD_byCustom(dateLike){
-  const base = new Date(dateLike);
-  if (hasIntlIslamic()){
-    const str = new Intl.DateTimeFormat('en-TN-u-ca-islamic',{timeZone:current.tz,year:'numeric',month:'numeric',day:'numeric'}).format(buildRef(base));
-    const p = str.match(/(\d+)\D+(\d+)\D+(\d+)/); // y/m/d
-    return {y:+p[1],m:+p[2],d:+p[3]};
-  } else {
-    const ref = buildRef(base);
-    const ymd = new Intl.DateTimeFormat('en-CA',{timeZone:current.tz,year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(ref);
-    const y=+ymd.find(p=>p.type==='year').value, m=+ymd.find(p=>p.type==='month').value, d=+ymd.find(p=>p.type==='day').value;
-    const jd=g2jd(y,m,d), h=jd2islamic(jd);
-    return {y:h.y,m:h.m,d:h.d};
-  }
-
-  function buildRef(dt){
-    let ref = new Date(dt);
-    if(lastTimings?.Maghrib){
-      const pure=lastTimings.Maghrib.replace(/\s*\(.*?\)\s*/g,"").trim();
-      let [H,M]=pure.split(":").map(Number); H=(H===24)?0:H;
-      const magh = new Date(dt); magh.setHours(H||0,M||0,0,0);
-      if(dt >= magh) ref = new Date(ref.getTime() + 86400000);
-    }
-    if(HIJRI_OFFSET_DAYS) ref = new Date(ref.getTime() + HIJRI_OFFSET_DAYS*86400000);
-    return ref;
-  }
-}
-
-/* رسم الجدول + المناسبات (مع أولوية مصدر هجري خارجي إن وُجد) */
+/* رسم الجدول + التاريخين + المناسبات */
 async function renderTimes(t, tz){
   const timings=ensureImsak({...t}); 
   lastTimings=timings;
@@ -392,32 +390,77 @@ async function renderTimes(t, tz){
   const nowTZ = new Date(new Date().toLocaleString('en-US',{timeZone:current.tz}));
   greg.textContent = new Intl.DateTimeFormat('ar',{timeZone:current.tz,weekday:'long',year:'numeric',month:'long',day:'numeric'}).format(nowTZ);
 
-  // أولوية الهجري: مصدر خارجي → حساب محلي (بعد المغرب + تعويض)
-  const external = await fetchHijriFromSource();
-  hijri.textContent = external || buildHijriDate(nowTZ);
-
-  renderEvents();
+  // الهجري الموثوق + منطق بعد المغرب
+  const ref = refGregorianDateForHijri(nowTZ);
+  try{
+    const hijriObj = await fetchHijriFromAladhan(ref);
+    hijri.textContent = formatHijriFromObj(hijriObj);
+    await renderEventsWithHijri(hijriObj, ref); // سيُظهر/يخفي صندوق المناسبات حسب الحال
+  }catch(e){
+    // Fallback
+    hijri.textContent = localHijriFallback(ref);
+    renderEvents(); // سيخفي الصندوق إن لم توجد مناسبات
+  }
 }
 
-/* مناسبات اليوم/الليلة */
-function eventsForHijri(hm, hd){ return EVENTS[`${hm}-${hd}`] || []; }
+/* مناسبات اليوم/الليلة — باستخدام كائن الهجري من API */
+async function renderEventsWithHijri(hijriObjToday, refToday){
+  const todayM = Number(hijriObjToday?.month?.number||0);
+  const todayD = Number(hijriObjToday?.day||0);
+
+  const refTonight = new Date(refToday.getTime()+86400000);
+  let hijriTomorrow=null;
+  try{ hijriTomorrow = await fetchHijriFromAladhan(refTonight); }catch{}
+
+  const nightM = Number(hijriTomorrow?.month?.number||0);
+  const nightD = Number(hijriTomorrow?.day||0);
+
+  drawEvents(todayM, todayD, nightM, nightD);
+}
+
+/* مناسبات Fallback عندما لا يتوفر كائن الهجري من API */
 function renderEvents(){
   const nowTZ=new Date(new Date().toLocaleString('en-US',{timeZone:current.tz}));
-  const today = hijriYMD_byCustom(nowTZ);
-  const night = hijriYMD_byCustom(new Date(nowTZ.getTime()+86400000));
-  const todayList=eventsForHijri(today.m,today.d);
-  const nightList=eventsForHijri(night.m,night.d);
+  const ref = refGregorianDateForHijri(nowTZ);
+
+  let todayM,todayD,nightM,nightD;
+  if(hasIntlIslamic()){
+    const p1=new Intl.DateTimeFormat('en-TN-u-ca-islamic',{timeZone:current.tz,year:'numeric',month:'numeric',day:'numeric'}).formatToParts(ref);
+    todayM=+p1.find(x=>x.type==='month').value; todayD=+p1.find(x=>x.type==='day').value;
+    const ref2=new Date(ref.getTime()+86400000);
+    const p2=new Intl.DateTimeFormat('en-TN-u-ca-islamic',{timeZone:current.tz,year:'numeric',month:'numeric',day:'numeric'}).formatToParts(ref2);
+    nightM=+p2.find(x=>x.type==='month').value; nightD=+p2.find(x=>x.type==='day').value;
+  }else{
+    const {Y,M,D}=ymdInTZ(ref,current.tz);
+    const h1=jd2islamic(g2jd(+Y,+M,+D));
+    const h2=jd2islamic(g2jd(+Y,+M,+D+1));
+    todayM=h1.m; todayD=h1.d; nightM=h2.m; nightD=h2.d;
+  }
+  drawEvents(todayM, todayD, nightM, nightD);
+}
+
+/* رسم صناديق المناسبات — لن يظهر الصندوق إن كانت القائمتان فارغتين */
+function drawEvents(todayM,todayD,nightM,nightD){
   const box=document.getElementById('eventsBox');
   const todayEl=document.getElementById('eventsToday');
   const nightEl=document.getElementById('eventsTonight');
-  if(todayList.length===0 && nightList.length===0){ box.style.display='none'; return; }
+
+  const todayList = EVENTS[`${todayM}-${todayD}`] || [];
+  const nightList = EVENTS[`${nightM}-${nightD}`] || [];
+
+  if(todayList.length===0 && nightList.length===0){
+    box.style.display='none';
+    return;
+  }
   box.style.display='block';
+
   const itemHTML=(e)=>`<div class="evtItem"><span class="evtText">${e.t}</span></div>`;
   todayEl.innerHTML = todayList.length ? todayList.map(itemHTML).join("") : `<div class="evtItem"><span class="evtText">لا توجد مناسبة.</span></div>`;
   nightEl.innerHTML = nightList.length ? nightList.map(itemHTML).join("") : `<div class="evtItem"><span class="evtText">لا توجد مناسبة.</span></div>`;
 }
 
 /* ========================= التحميل العام ========================= */
+function fmtGreg(){ return new Intl.DateTimeFormat('ar',{timeZone:current.tz,weekday:'long',year:'numeric',month:'long',day:'numeric'}).format(new Date()); }
 async function load(){
   place.textContent=`${current.cityAr}، ${current.countryAr}`;
   hijri.textContent="--";
@@ -430,8 +473,16 @@ async function load(){
     times.innerHTML=`<tr><td colspan="2" style="color:#b91c1c">تعذّر جلب المواقيت.</td></tr>`;
     document.getElementById('eventsBox').style.display='none';
     const nowTZ = new Date(new Date().toLocaleString('en-US',{timeZone:current.tz}));
-    hijri.textContent = buildHijriDate(nowTZ);
+    const ref = refGregorianDateForHijri(nowTZ);
+    try{
+      const hj = await fetchHijriFromAladhan(ref);
+      hijri.textContent = formatHijriFromObj(hj);
+    }catch{
+      hijri.textContent = localHijriFallback(ref);
+    }
   }
+  // تحميل مناسبات خارجية (إن وُجد رابط)
+  mergeExternalEvents();
 }
 
 /* ساعة + حديث */
@@ -460,10 +511,7 @@ function openModal(){
   modal.classList.add("open");
   document.body.style.overflow='hidden';
 }
-function closeModal(){
-  modal.classList.remove("open");
-  document.body.style.overflow='';
-}
+function closeModal(){ modal.classList.remove("open"); document.body.style.overflow=''; }
 openPicker.addEventListener("click",openModal);
 cancelPlace.addEventListener("click",closeModal);
 modal.addEventListener("click",(e)=>{ if(e.target===modal) closeModal(); });
