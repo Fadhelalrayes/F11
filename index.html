@@ -7,19 +7,15 @@
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root{
-    /* لوحة ألوان احترافية: كحلي/تركواز/عاجي */
-    --ink:#0b132b;          /* نص أساسي */
-    --muted:#5b6476;        /* نص ثانوي */
-    --bg:#f7f8fb;           /* خلفية عامة */
-    --grad1:#eff6ff;        /* طبقة ضوء */
-    --grad2:#e8fbf7;        /* طبقة ضوء */
-    --card:#ffffff;         /* خلفيات البطاقات */
-    --border:#e6e8ef;       /* حدود رقيقة */
-    --brand:#0ea5a6;        /* تركواز أنيق */
-    --brand-2:#2563eb;      /* أزرق هادئ */
-    --badge:#eef6ff;        /* شارة */
-    --shadow:0 18px 45px rgba(2,6,23,.08);
-    --radius:18px;
+    /* لوحة راقية: كحلي/تركواز/عاجي */
+    --ink:#0b132b; --muted:#5b6476; --bg:#f5f7fb;
+    --grad1:#eef6ff; --grad2:#e7fbf6;
+    --card:#ffffff; --border:#e6e8ef;
+    --brand:#0ea5a6; --brand-2:#2563eb;
+    --soft:#f7fafc; --shadow:0 18px 45px rgba(2,6,23,.08);
+    --radius:18px; --radius-sm:14px;
+    --chip:#eef6ff; --chip-ink:#0f3b6a;
+    --pill:#ecfeff; --pill-ink:#0c4a6e;
   }
   *{box-sizing:border-box}
   body{
@@ -42,9 +38,9 @@
     border-radius:var(--radius);
     box-shadow:var(--shadow);
     padding:20px clamp(16px, 3vw, 26px);
-    display:grid; grid-template-columns: 1fr auto; gap:16px; align-items:center;
+    display:grid; grid-template-columns: 1fr auto; gap:18px; align-items:center;
   }
-  /* الساعة مثبتة في الأعلى يسار الصفحة (موقع فيزيائي يسار حتى مع RTL) */
+  /* ساعة ثابتة أعلى يسار (موقع فيزيائي يسار حتى مع RTL) */
   .clock-fixed{
     position:absolute; left:16px; top:16px; z-index:3;
     background:#fff; border:1px solid var(--border); border-radius:14px;
@@ -52,15 +48,30 @@
     box-shadow:0 10px 24px rgba(0,0,0,.06);
   }
 
-  .title h1{margin:0; font-size: clamp(1.15rem, 2.2vw, 1.6rem); font-weight:800; letter-spacing:.2px}
-  .subline{display:flex; gap:10px; flex-wrap:wrap; align-items:center}
-  .badge{
-    display:inline-flex; align-items:center; gap:8px;
-    background:var(--badge); color:#093a64; border:1px solid var(--border);
-    border-radius:999px; padding:.4rem .7rem; font-size:.92rem; font-weight:700;
-  }
-  .badge i{font-style:normal; opacity:.7}
+  .title h1{margin:0 0 12px; font-size: clamp(1.15rem, 2.2vw, 1.6rem); font-weight:800; letter-spacing:.2px}
 
+  /* بطاقات التواريخ الاحترافية */
+  .info-cards{
+    display:grid; grid-template-columns: repeat(3, 1fr); gap:10px;
+  }
+  @media (max-width:720px){ .info-cards{grid-template-columns:1fr} }
+  .info-card{
+    background:linear-gradient(180deg,#ffffff,#f9fbff);
+    border:1px solid var(--border); border-radius:var(--radius-sm);
+    box-shadow:0 10px 22px rgba(2,6,23,.05);
+    padding:12px 14px; display:flex; align-items:center; gap:12px; min-height:68px;
+  }
+  .info-ico{
+    width:36px; height:36px; border-radius:12px; flex:0 0 auto;
+    display:grid; place-items:center; font-size:1.1rem; color:#0c5a88;
+    background:linear-gradient(135deg,#effaff,#ffffff);
+    border:1px solid #d9e9ff; box-shadow:0 1px 0 #00000008;
+  }
+  .info-body{display:flex; flex-direction:column; gap:2px}
+  .info-label{font-size:.85rem; color:var(--muted); font-weight:700}
+  .info-value{font-size:1.05rem; font-weight:800; color:#0b213f; font-variant-numeric:tabular-nums}
+
+  /* وحدة التحكم */
   .controls{
     display:flex; gap:10px; align-items:center; flex-wrap:wrap;
     background:#fff; border:1px solid var(--border); border-radius:12px; padding:10px 12px;
@@ -73,30 +84,25 @@
     color:#0b132b; font-weight:700; box-shadow:0 1px 0 #00000008;
   }
 
-  /* شبكة البطاقات */
+  /* شبكة البطاقات للأوقات */
   .grid{display:grid; grid-template-columns: repeat(3, 1fr); gap:16px}
   @media (max-width: 980px){ .grid{grid-template-columns: repeat(2,1fr)} }
   @media (max-width: 640px){ .grid{grid-template-columns:1fr} }
-
   .card{
     position:relative; overflow:hidden;
     background:var(--card); border:1px solid var(--border); border-radius:var(--radius);
     box-shadow:var(--shadow); padding:18px; display:flex; flex-direction:column; gap:8px;
   }
-  .accent{
-    position:absolute; inset-inline-start:0; top:0; width:6px; height:100%;
-    background:linear-gradient(180deg,var(--brand),var(--brand-2));
-  }
+  .accent{position:absolute; inset-inline-start:0; top:0; width:6px; height:100%;
+    background:linear-gradient(180deg,var(--brand),var(--brand-2));}
   .head{display:flex; align-items:center; gap:10px; font-weight:800}
   .dot{
     width:28px; height:28px; border-radius:10px; display:grid; place-items:center;
     background:linear-gradient(135deg,#effaff,#ffffff); border:1px solid #d9e9ff; color:#0c5a88; font-size:1rem;
   }
   .time{font-variant-numeric:tabular-nums; font-weight:800; font-size:1.32rem}
-  .next{
-    position:absolute; top:12px; inset-inline-end:12px; background:#ecfeff; color:#0c4a6e;
-    border:1px solid #c7f3f6; border-radius:999px; padding:.22rem .55rem; font-size:.78rem; font-weight:800;
-  }
+  .next{position:absolute; top:12px; inset-inline-end:12px; background:var(--pill); color:var(--pill-ink);
+    border:1px solid #c7f3f6; border-radius:999px; padding:.22rem .55rem; font-size:.78rem; font-weight:800;}
 
   /* حديث اليوم */
   .hadith{
@@ -120,13 +126,34 @@
 
       <div class="title">
         <h1>مواقيت الصلاة</h1>
-        <div class="subline">
-          <span id="placeLabel" class="badge"><i>📍</i><span>البحرين – المنامة</span></span>
-          <span id="hijri" class="badge"><i>🗓</i><span>--</span></span>
-          <span id="greg" class="badge"><i>📅</i><span>--</span></span>
+
+        <!-- بطاقات التواريخ الاحترافية -->
+        <div class="info-cards">
+          <div class="info-card">
+            <div class="info-ico">🗓</div>
+            <div class="info-body">
+              <div class="info-label">التاريخ الهجري</div>
+              <div class="info-value" id="hijri">--</div>
+            </div>
+          </div>
+          <div class="info-card">
+            <div class="info-ico">📅</div>
+            <div class="info-body">
+              <div class="info-label">التاريخ الميلادي</div>
+              <div class="info-value" id="greg">--</div>
+            </div>
+          </div>
+          <div class="info-card">
+            <div class="info-ico">📍</div>
+            <div class="info-body">
+              <div class="info-label">الموقع</div>
+              <div class="info-value" id="placeLabel">البحرين – المنامة</div>
+            </div>
+          </div>
         </div>
       </div>
 
+      <!-- اختيار الدولة والمدينة -->
       <div class="controls">
         <label for="country">الدولة</label>
         <select id="country" aria-label="اختر الدولة">
@@ -145,10 +172,10 @@
       </div>
     </section>
 
-    <section class="grid" id="cards">
-      <!-- بطاقات المواقيت تُنشأ هنا -->
-    </section>
+    <!-- بطاقات المواقيت -->
+    <section class="grid" id="cards"></section>
 
+    <!-- حديث اليوم -->
     <section class="hadith">
       <h3 class="htitle">حديث اليوم</h3>
       <div id="hadithText"></div>
@@ -159,63 +186,14 @@
   </div>
 
 <script>
-  /* بيانات الدول والمدن (EN للـ API، AR للعرض) */
+  /* الدول والمدن + المنطقة الزمنية */
   const MAP = {
-    "Bahrain": {
-      tz:"Asia/Bahrain",
-      cities:[
-        {en:"Manama", ar:"المنامة"},
-        {en:"Muharraq", ar:"المحرق"},
-        {en:"Isa Town", ar:"مدينة عيسى"},
-        {en:"Hamad Town", ar:"مدينة حمد"},
-        {en:"Sitra", ar:"سترة"},
-        {en:"Saar", ar:"سار"},
-        {en:"Draz", ar:"الدراز"},
-        {en:"Jidhafs", ar:"جدحفص"}
-      ]
-    },
-    "Lebanon": {
-      tz:"Asia/Beirut",
-      cities:[
-        {en:"Beirut", ar:"بيروت"},
-        {en:"Tripoli", ar:"طرابلس"},
-        {en:"Sidon", ar:"صيدا"}
-      ]
-    },
-    "Iraq": {
-      tz:"Asia/Baghdad",
-      cities:[
-        {en:"Baghdad", ar:"بغداد"},
-        {en:"Basrah", ar:"البصرة"},
-        {en:"Erbil", ar:"أربيل"}
-      ]
-    },
-    "Iran": {
-      tz:"Asia/Tehran",
-      cities:[
-        {en:"Tehran", ar:"طهران"},
-        {en:"Mashhad", ar:"مشهد"},
-        {en:"Isfahan", ar:"أصفهان"}
-      ]
-    },
-    "Kuwait": {
-      tz:"Asia/Kuwait",
-      cities:[
-        {en:"Kuwait City", ar:"مدينة الكويت"},
-        {en:"Hawalli", ar:"حولي"},
-        {en:"Al Ahmadi", ar:"الأحمدي"}
-      ]
-    },
-    "Saudi Arabia": {
-      tz:"Asia/Riyadh",
-      cities:[
-        {en:"Riyadh", ar:"الرياض"},
-        {en:"Jeddah", ar:"جدة"},
-        {en:"Dammam", ar:"الدمام"},
-        {en:"Mecca", ar:"مكة"},
-        {en:"Medina", ar:"المدينة"}
-      ]
-    }
+    "Bahrain": { tz:"Asia/Bahrain", cities:[{en:"Manama",ar:"المنامة"},{en:"Muharraq",ar:"المحرق"},{en:"Isa Town",ar:"مدينة عيسى"},{en:"Hamad Town",ar:"مدينة حمد"},{en:"Sitra",ar:"سترة"},{en:"Saar",ar:"سار"},{en:"Draz",ar:"الدراز"},{en:"Jidhafs",ar:"جدحفص"}]},
+    "Lebanon": { tz:"Asia/Beirut",  cities:[{en:"Beirut",ar:"بيروت"},{en:"Tripoli",ar:"طرابلس"},{en:"Sidon",ar:"صيدا"}]},
+    "Iraq":    { tz:"Asia/Baghdad", cities:[{en:"Baghdad",ar:"بغداد"},{en:"Basrah",ar:"البصرة"},{en:"Erbil",ar:"أربيل"}]},
+    "Iran":    { tz:"Asia/Tehran",  cities:[{en:"Tehran",ar:"طهران"},{en:"Mashhad",ar:"مشهد"},{en:"Isfahan",ar:"أصفهان"}]},
+    "Kuwait":  { tz:"Asia/Kuwait",  cities:[{en:"Kuwait City",ar:"مدينة الكويت"},{en:"Hawalli",ar:"حولي"},{en:"Al Ahmadi",ar:"الأحمدي"}]},
+    "Saudi Arabia":{ tz:"Asia/Riyadh", cities:[{en:"Riyadh",ar:"الرياض"},{en:"Jeddah",ar:"جدة"},{en:"Dammam",ar:"الدمام"},{en:"Mecca",ar:"مكة"},{en:"Medina",ar:"المدينة"}]}
   };
 
   /* أحاديث */
@@ -255,10 +233,9 @@
     }catch{ return "التاريخ الهجري (متصفح غير مدعوم)"; }
   }
 
-  /* بناء بطاقة */
+  /* بطاقة وقت صلاة */
   function makeCard({label, icon, time, next=false}){
-    const el = document.createElement('div');
-    el.className = 'card';
+    const el = document.createElement('div'); el.className='card';
     el.innerHTML = `
       <span class="accent" aria-hidden="true"></span>
       ${next ? `<span class="next">الصلاة القادمة</span>` : ``}
@@ -274,7 +251,6 @@
     const nowTZ = new Date(new Date().toLocaleString('en-US',{timeZone:tz}));
     const dstr = new Intl.DateTimeFormat('en-CA', {timeZone:tz, year:'numeric', month:'2-digit', day:'2-digit'}).format(nowTZ);
     const [Y,M,D] = dstr.split('-').map(Number);
-
     const cand = order.map(k=>{
       const raw = (timings[k]||"").replace(/\s*\(.*?\)\s*/g,"");
       if(!raw.includes(':')) return {k, diff:Infinity};
@@ -288,19 +264,19 @@
   }
 
   /* تقدير الإمساك إذا غاب */
-  function ensureImsak(timings){
-    if(!timings.Imsak && timings.Fajr){
-      const pure = timings.Fajr.replace(/\s*\(.*?\)\s*/g,"");
+  function ensureImsak(t){
+    if(!t.Imsak && t.Fajr){
+      const pure = t.Fajr.replace(/\s*\(.*?\)\s*/g,"");
       const [H,M] = pure.split(":").map(Number);
       const d = new Date(); d.setHours(H, M-10, 0, 0);
       const hh = String(d.getHours()).padStart(2,"0");
       const mm = String(d.getMinutes()).padStart(2,"0");
-      timings.Imsak = `${hh}:${mm}`;
+      t.Imsak = `${hh}:${mm}`;
     }
-    return timings;
+    return t;
   }
 
-  /* جلب المواقيت (الطريقة 0 = وفق المذهب الجعفري) */
+  /* جلب المواقيت (method=0 من المزود) */
   async function fetchTimings(country, city){
     const url = `https://api.aladhan.com/v1/timingsByCity?city=${encodeURIComponent(city)}&country=${encodeURIComponent(country)}&method=0`;
     const res = await fetch(url);
@@ -309,7 +285,7 @@
     return json.data.timings;
   }
 
-  /* رسم الواجهة بالكامل */
+  /* رسم المواقيت */
   function renderAll(timings, tz){
     const grid = document.getElementById('cards');
     grid.innerHTML = "";
@@ -325,7 +301,7 @@
     ];
     const nextK = nextPrayerKey(timings, tz);
     rows.forEach(r=>{
-      grid.appendChild(makeCard({label:r.label, icon:r.icon, time:timings[r.key]||"", next: r.key===nextK}));
+      grid.appendChild(makeCard({label:r.label, icon:r.icon, time:timings[r.key]||"", next:r.key===nextK}));
     });
   }
 
@@ -335,74 +311,56 @@
     citySel.innerHTML = "";
     (MAP[country]?.cities || []).forEach((c, i)=>{
       const opt = document.createElement('option');
-      opt.value = c.en;
-      opt.textContent = c.ar;
+      opt.value = c.en; opt.textContent = c.ar;
       if(i===0) opt.selected = true;
       citySel.appendChild(opt);
     });
   }
 
-  /* تحديث رأس الصفحة (المكان + التاريخين + الساعة) */
+  /* تحديث بطاقات الرأس (التواريخ + المكان + الساعة) */
   function updateHeader(country, city){
     const tz = MAP[country]?.tz || "Asia/Bahrain";
     const cityObj = (MAP[country]?.cities || []).find(c=>c.en===city) || {ar:city};
-    document.getElementById('placeLabel').querySelector('span').textContent = `${countryNameAR(country)} – ${cityObj.ar}`;
-    document.getElementById('greg').querySelector('span').textContent  = fmtGreg(tz);
-    document.getElementById('hijri').querySelector('span').textContent = fmtHijri(tz);
-    // تحديث الساعة الثابتة
+    document.getElementById('placeLabel').textContent = `${countryAR(country)} – ${cityObj.ar}`;
+    document.getElementById('greg').textContent  = fmtGreg(tz);
+    document.getElementById('hijri').textContent = fmtHijri(tz);
     clearInterval(window._clk);
     document.getElementById('clock').textContent = fmtClock(tz);
     window._clk = setInterval(()=>{ document.getElementById('clock').textContent = fmtClock(tz); }, 1000);
     return tz;
   }
-
-  function countryNameAR(code){
-    switch(code){
-      case "Bahrain": return "البحرين";
-      case "Lebanon": return "لبنان";
-      case "Iraq": return "العراق";
-      case "Iran": return "إيران";
-      case "Kuwait": return "الكويت";
-      case "Saudi Arabia": return "السعودية";
-      default: return code;
-    }
+  function countryAR(code){
+    return ({
+      "Bahrain":"البحرين","Lebanon":"لبنان","Iraq":"العراق","Iran":"إيران","Kuwait":"الكويت","Saudi Arabia":"السعودية"
+    })[code] || code;
   }
 
-  /* تحميل حسب الاختيارات */
+  /* تحميل اختيارات المستخدم */
   async function load(){
     const country = document.getElementById('country').value;
     const city    = document.getElementById('city').value;
     const tz = updateHeader(country, city);
-    // حالة تحميل أنيقة
-    const cards = document.getElementById('cards');
-    cards.innerHTML = `<div class="card"><span class="accent"></span><div class="head"><span class="dot">⏳</span><span>تحميل المواقيت…</span></div></div>`;
+    document.getElementById('cards').innerHTML =
+      `<div class="card"><span class="accent"></span><div class="head"><span class="dot">⏳</span><span>جاري تحميل المواقيت…</span></div></div>`;
     try{
-      const timings = await fetchTimings(country, city);     // method=0 (جعفري)
+      const timings = await fetchTimings(country, city); // method=0
       renderAll(timings, tz);
     }catch(e){
       console.error(e);
-      cards.innerHTML = `<div class="card"><span class="accent"></span>تعذّر جلب المواقيت. حاول لاحقًا.</div>`;
+      document.getElementById('cards').innerHTML =
+        `<div class="card"><span class="accent"></span>تعذّر جلب المواقيت. حاول لاحقًا.</div>`;
     }
   }
 
-  /* تهيئة كاملة */
+  /* تهيئة */
   function init(){
     setRandomHadith();
-
-    // تعبئة مدن الدولة الافتراضية (البحرين)
     const countrySel = document.getElementById('country');
     const citySel    = document.getElementById('city');
     populateCities(countrySel.value);
-
-    // أحداث التغيير
-    countrySel.addEventListener('change', ()=>{
-      populateCities(countrySel.value);
-      load();
-    });
+    countrySel.addEventListener('change', ()=>{ populateCities(countrySel.value); load(); });
     citySel.addEventListener('change', load);
-
-    // تشغيل أولي
-    load();
+    load(); // افتراضي: البحرين – المنامة
   }
   init();
 </script>
