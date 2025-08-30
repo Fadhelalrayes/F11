@@ -14,7 +14,7 @@
     --r:14px;
   }
   body{margin:0; color:var(--ink); font-family:"Tajawal",sans-serif; background:var(--bg); padding:16px;}
-  .container{width:min(900px,100%); margin:auto; display:flex; flex-direction:column; gap:16px}
+  .container{width:min(1000px,100%); margin:auto; display:flex; flex-direction:column; gap:16px}
 
   /* ساعة صغيرة بالأعلى */
   .topClock{text-align:right; font-size:.95rem; font-weight:800; color:#084241}
@@ -24,9 +24,7 @@
     background:#fff; border:1px solid var(--border); border-radius:18px;
     box-shadow:var(--shadow); padding:18px; text-align:center;
   }
-  .heroTitle{
-    margin:0; font-family:"Reem Kufi",sans-serif; font-weight:700; font-size:1.4rem; color:#0f172a;
-  }
+  .heroTitle{ margin:0; font-family:"Reem Kufi",sans-serif; font-weight:700; font-size:1.4rem; color:#0f172a; }
 
   /* المكان */
   .locationBox{
@@ -49,7 +47,7 @@
     background:#f0f8ff; border:1px solid #d9e9ff; color:#0b5aa5}
   .stack{display:flex; flex-direction:column}
   .label{font-size:.86rem; color:var(--muted); font-weight:700}
-  .value{font-weight:800; font-size:1.05rem; color:#0b213f}
+  .value{font-weight:800; font-size:1.05rem; color:#0b213f; font-variant-numeric:tabular-nums}
 
   /* جدول المواقيت */
   .card{background:#fff; border:1px solid var(--border); border-radius:var(--r);
@@ -64,19 +62,27 @@
   tr.next td{background:linear-gradient(90deg,#0ea5a61a,transparent 40%)}
   tr.next td.name{border-right:3px solid var(--brand)}
 
-  /* الحديث */
-  .hadith{background:#fff; border:1px solid var(--border); border-radius:14px;
-    box-shadow:var(--shadow); padding:18px; position:relative}
-  .hadith::before{
-    content:"“"; position:absolute; top:8px; right:14px; font-size:64px; color:#e9eef6; font-weight:800;
-  }
+  /* الحديث (بلا علامات اقتباس) */
+  .hadith{background:#fff; border:1px solid var(--border); border-radius:14px; box-shadow:var(--shadow); padding:18px}
   .htext{margin:0; font-size:1.06rem; line-height:1.9}
   .hsrc{margin-top:8px; color:var(--muted); font-weight:700}
+
+  /* مناسبات اليوم (تُخفى عند عدم وجود مناسبات) */
+  .events{display:none; background:#fff; border:1px solid var(--border); border-radius:14px; box-shadow:var(--shadow); padding:14px;}
+  .events h3{margin:0 0 8px; font-size:1rem; font-weight:800}
+  .evtGrid{display:grid; grid-template-columns:1fr 1fr; gap:12px}
+  @media(max-width:720px){.evtGrid{grid-template-columns:1fr}}
+  .evtCol{border:1px dashed #e3e8f0; border-radius:12px; padding:10px 12px}
+  .evtCol h4{margin:0 0 6px; font-size:.96rem; color:#0b2749}
+  .evtItem{display:flex; align-items:center; gap:8px; padding:6px 0; border-bottom:1px solid #f2f4f8}
+  .evtItem:last-child{border-bottom:none}
+  .evtTag{font-size:.78rem; font-weight:800; padding:.2rem .5rem; border-radius:999px; border:1px solid #d9e9ff; background:#f5fbff; color:#0b5aa5}
+  .evtText{font-weight:700}
 
   footer{text-align:center; color:var(--muted); font-weight:700; margin-top:8px}
   .brand{color:var(--brand2)}
 
-  /* نافذة تغيير */
+  /* نافذة تغيير البلد/المدينة */
   .modal{position:fixed; inset:0; display:none; place-items:center; background:rgba(15,23,42,.28); z-index:60}
   .modal.open{display:grid}
   .box{width:min(520px,96%); background:#fff; border:1px solid var(--border); border-radius:16px; box-shadow:var(--shadow); padding:16px}
@@ -114,6 +120,21 @@
       </table>
     </section>
 
+    <!-- يظهر فقط عند وجود مناسبات -->
+    <section class="events" id="eventsBox">
+      <h3>مناسبات اليوم</h3>
+      <div class="evtGrid">
+        <div class="evtCol">
+          <h4>اليوم</h4>
+          <div id="eventsToday"></div>
+        </div>
+        <div class="evtCol">
+          <h4>الليلة</h4>
+          <div id="eventsTonight"></div>
+        </div>
+      </div>
+    </section>
+
     <section class="hadith">
       <p class="htext" id="hadithText"></p>
       <div class="hsrc" id="hadithSource"></div>
@@ -135,40 +156,228 @@
   </div>
 
 <script>
+/* دول ومدن */
 const MAP=[
- {ar:"البحرين",en:"Bahrain",tz:"Asia/Bahrain",cities:[{ar:"المنامة",en:"Manama"},{ar:"المحرق",en:"Muharraq"}]},
- {ar:"لبنان",en:"Lebanon",tz:"Asia/Beirut",cities:[{ar:"بيروت",en:"Beirut"}]},
+ {ar:"البحرين",en:"Bahrain",tz:"Asia/Bahrain",cities:[
+   {ar:"المنامة",en:"Manama"},{ar:"المحرق",en:"Muharraq"},{ar:"مدينة عيسى",en:"Isa Town"},
+   {ar:"مدينة حمد",en:"Hamad Town"},{ar:"سترة",en:"Sitra"},{ar:"سار",en:"Saar"},
+   {ar:"الدراز",en:"Draz"},{ar:"جدحفص",en:"Jidhafs"}
+ ]},
+ {ar:"لبنان",en:"Lebanon",tz:"Asia/Beirut",cities:[{ar:"بيروت",en:"Beirut"},{ar:"طرابلس",en:"Tripoli"},{ar:"صيدا",en:"Sidon"}]},
+ {ar:"العراق",en:"Iraq",tz:"Asia/Baghdad",cities:[{ar:"بغداد",en:"Baghdad"},{ar:"البصرة",en:"Basrah"},{ar:"أربيل",en:"Erbil"}]},
+ {ar:"إيران",en:"Iran",tz:"Asia/Tehran",cities:[{ar:"طهران",en:"Tehran"},{ar:"مشهد",en:"Mashhad"},{ar:"أصفهان",en:"Isfahan"}]},
+ {ar:"الكويت",en:"Kuwait",tz:"Asia/Kuwait",cities:[{ar:"مدينة الكويت",en:"Kuwait City"},{ar:"حولي",en:"Hawalli"},{ar:"الأحمدي",en:"Al Ahmadi"}]},
+ {ar:"السعودية",en:"Saudi Arabia",tz:"Asia/Riyadh",cities:[
+   {ar:"الرياض",en:"Riyadh"},{ar:"جدة",en:"Jeddah"},{ar:"الدمام",en:"Dammam"},{ar:"مكة",en:"Mecca"},{ar:"المدينة",en:"Medina"}]}
 ];
 const DEFAULT={countryEn:"Bahrain",countryAr:"البحرين",cityEn:"Manama",cityAr:"المنامة",tz:"Asia/Bahrain"};
 let current={...DEFAULT};
 
+/* أحاديث — تشمل ما ذكرت */
 const HADITHS=[
- {t:"قال الإمام الباقر (ع): إذا استقبل المصلي القبلة استقبل الرحمن بوجهه لا إله غيره.",s:"ميزان الحكمة"},
- {t:"قال الإمام علي (ع): إذا قام الرجل إلى الصلاة أقبل إبليس ينظر إليه حسداً.",s:"ميزان الحكمة"},
+  {t:"قال الإمام الباقر (عليه السلام): إذا استقبل المصلي القبلة استقبل الرحمن بوجهه لا إله غيره.",s:"المصدر: ميزان الحكمة"},
+  {t:"قال الإمام علي (عليه السلام): إذا قام الرجل إلى الصلاة أقبل إبليس ينظر إليه حسداً لما يرى من رحمة الله التي تغشاه.",s:"المصدر: ميزان الحكمة"},
+  {t:"قال الإمام الرضا (عليه السلام): الصلاة لها أربعة آلاف باب.",s:"المصدر: ميزان الحكمة"},
+  {t:"قال الإمام علي (عليه السلام): يا كميل! ليس الشأن أن تصلي وتصوم وتتصدق، إنما الشأن أن تكون الصلاة فعلت بقلب نقي، وعمل عند الله مرضي، وخشوع سوي.",s:"المصدر: ميزان الحكمة"},
+  {t:"عن سعد بن أبي وقاص: سألت النبي صلى الله عليه وآله عن قوله: الذين هم عن صلاتهم ساهون. قال: هم الذين يؤخرون الصلاة عن وقتها.",s:"المصدر: السنن الكبرى"},
+  {t:"قال رسول الله صلى الله عليه وآله: من ترك صلاته متعمداً فقد هدم دينه، ومن ترك أوقاتها يدخل الويل، والويل وادٍ في جهنم كما قال تعالى: فويل للمصلين الذين هم عن صلاتهم ساهون.",s:"المصدر: جامع الأخبار"},
+  {t:"قال عبد الله بن مسعود: سألت رسول الله صلى الله عليه وآله: أيّ الأعمال أحب إلى الله جل جلاله؟ قال: الصلاة لوقتها.",s:"المصدر: الخصال"}
 ];
-function setHadith(){const h=HADITHS[Math.floor(Math.random()*HADITHS.length)];hadithText.textContent=h.t;hadithSource.textContent=h.s;}
-function to12h(raw){if(!raw)return"--";const [H,M]=raw.split(":").map(Number);let h=H%12;if(h===0)h=12;return`${h}:${String(M).padStart(2,"0")} ${H<12?"AM":"PM"}`;}
-function updateClock(){topClock.textContent=new Intl.DateTimeFormat('en-GB',{timeZone:current.tz,hour:'2-digit',minute:'2-digit',hour12:true}).format(new Date());}
-function fmtGreg(){return new Intl.DateTimeFormat('ar',{timeZone:current.tz,weekday:'long',year:'numeric',month:'long',day:'numeric'}).format(new Date());}
-function fmtHijri(){return new Intl.DateTimeFormat('ar-SA-u-ca-islamic',{timeZone:current.tz,weekday:'long',year:'numeric',month:'long',day:'numeric'}).format(new Date());}
-function nextKey(t){return null;}
+function setHadith(){ const h=HADITHS[Math.floor(Math.random()*HADITHS.length)];
+  hadithText.textContent=h.t; hadithSource.textContent=h.s; }
+
+/* 12h */
+function to12h(raw){
+  if(!raw) return "--:-- --";
+  const pure=String(raw).replace(/\s*\(.*?\)\s*/g,"");
+  const [H,M]=pure.split(":").map(Number); if(Number.isNaN(H)||Number.isNaN(M)) return raw;
+  let h=H%12; if(h===0)h=12; return `${String(h).padStart(2,"0")}:${String(M).padStart(2,"0")} ${H<12?"AM":"PM"}`;
+}
+
+/* ساعة وتواريخ */
+function updateClock(){ topClock.textContent=new Intl.DateTimeFormat('en-GB',{timeZone:current.tz,hour:'2-digit',minute:'2-digit',hour12:true}).format(new Date()); }
+function fmtGreg(){ return new Intl.DateTimeFormat('ar',{timeZone:current.tz,weekday:'long',year:'numeric',month:'long',day:'numeric'}).format(new Date()); }
+function fmtHijri(){
+  try{ return new Intl.DateTimeFormat('ar-SA-u-ca-islamic',{timeZone:current.tz,weekday:'long',year:'numeric',month:'long',day:'numeric'}).format(new Date()); }
+  catch{ return "التاريخ الهجري (غير مدعوم)"; }
+}
+
+/* تحويل التاريخ الهجري (أرقام) */
+function hijriYMD(date){
+  const parts=new Intl.DateTimeFormat('en-TN-u-ca-islamic',{timeZone:current.tz,year:'numeric',month:'numeric',day:'numeric'}).formatToParts(date);
+  const y=+parts.find(p=>p.type==='year').value;
+  const m=+parts.find(p=>p.type==='month').value;
+  const d=+parts.find(p=>p.type==='day').value;
+  return {y,m,d};
+}
+
+/* مناسبات شيعية (قائمة واسعة شائعة) — المفتاح m-d */
+const EVENTS={
+  /* محرم */
+  "1-1":[{t:"رأس السنة الهجرية"}],
+  "1-2":[{t:"دخول الإمام الحسين ع كربلاء"}],
+  "1-7":[{t:"بدء منع الماء عن خيام الحسين ع"}],
+  "1-9":[{t:"تاسوعاء – يوم أبي الفضل العباس ع"}],
+  "1-10":[{t:"عاشوراء – شهادة الإمام الحسين ع وأهل بيته وأصحابه"}],
+  /* صفر */
+  "2-7":[{t:"(بعض الأقوال) شهادة الإمام الحسن المجتبى ع"}],
+  "2-20":[{t:"الأربعين – زيارة الإمام الحسين ع"}],
+  "2-28":[{t:"وفاة النبي الأكرم ﷺ عند الشيعة",tag:"وفاة"},{t:"شهادة الإمام الحسن المجتبى ع",tag:"شهادة"}],
+  /* ربيع الأول */
+  "3-8":[{t:"شهادة الإمام الحسن العسكري ع"}],
+  "3-9":[{t:"فرحة الزهراء (عيد البَقر)"}],
+  "3-17":[{t:"المولد النبوي الشريف (عند الشيعة)"}],
+  /* ربيع الآخر */
+  "4-8":[{t:"(بعض الأقوال) ولادة الإمام الحسن العسكري ع"}],
+  "4-10":[{t:"(أقوال) ولادة الإمام الحسن العسكري ع"}],
+  /* جمادى الأولى */
+  "5-5":[{t:"مولد السيدة زينب بنت علي ع"}],
+  "5-13":[{t:"(قول) شهادة السيدة فاطمة الزهراء ع"}],
+  /* جمادى الآخرة */
+  "6-3":[{t:"شهادة السيدة فاطمة الزهراء ع (قول مشهور)"}],
+  "6-20":[{t:"مولد السيدة فاطمة الزهراء ع"}],
+  /* رجب */
+  "7-1":[{t:"مولد الإمام محمد الباقر ع"}],
+  "7-3":[{t:"شهادة الإمام علي الهادي ع"}],
+  "7-10":[{t:"مولد الإمام محمد الجواد ع"}],
+  "7-13":[{t:"مولد الإمام علي بن أبي طالب ع"}],
+  "7-25":[{t:"شهادة الإمام موسى الكاظم ع"}],
+  "7-27":[{t:"المبعث النبوي"}],
+  /* شعبان */
+  "8-3":[{t:"مولد الإمام الحسين ع"}],
+  "8-4":[{t:"مولد أبي الفضل العباس ع"}],
+  "8-5":[{t:"مولد الإمام علي بن الحسين زين العابدين ع"}],
+  "8-15":[{t:"مولد الإمام المهدي عجل الله فرجه"}],
+  /* رمضان */
+  "9-15":[{t:"مولد الإمام الحسن المجتبى ع"}],
+  "9-19":[{t:"ضربة الإمام علي ع – ليلة قدر"}],
+  "9-21":[{t:"شهادة الإمام علي ع – ليلة قدر"}],
+  "9-23":[{t:"ليلة القدر (قول مشهور)"}],
+  /* شوال */
+  "10-1":[{t:"عيد الفطر المبارك"}],
+  /* ذو القعدة */
+  "11-11":[{t:"مولد الإمام علي بن موسى الرضا ع"}],
+  "11-23":[{t:"دحو الأرض"}],
+  /* ذو الحجة */
+  "12-7":[{t:"يوم التروية"}],
+  "12-9":[{t:"يوم عرفة (وشهادة مسلم بن عقيل ع عند بعض الروايات)"}],
+  "12-10":[{t:"عيد الأضحى المبارك"}],
+  "12-18":[{t:"عيد الغدير الأغر"}],
+  "12-24":[{t:"يوم المباهلة"}],
+  "12-25":[{t:"يوم نزول سورة الإنسان (حديث الولاية والإطعام)"}]
+};
+/* ملاحظة: قد تختلف بعض التواريخ باختلاف البلدان ورؤية الهلال/القول الفقهي. يمكنك تعديل/توسعة القائمة بسهولة. */
+
+let lastTimings=null;
+
+/* الصلاة القادمة (لتمييز الصف) */
+function nextKey(t, tz){
+  const order=["Imsak","Fajr","Dhuhr","Asr","Maghrib","Isha","Midnight"];
+  const nowTZ=new Date(new Date().toLocaleString('en-US',{timeZone:tz}));
+  const dstr=new Intl.DateTimeFormat('en-CA',{timeZone:tz,year:'numeric',month:'2-digit',day:'numeric'}).format(nowTZ);
+  const [Y,M,D]=dstr.split('-').map(Number);
+  const cand=order.map(k=>{
+    const raw=(t[k]||"").replace(/\s*\(.*?\)\s*/g,""); if(!raw.includes(':')) return {k,diff:Infinity};
+    const [HH,MM]=raw.split(':').map(Number); return {k,diff:new Date(Y,M-1,D,HH,MM,0)-nowTZ};
+  });
+  let n=cand.filter(x=>x.diff>=0).sort((a,b)=>a.diff-b.diff)[0];
+  if(!n) n=cand.sort((a,b)=>Math.abs(a.diff)-Math.abs(b.diff))[0];
+  return n?.k||null;
+}
+
+/* صف الجدول */
 function tr(name,val,next=false){return `<tr class="${next?'next':''}"><td class="name">${name}</td><td class="time">${to12h(val||'')}</td></tr>`;}
+
+/* تقدير الإمساك إن غاب */
+function ensureImsak(t){
+  if(!t.Imsak && t.Fajr){
+    const pure=String(t.Fajr).replace(/\s*\(.*?\)\s*/g,""); const [H,M]=pure.split(":").map(Number);
+    const d=new Date(); d.setHours(H, M-10, 0, 0);
+    t.Imsak = `${String(d.getHours()).padStart(2,"0")}:${String(d.getMinutes()).padStart(2,"0")}`;
+  }
+  return t;
+}
+
+/* API (method=0 جعفري) */
+async function fetchTimings(countryEn, cityEn){
+  const url=`https://api.aladhan.com/v1/timingsByCity?city=${encodeURIComponent(cityEn)}&country=${encodeURIComponent(countryEn)}&method=0`;
+  const r=await fetch(url); if(!r.ok) throw new Error("تعذّر جلب المواقيت");
+  const j=await r.json(); return j.data.timings;
+}
+
+/* رسم المواقيت */
+function renderTimes(t, tz){
+  const timings=ensureImsak({...t}); lastTimings=timings;
+  const rows=[
+    {n:"الإمساك",k:"Imsak"},
+    {n:"أذان الفجر",k:"Fajr"},
+    {n:"أذان الظهر",k:"Dhuhr"},
+    {n:"أذان العصر",k:"Asr"},
+    {n:"أذان المغرب",k:"Maghrib"},
+    {n:"أذان العشاء",k:"Isha"},
+    {n:"منتصف الليل",k:"Midnight"}
+  ];
+  const k=nextKey(timings,tz);
+  times.innerHTML=rows.map(r=>tr(r.n,timings[r.k],r.k===k)).join("");
+  renderEvents(); // حدّث المناسبات بعد معرفة المغرب
+}
+
+/* ---- مناسبات اليوم/الليلة ---- */
+function eventsForHijri(hm, hd){
+  const key=`${hm}-${hd}`;
+  return EVENTS[key] || [];
+}
+function renderEvents(){
+  // التاريخ الهجري "اليوم"
+  const now=new Date(new Date().toLocaleString('en-US',{timeZone:current.tz}));
+  const {m:tm,d:td}=hijriYMD(now);
+
+  // تحديد "الليلة": إن كان الوقت بعد أذان المغرب → الليلة للهجري التالي، وإلا فهي ليلة اليوم الحالي
+  let tonightDate = new Date(now);
+  if(lastTimings?.Maghrib){
+    const [H,M]=lastTimings.Maghrib.replace(/\s*\(.*?\)\s*/g,"").split(":").map(Number);
+    const magh=new Date(now); magh.setHours(H,M,0,0);
+    if(now >= magh){ tonightDate = new Date(now.getTime()+24*60*60*1000); }
+  }else{
+    tonightDate = new Date(now.getTime()+24*60*60*1000);
+  }
+  const {m:nm,d:nd}=hijriYMD(tonightDate);
+
+  const todayList = eventsForHijri(tm, td);
+  const nightList = eventsForHijri(nm, nd);
+
+  const box=document.getElementById('eventsBox');
+  const todayEl=document.getElementById('eventsToday');
+  const nightEl=document.getElementById('eventsTonight');
+
+  // إذا لا توجد أي مناسبة اليوم ولا الليلة → إخفاء الصندوق بالكامل
+  if(todayList.length===0 && nightList.length===0){
+    box.style.display='none';
+    return;
+  }
+  box.style.display='block';
+
+  const itemHTML = (e)=>`<div class="evtItem"><span class="evtTag">${e.tag||"مناسبة"}</span><span class="evtText">${e.t}</span></div>`;
+  todayEl.innerHTML = todayList.length ? todayList.map(itemHTML).join("") : `<div class="evtItem"><span class="evtText">لا توجد مناسبة.</span></div>`;
+  nightEl.innerHTML = nightList.length ? nightList.map(itemHTML).join("") : `<div class="evtItem"><span class="evtText">لا توجد مناسبة.</span></div>`;
+}
+
+/* تحميل عام */
 async function load(){
   place.textContent=`${current.cityAr}، ${current.countryAr}`;
   hijri.textContent=fmtHijri(); greg.textContent=fmtGreg();
   times.innerHTML="<tr><td colspan=2>...</td></tr>";
   try{
-    const url=`https://api.aladhan.com/v1/timingsByCity?city=${current.cityEn}&country=${current.countryEn}&method=0`;
-    const r=await fetch(url); const j=await r.json(); const t=j.data.timings;
-    const rows=[
-      {n:"الإمساك",k:"Imsak"},{n:"أذان الفجر",k:"Fajr"},{n:"أذان الظهر",k:"Dhuhr"},
-      {n:"أذان العصر",k:"Asr"},{n:"أذان المغرب",k:"Maghrib"},{n:"أذان العشاء",k:"Isha"},
-      {n:"منتصف الليل",k:"Midnight"},
-    ];
-    times.innerHTML=rows.map(r=>tr(r.n,t[r.k])).join("");
-  }catch{times.innerHTML="<tr><td colspan=2>تعذر</td></tr>";}
+    const t=await fetchTimings(current.countryEn,current.cityEn);
+    renderTimes(t,current.tz);
+  }catch{ times.innerHTML=`<tr><td colspan="2" style="color:#b91c1c">تعذّر جلب المواقيت.</td></tr>`; }
 }
-setHadith();load();updateClock();setInterval(updateClock,1000);
+
+/* ساعة */
+setInterval(updateClock,1000); updateClock();
+
+/* حديث */
+setHadith();
 
 /* نافذة تغيير */
 const modal=document.getElementById("modal");
@@ -177,22 +386,36 @@ const cancelPlace=document.getElementById("cancelPlace");
 const savePlace=document.getElementById("savePlace");
 const countrySel=document.getElementById("countrySel");
 const citySel=document.getElementById("citySel");
+
 function openModal(){
   countrySel.innerHTML=MAP.map(c=>`<option value="${c.en}">${c.ar}</option>`).join("");
   countrySel.value=current.countryEn;
   populateCities(countrySel.value);
   citySel.value=current.cityEn;
   modal.classList.add("open");
+  document.body.style.overflow='hidden';
 }
-function closeModal(){modal.classList.remove("open");}
+function closeModal(){ modal.classList.remove("open"); document.body.style.overflow=''; }
 function populateCities(countryEn){
   const c=MAP.find(x=>x.en===countryEn);
   citySel.innerHTML=(c?.cities||[]).map(m=>`<option value="${m.en}">${m.ar}</option>`).join("");
 }
+
 countrySel.addEventListener("change",()=>populateCities(countrySel.value));
-openPicker.onclick=openModal;
-cancelPlace.onclick=closeModal;
-savePlace.onclick=()=>{const c=MAP.find(x=>x.en===countrySel.value);const m=c.cities.find(x=>x.en===citySel.value);current={countryEn:c.en,countryAr:c.ar,cityEn:m.en,cityAr:m.ar,tz:c.tz};closeModal();load();}
+openPicker.addEventListener("click",openModal);
+cancelPlace.addEventListener("click",closeModal);
+modal.addEventListener("click",(e)=>{ if(e.target===modal) closeModal(); });
+savePlace.addEventListener("click",()=>{
+  const c=MAP.find(x=>x.en===countrySel.value);
+  const m=(c?.cities||[]).find(x=>x.en===citySel.value);
+  if(c&&m){
+    current.countryEn=c.en; current.countryAr=c.ar; current.cityEn=m.en; current.cityAr=m.ar; current.tz=c.tz;
+    closeModal(); load();
+  }
+});
+
+/* بدء التشغيل */
+load();
 </script>
 </body>
 </html>
