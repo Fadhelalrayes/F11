@@ -80,7 +80,7 @@ a.btn:hover,button.btn:hover{transform:translateY(-2px);filter:saturate(1.06);bo
   linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,0) 45%),
   linear-gradient(180deg,#272727,#161616 55%,#0b0b0b)}
 
-/* بطاقات */
+/* بطاقات + نتائج */
 .card{background:#fff;border-radius:22px;box-shadow:var(--sh-xl);padding:var(--space);margin:18px 0}
 .section-title{font-family:"Noto Kufi Arabic";font-size:var(--fs-h2);margin:6px 0 12px;text-align:center}
 .block-btn{width:100%;padding:18px;border-radius:18px;margin:12px 0;border:0;cursor:pointer;
@@ -92,17 +92,27 @@ a.btn:hover,button.btn:hover{transform:translateY(-2px);filter:saturate(1.06);bo
 input,select{width:100%;padding:14px;border:1px solid #ead79f;border-radius:14px;background:#fff;font-size:clamp(14px,1.4vw,18px);box-shadow:inset 0 1px 3px rgba(0,0,0,.03)}
 .hidden{display:none}
 
-/* نتيجة */
 .result{background:#fffdf3;border:1px solid #f1e2b0;border-radius:18px;padding:var(--space)}
 .item{display:none} /* إخفاء الحكم/الملاحظات */
 .ayah{font-family:"Tajawal";font-weight:700;font-size:var(--fs-ayah);line-height:2;color:#1b1406;margin-top:10px}
-.badge{display:inline-block;background:linear-gradient(180deg,#fff7د4,#fbe9b1);border:1px solid #edd899;border-radius:999px;padding:6px 12px;margin:4px 6px 0 0;white-space:nowrap}
+.badge{display:inline-block;background:linear-gradient(180deg,#fff7d4,#fbe9b1);border:1px solid #edd899;border-radius:999px;padding:6px 12px;margin:4px 6px 0 0;white-space:nowrap}
 .blackbar{background:#0b0b0b;color:#fff;border-radius:12px;padding:10px 12px;margin:-6px 0 10px;overflow:auto}
 .verse-card{background:#fff;border:1px solid #eee;border-radius:16px;box-shadow:var(--sh-md);padding:12px;margin:10px 0;cursor:pointer}
 .verse-card:hover{box-shadow:0 18px 32px rgba(0,0,0,.12)}
 @media (min-width:900px){ #search .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px} }
 .footer{margin-top:26px;text-align:center}
 .credit{display:inline-block;background:linear-gradient(180deg,#1a1a1a,#000);color:#fff;padding:10px 18px;border-radius:999px;border:1px solid rgba(255,255,255,.08);box-shadow:0 12px 26px rgba(0,0,0,.35)}
+
+/* الحديث على الرئيسية */
+.hadith-box{
+  margin:16px auto 0;max-width:1100px;padding:clamp(14px,2vw,20px);
+  border-radius:18px;text-align:right;
+  background: radial-gradient(160% 120% at 18% -30%, rgba(255,255,255,.55), transparent 55%),
+             linear-gradient(180deg, var(--gold1), var(--gold2) 56%, var(--gold3));
+  border:1px solid rgba(185,130,31,.35);box-shadow:var(--sh-md);color:#2b1f08
+}
+.hadith-box .q{font-family:"Noto Kufi Arabic",sans-serif;font-size:clamp(16px,1.6vw,19px);line-height:2.1;text-align:justify;text-justify:inter-word}
+.hadith-box .src{margin-top:8px;font-size:clamp(12px,1.2vw,13px);text-align:center;opacity:.9}
 
 /* عرض الأقسام */
 section.view{display:none}
@@ -115,7 +125,7 @@ section.view.active{display:block}
 .app-card{position:relative;width:min(92vw,520px);padding:20px 18px 16px;border-radius:22px;background:linear-gradient(180deg,#1f1f27,#15151c);color:#fff;box-shadow:var(--sh-xl);border:1px solid #2b2b36;text-align:center}
 .app-ttl{margin:6px 0 8px;font-size:1.25rem;font-weight:800;font-family:"Noto Kufi Arabic"}
 .app-msg{margin:0 6px 16px;line-height:1.9;color:#c9c9d3}
-.app-btn{display:block;width:100%;padding:12px 18px;font-size:1.05rem;font-weight:800;border:0;border-radius:16px;cursor:pointer;color:#1b1b22;background:linear-gradient(180deg,var(--gold1),var(--gold2) 60%,var(--gold3));box-shadow:0 6px 16px rgba(205,163,73,.35)}
+.app-btn{display:block;width:100%;padding:12px 18px;font-size:1.05rem;font-weight:800;border:0;border-radius:16px;cursor:pointer;color:#1ب1ب22;background:linear-gradient(180deg,var(--gold1),var(--gold2) 60%,var(--gold3));box-shadow:0 6px 16px rgba(205,163,73,.35)}
 .app-ico{width:64px;height:64px;margin:4px auto 8px;border-radius:50%;display:grid;place-items:center;font-size:34px;color:#1b1b22;background:linear-gradient(180deg,var(--gold1),var(--gold2));box-shadow:0 6px 16px rgba(205,163,73,.35)}
 </style>
 </head>
@@ -129,8 +139,9 @@ section.view.active{display:block}
     <h1 id="title" class="title">الخِيرة بالقرآن</h1>
     <div class="divider" aria-hidden="true"></div>
     <nav class="row" style="margin-top:12px" aria-label="التنقّل">
-      <a class="btn" href="#khira">خيرة جديدة</a>
-      <a class="btn black" href="#search">بحث</a>
+      <!-- نفعّل الاقسام مباشرةً حتى لو الـhash ما تغيّر -->
+      <a class="btn" href="#khira" onclick="activate('khira');return false;">خيرة جديدة</a>
+      <a class="btn black" href="#search" onclick="activate('search');return false;">بحث</a>
     </nav>
     <div class="hadith-box" id="hadithBox">
       <div class="q" id="hadithText"></div>
@@ -144,10 +155,11 @@ section.view.active{display:block}
     <ol style="margin:0 0 10px 0;line-height:2">
       <li>الأفضل الطهارة بالوضوء أو الغُسل، مع النيّة لله تعالى.</li>
       <li>قراءة الدعاء المأثور.</li>
+      <li>اضغط <b>استخارة</b> لتظهر النتيجة (اليمين فقط).</li>
     </ol>
     <div class="row" style="margin-top:12px">
       <button class="btn" id="doBtn" type="button">استخارة</button>
-      <a class="btn black" href="#home">رجوع</a>
+      <a class="btn black" href="#home" onclick="activate('home');return false;">رجوع</a>
     </div>
 
     <div id="res-box" class="result hidden" style="margin-top:12px">
@@ -213,7 +225,7 @@ section.view.active{display:block}
     </div>
 
     <div class="row" style="margin-top:6px">
-      <a class="btn black" href="#home">رجوع</a>
+      <a class="btn black" href="#home" onclick="activate('home');return false;">رجوع</a>
     </div>
   </section>
 
@@ -238,7 +250,8 @@ section.view.active{display:block}
 function activate(id){
   document.querySelectorAll('section.view').forEach(s=>s.classList.remove('active'));
   document.getElementById(id||'home')?.classList.add('active');
-  if(id==='khira') document.getElementById('res-box')?.classList.add('hidden');
+
+  if(id==='khira'){ document.getElementById('res-box')?.classList.add('hidden'); }
   if(id==='search'){
     document.getElementById('searchResult')?.classList.add('hidden');
     ['pBox','kBox','sBox'].forEach(x=>document.getElementById(x)?.classList.add('hidden'));
@@ -247,7 +260,7 @@ function activate(id){
 function showFromHash(){ activate((location.hash||'#home').slice(1)); }
 window.addEventListener('hashchange',showFromHash);
 
-/* ===== أدوات مساعدة ===== */
+/* ===== أدوات ===== */
 const $=id=>document.getElementById(id);
 function toWesternDigits(s=""){
   return String(s).replace(/[٠-٩]/g,d=>"٠١٢٣٤٥٦٧٨٩".indexOf(d)).replace(/[۰-۹]/g,d=>"۰۱۲۳۴۵۶۷۸۹".indexOf(d));
@@ -256,26 +269,34 @@ const toArabicDigits = x => String(x??"—").replace(/[0-9]/g,d=>"٠١٢٣٤٥٦
 
 /* تطبيع عربي للكلمات */
 function arNorm(s=""){
-  return String(s).replace(/[\u064B-\u0652\u0670\u0640]/g,'').replace(/[إأآٱ]/g,'ا')
-    .replace(/ى/g,'ي').replace(/ة/g,'ه').replace(/[ؤئ]/g,'ء').trim();
+  return String(s).replace(/[\u064B-\u0652\u0670\u0640]/g,'')
+    .replace(/[إأآٱ]/g,'ا').replace(/ى/g,'ي').replace(/ة/g,'ه').replace(/[ؤئ]/g,'ء').trim();
 }
 function arNormNoHamza(s=""){ return arNorm(s).replace(/ء/g,''); }
 
-/* مودال موحّد */
+/* مودال */
 (function(){
   const modal=$('appModal'), ttl=$('mTitle'), msg=$('mMsg');
-  function uiAlert({title='تنبيه',message='—',okText='حسنًا'}={}){ ttl.textContent=title; msg.innerHTML=message; modal.classList.remove('hidden'); $('mOk').textContent=okText;}
+  function uiAlert({title='تنبيه',message='—',okText='حسنًا'}={}){ ttl.textContent=title; msg.innerHTML=message; modal.classList.remove('hidden'); $('mOk').textContent=okText; }
   function close(){ modal.classList.add('hidden'); }
   modal.querySelectorAll('[data-close]').forEach(el=>el.addEventListener('click',close));
   document.addEventListener('keydown',e=>{ if(e.key==='Escape'&&!modal.classList.contains('hidden')) close(); });
   window.uiAlert=uiAlert;
 })();
 
+/* أحاديث */
+const HADITHS=[
+  {t:"قال الإمام الصادق (ع): يقول الله عز وجل: من شقاء عبدي أن يعمل الأعمال ولا يستخير بي.", s:"ميزان الحكمة"},
+  {t:"قال الإمام الصادق (ع): من دخل في أمر بغير استخارة ثم ابتلي لم يؤجر.", s:"ميزان الحكمة"},
+  {t:"قال الإمام علي (ع): ما حار من استخار، ولا ندم من استشار.", s:"ميزان الحكمة"},
+  {t:"قال رسول الله (ص): من سعادة ابن آدم استخارته الله ورضاه بما قضى الله.", s:"ميزان الحكمة"}
+];
+
 /* أسماء السور */
 const SURAH=["","الفاتحة","البقرة","آل عمران","النساء","المائدة","الأنعام","الأعراف","الأنفال","التوبة","يونس","هود","يوسف","الرعد","إبراهيم","الحجر","النحل","الإسراء","الكهف","مريم","طه","الأنبياء","الحج","المؤمنون","النور","الفرقان","الشعراء","النمل","القصص","العنكبوت","الروم","لقمان","السجدة","الأحزاب","سبإ","فاطر","يس","الصافات","ص","الزمر","غافر","فصلت","الشورى","الزخرف","الدخان","الجاثية","الأحقاف","محمد","الفتح","الحجرات","ق","الذاريات","الطور","النجم","القمر","الرحمن","الواقعة","الحديد","المجادلة","الحشر","الممتحنة","الصف","الجمعة","المنافقون","التغابن","الطلاق","التحريم","الملك","القلم","الحاقة","المعارج","نوح","الجن","المزمل","المدثر","القيامة","الإنسان","المرسلات","النبإ","النازعات","عبس","التكوير","الانفطار","المطففين","الانشقاق","البروج","الطارق","الأعلى","الغاشية","الفجر","البلد","الشمس","الليل","الضحى","الشرح","التين","العلق","القدر","البينة","الزلزلة","العاديات","القارعة","التكاثر","العصر","الهمزة","الفيل","قريش","الماعون","الكوثر","الكافرون","النصر","المسد","الإخلاص","الفلق","الناس"];
 window.SURAH=SURAH;
 
-/* جدول نصوص الخيرة — للبحث بالكلمات فقط (النتيجة لا تعتمد عليه) */
+/* جدول نصوص للاستخدام في بحث الكلمات (النتيجة لا تعتمد عليه) */
 window.PAGE_RESULT={
   51:"غير جيدة والنتيجة فيها ندم وخسارة",
   55:"ممتازة – فيها بركة وتوفيق",
@@ -295,8 +316,7 @@ async function firstAyahByPage(page){
   try{
     const r2=await fetch(`https://api.quran.com/api/v4/verses/by_page/${pg}?language=ar&fields=text_uthmani,verse_key,chapter_id,page_number`,{cache:'no-store'});
     if(r2.ok){ const j2=await r2.json(); const v=j2?.verses?.[0];
-      if(v){ const [s,a]=String(v.verse_key||"").split(":");
-        return {text:v.text_uthmani||v.text||null,sura:Number(v.chapter_id||s)||null,ayah:Number(a)||null};}
+      if(v){ const [s,a]=String(v.verse_key||"").split(":"); return {text:v.text_uthmani||v.text||null,sura:Number(v.chapter_id||s)||null,ayah:Number(a)||null};}
   }catch(_){}
   return {text:null,sura:null,ayah:null};
 }
@@ -306,11 +326,10 @@ function renderAyah(target,page,ay){
   const suraName=SURAH[Number(ay?.sura)] || (ay?.sura?`سورة رقم ${toArabicDigits(ay.sura)}`:"—");
   const ayNo=ay?.ayah??"—";
   const txt=ay?.text||"(تعذّر جلب نص الآية)";
-  const tags=`
-    <span class="badge">صفحة: ${toArabicDigits(page)}</span>
-    <span class="badge">${suraName}</span>
-    <span class="badge">آية ${toArabicDigits(ayNo)}</span>
-    <span class="badge">يمين · السطر الأول</span>`;
+  const tags=`<span class="badge">صفحة: ${toArabicDigits(page)}</span>
+              <span class="badge">${suraName}</span>
+              <span class="badge">آية ${toArabicDigits(ayNo)}</span>
+              <span class="badge">يمين · السطر الأول</span>`;
   if(target==="kh"){
     $('vPage').textContent=toArabicDigits(page);
     $('vSA').textContent=`${suraName} - الآية ${toArabicDigits(ayNo)}`;
@@ -324,41 +343,40 @@ function renderAyah(target,page,ay){
   }
 }
 
-/* أدوات تحقق */
+/* تحقق الصفحة */
 function normalizePageInput(v){ return Number(toWesternDigits(String(v).trim())); }
 function isValidOdd603(n){ return Number.isInteger(n)&&n>=1&&n<=603&&n%2===1; }
 
-/* الأحداث */
+/* أحداث بعد التحميل */
 document.addEventListener('DOMContentLoaded',()=>{
+  // تفعيل الصفحة الحالية بالـhash إن وُجد
   showFromHash(); if(!document.querySelector('section.view.active')) activate('home');
 
-  // أزرار فتح/إغلاق الصناديق (حرصًا أن تعمل دائمًا)
+  // أحاديث
+  const h=HADITHS[Math.floor(Math.random()*HADITHS.length)];
+  $('hadithText').textContent=h.t; $('hadithSrc').textContent=h.s;
+
+  // فتح/إغلاق صناديق البحث
   document.querySelectorAll('[data-open]').forEach(btn=>{
-    btn.addEventListener('click',()=>{
-      const id=btn.getAttribute('data-open');
-      document.getElementById(id)?.classList.remove('hidden');
-    });
+    btn.addEventListener('click',()=>{ document.getElementById(btn.dataset.open)?.classList.remove('hidden'); });
   });
   document.querySelectorAll('[data-close]').forEach(btn=>{
-    btn.addEventListener('click',()=>{
-      const id=btn.getAttribute('data-close');
-      document.getElementById(id)?.classList.add('hidden');
-    });
+    btn.addEventListener('click',()=>{ document.getElementById(btn.dataset.close)?.classList.add('hidden'); });
   });
 
-  // أزرار رئيسية
+  // أزرار
   $('doBtn').addEventListener('click', async ()=>{
-    const page=(Math.floor(Math.random()*302)*2)+1; // أي صفحة فردية
+    const page=(Math.floor(Math.random()*302)*2)+1; // صفحة فردية 1..603
     const ay=await firstAyahByPage(page); renderAyah('kh',page,ay);
   });
   $('lookupBtn').addEventListener('click',lookupByPage);
   $('pageInput').addEventListener('keydown',e=>{ if(e.key==='Enter') lookupByPage(); });
 
   // قائمة السور
-  $('suraSelect').innerHTML = `<option value="">— اختر سورة —</option>` + SURAH.slice(1).map((n,i)=>`<option value="${i+1}">${i+1}. ${n}</option>`).join("");
+  $('suraSelect').innerHTML=`<option value="">— اختر سورة —</option>`+SURAH.slice(1).map((n,i)=>`<option value="${i+1}">${i+1}. ${n}</option>`).join("");
   $('suraBtn').addEventListener('click',loadSuraOddPageVerses);
 
-  // بحث الكلمات: يعمل تلقائيًا أثناء الكتابة + زر
+  // بحث الكلمات: يعمل بالزر أو أثناء الكتابة
   const kw=$('kwInput'); let t=null;
   kw.addEventListener('input',()=>{ clearTimeout(t); t=setTimeout(searchByKeyword,300); });
   $('kwBtn').addEventListener('click',searchByKeyword);
@@ -374,12 +392,12 @@ async function lookupByPage(){
   const ay=await firstAyahByPage(n); renderAyah('sr',n,ay);
 }
 
-/* بحث الكلمات: عربي فقط (نتجاهل الحروف اللاتينية دون ملاحظة) */
+/* بحث الكلمات — عربي فقط (نتجاهل اللاتيني بصمت) */
 function searchByKeyword(){
   const raw=($('kwInput')?.value||"").trim();
   const wrap=$('versesWrap'), list=$('versesList');
   if(!raw){ wrap.innerHTML=''; list.classList.add('hidden'); return; }
-  if(/[A-Za-z]/.test(raw)) return; // تجاهل الإنجليزي بصمت
+  if(/[A-Za-z]/.test(raw)) return;
 
   const q1=arNorm(raw), q2=arNormNoHamza(raw);
   const pages=[];
