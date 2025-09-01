@@ -125,7 +125,7 @@ section.view.active{display:block}
 .app-card{position:relative;width:min(92vw,520px);padding:20px 18px 16px;border-radius:22px;background:linear-gradient(180deg,#1f1f27,#15151c);color:#fff;box-shadow:var(--sh-xl);border:1px solid #2b2b36;text-align:center}
 .app-ttl{margin:6px 0 8px;font-size:1.25rem;font-weight:800;font-family:"Noto Kufi Arabic"}
 .app-msg{margin:0 6px 16px;line-height:1.9;color:#c9c9d3}
-.app-btn{display:block;width:100%;padding:12px 18px;font-size:1.05rem;font-weight:800;border:0;border-radius:16px;cursor:pointer;color:#1ب1ب22;background:linear-gradient(180deg,var(--gold1),var(--gold2) 60%,var(--gold3));box-shadow:0 6px 16px rgba(205,163,73,.35)}
+.app-btn{display:block;width:100%;padding:12px 18px;font-size:1.05rem;font-weight:800;border:0;border-radius:16px;cursor:pointer;color:#1b1b22;background:linear-gradient(180deg,var(--gold1),var(--gold2) 60%,var(--gold3));box-shadow:0 6px 16px rgba(205,163,73,.35)}
 .app-ico{width:64px;height:64px;margin:4px auto 8px;border-radius:50%;display:grid;place-items:center;font-size:34px;color:#1b1b22;background:linear-gradient(180deg,var(--gold1),var(--gold2));box-shadow:0 6px 16px rgba(205,163,73,.35)}
 </style>
 </head>
@@ -139,13 +139,14 @@ section.view.active{display:block}
     <h1 id="title" class="title">الخِيرة بالقرآن</h1>
     <div class="divider" aria-hidden="true"></div>
     <nav class="row" style="margin-top:12px" aria-label="التنقّل">
-      <!-- نفعّل الاقسام مباشرةً حتى لو الـhash ما تغيّر -->
+      <!-- نفعل الأقسام مباشرةً حتى لو الـhash لم يتغير -->
       <a class="btn" href="#khira" onclick="activate('khira');return false;">خيرة جديدة</a>
       <a class="btn black" href="#search" onclick="activate('search');return false;">بحث</a>
     </nav>
     <div class="hadith-box" id="hadithBox">
-      <div class="q" id="hadithText"></div>
-      <div class="src" id="hadithSrc"></div>
+      <!-- نص افتراضي يظهر حتى لو تعطّل الجافاسكربت -->
+      <div class="q" id="hadithText">قال الإمام علي (ع): ما حار من استخار، ولا ندم من استشار.</div>
+      <div class="src" id="hadithSrc">ميزان الحكمة</div>
     </div>
   </section>
 
@@ -248,44 +249,48 @@ section.view.active{display:block}
 <script>
 /* ===== تنقّل بين الأقسام ===== */
 function activate(id){
-  document.querySelectorAll('section.view').forEach(s=>s.classList.remove('active'));
-  document.getElementById(id||'home')?.classList.add('active');
+  var secs=document.querySelectorAll('section.view');
+  for(var i=0;i<secs.length;i++) secs[i].classList.remove('active');
+  var el=document.getElementById(id||'home');
+  if(el) el.classList.add('active');
 
-  if(id==='khira'){ document.getElementById('res-box')?.classList.add('hidden'); }
+  if(id==='khira'){ var rb=document.getElementById('res-box'); if(rb) rb.classList.add('hidden'); }
   if(id==='search'){
-    document.getElementById('searchResult')?.classList.add('hidden');
-    ['pBox','kBox','sBox'].forEach(x=>document.getElementById(x)?.classList.add('hidden'));
+    var sr=document.getElementById('searchResult'); if(sr) sr.classList.add('hidden');
+    var ids=['pBox','kBox','sBox']; for(var j=0;j<ids.length;j++){ var c=document.getElementById(ids[j]); if(c) c.classList.add('hidden'); }
   }
 }
 function showFromHash(){ activate((location.hash||'#home').slice(1)); }
 window.addEventListener('hashchange',showFromHash);
 
 /* ===== أدوات ===== */
-const $=id=>document.getElementById(id);
-function toWesternDigits(s=""){
-  return String(s).replace(/[٠-٩]/g,d=>"٠١٢٣٤٥٦٧٨٩".indexOf(d)).replace(/[۰-۹]/g,d=>"۰۱۲۳۴۵۶۷۸۹".indexOf(d));
+function $(id){ return document.getElementById(id); }
+function toWesternDigits(s){
+  return String(s).replace(/[٠-٩]/g,function(d){return "٠١٢٣٤٥٦٧٨٩".indexOf(d);})
+                  .replace(/[۰-۹]/g,function(d){return "۰۱۲۳۴۵۶۷۸۹".indexOf(d);});
 }
-const toArabicDigits = x => String(x??"—").replace(/[0-9]/g,d=>"٠١٢٣٤٥٦٧٨٩"[d]);
-
-/* تطبيع عربي للكلمات */
-function arNorm(s=""){
+function toArabicDigits(x){
+  return String(x==null?"—":x).replace(/[0-9]/g,function(d){return "٠١٢٣٤٥٦٧٨٩"[d];});
+}
+function arNorm(s){
   return String(s).replace(/[\u064B-\u0652\u0670\u0640]/g,'')
     .replace(/[إأآٱ]/g,'ا').replace(/ى/g,'ي').replace(/ة/g,'ه').replace(/[ؤئ]/g,'ء').trim();
 }
-function arNormNoHamza(s=""){ return arNorm(s).replace(/ء/g,''); }
+function arNormNoHamza(s){ return arNorm(s).replace(/ء/g,''); }
 
 /* مودال */
 (function(){
-  const modal=$('appModal'), ttl=$('mTitle'), msg=$('mMsg');
-  function uiAlert({title='تنبيه',message='—',okText='حسنًا'}={}){ ttl.textContent=title; msg.innerHTML=message; modal.classList.remove('hidden'); $('mOk').textContent=okText; }
+  var modal=$('appModal'), ttl=$('mTitle'), msg=$('mMsg');
+  function uiAlert(o){ o=o||{}; ttl.textContent=o.title||'تنبيه'; msg.innerHTML=o.message||'—'; modal.classList.remove('hidden'); $('mOk').textContent=o.okText||'حسنًا'; }
   function close(){ modal.classList.add('hidden'); }
-  modal.querySelectorAll('[data-close]').forEach(el=>el.addEventListener('click',close));
-  document.addEventListener('keydown',e=>{ if(e.key==='Escape'&&!modal.classList.contains('hidden')) close(); });
+  var closers=modal.querySelectorAll('[data-close]');
+  for(var i=0;i<closers.length;i++){ closers[i].addEventListener('click',close); }
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&!modal.classList.contains('hidden')) close(); });
   window.uiAlert=uiAlert;
 })();
 
 /* أحاديث */
-const HADITHS=[
+var HADITHS=[
   {t:"قال الإمام الصادق (ع): يقول الله عز وجل: من شقاء عبدي أن يعمل الأعمال ولا يستخير بي.", s:"ميزان الحكمة"},
   {t:"قال الإمام الصادق (ع): من دخل في أمر بغير استخارة ثم ابتلي لم يؤجر.", s:"ميزان الحكمة"},
   {t:"قال الإمام علي (ع): ما حار من استخار، ولا ندم من استشار.", s:"ميزان الحكمة"},
@@ -293,51 +298,54 @@ const HADITHS=[
 ];
 
 /* أسماء السور */
-const SURAH=["","الفاتحة","البقرة","آل عمران","النساء","المائدة","الأنعام","الأعراف","الأنفال","التوبة","يونس","هود","يوسف","الرعد","إبراهيم","الحجر","النحل","الإسراء","الكهف","مريم","طه","الأنبياء","الحج","المؤمنون","النور","الفرقان","الشعراء","النمل","القصص","العنكبوت","الروم","لقمان","السجدة","الأحزاب","سبإ","فاطر","يس","الصافات","ص","الزمر","غافر","فصلت","الشورى","الزخرف","الدخان","الجاثية","الأحقاف","محمد","الفتح","الحجرات","ق","الذاريات","الطور","النجم","القمر","الرحمن","الواقعة","الحديد","المجادلة","الحشر","الممتحنة","الصف","الجمعة","المنافقون","التغابن","الطلاق","التحريم","الملك","القلم","الحاقة","المعارج","نوح","الجن","المزمل","المدثر","القيامة","الإنسان","المرسلات","النبإ","النازعات","عبس","التكوير","الانفطار","المطففين","الانشقاق","البروج","الطارق","الأعلى","الغاشية","الفجر","البلد","الشمس","الليل","الضحى","الشرح","التين","العلق","القدر","البينة","الزلزلة","العاديات","القارعة","التكاثر","العصر","الهمزة","الفيل","قريش","الماعون","الكوثر","الكافرون","النصر","المسد","الإخلاص","الفلق","الناس"];
+var SURAH=["","الفاتحة","البقرة","آل عمران","النساء","المائدة","الأنعام","الأعراف","الأنفال","التوبة","يونس","هود","يوسف","الرعد","إبراهيم","الحجر","النحل","الإسراء","الكهف","مريم","طه","الأنبياء","الحج","المؤمنون","النور","الفرقان","الشعراء","النمل","القصص","العنكبوت","الروم","لقمان","السجدة","الأحزاب","سبإ","فاطر","يس","الصافات","ص","الزمر","غافر","فصلت","الشورى","الزخرف","الدخان","الجاثية","الأحقاف","محمد","الفتح","الحجرات","ق","الذاريات","الطور","النجم","القمر","الرحمن","الواقعة","الحديد","المجادلة","الحشر","الممتحنة","الصف","الجمعة","المنافقون","التغابن","الطلاق","التحريم","الملك","القلم","الحاقة","المعارج","نوح","الجن","المزمل","المدثر","القيامة","الإنسان","المرسلات","النبإ","النازعات","عبس","التكوير","الانفطار","المطففين","الانشقاق","البروج","الطارق","الأعلى","الغاشية","الفجر","البلد","الشمس","الليل","الضحى","الشرح","التين","العلق","القدر","البينة","الزلزلة","العاديات","القارعة","التكاثر","العصر","الهمزة","الفيل","قريش","الماعون","الكوثر","الكافرون","النصر","المسد","الإخلاص","الفلق","الناس"];
 window.SURAH=SURAH;
 
 /* جدول نصوص للاستخدام في بحث الكلمات (النتيجة لا تعتمد عليه) */
-window.PAGE_RESULT={
-  51:"غير جيدة والنتيجة فيها ندم وخسارة",
-  55:"ممتازة – فيها بركة وتوفيق",
-  71:"وسط وفيها رحمة",
-  73:"ممتازة – نعمة قريبة",
-  313:"ممتازة جدًا"
-};
+window.PAGE_RESULT={51:"غير جيدة والنتيجة فيها ندم وخسارة",55:"ممتازة – فيها بركة وتوفيق",71:"وسط وفيها رحمة",73:"ممتازة – نعمة قريبة",313:"ممتازة جدًا"};
 
 /* جلب أول آية في الصفحة */
 async function firstAyahByPage(page){
-  const pg=Number(page);
+  var pg=Number(page);
   try{
-    const r=await fetch(`https://api.alquran.cloud/v1/page/${pg}/quran-uthmani`,{cache:'no-store'});
-    if(r.ok){ const j=await r.json(); const ay=j?.data?.ayahs?.[0];
-      if(ay) return {text:ay.text||null,sura:Number(ay.surah?.number)||null,ayah:Number(ay.numberInSurah)||null};}
-  }catch(_){}
+    var r=await fetch("https://api.alquran.cloud/v1/page/"+pg+"/quran-uthmani",{cache:'no-store'});
+    if(r.ok){
+      var j=await r.json(); var ay=j&&j.data&&j.data.ayahs&&j.data.ayahs[0];
+      if(ay) return {text:ay.text||null,sura:Number(ay.surah&&ay.surah.number)||null,ayah:Number(ay.numberInSurah)||null};
+    }
+  }catch(e){}
   try{
-    const r2=await fetch(`https://api.quran.com/api/v4/verses/by_page/${pg}?language=ar&fields=text_uthmani,verse_key,chapter_id,page_number`,{cache:'no-store'});
-    if(r2.ok){ const j2=await r2.json(); const v=j2?.verses?.[0];
-      if(v){ const [s,a]=String(v.verse_key||"").split(":"); return {text:v.text_uthmani||v.text||null,sura:Number(v.chapter_id||s)||null,ayah:Number(a)||null};}
-  }catch(_){}
+    var r2=await fetch("https://api.quran.com/api/v4/verses/by_page/"+pg+"?language=ar&fields=text_uthmani,verse_key,chapter_id,page_number",{cache:'no-store'});
+    if(r2.ok){
+      var j2=await r2.json(); var v=j2&&j2.verses&&j2.verses[0];
+      if(v){
+        var parts=String(v.verse_key||"").split(":");
+        var s=Number(v.chapter_id||parts[0])||null;
+        var a=Number(parts[1])||null;
+        return {text:v.text_uthmani||v.text||null,sura:s,ayah:a};
+      }
+    }
+  }catch(e){}
   return {text:null,sura:null,ayah:null};
 }
 
 /* عرض آية فقط */
 function renderAyah(target,page,ay){
-  const suraName=SURAH[Number(ay?.sura)] || (ay?.sura?`سورة رقم ${toArabicDigits(ay.sura)}`:"—");
-  const ayNo=ay?.ayah??"—";
-  const txt=ay?.text||"(تعذّر جلب نص الآية)";
-  const tags=`<span class="badge">صفحة: ${toArabicDigits(page)}</span>
-              <span class="badge">${suraName}</span>
-              <span class="badge">آية ${toArabicDigits(ayNo)}</span>
-              <span class="badge">يمين · السطر الأول</span>`;
+  var sname=SURAH[Number(ay&&ay.sura)] || (ay&&ay.sura ? "سورة رقم "+toArabicDigits(ay.sura) : "—");
+  var ayNo=ay&&ay.ayah!=null ? ay.ayah : "—";
+  var txt=ay&&ay.text ? ay.text : "(تعذّر جلب نص الآية)";
+  var tags='<span class="badge">صفحة: '+toArabicDigits(page)+'</span>'+
+           '<span class="badge">'+sname+'</span>'+
+           '<span class="badge">آية '+toArabicDigits(ayNo)+'</span>'+
+           '<span class="badge">يمين · السطر الأول</span>';
   if(target==="kh"){
     $('vPage').textContent=toArabicDigits(page);
-    $('vSA').textContent=`${suraName} - الآية ${toArabicDigits(ayNo)}`;
+    $('vSA').textContent=sname+" - الآية "+toArabicDigits(ayNo);
     $('res-text').textContent=txt; $('res-tags').innerHTML=tags;
     $('res-box').classList.remove('hidden'); $('res-box').scrollIntoView({behavior:"smooth",block:"center"});
   }else{
     $('sPage').textContent=toArabicDigits(page);
-    $('sSA').textContent=`${suraName} - الآية ${toArabicDigits(ayNo)}`;
+    $('sSA').textContent=sname+" - الآية "+toArabicDigits(ayNo);
     $('searchText').textContent=txt; $('searchTags').innerHTML=tags;
     $('searchResult').classList.remove('hidden'); $('searchResult').scrollIntoView({behavior:"smooth",block:"center"});
   }
@@ -347,70 +355,80 @@ function renderAyah(target,page,ay){
 function normalizePageInput(v){ return Number(toWesternDigits(String(v).trim())); }
 function isValidOdd603(n){ return Number.isInteger(n)&&n>=1&&n<=603&&n%2===1; }
 
-/* أحداث بعد التحميل */
-document.addEventListener('DOMContentLoaded',()=>{
-  // تفعيل الصفحة الحالية بالـhash إن وُجد
+/* بعد التحميل */
+document.addEventListener('DOMContentLoaded',function(){
   showFromHash(); if(!document.querySelector('section.view.active')) activate('home');
 
-  // أحاديث
-  const h=HADITHS[Math.floor(Math.random()*HADITHS.length)];
-  $('hadithText').textContent=h.t; $('hadithSrc').textContent=h.s;
+  // تبديل الحديث عشوائيًا (مع وجود نص افتراضي مسبقًا)
+  try{
+    var h=HADITHS[Math.floor(Math.random()*HADITHS.length)];
+    if(h){ $('hadithText').textContent=h.t; $('hadithSrc').textContent=h.s; }
+  }catch(e){}
 
   // فتح/إغلاق صناديق البحث
-  document.querySelectorAll('[data-open]').forEach(btn=>{
-    btn.addEventListener('click',()=>{ document.getElementById(btn.dataset.open)?.classList.remove('hidden'); });
-  });
-  document.querySelectorAll('[data-close]').forEach(btn=>{
-    btn.addEventListener('click',()=>{ document.getElementById(btn.dataset.close)?.classList.add('hidden'); });
-  });
+  var opens=document.querySelectorAll('[data-open]');
+  for(var i=0;i<opens.length;i++){
+    opens[i].addEventListener('click',function(){
+      var id=this.getAttribute('data-open'); var b=document.getElementById(id); if(b) b.classList.remove('hidden');
+    });
+  }
+  var closes=document.querySelectorAll('[data-close]');
+  for(var j=0;j<closes.length;j++){
+    closes[j].addEventListener('click',function(){
+      var id=this.getAttribute('data-close'); var b=document.getElementById(id); if(b) b.classList.add('hidden');
+    });
+  }
 
-  // أزرار
-  $('doBtn').addEventListener('click', async ()=>{
-    const page=(Math.floor(Math.random()*302)*2)+1; // صفحة فردية 1..603
-    const ay=await firstAyahByPage(page); renderAyah('kh',page,ay);
+  // أزرار رئيسية
+  $('doBtn').addEventListener('click', async function(){
+    var page=(Math.floor(Math.random()*302)*2)+1; // 1..603 فردي
+    var ay=await firstAyahByPage(page); renderAyah('kh',page,ay);
   });
   $('lookupBtn').addEventListener('click',lookupByPage);
-  $('pageInput').addEventListener('keydown',e=>{ if(e.key==='Enter') lookupByPage(); });
+  $('pageInput').addEventListener('keydown',function(e){ if(e.key==='Enter') lookupByPage(); });
 
   // قائمة السور
-  $('suraSelect').innerHTML=`<option value="">— اختر سورة —</option>`+SURAH.slice(1).map((n,i)=>`<option value="${i+1}">${i+1}. ${n}</option>`).join("");
+  var sel=$('suraSelect'); var opts='<option value="">— اختر سورة —</option>';
+  for(var si=1; si<SURAH.length; si++){ opts+='<option value="'+si+'">'+si+'. '+SURAH[si]+'</option>'; }
+  sel.innerHTML=opts;
   $('suraBtn').addEventListener('click',loadSuraOddPageVerses);
 
-  // بحث الكلمات: يعمل بالزر أو أثناء الكتابة
-  const kw=$('kwInput'); let t=null;
-  kw.addEventListener('input',()=>{ clearTimeout(t); t=setTimeout(searchByKeyword,300); });
+  // بحث الكلمات: زر + أثناء الكتابة
+  var kw=$('kwInput'); var t=null;
+  kw.addEventListener('input',function(){ clearTimeout(t); t=setTimeout(searchByKeyword,300); });
   $('kwBtn').addEventListener('click',searchByKeyword);
 });
 
 /* البحث برقم الصفحة */
 async function lookupByPage(){
-  const n=normalizePageInput($('pageInput')?.value??"");
+  var n=normalizePageInput(($('pageInput')&&$('pageInput').value)||"");
   if(!isValidOdd603(n)){
     uiAlert({title:'صفحة البحث',message:'أدخل رقمًا فرديًا بين <span dir="rtl">١ و٦٠٣</span> (اليمين فقط).'});
     return;
   }
-  const ay=await firstAyahByPage(n); renderAyah('sr',n,ay);
+  var ay=await firstAyahByPage(n); renderAyah('sr',n,ay);
 }
 
 /* بحث الكلمات — عربي فقط (نتجاهل اللاتيني بصمت) */
 function searchByKeyword(){
-  const raw=($('kwInput')?.value||"").trim();
-  const wrap=$('versesWrap'), list=$('versesList');
+  var raw=($('kwInput')&&$('kwInput').value||"").trim();
+  var wrap=$('versesWrap'), list=$('versesList');
   if(!raw){ wrap.innerHTML=''; list.classList.add('hidden'); return; }
   if(/[A-Za-z]/.test(raw)) return;
 
-  const q1=arNorm(raw), q2=arNormNoHamza(raw);
-  const pages=[];
-  for(const [k,v] of Object.entries(window.PAGE_RESULT)){
-    const n1=arNorm(v), n2=arNormNoHamza(v);
-    if(n1.includes(q1)||n2.includes(q2)) pages.push(Number(k));
+  var q1=arNorm(raw), q2=arNormNoHamza(raw);
+  var pages=[], k, v;
+  for(k in window.PAGE_RESULT){
+    v=String(window.PAGE_RESULT[k]);
+    var n1=arNorm(v), n2=arNormNoHamza(v);
+    if(n1.indexOf(q1)>-1 || n2.indexOf(q2)>-1) pages.push(Number(k));
   }
   wrap.innerHTML='';
   if(!pages.length){ wrap.innerHTML="<div class='badge'>لا توجد نتائج مطابقة.</div>"; list.classList.remove('hidden'); return; }
-  pages.sort((a,b)=>a-b).forEach(p=>{
-    const d=document.createElement('div'); d.className='verse-card';
-    d.innerHTML=`<div style="font-weight:800">صفحة ${toArabicDigits(p)}</div>`;
-    d.onclick=async()=>{ const ay=await firstAyahByPage(p); renderAyah('sr',p,ay); };
+  pages.sort(function(a,b){return a-b;}).forEach(function(p){
+    var d=document.createElement('div'); d.className='verse-card';
+    d.innerHTML="<div style='font-weight:800'>صفحة "+toArabicDigits(p)+"</div>";
+    d.onclick=async function(){ var ay=await firstAyahByPage(p); renderAyah('sr',p,ay); };
     wrap.appendChild(d);
   });
   list.classList.remove('hidden');
@@ -418,23 +436,23 @@ function searchByKeyword(){
 
 /* آيات السورة على صفحات فردية */
 async function loadSuraOddPageVerses(){
-  const s=Number($('suraSelect')?.value||0); if(!s){ uiAlert({title:'السورة والآية',message:'اختر سورة.'}); return; }
-  let verses=[];
+  var s=Number(($('suraSelect')&&$('suraSelect').value)||0); if(!s){ uiAlert({title:'السورة والآية',message:'اختر سورة.'}); return; }
+  var verses=[];
   try{
-    const r=await fetch(`https://api.quran.com/api/v4/verses/by_chapter/${s}?language=ar&fields=text_uthmani,verse_key,page_number&per_page=300`,{cache:'no-store'});
-    if(r.ok){ const j=await r.json(); verses=j.verses||[]; }
-  }catch(_){}
-  const filtered=verses.filter(v=>Number(v?.page_number)%2===1);
-  const w=$('versesWrap2'), list=$('versesList2'); w.innerHTML='';
+    var r=await fetch("https://api.quran.com/api/v4/verses/by_chapter/"+s+"?language=ar&fields=text_uthmani,verse_key,page_number&per_page=300",{cache:'no-store'});
+    if(r.ok){ var j=await r.json(); verses=j.verses||[]; }
+  }catch(e){}
+  var filtered=verses.filter(function(v){ return Number(v&&v.page_number)%2===1; });
+  var w=$('versesWrap2'), list=$('versesList2'); w.innerHTML='';
   if(!filtered.length){ w.innerHTML="<div class='badge'>لا توجد آيات على صفحات فردية لهذه السورة.</div>"; list.classList.remove('hidden'); return; }
-  filtered.forEach(v=>{
-    const page=Number(v.page_number), ay=Number(String(v.verse_key||"").split(":")[1]||v.verse_number||"");
-    const text=v.text_uthmani||v.text||"";
-    const card=document.createElement('div'); card.className='verse-card';
-    card.innerHTML=`<div style="font-weight:800">الآية ${toArabicDigits(ay)}</div>
-                    <div class="badge">سورة ${SURAH[s]} · صفحة ${toArabicDigits(page)}</div>
-                    <div style="font-family:'Noto Kufi Arabic',sans-serif;font-size:clamp(16px,1.6vw,20px);line-height:2;margin-top:6px">${text}</div>`;
-    card.onclick=async()=>{ const a=await firstAyahByPage(page); renderAyah('sr',page,a); };
+  filtered.forEach(function(v){
+    var page=Number(v.page_number), ay=Number(String(v.verse_key||"").split(":")[1]||v.verse_number||"");
+    var text=v.text_uthmani||v.text||"";
+    var card=document.createElement('div'); card.className='verse-card';
+    card.innerHTML="<div style='font-weight:800'>الآية "+toArabicDigits(ay)+"</div>"+
+                   "<div class='badge'>سورة "+SURAH[s]+" · صفحة "+toArabicDigits(page)+"</div>"+
+                   "<div style=\"font-family:'Noto Kufi Arabic',sans-serif;font-size:clamp(16px,1.6vw,20px);line-height:2;margin-top:6px\">"+text+"</div>";
+    card.onclick=async function(){ var a=await firstAyahByPage(page); renderAyah('sr',page,a); };
     w.appendChild(card);
   });
   list.classList.remove('hidden');
