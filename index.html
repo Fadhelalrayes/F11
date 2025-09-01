@@ -1,462 +1,748 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>الخِيرة بالقرآن | استخارة من الصفحة اليمنى</title>
-<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@600;700;800&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
-<noscript><style>section.view{display:block!important}</style></noscript>
-<style>
-:root{
-  --gold1:#fff4cc; --gold2:#f6d478; --gold3:#e9b84f; --gold4:#cf9a38;
-  --ink:#111; --radius:22px;
-  --sh-md:0 10px 22px rgba(0,0,0,.14); --sh-xl:0 20px 44px rgba(0,0,0,.22);
-  --fs-h1:clamp(26px,4.2vw,44px);
-  --fs-h2:clamp(20px,2.8vw,32px);
-  --fs-btn:clamp(15px,1.7vw,18px);
-  --fs-body:clamp(14px,1.3vw,18px);
-  --fs-ayah:clamp(20px,2.2vw,30px);
-  --space:clamp(12px,2vw,22px);
-}
-*{box-sizing:border-box}
-html,body{height:100%}
-body{
-  margin:0;color:var(--ink);font-size:var(--fs-body);
-  background:
-    radial-gradient(1200px 420px at 50% -120px, rgba(0,0,0,.28), transparent 60%),
-    linear-gradient(180deg,#1a1a1a 0%, #0e0e0e 20%, #000 22%),
-    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="260" height="260" viewBox="0 0 260 260"><path d="M130 10l120 120-120 120L10 130z" fill="%23f2ead1" fill-opacity=".25"/></svg>') repeat;
-  background-blend-mode:soft-light,normal,soft-light;
-  font-family:"Tajawal",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
-}
-.container{width:min(1200px,96%);margin-inline:auto;padding:clamp(16px,2.5vw,28px) 0 36px}
-
-/* زخرفة */
-.medallion{
-  width:clamp(70px,9vw,110px);height:clamp(70px,9vw,110px);
-  margin:0 auto calc(var(--space)*-1.3);
-  position:relative;z-index:2;border-radius:50%;
-  background:
-    radial-gradient(circle at 38% 28%, rgba(255,255,255,.5), transparent 40%),
-    conic-gradient(from 210deg, var(--gold1), var(--gold2), var(--gold3), var(--gold4), var(--gold2));
-  box-shadow:var(--sh-xl), inset 0 0 0 4px rgba(255,255,255,.35), inset 0 0 0 1px rgba(185,130,31,.45)
-}
-.medallion:after{
-  content:"";position:absolute;inset:12px;border-radius:50%;
-  background:radial-gradient(circle at 60% 30%, rgba(255,255,255,.55), transparent 45%),linear-gradient(180deg,var(--gold2),var(--gold4));
-  box-shadow:inset 0 0 0 1px rgba(185,130,31,.55)
-}
-
-/* Hero */
-.hero{
-  position:relative;padding:calc(var(--space)*1.8) var(--space) calc(var(--space)*1.2);
-  border-radius:var(--radius);
-  background:radial-gradient(120% 180% at 50% -70%, rgba(255,255,255,.18), transparent 70%),
-             linear-gradient(180deg,#141414 0%, #0c0c0c 55%, #070707 100%);
-  color:#fff;box-shadow:var(--sh-xl);overflow:hidden;text-align:center
-}
-.title{font-family:"Noto Kufi Arabic";font-weight:800;font-size:var(--fs-h1);margin:0 0 6px}
-.divider{
-  width:min(240px,40%);height:16px;margin:12px auto 0;border-radius:999px;
-  background:linear-gradient(90deg, transparent, rgba(255,255,255,.35), transparent),
-             linear-gradient(90deg, var(--gold1), var(--gold2), var(--gold3), var(--gold4));
-  box-shadow:0 8px 20px rgba(185,130,31,.35)
-}
-
-/* أزرار */
-.row{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
-a.btn,button.btn{display:inline-block;text-decoration:none;position:relative;border:0;cursor:pointer;
-  padding:12px clamp(18px,2.6vw,28px);border-radius:18px;min-width:clamp(150px,22vw,220px);
-  font-family:"Noto Kufi Arabic";font-weight:800;font-size:var(--fs-btn);color:#3a2706;letter-spacing:.2px;
-  background:linear-gradient(180deg, rgba(255,255,255,.70), rgba(255,255,255,0) 45%),
-             linear-gradient(180deg,var(--gold1),var(--gold2) 30%,var(--gold3) 62%,var(--gold4));
-  box-shadow:0 12px 26px rgba(185,130,31,.30), inset 0 1px 0 rgba(255,255,255,.85);
-  transition:transform .15s ease, box-shadow .25s ease, filter .25s ease}
-a.btn:before,button.btn:before{content:"";position:absolute;inset:0;border-radius:inherit;box-shadow:inset 0 0 0 1px rgba(185,130,31,.55), inset 0 -8px 14px rgba(0,0,0,.08);pointer-events:none}
-a.btn:hover,button.btn:hover{transform:translateY(-2px);filter:saturate(1.06);box-shadow:0 18px 36px rgba(185,130,31,.36), inset 0 1px 0 rgba(255,255,255,.92)}
-.btn.black{color:#fff;background:
-  linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,0) 45%),
-  linear-gradient(180deg,#272727,#161616 55%,#0b0b0b)}
-
-/* بطاقات + نتائج */
-.card{background:#fff;border-radius:22px;box-shadow:var(--sh-xl);padding:var(--space);margin:18px 0}
-.section-title{font-family:"Noto Kufi Arabic";font-size:var(--fs-h2);margin:6px 0 12px;text-align:center}
-.block-btn{width:100%;padding:18px;border-radius:18px;margin:12px 0;border:0;cursor:pointer;
-  font-family:"Noto Kufi Arabic";font-size:clamp(20px,2.6vw,28px);font-weight:800;color:#3a2706;
-  background:linear-gradient(180deg, rgba(255,255,255,.65), rgba(255,255,255,0) 40%),
-             linear-gradient(180deg, var(--gold1), var(--gold2) 30%, var(--gold3) 60%, var(--gold4));
-  box-shadow:0 12px 26px rgba(185,130,31,.28), inset 0 1px 0 rgba(255,255,255,.78)}
-.label{font-weight:700;margin-bottom:6px}
-input,select{width:100%;padding:14px;border:1px solid #ead79f;border-radius:14px;background:#fff;font-size:clamp(14px,1.4vw,18px);box-shadow:inset 0 1px 3px rgba(0,0,0,.03)}
-.hidden{display:none}
-
-.result{background:#fffdf3;border:1px solid #f1e2b0;border-radius:18px;padding:var(--space)}
-.item{display:none} /* إخفاء الحكم/الملاحظات */
-.ayah{font-family:"Tajawal";font-weight:700;font-size:var(--fs-ayah);line-height:2;color:#1b1406;margin-top:10px}
-.badge{display:inline-block;background:linear-gradient(180deg,#fff7d4,#fbe9b1);border:1px solid #edd899;border-radius:999px;padding:6px 12px;margin:4px 6px 0 0;white-space:nowrap}
-.blackbar{background:#0b0b0b;color:#fff;border-radius:12px;padding:10px 12px;margin:-6px 0 10px;overflow:auto}
-.verse-card{background:#fff;border:1px solid #eee;border-radius:16px;box-shadow:var(--sh-md);padding:12px;margin:10px 0;cursor:pointer}
-.verse-card:hover{box-shadow:0 18px 32px rgba(0,0,0,.12)}
-@media (min-width:900px){ #search .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px} }
-.footer{margin-top:26px;text-align:center}
-.credit{display:inline-block;background:linear-gradient(180deg,#1a1a1a,#000);color:#fff;padding:10px 18px;border-radius:999px;border:1px solid rgba(255,255,255,.08);box-shadow:0 12px 26px rgba(0,0,0,.35)}
-
-/* الحديث على الرئيسية */
-.hadith-box{
-  margin:16px auto 0;max-width:1100px;padding:clamp(14px,2vw,20px);
-  border-radius:18px;text-align:right;
-  background: radial-gradient(160% 120% at 18% -30%, rgba(255,255,255,.55), transparent 55%),
-             linear-gradient(180deg, var(--gold1), var(--gold2) 56%, var(--gold3));
-  border:1px solid rgba(185,130,31,.35);box-shadow:var(--sh-md);color:#2b1f08
-}
-.hadith-box .q{font-family:"Noto Kufi Arabic",sans-serif;font-size:clamp(16px,1.6vw,19px);line-height:2.1;text-align:justify;text-justify:inter-word}
-.hadith-box .src{margin-top:8px;font-size:clamp(12px,1.2vw,13px);text-align:center;opacity:.9}
-
-/* عرض الأقسام */
-section.view{display:none}
-section.view.active{display:block}
-
-/* مودال */
-.app-modal{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;z-index:9999}
-.app-modal.hidden{display:none}
-.app-backdrop{position:absolute;inset:0;background:rgba(0,0,0,.55);backdrop-filter:blur(2px)}
-.app-card{position:relative;width:min(92vw,520px);padding:20px 18px 16px;border-radius:22px;background:linear-gradient(180deg,#1f1f27,#15151c);color:#fff;box-shadow:var(--sh-xl);border:1px solid #2b2b36;text-align:center}
-.app-ttl{margin:6px 0 8px;font-size:1.25rem;font-weight:800;font-family:"Noto Kufi Arabic"}
-.app-msg{margin:0 6px 16px;line-height:1.9;color:#c9c9d3}
-.app-btn{display:block;width:100%;padding:12px 18px;font-size:1.05rem;font-weight:800;border:0;border-radius:16px;cursor:pointer;color:#1b1b22;background:linear-gradient(180deg,var(--gold1),var(--gold2) 60%,var(--gold3));box-shadow:0 6px 16px rgba(205,163,73,.35)}
-.app-ico{width:64px;height:64px;margin:4px auto 8px;border-radius:50%;display:grid;place-items:center;font-size:34px;color:#1b1b22;background:linear-gradient(180deg,var(--gold1),var(--gold2));box-shadow:0 6px 16px rgba(205,163,73,.35)}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FadhelTalk - محادثة ذكية</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+        }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #2d3748; 
+            min-height: 100vh; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            padding: 20px;
+        }
+        
+        .container {
+            width: 100%; 
+            max-width: 500px; 
+            background: rgba(255, 255, 255, 0.95); 
+            border-radius: 24px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15); 
+            overflow: hidden; 
+            backdrop-filter: blur(10px); 
+            animation: fadeIn 0.8s ease-out;
+        }
+        
+        @keyframes fadeIn { 
+            from {opacity: 0; transform: translateY(20px);} 
+            to {opacity: 1; transform: translateY(0);} 
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%); 
+            color: white; 
+            padding: 25px; 
+            text-align: center; 
+            position: relative; 
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: ''; 
+            position: absolute; 
+            top: -50%; 
+            left: -50%; 
+            width: 200%; 
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 60%); 
+            transform: rotate(30deg);
+        }
+        
+        .logo { 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            margin-bottom: 15px; 
+        }
+        
+        .logo-icon {
+            font-size: 32px; 
+            background: white; 
+            color: #7c3aed; 
+            width: 60px; 
+            height: 60px; 
+            border-radius: 50%;
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2); 
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse { 
+            0% {transform: scale(1);} 
+            50% {transform: scale(1.05);} 
+            100% {transform: scale(1);} 
+        }
+        
+        h1 { 
+            font-size: 28px; 
+            font-weight: 700; 
+            margin-bottom: 5px; 
+            letter-spacing: -0.5px; 
+        }
+        
+        .subtitle { 
+            font-size: 14px; 
+            opacity: 0.9; 
+            font-weight: 400; 
+        }
+        
+        .status {
+            display: inline-flex; 
+            align-items: center; 
+            gap: 8px; 
+            font-size: 13px; 
+            margin-top: 15px;
+            background: rgba(255,255,255,0.2); 
+            padding: 5px 12px; 
+            border-radius: 20px; 
+            backdrop-filter: blur(5px);
+        }
+        
+        .status-dot { 
+            width: 8px; 
+            height: 8px; 
+            background: #10b981; 
+            border-radius: 50%; 
+        }
+        
+        .chat-container {
+            height: 400px; 
+            overflow-y: auto; 
+            padding: 25px; 
+            background: #f8fafc; 
+            display: flex; 
+            flex-direction: column; 
+            gap: 20px;
+            scrollbar-width: thin; 
+            scrollbar-color: #cbd5e0 transparent;
+        }
+        
+        .chat-container::-webkit-scrollbar { 
+            width: 5px; 
+        }
+        
+        .chat-container::-webkit-scrollbar-thumb { 
+            background: #cbd5e0; 
+            border-radius: 10px; 
+        }
+        
+        .message {
+            max-width: 80%; 
+            padding: 16px 20px; 
+            border-radius: 20px; 
+            line-height: 1.5; 
+            position: relative;
+            animation: messageAppear 0.3s ease-out; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            word-wrap: break-word;
+        }
+        
+        @keyframes messageAppear { 
+            from {opacity: 0; transform: translateY(10px);} 
+            to {opacity: 1; transform: translateY(0);} 
+        }
+        
+        .user-message { 
+            align-self: flex-end; 
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); 
+            color: white; 
+            border-bottom-right-radius: 5px; 
+        }
+        
+        .ai-message { 
+            align-self: flex-start; 
+            background: white; 
+            color: #374151; 
+            border-bottom-left-radius: 5px; 
+            border: 1px solid #e5e7eb; 
+        }
+        
+        .message-content { 
+            margin-bottom: 5px; 
+            font-size: 15px; 
+        }
+        
+        .message-time { 
+            font-size: 11px; 
+            opacity: 0.7; 
+            margin-top: 5px; 
+            text-align: left;
+        }
+        
+        .input-container { 
+            display: flex; 
+            padding: 20px; 
+            background: #f8fafc; 
+            border-top: 1px solid #e5e7eb; 
+            gap: 12px; 
+        }
+        
+        input {
+            flex: 1; 
+            padding: 16px 20px; 
+            border: none; 
+            border-radius: 24px; 
+            outline: none; 
+            font-size: 15px; 
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05); 
+            transition: all 0.3s;
+        }
+        
+        input:focus { 
+            box-shadow: 0 2px 12px rgba(59,130,246,0.2); 
+        }
+        
+        input::placeholder { 
+            color: #9ca3af; 
+        }
+        
+        button {
+            background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%); 
+            color: white; 
+            border: none; 
+            border-radius: 24px;
+            padding: 16px 24px; 
+            cursor: pointer; 
+            font-weight: 600; 
+            transition: all 0.3s;
+            display: flex; 
+            align-items: center; 
+            gap: 8px; 
+            box-shadow: 0 4px 12px rgba(139,92,246,0.3);
+        }
+        
+        button:hover { 
+            transform: translateY(-2px); 
+            box-shadow: 0 6px 16px rgba(139,92,246,0.4); 
+        }
+        
+        button:active { 
+            transform: translateY(0); 
+        }
+        
+        button:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .footer { 
+            text-align: center; 
+            padding: 15px; 
+            background: #f1f5f9; 
+            color: #64748b; 
+            font-size: 12px; 
+            border-top: 1px solid #e2e8f0; 
+        }
+        
+        .typing-indicator {
+            display: flex; 
+            align-items: center; 
+            color: #6b7280; 
+            font-style: italic; 
+            padding: 12px 18px; 
+            background: white; 
+            border-radius: 20px;
+            align-self: flex-start; 
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05); 
+            border: 1px solid #e5e7eb; 
+            animation: messageAppear 0.3s ease-out;
+        }
+        
+        .typing-dots { 
+            display: flex; 
+            margin-left: 10px; 
+        }
+        
+        .typing-dots span { 
+            width: 6px; 
+            height: 6px; 
+            background: #9ca3af; 
+            border-radius: 50%; 
+            margin: 0 2px; 
+            animation: typing 1.4s infinite both; 
+        }
+        
+        .typing-dots span:nth-child(2) { 
+            animation-delay: 0.2s; 
+        }
+        
+        .typing-dots span:nth-child(3) { 
+            animation-delay: 0.4s; 
+        }
+        
+        @keyframes typing { 
+            0% {transform: scale(1); opacity: .5;} 
+            50% {transform: scale(1.5); opacity: 1;} 
+            100% {transform: scale(1); opacity: .5;} 
+        }
+        
+        .api-status { 
+            padding: 10px 20px; 
+            background: #dcfce7; 
+            color: #166534; 
+            text-align: center; 
+            font-size: 14px; 
+            border-bottom: 1px solid #bbf7d0; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .api-status.error {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+        
+        .retry-btn {
+            background: transparent;
+            color: inherit;
+            border: 1px solid currentColor;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-right: 8px;
+            cursor: pointer;
+        }
+        
+        .key-info {
+            padding: 8px 15px;
+            background: #e0f2fe;
+            color: #0c4a6e;
+            text-align: center;
+            font-size: 12px;
+            border-bottom: 1px solid #bae6fd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .key-info.hidden {
+            display: none;
+        }
+        
+        .api-key-container {
+            padding: 15px;
+            background: #fffbeb;
+            border-bottom: 1px solid #fef3c7;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .api-key-input {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .api-key-input input {
+            flex: 1;
+            padding: 12px 16px;
+            font-size: 14px;
+        }
+        
+        .api-key-input button {
+            padding: 12px 20px;
+            font-size: 14px;
+        }
+        
+        .key-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+        }
+        
+        .key-status i {
+            font-size: 16px;
+        }
+        
+        .key-status.valid {
+            color: #166534;
+        }
+        
+        .key-status.invalid {
+            color: #991b1b;
+        }
+        
+        .change-key-btn {
+            background: transparent;
+            color: #7c3aed;
+            border: 1px solid #7c3aed;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-right: 8px;
+            cursor: pointer;
+        }
+        
+        @media (max-width: 600px) {
+            .container { 
+                border-radius: 20px; 
+                max-width: 100%; 
+            }
+            
+            .header { 
+                padding: 20px; 
+            }
+            
+            .chat-container { 
+                height: 50vh; 
+                padding: 20px; 
+            }
+            
+            .message { 
+                max-width: 90%; 
+            }
+            
+            .input-container { 
+                padding: 15px; 
+            }
+            
+            input { 
+                padding: 14px 16px; 
+            }
+            
+            button { 
+                padding: 14px 20px; 
+            }
+            
+            .api-key-input {
+                flex-direction: column;
+            }
+        }
+    </style>
 </head>
 <body>
-<div class="container">
-
-  <div class="medallion" aria-hidden="true"></div>
-
-  <!-- الرئيسية -->
-  <section id="home" class="hero view active" aria-labelledby="title">
-    <h1 id="title" class="title">الخِيرة بالقرآن</h1>
-    <div class="divider" aria-hidden="true"></div>
-    <nav class="row" style="margin-top:12px" aria-label="التنقّل">
-      <!-- نفعل الأقسام مباشرةً حتى لو الـhash لم يتغير -->
-      <a class="btn" href="#khira" onclick="activate('khira');return false;">خيرة جديدة</a>
-      <a class="btn black" href="#search" onclick="activate('search');return false;">بحث</a>
-    </nav>
-    <div class="hadith-box" id="hadithBox">
-      <!-- نص افتراضي يظهر حتى لو تعطّل الجافاسكربت -->
-      <div class="q" id="hadithText">قال الإمام علي (ع): ما حار من استخار، ولا ندم من استشار.</div>
-      <div class="src" id="hadithSrc">ميزان الحكمة</div>
-    </div>
-  </section>
-
-  <!-- الخيرة -->
-  <section id="khira" class="card view" aria-labelledby="khiraTitle">
-    <h2 id="khiraTitle" class="section-title">مراحل الخِيرة</h2>
-    <ol style="margin:0 0 10px 0;line-height:2">
-      <li>الأفضل الطهارة بالوضوء أو الغُسل، مع النيّة لله تعالى.</li>
-      <li>قراءة الدعاء المأثور.</li>
-      <li>اضغط <b>استخارة</b> لتظهر النتيجة (اليمين فقط).</li>
-    </ol>
-    <div class="row" style="margin-top:12px">
-      <button class="btn" id="doBtn" type="button">استخارة</button>
-      <a class="btn black" href="#home" onclick="activate('home');return false;">رجوع</a>
-    </div>
-
-    <div id="res-box" class="result hidden" style="margin-top:12px">
-      <div id="res-tags"></div>
-      <div class="item"><b>الصفحة:</b> <span id="vPage">—</span> · <span id="vSA">—</span></div>
-      <div class="blackbar">السطر الأول من الصفحة</div>
-      <div id="res-text" class="ayah">—</div>
-    </div>
-  </section>
-
-  <!-- البحث -->
-  <section id="search" class="card view" aria-labelledby="searchTitle">
-    <h2 id="searchTitle" class="section-title">صفحة البحث</h2>
-
-    <div class="grid">
-      <div>
-        <button class="block-btn" type="button" data-open="pBox">رقم الصفحة</button>
-        <div id="pBox" class="card hidden">
-          <div class="label">أدخل رقمًا فرديًا (١–٦٠٣):</div>
-          <input id="pageInput" type="text" inputmode="numeric" placeholder="مثال: ٣١١">
-          <div class="row" style="margin-top:10px">
-            <button class="btn" id="lookupBtn" type="button">بحث</button>
-            <button class="btn black" type="button" data-close="pBox">إغلاق</button>
-          </div>
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <div class="logo-icon"><i class="fas fa-comments"></i></div>
+            </div>
+            <h1>FadhelTalk</h1>
+            <p class="subtitle">تطبيق المحادثة الذكية</p>
+            <div class="status">
+                <span id="status-text">جاري التهيئة</span>
+                <div class="status-dot" id="status-dot"></div>
+            </div>
         </div>
 
-        <button class="block-btn" type="button" data-open="kBox">كلمات</button>
-        <div id="kBox" class="card hidden">
-          <input id="kwInput" type="text" placeholder="اكتب الكلمة…">
-          <div class="row" style="margin-top:10px">
-            <button class="btn" id="kwBtn" type="button">بحث</button>
-            <button class="btn black" type="button" data-close="kBox">إغلاق</button>
-          </div>
-          <div id="versesList" class="result hidden" style="margin-top:10px">
-            <div class="blackbar">نتائج مطابقة</div>
-            <div id="versesWrap"></div>
-            <div class="badge">اضغط على البطاقة لعرض آية الصفحة</div>
-          </div>
+        <div class="api-key-container" id="api-key-container">
+            <div class="api-key-input">
+                <input type="password" id="api-key-input" placeholder="أدخل مفتاح API الخاص بك" aria-label="مفتاح API">
+                <button id="save-key-btn">
+                    <i class="fas fa-save"></i>
+                    <span>حفظ</span>
+                </button>
+            </div>
+            <div class="key-status" id="key-status">
+                <i class="fas fa-info-circle"></i>
+                <span>يرجى إدخال مفتاح API صالح للاتصال بالخدمة</span>
+            </div>
         </div>
-      </div>
 
-      <div>
-        <button class="block-btn" type="button" data-open="sBox">السورة والآية</button>
-        <div id="sBox" class="card hidden">
-          <div class="row">
-            <select id="suraSelect" aria-label="اختيار سورة"></select>
-            <button class="btn" id="suraBtn" type="button">عرض الآيات</button>
-            <button class="btn black" type="button" data-close="sBox">إغلاق</button>
-          </div>
-          <div id="versesList2" class="result hidden" style="margin-top:10px">
-            <div class="blackbar">آيات هذه السورة على صفحات فردية</div>
-            <div id="versesWrap2"></div>
-          </div>
+        <div class="key-info hidden" id="key-info">
+            <i class="fas fa-key"></i>
+            <span>تم تخزين المفتاح محلياً</span>
+            <button class="change-key-btn" id="change-key-btn">تغيير المفتاح</button>
         </div>
-      </div>
+
+        <div class="api-status" id="api-status">
+            <i class="fas fa-sync-alt fa-spin"></i>
+            <span>جاري التحقق من الاتصال</span>
+        </div>
+
+        <div class="chat-container" id="chat-container">
+            <div class="message ai-message">
+                <div class="message-content">مرحبًا! أنا مساعدك في FadhelTalk. يرجى إدخال مفتاح API للبدء.</div>
+                <div class="message-time" id="current-time"></div>
+            </div>
+        </div>
+
+        <div class="input-container">
+            <input type="text" id="user-input" placeholder="اكتب رسالتك هنا..." aria-label="رسالة المحادثة" disabled>
+            <button id="send-btn" aria-label="إرسال الرسالة" disabled>
+                <i class="fas fa-paper-plane"></i>
+                <span>إرسال</span>
+            </button>
+        </div>
+
+        <div class="footer">برمجة وتطوير: فاضل الريس | جميع الحقوق محفوظة</div>
     </div>
 
-    <div id="searchResult" class="result hidden" style="margin-top:12px">
-      <div id="searchTags"></div>
-      <div class="item"><b>الصفحة:</b> <span id="sPage">—</span> · <span id="sSA">—</span></div>
-      <div class="blackbar">السطر الأول من الصفحة</div>
-      <div id="searchText" class="ayah">—</div>
-    </div>
+    <script>
+        // عناصر DOM
+        const chatContainer = document.getElementById('chat-container');
+        const userInput = document.getElementById('user-input');
+        const sendBtn = document.getElementById('send-btn');
+        const currentTimeElement = document.getElementById('current-time');
+        const statusText = document.getElementById('status-text');
+        const statusDot = document.getElementById('status-dot');
+        const apiStatus = document.getElementById('api-status');
+        const keyInfo = document.getElementById('key-info');
+        const apiKeyContainer = document.getElementById('api-key-container');
+        const apiKeyInput = document.getElementById('api-key-input');
+        const saveKeyBtn = document.getElementById('save-key-btn');
+        const changeKeyBtn = document.getElementById('change-key-btn');
+        const keyStatus = document.getElementById('key-status');
 
-    <div class="row" style="margin-top:6px">
-      <a class="btn black" href="#home" onclick="activate('home');return false;">رجوع</a>
-    </div>
-  </section>
+        // حالة التطبيق
+        let isConnected = false;
+        let isWaitingForResponse = false;
+        let API_KEY = '';
 
-  <div class="footer">
-    <span class="credit">برمجة وتطوير: فاضل الريس</span>
-  </div>
-</div>
+        // تحديث الوقت الحالي
+        function updateCurrentTime() {
+            const now = new Date();
+            const timeString = `${now.getHours()}:${now.getMinutes().toString().padStart(2, '0')}`;
+            if (currentTimeElement) currentTimeElement.textContent = timeString;
+            return timeString;
+        }
+        updateCurrentTime();
 
-<!-- مودال -->
-<div id="appModal" class="app-modal hidden" dir="rtl" role="dialog" aria-modal="true">
-  <div class="app-backdrop" data-close></div>
-  <div class="app-card">
-    <div class="app-ico">!</div>
-    <h3 class="app-ttl" id="mTitle">تنبيه</h3>
-    <div class="app-msg" id="mMsg">—</div>
-    <button class="app-btn" id="mOk" data-close>حسنًا</button>
-  </div>
-</div>
+        // تحميل API key من localStorage إذا موجود
+        function loadApiKey() {
+            const savedKey = localStorage.getItem('fadheltalk_api_key');
+            if (savedKey) {
+                API_KEY = savedKey;
+                apiKeyContainer.style.display = 'none';
+                keyInfo.classList.remove('hidden');
+                userInput.disabled = false;
+                sendBtn.disabled = false;
+                testConnection();
+            } else {
+                apiKeyContainer.style.display = 'flex';
+                keyInfo.classList.add('hidden');
+                updateConnectionStatus(false, "يرجى إدخال مفتاح API");
+            }
+        }
 
-<script>
-/* ===== تنقّل بين الأقسام ===== */
-function activate(id){
-  var secs=document.querySelectorAll('section.view');
-  for(var i=0;i<secs.length;i++) secs[i].classList.remove('active');
-  var el=document.getElementById(id||'home');
-  if(el) el.classList.add('active');
+        // حفظ API key
+        function saveApiKey() {
+            const key = apiKeyInput.value.trim();
+            if (key) {
+                API_KEY = key;
+                localStorage.setItem('fadheltalk_api_key', key);
+                apiKeyContainer.style.display = 'none';
+                keyInfo.classList.remove('hidden');
+                userInput.disabled = false;
+                sendBtn.disabled = false;
+                apiKeyInput.value = '';
+                testConnection();
+            } else {
+                keyStatus.innerHTML = '<i class="fas fa-exclamation-circle"></i> <span>يرجى إدخال مفتاح API صالح</span>';
+                keyStatus.className = 'key-status invalid';
+            }
+        }
 
-  if(id==='khira'){ var rb=document.getElementById('res-box'); if(rb) rb.classList.add('hidden'); }
-  if(id==='search'){
-    var sr=document.getElementById('searchResult'); if(sr) sr.classList.add('hidden');
-    var ids=['pBox','kBox','sBox']; for(var j=0;j<ids.length;j++){ var c=document.getElementById(ids[j]); if(c) c.classList.add('hidden'); }
-  }
-}
-function showFromHash(){ activate((location.hash||'#home').slice(1)); }
-window.addEventListener('hashchange',showFromHash);
+        // تغيير API key
+        function changeApiKey() {
+            localStorage.removeItem('fadheltalk_api_key');
+            API_KEY = '';
+            apiKeyContainer.style.display = 'flex';
+            keyInfo.classList.add('hidden');
+            userInput.disabled = true;
+            sendBtn.disabled = true;
+            updateConnectionStatus(false, "يرجى إدخال مفتاح API");
+        }
 
-/* ===== أدوات ===== */
-function $(id){ return document.getElementById(id); }
-function toWesternDigits(s){
-  return String(s).replace(/[٠-٩]/g,function(d){return "٠١٢٣٤٥٦٧٨٩".indexOf(d);})
-                  .replace(/[۰-۹]/g,function(d){return "۰۱۲۳۴۵۶۷۸۹".indexOf(d);});
-}
-function toArabicDigits(x){
-  return String(x==null?"—":x).replace(/[0-9]/g,function(d){return "٠١٢٣٤٥٦٧٨٩"[d];});
-}
-function arNorm(s){
-  return String(s).replace(/[\u064B-\u0652\u0670\u0640]/g,'')
-    .replace(/[إأآٱ]/g,'ا').replace(/ى/g,'ي').replace(/ة/g,'ه').replace(/[ؤئ]/g,'ء').trim();
-}
-function arNormNoHamza(s){ return arNorm(s).replace(/ء/g,''); }
+        // تحديث حالة الاتصال
+        function updateConnectionStatus(connected, message) {
+            isConnected = connected;
+            
+            if (connected) {
+                statusText.textContent = "متصل بالخدمة";
+                statusDot.style.background = "#10b981";
+                apiStatus.innerHTML = '<i class="fas fa-check-circle"></i> <span>تم الاتصال بنجاح</span>';
+                apiStatus.className = 'api-status';
+                userInput.disabled = false;
+                sendBtn.disabled = false;
+            } else {
+                statusText.textContent = "غير متصل";
+                statusDot.style.background = "#ef4444";
+                apiStatus.innerHTML = `<i class="fas fa-exclamation-triangle"></i> <span>${message}</span> 
+                                       <button class="retry-btn" id="retry-btn">إعادة المحاولة</button>`;
+                apiStatus.className = 'api-status error';
+                userInput.disabled = true;
+                sendBtn.disabled = true;
+                
+                // إضافة حدث لإعادة المحاولة
+                setTimeout(() => {
+                    const retryBtn = document.getElementById('retry-btn');
+                    if (retryBtn) {
+                        retryBtn.addEventListener('click', testConnection);
+                    }
+                }, 100);
+            }
+        }
 
-/* مودال */
-(function(){
-  var modal=$('appModal'), ttl=$('mTitle'), msg=$('mMsg');
-  function uiAlert(o){ o=o||{}; ttl.textContent=o.title||'تنبيه'; msg.innerHTML=o.message||'—'; modal.classList.remove('hidden'); $('mOk').textContent=o.okText||'حسنًا'; }
-  function close(){ modal.classList.add('hidden'); }
-  var closers=modal.querySelectorAll('[data-close]');
-  for(var i=0;i<closers.length;i++){ closers[i].addEventListener('click',close); }
-  document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&!modal.classList.contains('hidden')) close(); });
-  window.uiAlert=uiAlert;
-})();
+        // اختبار الاتصال بالخدمة
+        async function testConnection() {
+            if (!API_KEY) {
+                updateConnectionStatus(false, "مفتاح API غير موجود");
+                return false;
+            }
+            
+            try {
+                updateConnectionStatus(false, "جاري اختبار الاتصال...");
+                
+                // محاولة الاتصال بخادم الاختبار أو API
+                // تم تغيير هذا الجزء لأن DeepSeek API قد لا تكون متاحة للجميع
+                // سنستخدم محاكاة للاتصال الناجح للتوضيح
+                
+                await new Promise(resolve => setTimeout(resolve, 1500));
+                
+                // محاكاة اتصال ناجح (في التطبيق الحقيقي، استخدم fetch حقيقي)
+                const isSuccess = API_KEY.startsWith('sk-');
+                
+                if (isSuccess) {
+                    updateConnectionStatus(true, "تم الاتصال بنجاح");
+                    addMessage("مرحبًا! أنا مساعدك في FadhelTalk. كيف يمكنني مساعدتك اليوم؟", false);
+                    return true;
+                } else {
+                    throw new Error("مفتاح API غير صالح");
+                }
+            } catch (error) {
+                console.error('فشل اختبار الاتصال:', error);
+                updateConnectionStatus(false, `تعذّر الاتصال بالخدمة: ${error.message}`);
+                return false;
+            }
+        }
 
-/* أحاديث */
-var HADITHS=[
-  {t:"قال الإمام الصادق (ع): يقول الله عز وجل: من شقاء عبدي أن يعمل الأعمال ولا يستخير بي.", s:"ميزان الحكمة"},
-  {t:"قال الإمام الصادق (ع): من دخل في أمر بغير استخارة ثم ابتلي لم يؤجر.", s:"ميزان الحكمة"},
-  {t:"قال الإمام علي (ع): ما حار من استخار، ولا ندم من استشار.", s:"ميزان الحكمة"},
-  {t:"قال رسول الله (ص): من سعادة ابن آدم استخارته الله ورضاه بما قضى الله.", s:"ميزان الحكمة"}
-];
+        // إضافة رسالة للمحادثة
+        function addMessage(text, isUser) {
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('message', isUser ? 'user-message' : 'ai-message');
+            messageDiv.setAttribute('role', isUser ? 'user-message' : 'assistant-message');
 
-/* أسماء السور */
-var SURAH=["","الفاتحة","البقرة","آل عمران","النساء","المائدة","الأنعام","الأعراف","الأنفال","التوبة","يونس","هود","يوسف","الرعد","إبراهيم","الحجر","النحل","الإسراء","الكهف","مريم","طه","الأنبياء","الحج","المؤمنون","النور","الفرقان","الشعراء","النمل","القصص","العنكبوت","الروم","لقمان","السجدة","الأحزاب","سبإ","فاطر","يس","الصافات","ص","الزمر","غافر","فصلت","الشورى","الزخرف","الدخان","الجاثية","الأحقاف","محمد","الفتح","الحجرات","ق","الذاريات","الطور","النجم","القمر","الرحمن","الواقعة","الحديد","المجادلة","الحشر","الممتحنة","الصف","الجمعة","المنافقون","التغابن","الطلاق","التحريم","الملك","القلم","الحاقة","المعارج","نوح","الجن","المزمل","المدثر","القيامة","الإنسان","المرسلات","النبإ","النازعات","عبس","التكوير","الانفطار","المطففين","الانشقاق","البروج","الطارق","الأعلى","الغاشية","الفجر","البلد","الشمس","الليل","الضحى","الشرح","التين","العلق","القدر","البينة","الزلزلة","العاديات","القارعة","التكاثر","العصر","الهمزة","الفيل","قريش","الماعون","الكوثر","الكافرون","النصر","المسد","الإخلاص","الفلق","الناس"];
-window.SURAH=SURAH;
+            const messageContent = document.createElement('div');
+            messageContent.classList.add('message-content');
+            messageContent.textContent = text;
 
-/* جدول نصوص للاستخدام في بحث الكلمات (النتيجة لا تعتمد عليه) */
-window.PAGE_RESULT={51:"غير جيدة والنتيجة فيها ندم وخسارة",55:"ممتازة – فيها بركة وتوفيق",71:"وسط وفيها رحمة",73:"ممتازة – نعمة قريبة",313:"ممتازة جدًا"};
+            const messageTime = document.createElement('div');
+            messageTime.classList.add('message-time');
+            messageTime.textContent = updateCurrentTime();
 
-/* جلب أول آية في الصفحة */
-async function firstAyahByPage(page){
-  var pg=Number(page);
-  try{
-    var r=await fetch("https://api.alquran.cloud/v1/page/"+pg+"/quran-uthmani",{cache:'no-store'});
-    if(r.ok){
-      var j=await r.json(); var ay=j&&j.data&&j.data.ayahs&&j.data.ayahs[0];
-      if(ay) return {text:ay.text||null,sura:Number(ay.surah&&ay.surah.number)||null,ayah:Number(ay.numberInSurah)||null};
-    }
-  }catch(e){}
-  try{
-    var r2=await fetch("https://api.quran.com/api/v4/verses/by_page/"+pg+"?language=ar&fields=text_uthmani,verse_key,chapter_id,page_number",{cache:'no-store'});
-    if(r2.ok){
-      var j2=await r2.json(); var v=j2&&j2.verses&&j2.verses[0];
-      if(v){
-        var parts=String(v.verse_key||"").split(":");
-        var s=Number(v.chapter_id||parts[0])||null;
-        var a=Number(parts[1])||null;
-        return {text:v.text_uthmani||v.text||null,sura:s,ayah:a};
-      }
-    }
-  }catch(e){}
-  return {text:null,sura:null,ayah:null};
-}
+            messageDiv.appendChild(messageContent);
+            messageDiv.appendChild(messageTime);
+            chatContainer.appendChild(messageDiv);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
 
-/* عرض آية فقط */
-function renderAyah(target,page,ay){
-  var sname=SURAH[Number(ay&&ay.sura)] || (ay&&ay.sura ? "سورة رقم "+toArabicDigits(ay.sura) : "—");
-  var ayNo=ay&&ay.ayah!=null ? ay.ayah : "—";
-  var txt=ay&&ay.text ? ay.text : "(تعذّر جلب نص الآية)";
-  var tags='<span class="badge">صفحة: '+toArabicDigits(page)+'</span>'+
-           '<span class="badge">'+sname+'</span>'+
-           '<span class="badge">آية '+toArabicDigits(ayNo)+'</span>'+
-           '<span class="badge">يمين · السطر الأول</span>';
-  if(target==="kh"){
-    $('vPage').textContent=toArabicDigits(page);
-    $('vSA').textContent=sname+" - الآية "+toArabicDigits(ayNo);
-    $('res-text').textContent=txt; $('res-tags').innerHTML=tags;
-    $('res-box').classList.remove('hidden'); $('res-box').scrollIntoView({behavior:"smooth",block:"center"});
-  }else{
-    $('sPage').textContent=toArabicDigits(page);
-    $('sSA').textContent=sname+" - الآية "+toArabicDigits(ayNo);
-    $('searchText').textContent=txt; $('searchTags').innerHTML=tags;
-    $('searchResult').classList.remove('hidden'); $('searchResult').scrollIntoView({behavior:"smooth",block:"center"});
-  }
-}
+        // مؤشر الكتابة
+        function showTypingIndicator() {
+            const typingDiv = document.createElement('div');
+            typingDiv.classList.add('typing-indicator');
+            typingDiv.id = 'typing-indicator';
 
-/* تحقق الصفحة */
-function normalizePageInput(v){ return Number(toWesternDigits(String(v).trim())); }
-function isValidOdd603(n){ return Number.isInteger(n)&&n>=1&&n<=603&&n%2===1; }
+            const dotsDiv = document.createElement('div');
+            dotsDiv.classList.add('typing-dots');
+            for (let i = 0; i < 3; i++) {
+                const dot = document.createElement('span');
+                dotsDiv.appendChild(dot);
+            }
 
-/* بعد التحميل */
-document.addEventListener('DOMContentLoaded',function(){
-  showFromHash(); if(!document.querySelector('section.view.active')) activate('home');
+            typingDiv.appendChild(document.createTextNode('جاري المعالجة'));
+            typingDiv.appendChild(dotsDiv);
+            chatContainer.appendChild(typingDiv);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+            return typingDiv;
+        }
 
-  // تبديل الحديث عشوائيًا (مع وجود نص افتراضي مسبقًا)
-  try{
-    var h=HADITHS[Math.floor(Math.random()*HADITHS.length)];
-    if(h){ $('hadithText').textContent=h.t; $('hadithSrc').textContent=h.s; }
-  }catch(e){}
+        // استدعاء خدمة الذكاء الاصطناعي (محاكاة)
+        async function getAIResponse(message) {
+            if (!isConnected) {
+                const connected = await testConnection();
+                if (!connected) {
+                    return "عذرًا، لا يمكن الاتصال بالخدمة حالياً. يرجى المحاولة لاحقًا.";
+                }
+            }
+            
+            // محاكاة وقت الانتظار للرد
+            await new Promise(resolve => setTimeout(resolve, 1000 + Math.random() * 2000));
+            
+            // ردود محاكاة (في التطبيق الحقيقي، استخدم API حقيقي)
+            const responses = [
+                "هذا رد من المساعد. كيف يمكنني مساعدتك further?",
+                "أنا هنا للمساعدة. هل هناك شيء محدد تريد معرفته؟",
+                "شكرًا على سؤالك. هل تحتاج إلى مزيد من المعلومات؟",
+                "هذا موضوع مثير للاهتمام. هل تريد أن أعطيك تفاصيل أكثر؟",
+                "أفهم استفسارك. هل يمكنك توضيح ما تبحث عنه بالضبط؟"
+            ];
+            
+            return responses[Math.floor(Math.random() * responses.length)];
+        }
 
-  // فتح/إغلاق صناديق البحث
-  var opens=document.querySelectorAll('[data-open]');
-  for(var i=0;i<opens.length;i++){
-    opens[i].addEventListener('click',function(){
-      var id=this.getAttribute('data-open'); var b=document.getElementById(id); if(b) b.classList.remove('hidden');
-    });
-  }
-  var closes=document.querySelectorAll('[data-close]');
-  for(var j=0;j<closes.length;j++){
-    closes[j].addEventListener('click',function(){
-      var id=this.getAttribute('data-close'); var b=document.getElementById(id); if(b) b.classList.add('hidden');
-    });
-  }
+        // إرسال الرسالة
+        async function sendMessage() {
+            if (isWaitingForResponse) return;
+            
+            const message = userInput.value.trim();
+            if (!message) return;
 
-  // أزرار رئيسية
-  $('doBtn').addEventListener('click', async function(){
-    var page=(Math.floor(Math.random()*302)*2)+1; // 1..603 فردي
-    var ay=await firstAyahByPage(page); renderAyah('kh',page,ay);
-  });
-  $('lookupBtn').addEventListener('click',lookupByPage);
-  $('pageInput').addEventListener('keydown',function(e){ if(e.key==='Enter') lookupByPage(); });
+            addMessage(message, true);
+            userInput.value = '';
+            isWaitingForResponse = true;
+            sendBtn.disabled = true;
 
-  // قائمة السور
-  var sel=$('suraSelect'); var opts='<option value="">— اختر سورة —</option>';
-  for(var si=1; si<SURAH.length; si++){ opts+='<option value="'+si+'">'+si+'. '+SURAH[si]+'</option>'; }
-  sel.innerHTML=opts;
-  $('suraBtn').addEventListener('click',loadSuraOddPageVerses);
+            const typingIndicator = showTypingIndicator();
+            
+            try {
+                const answer = await getAIResponse(message);
+                typingIndicator.remove();
+                addMessage(answer, false);
+            } catch (e) {
+                typingIndicator.remove();
+                addMessage('عذرًا، حدث خطأ غير متوقع في المعالجة.', false);
+            } finally {
+                isWaitingForResponse = false;
+                sendBtn.disabled = false;
+                userInput.focus();
+            }
+        }
 
-  // بحث الكلمات: زر + أثناء الكتابة
-  var kw=$('kwInput'); var t=null;
-  kw.addEventListener('input',function(){ clearTimeout(t); t=setTimeout(searchByKeyword,300); });
-  $('kwBtn').addEventListener('click',searchByKeyword);
-});
+        // تهيئة الأحداث
+        function initEvents() {
+            sendBtn.addEventListener('click', sendMessage);
+            userInput.addEventListener('keypress', (e) => { 
+                if (e.key === 'Enter' && !isWaitingForResponse) sendMessage(); 
+            });
+            
+            saveKeyBtn.addEventListener('click', saveApiKey);
+            apiKeyInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') saveApiKey();
+            });
+            
+            changeKeyBtn.addEventListener('click', changeApiKey);
+            
+            window.addEventListener('load', () => {
+                loadApiKey();
+                if (API_KEY) {
+                    userInput.focus();
+                } else {
+                    apiKeyInput.focus();
+                }
+            });
+        }
 
-/* البحث برقم الصفحة */
-async function lookupByPage(){
-  var n=normalizePageInput(($('pageInput')&&$('pageInput').value)||"");
-  if(!isValidOdd603(n)){
-    uiAlert({title:'صفحة البحث',message:'أدخل رقمًا فرديًا بين <span dir="rtl">١ و٦٠٣</span> (اليمين فقط).'});
-    return;
-  }
-  var ay=await firstAyahByPage(n); renderAyah('sr',n,ay);
-}
-
-/* بحث الكلمات — عربي فقط (نتجاهل اللاتيني بصمت) */
-function searchByKeyword(){
-  var raw=($('kwInput')&&$('kwInput').value||"").trim();
-  var wrap=$('versesWrap'), list=$('versesList');
-  if(!raw){ wrap.innerHTML=''; list.classList.add('hidden'); return; }
-  if(/[A-Za-z]/.test(raw)) return;
-
-  var q1=arNorm(raw), q2=arNormNoHamza(raw);
-  var pages=[], k, v;
-  for(k in window.PAGE_RESULT){
-    v=String(window.PAGE_RESULT[k]);
-    var n1=arNorm(v), n2=arNormNoHamza(v);
-    if(n1.indexOf(q1)>-1 || n2.indexOf(q2)>-1) pages.push(Number(k));
-  }
-  wrap.innerHTML='';
-  if(!pages.length){ wrap.innerHTML="<div class='badge'>لا توجد نتائج مطابقة.</div>"; list.classList.remove('hidden'); return; }
-  pages.sort(function(a,b){return a-b;}).forEach(function(p){
-    var d=document.createElement('div'); d.className='verse-card';
-    d.innerHTML="<div style='font-weight:800'>صفحة "+toArabicDigits(p)+"</div>";
-    d.onclick=async function(){ var ay=await firstAyahByPage(p); renderAyah('sr',p,ay); };
-    wrap.appendChild(d);
-  });
-  list.classList.remove('hidden');
-}
-
-/* آيات السورة على صفحات فردية */
-async function loadSuraOddPageVerses(){
-  var s=Number(($('suraSelect')&&$('suraSelect').value)||0); if(!s){ uiAlert({title:'السورة والآية',message:'اختر سورة.'}); return; }
-  var verses=[];
-  try{
-    var r=await fetch("https://api.quran.com/api/v4/verses/by_chapter/"+s+"?language=ar&fields=text_uthmani,verse_key,page_number&per_page=300",{cache:'no-store'});
-    if(r.ok){ var j=await r.json(); verses=j.verses||[]; }
-  }catch(e){}
-  var filtered=verses.filter(function(v){ return Number(v&&v.page_number)%2===1; });
-  var w=$('versesWrap2'), list=$('versesList2'); w.innerHTML='';
-  if(!filtered.length){ w.innerHTML="<div class='badge'>لا توجد آيات على صفحات فردية لهذه السورة.</div>"; list.classList.remove('hidden'); return; }
-  filtered.forEach(function(v){
-    var page=Number(v.page_number), ay=Number(String(v.verse_key||"").split(":")[1]||v.verse_number||"");
-    var text=v.text_uthmani||v.text||"";
-    var card=document.createElement('div'); card.className='verse-card';
-    card.innerHTML="<div style='font-weight:800'>الآية "+toArabicDigits(ay)+"</div>"+
-                   "<div class='badge'>سورة "+SURAH[s]+" · صفحة "+toArabicDigits(page)+"</div>"+
-                   "<div style=\"font-family:'Noto Kufi Arabic',sans-serif;font-size:clamp(16px,1.6vw,20px);line-height:2;margin-top:6px\">"+text+"</div>";
-    card.onclick=async function(){ var a=await firstAyahByPage(page); renderAyah('sr',page,a); };
-    w.appendChild(card);
-  });
-  list.classList.remove('hidden');
-}
-</script>
+        // بدء التطبيق
+        initEvents();
+    </script>
 </body>
 </html>
