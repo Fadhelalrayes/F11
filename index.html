@@ -9,16 +9,23 @@
       --bg:#fffdf8; --card:#ffffff; --ink:#171513; --muted:#7a746c; --line:#efe7d9;
       --blessed:#caa74c; --good:#0a8a61; --disliked:#c33b3b; --today:#5b7dff;
       --radius:14px; --shadow:0 6px 14px #0000000a;
+      --ctl-h:42px;
     }
-    html,body{
+
+    /* reset صغير لضمان التوافق */
+    *,*::before,*::after{box-sizing:border-box}
+    html,body{height:100%}
+    body{
       margin:0;padding:0;background:var(--bg);color:var(--ink);
       font-family:"Noto Naskh Arabic","Amiri","Scheherazade New",system-ui,-apple-system,Segoe UI,Roboto,sans-serif
     }
+    button,input,select{font:inherit;color:inherit}
+
     .container{max-width:720px;margin-inline:auto;padding:18px}
 
-    /* رأس متقشف */
+    /* رأس بسيط */
     header{text-align:center;margin-bottom:12px}
-    header h1{margin:0 0 4px;font-size:1.25rem}
+    header h1{margin:0 0 4px;font-size:1.2rem}
     header small{color:var(--muted)}
     .gold{height:3px;width:120px;background:linear-gradient(90deg,#f5e4bd,#e9d08e,#caa74c,#f5e4bd);border-radius:999px;margin:8px auto 0}
 
@@ -32,20 +39,35 @@
     .tile h3{margin:0 0 4px;color:var(--muted);font-size:.9rem}
     .tile p{margin:0;font-size:1.06rem;font-weight:700}
 
-    .controls{display:flex;gap:6px;flex-wrap:wrap}
-    .btn,.input{border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 12px}
+    /* عناصر التحكّم – متوافقة */
+    .controls{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+    .btn{
+      appearance:none;-webkit-appearance:none;
+      height:var(--ctl-h); padding:0 14px; border-radius:10px;
+      border:1px solid var(--line); background:#fff; cursor:pointer;
+    }
     .btn.primary{background:#fff7e6;border-color:#ecdcb8}
+    .btn:active{transform:translateY(1px)}
+    .btn:focus-visible{outline:2px solid var(--today); outline-offset:2px}
 
+    .input{
+      display:inline-flex; align-items:center; gap:8px;
+      border:1px solid var(--line); border-radius:10px; background:#fff; padding-inline:10px; height:var(--ctl-h)
+    }
+    .input input[type="date"]{
+      appearance:none;-webkit-appearance:none;border:0;outline:0;background:transparent;height:calc(var(--ctl-h) - 10px)
+    }
+    .input input[type="date"]:focus-visible{outline:2px solid var(--today); outline-offset:2px}
+
+    /* وسوم الحالة */
     .legend{display:flex;gap:8px;flex-wrap:wrap}
-    .badge{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;border:1px solid var(--line)}
+    .badge{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;border:1px solid var(--line);background:#fff}
     .dot{width:10px;height:10px;border-radius:50%}
-    .dot.b{background:var(--blessed)}
-    .dot.g{background:var(--good)}
-    .dot.d{background:var(--disliked)}
+    .dot.b{background:var(--blessed)} .dot.g{background:var(--good)} .dot.d{background:var(--disliked)}
 
     /* التقويم */
     .month{margin-top:12px}
-    .head{display:flex;align-items:center;justify-content:space-between}
+    .head{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
     .name{font-weight:800}
     .weekdays{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;color:#8b8b8b;text-align:center;font-size:.9rem;margin:8px 0 4px}
     .grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
@@ -59,7 +81,7 @@
     .cell.today{outline:2px solid var(--today)}
     .cell.selected{box-shadow:0 0 0 2px #bfc6ff}
 
-    /* شريط علوي ملوّن بدل الأيقونات لضمان التوافق */
+    /* شريط علوي ملوّن بدل أيقونات */
     .cell::before{
       content:"";position:absolute;inset-inline:0;inset-block-start:0;height:4px;
       border-radius:10px 10px 0 0;background:var(--bar,#ddd)
@@ -93,17 +115,20 @@
         <div class="tile"><h3>اليوم</h3><p id="weekday">-</p></div>
         <div class="tile"><h3>الساعة الآن</h3><p id="clock">--:--:--</p></div>
       </div>
+
       <div class="controls">
-        <label class="input">اختر تاريخًا <input id="datePicker" type="date"></label>
+        <label class="input">اختر تاريخًا <input id="datePicker" type="date" /></label>
         <button class="btn" id="prevDay" type="button">السابق</button>
         <button class="btn" id="nextDay" type="button">التالي</button>
         <button class="btn primary" id="goToday" type="button">اليوم</button>
       </div>
+
       <div class="legend">
         <span class="badge"><span class="dot b"></span>مباركة</span>
         <span class="badge"><span class="dot g"></span>صالحة</span>
         <span class="badge"><span class="dot d"></span>مكروهة</span>
       </div>
+
       <div class="note" id="rulingText">اختر تاريخًا لعرض الحكم والملاحظات.</div>
       <div class="note" id="notesText"></div>
     </section>
@@ -164,8 +189,8 @@
     return {str:s,weekday:w};
   }
 
-  // بيانات 1447هـ (مقتطفات من جدولك)
-  const months={
+  // بيانات 1447هـ (مختصرة)
+  const months={ /* نفس البيانات السابقة بالضبط */ 
     3:{name:'ربيع الأول',days:{1:'مباركة',2:'مباركة',3:'مكروهة',4:'مكروهة',5:'مكروهة',6:'مباركة',7:'مباركة',8:'مكروهة',9:'صالحة',10:'مكروهة',11:'صالحة',12:'مباركة',13:'مكروهة',14:'صالحة',15:'صالحة',16:'مكروهة',17:'مكروهة',18:'مباركة',19:'مباركة',20:'مباركة',21:'مكروهة',22:'صالحة',23:'مباركة',24:'مكروهة',25:'مكروهة',26:'مكروهة',27:'مباركة',28:'مباركة',29:'مكروهة',30:'مباركة'},notes:{8:'استشهاد الإمام العسكري (ع)'}},
     4:{name:'ربيع الثاني',days:{1:'مكروهة',2:'مباركة',3:'مكروهة',4:'مباركة',5:'مكروهة',6:'مباركة',7:'مباركة',8:'مكروهة',9:'صالحة',10:'صالحة',11:'صالحة',12:'مباركة',13:'مكروهة',14:'صالحة',15:'مكروهة',16:'مكروهة',17:'مباركة',18:'مكروهة',19:'مباركة',20:'مباركة',21:'مكروهة',22:'مكروهة',23:'مباركة',24:'مكروهة',25:'مكروهة',26:'مكروهة',27:'مباركة',28:'مباركة',29:'مكروهة',30:'مباركة'},notes:{13:'استشهاد السيدة فاطمة الزهراء (ع)'}},
     5:{name:'جمادى الأولى',days:{1:'مباركة',2:'مباركة',3:'مكروهة',4:'مباركة',5:'مكروهة',6:'مكروهة',7:'مباركة',8:'صالحة',9:'صالحة',10:'صالحة',11:'صالحة',12:'مباركة',13:'مكروهة',14:'صالحة',15:'صالحة',16:'مكروهة',17:'مباركة',18:'مكروهة',19:'مباركة',20:'مكروهة',21:'مكروهة',22:'صالحة',23:'مباركة',24:'مكروهة',25:'مكروهة',26:'مكروهة',27:'مكروهة',28:'مباركة',29:'مكروهة'},notes:{13:'استشهاد السيدة فاطمة الزهراء (ع)'}},
@@ -198,8 +223,10 @@
   }
 
   function renderMonth(){
-    const {m,y}=S.view||S.hijri; const mData=months[m];
-    $('monthTitle').textContent=`${mData?.name||''} ${y}هـ`;
+    const y = Number(S.view?.y) || Number(S.hijri?.y) || 1447;
+    const m = Number(S.view?.m) || Number(S.hijri?.m) || 3;
+    const mData=months[m];
+    $('monthTitle').textContent=`${mData?.name||'الشهر'} ${y}هـ`;
     const grid=$('monthGrid'); grid.innerHTML='';
     const todayH=H(nowBH());
     for(let i=1;i<=30;i++){
@@ -226,9 +253,22 @@
     $('goToday').addEventListener('click',()=>{S.date=nowBH(); update();});
     $('prevDay').addEventListener('click',()=>{S.date.setDate(S.date.getDate()-1); update();});
     $('nextDay').addEventListener('click',()=>{S.date.setDate(S.date.getDate()+1); update();});
-    $('datePicker').addEventListener('change',e=>{ if(e.target.value){ S.date=new Date(e.target.value+'T12:00:00'); update(); } });
-    $('prevMonth').addEventListener('click',()=>{ const h=S.hijri; let mm=h.m-1, yy=h.y; if(mm<1){mm=12;yy--;} S.view={y:yy,m:mm}; jumpTo(yy,mm,1);});
-    $('nextMonth').addEventListener('click',()=>{ const h=S.hijri; let mm=h.m+1, yy=h.y; if(mm>12){mm=1;yy++;} S.view={y:yy,m:mm}; jumpTo(yy,mm,1);});
+    $('datePicker').addEventListener('change',e=>{
+      if(e.target.value){
+        /* تأمين متصفحات تغيّر صيغة التاريخ */
+        const [y,m,d]=e.target.value.split('-').map(Number);
+        S.date=new Date(Date.UTC(y,m-1,d,12,0,0));
+        update();
+      }
+    });
+    $('prevMonth').addEventListener('click',()=>{
+      const h=S.hijri; let mm=h.m-1, yy=h.y; if(mm<1){mm=12;yy--;}
+      S.view={y:yy,m:mm}; jumpTo(yy,mm,1);
+    });
+    $('nextMonth').addEventListener('click',()=>{
+      const h=S.hijri; let mm=h.m+1, yy=h.y; if(mm>12){mm=1;yy++;}
+      S.view={y:yy,m:mm}; jumpTo(yy,mm,1);
+    });
   }
   document.addEventListener('DOMContentLoaded',init);
 </script>
