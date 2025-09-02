@@ -101,17 +101,19 @@
       position:relative;
       border:1px solid #eef2f7;
       background:#f8fafc;
-      transition:.15s box-shadow, .15s transform;
+      transition:.15s box-shadow, .15s transform, .15s background;
       font-size:1rem;   /* موحّد */
+      outline:none;
     }
     .cell:hover{ box-shadow:0 6px 12px rgba(0,0,0,.08); transform:translateY(-1px); }
+    .cell:focus{ box-shadow:0 0 0 3px rgba(0,179,196,.35); }
     .cell.ok{   background: rgba(22,163,74,.10);  border-color: rgba(22,163,74,.25); }
     .cell.good{ background: rgba(0,179,196,.12);  border-color: rgba(0,179,196,.28); }
     .cell.bad{  background: rgba(239,68,68,.10);  border-color: rgba(239,68,68,.25); }
     .cell.muted{color:var(--muted);}
 
     /* عناوين الأعمدة (أيام الأسبوع) */
-    .wk{ background:#fff; font-weight:700; border:1px solid #eef2f7; }
+    .wk{ background:#fff; font-weight:700; border:1px solid #eef2f7; cursor:default; }
 
     /* أسطورة/نقاط ملوّنة */
     .legend{
@@ -214,7 +216,6 @@
 
     /* تحويلات تقريبية (Islamic Civil) لعرض الميلادي */
     const ISLAMIC_EPOCH = 1948439.5; // JD epoch
-    function islamicLeapYear(y){ return (((11*y)+14)%30) < 11; }
     function islamicToJD(y,m,d){ return d + Math.ceil(29.5*(m-1)) + (y-1)*354 + Math.floor((3+11*y)/30) + ISLAMIC_EPOCH - 1; }
     function jdToGregorian(jd){
       const Z = Math.floor(jd+0.5);
@@ -231,16 +232,19 @@
       return [year, month, Math.round(day)];
     }
 
+    // الحالة الحالية
     let currentMonth = 3; // بدءًا من ربيع الأول
+
+    // عناصر DOM
     const calTitle = document.getElementById('calTitle');
     const calGrid  = document.getElementById('calGrid');
     const prevBtn  = document.getElementById('prevMonth');
     const nextBtn  = document.getElementById('nextMonth');
-
     const hijriOut = document.getElementById('hijriOut');
     const gregOut  = document.getElementById('gregOut');
     const statusOut= document.getElementById('statusOut');
 
+    // رسم التقويم
     function renderCalendar(){
       calTitle.textContent = `${H_MONTHS[currentMonth-1]} 1447 هـ`;
       calGrid.innerHTML = '';
@@ -251,6 +255,7 @@
         const head = document.createElement('div');
         head.textContent = w;
         head.className = 'cell wk';
+        head.setAttribute('aria-hidden','true');
         calGrid.appendChild(head);
       });
 
@@ -258,29 +263,71 @@
       const days = 30;
 
       for(let d=1; d<=days; d++){
+        // تحديد الحالة
         let cls = 'muted', statusTxt = 'غير محددة';
         if (DATA_1447[currentMonth].blessed.includes(d)) { cls='ok';   statusTxt='مباركة'; }
         else if (DATA_1447[currentMonth].good.includes(d)) { cls='good'; statusTxt='صالحة'; }
         else if (DATA_1447[currentMonth].disliked.includes(d)) { cls='bad';  statusTxt='مكروهة'; }
 
+        // إنشاء الخلية
         const cell = document.createElement('div');
         cell.className = `cell ${cls}`;
         cell.textContent = d;
         cell.title = statusTxt;
-
-        // عند النقر: عرض الهجري + تحويل ميلادي تقريبي + الحُكم
-        cell.addEventListener('click', ()=>{
-          const [gy, gm, gd] = jdToGregorian(islamicToJD(1447, currentMonth, d));
-          hijriOut.textContent = `${d} ${H_MONTHS[currentMonth-1]} 1447 هـ`;
-          gregOut.textContent  = `${gd} ${G_MONTHS[gm-1]} ${gy} م`;
-          statusOut.textContent = statusTxt;
-          statusOut.className = `badge ${cls}`;
-        });
-
+        cell.setAttribute('role','button');
+        cell.setAttribute('tabindex','0');
+        cell.dataset.day = String(d);
+      }
+      // فعليًّا نضيف الخلايا بعد إنشائها في حلقة ثانية لضمان الأداء
+      for(let d=1; d<=days; d++){
+        const cls =
+          DATA_1447[currentMonth].blessed.includes(d) ? 'ok' :
+          DATA_1447[currentMonth].good.includes(d)    ? 'good' :
+          DATA_1447[currentMonth].disliked.includes(d)? 'bad' : 'muted';
+        const cell = document.createElement('div');
+        cell.className = `cell ${cls}`;
+        cell.textContent = d;
+        cell.title = (cls==='ok'?'مباركة':cls==='good'?'صالحة':cls==='bad'?'مكروهة':'غير محددة');
+        cell.setAttribute('role','button');
+        cell.setAttribute('tabindex','0');
+        cell.dataset.day = String(d);
         calGrid.appendChild(cell);
       }
     }
 
+    // تفعيل اليوم المختار (تجميع مركزي للأحداث: نقر/لمس/لوحة مفاتيح)
+    function activateCellFromEl(el){
+      const cell = el && el.closest('.cell');
+      if(!cell || cell.classList.contains('wk')) return;
+      const d = parseInt(cell.dataset.day, 10);
+      if(!d || !DATA_1447[currentMonth]) return;
+
+      const cls = cell.classList.contains('ok') ? 'ok' :
+                  cell.classList.contains('good') ? 'good' :
+                  cell.classList.contains('bad') ? 'bad' : 'muted';
+      const statusTxt = (cls==='ok'?'مباركة':cls==='good'?'صالحة':cls==='bad'?'مكروهة':'غير محددة');
+
+      // تحويل ميلادي تقريبي لليلة هذا اليوم من 1447هـ
+      const [gy, gm, gd] = jdToGregorian(islamicToJD(1447, currentMonth, d));
+
+      // تحديث الشريط
+      hijriOut.textContent = `${d} ${H_MONTHS[currentMonth-1]} 1447 هـ`;
+      gregOut.textContent  = `${gd} ${G_MONTHS[gm-1]} ${gy} م`;
+      statusOut.textContent = statusTxt;
+      statusOut.className = `badge ${cls}`;
+    }
+
+    // تفويض الأحداث (يعمل على الهاتف/اللمس ولوحة المفاتيح)
+    calGrid.addEventListener('click', e => activateCellFromEl(e.target), {passive:true});
+    calGrid.addEventListener('touchstart', e => activateCellFromEl(e.target), {passive:true});
+    calGrid.addEventListener('keydown', e => {
+      if(e.key === 'Enter' || e.key === ' '){
+        e.preventDefault();
+        activateCellFromEl(e.target);
+      }
+    });
+
+    // أزرار التنقل
     prevBtn.addEventListener('click', ()=>{
       currentMonth--;
       if(currentMonth < 3) currentMonth = 12;
