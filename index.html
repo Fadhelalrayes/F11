@@ -77,9 +77,7 @@
 
     <div class="hr"></div>
 
-    <div class="todayBox" id="todayBox">
-      <!-- يُملأ بالسكريبت -->
-    </div>
+    <div class="todayBox" id="todayBox"></div>
     <p class="muted" style="margin-top:6px">
       تُحسب <strong>الليلة</strong> من الغروب إلى الغروب. نعرض التاريخين (هجري/ميلادي) ونصنّف الليلة المختارة حسب جدول 1447 هـ.
       قد تختلف النتيجة محليًا باختلاف ثبوت الهلال.
@@ -97,7 +95,7 @@
     <div class="head">
       <div>السبت</div><div>الأحد</div><div>الاثنين</div><div>الثلاثاء</div><div>الأربعاء</div><div>الخميس</div><div>الجمعة</div>
     </div>
-    <div class="grid" id="calGrid"><!-- cells --></div>
+    <div class="grid" id="calGrid"></div>
 
     <div class="hr"></div>
     <div class="muted">
@@ -124,34 +122,83 @@ const months1447 = [
   {key:'ذو القعدة', blessed:[1,2,6,7,12,17,19,20,23,27,28], good:[8,9,10,14,15], disliked:[3,4,5,11,13,16,18,21,22,24,25,26,29]},
   {key:'ذو الحجة', blessed:[1,2,4,6,12,18,19,20,23,27,28,30], good:[9,11,14,15,22], disliked:[3,5,7,8,10,13,16,17,21,24,25,26,29]}
 ];
-const hijriMonthMap = {
-  'ربيع الأول':'ربيع الأول','ربيع الاوّل':'ربيع الأول','ربيع الآخر':'ربيع الثاني','ربيع الثاني':'ربيع الثاني',
-  'جمادى الأولى':'جمادى الأولى','جمادى الأولى':'جمادى الأولى','جمادى الآخرة':'جمادى الثانية','جمادى الثانية':'جمادى الثانية',
-  'رجب':'رجب','شعبان':'شعبان','رمضان':'رمضان','شوّال':'شوال','شوال':'شوال','ذو القعدة':'ذو القعدة','ذو الحجّة':'ذو الحجة','ذو الحجة':'ذو الحجة'
-};
-/* ===== تنسيقات ===== */
-function fmtGreg(d){ return new Intl.DateTimeFormat('ar-EG',{dateStyle:'full'}).format(d); }
-function fmtHijri(d){
-  try{
-    const f=new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura',{day:'numeric',month:'long',year:'numeric'});
-    const parts=f.formatToParts(d);
-    return {day:Number(parts.find(p=>p.type==='day').value),
-            monthName:parts.find(p=>p.type==='month').value,
-            year:Number(parts.find(p=>p.type==='year').value)};
-  }catch(_){ return {day:NaN,monthName:'',year:NaN}; }
+
+/* ===== تطبيع أسماء الأشهر لإزالة التشكيل/التمديد والهوامش ===== */
+function normalizeArabic(s){
+  if(!s) return '';
+  return s
+    .replace(/[\u064B-\u0652\u0670\u0640]/g,'') // تشكيل + تطويل
+    .replace(/\s+/g,'')
+    .replace(/[إأآ]/g,'ا')
+    .replace(/ى/g,'ي')
+    .replace(/ؤ/g,'و')
+    .replace(/ئ/g,'ي');
 }
+const monthCanon = {
+  'ربيعالاول':'ربيع الأول', 'ربيعالاوّل':'ربيع الأول',
+  'ربيعالآخر':'ربيع الثاني','ربيعالاخَر':'ربيع الثاني','ربيعالآخر':'ربيع الثاني','ربيعالآخر':'ربيع الثاني','ربيعالآخر':'ربيع الثاني','ربيعالآخر':'ربيع الثاني',
+  'ربيعالاولى':'ربيع الأول', // احتياط
+  'ربيعالْاول':'ربيع الأول',
+  'ربيعالـاول':'ربيع الأول',
+  'ربيعالاوَل':'ربيع الأول',
+  'ربيعالاخير':'ربيع الثاني',
+  'ربيعالْثاني':'ربيع الثاني',
+  'ربيعالْثانى':'ربيع الثاني',
+  'ربيعالـثاني':'ربيع الثاني',
+  'ربيعالْآخِر':'ربيع الثاني',
+  'ربيعالآخر':'ربيع الثاني',
+  'جمادىالاولى':'جمادى الأولى','جمادىالأولى':'جمادى الأولى','جمادىالاولي':'جمادى الأولى',
+  'جمادىالاخرة':'جمادى الثانية','جمادىالآخرة':'جمادى الثانية','جمادىالاخره':'جمادى الثانية','جمادىالثانية':'جمادى الثانية',
+  'رجب':'رجب','شعبان':'شعبان','رمضان':'رمضان',
+  'شوال':'شوال','شوّال':'شوال',
+  'ذوالقعدة':'ذو القعدة','ذوالقعده':'ذو القعدة',
+  'ذوالحجة':'ذو الحجة','ذوالحجه':'ذو الحجة','ذوالحجّة':'ذو الحجة'
+};
+function canonMonthName(name){
+  const n = normalizeArabic(name);
+  return monthCanon[n] || name;
+}
+
+/* ===== تصنيف اليوم حسب جدول 1447 ===== */
 function classify(hYear,hMonthName,hDay){
   if(hYear!==1447) return null;
-  const norm=hijriMonthMap[hMonthName]||hMonthName;
-  const m=months1447.find(x=>x.key===norm);
+  const norm = canonMonthName(hMonthName);
+  const m = months1447.find(x=>x.key===norm);
   if(!m) return null;
   if(m.blessed.includes(hDay)) return 'ok';
   if(m.good.includes(hDay)) return 'good';
   if(m.disliked.includes(hDay)) return 'bad';
   return null;
 }
+
+/* ===== تنسيقات التاريخ ===== */
+function fmtGreg(d){ return new Intl.DateTimeFormat('ar-EG',{dateStyle:'full'}).format(d); }
+
+/* نحاول Um Al-Qura ثم islamic ثم islamic-civil */
+const hijriLocales = [
+  'ar-SA-u-ca-islamic-umalqura',
+  'ar-u-ca-islamic',
+  'ar-u-ca-islamic-civil'
+];
+function fmtHijri(d){
+  for(const loc of hijriLocales){
+    try{
+      const f = new Intl.DateTimeFormat(loc,{day:'numeric',month:'long',year:'numeric'});
+      const parts=f.formatToParts(d);
+      const day = Number(parts.find(p=>p.type==='day').value);
+      const monthName = parts.find(p=>p.type==='month').value;
+      const year = Number(parts.find(p=>p.type==='year').value);
+      if(!Number.isNaN(day) && !Number.isNaN(year) && monthName) return {day,monthName,year, loc};
+    }catch(_){}
+  }
+  return {day:NaN,monthName:'',year:NaN,loc:''};
+}
+
+/* أدوات مساعدة */
 function addDays(d,n){ const x=new Date(d); x.setDate(x.getDate()+n); return x; }
-/* ===== مربّع اليوم ===== */
+function toISODate(d){ const y=d.getFullYear(); const m=String(d.getMonth()+1).padStart(2,'0'); const dd=String(d.getDate()).padStart(2,'0'); return `${y}-${m}-${dd}`; }
+
+/* ===== مربع اليوم ===== */
 const datePick=document.getElementById('datePick');
 const todayBox=document.getElementById('todayBox');
 const prevBtn=document.getElementById('prevDay');
@@ -163,17 +210,20 @@ function renderTodayCard(gDate){
   const cls=classify(hj.year,hj.monthName,hj.day);
   const label = cls==='ok'?'مباركة':cls==='good'?'صالحة':cls==='bad'?'مكروهة':'خارج 1447 هـ / غير مُصنّفة';
   const clsClass = cls?`status ${cls}`:'status';
+  const hjText = isNaN(hj.year) ? '<span class="muted">التقويم الهجري غير مدعوم في هذا المتصفح</span>'
+                                : `${hj.day} ${hj.monthName} ${hj.year} هـ`;
   todayBox.innerHTML = `
     <div class="todayLine">
       <div><strong>اليوم الميلادي:</strong> ${fmtGreg(gDate)}</div>
-      <div><strong>اليوم الهجري:</strong> ${isNaN(hj.year)?'<span class="muted">غير مدعوم</span>':`${hj.day} ${hj.monthName} ${hj.year} هـ`}</div>
+      <div><strong>اليوم الهجري:</strong> ${hjText}</div>
     </div>
     <div class="todayLine">
       <div class="${clsClass}">${label}</div>
-      <span class="muted">التصنيف يعتمد على جدول 1447 هـ.</span>
+      <span class="muted">المصدر: جدول 1447 هـ.</span>
     </div>
   `;
 }
+
 /* ===== التقويم: تبويب هجري/ميلادي ===== */
 const tabHijri=document.getElementById('tabHijri');
 const tabGreg=document.getElementById('tabGreg');
@@ -181,56 +231,58 @@ const calTitle=document.getElementById('calTitle');
 const calGrid=document.getElementById('calGrid');
 let activeTab='hijri';
 
-function firstGregOfHijriMonth(hYear,hMonthName){
-  // ابحث بالرجوع 40 يوماً ثم التقدّم حتى اليوم 1 من ذلك الشهر (تقريبًا)
-  let probe=new Date();
-  // ابدأ من التاريخ المختار بدلاً من اليوم
-  const sel = new Date(datePick.value+"T12:00:00");
-  if(!isNaN(sel)) probe=sel;
-  probe=addDays(probe,-40);
-  for(let i=0;i<120;i++){
-    const d=addDays(probe,i);
-    const h=fmtHijri(d);
-    if(h.year===hYear && (hijriMonthMap[h.monthName]||h.monthName)=== (hijriMonthMap[hMonthName]||hMonthName) && h.day===1){
+/* ابحث عن أول يوم (1) من الشهر الهجري المحدد حول تاريخ مختار */
+function firstGregOfHijriMonth(hYear,hMonthName, aroundDate){
+  const target = canonMonthName(hMonthName);
+  // امسح نطاقًا واسعًا حول التاريخ المختار لضمان إيجاد بداية الشهر
+  const start = addDays(aroundDate, -200);
+  for(let i=0;i<500;i++){
+    const d = addDays(start,i);
+    const h = fmtHijri(d);
+    if(h.year===hYear && canonMonthName(h.monthName)===target && h.day===1){
       return d;
     }
   }
   return null;
 }
+
+/* بناء شبكة شهر (تصحيح محاذاة: السبت هو العمود 0) */
+function weekOffsetSaturdayFirst(jsDate){
+  // JS: 0=الأحد, 6=السبت → نريد السبت=0
+  return (jsDate.getDay()+1)%7;
+}
+
 function buildMonthGrid(startDate, mode){
-  // mode: 'hijri' => اعرض أيام الشهر الهجري بدءًا من startDate (الذي هو أول يوم هجري)
-  // mode: 'greg'  => اعرض شهر ميلادي startDate.getMonth()
   calGrid.innerHTML='';
-  let cells=[];
+  const cells=[];
   if(mode==='hijri'){
-    // امشِ يومًا يومًا حتى يتغيّر اسم الشهر الهجري
     const h1=fmtHijri(startDate);
+    if(Number.isNaN(h1.year)){
+      calTitle.textContent = 'التقويم الهجري — غير مدعوم في هذا المتصفح';
+      calGrid.innerHTML = '<div class="muted">المتصفح لا يدعم أي تقويم إسلامي (Um Al-Qura/Islamic). جرّب متصفحًا أحدث.</div>';
+      return;
+    }
     const monthName = h1.monthName, year=h1.year;
-    // العنوان
     calTitle.textContent = `التقويم الهجري — ${monthName} ${year} هـ`;
-    // احسب إزاحة بداية الأسبوع (نبدأ الشبكة من السبت)
-    // نحصل على اليوم الميلادي لبداية ذلك اليوم ونحوّله إلى رقم الأسبوع (0=الأحد في JS)
-    const firstWeekday = (startDate.getDay()+6)%7; // اجعل السبت=0
+    const firstWeekday = weekOffsetSaturdayFirst(startDate);
     for(let i=0;i<firstWeekday;i++) cells.push({empty:true});
-    // امضِ حتى يتغير الشهر
     let d = new Date(startDate);
     while(true){
       const h=fmtHijri(d);
       if(h.monthName!==monthName || h.year!==year) break;
       const cls=classify(h.year,h.monthName,h.day);
-      cells.push({d:new Date(d), h, cls});
+      cells.push({d:new Date(d), h, cls, showGreg:false});
       d=addDays(d,1);
-      if(cells.length>42) break; // أمان
+      if(cells.length>42) break;
     }
   }else{
-    // تقويم ميلادي للشهر المختار
     const base=new Date(datePick.value+"T12:00:00");
     const year=base.getFullYear(), month=base.getMonth();
     const first=new Date(year, month, 1);
     const last=new Date(year, month+1, 0);
     const titleFmt = new Intl.DateTimeFormat('ar-EG',{month:'long',year:'numeric'});
     calTitle.textContent = `التقويم الميلادي — ${titleFmt.format(base)}`;
-    const firstWeekday = (first.getDay()+6)%7; // السبت=0
+    const firstWeekday = weekOffsetSaturdayFirst(first);
     for(let i=0;i<firstWeekday;i++) cells.push({empty:true});
     for(let day=1; day<=last.getDate(); day++){
       const d=new Date(year,month,day);
@@ -245,7 +297,9 @@ function buildMonthGrid(startDate, mode){
     div.className='cell'+(c.empty?' muted':'');
     if(!c.empty){
       const dnum = c.showGreg ? c.d.getDate() : c.h.day;
-      const sub = c.showGreg ? `هجري: ${c.h.day}` : `ميلادي: ${c.d.getDate()}`;
+      const sub = c.showGreg
+        ? (Number.isNaN(c.h.year)? 'هجري: —' : `هجري: ${c.h.day}`)
+        : `ميلادي: ${c.d.getDate()}`;
       div.innerHTML = `
         <div class="d"><strong>${dnum}</strong></div>
         <div class="muted" style="margin-top:2px">${sub}</div>
@@ -256,7 +310,6 @@ function buildMonthGrid(startDate, mode){
       // عند الضغط: حدّث مربع اليوم
       div.style.cursor='pointer';
       div.addEventListener('click', ()=>{
-        // اضبط الحقل إلى التاريخ الميلادي الموافق للخليّة
         datePick.value = toISODate(c.d);
         refreshAll();
       });
@@ -264,54 +317,58 @@ function buildMonthGrid(startDate, mode){
     calGrid.appendChild(div);
   });
 }
-function toISODate(d){ const y=d.getFullYear(); const m=String(d.getMonth()+1).padStart(2,'0'); const dd=String(d.getDate()).padStart(2,'0'); return `${y}-${m}-${dd}`; }
 
 function renderHijriMonthForSelected(){
-  // خذ التاريخ المختار، استخرج الهجري، اعثر على أول يوم لذلك الشهر
   const gSel=new Date(datePick.value+"T12:00:00");
   const h=fmtHijri(gSel);
-  const first = firstGregOfHijriMonth(h.year,h.monthName);
+  if(Number.isNaN(h.year)){
+    calTitle.textContent = 'التقويم الهجري — غير مدعوم';
+    calGrid.innerHTML = '<div class="muted">لا يمكن عرض التقويم الهجري لأن المتصفح لا يدعم تقويم Um Al-Qura أو البدائل.</div>';
+    return;
+  }
+  const first = firstGregOfHijriMonth(h.year,h.monthName,gSel);
   if(first) buildMonthGrid(first,'hijri');
-  else { calGrid.innerHTML='<div class="muted">تعذر تحديد بداية الشهر الهجري.</div>'; }
+  else {
+    calTitle.textContent = `التقويم الهجري — ${h.monthName} ${h.year} هـ`;
+    calGrid.innerHTML = '<div class="muted">تعذر تحديد بداية الشهر الهجري حول التاريخ المختار.</div>';
+  }
 }
 function renderGregMonthForSelected(){
   buildMonthGrid(new Date(datePick.value+"T12:00:00"),'greg');
 }
 
-/* ===== تهيئة وارتباطات ===== */
+/* ===== ربط الأحداث ===== */
 function refreshAll(){
   const g = new Date(datePick.value+"T12:00:00");
   renderTodayCard(g);
   if(activeTab==='hijri') renderHijriMonthForSelected(); else renderGregMonthForSelected();
 }
-tabHijri.addEventListener('click', ()=>{
+document.getElementById('tabHijri').addEventListener('click', ()=>{
   activeTab='hijri';
   tabHijri.classList.add('active'); tabGreg.classList.remove('active');
   renderHijriMonthForSelected();
 });
-tabGreg.addEventListener('click', ()=>{
+document.getElementById('tabGreg').addEventListener('click', ()=>{
   activeTab='greg';
   tabGreg.classList.add('active'); tabHijri.classList.remove('active');
   renderGregMonthForSelected();
 });
-prevBtn.addEventListener('click', ()=>{
+document.getElementById('prevDay').addEventListener('click', ()=>{
   const g = new Date(datePick.value+"T12:00:00");
-  const prev = addDays(g,-1);
-  datePick.value = toISODate(prev);
+  datePick.value = toISODate(addDays(g,-1));
   refreshAll();
 });
-nextBtn.addEventListener('click', ()=>{
+document.getElementById('nextDay').addEventListener('click', ()=>{
   const g = new Date(datePick.value+"T12:00:00");
-  const next = addDays(g,1);
-  datePick.value = toISODate(next);
+  datePick.value = toISODate(addDays(g,1));
   refreshAll();
 });
-todayBtn.addEventListener('click', ()=>{
+document.getElementById('goToday').addEventListener('click', ()=>{
   const t=new Date(); datePick.value=toISODate(t); refreshAll();
 });
 datePick.addEventListener('change', refreshAll);
 
-// بدء التشغيل على تاريخ اليوم
+/* ===== بدء التشغيل ===== */
 (function init(){
   const t=new Date(); datePick.value=toISODate(t); refreshAll();
 })();
