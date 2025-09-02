@@ -17,7 +17,12 @@
       --txt:#0b0f19;   --card:#ffffff;
     }
     html{font-size:16px}
-    body{margin:0;background:linear-gradient(135deg,var(--bg1) 0%,var(--bg2) 100%);font-family:'Tajawal',system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--txt);line-height:1.7}
+    body{
+      margin:0;
+      background:linear-gradient(135deg,var(--bg1) 0%,var(--bg2) 100%);
+      font-family:'Tajawal',system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      color:var(--txt); line-height:1.7;
+    }
     header{padding:20px;text-align:center;color:#fff}
     header h1{margin:0;font-size:1rem;font-weight:700}
     .wrap{max-width:980px;margin:16px auto 24px;padding:0 12px}
@@ -80,7 +85,7 @@
           <label for="calType"><strong>التقويم:</strong></label>
           <select id="calType">
             <option value="umalqura">هجري (أمّ القرى)</option>
-            <option value="iran" selected>هجري (إيراني)</option>
+            <option value="iran">هجري (إيراني)</option>
           </select>
         </div>
         <div class="info-item"><strong>التاريخ الهجري:</strong> <span id="hijriOut">—</span></div>
@@ -89,7 +94,7 @@
       </div>
 
       <div class="note">
-        يُعرض حكم الليالي (مباركة/صالحة/مكروهة) للعقد والزواج لعام 1447 هـ. يبدأ اليوم الشرعي من الغروب وقد يختلف يومًا تبعًا لرؤية الهلال. تم تطبيق +1 يوم هجري على العرض والحكم بناءً على طلبك.
+        يُعرض حكم الليالي (مباركة/صالحة/مكروهة) للعقد والزواج لعام 1447 هـ. يبدأ اليوم الشرعي من الغروب وقد يختلف يومًا تبعًا لرؤية الهلال.
       </div>
     </section>
   </div>
@@ -113,13 +118,11 @@
     const H_MONTHS=['محرم','صفر','ربيع الأول','ربيع الثاني','جمادى الأولى','جمادى الثانية','رجب','شعبان','رمضان','شوال','ذو القعدة','ذو الحجة'];
     const G_MONTHS=['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
 
-    /* ================= إعدادات الإزاحات ================= */
-    const HIJRI_OFFSET_DAYS = 1;   // ✅ إضافة +1 يوم هجري (حسب طلبك)
-    const IRAN_OFFSET_DAYS  = -1;  // إزاحة تقريبية للإيراني مقابل أمّ القرى (يمكن تعديلها)
-
-    /* ================= تحويلات فلكية أساسية (JD) =================== */
-    const ISLAMIC_EPOCH=1948439.5;
-    function islamicToJD(y,m,d){return d+Math.ceil(29.5*(m-1))+(y-1)*354+Math.floor((3+11*y)/30)+ISLAMIC_EPOCH-1;}
+    /* ================= تحويلات (JD) للاحتياط فقط =================== */
+    const ISLAMIC_EPOCH = 1948439.5;
+    function islamicToJD(y,m,d){
+      return d + Math.ceil(29.5*(m-1)) + (y-1)*354 + Math.floor((3+11*y)/30) + ISLAMIC_EPOCH - 1;
+    }
     function jdToGregorian(jd){
       const Z=Math.floor(jd+0.5),F=(jd+0.5)-Z;let A=Z;
       if(Z>=2299161){const alpha=Math.floor((Z-1867216.25)/36524.25);A=Z+1+alpha-Math.floor(alpha/4);}
@@ -128,32 +131,38 @@
       return [year,month,Math.round(day)];
     }
 
-    /* ============ دعم أمّ القرى عبر Intl (إن وُجد) ============ */
+    /* ======= استخدام Intl: أمّ القرى (إن وُجد) + وضع إيراني (بدون إزاحة) ======= */
     const HAS_UMALQURA = (()=>{ try{ new Intl.DateTimeFormat('en-u-ca-islamic-umalqura').format(new Date()); return true; }catch{ return false; } })();
-    function toUmAlQuraGregorian(hy, hm, hd){
-      if(!HAS_UMALQURA) return null;
-      const fmt = new Intl.DateTimeFormat('en-u-ca-islamic-umalqura', {year:'numeric', month:'numeric', day:'numeric', timeZone:'UTC'});
-      const approx = jdToGregorian(islamicToJD(hy, hm, hd));
-      const base = new Date(Date.UTC(approx[0], approx[1]-1, approx[2]));
-      function parts(d){ let y,m,dd; for(const p of fmt.formatToParts(d)){ if(p.type==='year') y=+p.value; else if(p.type==='month') m=+p.value; else if(p.type==='day') dd=+p.value; } return [y,m,dd]; }
-      for(let k=-3;k<=3;k++){ const dt=new Date(base); dt.setUTCDate(dt.getUTCDate()+k); const [y,m,d]=parts(dt); if(y===hy&&m===hm&&d===hd) return [dt.getUTCFullYear(),dt.getUTCMonth()+1,dt.getUTCDate()]; }
-      return null;
+
+    // تحويل مباشر: من (هجري y,m,d) إلى ميلادي عبر أمّ القرى إن أمكن، وإلا عبر JD
+    function hijriToGregorian(y,m,d){
+      if(HAS_UMALQURA){
+        const fmt = new Intl.DateTimeFormat('en-u-ca-islamic-umalqura', {year:'numeric', month:'numeric', day:'numeric', timeZone:'UTC'});
+        const approx = jdToGregorian(islamicToJD(y,m,d)); // نقطة بداية للبحث
+        const base = new Date(Date.UTC(approx[0], approx[1]-1, approx[2]));
+        function parts(dt){
+          let yy,mm,dd;
+          for(const p of fmt.formatToParts(dt)){
+            if(p.type==='year') yy=+p.value; else if(p.type==='month') mm=+p.value; else if(p.type==='day') dd=+p.value;
+          }
+          return [yy,mm,dd];
+        }
+        for(let k=-3;k<=3;k++){
+          const dt = new Date(base); dt.setUTCDate(dt.getUTCDate()+k);
+          const [yy,mm,dd] = parts(dt);
+          if(yy===y && mm===m && dd===d){
+            return [dt.getUTCFullYear(), dt.getUTCMonth()+1, dt.getUTCDate()];
+          }
+        }
+      }
+      // احتياط: مدني
+      return jdToGregorian(islamicToJD(y,m,d));
     }
 
-    /* ============ إضافة/طرح أيام هجرية مع التفاف الشهر ============ */
-    function addHijri(hm, d, offset){
-      let m = hm, day = d + offset;
-      while(day > 30){ day -= 30; m++; if(m>12) m=3; }     // شهورنا المعروضة 30 يوم للتناسق
-      while(day < 1){ day += 30; m--; if(m<3)  m=12; }
-      return [m, day];
-    }
-
-    /* =================== تحويل "إيراني" مُقارب =================== */
-    function toIranGregorian(hy, hm, hd){
-      const um = toUmAlQuraGregorian(hy, hm, hd) || jdToGregorian(islamicToJD(hy, hm, hd));
-      const dt = new Date(Date.UTC(um[0], um[1]-1, um[2]));
-      dt.setUTCDate(dt.getUTCDate() + IRAN_OFFSET_DAYS);
-      return [dt.getUTCFullYear(), dt.getUTCMonth()+1, dt.getUTCDate()];
+    // "إيراني": لا توجد Intl مدمجة، نستخدم نفس التحويل المدني الاحتياطي (بدون أي إزاحة)
+    function hijriIranToGregorian(y,m,d){
+      // يمكن لاحقًا استبدالها بجدول رسمي إذا توفر
+      return jdToGregorian(islamicToJD(y,m,d));
     }
 
     /* =================== عناصر الواجهة والحالة =================== */
@@ -172,42 +181,43 @@
     function renderCalendar(){
       calTitle.textContent = `${H_MONTHS[currentMonth-1]} 1447 هـ`;
       calGrid.innerHTML = '';
+
       ['س','أ','ث','أر','خ','ج','س'].forEach(w=>{
         const head=document.createElement('div'); head.textContent=w; head.className='cell wk'; head.setAttribute('aria-hidden','true'); calGrid.appendChild(head);
       });
+
       for(let d=1; d<=30; d++){
         const cls =
           DATA_1447[currentMonth].blessed.includes(d) ? 'ok' :
           DATA_1447[currentMonth].good.includes(d)    ? 'good' :
           DATA_1447[currentMonth].disliked.includes(d)? 'bad' : 'muted';
         const cell=document.createElement('div');
-        cell.className=`cell ${cls}`; cell.textContent=d; cell.title=(cls==='ok'?'مباركة':cls==='good'?'صالحة':cls==='bad'?'مكروهة':'غير محددة'); cell.setAttribute('role','button'); cell.setAttribute('tabindex','0'); cell.dataset.day=String(d);
+        cell.className = `cell ${cls}`;
+        cell.textContent = d;
+        cell.title = (cls==='ok'?'مباركة':cls==='good'?'صالحة':cls==='bad'?'مكروهة':'غير محددة');
+        cell.setAttribute('role','button');
+        cell.setAttribute('tabindex','0');
+        cell.dataset.day = String(d);
         calGrid.appendChild(cell);
       }
     }
 
-    /* =================== عرض الشريط بعد تطبيق الإزاحة =================== */
-    function showInfo(dayBase){
-      // طبّق +1 يوم هجري (HIJRI_OFFSET_DAYS)
-      const [hm, d] = addHijri(currentMonth, dayBase, HIJRI_OFFSET_DAYS);
-
-      // الحُكم بناءً على اليوم/الشهر بعد الإزاحة
+    /* =================== عرض الشريط =================== */
+    function showInfo(day){
+      selectedDay = day;
       const cls =
-        DATA_1447[hm].blessed.includes(d) ? 'ok' :
-        DATA_1447[hm].good.includes(d)    ? 'good' :
-        DATA_1447[hm].disliked.includes(d)? 'bad' : 'muted';
+        DATA_1447[currentMonth].blessed.includes(day) ? 'ok' :
+        DATA_1447[currentMonth].good.includes(day)    ? 'good' :
+        DATA_1447[currentMonth].disliked.includes(day)? 'bad' : 'muted';
       const statusTxt = (cls==='ok'?'مباركة':cls==='good'?'صالحة':cls==='bad'?'مكروهة':'غير محددة');
 
-      // تحويل الميلادي حسب نوع التقويم المختار
-      const type = calType.value;
       let gy,gm,gd;
-      if(type === 'iran'){
-        [gy,gm,gd] = toIranGregorian(1447, hm, d);
-        hijriOut.textContent = `${d} ${H_MONTHS[hm-1]} 1447 هـ (إيراني +1)`;
+      if(calType.value === 'iran'){
+        [gy,gm,gd] = hijriIranToGregorian(1447, currentMonth, day);
+        hijriOut.textContent = `${day} ${H_MONTHS[currentMonth-1]} 1447 هـ (إيراني)`;
       }else{
-        const um = toUmAlQuraGregorian(1447, hm, d) || jdToGregorian(islamicToJD(1447, hm, d));
-        [gy,gm,gd] = um;
-        hijriOut.textContent = `${d} ${H_MONTHS[hm-1]} 1447 هـ (أمّ القرى +1)`;
+        [gy,gm,gd] = hijriToGregorian(1447, currentMonth, day);
+        hijriOut.textContent = `${day} ${H_MONTHS[currentMonth-1]} 1447 هـ (أمّ القرى)`;
       }
       gregOut.textContent  = `${gd} ${G_MONTHS[gm-1]} ${gy} م`;
       statusOut.textContent = statusTxt;
@@ -216,14 +226,20 @@
 
     /* =================== اختيار اليوم الحالي تلقائيًا =================== */
     function initSelectToday(){
-      // نحاول عبر أمّ القرى لتحديد اليوم الحالي؛ إن لم يكن ضمن 1447 نُبقي الافتراضي
-      let hy, hm, hd;
+      // نحاول قراءة اليوم الهجري الحالي عبر أمّ القرى؛ إن لم يكن ضمن 1447 نستخدم الافتراضي
       if(HAS_UMALQURA){
         const fmt = new Intl.DateTimeFormat('en-u-ca-islamic-umalqura', {year:'numeric', month:'numeric', day:'numeric'});
-        let y,m,d; for(const p of fmt.formatToParts(new Date())){ if(p.type==='year') y=+p.value; else if(p.type==='month') m=+p.value; else if(p.type==='day') d=+p.value; }
-        hy=y; hm=m; hd=d;
+        let y,m,d;
+        for(const p of fmt.formatToParts(new Date())){
+          if(p.type==='year') y=+p.value; else if(p.type==='month') m=+p.value; else if(p.type==='day') d=+p.value;
+        }
+        if(y===1447 && m>=3 && m<=12){
+          currentMonth=m; selectedDay=d;
+          return;
+        }
       }
-      if(hy===1447 && hm>=3 && hm<=12){ currentMonth=hm; selectedDay=hd; } else { currentMonth=3; selectedDay=1; }
+      // افتراضي
+      currentMonth=3; selectedDay=1;
     }
 
     /* =================== أحداث =================== */
@@ -237,15 +253,14 @@
         const d = +el.dataset.day; if(d){ e.preventDefault(); showInfo(d); }
       }
     });
-    prevBtn.addEventListener('click', ()=>{ currentMonth--; if(currentMonth<3) currentMonth=12; renderCalendar(); showInfo(selectedDay); });
-    nextBtn.addEventListener('click', ()=>{ currentMonth++; if(currentMonth>12) currentMonth=3; renderCalendar(); showInfo(selectedDay); });
+    prevBtn.addEventListener('click', ()=>{ currentMonth--; if(currentMonth<3) currentMonth=12; renderCalendar(); showInfo(Math.min(selectedDay,30)); });
+    nextBtn.addEventListener('click', ()=>{ currentMonth++; if(currentMonth>12) currentMonth=3; renderCalendar(); showInfo(Math.min(selectedDay,30)); });
     calType.addEventListener('change', ()=>{ showInfo(selectedDay); });
 
     /* =================== تشغيل أولي =================== */
     (function init(){
       initSelectToday();
       renderCalendar();
-      // افتراضيًا: اعرض اليوم الحالي (ثم يطبّق +1 هجري)
       showInfo(selectedDay);
     })();
   </script>
