@@ -23,8 +23,10 @@
       font-family:'Tajawal',system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
       color:var(--txt); line-height:1.7;
     }
+
     header{padding:20px;text-align:center;color:#fff}
     header h1{margin:0;font-size:1rem;font-weight:700}
+
     .wrap{max-width:980px;margin:16px auto 24px;padding:0 12px}
 
     .calendar{background:var(--card);border-radius:16px;padding:16px;box-shadow:0 6px 16px rgba(0,0,0,.10)}
@@ -51,8 +53,32 @@
     .badge{padding:4px 10px;border-radius:999px;font-weight:700;color:#fff;background:#9ca3af}
     .badge.ok{background:#16a34a}.badge.good{background:#00B3C4;color:#002c33}.badge.bad{background:#ef4444}
 
-    .note{background:#fff;margin-top:12px;border-radius:14px;padding:12px;box-shadow:0 4px 10px rgba(0,0,0,.05);font-size:1rem;color:#0b0f19}
-    footer{text-align:center;color:#e3e7ee;padding:20px 10px 26px;font-weight:700;font-size:1rem}
+    /* ملاحظة بأسلوب الكتب (محاذاة الأطراف) */
+    .note{
+      background:#fff;margin-top:12px;border-radius:14px;padding:12px;box-shadow:0 4px 10px rgba(0,0,0,.05);
+      font-size:1rem;color:#0b0f19;text-align:justify;text-justify:inter-word;
+      border:1px solid #eceff3;
+    }
+
+    /* صندوق الأحاديث */
+    .hadith-card{
+      background:#fff;margin-top:12px;border-radius:14px;padding:14px 16px;
+      box-shadow:0 6px 16px rgba(0,0,0,.08);
+      border:1px solid #e9edf2; position:relative; overflow:hidden;
+    }
+    .hadith-card:before{
+      content:"❝"; position:absolute; inset-inline-start:12px; top:6px; font-size:1.5rem; opacity:.15;
+    }
+    .hadith-text{
+      font-size:1rem; color:#0b0f19; text-align:justify; text-justify:inter-word; margin:0 0 8px;
+    }
+    .hadith-source{
+      font-size:.95rem; color:#374151; background:#f3f4f6; padding:6px 10px; border-radius:10px; display:inline-block;
+    }
+
+    footer{text-align:center;padding:20px 10px 26px}
+    footer a{color:#e3e7ee;text-decoration:none;font-weight:700;font-size:1rem;display:inline-block;padding:6px 14px;border-radius:999px}
+    footer a:hover{background:rgba(255,255,255,.08)}
   </style>
 </head>
 <body>
@@ -61,9 +87,9 @@
   <div class="wrap">
     <section class="calendar">
       <div class="controls">
-        <button class="nav-btn ghost" id="prevMonth">‹</button>
+        <button class="nav-btn ghost" id="prevMonth" aria-label="الشهر السابق">‹</button>
         <h3 id="calTitle">ربيع الأول 1447 هـ</h3>
-        <button class="nav-btn ghost" id="nextMonth">›</button>
+        <button class="nav-btn ghost" id="nextMonth" aria-label="الشهر التالي">›</button>
       </div>
 
       <div class="grid" id="calGrid"></div>
@@ -84,19 +110,29 @@
       <div class="note">
         يُعرض حكم الليالي (مباركة/صالحة/مكروهة) للعقد والزواج لعام 1447 هـ. يبدأ اليوم الشرعي من الغروب وقد يختلف يومًا تبعًا لرؤية الهلال.
       </div>
+
+      <!-- صندوق الأحاديث المتغيّر -->
+      <div class="hadith-card" id="hadithBox" aria-live="polite">
+        <p class="hadith-text" id="hadithText"></p>
+        <span class="hadith-source" id="hadithSource"></span>
+      </div>
     </section>
   </div>
 
-  <footer>برمجة وتطوير: فاضل الريس</footer>
+  <!-- زر واتساب في الفوتر -->
+  <footer>
+    <a id="contactLink" href="https://api.whatsapp.com/send/?phone=97333375858&text&type=phone_number&app_absent=0&wame_ctl=1&fbclid=PAVERDUAMkKjxleHRuA2FlbQIxMAABp1J35L33NHfk2v-X0EXtigi-vNkjuVkl6Thx6_MME3Zw0bGgpYNfiUdNkZfD_aem_vl9Uj96ej8aGhJY3iro03Q" target="_blank" rel="noopener">
+      برمجة وتطوير: فاضل الريس
+    </a>
+  </footer>
 
   <script>
-    /* بيانات 1447 هـ (من ربيع الأول إلى ذي الحجة) */
+    /* ====================== بيانات التقويم (1447 هـ) ====================== */
     const DATA_1447={3:{blessed:[1,2,6,7,12,18,19,20,23,27,28,30],good:[9,11,14,15,22],disliked:[3,4,5,8,10,13,16,17,21,24,25,26,29]},4:{blessed:[2,4,6,7,12,17,19,20,23,27,28,30],good:[9,10,11,14],disliked:[1,3,5,8,13,15,16,18,21,22,24,25,26,29]},5:{blessed:[1,2,4,7,12,17,19,23,28],good:[8,9,10,11,14,15,22],disliked:[3,5,6,13,16,18,20,21,24,25,26,27,29]},6:{blessed:[1,2,4,6,7,17,18,20,23,27,28,30],good:[8,9,10,11,14,15,22],disliked:[3,5,12,13,16,19,21,24,25,26,29]},7:{blessed:[1,2,4,6,7,18,19,20,23,27,28,30],good:[8,9,11,14,22],disliked:[3,5,10,12,13,15,16,17,21,24,25,26,29]},8:{blessed:[2,4,6,7,12,17,18,19,20,27,28],good:[9,10,11,14,23],disliked:[1,3,5,8,13,15,16,21,22,24,25,26,29]},9:{blessed:[1,2,4,6,17,18,27,30],good:[9,10,11,12,15,22,23],disliked:[3,5,7,8,13,14,16,19,20,21,24,25,26,28,29]},10:{blessed:[1,4,6,7,17,18,20,23,27,28],good:[8,9,10,11,14,15,22],disliked:[2,3,5,12,13,16,19,21,24,25,26,29]},11:{blessed:[1,2,6,7,12,17,19,20,23,27,28],good:[8,9,10,14,15],disliked:[3,4,5,11,13,16,18,21,22,24,25,26,29]},12:{blessed:[1,2,4,6,12,18,19,20,23,27,28,30],good:[9,11,14,15,22],disliked:[3,5,7,8,10,13,16,17,21,24,25,26,29]}};
-
     const H_MONTHS=['محرم','صفر','ربيع الأول','ربيع الثاني','جمادى الأولى','جمادى الثانية','رجب','شعبان','رمضان','شوال','ذو القعدة','ذو الحجة'];
     const G_MONTHS=['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
 
-    /* احتياطي حساب مدني (في حال عدم دعم Intl للهجري) */
+    /* =================== تحويلات هجري ← ميلادي =================== */
     const ISLAMIC_EPOCH=1948439.5;
     function islamicToJD(y,m,d){return d+Math.ceil(29.5*(m-1))+(y-1)*354+Math.floor((3+11*y)/30)+ISLAMIC_EPOCH-1;}
     function jdToGregorian(jd){
@@ -106,8 +142,6 @@
       const day=B-D-Math.floor(30.6001*E)+F,month=E<14?E-1:E-13,year=month>2?C-4716:C-4715;
       return [year,month,Math.round(day)];
     }
-
-    /* تحويل هجري → ميلادي عبر Intl (أم القرى) إن وُجد */
     const HAS_UMALQURA=(()=>{try{new Intl.DateTimeFormat('en-u-ca-islamic-umalqura').format(new Date());return true;}catch{return false;}})();
     function hijriToGregorian(y,m,d){
       if(HAS_UMALQURA){
@@ -120,7 +154,7 @@
       return jdToGregorian(islamicToJD(y,m,d));
     }
 
-    /* عناصر الواجهة */
+    /* =================== عناصر الواجهة =================== */
     let currentMonth=3, selectedDay=1;
     const calTitle=document.getElementById('calTitle');
     const calGrid =document.getElementById('calGrid');
@@ -158,7 +192,7 @@
       statusOut.textContent=statusTxt; statusOut.className=`badge ${cls}`;
     }
 
-    // اختيار اليوم الهجري الحالي تلقائيًا عند فتح الصفحة
+    // اختيار اليوم الهجري الحالي تلقائيًا عند فتح الصفحة (إن كان ضمن سنة 1447 والأشهر المتاحة)
     function pickTodayHijri(){
       if(HAS_UMALQURA){
         const fmt=new Intl.DateTimeFormat('en-u-ca-islamic-umalqura',{year:'numeric',month:'numeric',day:'numeric'});
@@ -170,24 +204,49 @@
       }
     }
 
-    calGrid.addEventListener('click',e=>{
-      const el=e.target.closest('.cell'); if(!el || el.classList.contains('wk')) return;
-      const d=+el.dataset.day; if(d) showInfo(d);
-    });
+    /* =================== أحاديث (تتغيّر كل زيارة) =================== */
+    const HADITHS = [
+      {
+        text: "عن الرسول الأكرم صلى الله عليه وآله وسلم: النكاح من سنّتي، فمن رغب عنه فقد رغب عن سنّتي.",
+        src: "المصدر: مستدرك الوسائل ـ الميرزا النوري، ج 41 ص 153."
+      },
+      {
+        text: "عنه صلى الله عليه وآله وسلم: يا معشر الشباب من استطاع منكم الباه فليتزوَّج، فإنَّه أغضُّ للبصر، وأحصنُ للفرج، ومن لم يستطع فليصُم، فإنَّ الصوم له وجاء.",
+        src: "المصدر: جامع أحاديث الشيعة."
+      },
+      {
+        text: "عنه صلى الله عليه وآله وسلم: إذا تزوّج الرجل أحرز نصف دينه، فليتقِّ الله في النصف الآخر.",
+        src: "المصدر: الكافي."
+      },
+      {
+        text: "عنه صلى الله عليه وآله وسلم: من سرّه أن يلقى الله طاهراً مطهَّراً، فليلقه بزوجة.",
+        src: "المصدر: وسائل الشيعة."
+      }
+    ];
+    function pickHadithIndex(){
+      const key='hadithIndex';
+      const last = parseInt(localStorage.getItem(key) || '-1', 10);
+      const next = (isNaN(last)?-1:last) + 1;
+      const idx  = next % HADITHS.length;
+      localStorage.setItem(key, String(idx));
+      return idx;
+    }
+    function renderHadith(){
+      const idx = pickHadithIndex();
+      const box = document.getElementById('hadithBox');
+      const t   = document.getElementById('hadithText');
+      const s   = document.getElementById('hadithSource');
+      t.textContent = HADITHS[idx].text;
+      s.textContent = HADITHS[idx].src;
+      box.setAttribute('data-hadith-index', idx);
+    }
 
-    prevBtn.addEventListener('click',()=>{
-      currentMonth--; if(currentMonth<3) currentMonth=12;
-      renderCalendar(); showInfo(Math.min(selectedDay,30));
-    });
-    nextBtn.addEventListener('click',()=>{
-      currentMonth++; if(currentMonth>12) currentMonth=3;
-      renderCalendar(); showInfo(Math.min(selectedDay,30));
-    });
-
+    /* =================== تشغيل أولي =================== */
     (function init(){
-      pickTodayHijri();      // يضبط الشهر/اليوم على تاريخ فتح المتصفح إن كان ضمن 1447 هـ
+      pickTodayHijri();      // يضبط اليوم الحالي افتراضيًا
       renderCalendar();
       showInfo(selectedDay); // يُظهر التاريخ والحكم مباشرة
+      renderHadith();        // يعرض حديث الزيارة
     })();
   </script>
 </body>
