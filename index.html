@@ -1,116 +1,534 @@
-<!DOCTYPE html>
+<!doctype html>
+
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>الليالي المباركة للزواج - 1447 هـ</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo&family=Scheherazade&display=swap" rel="stylesheet">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>الليالي المباركة للعقد والزواج 1447 هـ (2025/2026) — إعداد وبرمجة: فاضل الريس</title>
+  <meta name="description" content="تقويم الأيام الصالحة والمباركة للعقد والزواج وفق المذهب الشيعي لعام 1447 هـ مع التاريخين الهجري والميلادي، تصميم فاخر مع وضع مظلم وبحث وانتقال لليوم." />
   <style>
-    body {
-      font-family: 'Cairo', sans-serif;
-      background: url('https://www.transparenttextures.com/patterns/arabesque.png') repeat;
-      margin: 0;
-      padding: 0;
-      color: #333;
+    :root{
+      --bg:#0b0f14;          /* خلفية داكنة فاخرة */
+      --card:#10151b;        /* بطاقات */
+      --text:#e9f0f7;        /* نص */
+      --muted:#9fb3c8;       /* نص ثانوي */
+      --gold:#cda434;        /* ذهب فاخر */
+      --emerald:#2bb673;     /* مباركة */
+      --teal:#27b0b0;        /* صالحة */
+      --crimson:#de425b;     /* مكروهة */
+      --shadow: 0 10px 30px rgba(0,0,0,.3);
+      --radius: 22px;
     }
-    header {
-      background-color: #002b36;
-      color: #fff;
-      padding: 20px;
-      text-align: center;
-      font-family: 'Scheherazade', serif;
-      font-size: 26px;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
-    }
-    .date-box {
-      background-color: #fff;
-      border: 2px solid #d4af37;
-      margin: 20px auto;
-      padding: 15px;
-      width: 90%;
-      text-align: center;
-      box-shadow: 0 0 10px #ccc;
-      border-radius: 10px;
-    }
-    .calendar {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 15px;
-      padding: 10px;
-    }
-    .day-card {
-      background-color: #fff;
-      border: 1px solid #d4af37;
-      border-radius: 10px;
-      width: 280px;
-      padding: 10px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-      transition: transform 0.3s ease;
-    }
-    .day-card:hover {
-      transform: scale(1.03);
-      cursor: pointer;
-    }
-    .day-card h3 {
-      margin: 0;
-      font-size: 20px;
-      color: #002b36;
-    }
-    .day-card p {
-      margin: 5px 0;
-      font-size: 16px;
-    }
-    footer {
-      background-color: #002b36;
-      color: #fff;
-      text-align: center;
-      padding: 15px;
-      font-size: 16px;
-      font-family: 'Scheherazade', serif;
-      margin-top: 30px;
-    }
-    @media (max-width: 600px) {
-      .day-card {
-        width: 90%;
-      }
-      header {
-        font-size: 22px;
-      }
-    }
+    .light{
+      --bg:#f6f7fb;
+      --card:#ffffff;
+      --text:#0b1320;
+      --muted:#50617a;
+      --shadow: 0 10px 25px rgba(10,35,60,.08);
+    }html,body{height:100%}
+body{
+  margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, "Noto Kufi Arabic", "Cairo", Tahoma, Arial, sans-serif;
+  background:
+    radial-gradient(1200px 800px at 90% -10%, rgba(205,164,52,.08), transparent 60%),
+    radial-gradient(900px 600px at -20% 110%, rgba(39,176,176,.08), transparent 60%),
+    var(--bg);
+  color:var(--text);
+}
+
+/* رأس الصفحة */
+header{
+  position:sticky; top:0; z-index:50;
+  backdrop-filter: blur(8px);
+  background: linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.00)), color-mix(in oklab, var(--bg) 85%, transparent);
+  border-bottom:1px solid color-mix(in oklab, var(--muted) 25%, transparent);
+}
+.container{max-width:1100px; margin-inline:auto; padding:14px 18px}
+.row{display:flex; align-items:center; justify-content:space-between; gap:12px}
+
+.brand{
+  display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--text);
+}
+.brand .logo{
+  width:42px; height:42px; border-radius:50%;
+  background: radial-gradient(circle at 30% 30%, var(--gold), #8a6a1c);
+  box-shadow: inset 0 0 18px rgba(255,255,255,.3), 0 4px 20px rgba(0,0,0,.25);
+  position:relative;
+}
+.brand .logo::before, .brand .logo::after{
+  content:""; position:absolute; inset:6px; border-radius:50%; border:2px solid rgba(255,255,255,.3);
+}
+h1.title{font-size:1.05rem; margin:0; line-height:1.25}
+h1.title .sub{display:block; font-weight:500; color:var(--muted); font-size:.86rem}
+
+nav.actions{display:flex; align-items:center; gap:8px}
+.btn{appearance:none; border:0; border-radius:14px; padding:10px 14px; cursor:pointer; font-weight:600; color:var(--text);
+  background: color-mix(in oklab, var(--card) 86%, black 10%);
+  box-shadow: var(--shadow); display:inline-flex; align-items:center; gap:8px
+}
+.btn:hover{transform: translateY(-1px)}
+
+/* بطاقة الساعة/التاريخ الفاخرة */
+.hero{padding:22px 18px}
+.panel{
+  position:relative; border-radius: var(--radius);
+  background:
+    radial-gradient(400px 120px at 90% 20%, rgba(205,164,52,.12), transparent),
+    linear-gradient(180deg, color-mix(in oklab, var(--card) 94%, black 4%), color-mix(in oklab, var(--card) 84%, black 8%));
+  border:1px solid color-mix(in oklab, var(--muted) 25%, transparent);
+  box-shadow: var(--shadow);
+  overflow:hidden
+}
+.panel .ornament{position:absolute; inset:0; pointer-events:none}
+.panel .ornament svg{position:absolute; width:120px; height:120px; opacity:.28}
+.panel .ornament svg.gold{color:var(--gold)}
+.panel .ornament .tl{top:-10px; right:-10px; transform:scaleX(-1)}
+.panel .ornament .br{bottom:-10px; left:-10px}
+
+.hero-grid{display:grid; grid-template-columns: 1.2fr .8fr; gap:18px; padding:18px}
+@media (max-width: 880px){ .hero-grid{grid-template-columns:1fr;}}
+
+.clock{
+  padding:22px; border-radius: calc(var(--radius) - 6px);
+  background: linear-gradient(140deg, rgba(205,164,52,.06), rgba(39,176,176,.06));
+  border:1px dashed color-mix(in oklab, var(--gold) 35%, transparent);
+}
+.clock .now{font-size:2.4rem; font-variant-numeric: tabular-nums; letter-spacing:.5px; font-weight:800}
+.clock .dateRow{margin-top:8px; display:grid; grid-template-columns:1fr 1fr; gap:10px}
+.clock .pill{border-radius:12px; padding:8px 12px; background: color-mix(in oklab, var(--card) 86%, black 8%); border:1px solid color-mix(in oklab, var(--muted) 25%, transparent)}
+.clock small{color:var(--muted)}
+
+.tools{display:flex; flex-wrap:wrap; gap:10px; align-items:center}
+.search{flex:1; display:flex; align-items:center; gap:8px; background: color-mix(in oklab, var(--card) 90%, black 6%); border:1px solid color-mix(in oklab, var(--muted) 25%, transparent); border-radius:12px; padding:10px 12px}
+.search input{flex:1; background:transparent; border:0; outline:0; color:var(--text); font-size:1rem}
+.seg{display:flex; gap:6px}
+.seg button{background:transparent; border:1px solid color-mix(in oklab, var(--muted) 30%, transparent); color:var(--muted); padding:8px 10px; border-radius:999px; cursor:pointer; font-weight:700}
+.seg button.active{color:var(--text); background: color-mix(in oklab, var(--card) 90%, black 6%)}
+
+/* شبكة الأيام */
+.months{padding:0 18px 18px}
+.chips{display:flex; gap:8px; overflow:auto; padding:4px 2px 12px}
+.chip{white-space:nowrap; border:1px solid color-mix(in oklab, var(--muted) 28%, transparent); padding:8px 12px; border-radius:999px; cursor:pointer; background: color-mix(in oklab, var(--card) 92%, black 4%)}
+.chip.active{background: linear-gradient(90deg, rgba(205,164,52,.2), transparent); border-color: color-mix(in oklab, var(--gold) 40%, var(--muted));}
+
+.grid{display:grid; grid-template-columns: repeat( auto-fill, minmax(260px, 1fr) ); gap:14px}
+.day-card{
+  border-radius:18px; border:1px solid color-mix(in oklab, var(--muted) 24%, transparent);
+  background: color-mix(in oklab, var(--card) 88%, black 8%);
+  box-shadow: var(--shadow); overflow:hidden
+}
+.day-head{display:flex; align-items:center; justify-content:space-between; gap:8px; padding:14px}
+.badge{padding:6px 10px; border-radius:999px; font-weight:800; font-size:.85rem; letter-spacing:.3px}
+.b-good{background: color-mix(in oklab, var(--emerald) 20%, transparent); color: var(--emerald); border:1px solid color-mix(in oklab, var(--emerald) 55%, transparent)}
+.b-safe{background: color-mix(in oklab, var(--teal) 18%, transparent); color: var(--teal); border:1px solid color-mix(in oklab, var(--teal) 55%, transparent)}
+.b-bad{ background: color-mix(in oklab, var(--crimson) 18%, transparent); color: var(--crimson); border:1px solid color-mix(in oklab, var(--crimson) 55%, transparent)}
+.day-body{padding:0 14px 12px; color:var(--muted)}
+.details{display:none; padding:10px 14px; border-top:1px dashed color-mix(in oklab, var(--muted) 28%, transparent)}
+.day-card.open .details{display:block}
+.kufi{font-family: "Noto Kufi Arabic", "Cairo", system-ui, sans-serif}
+.gold{color:var(--gold)}
+.muted{color:var(--muted)}
+
+.jump{display:flex; gap:10px; flex-wrap:wrap; align-items:center}
+.jump input[type="date"], .jump select{border-radius:10px; border:1px solid color-mix(in oklab, var(--muted) 30%, transparent); background: color-mix(in oklab, var(--card) 90%, black 6%); color:var(--text); padding:8px 10px}
+
+footer{margin-top:26px; padding:28px 18px; text-align:center; color:var(--muted)}
+footer .credit{font-weight:800; color:var(--text)}
+
+/* زر التمرير لليوم */
+.fab{position:fixed; inset-inline-start:16px; inset-block-end:18px; z-index:40}
+.fab button{border:0; border-radius:999px; padding:12px 16px; background:var(--gold); color:#1a1005; font-weight:800; box-shadow: 0 10px 25px rgba(205,164,52,.35); cursor:pointer}
+
+/* قائمة منسدلة بسيطة */
+.menu{position:relative}
+.menu-list{position:absolute; inset-inline-end:0; margin-top:8px; min-width:240px; background: color-mix(in oklab, var(--card) 92%, black 4%); border:1px solid color-mix(in oklab, var(--muted) 30%, transparent); border-radius:14px; padding:8px; display:none; box-shadow: var(--shadow)}
+.menu.open .menu-list{display:block}
+.menu a, .menu .menu-item{display:flex; align-items:center; gap:8px; padding:10px 12px; color:var(--text); text-decoration:none; border-radius:10px}
+.menu a:hover, .menu .menu-item:hover{background: color-mix(in oklab, var(--card) 90%, black 6%)}
+
+/* ملاحظة الشريعة */
+.note{padding:16px 18px; margin: 8px 0 18px; font-size:.95rem; line-height:1.8; color: var(--muted)}
+.note strong{color: var(--text)}
+
   </style>
 </head>
 <body>
-  <header>الليالي المباركة للعقد والزواج - 1447 هـ</header>
-
-  <div class="date-box">
-    <p>📅 التاريخ الهجري: 9 صفر 1447 هـ</p>
-    <p>📆 التاريخ الميلادي: 2 سبتمبر 2025</p>
-    <p>🕒 اليوم: الثلاثاء | الساعة: 1:52 مساءً</p>
-  </div>
-
-  <div class="calendar">
-    <div class="day-card" onclick="alert('ليلة صالحة للعقد والزواج')">
-      <h3>الثلاثاء</h3>
-      <p>9 صفر 1447 هـ</p>
-      <p>2 سبتمبر 2025</p>
-      <p>🌟 صالحة</p>
+  <header>
+    <div class="container">
+      <div class="row">
+        <a class="brand" href="#top" aria-label="الرئيسية">
+          <div class="logo" aria-hidden="true"></div>
+          <h1 class="title">
+            الليالي المباركة للعقد والزواج 1447 هـ
+            <span class="sub">بالتاريخ الميلادي لعام 2025 / 2026 — نمط فاخر مع وضع مظلم وبحث وانتقال لليوم</span>
+          </h1>
+        </a>
+        <nav class="actions">
+          <div class="menu" id="menu">
+            <button class="btn" aria-haspopup="true" aria-expanded="false" onclick="toggleMenu()">القائمة ▾</button>
+            <div class="menu-list" role="menu" aria-label="القائمة">
+              <button class="menu-item" onclick="toggleTheme()">🌙 الوضع المظلم / الفاتح</button>
+              <button class="menu-item" onclick="openImport()">📥 استيراد/تحديث البيانات</button>
+              <a class="menu-item" href="#about">ℹ️ حول التقويم</a>
+            </div>
+          </div>
+        </nav>
+      </div>
     </div>
-    <div class="day-card" onclick="alert('ليلة مكروهة')">
-      <h3>الأربعاء</h3>
-      <p>10 صفر 1447 هـ</p>
-      <p>3 سبتمبر 2025</p>
-      <p>⚠️ مكروهة</p>
-    </div>
-    <div class="day-card" onclick="alert('ليلة مباركة')">
-      <h3>الخميس</h3>
-      <p>11 صفر 1447 هـ</p>
-      <p>4 سبتمبر 2025</p>
-      <p>💫 مباركة</p>
-    </div>
-    <!-- أضف باقي الأيام بنفس التنسيق -->
-  </div>
+  </header>  <main id="top" class="container">
+    <section class="hero">
+      <div class="panel">
+        <div class="ornament">
+          <!-- زخارف بسيطة -->
+          <svg class="gold tl" viewBox="0 0 100 100" fill="currentColor" aria-hidden="true"><path d="M50 4c12 12 30 16 46 12-4 16 0 34 12 46-12 12-16 30-12 46-16-4-34 0-46 12-12-12-30-16-46-12 4-16 0-34-12-46 12-12 16-30 12-46 16 4 34 0 46-12Z"/></svg>
+          <svg class="gold br" viewBox="0 0 100 100" fill="currentColor" aria-hidden="true"><path d="M50 4c12 12 30 16 46 12-4 16 0 34 12 46-12 12-16 30-12 46-16-4-34 0-46 12-12-12-30-16-46-12 4-16 0-34-12-46 12-12 16-30 12-46 16 4 34 0 46-12Z"/></svg>
+        </div>
+        <div class="hero-grid">
+          <div class="clock" aria-live="polite">
+            <div class="now" id="timeNow">--:--:--</div>
+            <div class="dateRow">
+              <div class="pill"><strong>اليوم:</strong> <span id="weekday">—</span></div>
+              <div class="pill"><strong>الوضع:</strong> <span id="themeName">—</span></div>
+            </div>
+            <div class="dateRow" style="margin-top:10px">
+              <div class="pill"><small>التاريخ الميلادي</small><br><span id="gregToday">—</span></div>
+              <div class="pill"><small>التاريخ الهجري (أم القرى)</small><br><span id="hijriToday">—</span></div>
+            </div>
+          </div>
+          <div class="tools">
+            <label class="search" style="flex:1" aria-label="بحث">
+              🔎
+              <input id="q" type="search" placeholder="ابحث باليوم أو الشهر أو الحالة أو الملاحظة… (مثال: مباركة، صالحة، مكروهة، استشهاد)" oninput="render()"/>
+            </label>
+            <div class="seg" role="tablist" aria-label="تصفية">
+              <button class="active" data-state="all" onclick="setFilter(this)">الكل</button>
+              <button data-state="good" onclick="setFilter(this)">مباركة</button>
+              <button data-state="safe" onclick="setFilter(this)">صالحة</button>
+              <button data-state="bad" onclick="setFilter(this)">مكروهة</button>
+            </div>
+          </div>
+          <div class="tools" style="grid-column:1/-1">
+            <div class="jump">
+              <label>انتقال للتاريخ (ميلادي): <input type="date" id="jumpGreg" onchange="jumpToGreg()"/></label>
+              <label>انتقال للهجري: 
+                <select id="jumpMonth"></select>
+                <select id="jumpDay"></select>
+                <button class="btn" onclick="jumpToHijri()">اذهب</button>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section><section class="note">
+  <strong>تنبيه شرعي وتنظيمي:</strong> قد تختلف الليالي المباركة والصالحة للعقد والزواج باختلاف ثبوت الهلال الشرعي لكل شهر.
+  عليه يُستحب دفع الصدقة بنية التوفيق ودفع البلاء. يبدأ <strong>اليوم الشرعي من الغروب حتى غروب اليوم التالي</strong>؛ فالليلة تابعة لليوم الذي يليها (كليلة الأحد تتبع يوم الأحد).
+</section>
 
-  <footer>إعداد وبرمجة فاضل الريس</footer>
-</body>
+<section class="months">
+  <div class="chips" id="monthChips"></div>
+  <div class="grid" id="grid"></div>
+</section>
+
+<footer id="about">
+  <div>هذا الموقع مستقل، ولا يذكر أسماء أشخاص. جميع البيانات قابلة للتحديث عند اختلاف الأهلة.</div>
+  <div class="credit">إعداد وبرمجة: فاضل الريس</div>
+</footer>
+
+  </main>  <div class="fab"><button onclick="scrollToToday()">اليوم ⤴</button></div>  <!-- نافذة الاستيراد -->  <dialog id="importer" style="max-width:900px; width:92%; border:1px solid color-mix(in oklab, var(--muted) 30%, transparent); border-radius:18px; background: color-mix(in oklab, var(--card) 96%, black 2%); color:var(--text); padding:0;">
+    <form method="dialog">
+      <div style="display:flex; align-items:center; justify-content:space-between; padding:14px 16px; border-bottom:1px solid color-mix(in oklab, var(--muted) 25%, transparent)">
+        <strong>📥 استيراد/تحديث البيانات (ألصق النص كما في رسالتك)</strong>
+        <button class="btn">إغلاق</button>
+      </div>
+      <div style="padding:12px 16px; display:grid; gap:10px">
+        <p class="muted">انسخ شهراً شهراً بصيغته مثل: <em>ربيع الأول 1447 هـ</em> ثم أسطر الأيام بالأعمدة: <code>الهجري الميلادي_اليوم_الشهر اليوم(اسم) الحالة[مباركة/صالحة/مكروهة] [ملاحظات اختيارية]</code> — مثال في الأسفل.</p>
+        <textarea id="raw" dir="rtl" style="width:100%; min-height:260px; border-radius:12px; border:1px solid color-mix(in oklab, var(--muted) 30%, transparent); background: color-mix(in oklab, var(--card) 92%, black 4%); color:var(--text); padding:10px; line-height:1.9" placeholder="مثال:
+ربيع الأول 1447 هـ
+1 25 8 الإثنين مباركة
+2 26 8 الثلاثاء مباركة
+..."></textarea>
+        <div style="display:flex; gap:10px; align-items:center; justify-content:space-between">
+          <button type="button" class="btn" onclick="parseAndMerge()">استيراد الآن</button>
+          <small class="muted">لا تُذكر أي أسماء أشخاص. يمكنك الاستيراد عدة مرات وسيجري الدمج تلقائياً.</small>
+        </div>
+      </div>
+    </form>
+  </dialog>  <script>
+    // ———————————————————————— إعدادات عامة ————————————————————————
+    const $ = sel => document.querySelector(sel);
+    const $$ = sel => Array.from(document.querySelectorAll(sel));
+
+    const state = {
+      theme: localStorage.getItem('theme') || 'dark',
+      filter: 'all',
+      query: '',
+      months: new Map(), // name -> [{h, gm, gd, gy, dow, status, note}]
+      order: [],         // ordered month names
+    };
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // Theme
+      if(state.theme === 'light') document.body.classList.add('light');
+      updateThemeName();
+
+      // Example seed data (شهران كنموذج — يمكنك استيراد بقية الشهور من مربع الاستيراد)
+      seedExample();
+
+      // Populate jump selects
+      buildJumpSelectors();
+
+      // Render
+      render();
+
+      // Clock
+      tick(); setInterval(tick, 1000);
+
+      // Close menu on outside click
+      document.addEventListener('click', (e)=>{ if(!e.target.closest('#menu')) $('#menu').classList.remove('open'); })
+    });
+
+    function toggleMenu(){ const m=$('#menu'); m.classList.toggle('open'); m.querySelector('button').setAttribute('aria-expanded', m.classList.contains('open')); }
+
+    function toggleTheme(){
+      document.body.classList.toggle('light');
+      state.theme = document.body.classList.contains('light') ? 'light' : 'dark';
+      localStorage.setItem('theme', state.theme);
+      updateThemeName();
+    }
+    function updateThemeName(){ $('#themeName').textContent = (state.theme==='light'?'فاتح':'مظلم'); }
+
+    function arDigits(n){ return n.toLocaleString('ar-SA'); }
+
+    function tick(){
+      const now = new Date();
+      $('#timeNow').textContent = now.toLocaleTimeString('ar-SA',{hour12:false});
+      $('#weekday').textContent = now.toLocaleDateString('ar-SA',{weekday:'long'});
+      $('#gregToday').textContent = now.toLocaleDateString('ar-SA',{year:'numeric', month:'long', day:'numeric'});
+      try{
+        const fmt = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura',{year:'numeric', month:'long', day:'numeric'});
+        $('#hijriToday').textContent = fmt.format(now);
+      }catch(err){
+        try{
+          const fmt2 = new Intl.DateTimeFormat('ar-SA-u-ca-islamic',{year:'numeric', month:'long', day:'numeric'});
+          $('#hijriToday').textContent = fmt2.format(now);
+        }catch{
+          $('#hijriToday').textContent = 'التقويم الهجري غير مدعوم في هذا المتصفح';
+        }
+      }
+    }
+
+    // ———————————————————————— البيانات والعرض ————————————————————————
+    const STATUS_MAP = { 'مباركة':'good', 'صالحة':'safe', 'مكروهة':'bad' };
+
+    function seedExample(){
+      // مثال: ربيع الأول + ربيع الثاني فقط كبداية
+      const rabi1 = `
+1 25 8 الإثنين مباركة
+2 26 8 الثلاثاء مباركة
+3 27 8 الأربعاء مكروهة
+4 28 8 الخميس مكروهة
+5 29 8 الجمعة مكروهة
+6 30 8 السبت مباركة
+7 31 8 الأحد مباركة
+8 1 9 الإثنين مكروهة استشهاد الإمام العسكري عليه السلام
+9 2 9 الثلاثاء صالحة
+10 3 9 الأربعاء مكروهة
+11 4 9 الخميس صالحة
+12 5 9 الجمعة مباركة
+13 6 9 السبت مكروهة
+14 7 9 الأحد صالحة
+15 8 9 الإثنين صالحة
+16 9 9 الثلاثاء مكروهة
+17 10 9 الأربعاء مكروهة
+18 11 9 الخميس مباركة
+19 12 9 الجمعة مباركة
+20 13 9 السبت مباركة
+21 14 9 الأحد مكروهة
+22 15 9 الإثنين صالحة
+23 16 9 الثلاثاء مباركة
+24 17 9 الأربعاء مكروهة
+25 18 9 الخميس مكروهة
+26 19 9 الجمعة مكروهة
+27 20 9 السبت مباركة
+28 21 9 الأحد مباركة
+29 22 9 الإثنين مكروهة
+30 23 9 الثلاثاء مباركة`;
+
+      const rabi2 = `
+1 24 9 الأربعاء مكروهة
+2 25 9 الخميس مباركة
+3 26 9 الجمعة مكروهة
+4 27 9 السبت مباركة
+5 28 9 الأحد مكروهة
+6 29 9 الإثنين مباركة
+7 30 9 الثلاثاء مباركة
+8 1 10 الأربعاء مكروهة
+9 2 10 الخميس صالحة
+10 3 10 الجمعة صالحة
+11 4 10 السبت صالحة
+12 5 10 الأحد مباركة
+13 6 10 الإثنين مكروهة استشهاد السيدة فاطمة الزهراء عليها السلام
+14 7 10 الثلاثاء صالحة
+15 8 10 الأربعاء مكروهة
+16 9 10 الخميس مكروهة
+17 10 10 الجمعة مباركة
+18 11 10 السبت مكروهة
+19 12 10 الأحد مباركة
+20 13 10 الإثنين مباركة
+21 14 10 الثلاثاء مكروهة
+22 15 10 الأربعاء مكروهة
+23 16 10 الخميس مباركة
+24 17 10 الجمعة مكروهة
+25 18 10 السبت مكروهة
+26 19 10 الأحد مكروهة
+27 20 10 الإثنين مباركة
+28 21 10 الثلاثاء مباركة
+29 22 10 الأربعاء مكروهة
+30 23 10 الخميس مباركة`;
+
+      addMonth('ربيع الأول 1447 هـ', rabi1);
+      addMonth('ربيع الثاني 1447 هـ', rabi2);
+
+      // ملاحظة: استخدم زر "استيراد/تحديث البيانات" للصق بقية الشهور كما في رسالتك وسيتم تحويلها تلقائياً.
+    }
+
+    function addMonth(name, rawLines){
+      // يحوّل سطور الشهر إلى كائنات يومية
+      const lines = rawLines.trim().split(/\n+/);
+      const arr = [];
+      for(const line of lines){
+        const parts = line.trim().split(/\s+/);
+        if(parts.length < 5) continue;
+        const h = parseInt(parts[0],10);
+        const gd = parseInt(parts[1],10);
+        const gm = parseInt(parts[2],10);
+        const dow = parts[3];
+        const status = parts[4];
+        const note = parts.slice(5).join(' ');
+        const gy = (gm>=8?2025:2026); // 8-12 -> 2025, 1-6 -> 2026
+        arr.push({h, gd, gm, gy, dow, status, kind: STATUS_MAP[status]||'unknown', note});
+      }
+      state.months.set(name, arr);
+      if(!state.order.includes(name)) state.order.push(name);
+    }
+
+    function buildJumpSelectors(){
+      const mSel = $('#jumpMonth'); mSel.innerHTML = '';
+      for(const name of state.order){
+        const o = document.createElement('option'); o.value = name; o.textContent = name; mSel.appendChild(o);
+      }
+      const dSel = $('#jumpDay'); dSel.innerHTML = '';
+      for(let d=1; d<=30; d++){ const o = document.createElement('option'); o.value=d; o.textContent = arDigits(d); dSel.appendChild(o); }
+    }
+
+    function setFilter(btn){ $$('.seg button').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); state.filter = btn.dataset.state; render(); }
+
+    function render(){
+      state.query = $('#q').value?.trim();
+
+      // رقاقة الأشهر
+      const chips = $('#monthChips'); chips.innerHTML = '';
+      state.order.forEach((name,idx)=>{
+        const ch = document.createElement('button'); ch.className = 'chip'+(idx===0?' active':''); ch.textContent = name; ch.onclick=()=>{ $$('.chip').forEach(c=>c.classList.remove('active')); ch.classList.add('active'); showMonth(name); };
+        chips.appendChild(ch);
+      });
+      // إظهار أول شهر افتراضياً
+      if(state.order.length){ showMonth(state.order[0]); }
+    }
+
+    function showMonth(name){
+      const grid = $('#grid'); grid.innerHTML='';
+      const q = state.query;
+      const filter = state.filter;
+      const items = (state.months.get(name)||[]).filter(d=>{
+        let ok = true;
+        if(filter!=='all') ok = d.kind===filter;
+        if(ok && q){
+          const blob = `${name} ${d.h} ${d.dow} ${d.status} ${d.note} ${d.gd}/${d.gm}/${d.gy}`;
+          ok = blob.includes(q);
+        }
+        return ok;
+      });
+
+      for(const d of items){
+        const card = document.createElement('article'); card.className='day-card'; card.id = `m-${encodeURIComponent(name)}-d-${d.h}`;
+        const badgeClass = d.kind==='good'?'b-good': d.kind==='safe'?'b-safe': d.kind==='bad'?'b-bad':'b-safe';
+        card.innerHTML = `
+          <div class="day-head">
+            <div>
+              <div class="kufi" style="font-weight:900; font-size:1.05rem">اليوم ${arDigits(d.h)} — <span class="gold">${name}</span></div>
+              <div class="muted">${d.dow} • ${arDigits(d.gd)} / ${arDigits(d.gm)} / ${arDigits(d.gy)}</div>
+            </div>
+            <div class="badge ${badgeClass}">${d.status}</div>
+          </div>
+          <div class="day-body">
+            <div class="muted">اضغط لعرض التفاصيل (من الغروب إلى الغروب)</div>
+          </div>
+          <div class="details">${d.note?`📌 ${d.note}`:'—'}</div>
+        `;
+        card.addEventListener('click', ()=> card.classList.toggle('open'));
+        grid.appendChild(card);
+      }
+    }
+
+    function scrollToToday(){
+      // نحاول إيجاد بطاقة اليوم الميلادي (إن وُجدت في البيانات)
+      const now = new Date();
+      const gd = now.getDate();
+      const gm = now.getMonth()+1;
+      const gy = now.getFullYear();
+      for(const month of state.order){
+        const arr = state.months.get(month)||[];
+        const hit = arr.find(x=>x.gd===gd && x.gm===gm && x.gy===gy);
+        if(hit){
+          // افتح الشهر المعروض
+          $$('.chip').forEach(c=>{ if(c.textContent===month){ c.click(); }});
+          setTimeout(()=>{
+            const el = document.getElementById(`m-${encodeURIComponent(month)}-d-${hit.h}`);
+            if(el){ el.classList.add('open'); el.scrollIntoView({behavior:'smooth', block:'center'}); }
+          }, 50);
+          return;
+        }
+      }
+      alert('اليوم الحالي غير موجود ضمن البيانات الحالية. يرجى استيراد بقية الشهور.');
+    }
+
+    function jumpToGreg(){
+      const v = $('#jumpGreg').value; if(!v) return;
+      const dt = new Date(v);
+      const gd = dt.getDate(); const gm = dt.getMonth()+1; const gy = dt.getFullYear();
+      for(const month of state.order){
+        const arr = state.months.get(month)||[];
+        const hit = arr.find(x=>x.gd===gd && x.gm===gm && x.gy===gy);
+        if(hit){ $$('.chip').forEach(c=>{ if(c.textContent===month){ c.click(); }}); setTimeout(()=>{ document.getElementById(`m-${encodeURIComponent(month)}-d-${hit.h}`).scrollIntoView({behavior:'smooth', block:'center'}); }, 60); return; }
+      }
+      alert('لم يُعثر على هذا التاريخ في البيانات.');
+    }
+
+    function jumpToHijri(){
+      const m = $('#jumpMonth').value; const d = parseInt($('#jumpDay').value,10);
+      if(!m || !d) return;
+      $$('.chip').forEach(c=>{ if(c.textContent===m){ c.click(); }});
+      setTimeout(()=>{ const el = document.getElementById(`m-${encodeURIComponent(m)}-d-${d}`); if(el){ el.scrollIntoView({behavior:'smooth', block:'center'}); el.classList.add('open'); } }, 60);
+    }
+
+    function openImport(){ $('#importer').showModal(); $('#raw').focus(); }
+
+    function parseAndMerge(){
+      const raw = $('#raw').value; if(!raw.trim()){ alert('الرجاء لصق نص الجداول أولاً.'); return; }
+      // نفكك النص إلى كتل لكل شهر، على أساس سطر يحتوي اسم شهر متبوعاً بـ 1447 هـ
+      const lines = raw.split(/\n+/).map(s=>s.trim()).filter(Boolean);
+      let currentName = null; let buffer = [];
+      const flush = ()=>{ if(currentName && buffer.length){ addMonth(currentName, buffer.join('\n')); currentName=null; buffer=[]; } };
+      for(const ln of lines){
+        const isMonth = /(محرم|صفر|ربيع\s*الأول|ربيع\s*الثاني|جمادى\s*الأولى|جمادى\s*الآخرة|جمادى\s*الثاني|رجب|شعبان|رمضان|شوال|ذو\s*القعدة|ذو\s*الحجة)\s*1447\s*هـ/.test(ln);
+        if(isMonth){ flush(); currentName = ln.replace(/\s+/g,' ').trim(); continue; }
+        // وإلا فهو سطر يوم
+        if(/^[0-9]{1,2}\s+[0-9]{1,2}\s+[0-9]{1,2}\s+/.test(ln)) buffer.push(ln);
+      }
+      flush();
+      buildJumpSelectors();
+      render();
+      $('#importer').close();
+    }
+  </script></body>
 </html>
