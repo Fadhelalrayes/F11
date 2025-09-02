@@ -1,327 +1,220 @@
 <!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>الأيام الصالحة – 1447هـ</title>
 <style>
   :root{
-    --bg:#fffdf8; --card:#ffffff; --ink:#171513; --muted:#7c756c; --line:#eee4d3;
-    --gold:#caa74c; --gold2:#e7d8ae; --good:#0a8a61; --blessed:#caa74c; --bad:#c33b3b; --focus:#5b7dff;
-    --radius:16px; --shadow:0 10px 24px #00000012;
-    --ctl-h:44px;
+    --bg:#fffdf8; --ink:#191714; --muted:#7b746c; --line:#ece2cf;
+    --gold:#caa74c; --gold-ink:#5a4916; --good:#0a8a61; --bad:#c33b3b;
+    --radius:14px; --h:42px;
   }
-
-  /* Reset صغير */
   *,*::before,*::after{box-sizing:border-box}
-  html,body{height:100%}
-  body{
-    margin:0; background:linear-gradient(180deg,#fffdf8 0%,#fff9ef 100%);
-    color:var(--ink);
-    font-family:"Noto Naskh Arabic","Amiri","Scheherazade New",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
-  }
-  button,input,select{font:inherit;color:inherit}
+  body{margin:0;background:var(--bg);color:var(--ink);
+       font-family:"Noto Naskh Arabic","Amiri","Scheherazade New",system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+  .wrap{max-width:760px;margin-inline:auto;padding:14px}
 
-  .container{max-width:900px;margin-inline:auto;padding:18px}
+  /* رأس بسيط وخفيف */
+  header{display:flex;justify-content:center;margin-bottom:10px}
+  .title{padding:10px 16px;border:1px solid var(--line);border-radius:16px}
+  .title h1{margin:0;font-size:1.08rem;letter-spacing:.2px}
 
-  /* رأس فاخر */
-  header{
-    position:relative; text-align:center; margin-bottom:16px;
-  }
-  .frame{
-    display:inline-block; padding:14px 22px; border-radius:22px;
-    background:
-      linear-gradient(#fff,#fff) padding-box,
-      linear-gradient(135deg,#f5e9c9,#e3d19a,#caa74c,#f5e9c9) border-box;
-    border:1.5px solid transparent; box-shadow:var(--shadow);
-  }
-  header h1{margin:0;font-size:1.25rem; letter-spacing:.2px}
-  .flourish{
-    width:160px;height:4px;margin:10px auto 0;border-radius:999px;
-    background:linear-gradient(90deg,#f5e4bd,#e9d08e,#caa74c,#f5e4bd);
-  }
+  /* بطاقة اليوم – بلا ظلال */
+  .card{border:1px solid var(--line);border-radius:var(--radius);background:#fff}
+  .pad{padding:12px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .tile{border:1px solid var(--line);border-radius:10px;padding:10px}
+  .tile h3{margin:0 0 6px;color:var(--muted);font-size:.88rem}
+  .tile p{margin:0;font-weight:800}
 
-  /* بطاقة اليوم */
-  .card{
-    background:var(--card);
-    border:1px solid var(--line);
-    border-radius:var(--radius);
-    box-shadow:var(--shadow);
-  }
-  .pad{padding:16px}
-
-  .today{
-    display:grid; gap:12px;
-    background:linear-gradient(180deg,#fff,#fffdf7);
-  }
-  .today-head{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-  .tile{border:1px solid var(--line);border-radius:12px;padding:12px;background:#fff}
-  .tile h3{margin:0 0 6px;color:var(--muted);font-size:.9rem}
-  .tile p{margin:0;font-size:1.08rem;font-weight:800}
-
-  /* التحكم: 4 عناصر بالعرض */
-  .controls{
-    display:grid; grid-template-columns:repeat(4,1fr); gap:10px; align-items:center;
-  }
-  .btn{
-    appearance:none;-webkit-appearance:none; cursor:pointer;
-    height:var(--ctl-h); border-radius:12px; border:1px solid var(--line); background:#fff;
-    transition:transform .05s ease, box-shadow .15s ease;
-  }
-  .btn.primary{background:linear-gradient(180deg,#fffdf2,#fff); border-color:#eadfbf}
+  /* أزرار احترافية خفيفة */
+  .controls{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;align-items:center;margin-top:8px}
+  .btn{height:var(--h);border-radius:12px;border:1px solid var(--gold);background:#fff;color:var(--gold-ink);cursor:pointer}
+  .btn:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
   .btn:active{transform:translateY(1px)}
-  .btn:focus-visible{outline:2px solid var(--focus); outline-offset:2px}
+  .btn-solid{background:var(--gold);color:#fff;border-color:var(--gold)}
+  .datebox{height:var(--h);border:1px solid var(--line);border-radius:12px;background:#fff;padding-inline:8px;display:flex;align-items:center}
+  .datebox input{appearance:none;-webkit-appearance:none;border:0;background:transparent;outline:0;width:100%;height:calc(var(--h) - 10px)}
 
-  .date-input{
-    height:var(--ctl-h); border:1px solid var(--line); border-radius:12px; background:#fff;
-    display:flex; align-items:center; padding-inline:10px;
-  }
-  .date-input input{appearance:none;-webkit-appearance:none;border:0;background:transparent;outline:0;height:calc(var(--ctl-h) - 10px);width:100%}
-  .date-input input:focus-visible{outline:2px solid var(--focus);outline-offset:2px;border-radius:8px}
+  /* شارة حالة اليوم */
+  .badges{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+  .badge{border:1px solid var(--line);border-radius:999px;padding:4px 10px;font-weight:800;background:#fff}
+  .b{color:#5a4916;border-color:#e9dcae;background:#fff8dc}
+  .g{color:#07563e;border-color:#cce8dd;background:#eef9f4}
+  .d{color:#7a1a1a;border-color:#ffd5d5;background:#ffeeee}
 
-  /* وسوم الحالة */
-  .legend{display:flex;gap:8px;flex-wrap:wrap}
-  .chip{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:#fff}
-  .dot{width:10px;height:10px;border-radius:50%}
-  .dot.b{background:var(--blessed)} .dot.g{background:var(--good)} .dot.d{background:var(--bad)}
+  .note{margin-top:6px;color:#3c3833}
 
-  .note{margin-top:6px;color:#3e3a35}
+  /* تخطيط الجدول العمودي الخفيف */
+  .section{display:grid;grid-template-columns:1fr auto;gap:10px;margin-top:10px}
+  .vnav{display:flex;flex-direction:column;gap:8px}
+  .vnav .btn{width:128px}
 
-  /* تخطيط القسم السفلي: جدول عمودي + تنقل شهري عمودي */
-  .layout{
-    display:grid; grid-template-columns: 1fr 130px; gap:12px; align-items:start; margin-top:14px;
-  }
-  .vnav{
-    display:flex; flex-direction:column; gap:10px; position:sticky; top:10px;
-  }
-  .vnav .btn{height:48px; font-weight:700}
-
-  /* الجدول العمودي */
-  .table-wrap{overflow:auto; border-radius:14px; border:1px solid var(--line); background:#fff}
-  table{width:100%; border-collapse:separate; border-spacing:0}
-  thead th{
-    position:sticky; top:0; background:linear-gradient(180deg,#fffdf2,#fff);
-    text-align:center; padding:12px 10px; font-weight:800; color:#5a544c; border-bottom:1px solid var(--line);
-  }
-  tbody td{
-    text-align:center; padding:12px 10px; border-bottom:1px dashed var(--line);
-  }
+  .tbl{border:1px solid var(--line);border-radius:12px;background:#fff;overflow:auto}
+  table{width:100%;border-collapse:collapse}
+  th,td{padding:10px;border-bottom:1px solid var(--line);text-align:center}
+  thead th{color:#5b544c;font-weight:800;background:#fff}
   tbody tr{cursor:pointer}
-  tbody tr:hover{background:#fff9ed}
-  tbody tr.selected{box-shadow:inset 0 0 0 2px #e7d8ae}
-  .tag{display:inline-block; padding:4px 10px; border-radius:999px; font-weight:800; border:1px solid var(--line)}
-  .tag.b{background:#fff7df; color:#5b4300; border-color:#f0dea7}
-  .tag.g{background:#edfbf4; color:#07563e; border-color:#cbeee2}
-  .tag.d{background:#ffeeee; color:#7a1a1a; border-color:#ffd6d6}
+  tbody tr:hover{background:#fffaf0}
+  tbody tr.sel{outline:2px solid #e7d8ae}
+  .tag{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:3px 10px;font-weight:800}
+  .tag.b{background:#fff8dc;border-color:#ecdca6;color:#5a4916}
+  .tag.g{background:#eef9f4;border-color:#cce8dd;color:#07563e}
+  .tag.d{background:#ffeeee;border-color:#ffd5d5;color:#7a1a1a}
 
-  /* عنوان الشهر */
-  .month-title{
-    font-weight:900; font-size:1.05rem; margin:0 0 8px; color:#3b352e;
-  }
-  .title-frame{
-    display:inline-block; padding:6px 14px; border-radius:14px;
-    background:
-      linear-gradient(#fff,#fff) padding-box,
-      linear-gradient(90deg,#f5e4bd,#e9d08e,#caa74c,#f5e4bd) border-box;
-    border:1px solid transparent;
-  }
-
-  footer{margin:18px 0 8px;text-align:center;color:#7a746c}
-  .sig{display:inline-flex;gap:6px;padding:8px 14px;border-radius:999px;background:#ffffffcf;border:1px solid var(--line)}
-
-  @media (max-width:720px){
-    .today-head{grid-template-columns:1fr}
+  footer{margin:14px 0 6px;text-align:center;color:#7a746c}
+  .sig{display:inline-flex;gap:6px;border:1px solid var(--line);border-radius:999px;padding:6px 12px;background:#fff}
+  @media (max-width:640px){
+    .grid2{grid-template-columns:1fr}
     .controls{grid-template-columns:1fr 1fr}
-    .layout{grid-template-columns:1fr}
-    .vnav{position:static;flex-direction:row}
+    .section{grid-template-columns:1fr}
+    .vnav{flex-direction:row}
   }
 </style>
 </head>
 <body>
-  <div class="container" id="app">
-    <header>
-      <div class="frame"><h1>الأيام الصالحة للعقد والزواج – 1447هـ</h1></div>
-      <div class="flourish"></div>
-    </header>
+<div class="wrap">
+  <header><div class="title"><h1>الأيام الصالحة للعقد والزواج – 1447هـ</h1></div></header>
 
-    <!-- بطاقة اليوم -->
-    <section class="card pad today">
-      <div class="today-head">
-        <div class="tile"><h3>التاريخ الهجري</h3><p id="hijriStr">-</p></div>
-        <div class="tile"><h3>التاريخ الميلادي</h3><p id="gregStr">-</p></div>
-        <div class="tile"><h3>اليوم</h3><p id="weekday">-</p></div>
-        <div class="tile"><h3>الساعة الآن</h3><p id="clock">--:--:--</p></div>
+  <!-- بطاقة اليوم -->
+  <section class="card pad">
+    <div class="grid2">
+      <div class="tile"><h3>التاريخ الهجري</h3><p id="hijriStr">-</p></div>
+      <div class="tile"><h3>التاريخ الميلادي</h3><p id="gregStr">-</p></div>
+      <div class="tile"><h3>اليوم</h3><p id="weekday">-</p></div>
+      <div class="tile"><h3>الساعة الآن</h3><p id="clock">--:--:--</p></div>
+    </div>
+
+    <!-- 4 عناصر بالعرض -->
+    <div class="controls">
+      <button class="btn btn-solid" id="goToday" type="button">اليوم</button>
+      <button class="btn" id="prevDay" type="button">السابق</button>
+      <button class="btn" id="nextDay" type="button">التالي</button>
+      <label class="datebox"><input id="datePicker" type="date"></label>
+    </div>
+
+    <div class="badges">
+      <span class="badge b">مباركة</span>
+      <span class="badge g">صالحة</span>
+      <span class="badge d">مكروهة</span>
+    </div>
+
+    <div class="note" id="rulingText">اختر تاريخًا لعرض الحكم.</div>
+    <div class="note" id="notesText"></div>
+  </section>
+
+  <!-- جدول عمودي خفيف -->
+  <section class="section">
+    <div>
+      <div style="font-weight:900;margin:8px 0" id="monthTitle">الشهر 1447هـ</div>
+      <div class="tbl">
+        <table>
+          <thead>
+            <tr><th>هـ</th><th>الحكم</th><th>ملاحظات</th></tr>
+          </thead>
+          <tbody id="monthRows"></tbody>
+        </table>
       </div>
+    </div>
+    <div class="vnav">
+      <button class="btn" id="prevMonth" type="button">الشهر السابق</button>
+      <button class="btn" id="nextMonth" type="button">الشهر التالي</button>
+    </div>
+  </section>
 
-      <!-- أربع عناصر بالعرض -->
-      <div class="controls">
-        <button class="btn primary" id="goToday" type="button">اليوم</button>
-        <button class="btn" id="prevDay" type="button">السابق</button>
-        <button class="btn" id="nextDay" type="button">التالي</button>
-        <label class="date-input"><input id="datePicker" type="date" /></label>
-      </div>
-
-      <div class="legend">
-        <span class="chip"><span class="dot b"></span> مباركة</span>
-        <span class="chip"><span class="dot g"></span> صالحة</span>
-        <span class="chip"><span class="dot d"></span> مكروهة</span>
-      </div>
-
-      <div class="note" id="rulingText">اختر تاريخًا لعرض الحكم.</div>
-      <div class="note" id="notesText"></div>
-    </section>
-
-    <!-- جدول عمودي + تنقّل شهري عمودي -->
-    <section class="layout" style="margin-top:14px">
-      <div>
-        <div class="month-title"><span class="title-frame" id="monthTitle">الشهر 1447هـ</span></div>
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>هـ</th>
-                <th>م</th>
-                <th>اليوم</th>
-                <th>الحكم</th>
-                <th>ملاحظات</th>
-              </tr>
-            </thead>
-            <tbody id="monthRows"></tbody>
-          </table>
-        </div>
-      </div>
-      <div class="vnav">
-        <button class="btn" id="prevMonth" type="button">الشهر السابق</button>
-        <button class="btn" id="nextMonth" type="button">الشهر التالي</button>
-      </div>
-    </section>
-
-    <footer><div class="sig">إعداد وبرمجة: <strong>فاضل الريس</strong></div></footer>
-  </div>
+  <footer><div class="sig">إعداد وبرمجة: <strong>فاضل الريس</strong></div></footer>
+</div>
 
 <script>
-  /* المنطقة الزمنية */
+  /* ========== تهيئة خفيفة جدًا ========== */
   const TZ='Asia/Bahrain';
+
+  // مُهيئات Intl مُخزّنة (لا تُنشأ في كل مرة)
+  const fmtClock   = new Intl.DateTimeFormat('ar',{timeZone:TZ,hour:'2-digit',minute:'2-digit',second:'2-digit'});
+  const fmtWk      = new Intl.DateTimeFormat('ar',{timeZone:TZ,weekday:'long'});
+  const fmtGreg    = new Intl.DateTimeFormat('ar',{timeZone:TZ,day:'numeric',month:'long',year:'numeric'});
+  const fmtH_y     = new Intl.DateTimeFormat('en-u-ca-islamic-umalqura',{timeZone:TZ,year:'numeric'});
+  const fmtH_m     = new Intl.DateTimeFormat('en-u-ca-islamic-umalqura',{timeZone:TZ,month:'numeric'});
+  const fmtH_d     = new Intl.DateTimeFormat('en-u-ca-islamic-umalqura',{timeZone:TZ,day:'numeric'});
+  const fmtH_mName = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura',{timeZone:TZ,month:'long'});
+
   function nowBH(){
     const f=new Intl.DateTimeFormat('en-CA',{timeZone:TZ,year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false});
     const p=Object.fromEntries(f.formatToParts(new Date()).map(x=>[x.type,x.value]));
     return new Date(`${p.year}-${p.month}-${p.day}T${p.hour}:${p.minute}:${p.second}`);
   }
-  function clock(d){ return new Intl.DateTimeFormat('ar',{timeZone:TZ,hour:'2-digit',minute:'2-digit',second:'2-digit'}).format(d); }
+  function H(d){
+    const y=+fmtH_y.format(d), m=+fmtH_m.format(d), day=+fmtH_d.format(d);
+    const mn=fmtH_mName.format(d), wk=fmtWk.format(d);
+    return {y,m,d:day,monthName:mn,weekday:wk,str:`${day} ${mn} ${y}هـ`};
+  }
+  function G(d){ return {str:fmtGreg.format(d),weekday:fmtWk.format(d)}; }
 
-  /* أم القرى (يوافق الصايغ) إن توفر */
-  const hasUmmAlQura=(()=>{try{new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura').format(new Date());return true;}catch{return false;}})();
-  function hijriIntl(d){
-    const y=+new Intl.DateTimeFormat('en-u-ca-islamic-umalqura',{timeZone:TZ,year:'numeric'}).format(d);
-    const m=+new Intl.DateTimeFormat('en-u-ca-islamic-umalqura',{timeZone:TZ,month:'numeric'}).format(d);
-    const day=+new Intl.DateTimeFormat('en-u-ca-islamic-umalqura',{timeZone:TZ,day:'numeric'}).format(d);
-    const wk=new Intl.DateTimeFormat('ar',{timeZone:TZ,weekday:'long'}).format(d);
-    const mn=new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura',{timeZone:TZ,month:'long'}).format(d);
-    return {y:y,m:m,d:day,weekday:wk,monthName:mn,str:`${day} ${mn} ${y}هـ`};
-  }
-  function hijriApprox(g){
-    const day=g.getDate(),month=g.getMonth()+1,year=g.getFullYear();
-    const jd=Math.floor((1461*(year+4800+Math.floor((month-14)/12)))/4)+Math.floor((367*(month-2-12*Math.floor((month-14)/12)))/12)-Math.floor((3*Math.floor((year+4900+Math.floor((month-14)/12))/100))/4)+day-32075;
-    const L=jd-1948440+10632, n=Math.floor((L-1)/10631), L2=L-10631*n+354;
-    const j1=(Math.floor((10985-L2)/5316))*(Math.floor((50*L2)/17719))+(Math.floor(L2/5670))*(Math.floor((43*L2)/15238));
-    const j2=L2-(Math.floor((30-j1)/15))*(Math.floor((17719*j1)/50))-(Math.floor(j1/16))*(Math.floor((15238*j1)/43))+29;
-    const mH=Math.floor((24*j2)/709), dH=j2-Math.floor((709*mH)/24), yH=30*n+j1-30;
-    const names=['','محرم','صفر','ربيع الأول','ربيع الثاني','جمادى الأولى','جمادى الثاني','رجب','شعبان','رمضان','شوال','ذو القعدة','ذو الحجة'];
-    const wk=new Intl.DateTimeFormat('ar',{timeZone:TZ,weekday:'long'}).format(g);
-    return {y:yH,m:mH,d:dH,weekday:wk,monthName:names[mH],str:`${dH} ${names[mH]} ${yH}هـ`};
-  }
-  const H=d=>hasUmmAlQura?hijriIntl(d):hijriApprox(d);
-  function greg(d){
-    const s=new Intl.DateTimeFormat('ar',{timeZone:TZ,day:'numeric',month:'long',year:'numeric'}).format(d);
-    const w=new Intl.DateTimeFormat('ar',{timeZone:TZ,weekday:'long'}).format(d);
-    const y=+new Intl.DateTimeFormat('en',{timeZone:TZ,year:'numeric'}).format(d);
-    const m=+new Intl.DateTimeFormat('en',{timeZone:TZ,month:'numeric'}).format(d);
-    const day=+new Intl.DateTimeFormat('en',{timeZone:TZ,day:'numeric'}).format(d);
-    return {str:s,weekday:w,y,m,day};
-  }
-
-  /* بيانات 1447هـ (من جدولك المختصر) */
-  const months = {
-    3:{name:'ربيع الأول',days:{1:'مباركة',2:'مباركة',3:'مكروهة',4:'مكروهة',5:'مكروهة',6:'مباركة',7:'مباركة',8:'مكروهة',9:'صالحة',10:'مكروهة',11:'صالحة',12:'مباركة',13:'مكروهة',14:'صالحة',15:'صالحة',16:'مكروهة',17:'مكروهة',18:'مباركة',19:'مباركة',20:'مباركة',21:'مكروهة',22:'صالحة',23:'مباركة',24:'مكروهة',25:'مكروهة',26:'مكروهة',27:'مباركة',28:'مباركة',29:'مكروهة',30:'مباركة'},notes:{8:'استشهاد الإمام العسكري (ع)'}},
-    4:{name:'ربيع الثاني',days:{1:'مكروهة',2:'مباركة',3:'مكروهة',4:'مباركة',5:'مكروهة',6:'مباركة',7:'مباركة',8:'مكروهة',9:'صالحة',10:'صالحة',11:'صالحة',12:'مباركة',13:'مكروهة',14:'صالحة',15:'مكروهة',16:'مكروهة',17:'مباركة',18:'مكروهة',19:'مباركة',20:'مباركة',21:'مكروهة',22:'مكروهة',23:'مباركة',24:'مكروهة',25:'مكروهة',26:'مكروهة',27:'مباركة',28:'مباركة',29:'مكروهة',30:'مباركة'},notes:{13:'استشهاد السيدة فاطمة الزهراء (ع)'}},
-    5:{name:'جمادى الأولى',days:{1:'مباركة',2:'مباركة',3:'مكروهة',4:'مباركة',5:'مكروهة',6:'مكروهة',7:'مباركة',8:'صالحة',9:'صالحة',10:'صالحة',11:'صالحة',12:'مباركة',13:'مكروهة',14:'صالحة',15:'صالحة',16:'مكروهة',17:'مباركة',18:'مكروهة',19:'مباركة',20:'مكروهة',21:'مكروهة',22:'صالحة',23:'مباركة',24:'مكروهة',25:'مكروهة',26:'مكروهة',27:'مكروهة',28:'مباركة',29:'مكروهة'},notes:{13:'استشهاد السيدة فاطمة الزهراء (ع)'}},
-    6:{name:'جمادى الثاني',days:{1:'مباركة',2:'مباركة',3:'مكروهة',4:'مباركة',5:'مكروهة',6:'مباركة',7:'مباركة',8:'صالحة',9:'صالحة',10:'صالحة',11:'صالحة',12:'مكروهة',13:'مكروهة',14:'صالحة',15:'صالحة',16:'مكروهة',17:'مباركة',18:'مكروهة',19:'مباركة',20:'مكروهة',21:'مكروهة',22:'صالحة',23:'مباركة',24:'مكروهة',25:'مكروهة',26:'مكروهة',27:'مباركة',28:'مباركة',29:'مكروهة',30:'مباركة'},notes:{3:'استشهاد السيدة فاطمة الزهراء (ع) – الرواية الثانية',13:'وفاة السيدة أم البنين (ع)'}},
-    7:{name:'رجب',days:{1:'مباركة',2:'مباركة',3:'مكروهة',4:'مباركة',5:'مكروهة',6:'مباركة',7:'مباركة',8:'صالحة',9:'صالحة',10:'مكروهة',11:'صالحة',12:'مكروهة',13:'مكروهة',14:'صالحة',15:'مكروهة',16:'مكروهة',17:'مكروهة',18:'مباركة',19:'مباركة',20:'مباركة',21:'مكروهة',22:'صالحة',23:'مباركة',24:'مكروهة',25:'مكروهة',26:'مكروهة',27:'مباركة',28:'مباركة',29:'مكروهة',30:'مباركة'},notes:{3:'استشهاد الإمام علي الهادي (ع)',12:'بداية 2026م',15:'وفاة السيدة زينب (ع)',25:'استشهاد الإمام موسى الكاظم (ع)'}},
-    8:{name:'شعبان',days:{1:'مكروهة',2:'مباركة',3:'مكروهة',4:'مباركة',5:'مكروهة',6:'مباركة',7:'مباركة',8:'مكروهة',9:'صالحة',10:'صالحة',11:'صالحة',12:'مباركة',13:'مكروهة',14:'صالحة',15:'مكروهة',16:'مكروهة',17:'مباركة',18:'مباركة',19:'مباركة',20:'مباركة',21:'مكروهة',22:'مكروهة',23:'مباركة',24:'مكروهة',25:'مكروهة',26:'مكروهة',27:'مباركة',28:'مباركة',29:'مكروهة'}},
-    9:{name:'رمضان',days:{1:'مباركة',2:'مباركة',3:'مكروهة',4:'مباركة',5:'مكروهة',6:'مباركة',7:'مكروهة',8:'مكروهة',9:'صالحة',10:'صالحة',11:'صالحة',12:'صالحة',13:'مكروهة',14:'مكروهة',15:'صالحة',16:'مكروهة',17:'مباركة',18:'مباركة',19:'مكروهة',20:'مكروهة',21:'مكروهة',22:'صالحة',23:'صالحة',24:'مكروهة',25:'مكروهة',26:'مكروهة',27:'مباركة',28:'مكروهة',29:'مكروهة',30:'مباركة'},notes:{8:'وفاة السيدة خديجة (ع)',19:'ضربة الإمام علي (ع)',20:'مرض الإمام علي (ع)',21:'استشهاد الإمام علي (ع)'}},
-    10:{name:'شوال',days:{1:'مباركة',2:'مكروهة',3:'مكروهة',4:'مباركة',5:'مكروهة',6:'مباركة',7:'مباركة',8:'صالحة',9:'صالحة',10:'صالحة',11:'صالحة',12:'مكروهة',13:'مكروهة',14:'صالحة',15:'صالحة',16:'مكروهة',17:'مباركة',18:'مباركة',19:'مكروهة',20:'مباركة',21:'مكروهة',22:'مكروهة',23:'مباركة',24:'مكروهة',25:'مكروهة',26:'مكروهة',27:'مباركة',28:'مباركة',29:'مكروهة'},notes:{25:'استشهاد الإمام جعفر الصادق (ع)'}},
-    11:{name:'ذو القعدة',days:{1:'مباركة',2:'مباركة',3:'مكروهة',4:'مكروهة',5:'مكروهة',6:'مباركة',7:'مباركة',8:'صالحة',9:'صالحة',10:'صالحة',11:'مكروهة',12:'مباركة',13:'مكروهة',14:'صالحة',15:'صالحة',16:'مكروهة',17:'مباركة',18:'مكروهة',19:'مباركة',20:'مباركة',21:'مكروهة',22:'مكروهة',23:'مباركة',24:'مكروهة',25:'مكروهة',26:'مكروهة',27:'مباركة',28:'مباركة',29:'مكروهة'},notes:{29:'استشهاد الإمام محمد الجواد (ع)'}},
-    12:{name:'ذو الحجة',days:{1:'مباركة',2:'مباركة',3:'مكروهة',4:'مباركة',5:'مكروهة',6:'مباركة',7:'مكروهة',8:'مكروهة',9:'صالحة',10:'مكروهة',11:'صالحة',12:'مباركة',13:'مكروهة',14:'صالحة',15:'صالحة',16:'مكروهة',17:'مكروهة',18:'مباركة',19:'مباركة',20:'مباركة',21:'مكروهة',22:'صالحة',23:'مباركة',24:'مكروهة',25:'مكروهة',26:'مكروهة',27:'مباركة',28:'مباركة',29:'مكروهة',30:'مباركة'},notes:{7:'استشهاد الإمام محمد الباقر (ع)',8:'استشهاد مسلم بن عقيل (ع)'}}
+  // بيانات 1447هـ (مختصرة)
+  const months={3:{name:'ربيع الأول',days:{1:'مباركة',2:'مباركة',3:'مكروهة',4:'مكروهة',5:'مكروهة',6:'مباركة',7:'مباركة',8:'مكروهة',9:'صالحة',10:'مكروهة',11:'صالحة',12:'مباركة',13:'مكروهة',14:'صالحة',15:'صالحة',16:'مكروهة',17:'مكروهة',18:'مباركة',19:'مباركة',20:'مباركة',21:'مكروهة',22:'صالحة',23:'مباركة',24:'مكروهة',25:'مكروهة',26:'مكروهة',27:'مباركة',28:'مباركة',29:'مكروهة',30:'مباركة'},notes:{8:'استشهاد الإمام العسكري (ع)'}},
+  4:{name:'ربيع الثاني',days:{1:'مكروهة',2:'مباركة',3:'مكروهة',4:'مباركة',5:'مكروهة',6:'مباركة',7:'مباركة',8:'مكروهة',9:'صالحة',10:'صالحة',11:'صالحة',12:'مباركة',13:'مكروهة',14:'صالحة',15:'مكروهة',16:'مكروهة',17:'مباركة',18:'مكروهة',19:'مباركة',20:'مباركة',21:'مكروهة',22:'مكروهة',23:'مباركة',24:'مكروهة',25:'مكروهة',26:'مكروهة',27:'مباركة',28:'مباركة',29:'مكروهة',30:'مباركة'},notes:{13:'استشهاد السيدة فاطمة الزهراء (ع)'}},
+  5:{name:'جمادى الأولى',days:{1:'مباركة',2:'مباركة',3:'مكروهة',4:'مباركة',5:'مكروهة',6:'مكروهة',7:'مباركة',8:'صالحة',9:'صالحة',10:'صالحة',11:'صالحة',12:'مباركة',13:'مكروهة',14:'صالحة',15:'صالحة',16:'مكروهة',17:'مباركة',18:'مكروهة',19:'مباركة',20:'مكروهة',21:'مكروهة',22:'صالحة',23:'مباركة',24:'مكروهة',25:'مكروهة',26:'مكروهة',27:'مكروهة',28:'مباركة',29:'مكروهة'},notes:{13:'استشهاد السيدة فاطمة الزهراء (ع)'}},
+  6:{name:'جمادى الثاني',days:{1:'مباركة',2:'مباركة',3:'مكروهة',4:'مباركة',5:'مكروهة',6:'مباركة',7:'مباركة',8:'صالحة',9:'صالحة',10:'صالحة',11:'صالحة',12:'مكروهة',13:'مكروهة',14:'صالحة',15:'صالحة',16:'مكروهة',17:'مباركة',18:'مكروهة',19:'مباركة',20:'مكروهة',21:'مكروهة',22:'صالحة',23:'مباركة',24:'مكروهة',25:'مكروهة',26:'مكروهة',27:'مباركة',28:'مباركة',29:'مكروهة',30:'مباركة'},notes:{3:'استشهاد السيدة فاطمة الزهراء (ع) – الرواية الثانية',13:'وفاة السيدة أم البنين (ع)'}},
+  7:{name:'رجب',days:{1:'مباركة',2:'مباركة',3:'مكروهة',4:'مباركة',5:'مكروهة',6:'مباركة',7:'مباركة',8:'صالحة',9:'صالحة',10:'مكروهة',11:'صالحة',12:'مكروهة',13:'مكروهة',14:'صالحة',15:'مكروهة',16:'مكروهة',17:'مكروهة',18:'مباركة',19:'مباركة',20:'مباركة',21:'مكروهة',22:'صالحة',23:'مباركة',24:'مكروهة',25:'مكروهة',26:'مكروهة',27:'مباركة',28:'مباركة',29:'مكروهة',30:'مباركة'},notes:{3:'استشهاد الإمام علي الهادي (ع)',12:'بداية 2026م',15:'وفاة السيدة زينب (ع)',25:'استشهاد الإمام موسى الكاظم (ع)'}},
+  8:{name:'شعبان',days:{1:'مكروهة',2:'مباركة',3:'مكروهة',4:'مباركة',5:'مكروهة',6:'مباركة',7:'مباركة',8:'مكروهة',9:'صالحة',10:'صالحة',11:'صالحة',12:'مباركة',13:'مكروهة',14:'صالحة',15:'مكروهة',16:'مكروهة',17:'مباركة',18:'مباركة',19:'مباركة',20:'مباركة',21:'مكروهة',22:'مكروهة',23:'مباركة',24:'مكروهة',25:'مكروهة',26:'مكروهة',27:'مباركة',28:'مباركة',29:'مكروهة'}},
+  9:{name:'رمضان',days:{1:'مباركة',2:'مباركة',3:'مكروهة',4:'مباركة',5:'مكروهة',6:'مباركة',7:'مكروهة',8:'مكروهة',9:'صالحة',10:'صالحة',11:'صالحة',12:'صالحة',13:'مكروهة',14:'مكروهة',15:'صالحة',16:'مكروهة',17:'مباركة',18:'مباركة',19:'مكروهة',20:'مكروهة',21:'مكروهة',22:'صالحة',23:'صالحة',24:'مكروهة',25:'مكروهة',26:'مكروهة',27:'مباركة',28:'مكروهة',29:'مكروهة',30:'مباركة'},notes:{8:'وفاة السيدة خديجة (ع)',19:'ضربة الإمام علي (ع)',20:'مرض الإمام علي (ع)',21:'استشهاد الإمام علي (ع)'}},
+  10:{name:'شوال',days:{1:'مباركة',2:'مكروهة',3:'مكروهة',4:'مباركة',5:'مكروهة',6:'مباركة',7:'مباركة',8:'صالحة',9:'صالحة',10:'صالحة',11:'صالحة',12:'مكروهة',13:'مكروهة',14:'صالحة',15:'صالحة',16:'مكروهة',17:'مباركة',18:'مباركة',19:'مكروهة',20:'مباركة',21:'مكروهة',22:'مكروهة',23:'مباركة',24:'مكروهة',25:'مكروهة',26:'مكروهة',27:'مباركة',28:'مباركة',29:'مكروهة'},notes:{25:'استشهاد الإمام جعفر الصادق (ع)'}},
+  11:{name:'ذو القعدة',days:{1:'مباركة',2:'مباركة',3:'مكروهة',4:'مكروهة',5:'مكروهة',6:'مباركة',7:'مباركة',8:'صالحة',9:'صالحة',10:'صالحة',11:'مكروهة',12:'مباركة',13:'مكروهة',14:'صالحة',15:'صالحة',16:'مكروهة',17:'مباركة',18:'مكروهة',19:'مباركة',20:'مباركة',21:'مكروهة',22:'مكروهة',23:'مباركة',24:'مكروهة',25:'مكروهة',26:'مكروهة',27:'مباركة',28:'مباركة',29:'مكروهة'},notes:{29:'استشهاد الإمام محمد الجواد (ع)'}},
+  12:{name:'ذو الحجة',days:{1:'مباركة',2:'مباركة',3:'مكروهة',4:'مباركة',5:'مكروهة',6:'مباركة',7:'مكروهة',8:'مكروهة',9:'صالحة',10:'مكروهة',11:'صالحة',12:'مباركة',13:'مكروهة',14:'صالحة',15:'صالحة',16:'مكروهة',17:'مكروهة',18:'مباركة',19:'مباركة',20:'مباركة',21:'مكروهة',22:'صالحة',23:'مباركة',24:'مكروهة',25:'مكروهة',26:'مكروهة',27:'مباركة',28:'مباركة',29:'مكروهة',30:'مباركة'},notes:{7:'استشهاد الإمام محمد الباقر (ع)',8:'استشهاد مسلم بن عقيل (ع)'}}
   };
 
   const $=id=>document.getElementById(id);
   const S={date:nowBH(),hijri:null,view:null};
 
-  function tick(){ $('clock').textContent=clock(nowBH()); }
+  function tick(){ $('clock').textContent = fmtClock.format(nowBH()); }
 
   function updateHero(){
-    const d=S.date; const h=H(d); S.hijri=h; const g=greg(d);
+    const d=S.date, h=H(d), g=G(d);
+    S.hijri=h;
     $('hijriStr').textContent=h.str;
     $('gregStr').textContent=g.str;
-    $('weekday').textContent=g.weekday;
+    $('weekday').textContent=h.weekday;
 
-    const mData=months[h.m]; const rule=mData?.days?.[h.d];
+    const mData=months[h.m], rule=mData?.days?.[h.d];
     $('rulingText').textContent=`حكم اليوم: ${rule||'غير محدد'}`;
-    $('notesText').textContent=mData?.notes?.[h.d]?`ملاحظة: ${mData.notes[h.d]}`:'';
+    $('notesText').textContent=mData?.notes?.[h.d] ? `ملاحظة: ${mData.notes[h.d]}` : '';
 
-    $('datePicker').valueAsDate=new Date(g.y,g.m-1,g.day);
+    // اضبط المنظور الشهري وحقول التاريخ
+    const gd=new Date(S.date); $('datePicker').valueAsDate=new Date(gd.getFullYear(),gd.getMonth(),gd.getDate());
     S.view={y:h.y,m:h.m};
     renderMonthTable();
   }
 
+  // يبني جدول الشهر (هـ/الحكم/ملاحظات فقط) – بلا حسابات إضافية
   function renderMonthTable(){
-    const y = Number(S.view?.y) || Number(S.hijri?.y) || 1447;
-    const m = Number(S.view?.m) || Number(S.hijri?.m) || 3;
-    const mData=months[m]; const rows=$('monthRows'); rows.innerHTML='';
+    const y=S.view.y, m=S.view.m, mData=months[m];
     $('monthTitle').textContent = `${mData?.name||'الشهر'} ${y}هـ`;
-
-    // ابني 30 صفًا (الهجري)
+    const body=$('monthRows'); body.innerHTML='';
     for(let d=1; d<=30; d++){
-      const rule=mData?.days?.[d]; if(!rule) continue;
-
-      // تقدير التاريخ الميلادي الموافق عبر البحث حول التاريخ الحالي
-      const gStr = greg(approximateGregorianForHijri(y,m,d)).str;
-      const weekday = new Intl.DateTimeFormat('ar',{timeZone:TZ,weekday:'long'}).format(approximateGregorianForHijri(y,m,d));
-      const note = mData?.notes?.[d] || '';
-
+      const r=mData?.days?.[d]; if(!r) continue;
       const tr=document.createElement('tr');
-      tr.innerHTML = `
-        <td>${d}</td>
-        <td>${gStr}</td>
-        <td>${weekday}</td>
-        <td>${tagFor(rule)}</td>
-        <td>${note}</td>
-      `;
+      tr.innerHTML=`<td>${d}</td><td>${tag(r)}</td><td>${mData?.notes?.[d]||''}</td>`;
       tr.addEventListener('click',()=>jumpTo(y,m,d,tr));
-      rows.appendChild(tr);
+      body.appendChild(tr);
     }
   }
+  const tag = r => `<span class="tag ${r==='مباركة'?'b':r==='صالحة'?'g':'d'}">${r}</span>`;
 
-  function tagFor(rule){
-    const c = rule==='مباركة'?'b':(rule==='صالحة'?'g':'d');
-    return `<span class="tag ${c}">${rule}</span>`;
-  }
-
-  // تقريب التاريخ الميلادي الموافق لليوم الهجري المطلوب بالبحث ضمن نافذة زمنية
-  function approximateGregorianForHijri(y,m,d){
+  // بحث سريع عن التاريخ الميلادي الموافق (يُستخدم فقط عند الضغط أو التنقل)
+  function approxGregForHijri(y,m,d){
     const base=nowBH();
-    for(let k=-240;k<=240;k++){
+    for(let k=-210;k<=210;k++){
       const t=new Date(base); t.setDate(t.getDate()+k);
-      const h=H(t); if(h.y===y&&h.m===m&&h.d===d) return t;
+      const h=H(t); if(h.y===y && h.m===m && h.d===d) return t;
     }
     return base;
   }
-
   function jumpTo(y,m,d,tr){
-    const t = approximateGregorianForHijri(y,m,d);
-    S.date = t; updateHero();
-    document.querySelectorAll('#monthRows tr').forEach(r=>r.classList.remove('selected'));
-    if(tr) tr.classList.add('selected');
+    S.date = approxGregForHijri(y,m,d);
+    updateHero();
+    document.querySelectorAll('#monthRows tr').forEach(x=>x.classList.remove('sel'));
+    tr?.classList.add('sel');
     window.scrollTo({top:0,behavior:'smooth'});
   }
 
@@ -332,22 +225,19 @@
     $('goToday').addEventListener('click',()=>{S.date=nowBH(); updateHero();});
     $('prevDay').addEventListener('click',()=>{S.date.setDate(S.date.getDate()-1); updateHero();});
     $('nextDay').addEventListener('click',()=>{S.date.setDate(S.date.getDate()+1); updateHero();});
-
     $('datePicker').addEventListener('change',e=>{
       if(!e.target.value) return;
       const [yy,mm,dd]=e.target.value.split('-').map(Number);
-      S.date=new Date(Date.UTC(yy,mm-1,dd,12,0,0));
+      S.date=new Date(yy,mm-1,dd,12,0,0);
       updateHero();
     });
-
     $('prevMonth').addEventListener('click',()=>{
       const h=S.hijri; let mm=h.m-1, yy=h.y; if(mm<1){mm=12;yy--;}
       S.view={y:yy,m:mm}; jumpTo(yy,mm,1);
     });
-
     $('nextMonth').addEventListener('click',()=>{
       const h=S.hijri; let mm=h.m+1, yy=h.y; if(mm>12){mm=1;yy++;}
-      S.view={y:yy,m:mm}; jumpTo(yy,mm,1);
+      S.view={y:yy,m:mm}; jumpTo(yy,mm(=1)); /* سيقفز لأوّل يوم */
     });
   }
   document.addEventListener('DOMContentLoaded',init);
