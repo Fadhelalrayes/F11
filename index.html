@@ -3,117 +3,115 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>الليالي المباركة للعقد والزواج 1447 هـ</title>
-<meta name="description" content="مربع واحد بسيط لفحص ثلاث ليالٍ (الليلة السابقة، المختارة، التالية) ومعرفة هل هي مباركة أو صالحة أو مكروهة للعقد والزواج لعام 1447 هـ.">
+<title>الليالي المباركة للعقد والزواج — 1447 هـ (2025/2026 م)</title>
+<meta name="description" content="مربع يوم واحد مع انتقال للتواريخ وتقويم هجري/ميلادي يعمل، يبيّن الليالي المباركة والصالحة والمكروهة للعقد والزواج لعام 1447 هـ.">
+<meta name="robots" content="index,follow">
 <style>
   :root{
-    --bg:#0e1327; --card:#141b34; --txt:#f7f9fc; --muted:#9aa6c1;
-    --ok:#22c55e; --good:#60a5fa; --bad:#ef4444; --accent:#06b6d4;
-    --line:rgba(255,255,255,.08); --radius:18px; --shadow:0 10px 24px rgba(0,0,0,.28);
+    --bg:#0f172a; --card:#111827; --txt:#f8fafc; --muted:#94a3b8;
+    --ok:#22c55e; --good:#60a5fa; --bad:#ef4444; --line:rgba(255,255,255,.09);
+    --accent:#06b6d4; --accent2:#f59e0b; --radius:18px; --shadow:0 10px 24px rgba(0,0,0,.25);
   }
-  *{box-sizing:border-box} body{margin:0;background:linear-gradient(180deg,var(--bg),#0a0f22);color:var(--txt);font-family:system-ui,"Noto Kufi Arabic","Noto Sans Arabic","Segoe UI",Tahoma,Arial}
-  .wrap{max-width:860px;margin:auto;padding:18px}
-  header{display:flex;justify-content:space-between;align-items:center;background:linear-gradient(135deg,var(--card),#0e1630);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;box-shadow:var(--shadow)}
+  *{box-sizing:border-box}
+  body{margin:0;background:linear-gradient(180deg,var(--bg),#0b1025);color:var(--txt);
+       font-family:system-ui,"Noto Kufi Arabic","Noto Sans Arabic","Segoe UI",Tahoma,Arial}
+  .wrap{max-width:980px;margin:auto;padding:18px}
+  header{background:linear-gradient(135deg,var(--card),#0c1226);border:1px solid var(--line);
+         border-radius:var(--radius);padding:16px;box-shadow:var(--shadow)}
   h1{margin:0;font-size:clamp(18px,3.5vw,28px)}
-  .badge{font-size:12px;color:var(--muted);border:1px solid var(--line);padding:.2rem .6rem;border-radius:999px;margin-inline-start:8px}
-  .card{background:linear-gradient(180deg,var(--card),#0c132a);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px;margin-top:14px}
-  .controls{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
+  .badge{display:inline-block;margin-inline-start:8px;font-size:12px;color:var(--muted);
+         border:1px solid var(--line);border-radius:999px;padding:.15rem .55rem}
+  .card{background:linear-gradient(180deg,var(--card),#0b1222);border:1px solid var(--line);
+        border-radius:var(--radius);padding:16px;margin-top:14px;box-shadow:var(--shadow)}
+  .row{display:flex;flex-wrap:wrap;gap:10px;align-items:end}
   label{font-size:13px;color:var(--muted)}
-  input[type="date"],select,button{background:#0b1430;border:1px solid var(--line);color:var(--txt);padding:10px 12px;border-radius:12px;font-size:14px}
-  input[type="date"]{direction:ltr}
-  button{cursor:pointer;background:linear-gradient(135deg,var(--accent),#0a97b5);border:none;transition:.2s}
+  input[type="date"]{background:#0b1430;border:1px solid var(--line);color:var(--txt);
+                     padding:10px 12px;border-radius:12px;font-size:14px;direction:ltr}
+  button{background:linear-gradient(135deg,var(--accent),#0a97b5);border:none;color:var(--txt);
+         padding:10px 14px;border-radius:12px;font-size:14px;cursor:pointer;transition:.2s}
   button:hover{transform:translateY(-1px)}
-  .three{display:grid;grid-template-columns:1fr;gap:12px;margin-top:14px}
-  @media(min-width:680px){.three{grid-template-columns:repeat(3,1fr)}}
-  .tile{border:1px solid var(--line);border-radius:16px;padding:14px;background:#0b1227}
-  .tile h3{margin:0 0 6px 0;font-size:15px;color:#dbeafe}
-  .row{display:flex;align-items:center;gap:10px}
-  .icon{font-size:26px;line-height:1}
   .status{font-weight:700;padding:.25rem .6rem;border-radius:999px;border:1px solid var(--line);font-size:13px}
   .ok{background:rgba(34,197,94,.15);color:#bbf7d0;border-color:rgba(34,197,94,.35)}
   .good{background:rgba(96,165,250,.15);color:#dbeafe;border-color:rgba(96,165,250,.35)}
   .bad{background:rgba(239,68,68,.15);color:#fecaca;border-color:rgba(239,68,68,.35)}
-  .muted{color:var(--muted);font-size:12px;margin-top:6px}
+  .muted{color:var(--muted);font-size:13px}
   .hr{height:1px;background:var(--line);margin:12px 0}
-  footer{margin-top:18px;text-align:center;color:#e5e7eb;background:linear-gradient(90deg,#0c1025,#10173a);border-radius:var(--radius);padding:14px;border:1px solid var(--line)}
+  .todayBox{display:grid;grid-template-columns:1fr;gap:8px}
+  .todayLine{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  .pill{display:inline-flex;align-items:center;gap:6px;background:#0c1736;border:1px solid var(--line);
+        border-radius:999px;padding:.25rem .6rem;font-size:12px}
+  .grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-top:10px}
+  .cell{border:1px solid var(--line);border-radius:10px;min-height:64px;padding:6px;background:#0b1227;position:relative}
+  .cell .d{font-size:13px}
+  .mark{position:absolute;inset:auto 6px 6px auto;display:flex;gap:4px}
+  .dot{width:9px;height:9px;border-radius:50%}
+  .dot.ok{background:var(--ok)} .dot.good{background:var(--good)} .dot.bad{background:var(--bad)}
+  .cell.muted{opacity:.45}
+  .head{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-top:10px;color:var(--muted);font-size:12px}
+  .tabs{display:flex;gap:8px;margin-top:6px}
+  .tab{background:#0b1430;border:1px solid var(--line);padding:.45rem .7rem;border-radius:999px;font-size:13px;cursor:pointer}
+  .tab.active{background:linear-gradient(135deg,var(--accent2),#d97706);color:#0b1025;font-weight:700;border-color:transparent}
+  footer{margin-top:18px;text-align:center;color:#e5e7eb;background:linear-gradient(90deg,#0c1025,#10173a);
+         border-radius:var(--radius);padding:14px;border:1px solid var(--line)}
 </style>
 </head>
 <body>
-  <div class="wrap">
-    <header>
-      <h1>الليالي الصالحة للعقد والزواج<span class="badge">1447 هـ (2025/2026 م)</span></h1>
-    </header>
+<div class="wrap">
+  <header>
+    <h1>الليالي المباركة للعقد والزواج <span class="badge">1447 هـ (2025/2026 م)</span></h1>
+  </header>
 
-    <!-- بطاقة واحدة فقط -->
-    <section class="card" aria-label="مربع فحص ثلاث ليالٍ">
-      <div class="controls">
-        <div>
-          <label for="date">التاريخ الميلادي</label><br>
-          <input type="date" id="date">
-        </div>
-        <div>
-          <label for="madhhab">طريقة التقويم / المذهب</label><br>
-          <select id="madhhab">
-            <option value="table1447" selected>افتراضي (حسب جدول 1447 هـ المزوّد)</option>
-          </select>
-        </div>
-        <div style="align-self:end">
-          <button id="check">افحص الليلة</button>
-        </div>
+  <!-- مربع واحد عن اليوم والتنقل -->
+  <section class="card">
+    <div class="row">
+      <div>
+        <label for="datePick">التاريخ الميلادي</label><br>
+        <input type="date" id="datePick">
       </div>
-
-      <div class="hr"></div>
-
-      <div class="three" id="tiles">
-        <!-- الليلة السابقة -->
-        <div class="tile">
-          <h3>الليلة السابقة</h3>
-          <div class="row">
-            <div class="icon" id="iconPrev">🕯️</div>
-            <div>
-              <div id="statusPrev" class="status">—</div>
-              <div class="muted" id="hijriPrev">هجري: —</div>
-              <div class="muted" id="gregPrev">ميلادي: —</div>
-            </div>
-          </div>
-        </div>
-        <!-- الليلة المختارة -->
-        <div class="tile">
-          <h3>الليلة المختارة</h3>
-          <div class="row">
-            <div class="icon" id="iconNow">🌙</div>
-            <div>
-              <div id="statusNow" class="status">—</div>
-              <div class="muted" id="hijriNow">هجري: —</div>
-              <div class="muted" id="gregNow">ميلادي: —</div>
-            </div>
-          </div>
-        </div>
-        <!-- الليلة التالية -->
-        <div class="tile">
-          <h3>الليلة التالية</h3>
-          <div class="row">
-            <div class="icon" id="iconNext">✨</div>
-            <div>
-              <div id="statusNext" class="status">—</div>
-              <div class="muted" id="hijriNext">هجري: —</div>
-              <div class="muted" id="gregNext">ميلادي: —</div>
-            </div>
-          </div>
-        </div>
+      <div>
+        <button id="prevDay" title="اليوم السابق">اليوم السابق</button>
+        <button id="nextDay" title="اليوم التالي">اليوم التالي</button>
+        <button id="goToday" title="اذهب إلى اليوم">اليوم</button>
       </div>
+    </div>
 
-      <p class="muted" style="margin-top:10px">
-        ملاحظة: الليلة تُحسب من الغروب إلى الغروب. نعتمد تقويم أم القرى عبر المتصفح لتحويل الهجري،
-        ثم نقارن تاريخ <strong>1447 هـ</strong> مع الجدول المزوّد. ثبوت الهلال قد يغيّر النتيجة محليًا.
-      </p>
-    </section>
+    <div class="hr"></div>
 
-    <footer>برمجة وتطوير : <strong>فاضل الريس</strong></footer>
-  </div>
+    <div class="todayBox" id="todayBox">
+      <!-- يُملأ بالسكريبت -->
+    </div>
+    <p class="muted" style="margin-top:6px">
+      تُحسب <strong>الليلة</strong> من الغروب إلى الغروب. نعرض التاريخين (هجري/ميلادي) ونصنّف الليلة المختارة حسب جدول 1447 هـ.
+      قد تختلف النتيجة محليًا باختلاف ثبوت الهلال.
+    </p>
+  </section>
+
+  <!-- التقويم يعمل: تبويبات هجري/ميلادي -->
+  <section class="card">
+    <div class="tabs">
+      <button class="tab active" id="tabHijri">تقويم هجري (شهر الليلة المختارة)</button>
+      <button class="tab" id="tabGreg">تقويم ميلادي (شهر التاريخ المختار)</button>
+    </div>
+
+    <div id="calTitle" style="margin-top:8px;font-weight:700"></div>
+    <div class="head">
+      <div>السبت</div><div>الأحد</div><div>الاثنين</div><div>الثلاثاء</div><div>الأربعاء</div><div>الخميس</div><div>الجمعة</div>
+    </div>
+    <div class="grid" id="calGrid"><!-- cells --></div>
+
+    <div class="hr"></div>
+    <div class="muted">
+      <span class="pill"><span class="dot ok"></span> مباركة</span>
+      <span class="pill"><span class="dot good"></span> صالحة</span>
+      <span class="pill"><span class="dot bad"></span> مكروهة</span>
+    </div>
+  </section>
+
+  <footer>برمجة وتطوير : <strong>فاضل الريس</strong></footer>
+</div>
 
 <script>
-/* ===== بيانات 1447 هـ (كما زوّدتني) ===== */
+/* ===== بيانات 1447 هـ ===== */
 const months1447 = [
   {key:'ربيع الأول', blessed:[1,2,6,7,12,18,19,20,23,27,28,30], good:[9,11,14,15,22], disliked:[3,4,5,8,10,13,16,17,21,24,25,26,29]},
   {key:'ربيع الثاني', blessed:[2,4,6,7,12,17,19,20,23,27,28,30], good:[9,10,11,14], disliked:[1,3,5,8,13,15,16,18,21,22,24,25,26,29]},
@@ -126,75 +124,196 @@ const months1447 = [
   {key:'ذو القعدة', blessed:[1,2,6,7,12,17,19,20,23,27,28], good:[8,9,10,14,15], disliked:[3,4,5,11,13,16,18,21,22,24,25,26,29]},
   {key:'ذو الحجة', blessed:[1,2,4,6,12,18,19,20,23,27,28,30], good:[9,11,14,15,22], disliked:[3,5,7,8,10,13,16,17,21,24,25,26,29]}
 ];
-
 const hijriMonthMap = {
   'ربيع الأول':'ربيع الأول','ربيع الاوّل':'ربيع الأول','ربيع الآخر':'ربيع الثاني','ربيع الثاني':'ربيع الثاني',
   'جمادى الأولى':'جمادى الأولى','جمادى الأولى':'جمادى الأولى','جمادى الآخرة':'جمادى الثانية','جمادى الثانية':'جمادى الثانية',
   'رجب':'رجب','شعبان':'شعبان','رمضان':'رمضان','شوّال':'شوال','شوال':'شوال','ذو القعدة':'ذو القعدة','ذو الحجّة':'ذو الحجة','ذو الحجة':'ذو الحجة'
 };
-
+/* ===== تنسيقات ===== */
 function fmtGreg(d){ return new Intl.DateTimeFormat('ar-EG',{dateStyle:'full'}).format(d); }
 function fmtHijri(d){
   try{
-    const f = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura',{day:'numeric',month:'long',year:'numeric'});
+    const f=new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura',{day:'numeric',month:'long',year:'numeric'});
     const parts=f.formatToParts(d);
-    return {
-      day:Number(parts.find(p=>p.type==='day').value),
-      monthName:parts.find(p=>p.type==='month').value,
-      year:Number(parts.find(p=>p.type==='year').value)
-    };
+    return {day:Number(parts.find(p=>p.type==='day').value),
+            monthName:parts.find(p=>p.type==='month').value,
+            year:Number(parts.find(p=>p.type==='year').value)};
   }catch(_){ return {day:NaN,monthName:'',year:NaN}; }
 }
-
 function classify(hYear,hMonthName,hDay){
-  if(hYear!==1447) return {cls:'', label:'خارج 1447 هـ', icon:'🗓️'};
+  if(hYear!==1447) return null;
   const norm=hijriMonthMap[hMonthName]||hMonthName;
   const m=months1447.find(x=>x.key===norm);
-  if(!m) return {cls:'', label:'شهر غير مسجّل', icon:'❔'};
-  if(m.blessed.includes(hDay)) return {cls:'ok', label:'مباركة', icon:'✅'};
-  if(m.good.includes(hDay))    return {cls:'good', label:'صالحة', icon:'🟦'};
-  if(m.disliked.includes(hDay))return {cls:'bad', label:'مكروهة', icon:'⛔'};
-  return {cls:'', label:'غير مُصنّفة', icon:'•'};
+  if(!m) return null;
+  if(m.blessed.includes(hDay)) return 'ok';
+  if(m.good.includes(hDay)) return 'good';
+  if(m.disliked.includes(hDay)) return 'bad';
+  return null;
 }
+function addDays(d,n){ const x=new Date(d); x.setDate(x.getDate()+n); return x; }
+/* ===== مربّع اليوم ===== */
+const datePick=document.getElementById('datePick');
+const todayBox=document.getElementById('todayBox');
+const prevBtn=document.getElementById('prevDay');
+const nextBtn=document.getElementById('nextDay');
+const todayBtn=document.getElementById('goToday');
 
-/* حساب “الليلة” ببساطة: من 18:00 إلى 18:00 */
-function nightMoment(baseDate){ const d=new Date(baseDate); d.setHours(23,0,0,0); return d; }
-function addDays(d, n){ const x=new Date(d); x.setDate(x.getDate()+n); return x; }
+function renderTodayCard(gDate){
+  const hj=fmtHijri(gDate);
+  const cls=classify(hj.year,hj.monthName,hj.day);
+  const label = cls==='ok'?'مباركة':cls==='good'?'صالحة':cls==='bad'?'مكروهة':'خارج 1447 هـ / غير مُصنّفة';
+  const clsClass = cls?`status ${cls}`:'status';
+  todayBox.innerHTML = `
+    <div class="todayLine">
+      <div><strong>اليوم الميلادي:</strong> ${fmtGreg(gDate)}</div>
+      <div><strong>اليوم الهجري:</strong> ${isNaN(hj.year)?'<span class="muted">غير مدعوم</span>':`${hj.day} ${hj.monthName} ${hj.year} هـ`}</div>
+    </div>
+    <div class="todayLine">
+      <div class="${clsClass}">${label}</div>
+      <span class="muted">التصنيف يعتمد على جدول 1447 هـ.</span>
+    </div>
+  `;
+}
+/* ===== التقويم: تبويب هجري/ميلادي ===== */
+const tabHijri=document.getElementById('tabHijri');
+const tabGreg=document.getElementById('tabGreg');
+const calTitle=document.getElementById('calTitle');
+const calGrid=document.getElementById('calGrid');
+let activeTab='hijri';
 
-/* تحديث مربّع الثلاث ليال */
-function renderTriple(anchorDate){
-  // anchorDate هو تاريخ ميلادي يختاره المستخدم (في منتصف اليوم)
-  const base = new Date(anchorDate+"T12:00:00");
-  const prevNight = nightMoment(addDays(base,-1));
-  const currNight = nightMoment(base);
-  const nextNight = nightMoment(addDays(base,1));
-  const slots = [
-    {h:fmtHijri(prevNight), gText:fmtGreg(prevNight), id:'Prev'},
-    {h:fmtHijri(currNight), gText:fmtGreg(currNight), id:'Now'},
-    {h:fmtHijri(nextNight), gText:fmtGreg(nextNight), id:'Next'}
-  ];
-  slots.forEach(s=>{
-    const c=classify(s.h.year,s.h.monthName,s.h.day);
-    document.getElementById('status'+s.id).className = 'status ' + (c.cls||'');
-    document.getElementById('status'+s.id).textContent = c.label;
-    document.getElementById('icon'+s.id).textContent = c.icon;
-    document.getElementById('hijri'+s.id).textContent = isNaN(s.h.year) ? 'هجري: غير مدعوم' : `هجري: ${s.h.day} ${s.h.monthName} ${s.h.year} هـ`;
-    document.getElementById('greg'+s.id).textContent = `ميلادي: ${s.gText}`;
+function firstGregOfHijriMonth(hYear,hMonthName){
+  // ابحث بالرجوع 40 يوماً ثم التقدّم حتى اليوم 1 من ذلك الشهر (تقريبًا)
+  let probe=new Date();
+  // ابدأ من التاريخ المختار بدلاً من اليوم
+  const sel = new Date(datePick.value+"T12:00:00");
+  if(!isNaN(sel)) probe=sel;
+  probe=addDays(probe,-40);
+  for(let i=0;i<120;i++){
+    const d=addDays(probe,i);
+    const h=fmtHijri(d);
+    if(h.year===hYear && (hijriMonthMap[h.monthName]||h.monthName)=== (hijriMonthMap[hMonthName]||hMonthName) && h.day===1){
+      return d;
+    }
+  }
+  return null;
+}
+function buildMonthGrid(startDate, mode){
+  // mode: 'hijri' => اعرض أيام الشهر الهجري بدءًا من startDate (الذي هو أول يوم هجري)
+  // mode: 'greg'  => اعرض شهر ميلادي startDate.getMonth()
+  calGrid.innerHTML='';
+  let cells=[];
+  if(mode==='hijri'){
+    // امشِ يومًا يومًا حتى يتغيّر اسم الشهر الهجري
+    const h1=fmtHijri(startDate);
+    const monthName = h1.monthName, year=h1.year;
+    // العنوان
+    calTitle.textContent = `التقويم الهجري — ${monthName} ${year} هـ`;
+    // احسب إزاحة بداية الأسبوع (نبدأ الشبكة من السبت)
+    // نحصل على اليوم الميلادي لبداية ذلك اليوم ونحوّله إلى رقم الأسبوع (0=الأحد في JS)
+    const firstWeekday = (startDate.getDay()+6)%7; // اجعل السبت=0
+    for(let i=0;i<firstWeekday;i++) cells.push({empty:true});
+    // امضِ حتى يتغير الشهر
+    let d = new Date(startDate);
+    while(true){
+      const h=fmtHijri(d);
+      if(h.monthName!==monthName || h.year!==year) break;
+      const cls=classify(h.year,h.monthName,h.day);
+      cells.push({d:new Date(d), h, cls});
+      d=addDays(d,1);
+      if(cells.length>42) break; // أمان
+    }
+  }else{
+    // تقويم ميلادي للشهر المختار
+    const base=new Date(datePick.value+"T12:00:00");
+    const year=base.getFullYear(), month=base.getMonth();
+    const first=new Date(year, month, 1);
+    const last=new Date(year, month+1, 0);
+    const titleFmt = new Intl.DateTimeFormat('ar-EG',{month:'long',year:'numeric'});
+    calTitle.textContent = `التقويم الميلادي — ${titleFmt.format(base)}`;
+    const firstWeekday = (first.getDay()+6)%7; // السبت=0
+    for(let i=0;i<firstWeekday;i++) cells.push({empty:true});
+    for(let day=1; day<=last.getDate(); day++){
+      const d=new Date(year,month,day);
+      const h=fmtHijri(d);
+      const cls=classify(h.year,h.monthName,h.day);
+      cells.push({d,h,cls, showGreg:true});
+    }
+  }
+  // رسم الخلايا
+  cells.forEach(c=>{
+    const div=document.createElement('div');
+    div.className='cell'+(c.empty?' muted':'');
+    if(!c.empty){
+      const dnum = c.showGreg ? c.d.getDate() : c.h.day;
+      const sub = c.showGreg ? `هجري: ${c.h.day}` : `ميلادي: ${c.d.getDate()}`;
+      div.innerHTML = `
+        <div class="d"><strong>${dnum}</strong></div>
+        <div class="muted" style="margin-top:2px">${sub}</div>
+        <div class="mark">
+          ${c.cls?`<span class="dot ${c.cls}"></span>`:''}
+        </div>
+      `;
+      // عند الضغط: حدّث مربع اليوم
+      div.style.cursor='pointer';
+      div.addEventListener('click', ()=>{
+        // اضبط الحقل إلى التاريخ الميلادي الموافق للخليّة
+        datePick.value = toISODate(c.d);
+        refreshAll();
+      });
+    }
+    calGrid.appendChild(div);
   });
 }
+function toISODate(d){ const y=d.getFullYear(); const m=String(d.getMonth()+1).padStart(2,'0'); const dd=String(d.getDate()).padStart(2,'0'); return `${y}-${m}-${dd}`; }
 
-document.getElementById('check').addEventListener('click', ()=>{
-  const v = document.getElementById('date').value;
-  if(!v){ alert('يرجى اختيار تاريخ ميلادي.'); return; }
-  // حالياً خيار المذهب واحد (الجدول المزوّد)، أضفته لتوسعة لاحقة بدون تغيير التصميم
-  renderTriple(v);
+function renderHijriMonthForSelected(){
+  // خذ التاريخ المختار، استخرج الهجري، اعثر على أول يوم لذلك الشهر
+  const gSel=new Date(datePick.value+"T12:00:00");
+  const h=fmtHijri(gSel);
+  const first = firstGregOfHijriMonth(h.year,h.monthName);
+  if(first) buildMonthGrid(first,'hijri');
+  else { calGrid.innerHTML='<div class="muted">تعذر تحديد بداية الشهر الهجري.</div>'; }
+}
+function renderGregMonthForSelected(){
+  buildMonthGrid(new Date(datePick.value+"T12:00:00"),'greg');
+}
+
+/* ===== تهيئة وارتباطات ===== */
+function refreshAll(){
+  const g = new Date(datePick.value+"T12:00:00");
+  renderTodayCard(g);
+  if(activeTab==='hijri') renderHijriMonthForSelected(); else renderGregMonthForSelected();
+}
+tabHijri.addEventListener('click', ()=>{
+  activeTab='hijri';
+  tabHijri.classList.add('active'); tabGreg.classList.remove('active');
+  renderHijriMonthForSelected();
 });
+tabGreg.addEventListener('click', ()=>{
+  activeTab='greg';
+  tabGreg.classList.add('active'); tabHijri.classList.remove('active');
+  renderGregMonthForSelected();
+});
+prevBtn.addEventListener('click', ()=>{
+  const g = new Date(datePick.value+"T12:00:00");
+  const prev = addDays(g,-1);
+  datePick.value = toISODate(prev);
+  refreshAll();
+});
+nextBtn.addEventListener('click', ()=>{
+  const g = new Date(datePick.value+"T12:00:00");
+  const next = addDays(g,1);
+  datePick.value = toISODate(next);
+  refreshAll();
+});
+todayBtn.addEventListener('click', ()=>{
+  const t=new Date(); datePick.value=toISODate(t); refreshAll();
+});
+datePick.addEventListener('change', refreshAll);
 
-// تهيئة مبدئية على تاريخ اليوم
+// بدء التشغيل على تاريخ اليوم
 (function init(){
-  const today = new Date(); const y=today.getFullYear(), m=String(today.getMonth()+1).padStart(2,'0'), d=String(today.getDate()).padStart(2,'0');
-  document.getElementById('date').value = `${y}-${m}-${d}`;
-  renderTriple(`${y}-${m}-${d}`);
+  const t=new Date(); datePick.value=toISODate(t); refreshAll();
 })();
 </script>
 </body>
