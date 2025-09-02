@@ -3,13 +3,21 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>الأيام الصالحة للزواج وفق المذهب الشيعي</title>
 
+  <title>الأيام الصالحة للزواج وفق المذهب الشيعي</title>
   <meta name="description" content="تقويم تفاعلي يوضح الأيام المباركة والصالحة والمكروهة للعقد والزواج وفق المذهب الشيعي لعام 1447 هـ." />
   <meta name="keywords" content="الأيام الصالحة للزواج, المذهب الشيعي, تقويم هجري, 1447, زواج, عقد القران" />
 
-  <!-- خط عربي واضح -->
+  <!-- Open Graph / Twitter -->
+  <meta property="og:title" content="الأيام الصالحة للزواج وفق المذهب الشيعي">
+  <meta property="og:description" content="تقويم هجري 1447 هـ يوضح الأيام المباركة والصالحة والمكروهة لعقد الزواج.">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- خط عربي -->
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600&display=swap" rel="stylesheet">
+  <!-- أيقونات Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
   <style>
     :root{
@@ -21,7 +29,7 @@
     html{font-size:16px}
     body{
       margin:0;background:linear-gradient(135deg,var(--bg1),var(--bg2));
-      font-family:'Cairo',system-ui,Arial,sans-serif;color:var(--txt);line-height:1.8;
+      font-family:'Cairo',system-ui,Arial,sans-serif;color:var(--txt);line-height:1.8
     }
 
     header{padding:20px;text-align:center;color:#fff}
@@ -34,7 +42,7 @@
     .calendar h3{margin:8px 0;font-size:1rem;font-weight:600;color:#0B132B}
     .nav-btn{
       padding:8px 12px;border-radius:10px;border:1px solid #e5e7eb;background:#fff;color:#0b0f19;
-      font-weight:600;cursor:pointer;transition:.2s transform,.2s box-shadow;
+      font-weight:600;cursor:pointer;transition:.2s transform,.2s box-shadow
     }
     .nav-btn:hover{transform:translateY(-1px);box-shadow:0 8px 18px rgba(0,0,0,.08)}
 
@@ -42,7 +50,7 @@
     .cell{
       aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;border-radius:12px;
       font-weight:600;border:1px solid #eef2f7;background:#f8fafc;font-size:1rem;cursor:pointer;outline:none;
-      transition:.15s box-shadow,.15s transform;
+      transition:.15s box-shadow,.15s transform
     }
     .cell:hover{box-shadow:0 6px 12px rgba(0,0,0,.08);transform:translateY(-1px)}
     .wk{background:#fff;font-weight:600;cursor:default}
@@ -78,12 +86,23 @@
     .hadith-text{margin:0 0 8px;text-align:justify}
     .hadith-source{font-size:.95rem;color:#374151;background:#f3f4f6;padding:6px 10px;border-radius:10px;display:inline-block}
 
-    footer{text-align:center;padding:20px 10px 26px}
+    footer{text-align:center;padding:20px 10px 10px}
     footer a{
       color:#e3e7ee;text-decoration:none;font-weight:600;font-size:1rem;display:inline-block;
       padding:6px 14px;border-radius:999px
     }
     footer a:hover{background:rgba(255,255,255,.08)}
+
+    /* أيقونات المشاركة */
+    .share{margin-top:16px;text-align:center}
+    .share h4{margin-bottom:8px;font-size:1rem;color:#fff}
+    .share a{
+      display:inline-block;margin:0 6px;font-size:1.2rem;width:36px;height:36px;line-height:36px;text-align:center;
+      border-radius:50%;color:#fff;transition:.2s
+    }
+    .share a.fb{background:#1877f2}.share a.tw{background:#1da1f2}.share a.wa{background:#25d366}.share a.tg{background:#0088cc}.share a.cp{background:#6b7280}
+    .share a:hover{opacity:.85;transform:scale(1.05)}
+    .copied-msg{margin-top:8px;font-size:.9rem;color:#d1fae5;display:none}
   </style>
 </head>
 <body>
@@ -130,6 +149,17 @@
     <a href="https://api.whatsapp.com/send/?phone=97333375858&text&type=phone_number&app_absent=0&wame_ctl=1" target="_blank" rel="noopener">
       برمجة وتطوير: فاضل الريس
     </a>
+
+    <!-- أيقونات المشاركة -->
+    <div class="share" aria-label="مشاركة الصفحة">
+      <h4>مشاركة الصفحة</h4>
+      <a href="#" class="fb" id="shareFB" title="مشاركة على فيسبوك" aria-label="فيسبوك"><i class="fab fa-facebook-f"></i></a>
+      <a href="#" class="tw" id="shareTW" title="مشاركة على تويتر/X" aria-label="تويتر"><i class="fab fa-x-twitter"></i></a>
+      <a href="#" class="wa" id="shareWA" title="مشاركة على واتساب" aria-label="واتساب"><i class="fab fa-whatsapp"></i></a>
+      <a href="#" class="tg" id="shareTG" title="مشاركة على تيليجرام" aria-label="تيليجرام"><i class="fab fa-telegram-plane"></i></a>
+      <a href="#" class="cp" id="shareCP" title="نسخ الرابط" aria-label="نسخ الرابط"><i class="fas fa-link"></i></a>
+      <div class="copied-msg" id="copiedMsg">✅ تم نسخ الرابط</div>
+    </div>
   </footer>
 
   <script>
@@ -149,7 +179,7 @@
     const H_MONTHS=['محرم','صفر','ربيع الأول','ربيع الثاني','جمادى الأولى','جمادى الثانية','رجب','شعبان','رمضان','شوال','ذو القعدة','ذو الحجة'];
     const G_MONTHS=['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
 
-    /* ================= تحويلات هجري → ميلادي ================= */
+    /* ================= تحويلات هجري → ميلادي (بدون أي إزاحة) ================= */
     const ISLAMIC_EPOCH=1948439.5;
     function islamicToJD(y,m,d){return d+Math.ceil(29.5*(m-1))+(y-1)*354+Math.floor((3+11*y)/30)+ISLAMIC_EPOCH-1;}
     function jdToGregorian(jd){
@@ -184,13 +214,13 @@
     function renderCalendar(){
       calTitle.textContent=`${H_MONTHS[currentMonth-1]} 1447 هـ`;
       calGrid.innerHTML='';
-      // رؤوس الأسبوع
+      // رؤوس الأسبوع (شكلية)
       ['س','أ','ث','أر','خ','ج','س'].forEach(w=>{
         const head=document.createElement('div');
         head.textContent=w; head.className='cell wk'; head.setAttribute('aria-hidden','true');
         calGrid.appendChild(head);
       });
-      // أيام الشهر
+      // أيام الشهر 1..30
       for(let d=1; d<=30; d++){
         const cls=DATA_1447[currentMonth].blessed.includes(d)?'ok'
                  :DATA_1447[currentMonth].good.includes(d)?'good'
@@ -215,7 +245,7 @@
       statusOut.textContent=statusTxt; statusOut.className=`badge ${cls}`;
     }
 
-    // اختيار اليوم الهجري الحالي تلقائيًا عند فتح الصفحة (إن كان ضمن 1447 هـ)
+    // تحديد اليوم الهجري الحالي (إن كان ضمن 1447هـ) عند فتح الصفحة
     function pickTodayHijri(){
       if(HAS_UMALQURA){
         const fmt=new Intl.DateTimeFormat('en-u-ca-islamic-umalqura',{year:'numeric',month:'numeric',day:'numeric'});
@@ -227,7 +257,7 @@
       }
     }
 
-    // أحداث
+    // أحداث التقويم
     calGrid.addEventListener('click',e=>{
       const el=e.target.closest('.cell'); if(!el || el.classList.contains('wk')) return;
       const d=+el.dataset.day; if(d) showInfo(d);
@@ -255,12 +285,31 @@
       document.getElementById('hadithSource').textContent=h.src;
     }
 
+    /* ================= مشاركة الصفحة + نسخ الرابط ================= */
+    const pageUrl = encodeURIComponent(window.location.href);
+    const pageTitle = encodeURIComponent(document.title);
+    function initShareLinks(){
+      document.getElementById('shareFB').href=`https://www.facebook.com/sharer/sharer.php?u=${pageUrl}`;
+      document.getElementById('shareTW').href=`https://twitter.com/intent/tweet?url=${pageUrl}&text=${pageTitle}`;
+      document.getElementById('shareWA').href=`https://api.whatsapp.com/send?text=${pageTitle}%20${pageUrl}`;
+      document.getElementById('shareTG').href=`https://t.me/share/url?url=${pageUrl}&text=${pageTitle}`;
+      document.getElementById('shareCP').addEventListener('click',e=>{
+        e.preventDefault();
+        navigator.clipboard.writeText(window.location.href).then(()=>{
+          const msg=document.getElementById('copiedMsg');
+          msg.style.display='block';
+          setTimeout(()=>{msg.style.display='none';},2000);
+        });
+      });
+    }
+
     /* ================= تشغيل أولي ================= */
     (function init(){
       pickTodayHijri();     // يضبط اليوم الحالي إن أمكن
       renderCalendar();     // يرسم التقويم
       showInfo(selectedDay);// يعرض التاريخ والحكم مباشرة
       renderHadith();       // يعرض حديث الزيارة
+      initShareLinks();     // يجهّز روابط المشاركة
     })();
   </script>
 </body>
