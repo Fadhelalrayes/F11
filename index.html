@@ -5,11 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>الأيام الصالحة للزواج وفق المذهب الشيعي</title>
 
+  <!-- SEO -->
   <meta name="description" content="تقويم تفاعلي يوضح الأيام المباركة والصالحة والمكروهة للعقد والزواج وفق المذهب الشيعي لعام 1447 هـ.">
   <meta name="keywords" content="الأيام الصالحة للزواج, المذهب الشيعي, تقويم هجري, 1447, زواج, عقد القران">
-  <meta property="og:title" content="الأيام الصالحة للزواج وفق المذهب الشيعي">
-  <meta property="og:description" content="انقر أي يوم لمعرفة حكم الليلة: مباركة، صالحة، أو مكروهة.">
 
+  <!-- خط عربي موحّد -->
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
 
   <style>
@@ -19,17 +19,24 @@
       --txt:#0b0f19;   --card:#ffffff;
     }
     html{font-size:16px}
-    body{margin:0;background:linear-gradient(135deg,var(--bg1) 0%,var(--bg2) 100%);
-      font-family:'Tajawal',system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--txt);line-height:1.7}
+    body{
+      margin:0;
+      background:linear-gradient(135deg,var(--bg1) 0%,var(--bg2) 100%);
+      font-family:'Tajawal',system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      color:var(--txt); line-height:1.7;
+    }
     header{padding:20px;text-align:center;color:#fff}
     header h1{margin:0;font-size:1rem;font-weight:700}
     .wrap{max-width:980px;margin:16px auto 24px;padding:0 12px}
+
     .calendar{background:var(--card);border-radius:16px;padding:16px;box-shadow:0 6px 16px rgba(0,0,0,.10)}
     .calendar .controls{display:flex;justify-content:space-between;align-items:center;gap:8px}
     .calendar h3{margin:8px 0;font-size:1rem;font-weight:700;color:#0B132B}
+
     .nav-btn{padding:8px 12px;border-radius:10px;border:1px solid transparent;background:var(--good);color:#002c33;font-weight:700;cursor:pointer;transition:.2s transform,.2s box-shadow;font-size:1rem}
     .nav-btn:hover{transform:translateY(-1px);box-shadow:0 8px 18px rgba(0,179,196,.30)}
     .nav-btn.ghost{background:#fff;border-color:#e5e7eb;color:#0b0f19}
+
     .grid{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-top:12px}
     .cell{aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;border-radius:12px;font-weight:700;cursor:pointer;position:relative;border:1px solid #eef2f7;background:#f8fafc;transition:.15s box-shadow,.15s transform,.15s background;font-size:1rem;outline:none}
     .cell:hover{box-shadow:0 6px 12px rgba(0,0,0,.08);transform:translateY(-1px)}
@@ -39,15 +46,19 @@
     .cell.bad{background:rgba(239,68,68,.10);border-color:rgba(239,68,68,.25)}
     .cell.muted{color:var(--muted)}
     .wk{background:#fff;font-weight:700;border:1px solid #eef2f7;cursor:default}
+
     .legend{display:flex;gap:12px;justify-content:center;align-items:center;flex-wrap:wrap;margin:16px 0 2px}
     .legend div{display:flex;align-items:center;gap:6px;font-size:1rem}
     .dot{width:12px;height:12px;border-radius:50%;display:inline-block}
+
     .info-bar{max-width:900px;margin:12px auto 0;background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:10px;display:flex;gap:12px;flex-wrap:wrap;align-items:center}
     .info-item{display:flex;gap:6px;align-items:center}
     .badge{padding:4px 10px;border-radius:999px;font-weight:700;color:#fff;background:#9ca3af}
     .badge.ok{background:#16a34a}.badge.good{background:#00B3C4;color:#002c33}.badge.bad{background:#ef4444}
+
     .note{background:#fff;margin-top:12px;border-radius:14px;padding:12px;box-shadow:0 4px 10px rgba(0,0,0,.05);font-size:1rem;color:#0b0f19}
     footer{text-align:center;color:#e3e7ee;padding:20px 10px 26px;font-weight:700;font-size:1rem}
+    select{padding:6px 10px;border-radius:10px;border:1px solid #e5e7eb;background:#fff;font-weight:700}
   </style>
 </head>
 <body>
@@ -70,14 +81,22 @@
         <div><span class="dot" style="background:var(--muted)"></span> غير محددة</div>
       </div>
 
+      <!-- اختيار نوع التقويم + معلومات اليوم -->
       <div class="info-bar" id="infoBar" aria-live="polite">
+        <div class="info-item">
+          <label for="calType"><strong>التقويم:</strong></label>
+          <select id="calType">
+            <option value="umalqura">هجري (أمّ القرى)</option>
+            <option value="iran" selected>هجري (إيراني)</option>
+          </select>
+        </div>
         <div class="info-item"><strong>التاريخ الهجري:</strong> <span id="hijriOut">—</span></div>
         <div class="info-item"><strong>التاريخ الميلادي:</strong> <span id="gregOut">—</span></div>
         <div class="info-item"><strong>الحكم:</strong> <span id="statusOut" class="badge">—</span></div>
       </div>
 
       <div class="note">
-        التقويم يبين حكم الليالي (مباركة/صالحة/مكروهة) للعقد والزواج لعام 1447 هـ. يبدأ اليوم الشرعي من الغروب وقد يختلف يومًا تبعًا لرؤية الهلال. يُستحب دفع الصدقة للتوفيق.
+        يُعرض حكم الليالي (مباركة/صالحة/مكروهة) للعقد والزواج لعام 1447 هـ. يبدأ اليوم الشرعي من الغروب وقد يختلف يومًا تبعًا لرؤية الهلال. التقويم الإيراني يُقارب أمّ القرى بطرح يوم (يمكن تغييره).
       </div>
     </section>
   </div>
@@ -85,7 +104,7 @@
   <footer>برمجة وتطوير: فاضل الريس</footer>
 
   <script>
-    /* بيانات 1447 هـ */
+    /* ====================== البيانات (1447 هـ) ====================== */
     const DATA_1447 = {
       3:{blessed:[1,2,6,7,12,18,19,20,23,27,28,30], good:[9,11,14,15,22], disliked:[3,4,5,8,10,13,16,17,21,24,25,26,29]},
       4:{blessed:[2,4,6,7,12,17,19,20,23,27,28,30], good:[9,10,11,14], disliked:[1,3,5,8,13,15,16,18,21,22,24,25,26,29]},
@@ -98,48 +117,60 @@
       11:{blessed:[1,2,6,7,12,17,19,20,23,27,28], good:[8,9,10,14,15], disliked:[3,4,5,11,13,16,18,21,22,24,25,26,29]},
       12:{blessed:[1,2,4,6,12,18,19,20,23,27,28,30], good:[9,11,14,15,22], disliked:[3,5,7,8,10,13,16,17,21,24,25,26,29]}
     };
-
     const H_MONTHS = ['محرم','صفر','ربيع الأول','ربيع الثاني','جمادى الأولى','جمادى الثانية','رجب','شعبان','رمضان','شوال','ذو القعدة','ذو الحجة'];
     const G_MONTHS = ['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
 
-    /* دعم أمّ القرى إن وُجد + رجوع للحساب المدني */
-    const HAS_UMALQURA = (()=>{ try{ new Intl.DateTimeFormat('en-u-ca-islamic-umalqura').format(new Date()); return true; }catch{ return false; } })();
-
-    // حساب مدني تقريبي (JD)
-    const ISLAMIC_EPOCH = 1948439.5;
-    function islamicToJD(y,m,d){ return d + Math.ceil(29.5*(m-1)) + (y-1)*354 + Math.floor((3+11*y)/30) + ISLAMIC_EPOCH - 1; }
+    /* ================= تحويلات فلكية أساسية (JD) =================== */
+    const ISLAMIC_EPOCH = 1948439.5; // مرجع جولياني للهجري المدني
+    function islamicToJD(y,m,d){
+      return d + Math.ceil(29.5*(m-1)) + (y-1)*354 + Math.floor((3+11*y)/30) + ISLAMIC_EPOCH - 1;
+    }
     function jdToGregorian(jd){
       const Z = Math.floor(jd+0.5), F = (jd+0.5)-Z;
       let A = Z;
-      if(Z>=2299161){ const alpha=Math.floor((Z-1867216.25)/36524.25); A=Z+1+alpha-Math.floor(alpha/4); }
-      const B=A+1524, C=Math.floor((B-122.1)/365.25), D=Math.floor(365.25*C), E=Math.floor((B-D)/30.6001);
-      const day=B-D-Math.floor(30.6001*E)+F, month=E<14?E-1:E-13, year=month>2?C-4716:C-4715;
+      if(Z >= 2299161){ const alpha = Math.floor((Z-1867216.25)/36524.25); A = Z + 1 + alpha - Math.floor(alpha/4); }
+      const B = A + 1524, C = Math.floor((B - 122.1)/365.25), D = Math.floor(365.25 * C), E = Math.floor((B - D)/30.6001);
+      const day = B - D - Math.floor(30.6001 * E) + F;
+      const month = (E < 14) ? (E - 1) : (E - 13);
+      const year  = (month > 2) ? (C - 4716) : (C - 4715);
       return [year, month, Math.round(day)];
     }
 
-    // تحويل أمّ القرى: نحاول مطابقة (y,m,d) بالبحث حول تقريب مدني ±3 أيام
+    /* ============ تحويل أمّ القرى (Intl) ثم البحث ±3 أيام ============ */
+    const HAS_UMALQURA = (()=>{ try{ new Intl.DateTimeFormat('en-u-ca-islamic-umalqura').format(new Date()); return true; }catch{ return false; } })();
     function toUmAlQuraGregorian(hy, hm, hd){
       if(!HAS_UMALQURA) return null;
-      const fmt = new Intl.DateTimeFormat('en-u-ca-islamic-umalqura', {year:'numeric', month:'numeric', day:'numeric'});
+      const fmt = new Intl.DateTimeFormat('en-u-ca-islamic-umalqura', {year:'numeric', month:'numeric', day:'numeric', timeZone:'UTC'});
       const approx = jdToGregorian(islamicToJD(hy, hm, hd));
       const base = new Date(Date.UTC(approx[0], approx[1]-1, approx[2]));
-      const same = (a,b,c,d)=>a===b && c===d;
-      const parts = d => {
-        let y,m,dd; for(const p of fmt.formatToParts(d)){ if(p.type==='year') y=+p.value; else if(p.type==='month') m=+p.value; else if(p.type==='day') dd=+p.value; }
+      function parts(d){
+        let y,m,dd;
+        for(const p of fmt.formatToParts(d)){
+          if(p.type==='year') y=+p.value; else if(p.type==='month') m=+p.value; else if(p.type==='day') dd=+p.value;
+        }
         return [y,m,dd];
-      };
+      }
       for(let k=-3;k<=3;k++){
         const dt = new Date(base); dt.setUTCDate(dt.getUTCDate()+k);
-        const [yy,mm,dd] = parts(dt);
-        if(yy===hy && mm===hm && dd===hd){
-          return [dt.getUTCFullYear(), dt.getUTCMonth()+1, dt.getUTCDate()];
-        }
+        const [y,m,d] = parts(dt);
+        if(y===hy && m===hm && d===hd) return [dt.getUTCFullYear(), dt.getUTCMonth()+1, dt.getUTCDate()];
       }
-      return null; // لم نجد ضمن ±3
+      return null;
     }
 
-    // واجهة
-    let currentMonth = 3; // ربيع الأول
+    /* =================== تحويل "إيراني" مُقارب =================== */
+    let IRAN_OFFSET_DAYS = -1; // تقريب شائع: الإيراني أحيانًا متأخر يوم عن أمّ القرى
+    function toIranGregorian(hy, hm, hd){
+      const um = toUmAlQuraGregorian(hy, hm, hd) || jdToGregorian(islamicToJD(hy, hm, hd));
+      // طبّق الإزاحة
+      const dt = new Date(Date.UTC(um[0], um[1]-1, um[2]));
+      dt.setUTCDate(dt.getUTCDate() + IRAN_OFFSET_DAYS);
+      return [dt.getUTCFullYear(), dt.getUTCMonth()+1, dt.getUTCDate()];
+    }
+
+    /* =================== عناصر الواجهة والحالة =================== */
+    let currentMonth = 3;       // ربيع الأول كبداية افتراضية
+    let selectedDay  = 1;       // اليوم المختار داخل الشهر
     const calTitle = document.getElementById('calTitle');
     const calGrid  = document.getElementById('calGrid');
     const prevBtn  = document.getElementById('prevMonth');
@@ -147,55 +178,123 @@
     const hijriOut = document.getElementById('hijriOut');
     const gregOut  = document.getElementById('gregOut');
     const statusOut= document.getElementById('statusOut');
+    const calType  = document.getElementById('calType');
 
+    /* =================== رسم التقويم =================== */
     function renderCalendar(){
       calTitle.textContent = `${H_MONTHS[currentMonth-1]} 1447 هـ`;
       calGrid.innerHTML = '';
-      const weekdays = ['س','أ','ث','أر','خ','ج','س'];
-      weekdays.forEach(w=>{
-        const head=document.createElement('div'); head.textContent=w; head.className='cell wk'; head.setAttribute('aria-hidden','true'); calGrid.appendChild(head);
+
+      // رؤوس أيام الأسبوع (جمالية)
+      ['س','أ','ث','أر','خ','ج','س'].forEach(w=>{
+        const head=document.createElement('div'); head.textContent=w; head.className='cell wk'; head.setAttribute('aria-hidden','true');
+        calGrid.appendChild(head);
       });
-      const days = 30; // نعرض 30 يومًا توافقًا مع بيانات الشهر
-      for(let d=1; d<=days; d++){
+
+      // نفترض 30 يومًا (مطابقة لبيانات جداول الشهر)
+      for(let d=1; d<=30; d++){
         const cls =
           DATA_1447[currentMonth].blessed.includes(d) ? 'ok' :
           DATA_1447[currentMonth].good.includes(d)    ? 'good' :
           DATA_1447[currentMonth].disliked.includes(d)? 'bad' : 'muted';
+
         const cell=document.createElement('div');
         cell.className = `cell ${cls}`;
         cell.textContent = d;
         cell.title = (cls==='ok'?'مباركة':cls==='good'?'صالحة':cls==='bad'?'مكروهة':'غير محددة');
-        cell.setAttribute('role','button'); cell.setAttribute('tabindex','0'); cell.dataset.day=String(d);
+        cell.setAttribute('role','button');
+        cell.setAttribute('tabindex','0');
+        cell.dataset.day = String(d);
         calGrid.appendChild(cell);
       }
     }
 
-    function activateCellFromEl(el){
-      const cell = el && el.closest('.cell'); if(!cell || cell.classList.contains('wk')) return;
-      const d = parseInt(cell.dataset.day,10); if(!d) return;
-      const cls = cell.classList.contains('ok')?'ok':cell.classList.contains('good')?'good':cell.classList.contains('bad')?'bad':'muted';
-      const statusTxt = cls==='ok'?'مباركة':cls==='good'?'صالحة':cls==='bad'?'مكروهة':'غير محددة';
+    /* =================== عرض الشريط السفلي =================== */
+    function showInfo(day){
+      selectedDay = day;
+      const cls =
+        DATA_1447[currentMonth].blessed.includes(day) ? 'ok' :
+        DATA_1447[currentMonth].good.includes(day)    ? 'good' :
+        DATA_1447[currentMonth].disliked.includes(day)? 'bad' : 'muted';
+      const statusTxt = (cls==='ok'?'مباركة':cls==='good'?'صالحة':cls==='bad'?'مكروهة':'غير محددة');
 
-      // نحاول أمّ القرى أولاً، وإلا نرجع للحساب المدني
-      const um = toUmAlQuraGregorian(1447, currentMonth, d);
+      // تحويل الميلادي حسب نوع التقويم المختار
+      const type = calType.value;
       let gy,gm,gd;
-      if(um){ [gy,gm,gd] = um; }
-      else { [gy,gm,gd] = jdToGregorian(islamicToJD(1447, currentMonth, d)); }
-
-      hijriOut.textContent = `${d} ${H_MONTHS[currentMonth-1]} 1447 هـ`;
-      gregOut.textContent  = `${gd} ${G_MONTHS[gm-1]} ${gy} م` + (um ? '' : ' (تقريبي)');
+      if(type === 'iran'){
+        [gy,gm,gd] = toIranGregorian(1447, currentMonth, day);
+        hijriOut.textContent = `${day} ${H_MONTHS[currentMonth-1]} 1447 هـ (إيراني)`;
+      }else{
+        const um = toUmAlQuraGregorian(1447, currentMonth, day) || jdToGregorian(islamicToJD(1447, currentMonth, day));
+        [gy,gm,gd] = um;
+        hijriOut.textContent = `${day} ${H_MONTHS[currentMonth-1]} 1447 هـ (أمّ القرى)`;
+      }
+      gregOut.textContent  = `${gd} ${G_MONTHS[gm-1]} ${gy} م`;
       statusOut.textContent = statusTxt;
       statusOut.className = `badge ${cls}`;
     }
 
-    calGrid.addEventListener('click', e => activateCellFromEl(e.target), {passive:true});
-    calGrid.addEventListener('touchstart', e => activateCellFromEl(e.target), {passive:true});
-    calGrid.addEventListener('keydown', e => { if(e.key==='Enter' || e.key===' '){ e.preventDefault(); activateCellFromEl(e.target); } });
+    /* =================== اختيار اليوم الحالي تلقائيًا =================== */
+    function initSelectToday(){
+      // حاولنا تحديد الشهر/اليوم الهجري الحالي (إن كان ضمن 1447هـ والأشهر 3..12)
+      let hy, hm, hd;
+      if(HAS_UMALQURA){
+        const fmt = new Intl.DateTimeFormat('en-u-ca-islamic-umalqura', {year:'numeric', month:'numeric', day:'numeric'});
+        let y,m,d; for(const p of fmt.formatToParts(new Date())){
+          if(p.type==='year') y=+p.value; else if(p.type==='month') m=+p.value; else if(p.type==='day') d=+p.value;
+        }
+        hy=y; hm=m; hd=d;
+      }else{
+        // رجوع تقريبي: نحسب مدنيًا ثم نستخلص (هذا لأخذ فكرة فقط)
+        const now = new Date();
+        const JD_UNIX = (now/86400000)+2440587.5;
+        // نعكس islamicToJD تقريبًا: هنا لا نحتاج السنة بدقة، بل نضبط لاحقًا على 1447 إذا ضمن المدى
+        // سنبقي default لاحقًا إن لم نكن ضمن 1447
+        hy=1450; hm=1; hd=1;
+      }
 
-    prevBtn.addEventListener('click', ()=>{ currentMonth--; if(currentMonth<3) currentMonth=12; renderCalendar(); });
-    nextBtn.addEventListener('click', ()=>{ currentMonth++; if(currentMonth>12) currentMonth=3; renderCalendar(); });
+      // إن كان اليوم ضمن 1447 هـ (من ربيع الأول=3 حتى ذي الحجة=12)، اضبطه
+      if(hy===1447 && hm>=3 && hm<=12){
+        currentMonth = hm; selectedDay = hd;
+      }else{
+        // إن لم يكن ضمن المدى، أبقِ الافتراضي: ربيع الأول / اليوم 1
+        currentMonth = 3; selectedDay = 1;
+      }
+    }
 
-    renderCalendar();
+    /* =================== أحداث الواجهة =================== */
+    calGrid.addEventListener('click', e => {
+      const el = e.target.closest('.cell'); if(!el || el.classList.contains('wk')) return;
+      const d = +el.dataset.day; if(d) showInfo(d);
+    }, {passive:true});
+    calGrid.addEventListener('keydown', e => {
+      if(e.key==='Enter' || e.key===' '){
+        const el = e.target.closest('.cell'); if(!el || el.classList.contains('wk')) return;
+        const d = +el.dataset.day; if(d){ e.preventDefault(); showInfo(d); }
+      }
+    });
+
+    prevBtn.addEventListener('click', ()=>{
+      currentMonth--; if(currentMonth<3) currentMonth=12;
+      renderCalendar(); showInfo(Math.min(selectedDay,30));
+    });
+    nextBtn.addEventListener('click', ()=>{
+      currentMonth++; if(currentMonth>12) currentMonth=3;
+      renderCalendar(); showInfo(Math.min(selectedDay,30));
+    });
+
+    calType.addEventListener('change', ()=>{
+      // إعادة عرض الشريط حسب النوع الجديد دون تغيير اليوم المختار
+      showInfo(selectedDay || 1);
+    });
+
+    /* =================== تشغيل أولي =================== */
+    (function init(){
+      initSelectToday();
+      renderCalendar();
+      // عرض اليوم المختار افتراضيًا فور الفتح
+      showInfo(selectedDay);
+    })();
   </script>
 </body>
 </html>
