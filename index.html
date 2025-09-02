@@ -1,533 +1,241 @@
-<!DOCTYPE html><html lang="ar" dir="rtl">
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>الأيام الصالحة للزواج وفق المذهب الشيعي</title>
-  <meta name="description" content="أداة تفاعلية لعرض الأيام المباركة والصالحة والمكروهة للعقد والزواج وفق المذهب الشيعي لسنة 1447 هـ (2025/2026 م). تشمل تحويل التاريخ بين الهجري والميلادي وحكم الليلة." />
-  <meta name="keywords" content="الأيام الصالحة للزواج, المذهب الشيعي, تقويم هجري, تقويم 1447, زواج, عقد القِران, ليالي مباركة, 2025, 2026" />
-  <meta property="og:title" content="الأيام الصالحة للزواج وفق المذهب الشيعي" />
-  <meta property="og:description" content="اختَر أي تاريخ هجري أو ميلادي لمعرفة حكم الليلة: مباركة، صالحة، أو مكروهة." />
-  <meta property="og:type" content="website" />
-  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+  <!-- تحسين بسيط لـ SEO -->
+  <meta name="description" content="تقويم تفاعلي يوضح الأيام المباركة والصالحة والمكروهة للعقد والزواج وفق المذهب الشيعي لعام 1447 هـ." />
+  <meta name="keywords" content="الأيام الصالحة للزواج, المذهب الشيعي, تقويم هجري, 1447, زواج, عقد القران" />
+
+  <!-- خط عربي موحّد -->
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+
   <style>
     :root{
-      --bg1:#0B132B;    /* أزرق غامق */
-      --bg2:#e6e7ea;    /* رمادي فاتح */
-      --primary:#00B3C4;/* تركوازي */
-      --ok:#16a34a;     /* أخضر مبارك */
-      --good:#00B3C4;   /* تركوازي صالح */
-      --bad:#ef4444;    /* أحمر مكروه */
-      --muted:#9ca3af;  /* رمادي نصوص */
-      --card:#ffffff;   /* أبيض الكارت */
-      --text:#0b0f19;   /* أسود داكن */
+      --bg1:#0B132B;   /* خلفية تدرّج: أزرق غامق */
+      --bg2:#e6e7ea;   /* رمادي فاتح */
+      --ok:#16a34a;    /* مباركة */
+      --good:#00B3C4;  /* صالحة (تركوازي) */
+      --bad:#ef4444;   /* مكروهة */
+      --muted:#9ca3af; /* غير محددة/رمادي */
+      --txt:#0b0f19;   /* نص */
+      --card:#ffffff;  /* خلفية الكروت */
     }
-    *{box-sizing:border-box}
-    html,body{height:100%}
+
+    /* قاعدة عامة بحجم خط موحّد */
+    html { font-size: 16px; }
     body{
       margin:0;
       background: linear-gradient(135deg, var(--bg1) 0%, var(--bg2) 100%);
-      font-family: 'Tajawal','Cairo', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      color:var(--text);
+      font-family: 'Tajawal', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--txt);
+      line-height:1.7;
     }
+
     header{
-      padding: 28px 18px 10px;
+      padding:20px;
       text-align:center;
       color:#fff;
     }
-    header h1{ margin:0; font-weight:800; font-size: clamp(1.4rem, 2.6vw, 2.4rem); letter-spacing:0.2px; }
-    header .subtitle{ opacity:.9; margin-top:6px; font-size: .98rem; }.container{
-  max-width: 1200px; margin: 18px auto 40px; padding: 0 16px;
-  display:grid; grid-template-columns: 1fr; gap:16px;
-}
-@media (min-width: 980px){ .container{ grid-template-columns: 480px 1fr; gap:20px; } }
+    header h1{
+      margin:0;
+      font-size:1rem;     /* موحّد */
+      font-weight:700;
+    }
+    .wrap{
+      max-width:980px;
+      margin:16px auto 24px;
+      padding:0 12px;
+    }
 
-.card{
-  background: linear-gradient(180deg, rgba(255,255,255,.98), rgba(255,255,255,.95));
-  border-radius: 18px; padding:18px; box-shadow: 0 10px 28px rgba(10,20,30,.18);
-  border:1px solid rgba(11,19,43,.06);
-}
-.card h2{ margin:4px 0 12px; font-size:1.25rem; font-weight:800; color:#0B132B; display:flex; align-items:center; gap:8px; }
-.row{ display:flex; flex-wrap:wrap; gap:10px; }
-.field{ flex:1 1 160px; min-width: 180px; }
-.label{ font-size:.88rem; color:#334155; margin-bottom:6px; display:block; }
-input[type="date"], select, input[type="number"], button{
-  width:100%; padding:11px 12px; border-radius:12px; border:1px solid #e5e7eb; outline:none; font-size:1rem; background:#fff;
-  box-shadow: 0 1px 0 rgba(0,0,0,.02) inset;
-}
-button.primary{ background:var(--primary); color:#002c33; font-weight:800; border:none; cursor:pointer; transition:.2s transform, .2s box-shadow; }
-button.primary:hover{ transform: translateY(-1px); box-shadow:0 8px 18px rgba(0,179,196,.35); }
+    /* الكارت/إطار التقويم */
+    .calendar{
+      background:var(--card);
+      border-radius:16px;
+      padding:16px;
+      box-shadow:0 6px 16px rgba(0,0,0,.10);
+    }
+    .calendar .controls{
+      display:flex;justify-content:space-between;align-items:center;gap:8px;
+    }
+    .calendar h3{
+      margin:8px 0;
+      font-size:1rem;     /* موحّد */
+      font-weight:700;
+      color:#0B132B;
+    }
 
-.status{
-  display:flex; align-items:center; justify-content:space-between; gap:12px; padding:12px; border-radius:14px; border:1px dashed rgba(11,19,43,.15); background:#f8fafc;
-}
-.badge{ display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:999px; font-weight:700; font-size:.95rem; color:#fff; }
-.badge.ok{ background: var(--ok); }
-.badge.good{ background: var(--good); color:#002c33; }
-.badge.bad{ background: var(--bad); }
-.badge.muted{ background:#cbd5e1; color:#0b0f19; }
+    /* أزرار التنقل */
+    .nav-btn{
+      padding:8px 12px;
+      border-radius:10px;
+      border:1px solid transparent;
+      background:var(--good);
+      color:#002c33;
+      font-weight:700;
+      cursor:pointer;
+      transition:.2s transform, .2s box-shadow;
+      font-size:1rem;
+    }
+    .nav-btn:hover{ transform:translateY(-1px); box-shadow:0 8px 18px rgba(0,179,196,.30); }
+    .nav-btn.ghost{ background:#fff; border-color:#e5e7eb; color:#0b0f19; }
 
-.legend{ display:flex; gap:10px; flex-wrap:wrap; margin-top:8px; }
-.legend .chip{ display:flex; align-items:center; gap:8px; background:#f1f5f9; border-radius:999px; padding:6px 10px; font-size:.9rem; }
-.dot{ width:12px; height:12px; border-radius:50%; display:inline-block; }
+    /* شبكة الأيام */
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(7,1fr);
+      gap:8px;
+      margin-top:12px;
+    }
+    .cell{
+      aspect-ratio:1/1;
+      display:flex;align-items:center;justify-content:center;
+      border-radius:12px;
+      font-weight:700;
+      cursor:pointer;
+      position:relative;
+      border:1px solid #eef2f7;
+      background:#f8fafc;
+      transition:.15s box-shadow, .15s transform;
+      font-size:1rem;   /* موحّد */
+    }
+    .cell:hover{ box-shadow:0 6px 12px rgba(0,0,0,.08); transform:translateY(-1px); }
+    .cell.ok{   background: rgba(22,163,74,.10);  border-color: rgba(22,163,74,.25); }
+    .cell.good{ background: rgba(0,179,196,.12);  border-color: rgba(0,179,196,.28); }
+    .cell.bad{  background: rgba(239,68,68,.10);  border-color: rgba(239,68,68,.25); }
+    .cell.muted{color:var(--muted);}
 
-.tabs{ display:flex; gap:8px; margin: 6px 0 14px; }
-.tab{ flex:1; text-align:center; background:#ffffff; border:1px solid #e5e7eb; padding:10px; border-radius:12px; font-weight:700; cursor:pointer; }
-.tab.active{ background: var(--primary); color:#002c33; border-color: transparent; }
+    /* عناوين الأعمدة (أيام الأسبوع) */
+    .wk{ background:#fff; font-weight:700; border:1px solid #eef2f7; }
 
-.calendar{ background:#fff; border:1px solid #e5e7eb; border-radius:18px; padding:12px; box-shadow: 0 6px 16px rgba(0,0,0,.06); }
-.calendar .controls{ display:flex; align-items:center; justify-content:space-between; gap:8px; }
-.calendar h3{ margin:8px 0 10px; font-size:1.05rem; }
-.nav-btn{ width:auto; padding:8px 10px; border-radius:10px; border:1px solid #e5e7eb; background:#fff; cursor:pointer; font-weight:700; }
+    /* أسطورة/نقاط ملوّنة */
+    .legend{
+      display:flex;gap:12px;justify-content:center;align-items:center;flex-wrap:wrap;
+      margin:16px 0 2px;
+    }
+    .legend div{ display:flex;align-items:center;gap:6px; font-size:1rem; }
+    .dot{ width:12px;height:12px;border-radius:50%; display:inline-block; }
 
-.grid{ display:grid; grid-template-columns: repeat(7, 1fr); gap:8px; margin-top:10px; }
-.cell{ aspect-ratio: 1 / 1; display:flex; align-items:center; justify-content:center; border-radius:12px; background:#f8fafc; border:1px solid #eef2f7; font-weight:700; cursor:pointer; position:relative; }
-.cell:hover{ box-shadow:0 6px 12px rgba(0,0,0,.08); }
-.cell.ok{ background: rgba(22,163,74,.08); border-color: rgba(22,163,74,.25); }
-.cell.good{ background: rgba(0,179,196,.10); border-color: rgba(0,179,196,.28); }
-.cell.bad{ background: rgba(239,68,68,.08); border-color: rgba(239,68,68,.25); }
-.cell.muted{ color:#94a3b8; }
-.cell .mark{ position:absolute; bottom:6px; width:6px; height:6px; border-radius:50%; }
+    /* نبذة قصيرة */
+    .note{
+      background:#fff;
+      margin-top:12px;
+      border-radius:14px;
+      padding:12px;
+      box-shadow:0 4px 10px rgba(0,0,0,.05);
+      font-size:1rem;   /* موحّد */
+      color:#0b0f19;
+    }
 
-.note{ margin-top:10px; font-size:.95rem; color:#0b0f19; background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:10px; }
-.note strong{ color:#0B132B; }
-
-footer{ text-align:center; color:#e3e7ee; padding:22px 10px 30px; font-weight:600; }
-
-/* Icon style */
-.icon{ width:22px; height:22px; }
-
-/* Accessibility */
-.sr-only{ position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); border:0; }
-
+    footer{
+      text-align:center;
+      color:#e3e7ee;
+      padding:20px 10px 26px;
+      font-weight:700;
+      font-size:1rem;   /* موحّد */
+    }
   </style>
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"WebApplication",
-    "name":"الأيام الصالحة للزواج وفق المذهب الشيعي",
-    "description":"تقويم تفاعلي يوضّح حكم الليالي (مباركة/صالحة/مكروهة) للعقد والزواج لسنة 1447 هـ.",
-    "applicationCategory":"LifestyleApplication",
-    "operatingSystem":"All",
-    "inLanguage":"ar"
-  }
-  </script>
 </head>
 <body>
   <header>
-    <h1>
-      <svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="vertical-align:-4px; margin-left:6px">
-        <path d="M21 12.5c-1.8 3.9-6.4 5.6-10.2 3.8A7.5 7.5 0 0 1 9 3.6a8.8 8.8 0 1 0 12 8.9z" stroke="#fff" stroke-width="1.6"/>
-      </svg>
-      الأيام الصالحة للزواج وفق المذهب الشيعي
-      <svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="vertical-align:-4px; margin-right:6px">
-        <circle cx="12" cy="12" r="7" stroke="#fff" stroke-width="1.6"/>
-        <circle cx="16" cy="8" r="2.4" fill="#fff"/>
-      </svg>
-    </h1>
-    <div class="subtitle">اختَر أي تاريخ هجري أو ميلادي لمعرفة حكم الليلة: <strong>مباركة</strong>، <strong>صالحة</strong>، أو <strong>مكروهة</strong>. (المعتمد: 1447 هـ)</div>
-  </header>  <main class="container" aria-live="polite">
-    <!-- الحكم والكارت -->
-    <section class="card" aria-label="بطاقة التاريخ والحكم">
-      <h2>
-        <svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <path d="M3 6h18M7 3v6M17 3v6M6 10h12v10H6z" stroke="#0B132B" stroke-width="1.6"/>
-        </svg>
-        بطاقة التاريخ والحكم
-      </h2><div class="row" style="margin-bottom:10px">
-    <div class="field">
-      <label class="label" for="gdate">التاريخ الميلادي</label>
-      <input type="date" id="gdate" aria-describedby="gdateHelp">
-      <small id="gdateHelp" class="label" style="color:var(--muted)">اختر تاريخًا ميلاديًا لمعرفة حكم ليلته (الليلة تتبع اليوم التالي).</small>
-    </div>
-    <div class="field">
-      <label class="label" for="hmonth">التاريخ الهجري (1447 هـ)</label>
-      <div class="row" style="gap:8px">
-        <select id="hmonth" title="الشهر الهجري">
-          <option value="3">ربيع الأول</option>
-          <option value="4">ربيع الثاني</option>
-          <option value="5">جمادى الأولى</option>
-          <option value="6">جمادى الثانية</option>
-          <option value="7">رجب</option>
-          <option value="8">شعبان</option>
-          <option value="9">رمضان</option>
-          <option value="10">شوال</option>
-          <option value="11">ذو القعدة</option>
-          <option value="12">ذو الحجة</option>
-        </select>
-        <input type="number" id="hday" min="1" max="30" value="1" title="اليوم" />
-        <button class="primary" id="applyHijri">اعرض الحكم</button>
+    <h1>الأيام الصالحة للزواج وفق المذهب الشيعي</h1>
+  </header>
+
+  <div class="wrap">
+    <!-- التقويم -->
+    <section class="calendar" aria-label="تقويم هجري تفاعلي 1447 هـ">
+      <div class="controls">
+        <button class="nav-btn ghost" id="prevMonth" aria-label="الشهر السابق">‹</button>
+        <h3 id="calTitle">ربيع الأول 1447 هـ</h3>
+        <button class="nav-btn ghost" id="nextMonth" aria-label="الشهر التالي">›</button>
       </div>
-    </div>
+
+      <div class="grid" id="calGrid" aria-label="أيام الشهر"></div>
+
+      <!-- نقاط ملوّنة تشرح المعنى -->
+      <div class="legend" aria-label="الدليل اللوني">
+        <div><span class="dot" style="background:var(--ok)"></span> مباركة</div>
+        <div><span class="dot" style="background:var(--good)"></span> صالحة</div>
+        <div><span class="dot" style="background:var(--bad)"></span> مكروهة</div>
+        <div><span class="dot" style="background:var(--muted)"></span> غير محددة</div>
+      </div>
+
+      <!-- نبذة قصيرة جدًا -->
+      <div class="note">
+        التقويم يبين حكم الليالي (مباركة/صالحة/مكروهة) للعقد والزواج لعام 1447 هـ. يبدأ اليوم الشرعي من الغروب وقد يختلف يومًا تبعًا لرؤية الهلال. يُستحب دفع الصدقة للتوفيق.
+      </div>
+    </section>
   </div>
 
-  <div class="status" id="statusBox">
-    <div>
-      <div class="label" style="margin-bottom:4px">التاريخ الهجري</div>
-      <div id="hijriOut" style="font-weight:800; font-size:1.05rem">—</div>
-    </div>
-    <div>
-      <div class="label" style="margin-bottom:4px">التاريخ الميلادي</div>
-      <div id="gregOut" style="font-weight:800; font-size:1.05rem">—</div>
-    </div>
-    <div style="text-align:center">
-      <div class="label" style="margin-bottom:4px">حالة الليلة</div>
-      <div id="statusBadge" class="badge muted">—</div>
-    </div>
-  </div>
-
-  <div class="legend" aria-label="الشرح اللوني">
-    <div class="chip"><span class="dot" style="background:var(--ok)"></span> مباركة</div>
-    <div class="chip"><span class="dot" style="background:var(--good)"></span> صالحة</div>
-    <div class="chip"><span class="dot" style="background:var(--bad)"></span> مكروهة</div>
-    <div class="chip"><span class="dot" style="background:#cbd5e1"></span> غير محددة</div>
-  </div>
-
-  <div id="noteBox" class="note" style="display:none"></div>
-
-  <div class="tabs" role="tablist" aria-label="طريقة الإدخال">
-    <button id="tabHijri" class="tab active" role="tab" aria-selected="true">وضع هجري</button>
-    <button id="tabGreg" class="tab" role="tab" aria-selected="false">وضع ميلادي</button>
-    <button class="tab" id="todayBtn" title="انتقال إلى اليوم">اليوم</button>
-  </div>
-
-  <div class="label" style="margin-top:4px; color:#475569">
-    ملاحظة فقهية: يبدأ اليوم الشرعي من <strong>غروب الشمس</strong> وينتهي بغروب اليوم التالي، لذا فـ«ليلة الأحد» تتبع <strong>يوم الأحد</strong>.
-  </div>
-</section>
-
-<!-- التقويم -->
-<section class="calendar" aria-label="تقويم هجري تفاعلي">
-  <div class="controls">
-    <button class="nav-btn" id="prevMonth">‹</button>
-    <div style="flex:1; text-align:center">
-      <h3 id="calTitle">ربيع الأول 1447 هـ</h3>
-    </div>
-    <button class="nav-btn" id="nextMonth">›</button>
-  </div>
-  <div class="row" style="margin:8px 0 0; gap:8px">
-    <select id="calMonth" style="max-width: 220px">
-      <option value="3">ربيع الأول</option>
-      <option value="4">ربيع الثاني</option>
-      <option value="5">جمادى الأولى</option>
-      <option value="6">جمادى الثانية</option>
-      <option value="7">رجب</option>
-      <option value="8">شعبان</option>
-      <option value="9">رمضان</option>
-      <option value="10">شوال</option>
-      <option value="11">ذو القعدة</option>
-      <option value="12">ذو الحجة</option>
-    </select>
-    <button class="primary" id="renderCal">اعرض الشهر</button>
-  </div>
-  <div class="grid" id="calGrid" aria-label="أيام الشهر"></div>
-</section>
-
-  </main>  <section class="card" style="max-width:1200px;margin:0 auto 28px;">
-    <h2>
-      <svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <path d="M5 21V5a3 3 0 0 1 3-3h8a3 3 0 0 1 3 3v16l-7-3-7 3z" stroke="#0B132B" stroke-width="1.6"/>
-      </svg>
-      نبذة
-    </h2>
-    <p style="line-height:1.9; font-size:1.02rem; color:#0b0f19">
-      تعتمد هذه الصفحة على مبدأ <strong>حكم الليالي</strong> للعقد والزواج وفق المذهب الشيعي، حيث تُقسَّم الأيام إلى <strong>مباركة</strong>، <strong>صالحة</strong>، و<strong>مكروهة</strong>.
-      وقد روعي في التقويم أن اليوم الشرعي يبدأ من الغروب، فتكون الليلة تابعة لليوم الذي يليها.
-      البيانات المعروضة هنا مخصّصة لعام <strong>1447 هـ</strong> (تقريبًا ما بين <strong>أغسطس 2025</strong> إلى <strong>يونيو 2026</strong>)
-      وقد تختلف يومًا بالزيادة أو النقصان تبعًا لاختلاف <strong>رؤية الهلال</strong> في البلدان المختلفة.
-      يُستحب دائمًا <strong>الصدقة</strong> طلبًا للتوفيق ودفع البلاء.
-    </p>
-    <p style="line-height:1.9; font-size:1.02rem; color:#0b0f19">
-      <em>تنبيه:</em> يعتمد تحويل التواريخ هنا على الحسابات الفلكية <span title="Islamic Civil (Tabular)">المدنية التقريبية</span>، وقد يختلف التاريخ الهجري الحقيقي بحسب البلد والرؤية الشرعية.
-    </p>
-  </section>  <footer>
+  <footer>
     برمجة وتطوير: فاضل الريس
-  </footer>  <script>
-    // ===================== بيانات 1447 هـ كما وردت =====================
+  </footer>
+
+  <script>
+    /* بيانات 1447 هـ (من ربيع الأول إلى ذي الحجة) */
     const DATA_1447 = {
-      3: { // ربيع الأول
-        name:'ربيع الأول',
-        blessed:[1,2,6,7,12,18,19,20,23,27,28,30],
-        good:[9,11,14,15,22],
-        disliked:[3,4,5,8,10,13,16,17,21,24,25,26,29],
-        notes:{8:'يوافق استشهاد الإمام الحسن العسكري (ع).'}
-      },
-      4: { // ربيع الثاني
-        name:'ربيع الثاني',
-        blessed:[2,4,6,7,12,17,19,20,23,27,28,30],
-        good:[9,10,11,14],
-        disliked:[1,3,5,8,13,15,16,18,21,22,24,25,26,29],
-        notes:{13:'يوافق استشهاد السيدة فاطمة الزهراء (ع).'}
-      },
-      5: { // جمادى الأولى
-        name:'جمادى الأولى',
-        blessed:[1,2,4,7,12,17,19,23,28],
-        good:[8,9,10,11,14,15,22],
-        disliked:[3,5,6,13,16,18,20,21,24,25,26,27,29],
-        notes:{13:'يوافق استشهاد السيدة فاطمة الزهراء (ع).'}
-      },
-      6: { // جمادى الثانية
-        name:'جمادى الثانية',
-        blessed:[1,2,4,6,7,17,18,20,23,27,28,30],
-        good:[8,9,10,11,14,15,22],
-        disliked:[3,5,12,13,16,19,21,24,25,26,29],
-        notes:{3:'استشهاد السيدة فاطمة الزهراء (ع) — الرواية الثانية',13:'وفاة السيدة أم البنين (ع)'}
-      },
-      7: { // رجب
-        name:'رجب',
-        blessed:[1,2,4,6,7,18,19,20,23,27,28,30],
-        good:[8,9,11,14,22],
-        disliked:[3,5,10,12,13,15,16,17,21,24,25,26,29],
-        notes:{3:'استشهاد الإمام علي الهادي (ع)',12:'رأس السنة الميلادية 2026',15:'وفاة السيدة زينب الكبرى (ع)',25:'استشهاد الإمام موسى الكاظم (ع)'}
-      },
-      8: { // شعبان
-        name:'شعبان',
-        blessed:[2,4,6,7,12,17,18,19,20,27,28],
-        good:[9,10,11,14,23],
-        disliked:[1,3,5,8,13,15,16,21,22,24,25,26,29],
-        notes:{}
-      },
-      9: { // رمضان
-        name:'رمضان',
-        blessed:[1,2,4,6,17,18,27,30],
-        good:[9,10,11,12,15,22,23],
-        disliked:[3,5,7,8,13,14,16,19,20,21,24,25,26,28,29],
-        notes:{8:'وفاة السيدة خديجة (ع)',19:'ضربة الإمام علي (ع)',21:'استشهاد الإمام علي (ع)'}
-      },
-      10: { // شوال
-        name:'شوال',
-        blessed:[1,4,6,7,17,18,20,23,27,28],
-        good:[8,9,10,11,14,15,22],
-        disliked:[2,3,5,12,13,16,19,21,24,25,26,29],
-        notes:{25:'استشهاد الإمام جعفر الصادق (ع)'}
-      },
-      11: { // ذو القعدة
-        name:'ذو القعدة',
-        blessed:[1,2,6,7,12,17,19,20,23,27,28],
-        good:[8,9,10,14,15],
-        disliked:[3,4,5,11,13,16,18,21,22,24,25,26,29],
-        notes:{29:'استشهاد الإمام محمد الجواد (ع)'}
-      },
-      12: { // ذو الحجة
-        name:'ذو الحجة',
-        blessed:[1,2,4,6,12,18,19,20,23,27,28,30],
-        good:[9,11,14,15,22],
-        disliked:[3,5,7,8,10,13,16,17,21,24,25,26,29],
-        notes:{7:'استشهاد الإمام محمد الباقر (ع)',8:'استشهاد مسلم بن عقيل (ع)'}
-      }
+      3:{blessed:[1,2,6,7,12,18,19,20,23,27,28,30], good:[9,11,14,15,22], disliked:[3,4,5,8,10,13,16,17,21,24,25,26,29]},
+      4:{blessed:[2,4,6,7,12,17,19,20,23,27,28,30], good:[9,10,11,14], disliked:[1,3,5,8,13,15,16,18,21,22,24,25,26,29]},
+      5:{blessed:[1,2,4,7,12,17,19,23,28], good:[8,9,10,11,14,15,22], disliked:[3,5,6,13,16,18,20,21,24,25,26,27,29]},
+      6:{blessed:[1,2,4,6,7,17,18,20,23,27,28,30], good:[8,9,10,11,14,15,22], disliked:[3,5,12,13,16,19,21,24,25,26,29]},
+      7:{blessed:[1,2,4,6,7,18,19,20,23,27,28,30], good:[8,9,11,14,22], disliked:[3,5,10,12,13,15,16,17,21,24,25,26,29]},
+      8:{blessed:[2,4,6,7,12,17,18,19,20,27,28], good:[9,10,11,14,23], disliked:[1,3,5,8,13,15,16,21,22,24,25,26,29]},
+      9:{blessed:[1,2,4,6,17,18,27,30], good:[9,10,11,12,15,22,23], disliked:[3,5,7,8,13,14,16,19,20,21,24,25,26,28,29]},
+      10:{blessed:[1,4,6,7,17,18,20,23,27,28], good:[8,9,10,11,14,15,22], disliked:[2,3,5,12,13,16,19,21,24,25,26,29]},
+      11:{blessed:[1,2,6,7,12,17,19,20,23,27,28], good:[8,9,10,14,15], disliked:[3,4,5,11,13,16,18,21,22,24,25,26,29]},
+      12:{blessed:[1,2,4,6,12,18,19,20,23,27,28,30], good:[9,11,14,15,22], disliked:[3,5,7,8,10,13,16,17,21,24,25,26,29]}
     };
 
-    // ===================== أدوات التقويم (تحويلات تقريبية) =====================
     const H_MONTHS = ['محرم','صفر','ربيع الأول','ربيع الثاني','جمادى الأولى','جمادى الثانية','رجب','شعبان','رمضان','شوال','ذو القعدة','ذو الحجة'];
-    const G_MONTHS = ['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
-
-    const ISLAMIC_EPOCH = 1948439.5; // JD epoch (civil/tabular)
-
-    function islamicLeapYear(y){ return (((11*y)+14) % 30) < 11; }
-    function islamicMonthLength(y,m){ // m:1..12
-      if(m===12) return islamicLeapYear(y)?30:29;
-      return (m%2===1)?30:29; // 1=محرم .. 11
-    }
-
-    function floor(n){ return Math.floor(n); }
-
-    // Gregorian -> JD
-    function gregorianToJD(y,m,d){
-      if(m<=2){ y-=1; m+=12; }
-      const A = floor(y/100);
-      const B = 2 - A + floor(A/4);
-      return floor(365.25*(y+4716)) + floor(30.6001*(m+1)) + d + B - 1524.5;
-    }
-
-    // JD -> Gregorian (y,m,d)
-    function jdToGregorian(jd){
-      const Z = floor(jd + 0.5);
-      const F = (jd + 0.5) - Z;
-      let A = Z;
-      if(Z >= 2299161){ const alpha = floor((Z-1867216.25)/36524.25); A = Z + 1 + alpha - floor(alpha/4); }
-      const B = A + 1524;
-      const C = floor((B - 122.1)/365.25);
-      const D = floor(365.25 * C);
-      const E = floor((B - D)/30.6001);
-      const day = B - D - floor(30.6001 * E) + F;
-      const month = (E < 14) ? (E - 1) : (E - 13);
-      const year = (month > 2) ? (C - 4716) : (C - 4715);
-      return [year, month, Math.round(day)];
-    }
-
-    // Islamic Civil -> JD
-    function islamicToJD(y,m,d){
-      return d + Math.ceil(29.5*(m-1)) + (y-1)*354 + Math.floor((3+11*y)/30) + ISLAMIC_EPOCH - 1;
-    }
-
-    // JD -> Islamic Civil (y,m,d)
-    function jdToIslamic(jd){
-      jd = Math.floor(jd) + 0.5;
-      const y = Math.floor((30*(jd - ISLAMIC_EPOCH) + 10646)/10631);
-      const m = Math.min(12, Math.ceil((jd - (29 + islamicToJD(y,1,1))) / 29.5) + 1);
-      const d = jd - islamicToJD(y,m,1) + 1;
-      return [y, m, Math.floor(d)];
-    }
-
-    function formatHijri(y,m,d){ return `${d} ${H_MONTHS[m-1]} ${y} هـ`; }
-    function formatGreg(y,m,d){ return `${d} ${G_MONTHS[m-1]} ${y} م`; }
-
-    // ===================== منطق الحكم =====================
-    function getStatus1447(hMonth, hDay){
-      const bucket = DATA_1447[hMonth];
-      if(!bucket) return {status:'غير محددة', cls:'muted'};
-      if(bucket.blessed.includes(hDay)) return {status:'مباركة', cls:'ok'};
-      if(bucket.good.includes(hDay)) return {status:'صالحة', cls:'good'};
-      if(bucket.disliked.includes(hDay)) return {status:'مكروهة', cls:'bad'};
-      return {status:'غير محددة', cls:'muted'};
-    }
-    function getNote1447(hMonth, hDay){
-      const bucket = DATA_1447[hMonth];
-      if(!bucket) return null;
-      return bucket.notes && bucket.notes[hDay] ? bucket.notes[hDay] : null;
-    }
-
-    // ===================== واجهة المستخدم =====================
-    const gInput = document.getElementById('gdate');
-    const hMonthSel = document.getElementById('hmonth');
-    const hDayInput = document.getElementById('hday');
-    const applyHijriBtn = document.getElementById('applyHijri');
-
-    const hijriOut = document.getElementById('hijriOut');
-    const gregOut = document.getElementById('gregOut');
-    const statusBadge = document.getElementById('statusBadge');
-    const noteBox = document.getElementById('noteBox');
-
-    const tabHijriBtn = document.getElementById('tabHijri');
-    const tabGregBtn = document.getElementById('tabGreg');
-    const todayBtn = document.getElementById('todayBtn');
-
-    const calMonthSel = document.getElementById('calMonth');
+    let currentMonth = 3; // بدءًا من ربيع الأول
     const calTitle = document.getElementById('calTitle');
-    const calGrid = document.getElementById('calGrid');
-    const prevMonthBtn = document.getElementById('prevMonth');
-    const nextMonthBtn = document.getElementById('nextMonth');
-    const renderCalBtn = document.getElementById('renderCal');
+    const calGrid  = document.getElementById('calGrid');
+    const prevBtn  = document.getElementById('prevMonth');
+    const nextBtn  = document.getElementById('nextMonth');
 
-    let currentHijriYear = 1447;
-    let currentCalMonth = 3; // ربيع الأول كبداية
-
-    function setBadge(txt, cls){
-      statusBadge.className = `badge ${cls}`;
-      statusBadge.textContent = txt;
-    }
-
-    function updateDisplayFromHijri(y,m,d){
-      // التاريخ الميلادي التقريبي
-      const jd = islamicToJD(y,m,d);
-      const [gy,gm,gd] = jdToGregorian(jd);
-      hijriOut.textContent = formatHijri(y,m,d);
-      gregOut.textContent = formatGreg(gy,gm,gd);
-      const {status, cls} = (y===1447) ? getStatus1447(m,d) : {status:'غير متوفر', cls:'muted'};
-      setBadge(status, cls);
-      const note = (y===1447)? getNote1447(m,d) : null;
-      if(note){ noteBox.style.display='block'; noteBox.innerHTML = `<strong>ملاحظة:</strong> ${note}`; }
-      else{ noteBox.style.display='none'; noteBox.textContent=''; }
-    }
-
-    function updateDisplayFromGregorian(gy,gm,gd){
-      const jd = gregorianToJD(gy,gm,gd);
-      const [hy,hm,hd] = jdToIslamic(jd);
-      hMonthSel.value = hm; hDayInput.value = hd;
-      updateDisplayFromHijri(hy,hm,hd);
-    }
-
-    // ============ أحداث الإدخال ============
-    gInput.addEventListener('change', e => {
-      const val = e.target.value; // yyyy-mm-dd
-      if(!val) return;
-      const [y,m,d] = val.split('-').map(Number);
-      updateDisplayFromGregorian(y,m,d);
-    });
-
-    applyHijriBtn.addEventListener('click', () => {
-      let m = parseInt(hMonthSel.value, 10);
-      let d = parseInt(hDayInput.value, 10);
-      if(Number.isNaN(d) || d<1) d = 1;
-      const maxD = islamicMonthLength(currentHijriYear, m);
-      if(d>maxD) d = maxD;
-      hDayInput.value = d;
-      updateDisplayFromHijri(currentHijriYear, m, d);
-    });
-
-    tabHijriBtn.addEventListener('click', () => {
-      tabHijriBtn.classList.add('active'); tabGregBtn.classList.remove('active');
-      hDayInput.focus();
-    });
-    tabGregBtn.addEventListener('click', () => {
-      tabGregBtn.classList.add('active'); tabHijriBtn.classList.remove('active');
-      gInput.focus();
-    });
-
-    todayBtn.addEventListener('click', () => {
-      const t = new Date();
-      const gy = t.getFullYear(), gm = t.getMonth()+1, gd = t.getDate();
-      const s = `${gy}-${String(gm).padStart(2,'0')}-${String(gd).padStart(2,'0')}`;
-      gInput.value = s;
-      updateDisplayFromGregorian(gy,gm,gd);
-      currentCalMonth = jdToIslamic(gregorianToJD(gy,gm,gd))[1];
-      calMonthSel.value = currentCalMonth; renderCalendar();
-    });
-
-    // ============ التقويم الشبكي للهجري ============
     function renderCalendar(){
-      const m = parseInt(calMonthSel.value,10);
-      currentCalMonth = m;
-      const daysInMonth = islamicMonthLength(currentHijriYear, m);
-      calTitle.textContent = `${H_MONTHS[m-1]} ${currentHijriYear} هـ`;
+      calTitle.textContent = `${H_MONTHS[currentMonth-1]} 1447 هـ`;
       calGrid.innerHTML = '';
 
-      // أسماء أيام الأسبوع (اختياريًا بدون محاذاة تاريخية لأننا لا نملك اليوم الأول)
+      // رؤوس أيام الأسبوع (ثابتة جمالية فقط)
       const weekdays = ['س','أ','ث','أر','خ','ج','س'];
-      weekdays.forEach(w => {
+      weekdays.forEach(w=>{
         const head = document.createElement('div');
-        head.textContent = w; head.className='cell muted'; head.style.fontWeight='700'; head.style.background='#fff';
+        head.textContent = w;
+        head.className = 'cell wk';
         calGrid.appendChild(head);
       });
 
-      for(let d=1; d<=daysInMonth; d++){
-        const {status, cls} = (currentHijriYear===1447)? getStatus1447(m,d) : {status:'غير محددة', cls:'muted'};
+      // عدد الأيام (تقريبي 30 يوم لكل شهر كما في الجدول)
+      const days = 30;
+      for(let d=1; d<=days; d++){
         const cell = document.createElement('div');
-        cell.className = `cell ${cls}`; cell.textContent = d;
-        const mark = document.createElement('span'); mark.className='mark';
-        mark.style.backgroundColor = cls==='ok'? 'var(--ok)' : cls==='good'? 'var(--good)' : cls==='bad'? 'var(--bad)' : '#cbd5e1';
-        cell.appendChild(mark);
-        cell.title = `اليوم ${d} — ${status}`;
-        cell.addEventListener('click', () => {
-          hMonthSel.value = m; hDayInput.value = d; updateDisplayFromHijri(currentHijriYear, m, d);
-          // مزامنة الميلادي أيضًا
-          const jd = islamicToJD(currentHijriYear, m, d);
-          const [gy,gm,gd] = jdToGregorian(jd);
-          gInput.value = `${gy}-${String(gm).padStart(2,'0')}-${String(gd).padStart(2,'0')}`;
-          window.scrollTo({top:0, behavior:'smooth'});
-        });
+        let cls = 'muted';
+        if (DATA_1447[currentMonth].blessed.includes(d)) cls='ok';
+        else if (DATA_1447[currentMonth].good.includes(d)) cls='good';
+        else if (DATA_1447[currentMonth].disliked.includes(d)) cls='bad';
+        cell.className = `cell ${cls}`;
+        cell.textContent = d;
+        cell.title = (cls==='ok'?'مباركة':cls==='good'?'صالحة':cls==='bad'?'مكروهة':'غير محددة');
+
         calGrid.appendChild(cell);
       }
     }
 
-    prevMonthBtn.addEventListener('click', () => {
-      let m = currentCalMonth - 1; if(m<3) m = 12; // دوران ضمن الأشهر المتوفرة
-      calMonthSel.value = m; renderCalendar();
-    });
-    nextMonthBtn.addEventListener('click', () => {
-      let m = currentCalMonth + 1; if(m>12) m = 3; // دوران ضمن الأشهر المتوفرة
-      calMonthSel.value = m; renderCalendar();
-    });
-    renderCalBtn.addEventListener('click', renderCalendar);
-
-    // ============ تهيئة أولية ============
-    (function init(){
-      // اليوم الحالي
-      const t = new Date();
-      const gy = t.getFullYear(), gm = t.getMonth()+1, gd = t.getDate();
-      gInput.value = `${gy}-${String(gm).padStart(2,'0')}-${String(gd).padStart(2,'0')}`;
-      updateDisplayFromGregorian(gy,gm,gd);
-      currentCalMonth = parseInt(calMonthSel.value,10);
+    prevBtn.addEventListener('click', ()=>{
+      currentMonth--;
+      if(currentMonth < 3) currentMonth = 12;
       renderCalendar();
-    })();
-  </script></body>
+    });
+    nextBtn.addEventListener('click', ()=>{
+      currentMonth++;
+      if(currentMonth > 12) currentMonth = 3;
+      renderCalendar();
+    });
+
+    // تهيئة
+    renderCalendar();
+  </script>
+</body>
 </html>
