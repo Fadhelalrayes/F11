@@ -5,18 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <title>الأيام الصالحة للزواج وفق المذهب الشيعي</title>
-  <meta name="description" content="تقويم تفاعلي يوضح الأيام المباركة والصالحة والمكروهة للعقد والزواج وفق المذهب الشيعي لعام 1447 هـ." />
-  <meta name="keywords" content="الأيام الصالحة للزواج, المذهب الشيعي, تقويم هجري, 1447, زواج, عقد القران" />
+  <meta name="description" content="تقويم تفاعلي يوضح الأيام المباركة والصالحة والمكروهة للعقد والزواج وفق المذهب الشيعي لعام 1447 هـ.">
+  <meta name="keywords" content="الأيام الصالحة للزواج, المذهب الشيعي, تقويم هجري, 1447, زواج, عقد القران">
 
-  <!-- Open Graph / Twitter -->
-  <meta property="og:title" content="الأيام الصالحة للزواج وفق المذهب الشيعي">
-  <meta property="og:description" content="تقويم هجري 1447 هـ يوضح الأيام المباركة والصالحة والمكروهة لعقد الزواج.">
-  <meta property="og:type" content="website">
-  <meta name="twitter:card" content="summary_large_image">
-
-  <!-- خط عربي -->
+  <!-- خط + أيقونات -->
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600&display=swap" rel="stylesheet">
-  <!-- أيقونات Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
   <style>
@@ -86,23 +79,22 @@
     .hadith-text{margin:0 0 8px;text-align:justify}
     .hadith-source{font-size:.95rem;color:#374151;background:#f3f4f6;padding:6px 10px;border-radius:10px;display:inline-block}
 
-    footer{text-align:center;padding:20px 10px 10px}
-    footer a{
-      color:#e3e7ee;text-decoration:none;font-weight:600;font-size:1rem;display:inline-block;
-      padding:6px 14px;border-radius:999px
-    }
-    footer a:hover{background:rgba(255,255,255,.08)}
-
-    /* أيقونات المشاركة */
-    .share{margin-top:16px;text-align:center}
+    footer{text-align:center;padding:20px 10px}
+    /* أيقونات المشاركة (مربّعات ناعمة) */
+    .share{margin-bottom:12px}
     .share h4{margin-bottom:8px;font-size:1rem;color:#fff}
     .share a{
-      display:inline-block;margin:0 6px;font-size:1.2rem;width:36px;height:36px;line-height:36px;text-align:center;
-      border-radius:50%;color:#fff;transition:.2s
+      display:inline-block;margin:0 5px;font-size:1.1rem;width:32px;height:32px;line-height:32px;text-align:center;
+      border-radius:8px;color:#fff;transition:.2s
     }
     .share a.fb{background:#1877f2}.share a.tw{background:#1da1f2}.share a.wa{background:#25d366}.share a.tg{background:#0088cc}.share a.cp{background:#6b7280}
     .share a:hover{opacity:.85;transform:scale(1.05)}
     .copied-msg{margin-top:8px;font-size:.9rem;color:#d1fae5;display:none}
+
+    /* عبارة التطوير (آخر الصفحة) */
+    .dev{margin-top:14px;font-size:.95rem}
+    .dev a{color:#e3e7ee;text-decoration:none;font-weight:600}
+    .dev a:hover{text-decoration:underline}
   </style>
 </head>
 <body>
@@ -146,19 +138,22 @@
   </div>
 
   <footer>
-    <a href="https://api.whatsapp.com/send/?phone=97333375858&text&type=phone_number&app_absent=0&wame_ctl=1" target="_blank" rel="noopener">
-      برمجة وتطوير: فاضل الريس
-    </a>
-
     <!-- أيقونات المشاركة -->
     <div class="share" aria-label="مشاركة الصفحة">
       <h4>مشاركة الصفحة</h4>
-      <a href="#" class="fb" id="shareFB" title="مشاركة على فيسبوك" aria-label="فيسبوك"><i class="fab fa-facebook-f"></i></a>
-      <a href="#" class="tw" id="shareTW" title="مشاركة على تويتر/X" aria-label="تويتر"><i class="fab fa-x-twitter"></i></a>
-      <a href="#" class="wa" id="shareWA" title="مشاركة على واتساب" aria-label="واتساب"><i class="fab fa-whatsapp"></i></a>
-      <a href="#" class="tg" id="shareTG" title="مشاركة على تيليجرام" aria-label="تيليجرام"><i class="fab fa-telegram-plane"></i></a>
+      <a href="#" class="fb" id="shareFB" title="فيسبوك" aria-label="فيسبوك"><i class="fab fa-facebook-f"></i></a>
+      <a href="#" class="tw" id="shareTW" title="تويتر" aria-label="تويتر"><i class="fab fa-x-twitter"></i></a>
+      <a href="#" class="wa" id="shareWA" title="واتساب" aria-label="واتساب"><i class="fab fa-whatsapp"></i></a>
+      <a href="#" class="tg" id="shareTG" title="تيليجرام" aria-label="تيليجرام"><i class="fab fa-telegram-plane"></i></a>
       <a href="#" class="cp" id="shareCP" title="نسخ الرابط" aria-label="نسخ الرابط"><i class="fas fa-link"></i></a>
       <div class="copied-msg" id="copiedMsg">✅ تم نسخ الرابط</div>
+    </div>
+
+    <!-- عبارة التطوير (آخر عنصر) -->
+    <div class="dev">
+      <a href="https://api.whatsapp.com/send/?phone=97333375858&text&type=phone_number&app_absent=0" target="_blank" rel="noopener">
+        برمجة وتطوير: فاضل الريس
+      </a>
     </div>
   </footer>
 
@@ -214,13 +209,13 @@
     function renderCalendar(){
       calTitle.textContent=`${H_MONTHS[currentMonth-1]} 1447 هـ`;
       calGrid.innerHTML='';
-      // رؤوس الأسبوع (شكلية)
+      // رؤوس الأسبوع
       ['س','أ','ث','أر','خ','ج','س'].forEach(w=>{
         const head=document.createElement('div');
         head.textContent=w; head.className='cell wk'; head.setAttribute('aria-hidden','true');
         calGrid.appendChild(head);
       });
-      // أيام الشهر 1..30
+      // أيام 1..30
       for(let d=1; d<=30; d++){
         const cls=DATA_1447[currentMonth].blessed.includes(d)?'ok'
                  :DATA_1447[currentMonth].good.includes(d)?'good'
@@ -245,7 +240,7 @@
       statusOut.textContent=statusTxt; statusOut.className=`badge ${cls}`;
     }
 
-    // تحديد اليوم الهجري الحالي (إن كان ضمن 1447هـ) عند فتح الصفحة
+    // اختيار اليوم الهجري الحالي تلقائيًا عند فتح الصفحة (إن كان ضمن 1447 هـ)
     function pickTodayHijri(){
       if(HAS_UMALQURA){
         const fmt=new Intl.DateTimeFormat('en-u-ca-islamic-umalqura',{year:'numeric',month:'numeric',day:'numeric'});
