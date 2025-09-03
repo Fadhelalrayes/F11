@@ -34,13 +34,18 @@
   .badge{display:inline-block; padding:10px 14px; border-radius:10px; margin-top:12px}
   .ok{background:#d1fae5; color:var(--emerald)}
   .no{background:#fee2e2; color:var(--crimson)}
-  /* شارة النتيجة في الوسط */
   #verdict{display:none; margin:12px auto 0; width:max-content}
 
+  /* مؤشرات العمر */
   .kpi{display:grid; gap:10px; grid-template-columns:repeat(2,1fr); margin-top:10px}
-  @media(min-width:760px){ .kpi{grid-template-columns:repeat(4,1fr)} }
   .k{background:#f9fafb; border:1px solid var(--line); border-radius:10px; padding:10px; text-align:center}
   .k .v{font-weight:700; font-size:18px}
+
+  /* تاريخ البلوغ التقريبي (صندوق واحد حسب الجنس) */
+  .eqwrap{display:none; margin-top:8px}
+  .eqbox{background:#fff; border:1px solid var(--line); border-radius:12px; padding:10px; text-align:center}
+  .eqbox .v{font-weight:700; font-size:16px; margin-bottom:4px; color:#111}
+  .eqbox .l{font-size:12px; color:#6b7280}
 
   .deck{display:grid; gap:12px; grid-template-columns:1fr; margin-top:16px}
   @media(min-width:860px){ .deck{grid-template-columns:repeat(3,1fr)} }
@@ -79,7 +84,6 @@
     position:fixed; left:50%; bottom:24px; transform:translateX(-50%) translateY(20px);
     background:#ffffff; color:#111827; border:1px solid var(--line); box-shadow:0 8px 24px rgba(0,0,0,.12);
     border-radius:14px; padding:12px 14px; min-width:260px; max-width:92vw; z-index:9999; opacity:0; transition:.25s ease;
-    font-size:14px; line-height:1.6;
   }
   .toast.show{opacity:1; transform:translateX(-50%) translateY(0)}
   .toast .title{font-weight:700; color:var(--gold); margin-bottom:4px; font-family:"Amiri",serif}
@@ -121,7 +125,7 @@
       <div>
         <div id="verdict" class="badge"></div>
 
-        <!-- عدّاد: مضى على التكليف -->
+        <!-- العدّاد: مضى على التكليف -->
         <div id="counterDone" class="counter" style="display:none">
           <h4>مضى على التكليف</h4>
           <div class="cflex">
@@ -131,7 +135,7 @@
           </div>
         </div>
 
-        <!-- عدّاد: المتبقّي لبلوغ التكليف -->
+        <!-- العدّاد: المتبقّي لبلوغ التكليف -->
         <div id="counterRemain" class="counter alt" style="display:none">
           <h4>المتبقّي لبلوغ التكليف</h4>
           <div class="cflex">
@@ -141,15 +145,18 @@
           </div>
         </div>
 
+        <!-- مؤشرات العمر (اسماء جديدة) -->
         <div id="kpis" class="kpi" style="display:none">
-          <div class="k"><div class="v" id="solarY">—</div><div>العمر الشمسي (سنوات)</div></div>
-          <div class="k"><div class="v" id="hijriY">—</div><div>العمر القمري (سنوات)</div></div>
-          <div class="k"><div class="v" id="threshold">—</div><div>سنّ التكليف القمري</div></div>
-          <div class="k"><div class="v" id="status">—</div><div>الحالة اليوم</div></div>
+          <div class="k"><div class="v" id="solarY">—</div><div>عمر ميلادي</div></div>
+          <div class="k"><div class="v" id="hijriY">—</div><div>عمر هجري</div></div>
         </div>
-        <div id="eqDates" class="kpi" style="display:none; grid-template-columns:repeat(2,1fr); margin-top:8px">
-          <div class="k"><div class="v" id="eqGirl">—</div><div>بلوغ الفتاة (تقريب ميلادي)</div></div>
-          <div class="k"><div class="v" id="eqBoy">—</div><div>بلوغ الصبي (تقريب ميلادي)</div></div>
+
+        <!-- صندوق واحد للبلوغ التقريبي حسب الجنس -->
+        <div id="eqwrap" class="eqwrap">
+          <div class="eqbox">
+            <div class="v" id="eqVal">—</div>
+            <div class="l" id="eqLbl">—</div>
+          </div>
         </div>
       </div>
     </div>
@@ -200,7 +207,6 @@ const genderSeg=document.getElementById('gender');
 const calcBtn=document.getElementById('calc');
 const verdict=document.getElementById('verdict');
 const kpis=document.getElementById('kpis');
-const eqDates=document.getElementById('eqDates');
 const rulesDeck=document.getElementById('rules');
 const counterDone=document.getElementById('counterDone');
 const cntY=document.getElementById('cntY');
@@ -211,6 +217,9 @@ const remY=document.getElementById('remY');
 const remM=document.getElementById('remM');
 const remD=document.getElementById('remD');
 const toast=document.getElementById('toast'); const toastMsg=toast.querySelector('.msg');
+const eqWrap=document.getElementById('eqwrap');
+const eqVal=document.getElementById('eqVal');
+const eqLbl=document.getElementById('eqLbl');
 
 /* حالة الجنس */
 let gender='girl';
@@ -219,22 +228,6 @@ let gender='girl';
 [dEl,mEl,yEl].forEach(inp=>{
   inp.addEventListener('input',()=>{ inp.value = inp.value.replace(/\D+/g,''); });
 });
-
-/* انتقال تلقائي بين الخانات */
-function autoAdvanceSetup(){
-  dEl.addEventListener('input', ()=>{ if(dEl.value.length>=2 || +dEl.value>9) mEl.focus(); });
-  mEl.addEventListener('input', ()=>{ if(mEl.value.length>=2 || +mEl.value>9) yEl.focus(); });
-  [dEl,mEl,yEl].forEach(el=>{
-    el.addEventListener('keydown', (e)=>{
-      if(e.key==='Enter'){ e.preventDefault(); calcBtn.click(); }
-      if(e.key==='Backspace' && el.value===''){
-        if(el===mEl) dEl.focus();
-        else if(el===yEl) mEl.focus();
-      }
-    });
-  });
-}
-autoAdvanceSetup();
 
 /* اختيار الجنس */
 genderSeg.querySelectorAll('button').forEach(b=>{
@@ -262,18 +255,11 @@ function daysInMonthUTC(y,m){ return new Date(Date.UTC(y, m, 0)).getUTCDate(); }
 function toUTC(d){ return new Date(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate())); }
 function fmtDate(d){ return `${d.getUTCFullYear()}-${String(d.getUTCMonth()+1).padStart(2,'0')}-${String(d.getUTCDate()).padStart(2,'0')}`; }
 function addYMD(base,y,m,day){ return new Date(Date.UTC(base.getUTCFullYear()+y, base.getUTCMonth()+m, base.getUTCDate()+day)); }
-
-/* فرق سنوات/أشهر/أيام بين تاريخين (تقويمي) */
 function diffYMD(fromUTC, toUTCDate){
   let y = toUTCDate.getUTCFullYear() - fromUTC.getUTCFullYear();
   let m = toUTCDate.getUTCMonth() + 1 - (fromUTC.getUTCMonth() + 1);
   let d = toUTCDate.getUTCDate() - fromUTC.getUTCDate();
-
-  if(d < 0){
-    const prevMonth = new Date(Date.UTC(toUTCDate.getUTCFullYear(), toUTCDate.getUTCMonth(), 0));
-    d += prevMonth.getUTCDate();
-    m -= 1;
-  }
+  if(d < 0){ const prevMonth = new Date(Date.UTC(toUTCDate.getUTCFullYear(), toUTCDate.getUTCMonth(), 0)); d += prevMonth.getUTCDate(); m -= 1; }
   if(m < 0){ m += 12; y -= 1; }
   if(y < 0){ y=0; m=0; d=0; }
   return {y,m,d};
@@ -282,10 +268,9 @@ function diffYMD(fromUTC, toUTCDate){
 /* بطاقة HTML */
 function makeCard(t,b){ const e=document.createElement('div'); e.className='card'; e.innerHTML=`<h3>${t}</h3>${b}`; return e; }
 
-/* بطاقات النتائج (بعد التحقّق) */
+/* بطاقات النتائج */
 function buildRules(isM){
   rulesDeck.innerHTML='';
-
   if(gender==='boy'){
     const signsHTML = `
       <p>يُعدّ الصبيُّ بالغًا عند تحقّق أحد الأمور الآتية:</p>
@@ -300,19 +285,16 @@ function buildRules(isM){
     `;
     rulesDeck.append(makeCard('علامات البلوغ للصبي', signsHTML));
   }
-
   if(!isM){
     rulesDeck.append(makeCard('تنبيه','<p>لم يبلغ سنّ التكليف بعد. يُستحسن التعلّم المبدئي للطهارة والصلاة تمهيدًا للالتزام عند البلوغ.</p>'));
     rulesDeck.style.display='grid';
     return;
   }
-
   const salat=makeCard('الصلاة (واجب)','<p>خمس صلوات يوميًا بشروطها: الطهارة، والوقت، والقبلة، والستر.</p>');
   const siyam=makeCard('الصيام (واجب)','<p>صوم شهر رمضان مع النيّة واجتناب المفطرات، مع مراعاة أحكام الأعذار.</p>');
   const tahara=makeCard('الطهارة (شرط)','<p>وضوء أو غسل بحسب الحال، والتحقّق من طهارة البدن والثوب ومحل السجود.</p>');
   const taqlid=makeCard('التقليد (واجب)','<p>العمل وفق فتوى المرجع الأعلم.</p>');
   const khums=makeCard('الخمس (واجب)','<p>واجب في فاضل المؤونة ونحوها بنهاية السنة الخُمسية.</p>');
-
   if(gender==='girl'){
     const hijab=makeCard('الحجاب (واجب)','<p>ستر البدن على نحو لا يَصِف البشرة، مع مراعاة حدود النظر والزينة والعفّة.</p>');
     rulesDeck.append(salat,siyam,hijab,tahara,taqlid,khums);
@@ -322,7 +304,7 @@ function buildRules(isM){
   rulesDeck.style.display='grid';
 }
 
-/* تحقق صحة التاريخ الكامل */
+/* تحقق صحة التاريخ */
 function validateFullDate(d,m,y){
   if(!(y>=1900 && y<=2100)) { showToast('أدخل سنة صحيحة بين 1900 و 2100.', {type:'error', title:'خطأ في السنة'}); return false; }
   if(!(m>=1 && m<=12))      { showToast('أدخل شهرًا صحيحًا بين 1 و 12.',      {type:'error', title:'خطأ في الشهر'}); return false; }
@@ -345,36 +327,34 @@ calcBtn.addEventListener('click',()=>{
   const todayUTC=new Date(Date.UTC(today.getFullYear(),today.getMonth(),today.getDate()));
 
   const daySpan=(todayUTC - dob)/(1000*60*60*24);
-  const solarY=daySpan/SOLAR_YEAR, hijriY=daySpan/LUNAR_YEAR;
+  const solarYears=(daySpan/SOLAR_YEAR).toFixed(1);
+  const hijriYears=(daySpan/LUNAR_YEAR).toFixed(1);
   const hijriThreshold=(gender==='girl')?9:15;
 
-  // تواريخ البلوغ التقريبية (ميلادي)
+  // تواريخ البلوغ التقريبية (ميلادي) وفق القاعدة المذكورة
   const eqGirlDate = addYMD(toUTC(dob), 8, 8, 20);
   const eqBoyDate  = addYMD(toUTC(dob),14, 6, 15);
   const thresholdDate = (gender==='girl') ? eqGirlDate : eqBoyDate;
 
-  const isMukallaf = hijriY >= hijriThreshold;
+  const isMukallaf = (daySpan/LUNAR_YEAR) >= hijriThreshold;
 
   // النتيجة في الوسط
   verdict.style.display='block';
   verdict.className='badge ' + (isMukallaf ? 'ok' : 'no');
   verdict.textContent = isMukallaf ? '✅ تمّ بلوغ سنّ التكليف' : '⏳ لم يبلغ سنّ التكليف بعد';
 
-  // مؤشرات عامة
+  // مؤشرات العمر (اسماء جديدة)
   kpis.style.display='grid';
-  document.getElementById('solarY').textContent = solarY.toFixed(1);
-  document.getElementById('hijriY').textContent = hijriY.toFixed(1);
-  document.getElementById('threshold').textContent = hijriThreshold + ' قمري';
-  document.getElementById('status').textContent = isMukallaf ? 'مكلَّف' : 'غير مكلَّف';
+  document.getElementById('solarY').textContent = solarYears; // عمر ميلادي
+  document.getElementById('hijriY').textContent = hijriYears; // عمر هجري
 
-  // التواريخ التقريبية
-  eqDates.style.display='grid';
-  document.getElementById('eqGirl').textContent = fmtDate(eqGirlDate);
-  document.getElementById('eqBoy').textContent  = fmtDate(eqBoyDate);
+  // إظهار صندوق «البلوغ التقريبي» واحد فقط حسب الجنس
+  eqWrap.style.display='block';
+  eqVal.textContent = (gender==='girl') ? fmtDate(eqGirlDate) : fmtDate(eqBoyDate);
+  eqLbl.textContent = (gender==='girl') ? 'بلوغ الفتاة (تقريب ميلادي)' : 'بلوغ الصبي (تقريب ميلادي)';
 
-  // عدادات
+  // عدّادات
   if(isMukallaf){
-    // مضى على التكليف
     if(todayUTC >= thresholdDate){
       const diff = diffYMD(thresholdDate, todayUTC);
       cntY.textContent = diff.y; cntM.textContent = diff.m; cntD.textContent = diff.d;
@@ -382,10 +362,8 @@ calcBtn.addEventListener('click',()=>{
     }else{
       counterDone.style.display='none';
     }
-    // إخفاء المتبقّي
     counterRemain.style.display='none';
   }else{
-    // المتبقّي لبلوغ التكليف
     if(todayUTC < thresholdDate){
       const diff = diffYMD(todayUTC, thresholdDate);
       remY.textContent = diff.y; remM.textContent = diff.m; remD.textContent = diff.d;
@@ -393,7 +371,6 @@ calcBtn.addEventListener('click',()=>{
     }else{
       counterRemain.style.display='none';
     }
-    // إخفاء "مضى على التكليف"
     counterDone.style.display='none';
   }
 
@@ -408,7 +385,7 @@ document.getElementById('shareX').addEventListener('click',  (e)=>{ e.preventDef
 document.getElementById('shareFB').addEventListener('click', (e)=>{ e.preventDefault(); window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(location.href)}`,'_blank','noopener'); });
 document.getElementById('copyLink').addEventListener('click', async ()=>{ try{ await navigator.clipboard.writeText(location.href); showToast('تمّ نسخ رابط الصفحة بنجاح.'); }catch(_){ showToast('تعذّر نسخ الرابط.',{type:'error',title:'محاولة نسخ'});} });
 
-/* احتياط للواتساب إن منع المتصفح فتح تبويب جديد */
+/* رابط الواتساب يبدو نصًا عاديًا، مع احتياط في حال منع التبويب الجديد */
 document.getElementById('devLink').addEventListener('click', function(){
   setTimeout(()=>{ if(!document.hasFocus()) return; location.href=this.href; }, 100);
 });
