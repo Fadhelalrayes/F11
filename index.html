@@ -3,554 +3,294 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>حساب التكليف الشرعي (فقه شيعي)</title>
+<title>حِساب التكليف الشرعي — واجبات المكلّف</title>
+<meta name="description" content="أدخل تاريخ ميلادك الميلادي لمعرفة بلوغ سن التكليف الشرعي وعرض الواجبات المترتبة بشكل موجز وأنيق.">
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#0f172a;        /* كحلي داكن مائل للأخضر */
-    --card:#ffffff;
-    --ink:#0b132b;
-    --muted:#6b7280;
-    --brand:#0ea5a2;     /* أخضر مزرق هادئ */
-    --accent:#b58900;    /* ذهبي */
-    --ring:#10b981;      /* أخضر */
-    --danger:#ef4444;    /* أحمر */
-    --warn:#f59e0b;      /* برتقالي */
-    --info:#3b82f6;      /* أزرق */
-    --ok:#16a34a;        /* أخضر واجب */
-    --surface:#f8fafc;
-    --chip:#eef2ff;
-    --radius:18px;
+    --bg:#0a0e16;         /* خلفية داكنة فخمة */
+    --ink:#111827;        /* نص غامق داخلي */
+    --muted:#94a3b8;      /* نص خافت */
+    --card:#0f1422;       /* ألواح زجاجية داكنة */
+    --glass:rgba(255,255,255,.06);
+    --line:rgba(255,255,255,.12);
+    --gold:#d4af37;       /* ذهبي */
+    --gold-soft:#f5e6b2;
+    --emerald:#10b981;    /* للحالة الإيجابية */
+    --crimson:#ef4444;    /* للحالة السلبية */
+    --accent:#1fb2a6;     /* لمسات */
+    --radius:22px;
+    --pad:18px;
   }
   *{box-sizing:border-box}
+  html,body{height:100%}
   body{
-    margin:0; font-family: "Cairo", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-    background:
-      radial-gradient(1200px 600px at 120% -10%, rgba(186,153,56,0.25), transparent 60%),
-      radial-gradient(1200px 600px at -20% 110%, rgba(16,185,129,0.15), transparent 60%),
+    margin:0; color:#e5e7eb; background:
+      radial-gradient(1200px 700px at 120% -10%, rgba(212,175,55,.16), transparent 60%),
+      radial-gradient(1200px 700px at -20% 110%, rgba(31,178,166,.14), transparent 60%),
       var(--bg);
-    color:#0b1b2b;
+    font-family:"Cairo", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
   }
   header{
-    padding:28px 18px; color:#fff; text-align:center;
-    background: linear-gradient(135deg, rgba(14,165,162,.25), rgba(181,137,0,.15));
-    border-bottom:1px solid rgba(255,255,255,.08);
+    padding:36px 16px 16px; text-align:center; position:relative;
   }
-  .title{font-weight:800; font-size:clamp(22px,3.6vw,34px); letter-spacing:.3px}
-  .subtitle{color:#e5e7eb; margin-top:6px; font-size:14px}
-  .shell{max-width:1000px; margin:22px auto; padding:0 14px}
-  .panel{
-    background:var(--card); border-radius:var(--radius);
-    box-shadow: 0 10px 30px rgba(0,0,0,.08);
-    padding:16px; margin-bottom:16px;
-    border:1px solid #e5e7eb;
+  .brand{
+    font-family:"Amiri", serif;
+    font-size:clamp(26px,4.5vw,44px);
+    color:var(--gold); letter-spacing:.5px;
+    text-shadow:0 1px 0 #000, 0 8px 40px rgba(212,175,55,.25);
   }
-  .row{display:grid; gap:14px}
-  @media(min-width:860px){ .row{grid-template-columns:1fr 1fr} }
-  .panel h3{margin:0 0 6px; font-size:18px}
-  .muted{color:var(--muted); font-size:13px}
-  label{font-size:14px; color:#1f2937}
-  input[type="number"], select{
-    width:100%; padding:12px 12px; border-radius:12px; border:1px solid #d1d5db; outline:none;
-    background:var(--surface);
+  .tag{margin-top:6px; color:var(--gold-soft); font-size:14px}
+  .shell{max-width:980px; margin:22px auto 40px; padding:0 16px}
+
+  .hero{
+    border:1px solid var(--line); border-radius:28px; padding:24px;
+    background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+    backdrop-filter: blur(8px);
+    box-shadow:0 20px 60px rgba(0,0,0,.35);
   }
-  input:focus, select:focus{border-color:var(--ring); box-shadow:0 0 0 3px rgba(16,185,129,.15)}
-  .tabs{display:flex; gap:8px; margin:10px 0 6px}
-  .tab{
-    padding:10px 14px; border-radius:999px; border:1px solid #d1d5db; background:#fff; cursor:pointer;
-    font-size:14px
+  .row{display:grid; gap:16px}
+  @media(min-width:860px){ .row{grid-template-columns:1.2fr .8fr} }
+
+  .field{
+    display:flex; flex-direction:column; gap:8px;
+    background:var(--card); border:1px solid var(--line);
+    padding:var(--pad); border-radius:var(--radius)
   }
-  .tab.on{background:var(--brand); color:#fff; border-color:var(--brand)}
-  .status{
-    padding:10px 12px; border-radius:12px; background:#f0fdf4; color:#065f46; border:1px solid #bbf7d0;
-    font-size:14px; display:flex; align-items:center; gap:8px; margin-top:10px
+  label{font-size:14px; color:#cbd5e1}
+  input[type="date"]{
+    width:100%; background:transparent; color:#fff; border:none; outline:none;
+    font-size:16px; padding:8px 6px; border-bottom:1px dashed rgba(255,255,255,.2)
   }
-  .status.off{background:#fef2f2; color:#7f1d1d; border-color:#fecaca}
-  .chips{display:flex; flex-wrap:wrap; gap:8px; margin:8px 0}
-  .chip{
-    padding:6px 10px; border-radius:999px; font-size:12px; border:1px solid #e5e7eb; background:var(--chip)
+  .seg{
+    display:flex; gap:8px; background:var(--card); border:1px solid var(--line);
+    border-radius:999px; padding:6px
   }
-  .chip.ok{background:#ecfdf5; border-color:#a7f3d0; color:#065f46}
-  .chip.bad{background:#fef2f2; border-color:#fecaca; color:#7f1d1d}
-  .chip.info{background:#eff6ff; border-color:#bfdbfe; color:#1e40af}
-  .chip.warn{background:#fffbeb; border-color:#fde68a; color:#92400e}
-  details{border:1px dashed #e5e7eb; padding:10px 12px; border-radius:12px; background:#fff}
-  details>summary{cursor:pointer; font-weight:700; list-style:none}
-  .grid{display:grid; gap:12px}
-  @media(min-width:720px){ .grid.two{grid-template-columns:1fr 1fr} }
-  .card{
-    border:1px solid #e5e7eb; border-radius:14px; padding:12px; background:#fff
+  .seg button{
+    flex:1; padding:10px 14px; border-radius:999px; border:1px solid transparent;
+    background:transparent; color:#cbd5e1; cursor:pointer; font-size:14px
   }
-  .card h4{margin:0 0 6px}
-  .badges{display:flex; gap:6px; flex-wrap:wrap}
-  .badge{font-size:11px; padding:4px 8px; border-radius:999px; border:1px solid transparent}
-  .b-واجـب{background:#ecfdf5; color:#065f46; border-color:#a7f3d0}
-  .b-مستحب{background:#eff6ff; color:#1e40af; border-color:#bfdbfe}
-  .b-محرم{background:#fef2f2; color:#7f1d1d; border-color:#fecaca}
-  .b-مكروه{background:#fffbeb; color:#92400e; border-color:#fde68a}
-  .b-مباح{background:#f3f4f6; color:#111827; border-color:#e5e7eb}
-  ul.check{margin:6px 0 0 0; padding:0 0 0 18px}
+  .seg button.on{background:var(--glass); border-color:var(--line); color:#fff}
+  .cta{
+    display:flex; gap:10px; align-items:center; justify-content:flex-end; margin-top:8px
+  }
   .btn{
-    display:inline-block; margin-top:10px; padding:10px 14px; border-radius:10px; border:1px solid #d1d5db; background:#fff;
-    cursor:pointer; font-size:14px
+    all:unset; cursor:pointer; padding:12px 18px; border-radius:14px;
+    border:1px solid var(--gold); color:#0a0e16; background:linear-gradient(90deg, #d4af37, #f5d574);
+    font-weight:700; box-shadow:0 10px 30px rgba(212,175,55,.25)
   }
-  .btn.gold{background:linear-gradient(90deg, #b58900, #eab308); color:#111827; border:none}
-  .hint{
-    padding:10px 12px; border-radius:12px; background:rgba(253,230,138,.25); border:1px solid #fde68a; color:#7a5a00; font-size:13px
+
+  .result{
+    margin-top:18px; display:grid; gap:16px
   }
-  footer{
-    text-align:center; color:#e5e7eb; padding:24px 14px; margin-top:24px;
-    border-top:1px solid rgba(255,255,255,.08)
+  .badge{
+    display:inline-flex; align-items:center; gap:10px; padding:14px 16px; border-radius:14px;
+    border:1px solid var(--line); background:var(--glass); backdrop-filter: blur(6px); font-size:15px
   }
-  .small{font-size:12px; color:#9ca3af}
-  dialog{
-    border:none; border-radius:16px; padding:0; max-width:560px; width:calc(100% - 24px);
-    box-shadow:0 30px 80px rgba(0,0,0,.4)
+  .ok{border-color:rgba(16,185,129,.3); box-shadow:0 10px 30px rgba(16,185,129,.15)}
+  .no{border-color:rgba(239,68,68,.35); box-shadow:0 10px 30px rgba(239,68,68,.1)}
+  .kpi{
+    display:grid; gap:12px; grid-template-columns:repeat(2,1fr)
   }
-  .modal-head{padding:16px; background:#0ea5a2; color:#fff; border-radius:16px 16px 0 0}
-  .modal-body{padding:14px; background:#fff}
-  .close{all:unset; float:left; cursor:pointer; padding:6px 8px; background:#fff2; border-radius:8px}
+  @media(min-width:860px){ .kpi{grid-template-columns:repeat(4,1fr)} }
+  .k{background:var(--card); border:1px solid var(--line); border-radius:16px; padding:14px; text-align:center}
+  .k .v{font-size:20px; font-weight:800; color:#fff}
+  .k .t{font-size:12px; color:var(--muted)}
+
+  .deck{
+    display:grid; gap:16px; grid-template-columns:1fr
+  }
+  @media(min-width:860px){ .deck{grid-template-columns:repeat(3,1fr)} }
+  .card{
+    background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+    border:1px solid var(--line); border-radius:20px; padding:18px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.04);
+    min-height:148px;
+  }
+  .card h3{
+    margin:0 0 8px; font-family:"Amiri", serif; color:var(--gold); font-size:20px; letter-spacing:.3px
+  }
+  .card p{margin:0; color:#d1d5db; line-height:1.7; font-size:14px}
+  .sep{height:1px; background:var(--line); margin:12px 0}
+  .muted{color:var(--muted); font-size:12px}
+  footer{margin:40px 0 24px; text-align:center; color:#9aa3b2; font-size:12px}
 </style>
 </head>
 <body>
 <header>
-  <div class="title">حِساب التكلِيف الشرعي — الفقه الإمامي (الجعفري)</div>
-  <div class="subtitle">واجهة مبسّطة للفروق بين الفتاة والصبي، مع قوائم تحقق وتعريفات قصيرة. <span class="small">⚠️ الأحكام تختلف باختلاف فتوى المرجع—ارجع دائمًا لمرجع تقليدك.</span></div>
+  <div class="brand">حِساب التكليف الشرعي</div>
+  <div class="tag">أدخل تاريخ الميلاد الميلادي، واختر الجنس، وسيظهر الحكم والأحكام المترتبة بأناقة.</div>
 </header>
 
-<div class="shell">
-  <!-- اختيار النوع والعمر -->
-  <div class="panel">
-    <h3>البدء</h3>
-    <div class="tabs" id="genderTabs">
-      <button class="tab on" data-g="girl">فتاة</button>
-      <button class="tab" data-g="boy">صبي</button>
-    </div>
+<main class="shell">
+  <section class="hero">
     <div class="row">
+      <!-- المدخلات -->
       <div>
-        <label>العمر (سنوات شمسية تقريبية)</label>
-        <input id="age" type="number" min="1" max="30" value="12" inputmode="numeric" />
-        <div class="muted">ملاحظة: السنّ في الفقه يعتمد على <b>السنوات القمرية</b>، وهذا الحساب تقريبي.</div>
+        <div class="field" aria-label="تاريخ الميلاد">
+          <label>تاريخ الميلاد (ميلادي)</label>
+          <input type="date" id="dob" />
+          <span class="muted">يُحوَّل تلقائيًا إلى عُمر قمري للحساب الشرعي.</span>
+        </div>
+
+        <div class="field" style="margin-top:12px" aria-label="اختيار الجنس">
+          <label>الجنس</label>
+          <div class="seg" id="gender">
+            <button type="button" class="on" data-g="girl">فتاة</button>
+            <button type="button" data-g="boy">صبي</button>
+          </div>
+        </div>
+
+        <div class="cta">
+          <button class="btn" id="calc">احسب الحكم</button>
+        </div>
       </div>
+
+      <!-- النتائج -->
       <div>
-        <label>تحويل تقريبي إلى قَمري</label>
-        <input id="ageHijri" type="number" readonly />
-        <div id="status" class="status" role="status">سيتم تحديد حالة التكليف تلقائيًا…</div>
+        <div id="verdict" class="badge" style="display:none"></div>
+        <div id="kpis" class="kpi" style="display:none">
+          <div class="k"><div class="v" id="solarY">—</div><div class="t">العمر الشمسي (سنوات)</div></div>
+          <div class="k"><div class="v" id="hijriY">—</div><div class="t">العمر القمري (سنوات)</div></div>
+          <div class="k"><div class="v" id="threshold">—</div><div class="t">سنّ التكليف القمري</div></div>
+          <div class="k"><div class="v" id="status">—</div><div class="t">الحالة اليوم</div></div>
+        </div>
       </div>
     </div>
-    <div class="chips">
-      <span class="chip info" title="تعريف سريع">التقليد = اتباع فتوى المرجع الأعلم لديك.</span>
-      <span class="chip warn">البلوغ: 9 قمرية للفتاة، 15 قمرية للصبي (مع علامات البلوغ).</span>
-      <button class="chip" id="openDisclaimer">تنبيه فقهي</button>
+
+    <div id="rules" class="deck" style="display:none; margin-top:18px">
+      <!-- تُملأ آليًا وفق الجنس والحالة -->
     </div>
-  </div>
 
-  <!-- بطاقتا المحتوى -->
-  <div class="row">
-    <!-- بطاقة الفتاة -->
-    <section class="panel" id="girlCard">
-      <h3>الفتاة</h3>
-      <div class="muted">ستظهر الواجبات عند تحقق سنّ التكليف.</div>
+    <div id="note" class="muted" style="display:none; margin-top:10px">
+      * الحساب القمري تقريبي باليوم (354.367 يومًا للسنة القمرية). العلامات الجسدية قد تؤثّر في الحكم.
+    </div>
+  </section>
 
-      <details open>
-        <summary>الطهارة</summary>
-        <div class="grid two">
-          <div class="card">
-            <h4>ملخص سريع</h4>
-            <div class="badges">
-              <span class="badge b-واجـب">واجـب</span><span class="badge b-مستحب">مستحب</span>
-            </div>
-            <p>الطهارة شرط لصحة الصلاة. يشملها الوضوء/الغسل وأحكام النجاسة والطهارة.</p>
-            <ul class="check">
-              <li><input type="checkbox"> أتوضأ للصلاة</li>
-              <li><input type="checkbox"> أتحقق من طهارة الثوب والبدن</li>
-            </ul>
-            <button class="btn" data-more="tahara">تفاصيل مختصرة</button>
-          </div>
-          <div class="card">
-            <h4>مصطلحات</h4>
-            <p class="hint"><b>وضوء:</b> غسل الوجه واليدين ومسح الرأس والقدمين على ترتيب مخصوص.</p>
-            <p class="hint"><b>غسل:</b> تعميم الماء على البدن بنية رفع الحدث الأكبر.</p>
-          </div>
-        </div>
-      </details>
-
-      <details>
-        <summary>الصلاة</summary>
-        <div class="grid two">
-          <div class="card">
-            <h4>ملخص سريع</h4>
-            <div class="badges"><span class="badge b-واجـب">واجـب</span></div>
-            <p>الصلاة عمود الدين. خمس صلوات يوميًا بشروط الوقت والطهارة والقبلة والستر.</p>
-            <ul class="check">
-              <li><input type="checkbox"> أديتُ الفجر اليوم</li>
-              <li><input type="checkbox"> أديتُ الظهرين</li>
-              <li><input type="checkbox"> أديتُ العشاءين</li>
-            </ul>
-            <button class="btn" data-more="salah">تفاصيل مختصرة</button>
-          </div>
-          <div class="card">
-            <h4>الستر والحجاب أثناء الصلاة</h4>
-            <p class="hint">ستر الشعر وسائر البدن ما عدا الوجه والكفين والقدمين حسب فتوى المرجع.</p>
-          </div>
-        </div>
-      </details>
-
-      <details>
-        <summary>الصيام</summary>
-        <div class="grid two">
-          <div class="card">
-            <h4>ملخص سريع</h4>
-            <div class="badges"><span class="badge b-واجـب">واجـب</span></div>
-            <p>صوم شهر رمضان من الفجر حتى المغرب مع النية واجتناب المفطرات.</p>
-            <ul class="check">
-              <li><input type="checkbox"> نويتُ الصوم قبل الفجر</li>
-              <li><input type="checkbox"> اجتنبتُ المفطرات</li>
-            </ul>
-            <button class="btn" data-more="siyam">تفاصيل مختصرة</button>
-          </div>
-          <div class="card">
-            <h4>تنبيه صحي</h4>
-            <p class="hint">أحكام الإفطار للمرض أو المشقة تختلف حسب الفتوى—استفتي مرجعك.</p>
-          </div>
-        </div>
-      </details>
-
-      <details>
-        <summary>الحجاب</summary>
-        <div class="grid two">
-          <div class="card">
-            <h4>ملخص سريع</h4>
-            <div class="badges"><span class="badge b-واجـب">واجـب</span></div>
-            <p>الحجاب واجب بعد التكليف وفق ضوابط الستر والعفة وحدود النظر والاختلاط.</p>
-            <ul class="check">
-              <li><input type="checkbox"> ألتزم بضوابط الستر</li>
-              <li><input type="checkbox"> أتحقق من اللباس غير الشفاف والضيق</li>
-            </ul>
-            <button class="btn" data-more="hijab">تفاصيل مختصرة</button>
-          </div>
-          <div class="card">
-            <h4>شارات سريعة</h4>
-            <div class="chips">
-              <span class="chip ok">واجب: الستر</span>
-              <span class="chip bad">محرم: إظهار الزينة للأجانب</span>
-              <span class="chip info">تفصيلها عند المرجع</span>
-            </div>
-          </div>
-        </div>
-      </details>
-
-      <details>
-        <summary>التقليد والخمس</summary>
-        <div class="grid two">
-          <div class="card">
-            <h4>التقليد</h4>
-            <div class="badges"><span class="badge b-واجـب">واجـب</span></div>
-            <p>يجب اتباع فتوى المرجع الأعلم في العبادات والمعاملات.</p>
-            <button class="btn" data-more="taqlid">تفاصيل مختصرة</button>
-          </div>
-          <div class="card">
-            <h4>الخمس</h4>
-            <div class="badges"><span class="badge b-واجـب">واجـب</span></div>
-            <p>واجب في فاضل المؤونة ونحوها بنهاية السنة الخمسية—التفاصيل تختلف بالفتوى.</p>
-            <button class="btn" data-more="khums">تفاصيل مختصرة</button>
-          </div>
-        </div>
-      </details>
-    </section>
-
-    <!-- بطاقة الصبي -->
-    <section class="panel" id="boyCard" style="display:none">
-      <h3>الصبي</h3>
-      <div class="muted">ستظهر الواجبات عند تحقق سنّ التكليف.</div>
-
-      <details open>
-        <summary>الطهارة</summary>
-        <div class="grid two">
-          <div class="card">
-            <h4>ملخص سريع</h4>
-            <div class="badges"><span class="badge b-واجـب">واجـب</span></div>
-            <p>شرط لصحة الصلاة؛ يشمل الوضوء والغسل وأحكام النجاسة.</p>
-            <ul class="check">
-              <li><input type="checkbox"> أتوضأ للصلاة</li>
-              <li><input type="checkbox"> أتحقق من طهارة الثوب</li>
-            </ul>
-            <button class="btn" data-more="tahara">تفاصيل مختصرة</button>
-          </div>
-          <div class="card">
-            <h4>مصطلحات</h4>
-            <p class="hint"><b>جنابة:</b> حدث أكبر يوجب الغسل قبل الصلاة.</p>
-          </div>
-        </div>
-      </details>
-
-      <details>
-        <summary>الصلاة</summary>
-        <div class="grid two">
-          <div class="card">
-            <h4>ملخص سريع</h4>
-            <div class="badges"><span class="badge b-واجـب">واجـب</span></div>
-            <p>خمس صلوات يوميًا مع الشروط. التزام الوقت والقبلة أساس.</p>
-            <ul class="check">
-              <li><input type="checkbox"> الفجر</li>
-              <li><input type="checkbox"> الظهرين</li>
-              <li><input type="checkbox"> العشاءين</li>
-            </ul>
-            <button class="btn" data-more="salah">تفاصيل مختصرة</button>
-          </div>
-          <div class="card">
-            <h4>اللباس</h4>
-            <p class="hint">يشترط للرجال ستر العورة في الصلاة—التفصيل باختلاف الفتوى.</p>
-          </div>
-        </div>
-      </details>
-
-      <details>
-        <summary>الصيام</summary>
-        <div class="grid two">
-          <div class="card">
-            <h4>ملخص سريع</h4>
-            <div class="badges"><span class="badge b-واجـب">واجـب</span></div>
-            <p>صوم رمضان بنية وترك المفطرات من الفجر إلى المغرب.</p>
-            <ul class="check">
-              <li><input type="checkbox"> نية الصوم</li>
-              <li><input type="checkbox"> تجنب المفطرات</li>
-            </ul>
-            <button class="btn" data-more="siyam">تفاصيل مختصرة</button>
-          </div>
-          <div class="card">
-            <h4>رحمة وتيسير</h4>
-            <p class="hint">المرض والمشقّة لهما أحكام—تُراجع فتوى المرجع.</p>
-          </div>
-        </div>
-      </details>
-
-      <details>
-        <summary>التقليد والخمس</summary>
-        <div class="grid two">
-          <div class="card">
-            <h4>التقليد</h4>
-            <div class="badges"><span class="badge b-واجـب">واجـب</span></div>
-            <p>اتباع فتوى المرجع الأعلم في أحكام الدين.</p>
-            <button class="btn" data-more="taqlid">تفاصيل مختصرة</button>
-          </div>
-          <div class="card">
-            <h4>الخمس</h4>
-            <div class="badges"><span class="badge b-واجـب">واجـب</span></div>
-            <p>تفاصيل الخمس تعتمد على نوع المال وسنته الخمسية—استفْتِ مرجعك.</p>
-            <button class="btn" data-more="khums">تفاصيل مختصرة</button>
-          </div>
-        </div>
-      </details>
-    </section>
-  </div>
-
-  <!-- تنبيهات عامة -->
-  <div class="panel">
-    <h3>أسئلة سريعة</h3>
-    <details>
-      <summary>متى يبدأ التكليف الشرعي؟</summary>
-      <p>وفقًا للمشهور: الفتاة عند <b>تمام 9 سنوات قمرية</b>، والصبي عند <b>تمام 15 سنة قمرية</b>، مع اعتبار علامات البلوغ الجسدية. وقد تختلف التفاصيل باختلاف المرجع.</p>
-    </details>
-    <details>
-      <summary>هل تختلف الأحكام باختلاف المرجع؟</summary>
-      <p>نعم، لذلك هذه الصفحة للتثقيف العام فقط، ويجب الرجوع إلى فتوى مرجع التقليد في الحالات التفصيلية.</p>
-    </details>
-  </div>
-</div>
-
-<footer>
-  <div>اللهم وفّق أبناءنا وبناتنا لما تحب وترضى.</div>
-  <div class="small">تصميم واجهة — قابل للتوسعة بمحتوى فتواك المعتمدة.</div>
-</footer>
-
-<!-- نافذة التنبيه -->
-<dialog id="disclaimer">
-  <div class="modal-head">
-    <button class="close" onclick="document.getElementById('disclaimer').close()">✕</button>
-    <h3>تنبيه فقهي</h3>
-  </div>
-  <div class="modal-body">
-    <p>هذه الواجهة للشرح المبسّط فقط، ولا تُغني عن الرجوع إلى <b>فتوى مرجع التقليد</b>. قد تختلف بعض التفاصيل (سنّ البلوغ، حدود الستر، المفطرات، الخمس…). التزم بفتوى مرجعك.</p>
-    <button class="btn gold" onclick="document.getElementById('disclaimer').close()">مفهوم</button>
-  </div>
-</dialog>
-
-<!-- نوافذ “تفاصيل مختصرة” -->
-<dialog id="modal-details">
-  <div class="modal-head">
-    <button class="close" onclick="document.getElementById('modal-details').close()">✕</button>
-    <h3 id="modal-title">تفاصيل</h3>
-  </div>
-  <div class="modal-body" id="modal-body">
-    <!-- يتم ملؤه برمجيًا -->
-    <button class="btn" onclick="document.getElementById('modal-details').close()">إغلاق</button>
-  </div>
-</dialog>
+  <footer>© واجهة مُصمّمة بعناية — أنيقة، مبسّطة، وقابلة للتطوير.</footer>
+</main>
 
 <script>
-  const TEMPLATES = {
-    tahara: {
-      title: "الطهارة — تفاصيل مختصرة",
-      body: `
-      <div class="grid">
-        <div class="card">
-          <h4>الوضوء (واجب للصلاة)</h4>
-          <ul class="check">
-            <li>النية</li>
-            <li>غسل الوجه</li>
-            <li>غسل اليد اليمنى ثم اليسرى</li>
-            <li>مسح مقدّم الرأس</li>
-            <li>مسح ظاهر القدمين</li>
-          </ul>
-        </div>
-        <div class="card">
-          <h4>الغسل</h4>
-          <p>لرفع الحدث الأكبر. ترتيبي/ارتماسي حسب الفتوى.</p>
-        </div>
-        <div class="card">
-          <h4>النجاسة والطهارة</h4>
-          <p>تحقّق من طهارة اللباس والبدن ومحل السجود.</p>
-        </div>
-      </div>`
-    },
-    salah: {
-      title: "الصلاة — تفاصيل مختصرة",
-      body: `
-      <div class="grid">
-        <div class="card">
-          <h4>شروط الصحة</h4>
-          <ul class="check">
-            <li>الطهارة (وضوء/غسل)</li>
-            <li>الوقت</li>
-            <li>القبلة</li>
-            <li>الستر (وفق الجنس)</li>
-          </ul>
-        </div>
-        <div class="card">
-          <h4>هيئة الصلاة</h4>
-          <p>القيام والقراءة والركوع والسجود والتشهد والتسليم—بتفاصيل تُراجع في فتوى المرجع.</p>
-        </div>
-      </div>`
-    },
-    siyam: {
-      title: "الصيام — تفاصيل مختصرة",
-      body: `
-      <div class="grid">
-        <div class="card">
-          <h4>الأركان</h4>
-          <ul class="check">
-            <li>النية</li>
-            <li>الإمساك عن المفطرات من الفجر إلى المغرب</li>
-          </ul>
-        </div>
-        <div class="card">
-          <h4>ملاحظات</h4>
-          <p>أحكام المرض، السفر، الحيض والنفاس، والكفارات تختلف باختلاف الفتوى.</p>
-        </div>
-      </div>`
-    },
-    hijab: {
-      title: "الحجاب — تفاصيل مختصرة",
-      body: `
-      <div class="grid">
-        <div class="card">
-          <h4>الأصل</h4>
-          <p>ستر البدن على نحو لا يصف البشرة ولا يلفت—مع اختلاف التفصيل باختلاف المرجع.</p>
-        </div>
-        <div class="card">
-          <h4>النظر والاختلاط</h4>
-          <p>التزام حدود النظر والكلام بما لا يوقع في الريبة—التفصيل عند المرجع.</p>
-        </div>
-      </div>`
-    },
-    taqlid: {
-      title: "التقليد — تفاصيل مختصرة",
-      body: `
-      <div class="grid">
-        <div class="card">
-          <h4>الواجب</h4>
-          <p>اتباع فتوى المرجع الأعلم لديك. اسأل عن رسالته العمليّة.</p>
-        </div>
-        <div class="card">
-          <h4>كيف أعمل؟</h4>
-          <ul class="check">
-            <li>أحدّد المرجع</li>
-            <li>أطّلع على الأحكام</li>
-            <li>أطبّق الفتوى في العبادات والمعاملات</li>
-          </ul>
-        </div>
-      </div>`
-    },
-    khums: {
-      title: "الخمس — تفاصيل مختصرة",
-      body: `
-      <div class="grid">
-        <div class="card">
-          <h4>مختصر</h4>
-          <p>الخمس في فاضل المؤونة ونحوها عند نهاية السنة الخمسية. أنصبة ومصارفه تُراجع في فتوى المرجع.</p>
-        </div>
-        <div class="card">
-          <h4>خطوات عملية</h4>
-          <ul class="check">
-            <li>تحديد بداية السنة الخمسية</li>
-            <li>حساب الفاضل</li>
-            <li>تسليم الخمس حسب المصارف الشرعية</li>
-          </ul>
-        </div>
-      </div>`
-    }
-  };
+  // ثوابت التحويل
+  const SOLAR_YEAR = 365.2425;     // متوسط طول السنة الشمسية
+  const LUNAR_YEAR = 354.367;      // متوسط طول السنة القمرية
 
-  const hijriFactor = 1.03; // تحويل تقريبي (شمسي → قمري)
-  const ageEl = document.getElementById('age');
-  const ageHijriEl = document.getElementById('ageHijri');
-  const statusEl = document.getElementById('status');
-  const girlCard = document.getElementById('girlCard');
-  const boyCard = document.getElementById('boyCard');
-  const tabs = document.querySelectorAll('.tab');
+  // عناصر DOM
+  const dobEl = document.getElementById('dob');
+  const genderSeg = document.getElementById('gender');
+  const calcBtn = document.getElementById('calc');
+  const verdict = document.getElementById('verdict');
+  const kpis = document.getElementById('kpis');
+  const rulesDeck = document.getElementById('rules');
+  const note = document.getElementById('note');
+
   let gender = 'girl';
 
-  function updateState(){
-    const ageSolar = parseFloat(ageEl.value||"0");
-    const ageHijri = Math.max(0, Math.round(ageSolar * hijriFactor * 10)/10);
-    ageHijriEl.value = ageHijri;
+  // تبديل الجنس
+  genderSeg.querySelectorAll('button').forEach(b=>{
+    b.addEventListener('click', ()=>{
+      genderSeg.querySelectorAll('button').forEach(x=>x.classList.remove('on'));
+      b.classList.add('on');
+      gender = b.dataset.g;
+    });
+  });
 
-    const threshold = (gender==='girl') ? 9 : 15;
-    const isMukallaf = ageHijri >= threshold;
-
-    statusEl.classList.toggle('off', !isMukallaf);
-    statusEl.innerHTML = isMukallaf
-      ? `✅ تمّ بلوغ سنّ التكليف (${ageHijri} قمري ≥ ${threshold}). تظهر الواجبات كاملة.`
-      : `⏳ لم يبلغ سنّ التكليف بعد (${ageHijri} قمري &lt; ${threshold}). يمكن التعلم المبدئي.`;
+  // أدوات مساعدة للتواريخ (حساب فرق الأيام بدقّة UTC)
+  function toUTC(date){
+    return new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+  }
+  function daysBetweenUTC(a, b){
+    const ms = toUTC(b).getTime() - toUTC(a).getTime();
+    return ms / (1000*60*60*24);
   }
 
-  tabs.forEach(t=>{
-    t.addEventListener('click', ()=>{
-      tabs.forEach(x=>x.classList.remove('on'));
-      t.classList.add('on');
-      gender = t.dataset.g;
-      if(gender==='girl'){ girlCard.style.display='block'; boyCard.style.display='none'; }
-      else { girlCard.style.display='none'; boyCard.style.display='block'; }
-      updateState();
-    })
+  // بناء بطاقة حكم أنيقة
+  function makeCard(title, body){
+    const el = document.createElement('div');
+    el.className = 'card';
+    el.innerHTML = `<h3>${title}</h3><div class="sep"></div><p>${body}</p>`;
+    return el;
+  }
+
+  // توليد مجموعة الأحكام حسب الجنس والحالة
+  function buildRules(isMukallaf){
+    rulesDeck.innerHTML = '';
+    if(!isMukallaf){
+      rulesDeck.append(
+        makeCard('تنبيه',
+          'لم يبلغ سنّ التكليف القمري بعد. يُستحسن التعلّم المبدئي لأحكام الطهارة والصلاة تمهيدًا للالتزام فور البلوغ.')
+      );
+      rulesDeck.style.display = 'grid';
+      note.style.display = 'block';
+      return;
+    }
+
+    // مشتركة
+    const salat = makeCard('الصلاة (واجب)',
+      'خمس صلوات يوميًا مع شروطها: الطهارة، الوقت، القبلة، والستر. تُراعى الأذكار والهيئة المعتبرة.');
+    const siyam = makeCard('الصيام (واجب)',
+      'صوم شهر رمضان من الفجر إلى المغرب مع النية واجتناب المفطرات. أحكام العذر (المرض، السفر، ونحوه) لها تفاصيلها.');
+    const tahara = makeCard('الطهارة (شرط للصلاة)',
+      'الوضوء أو الغسل بحسب الحال، مع التحقق من طهارة البدن والثوب ومحل السجود.');
+    const taqlid = makeCard('التقليد (واجب)',
+      'العمل وفق فتوى المرجع الأعلم في العبادات والمعاملات.');
+    const khums = makeCard('الخمس (واجب عند تحقق سببه)',
+      'يحسب في فاضل المؤونة ونحوها بنهاية السنة الخُمسية وفق التفصيل المعروف.');
+
+    // خصوصي بالفتاة
+    const hijab = makeCard('الحجاب (واجب)',
+      'الالتزام بستر البدن على نحوٍ لا يصف البشرة، مع مراعاة حدود النظر والزينة وضوابط العفّة.');
+
+    // ترتيب العرض فخم ومتوازن
+    if(gender==='girl'){
+      rulesDeck.append(salat, siyam, hijab, tahara, taqlid, khums);
+    } else {
+      rulesDeck.append(salat, siyam, tahara, taqlid, khums);
+    }
+    rulesDeck.style.display = 'grid';
+    note.style.display = 'block';
+  }
+
+  // الإجراء الرئيسي
+  calcBtn.addEventListener('click', ()=>{
+    const dobStr = dobEl.value;
+    if(!dobStr){ alert('فضلًا أدخل تاريخ الميلاد الميلادي.'); return; }
+
+    const dob = new Date(dobStr + 'T00:00:00');
+    const today = new Date();
+    if(dob > today){ alert('تاريخ الميلاد لا يمكن أن يكون في المستقبل.'); return; }
+
+    const days = daysBetweenUTC(dob, today);
+    const solarYears = days / SOLAR_YEAR;
+    const hijriYears = days / LUNAR_YEAR;
+
+    const threshold = (gender==='girl') ? 9 : 15;
+    const isMukallaf = hijriYears >= threshold;
+
+    // شارة الحكم
+    verdict.style.display = 'inline-flex';
+    verdict.className = 'badge ' + (isMukallaf ? 'ok' : 'no');
+    verdict.innerHTML = isMukallaf
+      ? `✅ تمّ بلوغ سنّ التكليف الشرعي.`
+      : `⏳ لم يبلغ سنّ التكليف الشرعي بعد.`;
+
+    // المقاييس
+    kpis.style.display = 'grid';
+    document.getElementById('solarY').textContent = (Math.floor(solarYears*10)/10).toFixed(1);
+    document.getElementById('hijriY').textContent = (Math.floor(hijriYears*10)/10).toFixed(1);
+    document.getElementById('threshold').textContent = threshold.toString();
+    document.getElementById('status').textContent = isMukallaf ? 'مكلّف' : 'غير مكلّف';
+
+    // الأحكام
+    buildRules(isMukallaf);
+    // تمرير للجزء العلوي قليلًا لإبراز النتيجة على الهاتف
+    setTimeout(()=>window.scrollTo({top:document.querySelector('.hero').offsetTop-12, behavior:'smooth'}), 50);
   });
 
-  document.getElementById('openDisclaimer').addEventListener('click', ()=>{
-    document.getElementById('disclaimer').showModal();
-  });
-
-  document.querySelectorAll('.btn[data-more]').forEach(btn=>{
-    btn.addEventListener('click', ()=>{
-      const key = btn.dataset.more;
-      const modal = document.getElementById('modal-details');
-      document.getElementById('modal-title').textContent = TEMPLATES[key].title;
-      document.getElementById('modal-body').innerHTML = TEMPLATES[key].body + `<button class="btn" onclick="document.getElementById('modal-details').close()">إغلاق</button>`;
-      modal.showModal();
-    })
-  });
-
-  ageEl.addEventListener('input', updateState);
-  updateState();
+  // افتراضيًا: يعرض اليوم في متصفح المستخدم
+  (function preset(){
+    // لا نضبط التاريخ تلقائيًا كي يضعه المستخدم بوضوح
+  })();
 </script>
 </body>
 </html>
