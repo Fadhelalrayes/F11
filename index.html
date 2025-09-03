@@ -35,6 +35,8 @@
   .badge{display:inline-block; padding:10px 14px; border-radius:10px; margin-top:10px}
   .ok{background:#d1fae5; color:var(--emerald)}
   .no{background:#fee2e2; color:var(--crimson)}
+  /* نجعل شارة النتيجة في الوسط */
+  #verdict{display:none; margin:12px auto 0; width:max-content}
   .kpi{display:grid; gap:10px; grid-template-columns:repeat(2,1fr); margin-top:10px}
   @media(min-width:760px){ .kpi{grid-template-columns:repeat(4,1fr)} }
   .k{background:#f9fafb; border:1px solid var(--line); border-radius:10px; padding:10px; text-align:center}
@@ -45,9 +47,6 @@
   .card h3{margin:0 0 6px; font-family:"Amiri",serif; color:var(--gold)}
   .card p{margin:0; font-size:14px; color:#374151; line-height:1.6}
   .card ul{margin:8px 0 0; padding-inline-start:20px; color:#374151}
-  .notice{background:var(--info); border:1px solid var(--info-line); border-radius:12px; padding:12px; color:#0c4a6e}
-  .notice h4{margin:0 0 6px; font-family:"Amiri",serif; color:#075985; font-size:18px}
-  .notice ul{margin:6px 0 0; padding-inline-start:20px}
   .sharebar{display:flex; justify-content:center; gap:8px; margin:16px 0; flex-wrap:wrap}
   .iconbtn{width:34px; height:34px; border-radius:8px; display:flex; align-items:center; justify-content:center; border:1px solid var(--line); background:#fff; cursor:pointer}
   .iconbtn svg{width:18px; height:18px; fill:#374151}
@@ -95,25 +94,11 @@
           </div>
         </div>
 
-        <!-- ملاحظات بلوغ الصبي: مخفية افتراضيًا وتظهر فقط عند اختيار "صبي" -->
-        <div id="boySigns" class="notice" style="display:none">
-          <h4>علامات البلوغ للصبي</h4>
-          <p>يُعدّ الصبيُّ بالغًا عند تحقّق أحد الأمور الآتية:</p>
-          <ul>
-            <li>نبات الشعر الخشن في موضع العانة (الموضع بين البطن والعورة).</li>
-            <li>خروج المني.</li>
-            <li>إتمام خمس عشرة سنة هلالية (≈ أربعة عشر سنة وستة أشهر وخمسة عشر يومًا ميلاديًّا).</li>
-            <li>نبات الشعر الخشن في الخدّ أو في الشارب.</li>
-          </ul>
-          <p style="margin-top:6px"><strong>وإذا تحقّقت إحدى هذه العلامات قبل بلوغ الخامسة عشرة قمرية، عُدَّ الصبيّ مُكلَّفًا.</strong></p>
-          <p style="margin-top:6px; color:#64748b">أمّا نبات الشعر في الصدر وتحت الإبط، وغلظ الصوت ونظائرها فليست علامات معتبرة للبلوغ.</p>
-        </div>
-
         <button class="btn" id="calc">تحقّق من الحكم</button>
       </div>
 
       <div>
-        <div id="verdict" style="display:none"></div>
+        <div id="verdict" class="badge"></div>
         <div id="kpis" class="kpi" style="display:none">
           <div class="k"><div class="v" id="solarY">—</div><div>العمر الشمسي (سنوات)</div></div>
           <div class="k"><div class="v" id="hijriY">—</div><div>العمر القمري (سنوات)</div></div>
@@ -173,7 +158,6 @@ const verdict=document.getElementById('verdict');
 const kpis=document.getElementById('kpis');
 const eqDates=document.getElementById('eqDates');
 const rulesDeck=document.getElementById('rules');
-const boySigns=document.getElementById('boySigns');
 const toast=document.getElementById('toast');
 const toastMsg=toast.querySelector('.msg');
 
@@ -183,6 +167,15 @@ let gender='girl';
 /* إدخال أرقام فقط */
 [yEl,mEl,dEl].forEach(inp=>{
   inp.addEventListener('input',()=>{ inp.value = inp.value.replace(/\D+/g,''); });
+});
+
+/* اختيار الجنس */
+genderSeg.querySelectorAll('button').forEach(b=>{
+  b.addEventListener('click',()=>{
+    genderSeg.querySelectorAll('button').forEach(x=>x.classList.remove('on'));
+    b.classList.add('on');
+    gender = b.dataset.g;
+  });
 });
 
 /* توست أنيق */
@@ -197,21 +190,6 @@ function showToast(message, opts={type:'info', title:'تنبيه', timeout:2800}
   toastTimer=setTimeout(()=>toast.classList.remove('show'), opts.timeout||2800);
 }
 
-/* إظهار/إخفاء ملاحظات الصبي حسب الاختيار (فقط بعد اختيار "صبي") */
-function refreshBoySigns(){
-  boySigns.style.display = (gender==='boy') ? 'block' : 'none';
-}
-
-/* تبديل الجنس */
-genderSeg.querySelectorAll('button').forEach(b=>{
-  b.addEventListener('click',()=>{
-    genderSeg.querySelectorAll('button').forEach(x=>x.classList.remove('on'));
-    b.classList.add('on');
-    gender = b.dataset.g;
-    refreshBoySigns(); // الآن تظهر فورًا عند اختيار "صبي" وتختفي عند "فتاة"
-  });
-});
-
 /* أدوات تاريخ */
 function toUTC(d){ return new Date(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate())); }
 function daysBetweenUTC(a,b){ return (toUTC(b)-toUTC(a))/(1000*60*60*24); }
@@ -221,22 +199,41 @@ function fmtDate(d){
 }
 function addYMD(base,y,m,day){ return new Date(Date.UTC(base.getUTCFullYear()+y, base.getUTCMonth()+m, base.getUTCDate()+day)); }
 
-/* بطاقة HTML سريعة */
+/* بطاقة HTML */
 function makeCard(t,b){ const e=document.createElement('div'); e.className='card'; e.innerHTML=`<h3>${t}</h3>${b}`; return e; }
 
-/* بناء الأحكام بعد النتيجة */
+/* بناء بطاقات النتائج (بعد الضغط فقط) */
 function buildRules(isM){
   rulesDeck.innerHTML='';
+
+  /* علامات البلوغ للصبي — تظهر بعد التحقق فقط */
+  if(gender==='boy'){
+    const signsHTML = `
+      <p>يُعدّ الصبيُّ بالغًا عند تحقّق أحد الأمور الآتية:</p>
+      <ul>
+        <li>نبات الشعر الخشن في موضع العانة (الموضع بين البطن والعورة).</li>
+        <li>خروج المني.</li>
+        <li>إتمام خمس عشرة سنة هلالية (≈ أربعة عشر سنة وستة أشهر وخمسة عشر يومًا ميلاديًّا).</li>
+        <li>نبات الشعر الخشن في الخدّ أو في الشارب.</li>
+      </ul>
+      <p style="margin-top:6px"><strong>وإذا تحقّقت إحدى هذه العلامات قبل بلوغ الخامسة عشرة قمرية، عُدَّ الصبيّ مُكلَّفًا.</strong></p>
+      <p style="margin-top:6px; color:#64748b">أمّا نبات الشعر في الصدر وتحت الإبط، وغلظ الصوت ونظائرها فليست علامات معتبرة للبلوغ.</p>
+    `;
+    rulesDeck.append(makeCard('علامات البلوغ للصبي', signsHTML));
+  }
+
   if(!isM){
     rulesDeck.append(makeCard('تنبيه','<p>لم يبلغ سنّ التكليف بعد. يُستحسن التعلّم المبدئي للطهارة والصلاة تمهيدًا للالتزام عند البلوغ.</p>'));
     rulesDeck.style.display='grid';
     return;
   }
+
   const salat=makeCard('الصلاة (واجب)','<p>خمس صلوات يوميًا بشروطها: الطهارة، والوقت، والقبلة، والستر.</p>');
   const siyam=makeCard('الصيام (واجب)','<p>صوم شهر رمضان مع النيّة واجتناب المفطرات، مع مراعاة أحكام الأعذار.</p>');
   const tahara=makeCard('الطهارة (شرط)','<p>وضوء أو غسل بحسب الحال، والتحقّق من طهارة البدن والثوب ومحل السجود.</p>');
   const taqlid=makeCard('التقليد (واجب)','<p>العمل وفق فتوى المرجع الأعلم.</p>');
   const khums=makeCard('الخمس (واجب)','<p>واجب في فاضل المؤونة ونحوها بنهاية السنة الخُمسية.</p>');
+
   if(gender==='girl'){
     const hijab=makeCard('الحجاب (واجب)','<p>ستر البدن على نحو لا يَصِف البشرة، مع مراعاة حدود النظر والزينة والعفّة.</p>');
     rulesDeck.append(salat,siyam,hijab,tahara,taqlid,khums);
@@ -250,7 +247,7 @@ function buildRules(isM){
 calcBtn.addEventListener('click',()=>{
   const y=parseInt(yEl.value,10), m=parseInt(mEl.value,10), d=parseInt(dEl.value,10);
 
-  // تحقق جميل بدل alert
+  // تحقّقات جميلة بدل alert
   if(!(y>=1900 && y<=2100)){
     showToast('أدخل سنة صحيحة بين 1900 و 2100.', {type:'error', title:'خطأ في السنة'}); return;
   }
@@ -267,33 +264,35 @@ calcBtn.addEventListener('click',()=>{
     showToast('تاريخ الميلاد لا يمكن أن يكون في المستقبل.', {type:'error', title:'تحقّق من التاريخ'}); return;
   }
 
-  const days=daysBetweenUTC(dob, today);
+  const days=( (new Date(Date.UTC(today.getFullYear(),today.getMonth(),today.getDate())) ) - (new Date(Date.UTC(dob.getUTCFullYear(),dob.getUTCMonth(),dob.getUTCDate())) ) )/(1000*60*60*24);
   const solarY=days/SOLAR_YEAR;
   const hijriY=days/LUNAR_YEAR;
 
-  // حدّ التكليف القمري
   const hijriThreshold=(gender==='girl')?9:15;
 
-  // المعادل الميلادي التقريبي
-  const eqGirlDate = addYMD(toUTC(dob), 8, 8, 20);
-  const eqBoyDate  = addYMD(toUTC(dob),14, 6, 15);
+  const eqGirlDate = addYMD(dob, 8, 8, 20);
+  const eqBoyDate  = addYMD(dob,14, 6, 15);
 
   const isMukallaf = hijriY >= hijriThreshold;
 
-  verdict.style.display='inline-block';
+  // النتيجة — في الوسط
+  verdict.style.display='block';
   verdict.className='badge ' + (isMukallaf ? 'ok' : 'no');
   verdict.textContent = isMukallaf ? '✅ تمّ بلوغ سنّ التكليف' : '⏳ لم يبلغ سنّ التكليف بعد';
 
+  // المؤشرات
   kpis.style.display='grid';
   document.getElementById('solarY').textContent = solarY.toFixed(1);
   document.getElementById('hijriY').textContent = hijriY.toFixed(1);
   document.getElementById('threshold').textContent = hijriThreshold + ' قمري';
   document.getElementById('status').textContent = isMukallaf ? 'مكلَّف' : 'غير مكلَّف';
 
+  // التواريخ التقريبية
   eqDates.style.display='grid';
   document.getElementById('eqGirl').textContent = fmtDate(eqGirlDate);
   document.getElementById('eqBoy').textContent  = fmtDate(eqBoyDate);
 
+  // بطاقات النتائج (بما فيها علامات الصبي إن كان المختار صبي)
   buildRules(isMukallaf);
 });
 
