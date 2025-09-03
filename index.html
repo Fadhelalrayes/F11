@@ -1,394 +1,318 @@
-<!doctype html>
-<html lang="ar" dir="rtl">
+<!DOCTYPE html><html lang="ar" dir="rtl">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>حِساب التكليف الشرعي — واجبات المكلّف</title>
-<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;700&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --bg:#f5f6f8; --ink:#111827; --muted:#6b7280;
-    --card:#ffffff; --line:#e5e7eb;
-    --gold:#b58900; --gold-soft:#f5d574;
-    --emerald:#059669; --crimson:#dc2626;
-  }
-  *{box-sizing:border-box}
-  body{margin:0; font-family:"Cairo",sans-serif; background:var(--bg); color:var(--ink)}
-  header{text-align:center; padding:24px 12px}
-  .brand{font-family:"Amiri",serif; font-size:clamp(26px,4.5vw,42px); color:var(--gold)}
-  .tag{margin-top:6px; font-size:14px; color:var(--muted)}
-  .shell{max-width:900px; margin:0 auto; padding:0 16px}
-  .hero{background:var(--card); border:1px solid var(--line); border-radius:20px; padding:20px; box-shadow:0 4px 12px rgba(0,0,0,.05)}
-  .row{display:grid; gap:16px}
-  @media(min-width:860px){ .row{grid-template-columns:1.2fr .8fr} }
-  .field{display:flex; flex-direction:column; gap:8px; margin-bottom:12px}
-  .center{text-align:center}
-  .date-grid{display:flex; justify-content:center; gap:8px; flex-wrap:wrap}
-  .date-grid input[type="number"]{
-    width:110px; padding:10px; border:1px solid var(--line); border-radius:10px; text-align:center; font-family:monospace;
-  }
-  .seg{display:flex; gap:6px; justify-content:center}
-  .seg button{flex:1; padding:8px; border-radius:8px; border:1px solid var(--line); background:#f9fafb; cursor:pointer; max-width:120px}
-  .seg button.on{background:var(--gold); color:#fff; border-color:var(--gold)}
-  .btn{padding:12px 20px; border-radius:10px; border:none; cursor:pointer; background:linear-gradient(90deg,var(--gold),var(--gold-soft)); color:#111; font-weight:700; display:block; margin:0 auto}
-  .badge{display:inline-block; padding:10px 14px; border-radius:10px; margin-top:12px}
-  .ok{background:#d1fae5; color:var(--emerald)}
-  .no{background:#fee2e2; color:var(--crimson)}
-  #verdict{display:none; margin:12px auto 0; width:max-content}
-
-  /* مؤشرات العمر */
-  .kpi{display:grid; gap:10px; grid-template-columns:repeat(2,1fr); margin-top:10px}
-  .k{background:#f9fafb; border:1px solid var(--line); border-radius:10px; padding:10px; text-align:center}
-  .k .v{font-weight:700; font-size:18px}
-
-  /* تاريخ البلوغ التقريبي (صندوق واحد حسب الجنس) */
-  .eqwrap{display:none; margin-top:8px}
-  .eqbox{background:#fff; border:1px solid var(--line); border-radius:12px; padding:10px; text-align:center}
-  .eqbox .v{font-weight:700; font-size:16px; margin-bottom:4px; color:#111}
-  .eqbox .l{font-size:12px; color:#6b7280}
-
-  .deck{display:grid; gap:12px; grid-template-columns:1fr; margin-top:16px}
-  @media(min-width:860px){ .deck{grid-template-columns:repeat(3,1fr)} }
-  .card{background:#fdfdfd; border:1px solid var(--line); border-radius:12px; padding:14px; box-shadow:0 2px 6px rgba(0,0,0,.04)}
-  .card h3{margin:0 0 6px; font-family:"Amiri",serif; color:var(--gold)}
-  .card p{margin:0; font-size:14px; color:#374151; line-height:1.6}
-  .card ul{margin:8px 0 0; padding-inline-start:20px; color:#374151}
-
-  /* عدّادات التكليف */
-  .counter{
-    margin:14px auto 0; max-width:700px;
-    background:linear-gradient(90deg, #fff7e6, #fff);
-    border:1px solid #f3e8c8; border-radius:16px; padding:12px;
-    box-shadow:0 4px 12px rgba(0,0,0,.05);
-  }
-  .counter.alt{
-    background:linear-gradient(90deg, #eef6ff, #fff);
-    border-color:#cfe6ff;
-  }
-  .counter h4{margin:0 0 8px; font-family:"Amiri",serif; color:#8b6a00; text-align:center}
-  .counter.alt h4{color:#0b4d8a}
-  .cflex{display:flex; gap:8px; justify-content:center; flex-wrap:wrap}
-  .cbox{min-width:110px; padding:10px 12px; border:1px solid var(--line); background:#fff; border-radius:12px; text-align:center}
-  .cbox .num{font-weight:800; font-size:22px}
-  .cbox .lbl{font-size:12px; color:#6b7280}
-
-  .sharebar{display:flex; justify-content:center; gap:8px; margin:16px 0; flex-wrap:wrap}
-  .iconbtn{width:34px; height:34px; border-radius:8px; display:flex; align-items:center; justify-content:center; border:1px solid var(--line); background:#fff; cursor:pointer}
-  .iconbtn svg{width:18px; height:18px; fill:#374151}
-  footer{text-align:center; margin:12px 0 16px; font-size:12px; color:#6b7280}
-  .ghost-link{color:inherit; text-decoration:none; cursor:default}
-  .ghost-link:visited{color:inherit}
-
-  /* Toast */
-  .toast{
-    position:fixed; left:50%; bottom:24px; transform:translateX(-50%) translateY(20px);
-    background:#ffffff; color:#111827; border:1px solid var(--line); box-shadow:0 8px 24px rgba(0,0,0,.12);
-    border-radius:14px; padding:12px 14px; min-width:260px; max-width:92vw; z-index:9999; opacity:0; transition:.25s ease;
-  }
-  .toast.show{opacity:1; transform:translateX(-50%) translateY(0)}
-  .toast .title{font-weight:700; color:var(--gold); margin-bottom:4px; font-family:"Amiri",serif}
-  .toast.error{border-color:#fecaca; box-shadow:0 8px 24px rgba(220,38,38,.15)}
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>كتاب الصلاة — موسوعة مبوّبة (نسخة مختصرة)</title>
+  <meta name="description" content="موسوعة مبوّبة في أحكام الصلاة وفق فتاوى السيد القائد، مستخرجة وملخّصة من ملف PDF." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Tajawal', system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans", sans-serif; }
+    .glass { background: rgba(255,255,255,0.06); backdrop-filter: blur(10px); }
+    .active-link { background: rgba(14,165,233,0.15); color: #7dd3fc; }
+    .page { display:none; }
+    .page.active { display:block; }
+  </style>
 </head>
-<body>
-<header>
-  <div class="brand">حِساب التكليف الشرعي</div>
-  <div class="tag">أدخل تاريخ الميلاد (ميلادي) واختر الجنس. الحساب قمري ويعرض المعادل الميلادي التقريبي.</div>
-</header>
-
-<main class="shell">
-  <section class="hero">
-    <div class="row">
-      <div>
-        <!-- التاريخ -->
-        <div class="field center">
-          <label><strong>تاريخ الميلاد (ميلادي)</strong></label>
-          <div class="date-grid" dir="ltr">
-            <input id="d" type="number" inputmode="numeric" placeholder="اليوم"  min="1"  max="31"  autocomplete="off"/>
-            <input id="m" type="number" inputmode="numeric" placeholder="الشهر" min="1"  max="12"  autocomplete="off"/>
-            <input id="y" type="number" inputmode="numeric" placeholder="السنة" min="1900" max="2100" autocomplete="off"/>
-          </div>
-        </div>
-
-        <!-- الجنس -->
-        <div class="field center">
-          <label><strong>الجنس</strong></label>
-          <div class="seg" id="gender">
-            <button type="button" class="on" data-g="girl">فتاة</button>
-            <button type="button" data-g="boy">صبي</button>
-          </div>
-        </div>
-
-        <button class="btn" id="calc">تحقّق من الحكم</button>
+<body class="bg-slate-950 text-slate-100">
+  <!-- Header / Topbar -->
+  <header class="sticky top-0 z-40 border-b border-white/10 bg-slate-950/80 backdrop-blur">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center gap-4">
+      <div class="flex items-center gap-3">
+        <span class="text-2xl font-extrabold text-sky-400">كتاب الصلاة</span>
+        <span class="hidden md:inline text-slate-400">— موسوعة مبوّبة وفق رأي السيد القائد</span>
       </div>
-
-      <div>
-        <div id="verdict" class="badge"></div>
-
-        <!-- العدّاد: مضى على التكليف -->
-        <div id="counterDone" class="counter" style="display:none">
-          <h4>مضى على التكليف</h4>
-          <div class="cflex">
-            <div class="cbox"><div class="num" id="cntY">0</div><div class="lbl">سنة</div></div>
-            <div class="cbox"><div class="num" id="cntM">0</div><div class="lbl">شهر</div></div>
-            <div class="cbox"><div class="num" id="cntD">0</div><div class="lbl">يوم</div></div>
-          </div>
-        </div>
-
-        <!-- العدّاد: المتبقّي لبلوغ التكليف -->
-        <div id="counterRemain" class="counter alt" style="display:none">
-          <h4>المتبقّي لبلوغ التكليف</h4>
-          <div class="cflex">
-            <div class="cbox"><div class="num" id="remY">0</div><div class="lbl">سنة</div></div>
-            <div class="cbox"><div class="num" id="remM">0</div><div class="lbl">شهر</div></div>
-            <div class="cbox"><div class="num" id="remD">0</div><div class="lbl">يوم</div></div>
-          </div>
-        </div>
-
-        <!-- مؤشرات العمر (اسماء جديدة) -->
-        <div id="kpis" class="kpi" style="display:none">
-          <div class="k"><div class="v" id="solarY">—</div><div>عمر ميلادي</div></div>
-          <div class="k"><div class="v" id="hijriY">—</div><div>عمر هجري</div></div>
-        </div>
-
-        <!-- صندوق واحد للبلوغ التقريبي حسب الجنس -->
-        <div id="eqwrap" class="eqwrap">
-          <div class="eqbox">
-            <div class="v" id="eqVal">—</div>
-            <div class="l" id="eqLbl">—</div>
-          </div>
-        </div>
+      <div class="ms-auto flex items-center gap-2 w-full md:w-auto">
+        <input id="navSearch" type="search" placeholder="ابحث في العناوين…" class="w-full md:w-72 px-4 py-2 rounded-2xl bg-white/5 border border-white/10 focus:outline-none focus:ring-2 focus:ring-sky-500"/>
+        <button id="printBtn" class="px-4 py-2 rounded-2xl bg-white/10 border border-white/10 hover:bg-white/20">طباعة الصفحة</button>
       </div>
     </div>
-
-    <div id="rules" class="deck" style="display:none"></div>
+  </header>  <!-- Layout -->  <div class="max-w-7xl mx-auto px-4 py-6 grid grid-cols-1 md:grid-cols-4 gap-6">
+    <!-- Sidebar -->
+    <aside class="md:col-span-1 glass rounded-3xl border border-white/10 p-3">
+      <nav id="sideNav" class="space-y-1 text-sm">
+        <a href="#home" class="block px-3 py-2 rounded-xl hover:bg-white/10">الصفحة الرئيسية</a>
+        <a href="#importance" class="block px-3 py-2 rounded-xl hover:bg-white/10">الأهمية والمكانة</a>
+        <a href="#obligatory" class="block px-3 py-2 rounded-xl hover:bg-white/10">الصلوات الواجبة</a>
+        <a href="#daily" class="block px-3 py-2 rounded-xl hover:bg-white/10">الفرائض اليومية</a>
+        <a href="#times" class="block px-3 py-2 rounded-xl hover:bg-white/10">أوقات الصلاة</a>
+        <a href="#order" class="block px-3 py-2 rounded-xl hover:bg-white/10">الترتيب بين الصلوات</a>
+        <a href="#mustahab" class="block px-3 py-2 rounded-xl hover:bg-white/10">الصلوات المستحبّة</a>
+        <a href="#qibla" class="block px-3 py-2 rounded-xl hover:bg-white/10">القبلة</a>
+        <a href="#dress" class="block px-3 py-2 rounded-xl hover:bg-white/10">لباس المصلّي وشروطه</a>
+        <a href="#place" class="block px-3 py-2 rounded-xl hover:bg-white/10">مكان الصلاة وأحكام المسجد</a>
+        <a href="#adhan" class="block px-3 py-2 rounded-xl hover:bg-white/10">الأذان والإقامة</a>
+        <a href="#wajibat" class="block px-3 py-2 rounded-xl hover:bg-white/10">واجبات الصلاة</a>
+        <a href="#mubtilat" class="block px-3 py-2 rounded-xl hover:bg-white/10">مبطلات الصلاة والشكوك</a>
+        <a href="#safar" class="block px-3 py-2 rounded-xl hover:bg-white/10">صلاة المسافر</a>
+        <a href="#jamaah" class="block px-3 py-2 rounded-xl hover:bg-white/10">صلاة الجماعة والجمعة</a>
+        <a href="#special" class="block px-3 py-2 rounded-xl hover:bg-white/10">صلوات خاصّة</a>
+        <a href="#report" class="block px-3 py-2 rounded-xl hover:bg-white/10">إعداد وتقرير</a>
+      </nav>
+    </aside><!-- Content -->
+<main class="md:col-span-3 space-y-6">
+  <!-- Home -->
+  <section id="home" class="page active glass rounded-3xl border border-white/10 p-6">
+    <h1 class="text-3xl md:text-4xl font-extrabold text-white">الصلاة — موسوعة مبوّبة</h1>
+    <p class="mt-3 text-slate-300 leading-relaxed">
+      هذه النسخة تجمع خلاصة كتاب الصلاة وفق فتاوى السيد القائد، مع تنظيمٍ مبوّبٍ قابل للتصفح في صفحة HTML واحدة.
+    </p>
+    <blockquote class="mt-6 p-4 rounded-2xl bg-white/5 border border-white/10 text-slate-200 leading-relaxed">
+      الصلاة أهم العبادات، وإذا أُقيمت بشكل صحيح مع التوجه، تطهّر روح الإنسان وتنوّر قلبه، وتجعلُه قادراً على التحرّر من الأخلاق الرذيلة. وهي قادرة على تطهير الفرد والمجتمع تدريجياً، ويُستحب الإتيان بها في أول وقتها، مع حضور القلب، بعيداً عن الرياء، وليعلم المصلّي أنه في كل كلمة يتكلم مع الله ويعرف ماذا يقول.
+    </blockquote>
+    <ul class="mt-4 text-slate-300 space-y-1">
+      <li>• اعتمدنا الترتيب المبسّط، مع الحفاظ على روح النص الفقهي.</li>
+      <li>• هذا تلخيص شامل يغطي الأبواب الأساسية دون تفاصيل المسائل الفرعية الدقيقة.</li>
+    </ul>
   </section>
 
-  <!-- أيقونات المشاركة -->
-  <div class="sharebar" id="sharebar">
-    <a class="iconbtn" id="shareWA" title="واتساب" target="_blank" aria-label="WhatsApp">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0a12 12 0 00-10 18.3L1 23l4.9-1A12 12 0 1012 0zm6.5 17.2c-.3.8-1.7 1.6-2.4 1.6-.6 0-1.4.1-3.8-1-3.2-1.4-5.3-4.6-5.5-4.8-.1-.2-1.3-1.7-1.3-3.2 0-1.6.8-2.4 1.1-2.7.3-.3.7-.4 1-.4h.8c.2 0 .6 0 .9.7.3.8 1.1 2.7 1.2 2.9.1.2.2.5 0 .8-.2.3-.3.5-.6.8-.3.3-.6.6-.2 1.2.4.6 1.7 2.8 4 3.8 2.9 1.2 3 .8 3.5.8.5 0 1.8-.8 2.1-1.5.2-.7 1-1.6 1.3-1.8.2-.1.3-.2.5-.1l1 .5c.3.1.5.3.5.5-.1.4-.7 2-1 2.7z"/></svg>
-    </a>
-    <a class="iconbtn" id="shareTG" title="تيليغرام" target="_blank" aria-label="Telegram">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18.2l-.3 4.1c.4 0 .6-.2.8-.4l2-1.8 4.1 3c.7.4 1.3.2 1.5-.7L22 6.2c.2-1.1-.4-1.5-1.1-1.2L2.3 11.1c-1.1.4-1 1.3 0 1.6l4.1 1.2 9.4-5.9c.4-.3.9-.1.5.2L9 18.2z"/></svg>
-    </a>
-    <a class="iconbtn" id="shareX" title="X" target="_blank" aria-label="X">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 2h4.7l5 6.8L18.7 2H22l-7.8 9.1L22 22h-4.8l-5.4-7.2L6 22H2.1l8.3-9.8L3 2z"/></svg>
-    </a>
-    <a class="iconbtn" id="shareFB" title="فيسبوك" target="_blank" aria-label="Facebook">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12a10 10 0 10-11.6 9.9v-7H7.7V12h2.7V9.8c0-2.7 1.6-4.2 4-4.2 1.2 0 2.5.2 2.5.2v2.7h-1.4c-1.4 0-1.9.9-1.9 1.8V12h3.2l-.5 2.9h-2.7v7A10 10 0 0022 12z"/></svg>
-    </a>
-    <button class="iconbtn" id="copyLink" title="نسخ الرابط" aria-label="Copy Link">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 1H8C6.3 1 5 2.3 5 4v12c0 1.7 1.3 3 3 3h8c1.7 0 3-1.3 3-3V4c0-1.7-1.3-3-3-3zm1 15c0 .6-.4 1-1 1H8c-.6 0-1-.4-1-1V4c0-.6.4-1 1-1h8c.6 0 1 .4 1 1v12zM7 20c0 .6.4 1 1 1h8v2H8c-1.7 0-3-1.3-3-3v-2h2v2z"/></svg>
-    </button>
-  </div>
+  <!-- Importance -->
+  <section id="importance" class="page glass rounded-3xl border border-white/10 p-6">
+    <h2 class="text-2xl font-bold text-sky-400">الأهمية والمكانة</h2>
+    <p class="mt-3 text-slate-200">الصلاة عمود الدين وأهمُّ العبادات. إذا أُقيمت على الوجه الصحيح ومع حضور القلب، تُطهّر الروح وتُهذّب الأخلاق وتُنوّر القلب، وتؤثر في الفرد والمجتمع تهذيباً وترقّياً.</p>
+    <ul class="mt-4 space-y-2 text-slate-300">
+      <li>• المبادرة إلى الصلاة في أول وقتها من أهم وجوه الفضل.</li>
+      <li>• يُستحب تجنّب الرياء، واستحضار أن المصلي يخاطب الله في كل كلمة.</li>
+    </ul>
+  </section>
 
-  <!-- التذييل (رابط يبدو كنص عادي) -->
-  <footer>
-    <a id="devLink" class="ghost-link" href="https://api.whatsapp.com/send/?phone=97333375858&text&type=phone_number&app_absent=0&wame_ctl=1&fbclid=PAVERDUAMlCr1leHRuA2FlbQIxMAABpwqPFLJG8laAnV5rw6XUJyaPM5Iu46lcNuSytaWagu69EOXocnveCBK9VAGO_aem_jZeAIULAjqXYmbzLyPrU1Q" target="_blank" rel="noopener">برمجة وتطوير: فاضل الريس</a>
-  </footer>
+  <!-- Obligatory prayers -->
+  <section id="obligatory" class="page glass rounded-3xl border border-white/10 p-6">
+    <h2 class="text-2xl font-bold text-sky-400">الصلوات الواجبة</h2>
+    <ul class="mt-3 space-y-2 text-slate-200 leading-relaxed">
+      <li>1) الفرائض اليومية (١٧ ركعة).</li>
+      <li>2) صلاة الطواف بعد الطواف الواجب حول الكعبة.</li>
+      <li>3) صلاة الآيات عند الخسوف والكسوف والزلزلة ونحوها.</li>
+      <li>4) صلاة الميّت على جسد المسلم.</li>
+      <li>5) قضاء الولد الذكر الأكبر لما فات عن والده، وعلى الأحوط وجوباً عن الأم.</li>
+      <li>6) الصلاة التي تجب بالعهد أو النذر أو اليمين أو الإجارة.</li>
+    </ul>
+  </section>
+
+  <!-- Daily -->
+  <section id="daily" class="page glass rounded-3xl border border-white/10 p-6">
+    <h2 class="text-2xl font-bold text-sky-400">الفرائض اليومية</h2>
+    <p class="mt-3 text-slate-200">عددها سبعة عشر ركعة:</p>
+    <ul class="mt-2 list-disc pe-6 space-y-1 text-slate-300">
+      <li>الفجر: ركعتان</li>
+      <li>الظهر: أربع ركعات</li>
+      <li>العصر: أربع ركعات</li>
+      <li>المغرب: ثلاث ركعات</li>
+      <li>العشاء: أربع ركعات</li>
+    </ul>
+  </section>
+
+  <!-- Times -->
+  <section id="times" class="page glass rounded-3xl border border-white/10 p-6">
+    <h2 class="text-2xl font-bold text-sky-400">أوقات الصلاة</h2>
+    <div class="mt-3 grid md:grid-cols-2 gap-6 text-slate-200">
+      <div>
+        <h3 class="font-semibold">صلاة الصبح</h3>
+        <p>من طلوع الفجر الصادق إلى طلوع الشمس.</p>
+      </div>
+      <div>
+        <h3 class="font-semibold">صلاة الظهر</h3>
+        <p>من الزوال إلى أن يبقى قبل الغروب مقدار أداء العصر.</p>
+      </div>
+      <div>
+        <h3 class="font-semibold">صلاة العصر</h3>
+        <p>بعد أداء مقدار الظهر من أوّل الزوال إلى الغروب.</p>
+      </div>
+      <div>
+        <h3 class="font-semibold">صلاة المغرب</h3>
+        <p>من زوال الحمرة المشرقية بعد الغروب إلى قبل منتصف الليل بمقدار أداء العشاء.</p>
+      </div>
+      <div>
+        <h3 class="font-semibold">صلاة العشاء</h3>
+        <p>من بعد مقدار أداء المغرب إلى منتصف الليل (منتصف ما بين الغروب وطلوع الفجر).</p>
+      </div>
+    </div>
+    <p class="mt-4 text-slate-300">ملاحظة: إذا ضاق الوقت تُقدَّم الصلاة ذات الوقت المختص، مع مراعاة الترتيب في السعة.</p>
+  </section>
+
+  <!-- Order -->
+  <section id="order" class="page glass rounded-3xl border border-white/10 p-6">
+    <h2 class="text-2xl font-bold text-sky-400">الترتيب بين الصلوات</h2>
+    <ul class="mt-3 space-y-2 text-slate-200">
+      <li>• يجب تقديم الظهر على العصر، والمغرب على العشاء؛ مخالفة الترتيب عمداً مبطلة.</li>
+      <li>• لو قُدّمت سهواً ثم التفت بعد الفراغ: الصلاة صحيحة. أمّا أثناء الصلاة، فيعدل بالنية حيث أمكن وفق الضوابط.</li>
+    </ul>
+  </section>
+
+  <!-- Mustahab -->
+  <section id="mustahab" class="page glass rounded-3xl border border-white/10 p-6">
+    <h2 class="text-2xl font-bold text-sky-400">الصلوات المستحبّة (النوافل)</h2>
+    <p class="mt-3 text-slate-200">النوافل اليومية مؤكدة، وأعظمها أثراً صلاة الليل.</p>
+    <ul class="mt-2 list-disc pe-6 space-y-1 text-slate-300">
+      <li>نافلة الظهر: ٨ ركعات قبل الظهر.</li>
+      <li>نافلة العصر: ٨ ركعات قبل العصر.</li>
+      <li>نافلة المغرب: ٤ ركعات بعد المغرب.</li>
+      <li>نافلة العشاء: ركعتان من جلوس بعد العشاء (تحسب ركعة).</li>
+      <li>نافلة الصبح: ركعتان قبل الفريضة.</li>
+      <li>صلاة الليل: إحدى عشرة ركعة (الأفضل في الثلث الأخير من الليل).</li>
+    </ul>
+  </section>
+
+  <!-- Qibla -->
+  <section id="qibla" class="page glass rounded-3xl border border-white/10 p-6">
+    <h2 class="text-2xl font-bold text-sky-400">القبلة</h2>
+    <ul class="mt-3 space-y-2 text-slate-200">
+      <li>• يجب استقبال الكعبة، وللبعيد يكفي صدق التوجه نحوها عرفاً.</li>
+      <li>• يُستدل على القبلة باليقين أو الاطمئنان (بوصلة، محراب، قرائن)، ومع العجز يُعمل بالظن، ومع تعذر الظن تُصلّى للجهات الممكنة بحسب سعة الوقت.</li>
+      <li>• يجب الاستقبال في ركعات الاحتياط، وفي قضاء السجدة والتشهّد، ويُستحب في سجود السهو.</li>
+    </ul>
+  </section>
+
+  <!-- Dress -->
+  <section id="dress" class="page glass rounded-3xl border border-white/10 p-6">
+    <h2 class="text-2xl font-bold text-sky-400">لباس المصلّي وشروطه</h2>
+    <h3 class="mt-3 font-semibold text-emerald-400">الستر</h3>
+    <ul class="mt-2 list-disc pe-6 space-y-1 text-slate-300">
+      <li>يجب ستر العورتين للرجل، ويجب على المرأة ستر جميع البدن ما عدا الوجه بالقدر الواجب في الوضوء وكفّين وقدمين بضوابطه، مع مراعاة وجود غير المحارم.</li>
+    </ul>
+    <h3 class="mt-5 font-semibold text-emerald-400">شروط اللباس</h3>
+    <ul class="mt-2 list-disc pe-6 space-y-1 text-slate-300">
+      <li>الطهارة للبدن واللباس، مع استثناءات محدودة (دم الجروح والقروح، الدم القليل… إلخ).</li>
+      <li>الإباحة: لا يكون مغصوباً.</li>
+      <li>أن لا يكون من أجزاء الميتة أو من أجزاء حيوان غير مأكول اللحم.</li>
+      <li>أن لا يكون من الذهب للرجال، ولا حريراً محضاً للرجل.</li>
+    </ul>
+  </section>
+
+  <!-- Place & Masjid -->
+  <section id="place" class="page glass rounded-3xl border border-white/10 p-6">
+    <h2 class="text-2xl font-bold text-sky-400">مكان الصلاة وأحكام المسجد</h2>
+    <h3 class="mt-3 font-semibold">مكان المصلّي</h3>
+    <ul class="mt-2 list-disc pe-6 space-y-1 text-slate-300">
+      <li>إباحة المكان (غير مغصوب).</li>
+      <li>الاستقرار والطمأنينة، إلا في موارد الاضطرار.</li>
+      <li>طهارة موضع الجبهة في السجود، ومراعاة المسافة بين الرجل والمرأة في غير المسجد.</li>
+      <li>استواء الموضع بحيث لا يعلو موضع الجبهة ولا يهبط أكثر من أربع أصابع مضمومة.</li>
+    </ul>
+    <h3 class="mt-5 font-semibold">أحكام المسجد</h3>
+    <ul class="mt-2 list-disc pe-6 space-y-1 text-slate-300">
+      <li>يحرم تنجيس المسجد، وتطهيره واجب كفائي عند التنجس.</li>
+      <li>أفضلية الصلاة في المساجد، مع آداب الدخول والتحية.</li>
+      <li>مراعاة شأن المسجد ومنزلته، واجتناب ما ينافي حرمته.</li>
+    </ul>
+  </section>
+
+  <!-- Adhan & Iqama -->
+  <section id="adhan" class="page glass rounded-3xl border border-white/10 p-6">
+    <h2 class="text-2xl font-bold text-sky-400">الأذان والإقامة</h2>
+    <p class="mt-3 text-slate-200">مستحبان قبل الفرائض اليومية (ويتأكدان في الصبح والمغرب والجماعة). لصيغة الأذان ثماني عشرة جملة، وتزاد «قد قامت الصلاة» مرّتين في الإقامة، مع سائر التفاصيل المعروفة عند الإمامية.</p>
+    <ul class="mt-2 list-disc pe-6 space-y-1 text-slate-300">
+      <li>يُستحب الوقوف مستقبل القبلة ورفع الصوت والترسُّل في الأذان.</li>
+      <li>الفصل اليسير بين الأذان والإقامة، ويُستحب الجلوس أو التسبيح بينهما.</li>
+    </ul>
+  </section>
+
+  <!-- Wajibat -->
+  <section id="wajibat" class="page glass rounded-3xl border border-white/10 p-6">
+    <h2 class="text-2xl font-bold text-sky-400">واجبات الصلاة</h2>
+    <p class="mt-3 text-slate-200">واجبات الصلاة أحد عشر: النية، القيام، تكبيرة الإحرام، القراءة، الركوع، السجود، الذكر، التشهّد، التسليم، الترتيب، الموالاة.</p>
+    <ul class="mt-2 list-disc pe-6 space-y-1 text-slate-300">
+      <li><span class="font-semibold">الأركان</span>: النية، تكبيرة الإحرام حال القيام، القيام المتصل بالركوع، الركوع، السجدتان.</li>
+      <li>ترك الركن عمداً أو سهواً مبطل؛ أمّا غير الركن فتركه عمداً مبطل وسهواً لا يبطل.</li>
+      <li>تفصيل القيام: لزوم الاستقلال والطمأنينة في مواضعه، والانتقال الصحيح بين هيئات الصلاة.</li>
+    </ul>
+  </section>
+
+  <!-- Mubtilat & Doubts -->
+  <section id="mubtilat" class="page glass rounded-3xl border border-white/10 p-6">
+    <h2 class="text-2xl font-bold text-sky-400">مبطلات الصلاة والشكوك</h2>
+    <h3 class="mt-3 font-semibold">المبطلات (أمثلة)</h3>
+    <ul class="mt-2 list-disc pe-6 space-y-1 text-slate-300">
+      <li>تعمد ترك ركن، أو زيادة ركن عمداً.</li>
+      <li>الضحك قهقهة، والأكل والشرب عمداً على نحو يخلّ بالصلاة.</li>
+      <li>الرياء في أصل العمل.</li>
+    </ul>
+    <h3 class="mt-5 font-semibold">الشكوك</h3>
+    <p class="text-slate-200">منها ما يبطل، ومنها ما يُبنى فيه على أحد الطرفين أو يأتي بسجود سهو أو صلاة احتياط بحسب المورد.</p>
+    <h3 class="mt-5 font-semibold">سجود السهو</h3>
+    <p class="text-slate-200">مشروع لجبر بعض الزيادات أو النواقص السهوية، وله كيفيته وأحكامه الخاصة.</p>
+  </section>
+
+  <!-- Traveller -->
+  <section id="safar" class="page glass rounded-3xl border border-white/10 p-6">
+    <h2 class="text-2xl font-bold text-sky-400">صلاة المسافر</h2>
+    <ul class="mt-3 list-disc pe-6 space-y-1 text-slate-300">
+      <li>يشترط التقصير بمسافة شرعية، مع قصد السفر واستمراره، وألا يمرّ بالوطن أو محل الإقامة، وأن يكون السفر مباحاً… إلخ.</li>
+      <li>للمسافر موارد قواطع، وأحكام خاصة للنوافل والقصر والتمام بحسب المواضع.</li>
+    </ul>
+  </section>
+
+  <!-- Jamaah & Jumuah -->
+  <section id="jamaah" class="page glass rounded-3xl border border-white/10 p-6">
+    <h2 class="text-2xl font-bold text-sky-400">صلاة الجماعة والجمعة</h2>
+    <ul class="mt-3 list-disc pe-6 space-y-1 text-slate-300">
+      <li>استحباب مؤكد للجماعة مع شروط الإمام والمأموم ووظائفهما.</li>
+      <li>صلاة الجمعة: شروط الانعقاد، وقتها وكيفيتها وخطبتاها، وما يلزم الإمام والمصلّين.</li>
+    </ul>
+  </section>
+
+  <!-- Special prayers -->
+  <section id="special" class="page glass rounded-3xl border border-white/10 p-6">
+    <h2 class="text-2xl font-bold text-sky-400">صلوات خاصّة</h2>
+    <ul class="mt-3 list-disc pe-6 space-y-1 text-slate-300">
+      <li>صلاة القضاء: قضاء ما فات، وأحكام الاستئجار.</li>
+      <li>قضاء الوالدين: وظيفة الولد الأكبر.</li>
+      <li>صلاة الآيات: وقتها وكيفيتها والشك فيها.</li>
+      <li>صلاة العيدين: أحكامها في زمان الغيبة وآدابها.</li>
+    </ul>
+  </section>
+
+  <!-- Report -->
+  <section id="report" class="page glass rounded-3xl border border-white/10 p-6">
+    <h2 class="text-2xl font-bold text-rose-400">إعداد وتقرير</h2>
+    <p class="mt-2 text-slate-200">فاضل الريس</p>
+    <p class="mt-4 text-slate-400 text-sm">هذه النسخة HTML تلخيص شامل للمحتوى مع الحفاظ على الجوهر الفقهي، وليست بديلاً عن الرجوع للنص المفصل للمسائل عند الحاجة.</p>
+  </section>
 </main>
 
-<!-- Toast -->
-<div id="toast" class="toast" role="status" aria-live="polite" aria-atomic="true" style="display:none">
-  <div class="title">تنبيه</div>
-  <div class="msg">—</div>
-</div>
+  </div>  <!-- Footer -->  <footer class="border-t border-white/10 py-6 text-center text-slate-400">
+    <p>© <span id="y"></span> كتاب الصلاة — موسوعة مبوّبة • إعداد وتقرير: <b>فاضل الريس</b></p>
+  </footer>  <!-- Back to top --><button id="toTop" title="إلى الأعلى" class="fixed bottom-6 left-6 p-3 rounded-full bg-white/10 border border-white/10 hover:bg-white/20 hidden">↑</button>
 
-<script>
-/* ثوابت */
-const SOLAR_YEAR=365.2425, LUNAR_YEAR=354.367;
-
-/* عناصر */
-const dEl=document.getElementById('d');
-const mEl=document.getElementById('m');
-const yEl=document.getElementById('y');
-const genderSeg=document.getElementById('gender');
-const calcBtn=document.getElementById('calc');
-const verdict=document.getElementById('verdict');
-const kpis=document.getElementById('kpis');
-const rulesDeck=document.getElementById('rules');
-const counterDone=document.getElementById('counterDone');
-const cntY=document.getElementById('cntY');
-const cntM=document.getElementById('cntM');
-const cntD=document.getElementById('cntD');
-const counterRemain=document.getElementById('counterRemain');
-const remY=document.getElementById('remY');
-const remM=document.getElementById('remM');
-const remD=document.getElementById('remD');
-const toast=document.getElementById('toast'); const toastMsg=toast.querySelector('.msg');
-const eqWrap=document.getElementById('eqwrap');
-const eqVal=document.getElementById('eqVal');
-const eqLbl=document.getElementById('eqLbl');
-
-/* حالة الجنس */
-let gender='girl';
-
-/* فلترة أرقام فقط */
-[dEl,mEl,yEl].forEach(inp=>{
-  inp.addEventListener('input',()=>{ inp.value = inp.value.replace(/\D+/g,''); });
-});
-
-/* اختيار الجنس */
-genderSeg.querySelectorAll('button').forEach(b=>{
-  b.addEventListener('click',()=>{
-    genderSeg.querySelectorAll('button').forEach(x=>x.classList.remove('on'));
-    b.classList.add('on'); gender = b.dataset.g;
-  });
-});
-
-/* Toast */
-let toastTimer=null;
-function showToast(message, opts={type:'info', title:'تنبيه', timeout:2800}){
-  toast.style.display='block';
-  toast.classList.remove('error');
-  if(opts.type==='error') toast.classList.add('error');
-  toast.querySelector('.title').textContent = opts.title || 'تنبيه';
-  toastMsg.textContent = message;
-  requestAnimationFrame(()=>toast.classList.add('show'));
-  clearTimeout(toastTimer);
-  toastTimer=setTimeout(()=>{ toast.classList.remove('show'); }, opts.timeout||2800);
-}
-
-/* أدوات التاريخ */
-function daysInMonthUTC(y,m){ return new Date(Date.UTC(y, m, 0)).getUTCDate(); } // m: 1..12
-function toUTC(d){ return new Date(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate())); }
-function fmtDate(d){ return `${d.getUTCFullYear()}-${String(d.getUTCMonth()+1).padStart(2,'0')}-${String(d.getUTCDate()).padStart(2,'0')}`; }
-function addYMD(base,y,m,day){ return new Date(Date.UTC(base.getUTCFullYear()+y, base.getUTCMonth()+m, base.getUTCDate()+day)); }
-function diffYMD(fromUTC, toUTCDate){
-  let y = toUTCDate.getUTCFullYear() - fromUTC.getUTCFullYear();
-  let m = toUTCDate.getUTCMonth() + 1 - (fromUTC.getUTCMonth() + 1);
-  let d = toUTCDate.getUTCDate() - fromUTC.getUTCDate();
-  if(d < 0){ const prevMonth = new Date(Date.UTC(toUTCDate.getUTCFullYear(), toUTCDate.getUTCMonth(), 0)); d += prevMonth.getUTCDate(); m -= 1; }
-  if(m < 0){ m += 12; y -= 1; }
-  if(y < 0){ y=0; m=0; d=0; }
-  return {y,m,d};
-}
-
-/* بطاقة HTML */
-function makeCard(t,b){ const e=document.createElement('div'); e.className='card'; e.innerHTML=`<h3>${t}</h3>${b}`; return e; }
-
-/* بطاقات النتائج */
-function buildRules(isM){
-  rulesDeck.innerHTML='';
-  if(gender==='boy'){
-    const signsHTML = `
-      <p>يُعدّ الصبيُّ بالغًا عند تحقّق أحد الأمور الآتية:</p>
-      <ul>
-        <li>نبات الشعر الخشن في موضع العانة (الموضع بين البطن والعورة).</li>
-        <li>خروج المني.</li>
-        <li>إتمام خمس عشرة سنة هلالية (≈ أربعة عشر سنة وستة أشهر وخمسة عشر يومًا ميلاديًّا).</li>
-        <li>نبات الشعر الخشن في الخدّ أو في الشارب.</li>
-      </ul>
-      <p style="margin-top:6px"><strong>وإذا تحقّقت إحدى هذه العلامات قبل بلوغ الخامسة عشرة قمرية، عُدَّ الصبيّ مُكلَّفًا.</strong></p>
-      <p style="margin-top:6px; color:#64748b">أمّا نبات الشعر في الصدر وتحت الإبط، وغلظ الصوت ونظائرها فليست علامات معتبرة للبلوغ.</p>
-    `;
-    rulesDeck.append(makeCard('علامات البلوغ للصبي', signsHTML));
-  }
-  if(!isM){
-    rulesDeck.append(makeCard('تنبيه','<p>لم يبلغ سنّ التكليف بعد. يُستحسن التعلّم المبدئي للطهارة والصلاة تمهيدًا للالتزام عند البلوغ.</p>'));
-    rulesDeck.style.display='grid';
-    return;
-  }
-  const salat=makeCard('الصلاة (واجب)','<p>خمس صلوات يوميًا بشروطها: الطهارة، والوقت، والقبلة، والستر.</p>');
-  const siyam=makeCard('الصيام (واجب)','<p>صوم شهر رمضان مع النيّة واجتناب المفطرات، مع مراعاة أحكام الأعذار.</p>');
-  const tahara=makeCard('الطهارة (شرط)','<p>وضوء أو غسل بحسب الحال، والتحقّق من طهارة البدن والثوب ومحل السجود.</p>');
-  const taqlid=makeCard('التقليد (واجب)','<p>العمل وفق فتوى المرجع الأعلم.</p>');
-  const khums=makeCard('الخمس (واجب)','<p>واجب في فاضل المؤونة ونحوها بنهاية السنة الخُمسية.</p>');
-  if(gender==='girl'){
-    const hijab=makeCard('الحجاب (واجب)','<p>ستر البدن على نحو لا يَصِف البشرة، مع مراعاة حدود النظر والزينة والعفّة.</p>');
-    rulesDeck.append(salat,siyam,hijab,tahara,taqlid,khums);
-  }else{
-    rulesDeck.append(salat,siyam,tahara,taqlid,khums);
-  }
-  rulesDeck.style.display='grid';
-}
-
-/* تحقق صحة التاريخ */
-function validateFullDate(d,m,y){
-  if(!(y>=1900 && y<=2100)) { showToast('أدخل سنة صحيحة بين 1900 و 2100.', {type:'error', title:'خطأ في السنة'}); return false; }
-  if(!(m>=1 && m<=12))      { showToast('أدخل شهرًا صحيحًا بين 1 و 12.',      {type:'error', title:'خطأ في الشهر'}); return false; }
-  if(!(d>=1 && d<=31))      { showToast('أدخل يومًا صحيحًا بين 1 و 31.',       {type:'error', title:'خطأ في اليوم'});  return false; }
-  const dim = daysInMonthUTC(y, m);
-  if(d > dim){ showToast(`هذا الشهر يحتوي ${dim} يومًا فقط. صحّح اليوم.`, {type:'error', title:'اليوم يتجاوز الشهر'}); return false; }
-  const dob=new Date(Date.UTC(y, m-1, d));
-  const today=new Date();
-  if(dob > today){ showToast('تاريخ الميلاد لا يمكن أن يكون في المستقبل.', {type:'error', title:'تحقّق من التاريخ'}); return false; }
-  return true;
-}
-
-/* الحساب */
-calcBtn.addEventListener('click',()=>{
-  const d=parseInt(dEl.value,10), m=parseInt(mEl.value,10), y=parseInt(yEl.value,10);
-  if(!validateFullDate(d,m,y)) return;
-
-  const dob=new Date(Date.UTC(y, m-1, d));
-  const today=new Date();
-  const todayUTC=new Date(Date.UTC(today.getFullYear(),today.getMonth(),today.getDate()));
-
-  const daySpan=(todayUTC - dob)/(1000*60*60*24);
-  const solarYears=(daySpan/SOLAR_YEAR).toFixed(1);
-  const hijriYears=(daySpan/LUNAR_YEAR).toFixed(1);
-  const hijriThreshold=(gender==='girl')?9:15;
-
-  // تواريخ البلوغ التقريبية (ميلادي) وفق القاعدة المذكورة
-  const eqGirlDate = addYMD(toUTC(dob), 8, 8, 20);
-  const eqBoyDate  = addYMD(toUTC(dob),14, 6, 15);
-  const thresholdDate = (gender==='girl') ? eqGirlDate : eqBoyDate;
-
-  const isMukallaf = (daySpan/LUNAR_YEAR) >= hijriThreshold;
-
-  // النتيجة في الوسط
-  verdict.style.display='block';
-  verdict.className='badge ' + (isMukallaf ? 'ok' : 'no');
-  verdict.textContent = isMukallaf ? '✅ تمّ بلوغ سنّ التكليف' : '⏳ لم يبلغ سنّ التكليف بعد';
-
-  // مؤشرات العمر (اسماء جديدة)
-  kpis.style.display='grid';
-  document.getElementById('solarY').textContent = solarYears; // عمر ميلادي
-  document.getElementById('hijriY').textContent = hijriYears; // عمر هجري
-
-  // إظهار صندوق «البلوغ التقريبي» واحد فقط حسب الجنس
-  eqWrap.style.display='block';
-  eqVal.textContent = (gender==='girl') ? fmtDate(eqGirlDate) : fmtDate(eqBoyDate);
-  eqLbl.textContent = (gender==='girl') ? 'بلوغ الفتاة (تقريب ميلادي)' : 'بلوغ الصبي (تقريب ميلادي)';
-
-  // عدّادات
-  if(isMukallaf){
-    if(todayUTC >= thresholdDate){
-      const diff = diffYMD(thresholdDate, todayUTC);
-      cntY.textContent = diff.y; cntM.textContent = diff.m; cntD.textContent = diff.d;
-      counterDone.style.display='block';
-    }else{
-      counterDone.style.display='none';
+  <script>
+    // Router: activate sections via hash
+    const pages = Array.from(document.querySelectorAll('.page'));
+    const navLinks = Array.from(document.querySelectorAll('#sideNav a'));
+    function activate(hash){
+      const id = (hash || location.hash || '#home').replace('#','');
+      pages.forEach(p=>p.classList.toggle('active', p.id===id));
+      navLinks.forEach(a=>{
+        const match = a.getAttribute('href') === '#' + id;
+        a.classList.toggle('active-link', match);
+      });
+      document.title = (id==='home' ? 'كتاب الصلاة — موسوعة مبوّبة' : document.getElementById(id)?.querySelector('h2,h1')?.textContent + ' — كتاب الصلاة') || document.title;
     }
-    counterRemain.style.display='none';
-  }else{
-    if(todayUTC < thresholdDate){
-      const diff = diffYMD(todayUTC, thresholdDate);
-      remY.textContent = diff.y; remM.textContent = diff.m; remD.textContent = diff.d;
-      counterRemain.style.display='block';
-    }else{
-      counterRemain.style.display='none';
-    }
-    counterDone.style.display='none';
-  }
+    window.addEventListener('hashchange', ()=>activate());
+    activate();
 
-  // بطاقات النتائج
-  buildRules(isMukallaf);
-});
+    // Search nav
+    const navSearch = document.getElementById('navSearch');
+    navSearch.addEventListener('input', ()=>{
+      const q = navSearch.value.trim();
+      navLinks.forEach(a=>{
+        const show = a.textContent.includes(q) || !q;
+        a.style.display = show ? '' : 'none';
+      });
+    });
 
-/* مشاركة الصفحة */
-document.getElementById('shareWA').addEventListener('click', (e)=>{ e.preventDefault(); window.open(`https://wa.me/?text=${encodeURIComponent(location.href)}`,'_blank','noopener'); });
-document.getElementById('shareTG').addEventListener('click', (e)=>{ e.preventDefault(); window.open(`https://t.me/share/url?url=${encodeURIComponent(location.href)}`,'_blank','noopener'); });
-document.getElementById('shareX').addEventListener('click',  (e)=>{ e.preventDefault(); window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(location.href)}`,'_blank','noopener'); });
-document.getElementById('shareFB').addEventListener('click', (e)=>{ e.preventDefault(); window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(location.href)}`,'_blank','noopener'); });
-document.getElementById('copyLink').addEventListener('click', async ()=>{ try{ await navigator.clipboard.writeText(location.href); showToast('تمّ نسخ رابط الصفحة بنجاح.'); }catch(_){ showToast('تعذّر نسخ الرابط.',{type:'error',title:'محاولة نسخ'});} });
+    // Print current page
+    document.getElementById('printBtn').addEventListener('click', ()=>{
+      window.print();
+    });
 
-/* رابط الواتساب يبدو نصًا عاديًا، مع احتياط في حال منع التبويب الجديد */
-document.getElementById('devLink').addEventListener('click', function(){
-  setTimeout(()=>{ if(!document.hasFocus()) return; location.href=this.href; }, 100);
-});
-</script>
-</body>
+    // Back to top button
+    const toTop = document.getElementById('toTop');
+    window.addEventListener('scroll', ()=>{
+      if (window.scrollY > 600) toTop.classList.remove('hidden'); else toTop.classList.add('hidden');
+    });
+    toTop.addEventListener('click', ()=> window.scrollTo({top:0, behavior:'smooth'}));
+
+    // Footer year
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script></body>
 </html>
