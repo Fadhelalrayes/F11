@@ -4,23 +4,13 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>حِساب التكليف الشرعي — واجبات المكلّف</title>
-<meta name="description" content="أدخل تاريخ ميلادك الميلادي لمعرفة بلوغ سن التكليف الشرعي وعرض الواجبات المترتبة بشكل موجز وأنيق.">
+<meta name="description" content="أدخل تاريخ ميلادك الميلادي لمعرفة بلوغ سن التكليف الشرعي وعرض الواجبات المترتّبة بأناقة.">
 <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#0a0e16;         /* خلفية داكنة فخمة */
-    --ink:#111827;        /* نص غامق داخلي */
-    --muted:#94a3b8;      /* نص خافت */
-    --card:#0f1422;       /* ألواح زجاجية داكنة */
-    --glass:rgba(255,255,255,.06);
-    --line:rgba(255,255,255,.12);
-    --gold:#d4af37;       /* ذهبي */
-    --gold-soft:#f5e6b2;
-    --emerald:#10b981;    /* للحالة الإيجابية */
-    --crimson:#ef4444;    /* للحالة السلبية */
-    --accent:#1fb2a6;     /* لمسات */
-    --radius:22px;
-    --pad:18px;
+    --bg:#0a0e16;--ink:#111827;--muted:#94a3b8;--card:#0f1422;--glass:rgba(255,255,255,.06);
+    --line:rgba(255,255,255,.12);--gold:#d4af37;--gold-soft:#f5e6b2;--emerald:#10b981;--crimson:#ef4444;
+    --accent:#1fb2a6;--radius:22px;--pad:18px
   }
   *{box-sizing:border-box}
   html,body{height:100%}
@@ -31,95 +21,61 @@
       var(--bg);
     font-family:"Cairo", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
   }
-  header{
-    padding:36px 16px 16px; text-align:center; position:relative;
-  }
-  .brand{
-    font-family:"Amiri", serif;
-    font-size:clamp(26px,4.5vw,44px);
-    color:var(--gold); letter-spacing:.5px;
-    text-shadow:0 1px 0 #000, 0 8px 40px rgba(212,175,55,.25);
-  }
+  header{padding:36px 16px 16px; text-align:center; position:relative}
+  .brand{font-family:"Amiri", serif; font-size:clamp(26px,4.5vw,44px); color:var(--gold);
+    letter-spacing:.5px; text-shadow:0 1px 0 #000, 0 8px 40px rgba(212,175,55,.25)}
   .tag{margin-top:6px; color:var(--gold-soft); font-size:14px}
   .shell{max-width:980px; margin:22px auto 40px; padding:0 16px}
-
-  .hero{
-    border:1px solid var(--line); border-radius:28px; padding:24px;
+  .hero{border:1px solid var(--line); border-radius:28px; padding:24px;
     background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
-    backdrop-filter: blur(8px);
-    box-shadow:0 20px 60px rgba(0,0,0,.35);
-  }
+    backdrop-filter: blur(8px); box-shadow:0 20px 60px rgba(0,0,0,.35)}
   .row{display:grid; gap:16px}
   @media(min-width:860px){ .row{grid-template-columns:1.2fr .8fr} }
-
-  .field{
-    display:flex; flex-direction:column; gap:8px;
-    background:var(--card); border:1px solid var(--line);
-    padding:var(--pad); border-radius:var(--radius)
-  }
+  .field{display:flex; flex-direction:column; gap:8px; background:var(--card); border:1px solid var(--line);
+    padding:var(--pad); border-radius:var(--radius)}
   label{font-size:14px; color:#cbd5e1}
-  input[type="date"]{
-    width:100%; background:transparent; color:#fff; border:none; outline:none;
-    font-size:16px; padding:8px 6px; border-bottom:1px dashed rgba(255,255,255,.2)
-  }
-  .seg{
-    display:flex; gap:8px; background:var(--card); border:1px solid var(--line);
-    border-radius:999px; padding:6px
-  }
-  .seg button{
-    flex:1; padding:10px 14px; border-radius:999px; border:1px solid transparent;
-    background:transparent; color:#cbd5e1; cursor:pointer; font-size:14px
-  }
+  input[type="date"]{width:100%; background:transparent; color:#fff; border:none; outline:none;
+    font-size:16px; padding:8px 6px; border-bottom:1px dashed rgba(255,255,255,.2)}
+  .seg{display:flex; gap:8px; background:var(--card); border:1px solid var(--line);
+    border-radius:999px; padding:6px}
+  .seg button{flex:1; padding:10px 14px; border-radius:999px; border:1px solid transparent;
+    background:transparent; color:#cbd5e1; cursor:pointer; font-size:14px}
   .seg button.on{background:var(--glass); border-color:var(--line); color:#fff}
-  .cta{
-    display:flex; gap:10px; align-items:center; justify-content:flex-end; margin-top:8px
-  }
-  .btn{
-    all:unset; cursor:pointer; padding:12px 18px; border-radius:14px;
-    border:1px solid var(--gold); color:#0a0e16; background:linear-gradient(90deg, #d4af37, #f5d574);
-    font-weight:700; box-shadow:0 10px 30px rgba(212,175,55,.25)
-  }
-
-  .result{
-    margin-top:18px; display:grid; gap:16px
-  }
-  .badge{
-    display:inline-flex; align-items:center; gap:10px; padding:14px 16px; border-radius:14px;
-    border:1px solid var(--line); background:var(--glass); backdrop-filter: blur(6px); font-size:15px
-  }
+  .cta{display:flex; gap:10px; align-items:center; justify-content:space-between; margin-top:12px; flex-wrap:wrap}
+  .marja{display:flex; gap:8px; align-items:center}
+  select{background:var(--card); color:#e5e7eb; border:1px solid var(--line); border-radius:12px; padding:10px}
+  .btn{all:unset; cursor:pointer; padding:12px 18px; border-radius:14px; border:1px solid var(--gold); color:#0a0e16;
+    background:linear-gradient(90deg, #d4af37, #f5d574); font-weight:700; box-shadow:0 10px 30px rgba(212,175,55,.25)}
+  .result{margin-top:18px; display:grid; gap:16px}
+  .badge{display:inline-flex; align-items:center; gap:10px; padding:14px 16px; border-radius:14px; border:1px solid var(--line);
+    background:var(--glass); backdrop-filter: blur(6px); font-size:15px}
   .ok{border-color:rgba(16,185,129,.3); box-shadow:0 10px 30px rgba(16,185,129,.15)}
   .no{border-color:rgba(239,68,68,.35); box-shadow:0 10px 30px rgba(239,68,68,.1)}
-  .kpi{
-    display:grid; gap:12px; grid-template-columns:repeat(2,1fr)
-  }
+  .kpi{display:grid; gap:12px; grid-template-columns:repeat(2,1fr)}
   @media(min-width:860px){ .kpi{grid-template-columns:repeat(4,1fr)} }
   .k{background:var(--card); border:1px solid var(--line); border-radius:16px; padding:14px; text-align:center}
   .k .v{font-size:20px; font-weight:800; color:#fff}
   .k .t{font-size:12px; color:var(--muted)}
-
-  .deck{
-    display:grid; gap:16px; grid-template-columns:1fr
-  }
+  .deck{display:grid; gap:16px; grid-template-columns:1fr}
   @media(min-width:860px){ .deck{grid-template-columns:repeat(3,1fr)} }
-  .card{
-    background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
-    border:1px solid var(--line); border-radius:20px; padding:18px;
-    box-shadow: inset 0 1px 0 rgba(255,255,255,.04);
-    min-height:148px;
-  }
-  .card h3{
-    margin:0 0 8px; font-family:"Amiri", serif; color:var(--gold); font-size:20px; letter-spacing:.3px
-  }
+  .card{background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+    border:1px solid var(--line); border-radius:20px; padding:18px; box-shadow: inset 0 1px 0 rgba(255,255,255,.04); min-height:148px}
+  .card h3{margin:0 0 8px; font-family:"Amiri", serif; color:var(--gold); font-size:20px; letter-spacing:.3px}
   .card p{margin:0; color:#d1d5db; line-height:1.7; font-size:14px}
   .sep{height:1px; background:var(--line); margin:12px 0}
   .muted{color:var(--muted); font-size:12px}
-  footer{margin:40px 0 24px; text-align:center; color:#9aa3b2; font-size:12px}
+  .sharebar{display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-top:18px}
+  .iconbtn{display:inline-flex; align-items:center; justify-content:center; width:38px; height:38px; border-radius:10px;
+    background:var(--card); border:1px solid var(--line); cursor:pointer}
+  .iconbtn svg{width:20px; height:20px; fill:#e5e7eb}
+  footer{margin:32px 0 24px; text-align:center; color:#9aa3b2; font-size:12px}
+  .credit{margin-top:6px; color:#cbd5e1}
 </style>
 </head>
 <body>
 <header>
   <div class="brand">حِساب التكليف الشرعي</div>
-  <div class="tag">أدخل تاريخ الميلاد الميلادي، واختر الجنس، وسيظهر الحكم والأحكام المترتبة بأناقة.</div>
+  <div class="tag">أدخل تاريخ الميلاد الميلادي، واختر الجنس، وسيظهر الحكم والأحكام المترتّبة بأناقة.</div>
 </header>
 
 <main class="shell">
@@ -129,8 +85,8 @@
       <div>
         <div class="field" aria-label="تاريخ الميلاد">
           <label>تاريخ الميلاد (ميلادي)</label>
-          <input type="date" id="dob" />
-          <span class="muted">يُحوَّل تلقائيًا إلى عُمر قمري للحساب الشرعي.</span>
+          <input type="date" id="dob"/>
+          <span class="muted">يُحوَّل تلقائيًا إلى العمر القمري للحساب الشرعي.</span>
         </div>
 
         <div class="field" style="margin-top:12px" aria-label="اختيار الجنس">
@@ -142,6 +98,15 @@
         </div>
 
         <div class="cta">
+          <div class="marja">
+            <label for="marjaSelect" style="margin:0">مواقع المراجع</label>
+            <select id="marjaSelect" title="انتقل إلى الموقع">
+              <option value="https://www.leader.ir/ar" selected>السيد علي الخامنئي (افتراضي)</option>
+              <option value="https://www.sistani.org/">السيد علي السيستاني</option>
+              <option value="https://www.alfayadh.org/">الشيخ إسحاق الفيّاض</option>
+            </select>
+            <button class="btn" id="openMarja" title="فتح الموقع">فتح</button>
+          </div>
           <button class="btn" id="calc">احسب الحكم</button>
         </div>
       </div>
@@ -158,8 +123,29 @@
       </div>
     </div>
 
-    <div id="rules" class="deck" style="display:none; margin-top:18px">
-      <!-- تُملأ آليًا وفق الجنس والحالة -->
+    <div id="rules" class="deck" style="display:none; margin-top:18px"></div>
+
+    <!-- شريط المشاركة -->
+    <div class="sharebar" id="sharebar" style="display:none">
+      <span class="muted">مشاركة الصفحة:</span>
+      <button class="iconbtn" id="shareNative" title="مشاركة">
+        <svg viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7a3.27 3.27 0 000-1.39l7-4.11A2.99 2.99 0 0018 6a3 3 0 10-2.99-3A3 3 0 0018 6c.35 0 .69-.07 1-.18l-7 4.11a3 3 0 100 3.14l7 4.11c-.31.11-.65.18-1 .18a3 3 0 103-3 3 3 0 00-3 3z"/></svg>
+      </button>
+      <a class="iconbtn" id="shareWA" title="واتساب" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M20.52 3.48A11.85 11.85 0 0012.06 0 12.06 12.06 0 000 12.06 12 12 0 001.74 18l-1.14 4.18 4.28-1.12a12.08 12.08 0 0017.64-10.9 11.85 11.85 0 00-2-6.68zm-8.46 18a10.06 10.06 0 01-5.13-1.41l-.37-.22-2.54.66.68-2.47-.24-.4A10.06 10.06 0 1112.06 21.5zm5.6-7.53c-.09-.16-.32-.26-.67-.46s-2.06-1-2.38-1.11-.55-.17-.78.17-.89 1.11-1.1 1.34-.41.25-.76.09a8.2 8.2 0 01-2.41-1.48 9 9 0 01-1.67-2.06c-.17-.29 0-.45.13-.62s.29-.36.43-.55.18-.29.28-.48a.51.51 0 000-.49c0-.16-.78-1.88-1.07-2.57s-.57-.59-.78-.6h-.66a1.28 1.28 0 00-.92.43 3.88 3.88 0 00-1.22 2.86 6.74 6.74 0 001.39 3.57A15.35 15.35 0 0010 16.41a13.78 13.78 0 003.39 1.41 8.17 8.17 0 003.76.24 3.09 3.09 0 002.06-1.45 2.52 2.52 0 00.17-1.45z"/></svg>
+      </a>
+      <a class="iconbtn" id="shareTG" title="تيليغرام" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M9.04 15.3l-.38 5.36c.54 0 .77-.23 1.05-.5l2.52-2.41 5.22 3.82c.96.53 1.65.25 1.9-.89l3.44-16.14h0c.31-1.47-.53-2.05-1.46-1.69L1.3 9.4C-.14 9.98-.12 10.83 1.04 11.2l5.2 1.62 12.07-7.6c.57-.35 1.09-.16.66.22"/></svg>
+      </a>
+      <a class="iconbtn" id="shareX" title="X" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M18.3 2H21l-6.5 7.4L22 22h-6.8l-4.4-5.9L5.6 22H3l7.1-8.1L2 2h7l4 5.4L18.3 2Zm-1.2 18h1.3L7.1 4H5.7l11.4 16Z"/></svg>
+      </a>
+      <a class="iconbtn" id="shareFB" title="فيسبوك" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M22 12.06A10 10 0 1010.75 22v-7h-2.1v-2.9h2.1V9.26c0-2.1 1.25-3.27 3.17-3.27.92 0 1.88.16 1.88.16v2.07h-1.06c-1.05 0-1.38.65-1.38 1.32v1.6h2.35l-.38 2.9h-1.97V22A10 10 0 0022 12.06Z"/></svg>
+      </a>
+      <button class="iconbtn" id="copyLink" title="نسخ الرابط">
+        <svg viewBox="0 0 24 24"><path d="M3.9 12a4.8 4.8 0 014.8-4.8h4.2v2.4H8.7a2.4 2.4 0 100 4.8h4.2v2.4H8.7A4.8 4.8 0 013.9 12zm6-1.2h4.2v2.4H9.9v-2.4zm5.4-3.6h.6a4.8 4.8 0 010 9.6h-4.2v-2.4h4.2a2.4 2.4 0 000-4.8h-4.2V7.2h3.6z"/></svg>
+      </button>
     </div>
 
     <div id="note" class="muted" style="display:none; margin-top:10px">
@@ -167,7 +153,10 @@
     </div>
   </section>
 
-  <footer>© واجهة مُصمّمة بعناية — أنيقة، مبسّطة، وقابلة للتطوير.</footer>
+  <footer>
+    © واجهة مُصمّمة بعناية — أنيقة، مبسّطة، وقابلة للتطوير.
+    <div class="credit">برمجة وتطوير: فاضل الريس</div>
+  </footer>
 </main>
 
 <script>
@@ -183,10 +172,16 @@
   const kpis = document.getElementById('kpis');
   const rulesDeck = document.getElementById('rules');
   const note = document.getElementById('note');
+  const sharebar = document.getElementById('sharebar');
+
+  // المراجع
+  const marjaSelect = document.getElementById('marjaSelect');
+  document.getElementById('openMarja').addEventListener('click', ()=>{
+    const url = marjaSelect.value;
+    if(url) window.open(url, '_blank', 'noopener');
+  });
 
   let gender = 'girl';
-
-  // تبديل الجنس
   genderSeg.querySelectorAll('button').forEach(b=>{
     b.addEventListener('click', ()=>{
       genderSeg.querySelectorAll('button').forEach(x=>x.classList.remove('on'));
@@ -195,16 +190,11 @@
     });
   });
 
-  // أدوات مساعدة للتواريخ (حساب فرق الأيام بدقّة UTC)
-  function toUTC(date){
-    return new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
-  }
-  function daysBetweenUTC(a, b){
-    const ms = toUTC(b).getTime() - toUTC(a).getTime();
-    return ms / (1000*60*60*24);
-  }
+  // أدوات التاريخ (UTC لثبات النتيجة)
+  function toUTC(date){ return new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate())); }
+  function daysBetweenUTC(a, b){ return (toUTC(b) - toUTC(a)) / (1000*60*60*24); }
 
-  // بناء بطاقة حكم أنيقة
+  // بطاقة
   function makeCard(title, body){
     const el = document.createElement('div');
     el.className = 'card';
@@ -212,9 +202,16 @@
     return el;
   }
 
-  // توليد مجموعة الأحكام حسب الجنس والحالة
   function buildRules(isMukallaf){
     rulesDeck.innerHTML = '';
+
+    // تنبيه للصبي: قد يبلغ قبل 15 قمريًا مع العلامات
+    if(gender==='boy'){
+      const earlyNote = makeCard('تنبيه مهم للصبي',
+        'قد يتحقّق البلوغ قبل سنّ 15 سنة قمرية بظهور العلامات المعروفة. تحقّق منها في موقع مكتب السيد السيستاني.');
+      rulesDeck.append(earlyNote);
+    }
+
     if(!isMukallaf){
       rulesDeck.append(
         makeCard('تنبيه',
@@ -222,14 +219,15 @@
       );
       rulesDeck.style.display = 'grid';
       note.style.display = 'block';
+      sharebar.style.display = 'flex';
       return;
     }
 
     // مشتركة
     const salat = makeCard('الصلاة (واجب)',
-      'خمس صلوات يوميًا مع شروطها: الطهارة، الوقت، القبلة، والستر. تُراعى الأذكار والهيئة المعتبرة.');
+      'خمس صلوات يوميًا مع شروطها: الطهارة، الوقت، القبلة، والستر.');
     const siyam = makeCard('الصيام (واجب)',
-      'صوم شهر رمضان من الفجر إلى المغرب مع النية واجتناب المفطرات. أحكام العذر (المرض، السفر، ونحوه) لها تفاصيلها.');
+      'صوم شهر رمضان من الفجر إلى المغرب مع النية واجتناب المفطرات. أحكام العذر لها تفاصيلها.');
     const tahara = makeCard('الطهارة (شرط للصلاة)',
       'الوضوء أو الغسل بحسب الحال، مع التحقق من طهارة البدن والثوب ومحل السجود.');
     const taqlid = makeCard('التقليد (واجب)',
@@ -241,17 +239,17 @@
     const hijab = makeCard('الحجاب (واجب)',
       'الالتزام بستر البدن على نحوٍ لا يصف البشرة، مع مراعاة حدود النظر والزينة وضوابط العفّة.');
 
-    // ترتيب العرض فخم ومتوازن
     if(gender==='girl'){
       rulesDeck.append(salat, siyam, hijab, tahara, taqlid, khums);
     } else {
       rulesDeck.append(salat, siyam, tahara, taqlid, khums);
     }
+
     rulesDeck.style.display = 'grid';
     note.style.display = 'block';
+    sharebar.style.display = 'flex';
   }
 
-  // الإجراء الرئيسي
   calcBtn.addEventListener('click', ()=>{
     const dobStr = dobEl.value;
     if(!dobStr){ alert('فضلًا أدخل تاريخ الميلاد الميلادي.'); return; }
@@ -267,30 +265,59 @@
     const threshold = (gender==='girl') ? 9 : 15;
     const isMukallaf = hijriYears >= threshold;
 
-    // شارة الحكم
     verdict.style.display = 'inline-flex';
     verdict.className = 'badge ' + (isMukallaf ? 'ok' : 'no');
-    verdict.innerHTML = isMukallaf
-      ? `✅ تمّ بلوغ سنّ التكليف الشرعي.`
-      : `⏳ لم يبلغ سنّ التكليف الشرعي بعد.`;
+    verdict.innerHTML = isMukallaf ? `✅ تمّ بلوغ سنّ التكليف الشرعي.` : `⏳ لم يبلغ سنّ التكليف الشرعي بعد.`;
 
-    // المقاييس
     kpis.style.display = 'grid';
     document.getElementById('solarY').textContent = (Math.floor(solarYears*10)/10).toFixed(1);
     document.getElementById('hijriY').textContent = (Math.floor(hijriYears*10)/10).toFixed(1);
     document.getElementById('threshold').textContent = threshold.toString();
     document.getElementById('status').textContent = isMukallaf ? 'مكلّف' : 'غير مكلّف';
 
-    // الأحكام
     buildRules(isMukallaf);
-    // تمرير للجزء العلوي قليلًا لإبراز النتيجة على الهاتف
     setTimeout(()=>window.scrollTo({top:document.querySelector('.hero').offsetTop-12, behavior:'smooth'}), 50);
   });
 
-  // افتراضيًا: يعرض اليوم في متصفح المستخدم
-  (function preset(){
-    // لا نضبط التاريخ تلقائيًا كي يضعه المستخدم بوضوح
-  })();
+  // مشاركة
+  function currentURL(){ return window.location.href.split('#')[0]; }
+  function enc(u){ return encodeURIComponent(u); }
+
+  document.getElementById('shareNative').addEventListener('click', async ()=>{
+    const url = currentURL();
+    const text = 'صفحة حساب التكليف الشرعي';
+    try{
+      if(navigator.share){
+        await navigator.share({title:document.title, text, url});
+      }else{
+        await navigator.clipboard.writeText(url);
+        alert('تم نسخ الرابط.');
+      }
+    }catch(e){ /* تجاهل */ }
+  });
+
+  document.getElementById('shareWA').addEventListener('click', (e)=>{
+    e.preventDefault();
+    window.open(`https://wa.me/?text=${enc('صفحة حساب التكليف الشرعي - ' + currentURL())}`, '_blank','noopener');
+  });
+  document.getElementById('shareTG').addEventListener('click', (e)=>{
+    e.preventDefault();
+    window.open(`https://t.me/share/url?url=${enc(currentURL())}&text=${enc('صفحة حساب التكليف الشرعي')}`, '_blank','noopener');
+  });
+  document.getElementById('shareX').addEventListener('click', (e)=>{
+    e.preventDefault();
+    window.open(`https://twitter.com/intent/tweet?url=${enc(currentURL())}&text=${enc('صفحة حساب التكليف الشرعي')}`, '_blank','noopener');
+  });
+  document.getElementById('shareFB').addEventListener('click', (e)=>{
+    e.preventDefault();
+    window.open(`https://www.facebook.com/sharer/sharer.php?u=${enc(currentURL())}`, '_blank','noopener');
+  });
+  document.getElementById('copyLink').addEventListener('click', async ()=>{
+    try{
+      await navigator.clipboard.writeText(currentURL());
+      alert('تم نسخ الرابط.');
+    }catch(e){ /* */ }
+  });
 </script>
 </body>
 </html>
