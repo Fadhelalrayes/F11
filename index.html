@@ -43,6 +43,7 @@
   .card{background:#fdfdfd; border:1px solid var(--line); border-radius:12px; padding:14px; box-shadow:0 2px 6px rgba(0,0,0,.04)}
   .card h3{margin:0 0 6px; font-family:"Amiri",serif; color:var(--gold)}
   .card p{margin:0; font-size:14px; color:#374151; line-height:1.6}
+  .card ul{margin:8px 0 0; padding-inline-start:20px; color:#374151}
   .sharebar{display:flex; justify-content:center; gap:8px; margin:16px 0; flex-wrap:wrap}
   .iconbtn{width:34px; height:34px; border-radius:8px; display:flex; align-items:center; justify-content:center; border:1px solid var(--line); background:#fff; cursor:pointer}
   .iconbtn svg{width:18px; height:18px; fill:#374151}
@@ -69,7 +70,6 @@
           </div>
         </div>
 
-        <!-- الجنس: في الوسط -->
         <div class="field center">
           <label><strong>الجنس</strong></label>
           <div class="seg" id="gender">
@@ -78,7 +78,6 @@
           </div>
         </div>
 
-        <!-- الزر: الوسط -->
         <button class="btn" id="calc">تحقّق من الحكم</button>
       </div>
 
@@ -112,7 +111,7 @@
       <svg viewBox="0 0 24 24"><path d="M18.3 2H21l-6.5 7.4L22 22h-6.8l-4.4-5.9L5.6 22H3l7.1-8.1L2 2h7l4 5.4L18.3 2Zm-1.2 18h1.3L7.1 4H5.7l11.4 16Z"/></svg>
     </a>
     <a class="iconbtn" id="shareFB" title="فيسبوك" target="_blank" aria-label="Facebook">
-      <svg viewBox="0 0 24 24"><path d="M22 12.06A10 10 0 1010.75 22v-7h-2.1v-2.9h2.1V9.26c0-2.1 1.25-3.27 3.17-3.27.92 0 1.88.16 1.88.16v2.07h-1.06c-1.05 0-1.38.65-1.38 1.32v1.6h2.35ل-.38 2.9h-1.97V22A10 10 0 0022 12.06Z"/></svg>
+      <svg viewBox="0 0 24 24"><path d="M22 12.06A10 10 0 1010.75 22v-7h-2.1v-2.9h2.1V9.26c0-2.1 1.25-3.27 3.17-3.27.92 0 1.88.16 1.88.16v2.07h-1.06c-1.05 0-1.38.65-1.38 1.32v1.6h2.35l-.38 2.9h-1.97V22A10 10 0 0022 12.06Z"/></svg>
     </a>
     <button class="iconbtn" id="copyLink" title="نسخ الرابط" aria-label="Copy Link">
       <svg viewBox="0 0 24 24"><path d="M3.9 12a4.8 4.8 0 014.8-4.8h4.2v2.4H8.7a2.4 2.4 0 100 4.8h4.2v2.4H8.7A4.8 4.8 0 013.9 12zm6-1.2h4.2v2.4H9.9v-2.4zm5.4-3.6h.6a4.8 4.8 0 010 9.6h-4.2v-2.4h4.2a2.4 2.4 0 000-4.8h-4.2V7.2h3.6z"/></svg>
@@ -164,26 +163,40 @@ function fmtDate(d){
 function addYMD(base,y,m,day){ return new Date(Date.UTC(base.getUTCFullYear()+y, base.getUTCMonth()+m, base.getUTCDate()+day)); }
 
 /* بطاقة */
-function makeCard(t,b){ const e=document.createElement('div'); e.className='card'; e.innerHTML=`<h3>${t}</h3><p>${b}</p>`; return e; }
+function makeCard(t,b){ const e=document.createElement('div'); e.className='card'; e.innerHTML=`<h3>${t}</h3>${b}`; return e; }
 
 /* بناء الأحكام */
 function buildRules(isM){
   rulesDeck.innerHTML='';
+
   if(gender==='boy'){
-    rulesDeck.append(makeCard('تنبيه مهم للصبي','قد يتحقّق البلوغ قبل سنّ 15 قمريًا بظهور العلامات المعروفة. تحقّق منها في موقع مكتب السيد السيستاني.'));
+    // بطاقة علامات البلوغ (أربع علامات موجزة ومهذبة)
+    const signsHTML = `
+      <p>يُعتبر الصبيّ بالغًا عند تحقّق أحد الأمور التالية:</p>
+      <ul>
+        <li>نبات الشعر الخشن في موضع العانة (المنطقة الواقعة بين البطن والعورة).</li>
+        <li>خروج المني.</li>
+        <li>إكمال خمس عشرة سنة هلالية (≈ أربعة عشر سنة و٦ أشهر و١٥ يومًا ميلاديًا).</li>
+        <li>نبات الشعر الخشن في الخدّ أو في الشارب.</li>
+      </ul>
+      <p class="muted" style="margin-top:6px">أما نبات الشعر في الصدر وتحت الإبط، كذا غلظ الصوت ونظائره فليست علامات معتبرة للبلوغ.</p>
+    `;
+    rulesDeck.append(makeCard('علامات البلوغ للصبي', signsHTML));
   }
+
   if(!isM){
-    rulesDeck.append(makeCard('تنبيه','لم يبلغ سنّ التكليف بعد. يُستحسن التعلّم المبدئي للطهارة والصلاة.'));
+    rulesDeck.append(makeCard('تنبيه','<p>لم يبلغ سنّ التكليف بعد. يُستحسن التعلّم المبدئي للطهارة والصلاة تمهيدًا للالتزام عند البلوغ.</p>'));
     rulesDeck.style.display='grid';
     return;
   }
-  const salat=makeCard('الصلاة (واجب)','خمس صلوات يوميًا بشروطها.');
-  const siyam=makeCard('الصيام (واجب)','صوم شهر رمضان مع النية واجتناب المفطرات.');
-  const tahara=makeCard('الطهارة (شرط)','وضوء أو غسل والتحقّق من الطهارة.');
-  const taqlid=makeCard('التقليد (واجب)','العمل وفق فتوى المرجع الأعلم.');
-  const khums=makeCard('الخمس (واجب)','واجب في فاضل المؤونة بنهاية السنة الخُمسية.');
+
+  const salat=makeCard('الصلاة (واجب)','<p>خمس صلوات يوميًا بشروطها: الطهارة، الوقت، القبلة، والستر.</p>');
+  const siyam=makeCard('الصيام (واجب)','<p>صوم شهر رمضان مع النيّة واجتناب المفطرات، مع أحكام العذر.</p>');
+  const tahara=makeCard('الطهارة (شرط)','<p>وضوء أو غسل بحسب الحال، والتحقّق من طهارة البدن والثوب ومحل السجود.</p>');
+  const taqlid=makeCard('التقليد (واجب)','<p>العمل وفق فتوى المرجع الأعلم.</p>');
+  const khums=makeCard('الخمس (واجب)','<p>واجب في فاضل المؤونة ونحوها بنهاية السنة الخُمسية.</p>');
   if(gender==='girl'){
-    const hijab=makeCard('الحجاب (واجب)','ستر البدن على نحو لا يصف البشرة مع مراعاة العفّة.');
+    const hijab=makeCard('الحجاب (واجب)','<p>ستر البدن على نحو لا يصف البشرة، مع مراعاة حدود النظر والزينة والعفّة.</p>');
     rulesDeck.append(salat,siyam,hijab,tahara,taqlid,khums);
   }else{
     rulesDeck.append(salat,siyam,tahara,taqlid,khums);
@@ -206,6 +219,7 @@ calcBtn.addEventListener('click',()=>{
   const solarY=days/SOLAR_YEAR;
   const hijriY=days/LUNAR_YEAR;
 
+  // حدّ التكليف القمري
   const hijriThreshold=(gender==='girl')?9:15;
 
   // المعادل الميلادي التقريبي
@@ -214,28 +228,26 @@ calcBtn.addEventListener('click',()=>{
 
   const isMukallaf = hijriY >= hijriThreshold;
 
-  // عرض الحالة
   verdict.style.display='inline-block';
   verdict.className='badge ' + (isMukallaf ? 'ok' : 'no');
   verdict.textContent = isMukallaf ? '✅ تمّ بلوغ سنّ التكليف' : '⏳ لم يبلغ سنّ التكليف بعد';
 
-  // KPIs
   kpis.style.display='grid';
   document.getElementById('solarY').textContent = solarY.toFixed(1);
   document.getElementById('hijriY').textContent = hijriY.toFixed(1);
   document.getElementById('threshold').textContent = hijriThreshold + ' قمري';
   document.getElementById('status').textContent = isMukallaf ? 'مكلّف' : 'غير مكلّف';
 
-  // التواريخ التقريبية
+  // التواريخ التقريبية (للتوضيح)
   eqDates.style.display='grid';
   document.getElementById('eqGirl').textContent = fmtDate(eqGirlDate);
   document.getElementById('eqBoy').textContent  = fmtDate(eqBoyDate);
 
-  // بطاقات الأحكام
+  // بطاقات الأحكام/العلامات
   buildRules(isMukallaf);
 });
 
-/* مشاركة الصفحة (ثابتة دائمًا) */
+/* مشاركة الصفحة */
 document.getElementById('shareWA').addEventListener('click', (e)=>{ e.preventDefault(); window.open(`https://wa.me/?text=${encodeURIComponent(location.href)}`,'_blank','noopener'); });
 document.getElementById('shareTG').addEventListener('click', (e)=>{ e.preventDefault(); window.open(`https://t.me/share/url?url=${encodeURIComponent(location.href)}`,'_blank','noopener'); });
 document.getElementById('shareX').addEventListener('click',  (e)=>{ e.preventDefault(); window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(location.href)}`,'_blank','noopener'); });
