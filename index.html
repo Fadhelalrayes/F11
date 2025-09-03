@@ -21,9 +21,12 @@
   .hero{background:var(--card); border:1px solid var(--line); border-radius:20px; padding:20px; box-shadow:0 4px 12px rgba(0,0,0,.05)}
   .row{display:grid; gap:16px}
   @media(min-width:860px){ .row{grid-template-columns:1.2fr .8fr} }
-  .field{display:flex; flex-direction:column; gap:6px; margin-bottom:12px}
-  label{font-size:14px; color:var(--ink)}
-  input[type="text"]{padding:8px; border:1px solid var(--line); border-radius:8px; direction:ltr; font-family:monospace}
+  .field{display:flex; flex-direction:column; gap:8px; margin-bottom:12px}
+  .center{text-align:center}
+  .date-grid{display:flex; justify-content:center; gap:8px; flex-wrap:wrap}
+  .date-grid input[type="number"]{
+    width:110px; padding:10px; border:1px solid var(--line); border-radius:10px; text-align:center; font-family:monospace;
+  }
   .seg{display:flex; gap:6px}
   .seg button{flex:1; padding:8px; border-radius:8px; border:1px solid var(--line); background:#f9fafb; cursor:pointer}
   .seg button.on{background:var(--gold); color:#fff; border-color:var(--gold)}
@@ -40,7 +43,7 @@
   .card{background:#fdfdfd; border:1px solid var(--line); border-radius:12px; padding:14px; box-shadow:0 2px 6px rgba(0,0,0,.04)}
   .card h3{margin:0 0 6px; font-family:"Amiri",serif; color:var(--gold)}
   .card p{margin:0; font-size:14px; color:#374151; line-height:1.6}
-  .sharebar{display:flex; flex-wrap:wrap; gap:8px; margin-top:18px}
+  .sharebar{display:flex; justify-content:center; gap:8px; margin-top:14px; flex-wrap:wrap}
   .iconbtn{width:34px; height:34px; border-radius:8px; display:flex; align-items:center; justify-content:center; border:1px solid var(--line); background:#fff; cursor:pointer}
   .iconbtn svg{width:18px; height:18px; fill:#374151}
   footer{text-align:center; margin:28px 0 16px; font-size:12px; color:var(--muted)}
@@ -49,16 +52,38 @@
 <body>
 <header>
   <div class="brand">حِساب التكليف الشرعي</div>
-  <div class="tag">أدخل تاريخ الميلاد (يدويًا: YYYY-MM-DD) واختر الجنس. الحساب قمري ويعرض المعادل الميلادي التقريبي.</div>
+  <div class="tag">أدخل تاريخ الميلاد (ميلادي) واختر الجنس. الحساب قمري ويعرض المعادل الميلادي التقريبي.</div>
 </header>
 
 <main class="shell">
   <section class="hero">
     <div class="row">
       <div>
-        <div class="field">
-          <label>تاريخ الميلاد (ميلادي)</label>
-          <input type="text" id="dob" placeholder="مثال: 2010-05-12"/>
+        <!-- تاريخ الميلاد وسط + 3 مربعات رقمية -->
+        <div class="field center">
+          <label><strong>تاريخ الميلاد (ميلادي)</strong></label>
+          <div class="date-grid" dir="ltr">
+            <input id="y" type="number" inputmode="numeric" placeholder="YYYY" min="1900" max="2100" />
+            <input id="m" type="number" inputmode="numeric" placeholder="MM" min="1" max="12" />
+            <input id="d" type="number" inputmode="numeric" placeholder="DD" min="1" max="31" />
+          </div>
+          <div class="sharebar">
+            <a class="iconbtn" id="shareWA" title="واتساب" target="_blank" aria-label="WhatsApp">
+              <svg viewBox="0 0 24 24"><path d="M20.52 3.48A11.85 11.85 0 0012.06 0 12.06 12.06 0 000 12.06 12 12 0 001.74 18l-1.14 4.18 4.28-1.12a12.08 12.08 0 0017.64-10.9 11.85 11.85 0 00-2-6.68z"/></svg>
+            </a>
+            <a class="iconbtn" id="shareTG" title="تيليغرام" target="_blank" aria-label="Telegram">
+              <svg viewBox="0 0 24 24"><path d="M9.04 15.3l-.38 5.36c.54 0 .77-.23 1.05-.5l2.52-2.41 5.22 3.82c.96.53 1.65.25 1.9-.89l3.44-16.14h0c.31-1.47-.53-2.05-1.46-1.69L1.3 9.4C-.14 9.98-.12 10.83 1.04 11.2l5.2 1.62 12.07-7.6c.57-.35 1.09-.16.66.22"/></svg>
+            </a>
+            <a class="iconbtn" id="shareX" title="X" target="_blank" aria-label="X">
+              <svg viewBox="0 0 24 24"><path d="M18.3 2H21l-6.5 7.4L22 22h-6.8l-4.4-5.9L5.6 22H3l7.1-8.1L2 2h7l4 5.4L18.3 2Zm-1.2 18h1.3L7.1 4H5.7l11.4 16Z"/></svg>
+            </a>
+            <a class="iconbtn" id="shareFB" title="فيسبوك" target="_blank" aria-label="Facebook">
+              <svg viewBox="0 0 24 24"><path d="M22 12.06A10 10 0 1010.75 22v-7h-2.1v-2.9h2.1V9.26c0-2.1 1.25-3.27 3.17-3.27.92 0 1.88.16 1.88.16v2.07h-1.06c-1.05 0-1.38.65-1.38 1.32v1.6h2.35l-.38 2.9h-1.97V22A10 10 0 0022 12.06Z"/></svg>
+            </a>
+            <button class="iconbtn" id="copyLink" title="نسخ الرابط" aria-label="Copy Link">
+              <svg viewBox="0 0 24 24"><path d="M3.9 12a4.8 4.8 0 014.8-4.8h4.2v2.4H8.7a2.4 2.4 0 100 4.8h4.2v2.4H8.7A4.8 4.8 0 013.9 12zm6-1.2h4.2v2.4H9.9v-2.4zm5.4-3.6h.6a4.8 4.8 0 010 9.6h-4.2v-2.4h4.2a2.4 2.4 0 000-4.8h-4.2V7.2h3.6z"/></svg>
+            </button>
+          </div>
         </div>
 
         <div class="field">
@@ -88,26 +113,6 @@
     </div>
 
     <div id="rules" class="deck" style="display:none"></div>
-
-    <!-- أيقونات المشاركة -->
-    <div class="sharebar" id="sharebar" style="display:none">
-      <span style="font-size:13px;color:var(--muted)">مشاركة الصفحة:</span>
-      <a class="iconbtn" id="shareWA" title="واتساب" target="_blank">
-        <svg viewBox="0 0 24 24"><path d="M20.52 3.48A11.85 11.85 0 0012.06 0 12.06 12.06 0 000 12.06 12 12 0 001.74 18l-1.14 4.18 4.28-1.12a12.08 12.08 0 0017.64-10.9 11.85 11.85 0 00-2-6.68z"/></svg>
-      </a>
-      <a class="iconbtn" id="shareTG" title="تيليغرام" target="_blank">
-        <svg viewBox="0 0 24 24"><path d="M9.04 15.3l-.38 5.36c.54 0 .77-.23 1.05-.5l2.52-2.41 5.22 3.82c.96.53 1.65.25 1.9-.89l3.44-16.14h0c.31-1.47-.53-2.05-1.46-1.69L1.3 9.4C-.14 9.98-.12 10.83 1.04 11.2l5.2 1.62 12.07-7.6c.57-.35 1.09-.16.66.22"/></svg>
-      </a>
-      <a class="iconbtn" id="shareX" title="X" target="_blank">
-        <svg viewBox="0 0 24 24"><path d="M18.3 2H21l-6.5 7.4L22 22h-6.8l-4.4-5.9L5.6 22H3l7.1-8.1L2 2h7l4 5.4L18.3 2Zm-1.2 18h1.3L7.1 4H5.7l11.4 16Z"/></svg>
-      </a>
-      <a class="iconbtn" id="shareFB" title="فيسبوك" target="_blank">
-        <svg viewBox="0 0 24 24"><path d="M22 12.06A10 10 0 1010.75 22v-7h-2.1v-2.9h2.1V9.26c0-2.1 1.25-3.27 3.17-3.27.92 0 1.88.16 1.88.16v2.07h-1.06c-1.05 0-1.38.65-1.38 1.32v1.6h2.35l-.38 2.9h-1.97V22A10 10 0 0022 12.06Z"/></svg>
-      </a>
-      <button class="iconbtn" id="copyLink" title="نسخ الرابط">
-        <svg viewBox="0 0 24 24"><path d="M3.9 12a4.8 4.8 0 014.8-4.8h4.2v2.4H8.7a2.4 2.4 0 100 4.8h4.2v2.4H8.7A4.8 4.8 0 013.9 12zm6-1.2h4.2v2.4H9.9v-2.4zm5.4-3.6h.6a4.8 4.8 0 010 9.6h-4.2v-2.4h4.2a2.4 2.4 0 000-4.8h-4.2V7.2h3.6z"/></svg>
-      </button>
-    </div>
   </section>
 
   <footer>برمجة وتطوير: فاضل الريس</footer>
@@ -118,15 +123,24 @@
 const SOLAR_YEAR=365.2425, LUNAR_YEAR=354.367;
 
 /* عناصر */
-const dobEl=document.getElementById('dob');
+const yEl=document.getElementById('y');
+const mEl=document.getElementById('m');
+const dEl=document.getElementById('d');
 const genderSeg=document.getElementById('gender');
 const calcBtn=document.getElementById('calc');
 const verdict=document.getElementById('verdict');
 const kpis=document.getElementById('kpis');
 const eqDates=document.getElementById('eqDates');
 const rulesDeck=document.getElementById('rules');
-const sharebar=document.getElementById('sharebar');
+
 let gender='girl';
+
+/* قبول أرقام فقط */
+[yEl,mEl,dEl].forEach(inp=>{
+  inp.addEventListener('input',()=>{
+    inp.value = inp.value.replace(/\D+/g,''); // إزالة أي أحرف غير رقمية
+  });
+});
 
 /* تبديل الجنس */
 genderSeg.querySelectorAll('button').forEach(b=>{
@@ -136,20 +150,13 @@ genderSeg.querySelectorAll('button').forEach(b=>{
   });
 });
 
-/* تواريخ ثابتة */
+/* تواريخ وأدوات */
 function toUTC(d){return new Date(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate()));}
 function daysBetweenUTC(a,b){return (toUTC(b)-toUTC(a))/(1000*60*60*24);}
 function fmtDate(d){const y=d.getUTCFullYear(),m=String(d.getUTCMonth()+1).padStart(2,'0'),da=String(d.getUTCDate()).padStart(2,'0');return `${y}-${m}-${da}`;}
-function addYMD(base,y,m,day){
-  // إضافة سنوات/أشهر/أيام بطريقة تقويمية (تحترم أطوال الشهور)
-  const dt=new Date(Date.UTC(base.getUTCFullYear()+y, base.getUTCMonth()+m, base.getUTCDate()+day));
-  return dt;
-}
-
-/* بطاقات */
+function addYMD(base,y,m,day){return new Date(Date.UTC(base.getUTCFullYear()+y, base.getUTCMonth()+m, base.getUTCDate()+day));}
 function makeCard(t,b){const e=document.createElement('div');e.className='card';e.innerHTML=`<h3>${t}</h3><p>${b}</p>`;return e;}
 
-/* بناء الأحكام */
 function buildRules(isM){
   rulesDeck.innerHTML='';
   if(gender==='boy'){
@@ -157,7 +164,7 @@ function buildRules(isM){
   }
   if(!isM){
     rulesDeck.append(makeCard('تنبيه','لم يبلغ سنّ التكليف بعد. يُستحسن التعلّم المبدئي للطهارة والصلاة.'));
-    rulesDeck.style.display='grid'; sharebar.style.display='flex'; return;
+    rulesDeck.style.display='grid'; return;
   }
   const salat=makeCard('الصلاة (واجب)','خمس صلوات يوميًا بشروطها.');
   const siyam=makeCard('الصيام (واجب)','صوم شهر رمضان مع النية واجتناب المفطرات.');
@@ -170,31 +177,31 @@ function buildRules(isM){
   }else{
     rulesDeck.append(salat,siyam,tahara,taqlid,khums);
   }
-  rulesDeck.style.display='grid'; sharebar.style.display='flex';
+  rulesDeck.style.display='grid';
 }
 
-/* إجراء الحساب */
 calcBtn.addEventListener('click',()=>{
-  const dobStr=dobEl.value.trim();
-  if(!/^\d{4}-\d{2}-\d{2}$/.test(dobStr)){alert('الرجاء إدخال التاريخ بصيغة صحيحة: YYYY-MM-DD');return;}
-  const dob=new Date(dobStr+'T00:00:00'), today=new Date();
-  if(dob>today){alert('لا يمكن أن يكون في المستقبل');return;}
+  const y=parseInt(yEl.value,10), m=parseInt(mEl.value,10), d=parseInt(dEl.value,10);
+  if(!(y>=1900 && y<=2100 && m>=1 && m<=12 && d>=1 && d<=31)){
+    alert('تأكد من إدخال سنة صحيحة (1900–2100) وشهر 1–12 ويوم 1–31'); return;
+  }
+  // أنشئ التاريخ (نُصحّحه تلقائيًا إن كان اليوم يتجاوز طول الشهر)
+  const dob = new Date(Date.UTC(y, m-1, d));
+  const today = new Date();
+  if(dob>today){ alert('تاريخ الميلاد لا يمكن أن يكون في المستقبل.'); return; }
 
-  // العمر بالأيام ثم تحويله
+  // حساب العمر
   const days=daysBetweenUTC(dob,today);
   const solarY=days/SOLAR_YEAR;
   const hijriY=days/LUNAR_YEAR;
 
-  // حدود التكليف (قمري أساسًا)
-  const hijriThreshold = (gender==='girl')? 9 : 15;
+  // قاعدة التكليف القمري
+  const hijriThreshold = (gender==='girl') ? 9 : 15;
 
-  // المعادلة الميلادية التقريبية المطلوبة:
-  // الفتاة: 8 سنوات + 8 أشهر + 20 يومًا
-  // الصبي : 14 سنة + 6 أشهر + 15 يومًا
-  const eqGirlDate = addYMD(toUTC(dob), 8, 8, 20);
-  const eqBoyDate  = addYMD(toUTC(dob),14, 6, 15);
+  // المعادل الميلادي التقريبي
+  const eqGirlDate = addYMD(toUTC(dob), 8, 8, 20); // 8y 8m 20d
+  const eqBoyDate  = addYMD(toUTC(dob),14, 6, 15); // 14y 6m 15d
 
-  // الحالة وفق القمري
   const isMukallaf = hijriY >= hijriThreshold;
 
   // عرض الحالة
@@ -209,7 +216,7 @@ calcBtn.addEventListener('click',()=>{
   document.getElementById('threshold').textContent = hijriThreshold + ' قمري';
   document.getElementById('status').textContent = isMukallaf ? 'مكلّف' : 'غير مكلّف';
 
-  // تواريخ البلوغ التقريبية الميلادية لكلا الجنسين (تظهر دائمًا للتوضيح)
+  // التواريخ التقريبية
   eqDates.style.display='grid';
   document.getElementById('eqGirl').textContent = fmtDate(eqGirlDate);
   document.getElementById('eqBoy').textContent  = fmtDate(eqBoyDate);
@@ -218,7 +225,7 @@ calcBtn.addEventListener('click',()=>{
   buildRules(isMukallaf);
 });
 
-/* مشاركة */
+/* مشاركة الصفحة */
 document.getElementById('shareWA').addEventListener('click',()=>{window.open(`https://wa.me/?text=${encodeURIComponent(location.href)}`,'_blank')});
 document.getElementById('shareTG').addEventListener('click',()=>{window.open(`https://t.me/share/url?url=${encodeURIComponent(location.href)}`,'_blank')});
 document.getElementById('shareX').addEventListener('click',()=>{window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(location.href)}`,'_blank')});
