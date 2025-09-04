@@ -5,23 +5,22 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>خط التماس الأخباري</title>
 
-<!-- خط واحد للموقع كله (Cairo) -->
+<!-- خط العناوين والنص -->
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800&display=swap" rel="stylesheet" />
+<!-- خط مختلف لتذييل "برمجة وتطوير" -->
+<link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;600&display=swap" rel="stylesheet" />
 
 <style>
   :root{
     --bg:#f6f8fb; --card:#ffffff; --ink:#0a1020; --muted:#5a6b7d;
     --ring:#e5eef6; --shadow:0 10px 25px rgba(19,52,89,.08);
     --green1:#11c295; --green2:#0aa27a; --green3:#0a865f;
-    --barH:4px; /* سماكة الخط العلوي والسفلي (موحّدة) */
+    --barH:8px; /* سماكة موحّدة وكبيرة للخطين */
   }
   *{box-sizing:border-box}
   html,body{height:100%}
-  body{
-    margin:0; background:var(--bg); color:var(--ink);
-    font:16px/1.75 "Cairo",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-  }
-
+  body{margin:0; background:var(--bg); color:var(--ink);
+       font:16px/1.75 "Cairo",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
   /* هيدر أخضر تدرّجي + خط سفلي تدرّجي */
   header{
     position:sticky; top:0; z-index:20; color:#fff;
@@ -34,23 +33,17 @@
   }
 
   .container{max-width:1200px; margin:auto; padding:16px 18px}
-  /* رأس منظم: الشعار في الوسط */
-  .header-center{
-    display:flex; flex-direction:column; align-items:center; gap:6px; text-align:center;
-  }
+  .header-center{display:flex; flex-direction:column; align-items:center; gap:6px; text-align:center}
   .logo{
     width:56px; height:56px; border-radius:16px; display:grid; place-items:center; color:#fff;
     background:radial-gradient(circle at 30% 30%, #9ff5df, #37d7ae 55%, #0ca878 100%);
     box-shadow:0 10px 24px rgba(0,0,0,.15), inset 0 0 24px rgba(255,255,255,.12);
   }
   .logo svg{width:30px; height:30px}
-  h1{
-    margin:0; font-size:2.1rem; font-weight:800; letter-spacing:.3px;
-    white-space:nowrap; /* سطر واحد */
-  }
+  h1{margin:0; font-size:2.1rem; font-weight:800; letter-spacing:.3px; white-space:nowrap}
   .tagline{opacity:.95; font-size:1rem; margin:0}
 
-  /* شبكة البطاقات */
+  /* بطاقات الأخبار */
   .grid{display:grid; gap:16px; margin-top:16px; grid-template-columns:repeat(auto-fill,minmax(280px,1fr))}
   article.card{
     background:var(--card); border:1px solid var(--ring); border-radius:18px; padding:16px;
@@ -74,26 +67,29 @@
   summary::-webkit-details-marker{display:none}
   .empty,.error{text-align:center; color:#5b6b7c; padding:50px 20px; border:1px dashed var(--ring); border-radius:18px; background:#fff}
 
-  /* شريط مشاركة جديد بأسفل الصفحة */
+  /* شريط مشاركة مُعاد التصميم (أيقونات نظيفة) */
   .sharebar-wrap{border-top:1px solid var(--ring); margin-top:26px; padding:16px 0}
   .sharebar{display:flex; align-items:center; gap:10px; flex-wrap:wrap; justify-content:center}
   .sharebtn{
-    width:40px; height:40px; border-radius:12px;
+    width:42px; height:42px; border-radius:12px;
     background:#fff; border:1px solid var(--ring); display:grid; place-items:center; cursor:pointer; transition:.2s
   }
   .sharebtn:hover{transform:translateY(-1px); box-shadow:0 6px 16px rgba(12,57,95,.12)}
-  .sharebtn svg{width:20px; height:20px}
+  .sharebtn svg{width:22px; height:22px}
 
-  footer.site-footer{max-width:1200px; margin:12px auto 24px; padding:0 18px; text-align:center}
+  /* تذييل "برمجة وتطوير" أصغر وبخط مختلف */
+  footer.site-footer{max-width:1200px; margin:8px auto 24px; padding:0 18px; text-align:center}
   a.credit{
     display:inline-flex; align-items:center; gap:8px; text-decoration:none;
     border:1px solid var(--ring); background:#fff; color:#0a1020;
-    padding:10px 14px; border-radius:14px; font-weight:800; box-shadow:0 6px 16px rgba(12,57,95,.12); transition:.2s
+    padding:8px 12px; border-radius:12px; font:600 13px/1.2 "Noto Kufi Arabic",sans-serif;
+    box-shadow:0 6px 16px rgba(12,57,95,.12); transition:.2s
   }
   a.credit:hover{transform:translateY(-1px)}
 
   /* خط أخضر تدرّجي أسفل الموقع (بنفس سماكة العلوي) */
   .site-bottom-bar{height:var(--barH); background:linear-gradient(90deg, var(--green1), #86f0d3, var(--green1));}
+
   .copy-toast{
     position:fixed; bottom:18px; inset-inline:0; margin:auto; width:max-content;
     background:linear-gradient(90deg,var(--green1),var(--green2)); color:white; padding:10px 14px;
@@ -122,32 +118,32 @@
     <section id="news" class="grid" aria-live="polite" aria-busy="true"></section>
     <div id="status" class="empty" hidden>يتم جلب الأخبار…</div>
 
-    <!-- شريط مشاركة (أيقونات جديدة بسيطة) -->
+    <!-- شريط مشاركة بأيقونات جديدة -->
     <div class="sharebar-wrap">
       <div class="sharebar" aria-label="مشاركة الصفحة">
-        <!-- واتساب (فقاعة حديث) -->
+        <!-- واتساب (فقاعة حديث بخط بسيط) -->
         <button class="sharebtn" data-share="whatsapp" title="واتساب" aria-label="مشاركة واتساب">
-          <svg viewBox="0 0 24 24" fill="none"><path d="M4 20 5.6 16.2A8 8 0 1 1 12 20a8.3 8.3 0 0 1-4.2-1L4 20Z" stroke="#2BC85B" stroke-width="1.5"/><path d="M8.8 9.8c.2 2.6 2.7 5.1 5.3 5.3.4 0 .7-.1.9-.3l.6-.6a.8.8 0 0 0 0-1.1l-1.1-1.1a.8.8 0 0 0-1.1 0l-.3.3c-.2.2-.5.2-.8.1-1-.4-1.9-1.2-2.3-2.3-.1-.3-.1-.6.1-.8l.3-.3c.3-.3.3-.8 0-1.1L10 6.9a.8.8 0 0 0-1.1 0l-.6.6c-.3.2-.5.5-.5.9Z" fill="#2BC85B"/></svg>
+          <svg viewBox="0 0 24 24" fill="none"><path d="M4 20 5.6 16.2A8 8 0 1 1 12 20a8.3 8.3 0 0 1-4.2-1L4 20Z" stroke="#2BC85B" stroke-width="1.6"/><path d="M8.8 9.8c.2 2.6 2.7 5.1 5.3 5.3.4 0 .7-.1.9-.3l.6-.6a.8.8 0 0 0 0-1.1l-1.1-1.1a.8.8 0 0 0-1.1 0l-.3.3c-.2.2-.5.2-.8.1-1-.4-1.9-1.2-2.3-2.3-.1-.3-.1-.6.1-.8l.3-.3c.3-.3.3-.8 0-1.1L10 6.9a.8.8 0 0 0-1.1 0l-.6.6c-.3.2-.5.5-.5.9Z" fill="#2BC85B"/></svg>
         </button>
-        <!-- تيليجرام (ورقة طائرة مبسطة) -->
+        <!-- تيليجرام (ورقة طائرة أنيقة) -->
         <button class="sharebtn" data-share="telegram" title="تيليجرام" aria-label="مشاركة تيليجرام">
-          <svg viewBox="0 0 24 24" fill="none"><path d="M20.6 4.3 9 10.1l3 2.1 6.8-6M12 12.2l1.2 7.1 2.2-3.7" stroke="#229ED9" stroke-width="1.5" stroke-linejoin="round"/></svg>
+          <svg viewBox="0 0 24 24" fill="none"><path d="M20.6 4.3 9 10.1l3 2.1 6.8-6M12 12.2l1.2 7.1 2.2-3.7" stroke="#229ED9" stroke-width="1.6" stroke-linejoin="round"/></svg>
         </button>
-        <!-- فيسبوك (حرف f داخل مربع ناعم) -->
+        <!-- فيسبوك (f خطية داخل زاوية ناعمة) -->
         <button class="sharebtn" data-share="facebook" title="فيسبوك" aria-label="مشاركة فيسبوك">
-          <svg viewBox="0 0 24 24" fill="none"><rect x="3.5" y="3.5" width="17" height="17" rx="3.2" stroke="#1877F2" stroke-width="1.5"/><path d="M13 10h2v-2h-2c-1.1 0-2 .9-2 2v2H9v2h2v4h2v-4h2l.5-2H13v-2Z" fill="#1877F2"/></svg>
+          <svg viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="3" stroke="#1877F2" stroke-width="1.6"/><path d="M13 10h2V8h-2c-1.1 0-2 .9-2 2v2H9v2h2v4h2v-4h2l.6-2H13v-2Z" fill="#1877F2"/></svg>
         </button>
-        <!-- X (متقاطع نظيف) -->
+        <!-- X (متقاطع نظيف أكثر سماكة) -->
         <button class="sharebtn" data-share="x" title="X" aria-label="مشاركة X">
-          <svg viewBox="0 0 24 24" fill="none"><path d="M5 5l14 14M19 5 5 19" stroke="#111" stroke-width="1.8" stroke-linecap="round"/></svg>
+          <svg viewBox="0 0 24 24" fill="none"><path d="M5 5l14 14M19 5 5 19" stroke="#111" stroke-width="2" stroke-linecap="round"/></svg>
         </button>
-        <!-- لينكدإن (IN داخل مربع) -->
+        <!-- لينكدإن (IN مبسطة) -->
         <button class="sharebtn" data-share="linkedin" title="لينكدإن" aria-label="مشاركة لينكدإن">
-          <svg viewBox="0 0 24 24" fill="none"><rect x="3.5" y="3.5" width="17" height="17" rx="3.2" stroke="#0A66C2" stroke-width="1.5"/><circle cx="8" cy="9" r="1" fill="#0A66C2"/><path d="M7.5 17.5v-5.5M12 17.5v-2.8c0-1.2 1-2.2 2.2-2.2s2.3 1 2.3 2.2v2.8" stroke="#0A66C2" stroke-width="1.5" stroke-linecap="round"/></svg>
+          <svg viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="3" stroke="#0A66C2" stroke-width="1.6"/><circle cx="8" cy="9" r="1.2" fill="#0A66C2"/><path d="M7.8 18v-6M12 18v-3c0-1.3 1.1-2.4 2.4-2.4s2.4 1.1 2.4 2.4v3" stroke="#0A66C2" stroke-width="1.6" stroke-linecap="round"/></svg>
         </button>
         <!-- نسخ -->
         <button class="sharebtn" data-share="copy" title="نسخ الرابط" aria-label="نسخ الرابط">
-          <svg viewBox="0 0 24 24" fill="none"><rect x="9" y="9" width="9" height="11" rx="2" stroke="#333"/><rect x="6" y="4" width="9" height="11" rx="2" stroke="#333"/></svg>
+          <svg viewBox="0 0 24 24" fill="none"><rect x="9" y="9" width="9" height="11" rx="2" stroke="#333" stroke-width="1.6"/><rect x="6" y="4" width="9" height="11" rx="2" stroke="#333" stroke-width="1.6"/></svg>
         </button>
       </div>
     </div>
@@ -172,6 +168,8 @@
   const REFRESH_MS = 30_000;
   const FEED_TIMEOUT_MS = 6000;
   const LIMIT = 48;
+
+  // مصادر عربية؛ العام منها يُرشَّح رياضيًا
   const FEEDS = [
     'https://api.allorigins.win/raw?url=' + encodeURIComponent('https://www.alarabiya.net/.mrss/ar/sports.xml'),
     'https://api.allorigins.win/raw?url=' + encodeURIComponent('https://aawsat.com/rss/section/sport'),
@@ -187,16 +185,23 @@
   const $grid = document.getElementById('news');
   const $status = document.getElementById('status');
 
+  // ——— فلترة ذكية للرياضة فقط ———
+  const SPORTS_POSITIVE = /رياضة|رياضي|كرة|قدم|دوري|مباراة|مواجه|جولة|هدف|هداف|صدارة|قائمة|تشكيل|منتخب|كأس|بطولة|نادي|مدرب|لاعب|انتقال|إعارة|تعاقد|تصفيات|ملعب|شوط|فريق|كلاسيكو|ركلة|ركنيات|VAR|حكم|تتويج|جائزة|ميدالية|ألعاب|أولمبي/i;
+  const POLITICS_NEGATIVE = /سياسة|سياسي|رئيس|وزير|وزارة|حكومة|برلمان|انتخابات|حزب|مجلس|احتلال|حرب|جبهة|هدنة|سلام|مفاوضات|غزة|إسرائيل|سوريا|اليمن|مجلس\s+الأمن|عقوبات|انقلاب|قصف|هجوم|عملية\s+عسكرية/i;
+
+  function isSportsOnly(text, cats){
+    const blob = `${text} ${cats||''}`;
+    // يجب وجود كلمة رياضية واحدة على الأقل وعدم وجود كلمات سياسية
+    return SPORTS_POSITIVE.test(blob) && !POLITICS_NEGATIVE.test(blob);
+  }
+
   function strip(html){
     const tmp = document.createElement('div');
     tmp.innerHTML = (html || '').replace(/<script[^>]*>[\s\S]*?<\/script>/gi,'');
     return (tmp.textContent || tmp.innerText || '').replace(/\s+/g,' ').trim();
   }
-  function includesSportArabic(text){
-    const t = (text||'').toLowerCase();
-    return /رياضة|كرة|قدم|دوري|مباراة|هداف|منتخب|كأس|بطولة|نادي|مدرب|لاعب|تصفيات|الملعب|الشوط|فريق|جولة|موسم|كلاسيكو|ركلة/.test(t);
-  }
   function escapeHTML(s){return (s||'').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;');}
+
   function card({title, excerpt, date}){
     const id = btoa(unescape(encodeURIComponent(title))).slice(0,24);
     return `
@@ -223,26 +228,29 @@
       const r = await fetch(url, {cache:'no-store', signal:ctrl.signal});
       if(!r.ok) throw new Error('HTTP '+r.status);
       return await r.text();
-    } finally{ clearTimeout(t); }
+    } finally { clearTimeout(t); }
   }
 
   function parseFeed(xmlText){
     const out = [];
     try{
       const xml = new DOMParser().parseFromString(xmlText, 'text/xml');
-      const items = Array.from(xml.querySelectorAll('item, entry'));
-      for(const n of items){
+      const nodes = Array.from(xml.querySelectorAll('item, entry'));
+      for(const n of nodes){
         const title = (n.querySelector('title')?.textContent || '').trim();
         if(!title) continue;
         const desc = n.querySelector('description, summary, content')?.textContent || '';
-        const cat  = (n.querySelector('category')?.textContent || '') + ' ' + (n.querySelector('section')?.textContent || '');
+        const cats = Array.from(n.querySelectorAll('category, section')).map(x=>x.textContent).join(' ');
         const pub  = n.querySelector('pubDate, updated, published')?.textContent || new Date().toISOString();
         const date = new Date(pub);
-        const text = [title, desc, cat].join(' ');
-        if(!includesSportArabic(text)) continue;
-        out.push({ title, excerpt: strip(desc).slice(0,260), date: isNaN(date) ? new Date() : date });
+
+        const plain = strip(desc);
+        // فلترة حازمة: رياضي فقط + استبعاد السياسة
+        if(!isSportsOnly(`${title} ${plain}`, cats)) continue;
+
+        out.push({ title, excerpt: plain.slice(0,260), date: isNaN(date) ? new Date() : date });
       }
-    }catch{}
+    }catch{/* تجاهُل المصدر المعطّل */}
     return out;
   }
 
@@ -266,7 +274,7 @@
       unique.sort((a,b)=> b.date - a.date);
       const limited = unique.slice(0, LIMIT);
 
-      if(!limited.length){ $grid.innerHTML=''; $status.hidden=false; $status.textContent='لا توجد عناصر مناسبة الآن.'; }
+      if(!limited.length){ $grid.innerHTML=''; $status.hidden=false; $status.textContent='لا توجد عناصر رياضية الآن.'; }
       else { $status.hidden=true; $grid.innerHTML = limited.map(card).join(''); }
     }catch(e){
       console.error(e);
@@ -291,7 +299,11 @@
     btn.addEventListener('click', async ()=>{
       const kind = btn.dataset.share, pageURL = location.href;
       if(kind==='copy'){
-        try{ await navigator.clipboard.writeText(`${shareText}\n${pageURL}`); document.getElementById('copyToast').style.display='block'; setTimeout(()=>document.getElementById('copyToast').style.display='none',1600);}catch{}
+        try{
+          await navigator.clipboard.writeText(`${shareText}\n${pageURL}`);
+          const t = document.getElementById('copyToast');
+          t.style.display='block'; setTimeout(()=>t.style.display='none', 1600);
+        }catch{}
         return;
       }
       const msg = encodeURIComponent(shareText), url = encodeURIComponent(pageURL);
