@@ -1,258 +1,308 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="utf-8" />
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"
-  />
-  <title>هوس بالخمس</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>خط التماس الأخباري</title>
+  <meta name="description" content="خط التماس الأخباري - آخر الأخبار والتحليلات والمباريات بتصميم خفيف وأنيق.">
+  <meta property="og:title" content="خط التماس الأخباري">
+  <meta property="og:description" content="آخر الأخبار والتحليلات والمباريات بتصميم خفيف وأنيق.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ar_AR">
   <style>
-    /* أساسيات متوافقة مع الجوال */
-    *,*::before,*::after{box-sizing:border-box}
-    html,body{margin:0;padding:0}
     :root{
-      --bg:#fff; --text:#141b2d; --muted:#667085; --brand:#ff5a1f; --stroke:#e7e9f0;
-      --radius:14px; --touch:48px; --shadow:0 6px 20px rgba(0,0,0,.08);
-      --safe-bottom: env(safe-area-inset-bottom, 0px);
+      --bg:#f4f6fa; --ink:#0b132b; --brand:#ffb100; --card:#fff; --muted:#6b7280;
+      --wa:#25d366; --tg:#229ED9; --x:#111; --fb:#1877F2; --ring:rgba(0,0,0,.08);
+      --radius:14px;
     }
-    body{background:var(--bg);color:var(--text);font:400 16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,"Noto Kufi Arabic",Tahoma,Arial;-webkit-tap-highlight-color:transparent}
-
-    /* ترويسة بسيطة بلا زر سلة */
-    header{position:sticky;top:0;background:#fff;border-bottom:1px solid var(--stroke);z-index:20}
-    .wrap{max-width:980px;margin:auto;padding:10px 16px}
-    .row{display:flex;gap:10px;align-items:center}
-    .grow{flex:1}
-    h1{font-size:20px;margin:0}
-    .search{display:flex;gap:8px;align-items:center;border:1px solid var(--stroke);border-radius:12px;background:#fff;padding:8px 10px}
-    .search input{all:unset;direction:rtl;flex:1;min-height:var(--touch)}
-    .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--brand);color:#fff;border:none;border-radius:12px;padding:0 16px;min-height:var(--touch);cursor:pointer}
-    .btn.secondary{background:#f3f4f6;color:#1f2937;border:1px solid var(--stroke)}
-
-    /* بطاقات وقائمة */
-    main{padding:16px 16px calc(84px + var(--safe-bottom))}
-    .grid{display:grid;grid-template-columns:1fr;gap:12px}
-    @media(min-width:640px){.grid{grid-template-columns:repeat(2,1fr)}}
-    @media(min-width:960px){.grid{grid-template-columns:repeat(3,1fr)}}
-    .card{background:#fff;border:1px solid var(--stroke);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
-    .rest{display:grid;grid-template-columns:80px 1fr auto;gap:12px;align-items:center;padding:12px}
-    .rest .pic{width:80px;height:80px;border-radius:12px;background:#fff7f3;display:grid;place-items:center;font-size:26px}
-    .muted{color:var(--muted);font-size:14px}
-    .hidden{display:none !important}
-
-    .menu-item{display:grid;grid-template-columns:60px 1fr auto;gap:10px;align-items:center;padding:12px;border-top:1px solid var(--stroke)}
-    .menu-item .pic{width:60px;height:60px;border-radius:10px;background:#fff7f3;display:grid;place-items:center}
-
-    .qty{display:inline-flex;align-items:center;border:1px solid var(--stroke);border-radius:12px}
-    .qty button{all:unset;padding:12px;cursor:pointer}
-    .qty span{min-width:36px;text-align:center}
-
-    /* تبويب سفلي مع شارة للسلة */
-    footer.nav{position:fixed;inset-inline:0;bottom:0;background:#fff;border-top:1px solid var(--stroke);z-index:30;padding-bottom:var(--safe-bottom)}
-    .tabs{max-width:980px;margin:auto;display:grid;grid-template-columns:repeat(3,1fr)}
-    .tabs a{position:relative;padding:12px;text-align:center;color:#94a3b8;text-decoration:none}
-    .tabs a.active{color:var(--brand);font-weight:700}
-    .tabs a .badge{
-      position:absolute;top:6px;left:50%;transform:translateX(-50%);
-      background:var(--brand);color:#fff;border-radius:999px;padding:0 6px;font-size:12px;line-height:18px;min-width:18px
-    }
-
-    /* جداول */
-    table{width:100%;border-collapse:collapse}
-    th,td{padding:10px;border-bottom:1px solid var(--stroke);text-align:right}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:"Cairo",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--ink);line-height:1.7}
+    header{background:var(--ink);color:#fff;padding:1rem 1.5rem;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:10}
+    .logo{display:flex;align-items:center;gap:.55rem;font-size:1.25rem;font-weight:800}
+    .logo svg{width:28px;height:28px;fill:var(--brand)}
+    nav{display:flex;gap:1rem;flex-wrap:wrap}
+    nav a{color:#fff;text-decoration:none;font-weight:600;opacity:.95}
+    nav a:hover{opacity:1;text-decoration:underline}
+    .container{max-width:980px;margin:1.5rem auto;padding:0 1rem}
+    .grid{display:grid;grid-template-columns:1fr;gap:1rem}
+    @media(min-width:900px){.grid{grid-template-columns:2fr 1fr}}
+    .card{background:var(--card);border-radius:var(--radius);box-shadow:0 8px 24px var(--ring);padding:1rem}
+    .card h2{margin:.25rem 0 0;font-size:1.25rem}
+    .muted{color:var(--muted);font-size:.92rem}
+    .hero img{width:100%;border-radius:12px;display:block}
+    /* شريط المشاركة */
+    .share-bar{display:flex;gap:.5rem;align-items:center;flex-wrap:wrap;margin-top:.8rem}
+    .share-bar span{font-size:.9rem;color:var(--muted)}
+    .icon{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:10px;background:#fff;box-shadow:0 2px 8px var(--ring);transition:transform .15s ease,opacity .15s ease;border:1px solid #eef2f7}
+    .icon:hover{transform:translateY(-1px);opacity:.95}
+    .icon svg{width:18px;height:18px}
+    .icon.wa svg{fill:var(--wa)}
+    .icon.tg svg{fill:var(--tg)}
+    .icon.x svg{fill:var(--x)}
+    .icon.fb svg{fill:var(--fb)}
+    .btn{appearance:none;border:none;background:var(--ink);color:#fff;padding:.6rem .9rem;border-radius:10px;font-weight:700;cursor:pointer}
+    .btn.ghost{background:transparent;color:var(--ink);border:1px solid #e5e7eb}
+    /* التوصيات */
+    .recs{display:grid;grid-template-columns:1fr;gap:.8rem;margin-top:.6rem}
+    @media(min-width:700px){.recs{grid-template-columns:1fr 1fr}}
+    .rec{border:1px solid #eef2f7;border-radius:12px;padding:.8rem}
+    .rec .who{font-weight:800}
+    .stars{color:#f59e0b;font-size:1rem;letter-spacing:.5px}
+    .rec .txt{margin:.35rem 0 0}
+    .rec .when{font-size:.82rem;color:var(--muted)}
+    /* التذييل */
+    footer{background:var(--ink);color:#fff;text-align:center;padding:1rem .75rem;font-size:.95rem;margin-top:1rem}
+    footer button{background:none;border:none;color:var(--brand);font-weight:900;cursor:pointer}
+    #waWrap{margin-inline-start:8px;filter:blur(6px);opacity:.25;transition:filter .2s,opacity .2s}
+    #waWrap a{color:var(--wa);font-weight:800;text-decoration:none}
+    #waNum{display:none;color:#d1fae5;margin-inline-start:.35rem;font-weight:700}
+    #waStatus{display:inline-block;margin-inline-start:.35rem;color:#e5e7eb}
+    /* نافذة نموذج التوصية */
+    .modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;padding:1rem}
+    .modal.show{display:flex}
+    .sheet{background:#fff;border-radius:16px;max-width:520px;width:100%;padding:1rem;box-shadow:0 12px 40px rgba(0,0,0,.18)}
+    .sheet h3{margin:.2rem 0 1rem}
+    .row{display:grid;gap:.5rem}
+    .row label{font-weight:700}
+    input[type="text"],textarea,select{width:100%;padding:.7rem;border:1px solid #e5e7eb;border-radius:10px;font-family:inherit}
+    textarea{min-height:110px;resize:vertical}
+    .sheet .actions{display:flex;gap:.5rem;justify-content:space-between;margin-top:.6rem}
+    /* إشعار صغير */
+    .toast{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);background:#111;color:#fff;padding:.6rem .9rem;border-radius:999px;font-size:.9rem;display:none}
+    .toast.show{display:block}
   </style>
 </head>
 <body>
+
+  <!-- رأس الموقع -->
   <header>
-    <div class="wrap row">
-      <h1>هوس بالخمس</h1>
-      <div class="grow search" role="search">
-        <input id="q" placeholder="ابحث عن مطعم أو طبق…" aria-label="بحث" />
-        <button class="btn secondary" id="btnSearch">بحث</button>
-      </div>
+    <div class="logo" aria-label="شعار خط التماس الأخباري">
+      <!-- كرة قدم -->
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" aria-hidden="true">
+        <path d="M256 0C114.836 0 0 114.836 0 256s114.836 256 256 256 256-114.836 256-256S397.164 0 256 0zm0 64c44.112 0 84.404 14.393 117.063 38.563l-42.219 57.5-74.844-23.75-74.844 23.75-42.219-57.5C171.596 78.393 211.888 64 256 64zm-148.938 92.938l42.219 57.5-23.75 74.844L64 256c0-36.356 10.06-70.437 27.063-99.063zM256 448c-36.356 0-70.437-10.06-99.063-27.063l42.219-57.5 74.844 23.75 74.844-23.75 42.219 57.5C326.437 437.94 292.356 448 256 448zm107.469-162.719l-23.75-74.844 42.219-57.5C437.94 185.563 448 219.644 448 256l-84.531-21.281z"/>
+      </svg>
+      <span>خط التماس الأخباري</span>
     </div>
+    <nav aria-label="التنقل الرئيسي">
+      <a href="#">الرئيسية</a>
+      <a href="#">الأخبار</a>
+      <a href="#">التحليلات</a>
+      <a href="#">المباريات</a>
+      <a href="#reco">التوصيات</a>
+      <a href="#contact">الاتصال</a>
+    </nav>
   </header>
 
-  <main class="wrap">
-    <!-- الرئيسية -->
-    <section id="home">
-      <h2 style="margin:6px 0 10px">المطاعم</h2>
-      <div id="restaurants" class="grid"></div>
-    </section>
+  <main class="container">
+    <div class="grid">
+      <!-- المقال/الخبر -->
+      <article class="card hero" aria-labelledby="post-title">
+        <img src="https://picsum.photos/900/420?random=1" alt="صورة خبر رياضي">
+        <h2 id="post-title">عنوان خبر رياضي تجريبي</h2>
+        <p class="muted">ملخص قصير يشرح الخبر والتحليل المرتبط به بشكل موجز وجذاب.</p>
+        <p>
+          هذا نص خبر رياضي تجريبي. هنا يتم عرض الملخص أو المقال التحليلي. التصميم متجاوب وخفيف، مع مراعاة تجربة استخدام سلسة على الجوال والكمبيوتر.
+        </p>
 
-    <!-- صفحة مطعم -->
-    <section id="restaurantView" class="hidden">
-      <div class="row" style="justify-content:space-between;margin:6px 0">
-        <button class="btn secondary" id="backToList">⬅️ رجوع</button>
-        <strong id="restName"></strong>
-      </div>
-      <div id="menu"></div>
-    </section>
+        <!-- شريط المشاركة -->
+        <div class="share-bar" aria-label="مشاركة الصفحة">
+          <span>مشاركة:</span>
 
-    <!-- السلة -->
-    <section id="cartView" class="hidden">
-      <h2 style="margin:6px 0 10px">السلة</h2>
-      <div id="cartEmpty" class="muted">سلتك فارغة.</div>
-      <div id="cartFilled" class="hidden">
-        <table>
-          <thead><tr><th>المنتج</th><th>الكمية</th><th>السعر</th></tr></thead>
-          <tbody id="cartRows"></tbody>
-        </table>
-        <div class="row" style="justify-content:space-between;margin-top:10px">
-          <div class="muted">الإجمالي</div>
-          <div id="cartTotalNum">0.00 د.ب</div>
+          <!-- واتساب -->
+          <a class="icon wa" id="share-wa" aria-label="واتساب" rel="noopener" target="_blank" href="#">
+            <svg viewBox="0 0 24 24" role="img" aria-hidden="true"><path d="M12.04 2C6.57 2 2.13 6.44 2.13 11.9c0 2.1.57 4.06 1.65 5.8L2 22l4.43-1.7c1.67.91 3.54 1.39 5.6 1.39 5.47 0 9.9-4.44 9.9-9.9S17.5 2 12.04 2zm5.77 14.22c-.24.68-1.4 1.3-1.93 1.32-.49.02-1.12.04-3.6-.75-3.02-.99-4.97-4.3-5.12-4.5-.15-.2-1.22-1.63-1.22-3.11s.77-2.21 1.05-2.51c.27-.3.59-.38.79-.38h.56c.18 0 .43-.07.67.5.24.58.82 2 .89 2.15.07.15.12.32.02.52-.1.2-.16.32-.32.5-.16.18-.34.4-.49.54-.16.15-.33.31-.14.62.2.3.89 1.46 1.9 2.37 1.31 1.17 2.41 1.54 2.74 1.71.34.16.54.14.75-.08.2-.22.86-.95 1.09-1.28.23-.33.46-.27.77-.16.31.1 1.98.93 2.32 1.1.34.16.56.25.64.4.08.14.08.79-.16 1.47z"/></svg>
+          </a>
+
+          <!-- تلغرام -->
+          <a class="icon tg" id="share-tg" aria-label="تلغرام" rel="noopener" target="_blank" href="#">
+            <svg viewBox="0 0 24 24" role="img" aria-hidden="true"><path d="M9.04 15.3l-.36 5.06c.51 0 .73-.22 1-.49l2.4-2.3 4.98 3.63c.91.5 1.55.24 1.8-.84l3.26-15.3h.01c.29-1.35-.49-1.88-1.37-1.55L1.72 9.36C.41 9.88.41 10.65 1.47 11l5.2 1.62 12.1-7.63c.57-.35 1.09-.16.66.22"/></svg>
+          </a>
+
+          <!-- X (تويتر سابقًا) -->
+          <a class="icon x" id="share-x" aria-label="إكس" rel="noopener" target="_blank" href="#">
+            <svg viewBox="0 0 24 24" role="img" aria-hidden="true"><path d="M18.244 2H21l-6.5 7.43L22.5 22H15.9l-4.79-6.26L5.5 22H2.74l7.15-8.16L1.5 2h6.75l4.3 5.72L18.244 2zm-2.34 18h1.9L8.16 4H6.25l9.654 16z"/></svg>
+          </a>
+
+          <!-- فيسبوك -->
+          <a class="icon fb" id="share-fb" aria-label="فيسبوك" rel="noopener" target="_blank" href="#">
+            <svg viewBox="0 0 24 24" role="img" aria-hidden="true"><path d="M22 12.07C22 6.48 17.52 2 11.93 2S1.86 6.48 1.86 12.07c0 4.99 3.64 9.13 8.4 9.96v-7.04H7.9v-2.92h2.36V9.41c0-2.33 1.38-3.62 3.51-3.62.99 0 2.03.18 2.03.18v2.23h-1.14c-1.12 0-1.47.7-1.47 1.42v1.7h2.5l-.4 2.92h-2.1V22c4.76-.83 8.4-4.97 8.4-9.96z"/></svg>
+          </a>
+
+          <!-- نسخ الرابط -->
+          <button class="icon" id="share-copy" aria-label="نسخ الرابط" title="نسخ الرابط">
+            <svg viewBox="0 0 24 24" role="img" aria-hidden="true"><path d="M16 1H4c-1.1 0-2 .9-2 2v12h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+          </button>
         </div>
-        <div class="row" style="justify-content:flex-end;margin-top:10px">
-          <button class="btn secondary" id="clearCart" style="margin-inline-start:8px">إفراغ السلة</button>
-          <button class="btn" id="goCheckout">الدفع</button>
+      </article>
+
+      <!-- الشريط الجانبي -->
+      <aside class="card" id="reco" aria-labelledby="reco-title">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:.5rem;flex-wrap:wrap">
+          <h2 id="reco-title" style="margin:0">التوصيات</h2>
+          <button class="btn" id="openReco">أضِف توصية</button>
         </div>
-      </div>
-    </section>
+        <p class="muted" style="margin:.35rem 0 .6rem">آراء القرّاء حول الموقع والمحتوى.</p>
+
+        <div class="recs" id="recsList" aria-live="polite">
+          <!-- سيتم ملؤها عبر جافاسكريبت (مع أمثلة جاهزة) -->
+        </div>
+      </aside>
+    </div>
   </main>
 
-  <!-- تبويب سفلي: الرئيسية / السلة / حسابي -->
-  <footer class="nav" aria-label="التنقل">
-    <div class="tabs">
-      <a href="#" data-tab="home" class="active">الرئيسية</a>
-      <a href="#" data-tab="cart">السلة <span class="badge" id="count">0</span></a>
-      <a href="#" data-tab="profile">حسابي</a>
-    </div>
+  <!-- التذييل -->
+  <footer id="contact">
+    <span>برمجة وتطوير: </span>
+    <button id="devName" title="اضغط للفتح">فاضل الريس</button>
+    <span id="waWrap">
+      <a id="waLink"
+         href="https://api.whatsapp.com/send/?phone=97333375858&text&type=phone_number&app_absent=0&wame_ctl=1&fbclid=PAVERDUAMml5NleHRuA2FlbQIxMAABp6c6vX6p8DohAtA413EaxOW3rXeFeDaSmrmyolWeZpfS6kJHVnz2mggQ48j4_aem_O0j6feTzeuVBzStwMeF2qA"
+         target="_blank" rel="noopener">فتح واتساب</a>
+      <strong id="waNum">+973 3337 5858</strong>
+    </span>
+    <span id="waStatus" aria-live="polite"></span>
   </footer>
 
-<script>
-(()=>{
-  const $=(s,c=document)=>c.querySelector(s);
-  const $$=(s,c=document)=>Array.from(c.querySelectorAll(s));
-  const fmt=n=>(Math.round(n*100)/100).toFixed(2);
+  <!-- نموذج التوصية (نافذة) -->
+  <section class="modal" id="recoModal" aria-hidden="true" aria-labelledby="recoHeader" role="dialog">
+    <div class="sheet" role="document">
+      <h3 id="recoHeader">أضِف توصيتك</h3>
+      <div class="row">
+        <label for="recoName">الاسم (اختياري)</label>
+        <input type="text" id="recoName" placeholder="اسمك">
+      </div>
+      <div class="row">
+        <label for="recoRate">التقييم</label>
+        <select id="recoRate" aria-label="التقييم">
+          <option value="5">★★★★★ - ممتاز</option>
+          <option value="4">★★★★☆ - جيد جدًا</option>
+          <option value="3">★★★☆☆ - جيد</option>
+          <option value="2">★★☆☆☆ - مقبول</option>
+          <option value="1">★☆☆☆☆ - ضعيف</option>
+        </select>
+      </div>
+      <div class="row">
+        <label for="recoText">التوصية</label>
+        <textarea id="recoText" placeholder="اكتب رأيك باختصار..."></textarea>
+      </div>
+      <div class="actions">
+        <button class="btn" id="saveReco">حفظ</button>
+        <button class="btn ghost" id="closeReco">إلغاء</button>
+      </div>
+    </div>
+  </section>
 
-  const state={
-    restaurants:[
-      {id:'r1',name:'بيتزا روما',menu:[
-        {id:'m1',name:'مارجريتا',price:3.5},
-        {id:'m2',name:'بيبروني',price:3.9}
-      ]},
-      {id:'r2',name:'برجر ستريت',menu:[
-        {id:'m3',name:'تشيز برجر',price:2.6},
-        {id:'m4',name:'بطاطس مقلية',price:0.9}
-      ]},
-      {id:'r3',name:'مشويات السلطان',menu:[
-        {id:'m5',name:'كباب لحم',price:4.2},
-        {id:'m6',name:'حمص',price:0.8}
-      ]}
-    ],
-    cart:[]
-  };
+  <!-- إشعار -->
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-  /* رسم قائمة المطاعم */
-  function renderList(){
-    const cont=$('#restaurants'); cont.innerHTML='';
-    state.restaurants.forEach(r=>{
-      const card=document.createElement('article'); card.className='card';
-      card.innerHTML=`
-        <div class="rest">
-          <div class="pic">🍽️</div>
-          <div>
-            <div><strong>${r.name}</strong></div>
-            <div class="muted">⭐ 4.5 • ⏱️ 25 د</div>
-          </div>
-          <div><button class="btn secondary" data-open="${r.id}">افتح</button></div>
-        </div>`;
-      cont.appendChild(card);
+  <script>
+    // =============== أدوات مساعدة ===============
+    const $ = (s, p=document)=>p.querySelector(s);
+    const $$ = (s, p=document)=>Array.from(p.querySelectorAll(s));
+    const toast = $("#toast");
+    const showToast = (msg, ms=1600)=>{ toast.textContent = msg; toast.classList.add("show"); setTimeout(()=>toast.classList.remove("show"), ms); };
+
+    // =============== مشاركة ديناميكية ===============
+    const pageURL = encodeURIComponent(location.href);
+    const pageTitle = encodeURIComponent(document.title);
+
+    $("#share-wa").href = `https://api.whatsapp.com/send?text=${pageTitle}%20${pageURL}`;
+    $("#share-tg").href = `https://t.me/share/url?url=${pageURL}&text=${pageTitle}`;
+    $("#share-x").href  = `https://twitter.com/intent/tweet?url=${pageURL}&text=${pageTitle}`;
+    $("#share-fb").href = `https://www.facebook.com/sharer/sharer.php?u=${pageURL}`;
+
+    $("#share-copy").addEventListener("click", async ()=>{
+      try{ await navigator.clipboard.writeText(location.href); showToast("تم نسخ الرابط"); }
+      catch{ showToast("تعذّر النسخ"); }
     });
-    $$('#restaurants [data-open]').forEach(b=>b.onclick=()=>openRestaurant(b.dataset.open));
-  }
 
-  /* صفحة مطعم */
-  function openRestaurant(id){
-    const r=state.restaurants.find(x=>x.id===id); if(!r) return;
-    show('restaurantView'); $('#restName').textContent=r.name;
-    const menu=$('#menu'); menu.innerHTML='';
-    r.menu.forEach(m=>{
-      const row=document.createElement('div'); row.className='menu-item';
-      row.innerHTML=`
-        <div class="pic">🍕</div>
-        <div>
-          <div class="row" style="justify-content:space-between">
-            <strong>${m.name}</strong><strong>${fmt(m.price)} د.ب</strong>
-          </div>
+    // =============== واتساب المطوّر (إظهار عند الضغط فقط) ===============
+    const devName = $('#devName'), waWrap = $('#waWrap'), waLink = $('#waLink'), waStatus = $('#waStatus'), waNum = $('#waNum');
+    let revealed = false;
+    devName.addEventListener('click', function (){
+      if(!revealed){
+        revealed = true;
+        waWrap.style.filter='none';
+        waWrap.style.opacity='1';
+        waNum.style.display='inline';
+        waStatus.textContent = 'فتح واتساب…';
+        window.open(waLink.href,'_blank','noopener');
+        setTimeout(()=>waStatus.textContent='', 2000);
+      }else{
+        window.open(waLink.href,'_blank','noopener');
+      }
+    });
+
+    // =============== التوصيات ===============
+    const recsList = $("#recsList");
+    const openReco = $("#openReco");
+    const recoModal = $("#recoModal");
+    const closeReco = $("#closeReco");
+    const saveReco = $("#saveReco");
+    const recoName = $("#recoName");
+    const recoRate = $("#recoRate");
+    const recoText = $("#recoText");
+
+    const STAR = n => "★★★★★☆☆☆☆☆".slice(5-n,10-n).replace(/./g,'★').slice(0,n);
+    const renderStars = n => '★★★★★'.slice(0,n).replace(/./g,'★') + '☆☆☆☆☆'.slice(n);
+    function starSpan(n){ return `<span class="stars" aria-label="تقييم ${n} من 5">${"★".repeat(n)}${"☆".repeat(5-n)}</span>`; }
+
+    // أمثلة جاهزة تظهر من البداية
+    const seed = [
+      {who:"محمود ش.", rate:5, txt:"موقع سريع وأنيق، أحببت شريط المشاركة الصغير.", when:"اليوم"},
+      {who:"ليان ع.",   rate:4, txt:"واجهة واضحة والقراءة مريحة على الجوال.", when:"أمس"},
+      {who:"علي ر.",    rate:5, txt:"الفكرة ممتازة، بالتوفيق 👍", when:"منذ 3 أيام"}
+    ];
+
+    function getRecs(){
+      const saved = localStorage.getItem("hte_recs");
+      return saved ? JSON.parse(saved) : seed;
+    }
+    function setRecs(arr){
+      localStorage.setItem("hte_recs", JSON.stringify(arr));
+    }
+    function paintRecs(){
+      const arr = getRecs();
+      recsList.innerHTML = arr.map(r => `
+        <div class="rec" role="article">
+          <div class="who">${r.who || "قارئ"}</div>
+          <div class="stars" aria-hidden="true">${"★".repeat(r.rate)}${"☆".repeat(5-r.rate)}</div>
+          <div class="txt">${r.txt}</div>
+          <div class="when">${r.when || ""}</div>
         </div>
-        <div><button class="btn" data-add="${m.id}" data-rest="${id}">أضِف</button></div>`;
-      menu.appendChild(row);
+      `).join("");
+    }
+    paintRecs();
+
+    // فتح/إغلاق النموذج
+    function toggleModal(show=true){
+      recoModal.classList.toggle("show", show);
+      recoModal.setAttribute("aria-hidden", show ? "false" : "true");
+      if(show){ setTimeout(()=>recoName.focus(), 50); }
+    }
+    openReco.addEventListener("click", ()=>toggleModal(true));
+    closeReco.addEventListener("click", ()=>toggleModal(false));
+    recoModal.addEventListener("click", (e)=>{ if(e.target === recoModal) toggleModal(false); });
+
+    // حفظ توصية
+    saveReco.addEventListener("click", ()=>{
+      const who = (recoName.value || "").trim();
+      const rate = parseInt(recoRate.value || "5", 10);
+      const txt = (recoText.value || "").trim();
+      if(!txt){ showToast("اكتب نص التوصية"); return; }
+      const arr = getRecs();
+      arr.unshift({who: who || "قارئ", rate, txt, when: new Date().toLocaleDateString('ar-EG')});
+      setRecs(arr);
+      paintRecs();
+      recoName.value = ""; recoText.value = ""; recoRate.value = "5";
+      toggleModal(false);
+      showToast("شكرًا! تمت إضافة توصيتك");
     });
-    $$('#menu [data-add]').forEach(btn=>btn.onclick=()=>addToCart(btn.dataset.rest, btn.dataset.add));
-  }
 
-  /* السلة */
-  function cartCount(){ return state.cart.reduce((a,i)=>a+i.qty,0); }
-  function updateBadge(){ $('#count').textContent = cartCount(); }
-
-  function addToCart(rid,mid){
-    const r=state.restaurants.find(x=>x.id===rid); const m=r?.menu.find(x=>x.id===mid); if(!m) return;
-    const f=state.cart.find(x=>x.id===mid);
-    if(f) f.qty++; else state.cart.push({id:mid,name:m.name,price:m.price,qty:1});
-    updateBadge();
-  }
-
-  function renderCart(){
-    show('cartView');
-    const empty = state.cart.length===0;
-    $('#cartEmpty').classList.toggle('hidden',!empty);
-    $('#cartFilled').classList.toggle('hidden',empty);
-    if(empty) return;
-
-    const tb=$('#cartRows'); tb.innerHTML='';
-    state.cart.forEach(i=>{
-      const tr=document.createElement('tr');
-      tr.innerHTML=`
-        <td>${i.name}</td>
-        <td>
-          <span class="qty">
-            <button data-d="-1" data-id="${i.id}">−</button>
-            <span>${i.qty}</span>
-            <button data-d="1" data-id="${i.id}">+</button>
-          </span>
-        </td>
-        <td>${fmt(i.qty*i.price)} د.ب</td>`;
-      tb.appendChild(tr);
+    // تحسين الوصول بلوحة المفاتيح
+    document.addEventListener("keydown",(e)=>{
+      if(e.key==="Escape" && recoModal.classList.contains("show")) toggleModal(false);
     });
-    $$('#cartRows [data-d]').forEach(b=>b.onclick=()=>changeQty(b.dataset.id, Number(b.dataset.d)));
-    const total=state.cart.reduce((a,i)=>a+i.qty*i.price,0);
-    $('#cartTotalNum').textContent = fmt(total)+' د.ب';
-  }
-
-  function changeQty(id,d){
-    const it=state.cart.find(x=>x.id===id); if(!it) return;
-    it.qty+=d; if(it.qty<=0) state.cart=state.cart.filter(x=>x.id!==id);
-    updateBadge(); renderCart();
-  }
-
-  function clearCart(){ state.cart=[]; updateBadge(); renderCart(); }
-
-  /* إظهار/إخفاء أقسام */
-  function show(which){
-    ['home','restaurantView','cartView'].forEach(id=>$('#'+id).classList.toggle('hidden', id!==which));
-    $$('.tabs a').forEach(a=>a.classList.toggle('active', a.dataset.tab===(
-      which==='cartView'?'cart' : 'home'
-    )));
-  }
-
-  /* ربط الأزرار */
-  $('#btnSearch').onclick=()=>renderList();
-  $('#backToList').onclick=()=>show('home');
-  $('#clearCart').onclick=()=>clearCart();
-  $('#goCheckout').onclick=()=>alert('دفع تجريبي — أكمل بناء الدفع لاحقًا');
-
-  $$('.tabs a').forEach(a=>a.onclick=(e)=>{
-    e.preventDefault();
-    if(a.dataset.tab==='home') show('home');
-    if(a.dataset.tab==='cart') renderCart();
-    if(a.dataset.tab==='profile') alert('ملف شخصي تجريبي');
-  });
-
-  /* تشغيل أولي */
-  renderList(); show('home'); updateBadge();
-
-})();
-</script>
+  </script>
 </body>
 </html>
