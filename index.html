@@ -1,13 +1,12 @@
 <!doctype html>
-
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>هوس بالخمس — نسخة HTML واحدة (إصدار الجوال المُحسّن)</title>
-  <meta name="description" content="تطبيق طلب طعام بملف واحد: استكشاف، فلاتر، قائمة، سلة، كوبونات، دفع تجريبي، تتبع، طلباتي، حساب. مُحسّن للجوال بأزرار كبيرة وواضحة." />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+  <title>هوس بالخمس — تطبيق طلب طعام مبسّط</title>
+  <meta name="description" content="تطبيق طلب طعام بملف واحد: استكشاف، فلاتر، قائمة، سلة، كوبونات، دفع تجريبي، تتبع، طلباتي، حساب. مُحسّن للجوال." />
   <style>
-    /* ===== الأساس (Mobile‑First) ===== */
+    /* ===== الأساس (Mobile-First) ===== */
     *,*::before,*::after{box-sizing:border-box}
     html,body{margin:0;padding:0}
     :root{
@@ -18,62 +17,77 @@
     body{background:var(--bg);color:var(--text);font:400 16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,"Noto Kufi Arabic",Tahoma,Arial; -webkit-tap-highlight-color: transparent}
     a{color:inherit;text-decoration:none}
     button{font:inherit}
-    .wrap{max-width:980px;margin:auto;padding:12px 16px}/* ===== ترويسة ثابتة خفيفة ===== */
-header{position:sticky;top:0;background:#fff;border-bottom:1px solid var(--stroke);z-index:20}
-.row{display:flex;gap:10px;align-items:center}
-.grow{flex:1}
-.logo{display:flex;align-items:center;gap:10px}
-.logo h1{font-size:20px;margin:0}
-.logo .dot{width:10px;height:10px;border-radius:50%;background:var(--brand)}
-.tag{display:inline-flex;align-items:center;gap:6px;background:#fff1ea;border:1px solid #ffd9cc;color:#8a2d11;border-radius:999px;padding:4px 10px;font-size:12px}
 
-/* ===== حقول وبطاقات ===== */
-.search{display:flex;gap:8px;align-items:center;border:1px solid var(--stroke);border-radius:12px;background:#fff;padding:8px 10px}
-.search input{all:unset;direction:rtl;flex:1;min-height:var(--touch)}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--brand);color:#fff;border:none;border-radius:12px;padding:0 16px;min-height:var(--touch);cursor:pointer}
-.btn.secondary{background:#f3f4f6;color:var(--text);border:1px solid var(--stroke)}
-.btn.block{display:flex;width:100%}
-.btn.ghost{background:#fff;border:1px dashed var(--stroke);color:var(--muted)}
-.chipbar{display:flex;gap:8px;overflow:auto;padding:6px 0}
-.chip{border:1px solid var(--stroke);padding:10px 14px;border-radius:999px;color:var(--muted);user-select:none;white-space:nowrap}
-.chip.active{background:#fff1ea;color:#7a2d11;border-color:#ffd9cc}
+    .wrap{max-width:980px;margin:auto;padding:12px 16px}
 
-.grid{display:grid;grid-template-columns:1fr;gap:12px}
-@media (min-width:640px){.grid{grid-template-columns:repeat(2,1fr)}}
-@media (min-width:960px){.grid{grid-template-columns:repeat(3,1fr)}}
-.card{background:#fff;border:1px solid var(--stroke);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
-.rest{display:grid;grid-template-columns:84px 1fr auto;gap:12px;align-items:center;padding:12px}
-.rest .pic{width:84px;height:84px;border-radius:12px;background:#fff7f3;display:grid;place-items:center;font-size:28px}
-.muted{color:var(--muted);font-size:14px}
-.hidden{display:none !important}
+    /* ===== الترويسة ===== */
+    header{position:sticky;top:0;background:#fff;border-bottom:1px solid var(--stroke);z-index:20}
+    .row{display:flex;gap:10px;align-items:center}
+    .grow{flex:1}
+    .logo{display:flex;align-items:center;gap:10px}
+    .logo h1{font-size:20px;margin:0}
+    .logo .dot{width:10px;height:10px;border-radius:50%;background:var(--brand)}
 
-.menu-item{display:grid;grid-template-columns:64px 1fr auto;gap:10px;align-items:center;padding:12px;border-top:1px solid var(--stroke)}
-.menu-item .pic{width:64px;height:64px;border-radius:10px;background:#fff7f3;display:grid;place-items:center}
-.qty{display:inline-flex;align-items:center;border:1px solid var(--stroke);border-radius:12px}
-.qty button{all:unset;padding:12px;cursor:pointer}
-.qty span{min-width:36px;text-align:center}
+    /* زر السلة كأيقونة مع Badge صغير */
+    #btnCart{
+      background:none;border:none;color:#222;cursor:pointer;
+      font-size:22px;line-height:1;position:relative;min-width:44px;min-height:44px;
+      display:inline-flex;align-items:center;justify-content:center;
+    }
+    #btnCart .badge{
+      position:absolute;top:-6px;right:-6px;
+      background:var(--brand);color:#fff;border-radius:999px;
+      padding:2px 6px;font-size:12px;line-height:1;min-width:18px;text-align:center;
+    }
 
-/* ===== تبويب سفلي آمن للأجهزة ===== */
-footer.nav{position:fixed;inset-inline:0;bottom:0;background:#fff;border-top:1px solid var(--stroke);z-index:30;padding-bottom:var(--safe-bottom)}
-footer.nav .tabs{display:grid;grid-template-columns:repeat(4,1fr)}
-footer.nav a{padding:12px;text-align:center;display:grid;place-items:center;color:var(--muted)}
-footer.nav a.active{color:var(--brand);font-weight:700}
+    /* ===== الحقول والأزرار ===== */
+    .search{display:flex;gap:8px;align-items:center;border:1px solid var(--stroke);border-radius:12px;background:#fff;padding:8px 10px}
+    .search input{all:unset;direction:rtl;flex:1;min-height:var(--touch)}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--brand);color:#fff;border:none;border-radius:12px;padding:0 16px;min-height:var(--touch);cursor:pointer}
+    .btn.secondary{background:#f3f4f6;color:var(--text);border:1px solid var(--stroke)}
+    .btn.block{display:flex;width:100%}
+    .btn.ghost{background:#fff;border:1px dashed var(--stroke);color:var(--muted)}
 
-/* ===== أقسام ===== */
-main{padding:18px 16px calc(88px + var(--safe-bottom))}
+    .chipbar{display:flex;gap:8px;overflow:auto;padding:6px 0}
+    .chip{border:1px solid var(--stroke);padding:10px 14px;border-radius:999px;color:var(--muted);user-select:none;white-space:nowrap}
+    .chip.active{background:#fff1ea;color:#7a2d11;border-color:#ffd9cc}
 
-/* ===== حوارات ===== */
-dialog{border:none;border-radius:16px;box-shadow:var(--shadow)}
-dialog::backdrop{background:rgba(0,0,0,.35)}
+    /* ===== الشبكات والبطاقات ===== */
+    .grid{display:grid;grid-template-columns:1fr;gap:12px}
+    @media (min-width:640px){.grid{grid-template-columns:repeat(2,1fr)}}
+    @media (min-width:960px){.grid{grid-template-columns:repeat(3,1fr)}}
+    .card{background:#fff;border:1px solid var(--stroke);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
+    .rest{display:grid;grid-template-columns:84px 1fr auto;gap:12px;align-items:center;padding:12px}
+    .rest .pic{width:84px;height:84px;border-radius:12px;background:#fff7f3;display:grid;place-items:center;font-size:28px}
+    .muted{color:var(--muted);font-size:14px}
+    .hidden{display:none !important}
 
-/* ===== جداول ===== */
-table{width:100%;border-collapse:collapse}
-th,td{padding:12px;border-bottom:1px solid var(--stroke);text-align:right}
+    .menu-item{display:grid;grid-template-columns:64px 1fr auto;gap:10px;align-items:center;padding:12px;border-top:1px solid var(--stroke)}
+    .menu-item .pic{width:64px;height:64px;border-radius:10px;background:#fff7f3;display:grid;place-items:center}
+    .qty{display:inline-flex;align-items:center;border:1px solid var(--stroke);border-radius:12px}
+    .qty button{all:unset;padding:12px;cursor:pointer}
+    .qty span{min-width:36px;text-align:center}
 
-/* ===== Toast ===== */
-#toast{position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:99;display:none}
-.toast{background:#111827;color:#fff;padding:10px 14px;border-radius:12px;box-shadow:var(--shadow)}
+    /* ===== تبويب سفلي ===== */
+    footer.nav{position:fixed;inset-inline:0;bottom:0;background:#fff;border-top:1px solid var(--stroke);z-index:30;padding-bottom:var(--safe-bottom)}
+    footer.nav .tabs{display:grid;grid-template-columns:repeat(4,1fr)}
+    footer.nav a{padding:12px;text-align:center;display:grid;place-items:center;color:var(--muted)}
+    footer.nav a.active{color:var(--brand);font-weight:700}
 
+    /* ===== أقسام ===== */
+    main{padding:18px 16px calc(88px + var(--safe-bottom))}
+
+    /* ===== حوارات ===== */
+    dialog{border:none;border-radius:16px;box-shadow:var(--shadow)}
+    dialog::backdrop{background:rgba(0,0,0,.35)}
+
+    /* ===== جداول ===== */
+    table{width:100%;border-collapse:collapse}
+    th,td{padding:12px;border-bottom:1px solid var(--stroke);text-align:right}
+
+    /* ===== Toast ===== */
+    #toast{position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:99;display:none}
+    .toast{background:#111827;color:#fff;padding:10px 14px;border-radius:12px;box-shadow:var(--shadow)}
   </style>
 </head>
 <body>
@@ -82,15 +96,22 @@ th,td{padding:12px;border-bottom:1px solid var(--stroke);text-align:right}
       <div class="logo">
         <span class="dot" aria-hidden="true"></span>
         <h1>هوس بالخمس</h1>
-        <span class="tag">HTML واحد</span>
       </div>
+
       <div class="grow search" role="search">
         <input id="q" placeholder="ابحث عن مطعم أو طبق…" aria-label="بحث" />
         <button class="btn secondary" id="btnSearch">بحث</button>
       </div>
-      <button class="btn" id="btnCart" aria-label="افتح السلة">السلة (<span id="count">0</span>)</button>
+
+      <!-- زر السلة أيقونة + عدّاد -->
+      <button id="btnCart" aria-label="السلة">
+        🛒
+        <span class="badge" id="count">0</span>
+      </button>
     </div>
-  </header>  <main class="wrap">
+  </header>
+
+  <main class="wrap">
     <!-- الرئيسية -->
     <section id="home">
       <div class="chipbar" id="homeChips" aria-label="الفلاتر">
@@ -102,98 +123,107 @@ th,td{padding:12px;border-bottom:1px solid var(--stroke);text-align:right}
       </div>
       <h2 style="margin:8px 0">المطاعم</h2>
       <div id="restaurants" class="grid"></div>
-    </section><!-- صفحة مطعم -->
-<section id="restaurantView" class="hidden">
-  <div class="row" style="justify-content:space-between;margin:6px 0">
-    <button class="btn secondary" id="backToList">⬅️ رجوع</button>
-    <strong id="restName"></strong>
-  </div>
-  <div id="menu"></div>
-  <div style="margin-top:12px" class="hidden" id="restInfo"></div>
-</section>
+    </section>
 
-<!-- السلة -->
-<section id="cartView" class="hidden">
-  <h2 style="margin:8px 0">السلة</h2>
-  <div id="cartEmpty" class="muted">سلتك فارغة.</div>
-  <div id="cartFilled" class="hidden">
-    <table>
-      <thead><tr><th>المنتج</th><th>الكمية</th><th>السعر</th></tr></thead>
-      <tbody id="cartRows"></tbody>
-    </table>
-    <div class="row" style="justify-content:space-between;margin-top:8px">
-      <div class="muted">الإجمالي</div>
-      <div id="cartTotalNum">0.00 د.ب</div>
-    </div>
-    <div class="row" style="justify-content:space-between;margin-top:8px">
-      <label style="flex:1" class="search"><input id="coupon" placeholder="قسيمة (مثال: WELCOME)" /></label>
-      <button class="btn secondary" id="applyCoupon">تطبيق</button>
-    </div>
-    <div class="row" style="justify-content:flex-end;margin-top:8px;gap:8px">
-      <button class="btn secondary" id="clearCart">إفراغ السلة</button>
-      <button class="btn" id="goCheckout">الدفع</button>
-    </div>
-  </div>
-</section>
+    <!-- صفحة مطعم -->
+    <section id="restaurantView" class="hidden">
+      <div class="row" style="justify-content:space-between;margin:6px 0">
+        <button class="btn secondary" id="backToList">⬅️ رجوع</button>
+        <strong id="restName"></strong>
+      </div>
+      <div id="menu"></div>
+      <div style="margin-top:12px" class="hidden" id="restInfo"></div>
+    </section>
 
-<!-- الدفع -->
-<section id="checkoutView" class="hidden">
-  <h2 style="margin:8px 0">الدفع</h2>
-  <div class="card" style="padding:12px;margin-bottom:12px">
-    <h3 style="margin:0 0 8px 0">العنوان</h3>
-    <label class="search"><input id="addr" placeholder="اكتب عنوان التسليم (المنامة …)" /></label>
-  </div>
-  <div class="card" style="padding:12px">
-    <h3 style="margin:0 0 8px 0">طريقة الدفع</h3>
-    <div class="chipbar">
-      <button class="chip active" data-pay="card">بطاقة</button>
-      <button class="chip" data-pay="cod">نقدًا عند التسليم</button>
-      <button class="chip" data-pay="wallet">محفظة</button>
-    </div>
-    <div id="cardFields" style="margin-top:10px">
-      <label class="search"><input id="cardNum" placeholder="0000 0000 0000 0000" /></label>
-    </div>
-  </div>
-  <div class="row" style="justify-content:space-between;margin-top:12px">
-    <button class="btn secondary" id="backCart">⬅️ رجوع</button>
-    <button class="btn" id="confirmPay">تأكيد الدفع</button>
-  </div>
-</section>
+    <!-- السلة -->
+    <section id="cartView" class="hidden">
+      <h2 style="margin:8px 0">السلة</h2>
+      <div id="cartEmpty" class="muted">سلتك فارغة.</div>
+      <div id="cartFilled" class="hidden">
+        <table>
+          <thead><tr><th>المنتج</th><th>الكمية</th><th>السعر</th></tr></thead>
+          <tbody id="cartRows"></tbody>
+        </table>
+        <div class="row" style="justify-content:space-between;margin-top:8px">
+          <div class="muted">الإجمالي</div>
+          <div id="cartTotalNum">0.00 د.ب</div>
+        </div>
+        <div class="row" style="justify-content:space-between;margin-top:8px">
+          <label style="flex:1" class="search"><input id="coupon" placeholder="قسيمة (مثال: WELCOME)" /></label>
+          <button class="btn secondary" id="applyCoupon">تطبيق</button>
+        </div>
+        <div class="row" style="justify-content:flex-end;margin-top:8px;gap:8px">
+          <button class="btn secondary" id="clearCart">إفراغ السلة</button>
+          <button class="btn" id="goCheckout">الدفع</button>
+        </div>
+      </div>
+    </section>
 
-<!-- تتبع -->
-<section id="trackView" class="hidden">
-  <h2 style="margin:8px 0">تتبع الطلب</h2>
-  <div class="card" style="padding:12px">
-    <div id="trackMeta" class="muted"></div>
-    <div class="grid" id="trackSteps" style="grid-template-columns:1fr;gap:8px;margin-top:10px"></div>
-    <div class="row" style="justify-content:flex-end;margin-top:8px">
-      <button class="btn secondary" id="toOrders">جميع الطلبات</button>
-    </div>
-  </div>
-</section>
+    <!-- الدفع -->
+    <section id="checkoutView" class="hidden">
+      <h2 style="margin:8px 0">الدفع</h2>
+      <div class="card" style="padding:12px;margin-bottom:12px">
+        <h3 style="margin:0 0 8px 0">العنوان</h3>
+        <label class="search"><input id="addr" placeholder="اكتب عنوان التسليم (المنامة …)" /></label>
+      </div>
+      <div class="card" style="padding:12px">
+        <h3 style="margin:0 0 8px 0">طريقة الدفع</h3>
+        <div class="chipbar">
+          <button class="chip active" data-pay="card">بطاقة</button>
+          <button class="chip" data-pay="cod">نقدًا عند التسليم</button>
+          <button class="chip" data-pay="wallet">محفظة</button>
+        </div>
+        <div id="cardFields" style="margin-top:10px">
+          <label class="search"><input id="cardNum" placeholder="0000 0000 0000 0000" /></label>
+        </div>
+      </div>
+      <div class="row" style="justify-content:space-between;margin-top:12px">
+        <button class="btn secondary" id="backCart">⬅️ رجوع</button>
+        <button class="btn" id="confirmPay">تأكيد الدفع</button>
+      </div>
+    </section>
 
-<!-- طلباتي -->
-<section id="ordersView" class="hidden">
-  <h2 style="margin:8px 0">طلباتي</h2>
-  <div id="ordersList"></div>
-</section>
+    <!-- تتبع -->
+    <section id="trackView" class="hidden">
+      <h2 style="margin:8px 0">تتبع الطلب</h2>
+      <div class="card" style="padding:12px">
+        <div id="trackMeta" class="muted"></div>
+        <div class="grid" id="trackSteps" style="grid-template-columns:1fr;gap:8px;margin-top:10px"></div>
+        <div class="row" style="justify-content:flex-end;margin-top:8px">
+          <button class="btn secondary" id="toOrders">جميع الطلبات</button>
+        </div>
+      </div>
+    </section>
 
-<!-- الحساب -->
-<section id="profileView" class="hidden">
-  <h2 style="margin:8px 0">حسابي</h2>
-  <div id="profileBox" class="card" style="padding:12px"></div>
-</section>
+    <!-- طلباتي -->
+    <section id="ordersView" class="hidden">
+      <h2 style="margin:8px 0">طلباتي</h2>
+      <div id="ordersList"></div>
+    </section>
 
-  </main>  <footer class="nav" aria-label="التنقل">
+    <!-- الحساب -->
+    <section id="profileView" class="hidden">
+      <h2 style="margin:8px 0">حسابي</h2>
+      <div id="profileBox" class="card" style="padding:12px"></div>
+    </section>
+  </main>
+
+  <footer class="nav" aria-label="التنقل">
     <div class="wrap tabs">
       <a href="#" data-tab="home"   class="active">الرئيسية</a>
       <a href="#" data-tab="orders">طلباتي</a>
       <a href="#" data-tab="cart">السلة</a>
       <a href="#" data-tab="profile">حسابي</a>
     </div>
-  </footer>  <section id="toast"><div class="toast" id="toastMsg"></div></section><script>
+  </footer>
+
+  <section id="toast"><div class="toast" id="toastMsg"></div></section>
+
+<script>
 (()=>{
-  const $=(s,c=document)=>c.querySelector(s); const $$=(s,c=document)=>Array.from(c.querySelectorAll(s));
+
+  const $=(s,c=document)=>c.querySelector(s);
+  const $$=(s,c=document)=>Array.from(c.querySelectorAll(s));
   const fmt=n=>(Math.round(n*100)/100).toFixed(2);
   const uid=()=>Math.random().toString(36).slice(2,10);
   const toast=(m)=>{const t=$('#toast'); $('#toastMsg').textContent=m; t.style.display='block'; setTimeout(()=>t.style.display='none', 1800)};
@@ -221,14 +251,14 @@ th,td{padding:12px;border-bottom:1px solid var(--stroke);text-align:right}
     tracking:null
   };
 
-  // ===== التنقل بين الأقسام =====
+  /* ===== تنقل الأقسام ===== */
   function show(which){
     ['home','restaurantView','cartView','checkoutView','trackView','ordersView','profileView'].forEach(id=>$('#'+id).classList.toggle('hidden', id!==which));
     $$('.tabs a').forEach(a=>a.classList.toggle('active', a.dataset.tab===mapTab(which)));
   }
   function mapTab(view){ return view==='cartView'?'cart' : view==='ordersView'?'orders' : view==='profileView'?'profile' : 'home'; }
 
-  // ===== عرض الرئيسية مع فلاتر =====
+  /* ===== الرئيسية + فلاتر ===== */
   function renderHome(filter='all',q=''){
     const cont=$('#restaurants'); cont.innerHTML='';
     let list=[...state.restaurants];
@@ -244,7 +274,7 @@ th,td{padding:12px;border-bottom:1px solid var(--stroke);text-align:right}
         <div>
           <div><strong>${r.name}</strong></div>
           <div class="muted">${r.cuisines.join(' • ')} • ⭐ ${r.rating} • ⏱️ ${r.deliveryTime} د</div>
-          ${r.promo?`<div class="tag" style="margin-top:6px;display:inline-flex">${r.promo}</div>`:''}
+          ${r.promo?`<div class="chip" style="margin-top:6px">${r.promo}</div>`:''}
         </div>
         <div><button class="btn secondary" data-open="${r.id}">افتح</button></div>
       </div>`;
@@ -253,7 +283,7 @@ th,td{padding:12px;border-bottom:1px solid var(--stroke);text-align:right}
     $$('#restaurants [data-open]').forEach(b=>b.onclick=()=>openRestaurant(b.dataset.open));
   }
 
-  // ===== صفحة المطعم =====
+  /* ===== صفحة المطعم ===== */
   function openRestaurant(id){
     const r=state.restaurants.find(x=>x.id===id); if(!r) return;
     show('restaurantView');
@@ -276,14 +306,15 @@ th,td{padding:12px;border-bottom:1px solid var(--stroke);text-align:right}
     $$('#menu [data-add]').forEach(btn=>btn.onclick=()=>addToCart(btn.dataset.rest, btn.dataset.add));
   }
 
-  // ===== السلة =====
-  function cartCount(){return state.cart.reduce((a,i)=>a+i.qty,0)}
+  /* ===== السلة ===== */
+  const cartCount = ()=>state.cart.reduce((a,i)=>a+i.qty,0);
+  const updateCartBadge = ()=>{ $('#count').textContent = cartCount(); };
+
   function addToCart(rid,mid){
     const r=state.restaurants.find(x=>x.id===rid); const m=r?.menu.find(x=>x.id===mid); if(!m) return;
     const f=state.cart.find(x=>x.id===mid); if(f) f.qty++; else state.cart.push({id:mid,name:m.name,price:m.price,qty:1,rest:rid});
     updateCartBadge(); toast('أُضيف إلى السلة');
   }
-  function updateCartBadge(){ $('#count').textContent=cartCount(); }
 
   function renderCart(){
     show('cartView');
@@ -294,16 +325,30 @@ th,td{padding:12px;border-bottom:1px solid var(--stroke);text-align:right}
       const tr=document.createElement('tr'); tr.innerHTML=`
         <td>${i.name}</td>
         <td><span class="qty"><button data-d="-1" data-id="${i.id}">−</button><span>${i.qty}</span><button data-d="1" data-id="${i.id}">+</button></span></td>
-        <td>${fmt(i.qty*i.price)} د.ب</td>`; tbody.appendChild(tr);
+        <td>${fmt(i.qty*i.price)} د.ب</td>`;
+      tbody.appendChild(tr);
     });
     $$('#cartRows [data-d]').forEach(b=>b.onclick=()=>changeQty(b.dataset.id, Number(b.dataset.d)));
     calcTotals();
   }
-  function changeQty(id,d){ const it=state.cart.find(x=>x.id===id); if(!it) return; it.qty+=d; if(it.qty<=0) state.cart=state.cart.filter(x=>x.id!==id); updateCartBadge(); renderCart(); }
-  function clearCart(){ state.cart=[]; updateCartBadge(); renderCart(); }
-  function calcTotals(){ const total=state.cart.reduce((a,i)=>a+i.qty*i.price,0); let discount=0; if((state.coupon||'').toUpperCase()==='WELCOME') discount=1.0; $('#cartTotalNum').textContent=fmt(Math.max(total-discount,0))+' د.ب'; }
 
-  // ===== الدفع =====
+  function changeQty(id,d){
+    const it=state.cart.find(x=>x.id===id); if(!it) return;
+    it.qty += d;
+    if(it.qty<=0) state.cart = state.cart.filter(x=>x.id!==id);
+    updateCartBadge();
+    renderCart();
+  }
+
+  function clearCart(){ state.cart=[]; updateCartBadge(); renderCart(); }
+
+  function calcTotals(){
+    const total=state.cart.reduce((a,i)=>a+i.qty*i.price,0);
+    let discount=0; if((state.coupon||'').toUpperCase()==='WELCOME') discount=1.0;
+    $('#cartTotalNum').textContent = fmt(Math.max(total-discount,0))+' د.ب';
+  }
+
+  /* ===== الدفع ===== */
   function openCheckout(){ if(state.cart.length===0){ toast('السلة فارغة'); return;} show('checkoutView'); $('#addr').value=state.address||''; }
   function confirmPay(){
     const subtotal=state.cart.reduce((a,i)=>a+i.qty*i.price,0); const discount=((state.coupon||'').toUpperCase()==='WELCOME')?1.0:0; const total=Math.max(subtotal-discount,0);
@@ -312,34 +357,50 @@ th,td{padding:12px;border-bottom:1px solid var(--stroke);text-align:right}
     toast('تم إنشاء الطلب'); openTrack(order.id);
   }
 
-  // ===== تتبع =====
-  function openTrack(id){ show('trackView'); const o=state.orders.find(x=>x.id===id); if(!o){ $('#trackMeta').textContent='—'; return; }
+  /* ===== تتبع ===== */
+  function openTrack(id){
+    show('trackView');
+    const o=state.orders.find(x=>x.id===id); if(!o){ $('#trackMeta').textContent='—'; return; }
     $('#trackMeta').textContent=`طلب #${o.id} — ${new Date(o.createdAt).toLocaleString('ar')}`;
     const steps=$('#trackSteps'); steps.innerHTML='';
-    o.statuses.forEach((s,idx)=>{ const card=document.createElement('div'); card.className='card'; card.style.padding='12px'; card.innerHTML=`<div class="row" style="justify-content:space-between"><div>${s}</div><div class="tag">${idx<o.statusIdx? '✓ تم' : idx===o.statusIdx ? 'جارٍ' : 'لاحق'}</div></div>`; steps.appendChild(card); });
+    o.statuses.forEach((s,idx)=>{ const card=document.createElement('div'); card.className='card'; card.style.padding='12px';
+      card.innerHTML=`<div class="row" style="justify-content:space-between"><div>${s}</div><div class="chip">${idx<o.statusIdx? '✓ تم' : idx===o.statusIdx ? 'جارٍ' : 'لاحق'}</div></div>`;
+      steps.appendChild(card);
+    });
   }
 
-  // ===== طلباتي =====
-  function renderOrders(){ show('ordersView'); const box=$('#ordersList'); box.innerHTML= state.orders.length? '' : '<p class="muted">لا توجد طلبات بعد.</p>';
-    state.orders.forEach(o=>{ const card=document.createElement('article'); card.className='card'; card.style.padding='12px'; card.style.margin='10px 0'; card.innerHTML=`
-      <div class="row" style="justify-content:space-between">
-        <div>طلب #${o.id}</div>
-        <div class="muted">${new Date(o.createdAt).toLocaleString('ar')}</div>
-      </div>
-      <div class="row" style="justify-content:space-between">
-        <div class="muted">الحالة: ${o.statuses[Math.min(o.statusIdx,o.statuses.length-1)]}</div>
-        <button class="btn secondary" data-track="${o.id}">تتبع</button>
-      </div>`; box.appendChild(card); });
+  /* ===== طلباتي ===== */
+  function renderOrders(){
+    show('ordersView');
+    const box=$('#ordersList'); box.innerHTML= state.orders.length? '' : '<p class="muted">لا توجد طلبات بعد.</p>';
+    state.orders.forEach(o=>{
+      const card=document.createElement('article'); card.className='card'; card.style.padding='12px'; card.style.margin='10px 0';
+      card.innerHTML=`
+        <div class="row" style="justify-content:space-between">
+          <div>طلب #${o.id}</div>
+          <div class="muted">${new Date(o.createdAt).toLocaleString('ar')}</div>
+        </div>
+        <div class="row" style="justify-content:space-between">
+          <div class="muted">الحالة: ${o.statuses[Math.min(o.statusIdx,o.statuses.length-1)]}</div>
+          <button class="btn secondary" data-track="${o.id}">تتبع</button>
+        </div>`;
+      box.appendChild(card);
+    });
     $$('#ordersList [data-track]').forEach(b=>b.onclick=()=>openTrack(b.dataset.track));
   }
 
-  // ===== الحساب =====
-  function renderProfile(){ show('profileView'); const box=$('#profileBox');
-    if(!state.user){ box.innerHTML=`<p class="muted">سجّل اسمك ورقم جوالك محليًا على جهازك.</p>
+  /* ===== الحساب ===== */
+  function renderProfile(){
+    show('profileView');
+    const box=$('#profileBox');
+    if(!state.user){
+      box.innerHTML=`<p class="muted">سجّل اسمك ورقم جوالك محليًا على جهازك.</p>
       <div class="search" style="margin:8px 0"><input id="pName" placeholder="الاسم"/></div>
       <div class="search" style="margin:8px 0"><input id="pPhone" placeholder="الجوال"/></div>
-      <button class="btn block" id="saveProfile">حفظ</button>`; $('#saveProfile').onclick=()=>{ state.user={name:$('#pName').value||'', phone:$('#pPhone').value||''}; toast('تم الحفظ'); renderProfile(); } }
-    else{ box.innerHTML=`<div class="row" style="justify-content:space-between">
+      <button class="btn block" id="saveProfile">حفظ</button>`;
+      $('#saveProfile').onclick=()=>{ state.user={name:$('#pName').value||'', phone:$('#pPhone').value||''}; toast('تم الحفظ'); renderProfile(); };
+    }else{
+      box.innerHTML=`<div class="row" style="justify-content:space-between">
         <div><div><strong>${state.user.name||'-'}</strong></div><div class="muted">${state.user.phone||''}</div></div>
         <button class="btn secondary" id="logout">تسجيل الخروج</button>
       </div>
@@ -350,8 +411,8 @@ th,td{padding:12px;border-bottom:1px solid var(--stroke);text-align:right}
     }
   }
 
-  // ===== روابط وأحداث =====
-  $('#btnSearch').onclick=()=>{ const activeChip=$('#homeChips .chip.active'); renderHome(activeChip?.dataset.filter||'all', $('#q').value||''); };
+  /* ===== ربط الأزرار ===== */
+  $('#btnSearch').onclick=()=>{ const chip=$('#homeChips .chip.active'); renderHome(chip?.dataset.filter||'all', $('#q').value||''); };
   $('#btnCart').onclick=()=>renderCart();
   $('#backToList').onclick=()=>{ show('home'); renderHome($('#homeChips .chip.active')?.dataset.filter||'all', $('#q').value||''); };
   $('#applyCoupon').onclick=()=>{ state.coupon=$('#coupon').value||''; calcTotals(); toast('تم تطبيق القسيمة'); };
@@ -359,13 +420,33 @@ th,td{padding:12px;border-bottom:1px solid var(--stroke);text-align:right}
   $('#goCheckout').onclick=()=>openCheckout();
   $('#backCart').onclick=()=>renderCart();
   $('#confirmPay').onclick=()=>confirmPay();
-  $$('.tabs a').forEach(a=>a.onclick=(e)=>{ e.preventDefault(); if(a.dataset.tab==='home'){ show('home'); renderHome($('#homeChips .chip.active')?.dataset.filter||'all', $('#q').value||''); }
-    if(a.dataset.tab==='cart') renderCart(); if(a.dataset.tab==='orders') renderOrders(); if(a.dataset.tab==='profile') renderProfile(); });
-  $$('#homeChips .chip').forEach(ch=>ch.onclick=()=>{ $$('#homeChips .chip').forEach(x=>x.classList.remove('active')); ch.classList.add('active'); renderHome(ch.dataset.filter, $('#q').value||''); });
-  $$('.chipbar [data-pay]').forEach(ch=>ch.onclick=()=>{ $$('.chipbar [data-pay]').forEach(x=>x.classList.remove('active')); ch.classList.add('active'); $('#cardFields').style.display= ch.dataset.pay==='card' ? 'block':'none'; });
 
-  // ===== تشغيل أولي =====
-  renderHome('all',''); show('home'); updateCartBadge();
+  $$('.tabs a').forEach(a=>a.onclick=(e)=>{
+    e.preventDefault();
+    if(a.dataset.tab==='home'){ show('home'); renderHome($('#homeChips .chip.active')?.dataset.filter||'all', $('#q').value||''); }
+    if(a.dataset.tab==='cart') renderCart();
+    if(a.dataset.tab==='orders') renderOrders();
+    if(a.dataset.tab==='profile') renderProfile();
+  });
+
+  $$('#homeChips .chip').forEach(ch=>ch.onclick=()=>{
+    $$('#homeChips .chip').forEach(x=>x.classList.remove('active'));
+    ch.classList.add('active');
+    renderHome(ch.dataset.filter, $('#q').value||'');
+  });
+
+  $$('.chipbar [data-pay]').forEach(ch=>ch.onclick=()=>{
+    $$('.chipbar [data-pay]').forEach(x=>x.classList.remove('active'));
+    ch.classList.add('active');
+    $('#cardFields').style.display= ch.dataset.pay==='card' ? 'block':'none';
+  });
+
+  /* ===== تشغيل أولي ===== */
+  renderHome('all','');
+  show('home');
+  $('#count').textContent = 0;
+
 })();
-</script></body>
+</script>
+</body>
 </html>
