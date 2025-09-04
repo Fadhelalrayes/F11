@@ -1,27 +1,510 @@
-from transformers import VisionEncoderDecoderModel
-import torch, os
+<!doctype html>
 
-# 1) Retrouver le meilleur checkpoint connu par le trainer
-best_ckpt = getattr(trainer.state, "best_model_checkpoint", None)
-if best_ckpt is None:
-    # au cas où, mets le dernier step qui te semblait meilleur (ex: 500)
-    best_ckpt = "trocr_rimes_ckpt/checkpoint-500"
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>طلباتي — منصة طلب طعام</title>
+  <meta name="description" content="منصة طلب طعام شاملة بملف HTML واحد: بحث مطاعم، قائمة، سلة، دفع، تتبع الطلب، حساب مستخدم، ولوحة (تجريبية)." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath fill='%23ff6b00' d='M8 28c0-9 7-16 16-16h16c9 0 16 7 16 16v4c0 6-4 10-10 10H18C12 42 8 38 8 32z'/%3E%3Cpath fill='%23fff' d='M18 30h28a2 2 0 0 1 2 2v14H16V32a2 2 0 0 1 2-2z'/%3E%3Ccircle cx='22' cy='50' r='6' fill='%23000'/%3E%3Ccircle cx='42' cy='50' r='6' fill='%23000'/%3E%3C/svg%3E" />
+  <style>
+    /* ====== Reset & Base ====== */
+    *,*::before,*::after{box-sizing:border-box}
+    html,body{margin:0;padding:0}
+    :root{
+      --bg:#0f1115; --surface:#151924; --muted:#8e99b3; --text:#e9eef7; --brand:#ff6b00; --brand-2:#ffd8bf;
+      --ok:#16a34a; --warn:#f59e0b; --err:#ef4444; --card:#0f1115; --stroke:#232836;
+      --radius:16px; --shadow:0 10px 30px rgba(0,0,0,.35);
+    }
+    body{background:linear-gradient(180deg,#0d1017,#151924 35%,#0f1115 100%);color:var(--text);font:400 16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,"Noto Kufi Arabic",Tahoma,Arial}
+    a{color:inherit;text-decoration:none}
+    button{font:inherit}/* ====== Layout ====== */
+header{position:sticky;top:0;z-index:50;backdrop-filter:saturate(1.25) blur(8px);background:rgba(15,17,21,.7);border-bottom:1px solid var(--stroke)}
+.wrap{max-width:1100px;margin-inline:auto;padding:12px 16px}
+.row{display:flex;gap:12px;align-items:center}
+.grow{flex:1}
 
-print("Meilleur checkpoint:", best_ckpt)
+.brand{display:flex;gap:10px;align-items:center;font-weight:800}
+.badge{background:var(--brand);color:#000;padding:2px 8px;border-radius:999px;font-size:12px}
+.chip{border:1px solid var(--stroke);padding:8px 12px;border-radius:999px;color:var(--muted);cursor:pointer;user-select:none}
+.chip.active{background:var(--brand-2);color:#492006;border-color:transparent}
 
-# 2) Charger ce checkpoint
-device = "cuda" if torch.cuda.is_available() else "cpu"
-best_model = VisionEncoderDecoderModel.from_pretrained(best_ckpt).to(device)
+.search{display:flex;gap:8px;align-items:center;background:#0b0e14;border:1px solid var(--stroke);padding:8px 10px;border-radius:12px}
+.search input{all:unset;direction:rtl;flex:1;caret-color:var(--brand);}
 
-# 3) Évaluer (val + test) et afficher
-trainer.model = best_model
-val_metrics  = trainer.evaluate(eval_dataset=val_ds, metric_key_prefix="val")
-test_metrics = trainer.evaluate(eval_dataset=test_ds)
-print("VAL:", {k: float(f"{v:.6f}") if isinstance(v,float) else v for k,v in val_metrics.items()})
-print("TEST:", {k: float(f"{v:.6f}") if isinstance(v,float) else v for k,v in test_metrics.items()})
+main{padding:22px 16px}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
+@media (max-width:1000px){.grid{grid-template-columns:repeat(6,1fr)}}
+@media (max-width:720px){.grid{grid-template-columns:repeat(2,1fr)}}
 
-# 4) Sauvegarder proprement
-save_dir = "trocr_rimes_best_now"
-best_model.save_pretrained(save_dir)
-processor.save_pretrained(save_dir)
-print("✔️ sauvegardé dans:", save_dir)
+.card{background:linear-gradient(180deg,#0e1219,#121827);border:1px solid var(--stroke);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
+.card .img{height:140px;background:#0b0f17;display:flex;align-items:center;justify-content:center;font-size:48px}
+.card .body{padding:12px}
+.card h3{margin:0 0 6px 0;font-size:18px}
+.muted{color:var(--muted);font-size:14px}
+
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--brand);color:#000;padding:10px 14px;border:none;border-radius:12px;cursor:pointer}
+.btn.secondary{background:#1f2430;color:var(--text);border:1px solid var(--stroke)}
+.btn.ghost{background:transparent;border:1px dashed var(--stroke);color:var(--muted)}
+
+.sticky-cart{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);z-index:60}
+.floating{background:var(--brand);color:#000;padding:10px 16px;border-radius:999px;box-shadow:var(--shadow);display:flex;gap:10px;align-items:center}
+
+/* Restaurant detail */
+.menu-cat{margin:12px 0 6px;font-weight:700}
+.menu-item{display:flex;gap:12px;padding:10px;border:1px solid var(--stroke);border-radius:12px;align-items:center}
+.menu-item .pic{width:72px;height:72px;border-radius:10px;background:#0b0f17;display:flex;align-items:center;justify-content:center}
+.qty{display:inline-flex;align-items:center;border:1px solid var(--stroke);border-radius:10px}
+.qty button{all:unset;padding:8px 10px;cursor:pointer}
+.qty span{min-width:32px;text-align:center}
+
+/* Drawer / Modal */
+dialog{border:none;border-radius:16px;background:#111522;color:var(--text);width:min(520px,92vw)}
+dialog::backdrop{background:rgba(0,0,0,.5)}
+
+/* Tables */
+table{width:100%;border-collapse:collapse}
+th,td{padding:10px;border-bottom:1px solid var(--stroke);text-align:right}
+
+/* Bottom nav */
+.bottom-nav{position:sticky;bottom:0;background:rgba(10,12,17,.85);backdrop-filter:blur(8px);border-top:1px solid var(--stroke)}
+.tabs{display:grid;grid-template-columns:repeat(4,1fr)}
+.tabs a{padding:12px;text-align:center;color:var(--muted)}
+.tabs a.active{color:var(--brand)}
+
+/* Toast */
+#toast{position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:80;display:none}
+.toast{background:#101623;border:1px solid var(--stroke);padding:10px 14px;border-radius:12px;box-shadow:var(--shadow)}
+
+/* Forms */
+.field{display:flex;flex-direction:column;gap:6px}
+.field input,.field select,.field textarea{background:#0b0f17;border:1px solid var(--stroke);border-radius:10px;padding:10px;color:var(--text);font:inherit}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+
+/* Timeline */
+.timeline{display:grid;gap:10px}
+.tl-item{display:grid;grid-template-columns:28px 1fr;gap:10px;align-items:start}
+.dot{width:12px;height:12px;border-radius:999px;margin-top:4px}
+.dot.done{background:var(--ok)}
+.dot.now{background:var(--warn)}
+.dot.wait{background:#2b3241}
+
+.kicker{font-size:13px;color:var(--muted)}
+
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap row">
+      <a href="#/" class="brand" aria-label="الرئيسية">
+        <svg width="28" height="28" viewBox="0 0 64 64" aria-hidden="true"><path fill="#ff6b00" d="M8 28c0-9 7-16 16-16h16c9 0 16 7 16 16v4c0 6-4 10-10 10H18C12 42 8 38 8 32z"/><circle cx="24" cy="50" r="6"/><circle cx="44" cy="50" r="6"/></svg>
+        <span>طلباتي</span>
+        <span class="badge">HTML فقط</span>
+      </a>
+      <div class="grow search" role="search">
+        <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="#8e99b3" d="M10 2a8 8 0 1 0 4.9 14.4l4.9 4.9 1.4-1.4-4.9-4.9A8 8 0 0 0 10 2m0 2a6 6 0 1 1 0 12A6 6 0 0 1 10 4"/></svg>
+        <input id="q" placeholder="ابحث عن مطعم أو طبق…" />
+        <button id="btnSearch" class="btn secondary">بحث</button>
+      </div>
+      <nav class="row">
+        <a class="chip" href="#/restaurants">المطاعم</a>
+        <a class="chip" href="#/orders">طلباتي</a>
+        <button class="chip" id="openAuth">حسابي</button>
+      </nav>
+    </div>
+  </header>  <main class="wrap" id="app" aria-live="polite"></main>  <div class="sticky-cart" id="cartFab" hidden>
+    <a href="#/cart" class="floating"><span>السلة</span><strong id="cartCount">0</strong> · <span id="cartTotal">0.00</span> د.ب</a>
+  </div>  <section class="bottom-nav">
+    <div class="wrap tabs">
+      <a href="#/" class="tab" data-tab="home">الرئيسية</a>
+      <a href="#/restaurants" class="tab" data-tab="list">المطاعم</a>
+      <a href="#/orders" class="tab" data-tab="orders">طلباتي</a>
+      <a href="#/profile" class="tab" data-tab="profile">حسابي</a>
+    </div>
+  </section>  <section id="toast"><div class="toast" id="toastMsg"></div></section>  <!-- Auth Modal -->  <dialog id="authDlg">
+    <form method="dialog" id="authForm">
+      <h3 style="margin:0 0 8px 0">تسجيل الدخول / إنشاء حساب</h3>
+      <p class="kicker">تسجيل سريع بالاسم ورقم الجوال (اختبار محلي).</p>
+      <div class="two">
+        <label class="field">الاسم<input name="name" required placeholder="مثال: أحمد" /></label>
+        <label class="field">الجوال<input name="phone" required pattern="[0-9+\- ]{6,}" placeholder="05xxxxxxx" /></label>
+      </div>
+      <label class="field">العنوان الافتراضي<textarea name="address" rows="2" placeholder="المنامة، شارع…"></textarea></label>
+      <div class="row" style="justify-content:space-between;margin-top:10px">
+        <button class="btn secondary" value="cancel">إلغاء</button>
+        <button class="btn" value="ok">حفظ</button>
+      </div>
+    </form>
+  </dialog>  <!-- Checkout Modal (payment) -->  <dialog id="payDlg">
+    <form method="dialog" id="payForm">
+      <h3 style="margin:0 0 8px 0">الدفع</h3>
+      <div class="two">
+        <label class="field">طريقة الدفع
+          <select name="method">
+            <option value="card">بطاقة</option>
+            <option value="cod">نقدًا عند التسليم</option>
+            <option value="wallet">محفظة</option>
+          </select>
+        </label>
+        <label class="field">قسيمة خصم
+          <input name="coupon" placeholder="مثال: WELCOME" />
+        </label>
+      </div>
+      <div class="two" id="cardBlock">
+        <label class="field">رقم البطاقة<input name="card" maxlength="19" placeholder="0000 0000 0000 0000" /></label>
+        <label class="field">انتهاء<input name="exp" placeholder="MM/YY" /></label>
+      </div>
+      <div class="row" style="justify-content:space-between;margin-top:10px">
+        <button class="btn secondary" value="cancel">رجوع</button>
+        <button class="btn" value="ok">ادفع الآن</button>
+      </div>
+    </form>
+  </dialog><script>
+(() => {
+  'use strict';
+  // ===== Utilities =====
+  const $ = (sel, ctx=document) => ctx.querySelector(sel);
+  const $$ = (sel, ctx=document) => Array.from(ctx.querySelectorAll(sel));
+  const fmt = n => (Math.round(n * 100) / 100).toFixed(2);
+  const uid = () => Math.random().toString(36).slice(2,10);
+  const toast = (msg) => { const t=$('#toast'); $('#toastMsg').textContent=msg; t.style.display='block'; setTimeout(()=>t.style.display='none', 2200); };
+  const save = () => localStorage.setItem('talabati', JSON.stringify(state));
+  const load = () => JSON.parse(localStorage.getItem('talabati')||'null');
+  const go = (hash) => { location.hash = hash; };
+  const getHash = () => location.hash.split('?')[0];
+  const getQuery = () => Object.fromEntries(new URLSearchParams(location.hash.split('?')[1]||''));
+
+  // ===== Seed Data =====
+  const demoRestaurants = [
+    {
+      id:'r-pizza', name:'بيتزا روما', cuisines:['إيطالي','بيتزا'], rating:4.6, deliveryTime:25, minOrder:3.0, deliveryFee:0.6, promo:'خصم 20%', open:true,
+      about:'عجينة طازجة وصلصة منزلية',
+      menu:[
+        {id:'m-mar', cat:'بيتزا', name:'مارجريتا', desc:'جبن موزاريلا وطماطم وريحان', price:3.5},
+        {id:'m-pep', cat:'بيتزا', name:'بيبروني', desc:'سلامي بقري حار', price:3.9},
+        {id:'m-vega', cat:'بيتزا', name:'النباتية', desc:'خضار مشكلة', price:3.7},
+        {id:'m-tir', cat:'حلويات', name:'تيراميسو', desc:'حلوى إيطالية كلاسيكية', price:1.8}
+      ]
+    },
+    {
+      id:'r-burger', name:'برجر ستريت', cuisines:['أمريكي','ساندويتش'], rating:4.4, deliveryTime:20, minOrder:2.5, deliveryFee:0.5, promo:'توصيل مجاني', open:true,
+      about:'لحوم طازجة ومخبوزات يومية',
+      menu:[
+        {id:'m-cb', cat:'برجر', name:'تشيز برجر', desc:'جبنة شيدر وخص وصلصة', price:2.6},
+        {id:'m-dc', cat:'برجر', name:'دبل تشيز', desc:'شريحتان من اللحم', price:3.4},
+        {id:'m-fr', cat:'أطباق جانبية', name:'بطاطس مقلية', desc:'مقرمشة', price:0.9},
+        {id:'m-mil', cat:'مشروبات', name:'ميلك شيك', desc:'شوكلاتة/فانيلا', price:1.4}
+      ]
+    },
+    {
+      id:'r-grill', name:'مشويات السلطان', cuisines:['عربي','مشويات'], rating:4.7, deliveryTime:30, minOrder:4.0, deliveryFee:0.7, promo:'خصم 10%', open:true,
+      about:'تتبيلة فحم سرّية',
+      menu:[
+        {id:'m-kb', cat:'مشويات', name:'كباب لحم', desc:'200غ مع أرز/خبز', price:4.2},
+        {id:'m-sh', cat:'مشويات', name:'شيش طاووق', desc:'دجاج متبّل', price:3.6},
+        {id:'m-hm', cat:'مقبلات', name:'حمص', desc:'حمص بالطحينة', price:0.8},
+        {id:'m-tb', cat:'مقبلات', name:'تبولة', desc:'بقدونس وبرغل', price:0.9}
+      ]
+    }
+  ];
+
+  // ===== Global State =====
+  const state = load() || {
+    user:null,
+    address:null,
+    cart:{items:[], note:'', restId:null},
+    restaurants: demoRestaurants,
+    orders:[],
+    lastOrderTick: Date.now()
+  };
+
+  // Persist periodically
+  window.addEventListener('beforeunload', save);
+
+  // Notifications
+  if ('Notification' in window && Notification.permission === 'default') {
+    Notification.requestPermission().catch(()=>{});
+  }
+
+  // Service Worker (inline via Blob)
+  if ('serviceWorker' in navigator) {
+    const swCode = `self.addEventListener('install', e=>{self.skipWaiting();e.waitUntil(caches.open('talabati-v1').then(c=>c.addAll([self.location.href])))});
+self.addEventListener('activate', e=>self.clients.claim());
+self.addEventListener('fetch', e=>{e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request).catch(()=>r)))})`;
+    const blob = new Blob([swCode], {type:'text/javascript'});
+    const url = URL.createObjectURL(blob);
+    navigator.serviceWorker.register(url).catch(()=>{});
+  }
+
+  // ===== Router =====
+  const routes = {
+    '#/': renderHome,
+    '#/restaurants': renderRestaurantList,
+    '#/restaurant': renderRestaurant,
+    '#/cart': renderCart,
+    '#/checkout': renderCheckout,
+    '#/orders': renderOrders,
+    '#/track': renderTrack,
+    '#/profile': renderProfile,
+    '#/admin': renderAdmin
+  };
+
+  function router(){
+    const h = getHash() || '#/';
+    // tabs active
+    $$('.tab').forEach(a=>a.classList.toggle('active', a.getAttribute('href')===h));
+    (routes[h]||renderHome)();
+  }
+
+  window.addEventListener('hashchange', router);
+
+  // ===== Header actions =====
+  $('#btnSearch').addEventListener('click', ()=>{
+    const q = $('#q').value.trim();
+    go('#/restaurants?q='+encodeURIComponent(q));
+  });
+  $('#q').addEventListener('keydown', e=>{if(e.key==='Enter'){ $('#btnSearch').click(); }});
+
+  // Auth dialog
+  const authDlg = $('#authDlg');
+  $('#openAuth').addEventListener('click', ()=>{ fillAuth(); authDlg.showModal(); });
+  $('#authForm').addEventListener('close', ()=>{
+    if (authDlg.returnValue==='ok') {
+      const f = new FormData($('#authForm'));
+      state.user = { id:state.user?.id||uid(), name:f.get('name'), phone:f.get('phone'), addresses:[f.get('address')||''] };
+      state.address = f.get('address')||state.address;
+      save(); toast('تم حفظ الحساب'); router();
+    }
+  });
+  function fillAuth(){
+    const f = $('#authForm');
+    f.name.value = state.user?.name||'';
+    f.phone.value = state.user?.phone||'';
+    f.address.value = state.address||state.user?.addresses?.[0]||'';
+  }
+
+  // ===== Cart helpers =====
+  function cartCount(){ return state.cart.items.reduce((a,i)=>a+i.qty,0); }
+  function cartTotal(){ return state.cart.items.reduce((a,i)=>a + i.price*i.qty, 0); }
+  function cartRest(){ return state.restaurants.find(r=>r.id===state.cart.restId); }
+  function updateCartFab(){
+    const has = cartCount()>0;
+    $('#cartFab').hidden = !has; if(!has) return;
+    $('#cartCount').textContent = cartCount();
+    $('#cartTotal').textContent = fmt(cartTotal());
+  }
+  function addItem(restId, item){
+    if (state.cart.restId && state.cart.restId!==restId){
+      toast('السلة تخص مطعمًا آخر. إفراغها أولًا.');
+      return;
+    }
+    state.cart.restId = restId;
+    const found = state.cart.items.find(x=>x.id===item.id);
+    if(found) found.qty++; else state.cart.items.push({...item, qty:1});
+    save(); updateCartFab();
+    toast('أُضيف إلى السلة');
+  }
+  function changeQty(id, d){
+    const it = state.cart.items.find(x=>x.id===id); if(!it) return;
+    it.qty += d; if (it.qty<=0) state.cart.items = state.cart.items.filter(x=>x.id!==id);
+    if (state.cart.items.length===0) state.cart.restId=null;
+    save(); updateCartFab(); router();
+  }
+  function clearCart(){ state.cart={items:[],note:'',restId:null}; save(); updateCartFab(); }
+
+  // ===== Views =====
+  function renderHome(){
+    const el = $('#app');
+    const chips = ['الكل','توصيل مجاني','خصومات','الأعلى تقييمًا','الأسرع'];
+    el.innerHTML = `
+      <section class="row" style="justify-content:space-between;gap:10px">
+        <div>
+          <h2 style="margin:0">مرحبًا ${state.user? state.user.name : 'بك'} 👋</h2>
+          <div class="kicker">وجهتك السريعة لاكتشاف أفضل المطاعم.</div>
+        </div>
+        <div>
+          <a class="btn" href="#/restaurants">استكشف المطاعم</a>
+        </div>
+      </section>
+      <section style="margin:14px 0;display:flex;flex-wrap:wrap;gap:8px">
+        ${chips.map((c,i)=>`<a href="#/restaurants?tag=${encodeURIComponent(c)}" class="chip ${i===0?'active':''}">${c}</a>`).join('')}
+      </section>
+      <section class="grid">
+        ${state.restaurants.map(r=>card(r)).join('')}
+      </section>
+    `;
+  }
+
+  function card(r){
+    return `<article class="card" style="grid-column:span 4">
+      <a href="#/restaurant?id=${r.id}">
+        <div class="img" aria-hidden="true">🍽️</div>
+        <div class="body">
+          <h3>${r.name}</h3>
+          <div class="row" style="justify-content:space-between">
+            <div class="muted">${r.cuisines.join(' • ')}</div>
+            <div class="muted">⭐ ${r.rating} • ⏱️ ${r.deliveryTime} د</div>
+          </div>
+          ${r.promo?`<div class="badge" style="margin-top:8px">${r.promo}</div>`:''}
+        </div>
+      </a>
+    </article>`;
+  }
+
+  function renderRestaurantList(){
+    const el = $('#app');
+    const q = (getQuery().q||'').toLowerCase();
+    const tag = getQuery().tag||'';
+    let list = [...state.restaurants];
+    if(q) list = list.filter(r => r.name.toLowerCase().includes(q) || r.cuisines.join(',').toLowerCase().includes(q));
+    if(tag==='توصيل مجاني') list = list.filter(r=>r.deliveryFee===0);
+    if(tag==='الأعلى تقييمًا') list = list.sort((a,b)=>b.rating-a.rating);
+    if(tag==='الأسرع') list = list.sort((a,b)=>a.deliveryTime-b.deliveryTime);
+    if(tag==='خصومات') list = list.filter(r=>/خصم|مجاني/.test(r.promo||''));
+
+    el.innerHTML = `
+      <h2 style="margin:0 0 10px">المطاعم</h2>
+      <div class="row" style="flex-wrap:wrap;gap:8px;margin-bottom:12px">
+        <span class="chip ${!tag||tag==='الكل'?'active':''}"><a href="#/restaurants">الكل</a></span>
+        <a class="chip ${tag==='توصيل مجاني'?'active':''}" href="#/restaurants?tag=توصيل%20مجاني">توصيل مجاني</a>
+        <a class="chip ${tag==='خصومات'?'active':''}" href="#/restaurants?tag=خصومات">خصومات</a>
+        <a class="chip ${tag==='الأعلى تقييمًا'?'active':''}" href="#/restaurants?tag=الأعلى%20تقييمًا">الأعلى تقييمًا</a>
+        <a class="chip ${tag==='الأسرع'?'active':''}" href="#/restaurants?tag=الأسرع">الأسرع</a>
+      </div>
+      <section class="grid">${list.map(r=>card(r)).join('')}</section>
+    `;
+  }
+
+  function renderRestaurant(){
+    const {id} = getQuery();
+    const r = state.restaurants.find(x=>x.id===id);
+    if(!r){ $('#app').innerHTML = '<p>مطعم غير موجود</p>'; return; }
+    const cats = [...new Set(r.menu.map(m=>m.cat))];
+    $('#app').innerHTML = `
+      <section class="row" style="justify-content:space-between;gap:10px">
+        <div>
+          <h2 style="margin:0">${r.name}</h2>
+          <div class="muted">${r.cuisines.join(' • ')} • ⭐ ${r.rating} • ⏱️ ${r.deliveryTime} د • أجور التوصيل ${fmt(r.deliveryFee)} د.ب</div>
+          <div class="kicker">${r.about||''}</div>
+        </div>
+        <div class="row" style="gap:8px">
+          <a class="btn secondary" href="#/restaurants">عودة</a>
+          <a class="btn" href="#/cart">السلة (${cartCount()})</a>
+        </div>
+      </section>
+      ${cats.map(c=>`
+        <h3 class="menu-cat">${c}</h3>
+        <div class="grid">${r.menu.filter(m=>m.cat===c).map(m=>menuItem(r,m)).join('')}</div>
+      `).join('')}
+    `;
+
+    // attach buttons
+    $$('#app .menu-item .btn').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const mid = btn.dataset.id; const m = r.menu.find(x=>x.id===mid);
+        addItem(r.id, {id:m.id, name:m.name, price:m.price});
+      })
+    });
+  }
+  function menuItem(r,m){
+    return `<div class="card" style="grid-column:span 6">
+      <div class="body menu-item">
+        <div class="pic" aria-hidden="true">🍽️</div>
+        <div class="grow">
+          <div class="row" style="justify-content:space-between">
+            <strong>${m.name}</strong>
+            <strong>${fmt(m.price)} د.ب</strong>
+          </div>
+          <div class="muted">${m.desc||''}</div>
+        </div>
+        <button class="btn" data-id="${m.id}">أضِف</button>
+      </div>
+    </div>`
+  }
+
+  function renderCart(){
+    const el = $('#app');
+    if (cartCount()===0){ el.innerHTML = `<h2>السلة</h2><p>سلتك فارغة. <a href="#/restaurants">ابدأ التسوق</a>.</p>`; return; }
+    const rest = cartRest();
+    el.innerHTML = `
+      <h2 style="margin:0 0 10px">السلة — ${rest?.name||''}</h2>
+      <div class="row" style="gap:8px;margin-bottom:8px">
+        <button class="btn secondary" id="clearCart">إفراغ</button>
+        <a class="btn" href="#/checkout">المتابعة للدفع</a>
+      </div>
+      <table>
+        <thead><tr><th>المنتج</th><th>الكمية</th><th>السعر</th></tr></thead>
+        <tbody>
+          ${state.cart.items.map(i=>`<tr>
+            <td>${i.name}</td>
+            <td>
+              <span class="qty"><button aria-label="نقص" data-id="${i.id}" data-d="-1">−</button><span>${i.qty}</span><button aria-label="زيادة" data-id="${i.id}" data-d="1">+</button></span>
+            </td>
+            <td>${fmt(i.qty*i.price)} د.ب</td>
+          </tr>`).join('')}
+        </tbody>
+      </table>
+      <div class="row" style="justify-content:space-between;margin-top:10px">
+        <div class="muted">إجمالي العناصر</div>
+        <div><strong>${fmt(cartTotal())} د.ب</strong></div>
+      </div>
+      <label class="field" style="margin-top:10px">ملاحظة للسائق<textarea id="cartNote" rows="2" placeholder="مثال: الرجاء الاتصال عند الوصول"></textarea></label>`;
+
+$('#cartNote').value = state.cart.note||'';
+$('#cartNote').addEventListener('input', e=>{ state.cart.note = e.target.value; save(); });
+$('#clearCart').addEventListener('click', ()=>{ clearCart(); router(); });
+$$('#app [data-d]').forEach(btn=>btn.addEventListener('click', ()=>{
+  changeQty(btn.dataset.id, Number(btn.dataset.d));
+}));
+
+}
+
+function renderCheckout(){ if (cartCount()===0){ go('#/cart'); return; } const rest = cartRest(); const subtotal = cartTotal(); const fee = rest?.deliveryFee||0; const total = subtotal + fee; $('#app').innerHTML = <h2 style="margin:0 0 8px">الدفع</h2> <div class="two"> <section class="card" style="padding:12px"> <h3 style="margin-top:0">العنوان</h3> <label class="field">العنوان الكامل<textarea id="addr" rows="2" placeholder="اكتب عنوان التسليم">${state.address||''}</textarea></label> <div class="kicker">خريطة تمثيلية (بدون مزود خرائط): 📍</div> <div style="height:120px;border:1px dashed var(--stroke);border-radius:12px;display:flex;align-items:center;justify-content:center">خريطة</div> </section> <section class="card" style="padding:12px"> <h3 style="margin-top:0">الملخص</h3> <div class="row" style="justify-content:space-between"><div class="muted">قيمة الطلب</div><div>${fmt(subtotal)} د.ب</div></div> <div class="row" style="justify-content:space-between"><div class="muted">أجور التوصيل</div><div>${fmt(fee)} د.ب</div></div> <hr style="border:0;border-top:1px solid var(--stroke)"> <div class="row" style="justify-content:space-between"><strong>الإجمالي</strong><strong>${fmt(total)} د.ب</strong></div> <div class="row" style="justify-content:flex-end;margin-top:10px"><button class="btn" id="payBtn">إتمام الدفع</button></div> </section> </div>;
+
+$('#addr').addEventListener('input', e=>{ state.address = e.target.value; save(); });
+$('#payBtn').addEventListener('click',()=> $('#payDlg').showModal());
+
+const payDlg = $('#payDlg');
+$('#payForm').addEventListener('close', ()=>{
+  if(payDlg.returnValue==='ok'){
+    const f=new FormData($('#payForm'));
+    const coupon=(f.get('coupon')||'').trim().toUpperCase();
+    let discount=0; if (coupon==='WELCOME') discount = 1.0;
+    const order={
+      id: 'o-'+uid(),
+      createdAt: new Date().toISOString(),
+      statusIdx:0,
+      statuses:['جاري التحضير','في الطريق','تم التوصيل'],
+      address: state.address,
+      note: state.cart.note,
+      items: JSON.parse(JSON.stringify(state.cart.items)),
+      restId: state.cart.restId,
+      subtotal, fee, discount, total: Math.max(subtotal+fee-discount,0)
+    };
+    state.orders.unshift(order);
+    notify('تم استلام طلبك','سنبلغك بالتحديثات');
+    toast('تم إرسال الطلب');
+    clearCart();
+    save();
+    go(`#/track?id=${order.id}`);
+  }
+});
+
+}
+
+function renderOrders(){ $('#app').innerHTML = <h2 style="margin:0 0 10px">طلباتي</h2> ${state.orders.length===0?'<p>لا توجد طلبات بعد.</p>': state.orders.map(o=>orderRow(o)).join('')}; } function orderRow(o){ const r = state.restaurants.find(x=>x.id===o.restId); return <article class="card" style="padding:12px;margin:10px 0"> <div class="row" style="justify-content:space-between"> <div><strong>${r?.name||'مطعم'}</strong> <span class="muted">— ${new Date(o.createdAt).toLocaleString('ar')}</span></div> <div><a class="btn secondary" href="#/track?id=${o.id}">تتبع</a></div> </div> <div class="muted">الحالة: ${o.statuses[Math.min(o.statusIdx,o.statuses.length-1)]}</div> <div class="kicker">المجموع: ${fmt(o.total)} د.ب</div> </article> }
+
+function renderTrack(){ const {id} = getQuery(); const o = state.orders.find(x=>x.id===id); if(!o){ $('#app').innerHTML='<p>طلب غير موجود.</p>'; return; } const r = state.restaurants.find(x=>x.id===o.restId); $('#app').innerHTML =  <h2 style="margin:0 0 6px">تتبع الطلب</h2> <div class="card" style="padding:12px"> <div class="row" style="justify-content:space-between"> <div><strong>${r?.name||''}</strong> • <span class="muted">${new Date(o.createdAt).toLocaleString('ar')}</span></div> <a class="btn secondary" href="#/orders">كل الطلبات</a> </div> <div class="timeline" style="margin-top:10px"> ${o.statuses.map((s,idx)=> <div class="tl-item"> <div class="dot ${idx<o.statusIdx?'done': idx===o.statusIdx?'now':'wait'}"></div> <div>${s}</div> </div> ).join('')} </div> <div class="kicker" style="margin-top:8px">العنوان: ${o.address||'-'}</div> ${o.note?<div class="kicker">ملاحظة: ${o.note}</div>:''} <div class="row" style="justify-content:flex-end;margin-top:10px"> <button class="btn" id="supportBtn">مساعدة</button> </div> </div> ; $('#supportBtn')?.addEventListener('click',()=>toast('سيتم التواصل بك قريبًا')); }
+
+function renderProfile(){ $('#app').innerHTML =  <h2 style="margin:0 0 8px">حسابي</h2> ${state.user? <div class="card" style="padding:12px"> <div class="row" style="justify-content:space-between"> <div> <div><strong>${state.user.name}</strong></div> <div class="kicker">${state.user.phone}</div> </div> <div class="row" style="gap:8px"> <button class="btn secondary" id="editProfile">تعديل</button> <button class="btn ghost" id="logout">تسجيل الخروج</button> </div> </div> <div style="margin-top:10px" class="kicker">العنوان: ${state.address||state.user.addresses?.[0]||'-'}</div> </div> <div class="row" style="gap:8px;margin-top:10px"> <a class="btn secondary" href="#/admin">لوحة المطاعم (تجريبية)</a> </div> : <p>يرجى <button class="btn" id="loginNow">تسجيل الدخول</button> للمتابعة.</p>} ; $('#editProfile')?.addEventListener('click', ()=>{ fillAuth(); $('#authDlg').showModal(); }); $('#logout')?.addEventListener('click', ()=>{ state.user=null; save(); toast('تم تسجيل الخروج'); router(); }); $('#loginNow')?.addEventListener('click', ()=>$('#authDlg').showModal()); }
+
+function renderAdmin(){ if(!state.user){ go('#/profile'); return; } $('#app').innerHTML =  <h2 style="margin:0 0 8px">لوحة المطاعم (تجريبية محليًا)</h2> <div class="two"> <section class="card" style="padding:12px"> <h3 style="margin-top:0">إضافة مطعم</h3> <label class="field">الاسم<input id="arName"/></label> <label class="field">أنواع المطبخ<input id="arCuis" placeholder="مفصولة بفواصل"/></label> <div class="two"> <label class="field">التوصيل (د.ب)<input id="arFee" type="number" step="0.1"/></label> <label class="field">الوقت (دقيقة)<input id="arTime" type="number"/></label> </div> <button class="btn" id="addR">إضافة</button> </section> <section class="card" style="padding:12px"> <h3 style="margin-top:0">قائمة المطاعم</h3> <div id="rList">${state.restaurants.map(r=><div class="row" style="justify-content:space-between;border-bottom:1px solid var(--stroke);padding:6px 0"><div>${r.name}</div><button class="btn secondary" data-id="${r.id}">حذف</button></div>).join('')}</div> </section> </div> ; $('#addR').addEventListener('click', ()=>{ const name=$('#arName').value.trim(); if(!name) return; const r={id:'r-'+uid(), name, cuisines:($('#arCuis').value||'عام').split(',').map(s=>s.trim()).filter(Boolean), rating:4.3, deliveryTime:Number($('#arTime').value||25), minOrder:3, deliveryFee:Number($('#arFee').value||0.5), promo:'', open:true, about:'', menu:[]}; state.restaurants.unshift(r); save(); toast('أُضيف المطعم'); router(); }); $$('#rList [data-id]').forEach(b=>b.addEventListener('click',()=>{ state.restaurants = state.restaurants.filter(r=>r.id!==b.dataset.id); save(); toast('حُذف'); router(); })); }
+
+// ===== Background order status ticker ===== setInterval(()=>{ // every ~8s advance some orders const now = Date.now(); if (now - state.lastOrderTick < 8000) return; state.lastOrderTick = now; let changed = false; state.orders.forEach(o=>{ if (o.statusIdx < o.statuses.length-1){ o.statusIdx++; changed = true; notify('تحديث الطلب', o.statuses[o.statusIdx]); } }); if (changed) save(); if (getHash()==='#/track') renderTrack(); }, 1400);
+
+function notify(title, body){ if ('Notification' in window && Notification.permission==='granted'){ try{ new Notification(title, {body}); }catch{} } }
+
+// ===== Kick ===== updateCartFab(); router(); })(); </script>
+
+</body>
+</html>
