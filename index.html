@@ -1,318 +1,339 @@
-<!DOCTYPE html><html lang="ar" dir="rtl">
+<!doctype html>
+<html lang="ar" dir="rtl">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>كتاب الصلاة — موسوعة مبوّبة (نسخة مختصرة)</title>
-  <meta name="description" content="موسوعة مبوّبة في أحكام الصلاة وفق فتاوى السيد القائد، مستخرجة وملخّصة من ملف PDF." />
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    body { font-family: 'Tajawal', system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans", sans-serif; }
-    .glass { background: rgba(255,255,255,0.06); backdrop-filter: blur(10px); }
-    .active-link { background: rgba(14,165,233,0.15); color: #7dd3fc; }
-    .page { display:none; }
-    .page.active { display:block; }
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>عداد الركعات — وضع الوسواس (الشيعة)</title>
+<meta name="theme-color" content="#0b2a33">
+<style>
+  :root{
+    --bg:#0b2a33; --card:#102f3a; --accent:#ffd166; --muted:#96b1b8; --text:#eaf6f8; --ok:#4ade80; --warn:#f59e0b; --danger:#ef4444;
+    --radius:18px;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;background:
+    radial-gradient(1200px 1200px at 80% -200px, #143b47 0%, var(--bg) 60%) fixed;
+    color:var(--text); font-family:system-ui, -apple-system, "Segoe UI", Roboto, "Noto Kufi Arabic", "Noto Sans Arabic", "Helvetica Neue", Arial, sans-serif;
+    line-height:1.5;
+  }
+  header{display:flex;align-items:center;justify-content:space-between;padding:16px 20px}
+  .logo{display:flex;gap:10px;align-items:center}
+  .logo span{font-weight:700;letter-spacing:.3px}
+  .chip{padding:.25rem .6rem;border-radius:999px;background:#0f3945;color:#bfe7ef;font-size:.8rem;border:1px solid #1d5566}
+  .container{max-width:980px;margin:0 auto;padding:12px 16px 48px}
+  .hero{
+    text-align:center;background:linear-gradient(180deg,#0e3541, #0c2f39);border:1px solid #1a4c59;
+    border-radius:calc(var(--radius) + 6px); padding:28px 18px; box-shadow:0 8px 30px rgba(0,0,0,.25);
+  }
+  .hero h1{margin:10px 0 8px;font-size:1.7rem}
+  .hero p{margin:0;color:#c9e6eb}
+  .cta{margin-top:16px}
+  button{
+    appearance:none;border:0;border-radius:14px;padding:12px 18px;font-weight:700;cursor:pointer;
+    background:var(--accent);color:#1a2d33;box-shadow:0 6px 0 #b18a2d;transition:.15s transform ease,.15s filter ease;
+  }
+  button:hover{filter:brightness(.98)}
+  button:active{transform:translateY(2px);box-shadow:0 4px 0 #b18a2d}
+  .ghost{background:transparent;border:1px solid #2b5561;color:#bfe7ef;box-shadow:none}
+  .grid{
+    margin-top:20px;display:grid;gap:14px;grid-template-columns:repeat(auto-fill, minmax(140px,1fr));
+  }
+  .card{
+    background:var(--card); border:1px solid #1a4c59; border-radius:var(--radius); padding:14px; text-align:center;
+    transition:.2s transform ease, .2s box-shadow ease; cursor:pointer; position:relative; overflow:hidden;
+  }
+  .card:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(0,0,0,.25)}
+  .icon{width:48px;height:48px;margin:8px auto 6px;display:grid;place-items:center;background:#0f3945;border-radius:14px;border:1px solid #1a4c59}
+  .card small{display:block;color:var(--muted)}
+  .footer-note{margin-top:18px;font-size:.9rem;color:#bdd7dc}
+  /* Counter Panel */
+  .panel{margin-top:22px;background:var(--card);border:1px solid #1a4c59;border-radius:var(--radius);padding:16px;display:none}
+  .panel.active{display:block}
+  .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .grow{flex:1}
+  .pill{background:#0f3945;border:1px solid #1a4c59;border-radius:999px;padding:.35rem .7rem;color:#cbe9ee;font-size:.9rem}
+  .counter{
+    margin-top:14px;display:grid;gap:14px;grid-template-columns:1fr;justify-items:center;text-align:center
+  }
+  .big{
+    font-size:4rem;font-weight:800;line-height:1;margin-top:4px;background:#0f3945;border:1px solid #1a4c59;
+    border-radius:28px;padding:16px 26px;min-width:220px;display:inline-block;
+  }
+  .progress{width:100%;height:10px;background:#0f3945;border:1px solid #1a4c59;border-radius:999px;overflow:hidden}
+  .bar{height:100%;width:0%;background:linear-gradient(90deg,#ffe08b, #ffc857)}
+  .controls{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+  .controls button{min-width:90px}
+  .controls .danger{background:var(--danger);box-shadow:0 6px 0 #b02a2a;color:#fff}
+  .controls .ok{background:var(--ok);box-shadow:0 6px 0 #2f855a;color:#003220}
+  .hint{background:#0f3945;border:1px dashed #1a4c59;border-radius:14px;padding:10px 12px;color:#cbe9ee}
+  .hint b{color:#fff}
+  .muted{color:#9fc6cd}
+  .section-title{margin:22px 0 10px;font-weight:800}
+  .kufi{font-family:"Noto Kufi Arabic", "Noto Sans Arabic", system-ui}
+  @media (min-width:860px){
+    .counter{grid-template-columns:1fr 1fr}
+  }
+</style>
 </head>
-<body class="bg-slate-950 text-slate-100">
-  <!-- Header / Topbar -->
-  <header class="sticky top-0 z-40 border-b border-white/10 bg-slate-950/80 backdrop-blur">
-    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center gap-4">
-      <div class="flex items-center gap-3">
-        <span class="text-2xl font-extrabold text-sky-400">كتاب الصلاة</span>
-        <span class="hidden md:inline text-slate-400">— موسوعة مبوّبة وفق رأي السيد القائد</span>
-      </div>
-      <div class="ms-auto flex items-center gap-2 w-full md:w-auto">
-        <input id="navSearch" type="search" placeholder="ابحث في العناوين…" class="w-full md:w-72 px-4 py-2 rounded-2xl bg-white/5 border border-white/10 focus:outline-none focus:ring-2 focus:ring-sky-500"/>
-        <button id="printBtn" class="px-4 py-2 rounded-2xl bg-white/10 border border-white/10 hover:bg-white/20">طباعة الصفحة</button>
-      </div>
+<body>
+  <header>
+    <div class="logo">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <rect x="3" y="3" width="18" height="18" rx="4" stroke="#bfe7ef" stroke-width="1.4"/>
+        <path d="M8 18V7h8v11" stroke="#ffd166" stroke-width="1.6"/>
+        <path d="M10 18v-3a2 2 0 1 1 4 0v3" stroke="#bfe7ef" stroke-width="1.4"/>
+      </svg>
+      <span>عداد الركعات</span>
     </div>
-  </header>  <!-- Layout -->  <div class="max-w-7xl mx-auto px-4 py-6 grid grid-cols-1 md:grid-cols-4 gap-6">
-    <!-- Sidebar -->
-    <aside class="md:col-span-1 glass rounded-3xl border border-white/10 p-3">
-      <nav id="sideNav" class="space-y-1 text-sm">
-        <a href="#home" class="block px-3 py-2 rounded-xl hover:bg-white/10">الصفحة الرئيسية</a>
-        <a href="#importance" class="block px-3 py-2 rounded-xl hover:bg-white/10">الأهمية والمكانة</a>
-        <a href="#obligatory" class="block px-3 py-2 rounded-xl hover:bg-white/10">الصلوات الواجبة</a>
-        <a href="#daily" class="block px-3 py-2 rounded-xl hover:bg-white/10">الفرائض اليومية</a>
-        <a href="#times" class="block px-3 py-2 rounded-xl hover:bg-white/10">أوقات الصلاة</a>
-        <a href="#order" class="block px-3 py-2 rounded-xl hover:bg-white/10">الترتيب بين الصلوات</a>
-        <a href="#mustahab" class="block px-3 py-2 rounded-xl hover:bg-white/10">الصلوات المستحبّة</a>
-        <a href="#qibla" class="block px-3 py-2 rounded-xl hover:bg-white/10">القبلة</a>
-        <a href="#dress" class="block px-3 py-2 rounded-xl hover:bg-white/10">لباس المصلّي وشروطه</a>
-        <a href="#place" class="block px-3 py-2 rounded-xl hover:bg-white/10">مكان الصلاة وأحكام المسجد</a>
-        <a href="#adhan" class="block px-3 py-2 rounded-xl hover:bg-white/10">الأذان والإقامة</a>
-        <a href="#wajibat" class="block px-3 py-2 rounded-xl hover:bg-white/10">واجبات الصلاة</a>
-        <a href="#mubtilat" class="block px-3 py-2 rounded-xl hover:bg-white/10">مبطلات الصلاة والشكوك</a>
-        <a href="#safar" class="block px-3 py-2 rounded-xl hover:bg-white/10">صلاة المسافر</a>
-        <a href="#jamaah" class="block px-3 py-2 rounded-xl hover:bg-white/10">صلاة الجماعة والجمعة</a>
-        <a href="#special" class="block px-3 py-2 rounded-xl hover:bg-white/10">صلوات خاصّة</a>
-        <a href="#report" class="block px-3 py-2 rounded-xl hover:bg-white/10">إعداد وتقرير</a>
-      </nav>
-    </aside><!-- Content -->
-<main class="md:col-span-3 space-y-6">
-  <!-- Home -->
-  <section id="home" class="page active glass rounded-3xl border border-white/10 p-6">
-    <h1 class="text-3xl md:text-4xl font-extrabold text-white">الصلاة — موسوعة مبوّبة</h1>
-    <p class="mt-3 text-slate-300 leading-relaxed">
-      هذه النسخة تجمع خلاصة كتاب الصلاة وفق فتاوى السيد القائد، مع تنظيمٍ مبوّبٍ قابل للتصفح في صفحة HTML واحدة.
-    </p>
-    <blockquote class="mt-6 p-4 rounded-2xl bg-white/5 border border-white/10 text-slate-200 leading-relaxed">
-      الصلاة أهم العبادات، وإذا أُقيمت بشكل صحيح مع التوجه، تطهّر روح الإنسان وتنوّر قلبه، وتجعلُه قادراً على التحرّر من الأخلاق الرذيلة. وهي قادرة على تطهير الفرد والمجتمع تدريجياً، ويُستحب الإتيان بها في أول وقتها، مع حضور القلب، بعيداً عن الرياء، وليعلم المصلّي أنه في كل كلمة يتكلم مع الله ويعرف ماذا يقول.
-    </blockquote>
-    <ul class="mt-4 text-slate-300 space-y-1">
-      <li>• اعتمدنا الترتيب المبسّط، مع الحفاظ على روح النص الفقهي.</li>
-      <li>• هذا تلخيص شامل يغطي الأبواب الأساسية دون تفاصيل المسائل الفرعية الدقيقة.</li>
-    </ul>
-  </section>
+    <span class="chip">وضع الوسواس</span>
+  </header>
 
-  <!-- Importance -->
-  <section id="importance" class="page glass rounded-3xl border border-white/10 p-6">
-    <h2 class="text-2xl font-bold text-sky-400">الأهمية والمكانة</h2>
-    <p class="mt-3 text-slate-200">الصلاة عمود الدين وأهمُّ العبادات. إذا أُقيمت على الوجه الصحيح ومع حضور القلب، تُطهّر الروح وتُهذّب الأخلاق وتُنوّر القلب، وتؤثر في الفرد والمجتمع تهذيباً وترقّياً.</p>
-    <ul class="mt-4 space-y-2 text-slate-300">
-      <li>• المبادرة إلى الصلاة في أول وقتها من أهم وجوه الفضل.</li>
-      <li>• يُستحب تجنّب الرياء، واستحضار أن المصلي يخاطب الله في كل كلمة.</li>
-    </ul>
-  </section>
+  <div class="container">
+    <!-- HERO -->
+    <section class="hero">
+      <div style="display:grid;place-items:center;">
+        <div class="icon" aria-hidden="true">
+          <!-- سجادة -->
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+            <rect x="7" y="4" width="10" height="16" rx="1.2" stroke="#ffd166" stroke-width="1.4"/>
+            <rect x="10" y="8" width="4" height="6" rx=".8" stroke="#bfe7ef" stroke-width="1.2"/>
+          </svg>
+        </div>
+      </div>
+      <h1 class="kufi">علاج مشكلة السهو في الصلاة</h1>
+      <p>اضغط “ابدأ صلاتك” ثم اختر الصلاة، وسيحسب التطبيق ركعاتك بثبات خاص لمن يكثر عندهم الشك.</p>
+      <div class="cta">
+        <button id="startBtn">ابدأ صلاتك</button>
+        <button class="ghost" id="howBtn">شرح سريع</button>
+      </div>
+    </section>
 
-  <!-- Obligatory prayers -->
-  <section id="obligatory" class="page glass rounded-3xl border border-white/10 p-6">
-    <h2 class="text-2xl font-bold text-sky-400">الصلوات الواجبة</h2>
-    <ul class="mt-3 space-y-2 text-slate-200 leading-relaxed">
-      <li>1) الفرائض اليومية (١٧ ركعة).</li>
-      <li>2) صلاة الطواف بعد الطواف الواجب حول الكعبة.</li>
-      <li>3) صلاة الآيات عند الخسوف والكسوف والزلزلة ونحوها.</li>
-      <li>4) صلاة الميّت على جسد المسلم.</li>
-      <li>5) قضاء الولد الذكر الأكبر لما فات عن والده، وعلى الأحوط وجوباً عن الأم.</li>
-      <li>6) الصلاة التي تجب بالعهد أو النذر أو اليمين أو الإجارة.</li>
-    </ul>
-  </section>
+    <!-- PRAYER PICKER -->
+    <section id="picker" class="grid" aria-label="اختر الصلاة" style="display:none">
+      <!-- تُملأ ديناميكياً -->
+    </section>
 
-  <!-- Daily -->
-  <section id="daily" class="page glass rounded-3xl border border-white/10 p-6">
-    <h2 class="text-2xl font-bold text-sky-400">الفرائض اليومية</h2>
-    <p class="mt-3 text-slate-200">عددها سبعة عشر ركعة:</p>
-    <ul class="mt-2 list-disc pe-6 space-y-1 text-slate-300">
-      <li>الفجر: ركعتان</li>
-      <li>الظهر: أربع ركعات</li>
-      <li>العصر: أربع ركعات</li>
-      <li>المغرب: ثلاث ركعات</li>
-      <li>العشاء: أربع ركعات</li>
-    </ul>
-  </section>
+    <!-- COUNTER PANEL -->
+    <section id="panel" class="panel" aria-live="polite">
+      <div class="row">
+        <div class="pill" id="selName">—</div>
+        <div class="pill">الهدف: <b id="targetRakaat">0</b> ركعة</div>
+        <label class="pill" style="cursor:pointer">
+          <input id="waswasToggle" type="checkbox" checked style="accent-color:#ffd166; transform:translateY(1px)"> تفعيل وضع الوسواس
+        </label>
+        <div class="grow"></div>
+        <button class="ghost" id="backBtn">تبديل الصلاة</button>
+      </div>
 
-  <!-- Times -->
-  <section id="times" class="page glass rounded-3xl border border-white/10 p-6">
-    <h2 class="text-2xl font-bold text-sky-400">أوقات الصلاة</h2>
-    <div class="mt-3 grid md:grid-cols-2 gap-6 text-slate-200">
-      <div>
-        <h3 class="font-semibold">صلاة الصبح</h3>
-        <p>من طلوع الفجر الصادق إلى طلوع الشمس.</p>
+      <div class="counter">
+        <div>
+          <div class="big" id="rakaat">0</div>
+          <div class="progress" aria-hidden="true"><div id="bar" class="bar"></div></div>
+        </div>
+        <div>
+          <div class="controls">
+            <button id="incBtn">+ ركعة</button>
+            <button id="decBtn" class="ghost">– تراجع</button>
+            <button id="resetBtn" class="danger">إعادة</button>
+            <button id="doneBtn" class="ok">إتمام</button>
+          </div>
+          <div class="hint" id="hintBox" style="margin-top:10px">
+            <b>وضع الوسواس:</b> يثبت العد بعد 3 ثوانٍ لكل زيادة ويمنع التراجعات السريعة. قاعدة عامة عند كثير الشك: <b>تجاهل الشك واستمر</b>، واسأل مرجع تقليدك عند المسائل الخاصة.
+          </div>
+        </div>
       </div>
-      <div>
-        <h3 class="font-semibold">صلاة الظهر</h3>
-        <p>من الزوال إلى أن يبقى قبل الغروب مقدار أداء العصر.</p>
-      </div>
-      <div>
-        <h3 class="font-semibold">صلاة العصر</h3>
-        <p>بعد أداء مقدار الظهر من أوّل الزوال إلى الغروب.</p>
-      </div>
-      <div>
-        <h3 class="font-semibold">صلاة المغرب</h3>
-        <p>من زوال الحمرة المشرقية بعد الغروب إلى قبل منتصف الليل بمقدار أداء العشاء.</p>
-      </div>
-      <div>
-        <h3 class="font-semibold">صلاة العشاء</h3>
-        <p>من بعد مقدار أداء المغرب إلى منتصف الليل (منتصف ما بين الغروب وطلوع الفجر).</p>
-      </div>
+    </section>
+
+    <h3 class="section-title kufi">ملاحظات فقهية عامة (مختصرة)</h3>
+    <div class="hint">
+      هذا التطبيق يساعد على <b>الانضباط العددي</b> فقط. في فقه الإمامية:
+      من ابتُلي بكثرة الشك <span class="muted">(الوسواس)</span> يُطالب شرعًا بتجاهل الشك والبناء على الصحة. 
+      أما شبهات عدد الركعات في الصلوات الرباعية فلها أحكام تفصيلية (صلاة الاحتياط، سجدتا السهو…). 
+      عند الشك الفعلي استفتِ مرجعك المعتمد.
     </div>
-    <p class="mt-4 text-slate-300">ملاحظة: إذا ضاق الوقت تُقدَّم الصلاة ذات الوقت المختص، مع مراعاة الترتيب في السعة.</p>
-  </section>
 
-  <!-- Order -->
-  <section id="order" class="page glass rounded-3xl border border-white/10 p-6">
-    <h2 class="text-2xl font-bold text-sky-400">الترتيب بين الصلوات</h2>
-    <ul class="mt-3 space-y-2 text-slate-200">
-      <li>• يجب تقديم الظهر على العصر، والمغرب على العشاء؛ مخالفة الترتيب عمداً مبطلة.</li>
-      <li>• لو قُدّمت سهواً ثم التفت بعد الفراغ: الصلاة صحيحة. أمّا أثناء الصلاة، فيعدل بالنية حيث أمكن وفق الضوابط.</li>
-    </ul>
-  </section>
+    <p class="footer-note">يُخزن التطبيق آخر صلاة وعدد الركعات محليًا على جهازك.</p>
+  </div>
 
-  <!-- Mustahab -->
-  <section id="mustahab" class="page glass rounded-3xl border border-white/10 p-6">
-    <h2 class="text-2xl font-bold text-sky-400">الصلوات المستحبّة (النوافل)</h2>
-    <p class="mt-3 text-slate-200">النوافل اليومية مؤكدة، وأعظمها أثراً صلاة الليل.</p>
-    <ul class="mt-2 list-disc pe-6 space-y-1 text-slate-300">
-      <li>نافلة الظهر: ٨ ركعات قبل الظهر.</li>
-      <li>نافلة العصر: ٨ ركعات قبل العصر.</li>
-      <li>نافلة المغرب: ٤ ركعات بعد المغرب.</li>
-      <li>نافلة العشاء: ركعتان من جلوس بعد العشاء (تحسب ركعة).</li>
-      <li>نافلة الصبح: ركعتان قبل الفريضة.</li>
-      <li>صلاة الليل: إحدى عشرة ركعة (الأفضل في الثلث الأخير من الليل).</li>
-    </ul>
-  </section>
+<script>
+/* ------------------ البيانات ------------------ */
+const PRAYERS = [
+  { key:"fajr",  name:"صلاة الصبح",  defaultR:2,  icon:"sunrise" },
+  { key:"dhuhr", name:"صلاة الظهر",  defaultR:4,  icon:"sun" },
+  { key:"asr",   name:"صلاة العصر",  defaultR:4,  icon:"sun" },
+  { key:"magh",  name:"صلاة المغرب", defaultR:3,  icon:"sunset" },
+  { key:"isha",  name:"صلاة العشاء", defaultR:4,  icon:"moon" },
+  { key:"qiyam", name:"صلاة الليل",  defaultR:11, icon:"crescent", editable:true },
+  { key:"nafl",  name:"الصلوات الخاصة", defaultR:2, icon:"infty", editable:true },
+  { key:"rules", name:"أحكام السهو", defaultR:null, icon:"help", isInfo:true }
+];
 
-  <!-- Qibla -->
-  <section id="qibla" class="page glass rounded-3xl border border-white/10 p-6">
-    <h2 class="text-2xl font-bold text-sky-400">القبلة</h2>
-    <ul class="mt-3 space-y-2 text-slate-200">
-      <li>• يجب استقبال الكعبة، وللبعيد يكفي صدق التوجه نحوها عرفاً.</li>
-      <li>• يُستدل على القبلة باليقين أو الاطمئنان (بوصلة، محراب، قرائن)، ومع العجز يُعمل بالظن، ومع تعذر الظن تُصلّى للجهات الممكنة بحسب سعة الوقت.</li>
-      <li>• يجب الاستقبال في ركعات الاحتياط، وفي قضاء السجدة والتشهّد، ويُستحب في سجود السهو.</li>
-    </ul>
-  </section>
+/* ------------------ مراجع العناصر ------------------ */
+const picker = document.getElementById('picker');
+const panel  = document.getElementById('panel');
+const startBtn = document.getElementById('startBtn');
+const howBtn = document.getElementById('howBtn');
+const backBtn = document.getElementById('backBtn');
+const rakaatEl = document.getElementById('rakaat');
+const bar = document.getElementById('bar');
+const incBtn = document.getElementById('incBtn');
+const decBtn = document.getElementById('decBtn');
+const resetBtn = document.getElementById('resetBtn');
+const doneBtn = document.getElementById('doneBtn');
+const targetEl = document.getElementById('targetRakaat');
+const nameEl = document.getElementById('selName');
+const waswasToggle = document.getElementById('waswasToggle');
+const hintBox = document.getElementById('hintBox');
 
-  <!-- Dress -->
-  <section id="dress" class="page glass rounded-3xl border border-white/10 p-6">
-    <h2 class="text-2xl font-bold text-sky-400">لباس المصلّي وشروطه</h2>
-    <h3 class="mt-3 font-semibold text-emerald-400">الستر</h3>
-    <ul class="mt-2 list-disc pe-6 space-y-1 text-slate-300">
-      <li>يجب ستر العورتين للرجل، ويجب على المرأة ستر جميع البدن ما عدا الوجه بالقدر الواجب في الوضوء وكفّين وقدمين بضوابطه، مع مراعاة وجود غير المحارم.</li>
-    </ul>
-    <h3 class="mt-5 font-semibold text-emerald-400">شروط اللباس</h3>
-    <ul class="mt-2 list-disc pe-6 space-y-1 text-slate-300">
-      <li>الطهارة للبدن واللباس، مع استثناءات محدودة (دم الجروح والقروح، الدم القليل… إلخ).</li>
-      <li>الإباحة: لا يكون مغصوباً.</li>
-      <li>أن لا يكون من أجزاء الميتة أو من أجزاء حيوان غير مأكول اللحم.</li>
-      <li>أن لا يكون من الذهب للرجال، ولا حريراً محضاً للرجل.</li>
-    </ul>
-  </section>
+/* ------------------ حالة التطبيق ------------------ */
+let state = {
+  selected: null, // {key,name,defaultR, ...}
+  count: 0,
+  target: 0,
+  waswas: true,
+  lockUntil: 0, // زمن تثبيت الزيادة
+};
 
-  <!-- Place & Masjid -->
-  <section id="place" class="page glass rounded-3xl border border-white/10 p-6">
-    <h2 class="text-2xl font-bold text-sky-400">مكان الصلاة وأحكام المسجد</h2>
-    <h3 class="mt-3 font-semibold">مكان المصلّي</h3>
-    <ul class="mt-2 list-disc pe-6 space-y-1 text-slate-300">
-      <li>إباحة المكان (غير مغصوب).</li>
-      <li>الاستقرار والطمأنينة، إلا في موارد الاضطرار.</li>
-      <li>طهارة موضع الجبهة في السجود، ومراعاة المسافة بين الرجل والمرأة في غير المسجد.</li>
-      <li>استواء الموضع بحيث لا يعلو موضع الجبهة ولا يهبط أكثر من أربع أصابع مضمومة.</li>
-    </ul>
-    <h3 class="mt-5 font-semibold">أحكام المسجد</h3>
-    <ul class="mt-2 list-disc pe-6 space-y-1 text-slate-300">
-      <li>يحرم تنجيس المسجد، وتطهيره واجب كفائي عند التنجس.</li>
-      <li>أفضلية الصلاة في المساجد، مع آداب الدخول والتحية.</li>
-      <li>مراعاة شأن المسجد ومنزلته، واجتناب ما ينافي حرمته.</li>
-    </ul>
-  </section>
+const LS_KEY = "rakaat-state-v1";
 
-  <!-- Adhan & Iqama -->
-  <section id="adhan" class="page glass rounded-3xl border border-white/10 p-6">
-    <h2 class="text-2xl font-bold text-sky-400">الأذان والإقامة</h2>
-    <p class="mt-3 text-slate-200">مستحبان قبل الفرائض اليومية (ويتأكدان في الصبح والمغرب والجماعة). لصيغة الأذان ثماني عشرة جملة، وتزاد «قد قامت الصلاة» مرّتين في الإقامة، مع سائر التفاصيل المعروفة عند الإمامية.</p>
-    <ul class="mt-2 list-disc pe-6 space-y-1 text-slate-300">
-      <li>يُستحب الوقوف مستقبل القبلة ورفع الصوت والترسُّل في الأذان.</li>
-      <li>الفصل اليسير بين الأذان والإقامة، ويُستحب الجلوس أو التسبيح بينهما.</li>
-    </ul>
-  </section>
+/* ------------------ رسم مُلتقط الصلاة ------------------ */
+function iconSVG(kind){
+  const base = '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true">';
+  const end  = '</svg>';
+  const stroke1 = '#ffd166', stroke2='#bfe7ef';
+  switch(kind){
+    case 'sunrise': return base+`<path d="M12 4v4" stroke="${stroke1}" stroke-width="1.6"/><circle cx="12" cy="14" r="4" stroke="${stroke2}" stroke-width="1.4"/><path d="M4 20h16" stroke="${stroke2}" stroke-width="1.4"/>`+end;
+    case 'sunset':  return base+`<path d="M12 20v-4" stroke="${stroke1}" stroke-width="1.6"/><circle cx="12" cy="10" r="4" stroke="${stroke2}" stroke-width="1.4"/><path d="M4 4h16" stroke="${stroke2}" stroke-width="1.4"/>`+end;
+    case 'sun':     return base+`<circle cx="12" cy="12" r="4.2" stroke="${stroke1}" stroke-width="1.6"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.5 4.5l2.2 2.2M17.3 17.3l2.2 2.2M19.5 4.5l-2.2 2.2M4.5 19.5l2.2-2.2" stroke="${stroke2}" stroke-width="1.2"/>`+end;
+    case 'moon':    return base+`<path d="M14 3a8 8 0 1 0 7 11.5A7 7 0 0 1 14 3z" stroke="${stroke1}" stroke-width="1.6" fill="none"/>`+end;
+    case 'crescent':return base+`<path d="M15 3a8.5 8.5 0 1 1-6.5 14A7.5 7.5 0 0 0 15 3z" stroke="${stroke1}" stroke-width="1.6" fill="none"/>`+end;
+    case 'infty':   return base+`<path d="M7 15c2.5-3 5-6 8-6 2 0 3 1.5 3 3s-1 3-3 3-4-2-5-3-2-3-4-3-3 1.5-3 3 1 3 3 3 3-1 4-2" stroke="${stroke1}" stroke-width="1.6" fill="none"/>`+end;
+    default:        return base+`<circle cx="12" cy="12" r="8" stroke="${stroke2}" stroke-width="1.4"/><text x="12" y="16" text-anchor="middle" font-size="10" fill="${stroke1}">؟</text>`+end;
+  }
+}
+function drawPicker(){
+  picker.innerHTML = "";
+  PRAYERS.forEach(p=>{
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.setAttribute('role','button');
+    card.innerHTML = `
+      <div class="icon">${iconSVG(p.icon)}</div>
+      <div class="kufi" style="font-weight:700">${p.name}</div>
+      <small>${p.defaultR? (p.editable? `افتراضي: ${p.defaultR} ركعات (قابل للتعديل)`:`${p.defaultR} ركعات`): 'قراءة مختصرة'}</small>
+    `;
+    card.onclick = ()=> selectPrayer(p);
+    picker.appendChild(card);
+  });
+}
 
-  <!-- Wajibat -->
-  <section id="wajibat" class="page glass rounded-3xl border border-white/10 p-6">
-    <h2 class="text-2xl font-bold text-sky-400">واجبات الصلاة</h2>
-    <p class="mt-3 text-slate-200">واجبات الصلاة أحد عشر: النية، القيام، تكبيرة الإحرام، القراءة، الركوع، السجود، الذكر، التشهّد، التسليم، الترتيب، الموالاة.</p>
-    <ul class="mt-2 list-disc pe-6 space-y-1 text-slate-300">
-      <li><span class="font-semibold">الأركان</span>: النية، تكبيرة الإحرام حال القيام، القيام المتصل بالركوع، الركوع، السجدتان.</li>
-      <li>ترك الركن عمداً أو سهواً مبطل؛ أمّا غير الركن فتركه عمداً مبطل وسهواً لا يبطل.</li>
-      <li>تفصيل القيام: لزوم الاستقلال والطمأنينة في مواضعه، والانتقال الصحيح بين هيئات الصلاة.</li>
-    </ul>
-  </section>
+/* ------------------ منطق العد ------------------ */
+function selectPrayer(p){
+  if(p.isInfo){ alert('أحكام السهو: القاعدة العامة لمن يكثر شكه هي التجاهل والبناء على الصحة. مسائل الشك في الرباعية لها صور متعددة (2↔3↔4) قد يترتب عليها صلاة الاحتياط وسجدتا السهو؛ راجع فتوى مرجع تقليدك.'); return; }
+  state.selected = p;
+  state.target = p.defaultR ?? 2;
+  if(p.editable){
+    const t = prompt(`أدخل عدد الركعات لصلاة: ${p.name}`, state.target);
+    const val = parseInt(t,10);
+    if(!isNaN(val) && val>0 && val<100) state.target = val;
+  }
+  state.count = 0;
+  updateUI();
+  saveState();
+  showPanel(true);
+}
+function updateUI(){
+  nameEl.textContent = state.selected ? state.selected.name : "—";
+  targetEl.textContent = state.target;
+  rakaatEl.textContent = state.count;
+  const pct = Math.min(100, Math.round((state.count/state.target)*100));
+  bar.style.width = pct + "%";
+}
+function showPanel(on){
+  panel.classList.toggle('active', !!on);
+  window.scrollTo({top: panel.offsetTop - 12, behavior:'smooth'});
+}
+function haptic(){
+  if(navigator.vibrate) navigator.vibrate(15);
+}
+function inc(){
+  const now = Date.now();
+  if(state.waswas && now < state.lockUntil){ // مثبت
+    return;
+  }
+  state.count = Math.min(state.count + 1, 99);
+  updateUI(); haptic();
+  if(state.waswas){
+    state.lockUntil = now + 3000; // تثبيت 3 ثوانٍ
+  }
+  if(state.count >= state.target){
+    done(true);
+  }
+  saveState();
+}
+function dec(){
+  const now = Date.now();
+  if(state.waswas && now < state.lockUntil){ // منع التراجع السريع
+    hintTemp('التراجع معطّل مؤقتًا (وضع الوسواس). انتظر ثوانٍ قليلة.');
+    return;
+  }
+  state.count = Math.max(0, state.count - 1);
+  updateUI(); haptic();
+  saveState();
+}
+function resetAll(){
+  if(confirm('إعادة العدّ؟')) {
+    state.count = 0; updateUI(); saveState();
+  }
+}
+function done(auto=false){
+  const msg = auto ? 'بلغت الهدف المعيّن لعدد الركعات.' : 'هل تريد إنهاء العدّ؟';
+  if(auto || confirm(msg)){
+    hintTemp('تم الإتمام. إن كنت كثير الشك فابْنِ على الصحة ولا تلتفت للوساوس.');
+    if(state.waswas) state.lockUntil = Date.now() + 2000;
+  }
+  saveState();
+}
+function hintTemp(text){
+  hintBox.textContent = text;
+  setTimeout(()=>{ hintBox.innerHTML = '<b>وضع الوسواس:</b> يثبت العد بعد 3 ثوانٍ لكل زيادة ويمنع التراجعات السريعة. قاعدة عامة عند كثير الشك: <b>تجاهل الشك واستمر</b>، واسأل مرجع تقليدك عند المسائل الخاصة.' }, 3500);
+}
 
-  <!-- Mubtilat & Doubts -->
-  <section id="mubtilat" class="page glass rounded-3xl border border-white/10 p-6">
-    <h2 class="text-2xl font-bold text-sky-400">مبطلات الصلاة والشكوك</h2>
-    <h3 class="mt-3 font-semibold">المبطلات (أمثلة)</h3>
-    <ul class="mt-2 list-disc pe-6 space-y-1 text-slate-300">
-      <li>تعمد ترك ركن، أو زيادة ركن عمداً.</li>
-      <li>الضحك قهقهة، والأكل والشرب عمداً على نحو يخلّ بالصلاة.</li>
-      <li>الرياء في أصل العمل.</li>
-    </ul>
-    <h3 class="mt-5 font-semibold">الشكوك</h3>
-    <p class="text-slate-200">منها ما يبطل، ومنها ما يُبنى فيه على أحد الطرفين أو يأتي بسجود سهو أو صلاة احتياط بحسب المورد.</p>
-    <h3 class="mt-5 font-semibold">سجود السهو</h3>
-    <p class="text-slate-200">مشروع لجبر بعض الزيادات أو النواقص السهوية، وله كيفيته وأحكامه الخاصة.</p>
-  </section>
+/* ------------------ تخزين محلي ------------------ */
+function saveState(){ localStorage.setItem(LS_KEY, JSON.stringify({
+  k: state.selected?.key, c: state.count, t: state.target, w: state.waswas
+})); }
+function loadState(){
+  try{
+    const s = JSON.parse(localStorage.getItem(LS_KEY) || 'null');
+    if(!s) return;
+    const p = PRAYERS.find(x=>x.key===s.k);
+    if(p){ state.selected = p; state.count = s.c||0; state.target = s.t||p.defaultR; state.waswas = !!s.w; }
+  }catch(e){}
+}
 
-  <!-- Traveller -->
-  <section id="safar" class="page glass rounded-3xl border border-white/10 p-6">
-    <h2 class="text-2xl font-bold text-sky-400">صلاة المسافر</h2>
-    <ul class="mt-3 list-disc pe-6 space-y-1 text-slate-300">
-      <li>يشترط التقصير بمسافة شرعية، مع قصد السفر واستمراره، وألا يمرّ بالوطن أو محل الإقامة، وأن يكون السفر مباحاً… إلخ.</li>
-      <li>للمسافر موارد قواطع، وأحكام خاصة للنوافل والقصر والتمام بحسب المواضع.</li>
-    </ul>
-  </section>
+/* ------------------ أحداث ------------------ */
+startBtn.onclick = ()=>{
+  drawPicker();
+  picker.style.display = 'grid';
+  window.scrollTo({top: picker.offsetTop - 8, behavior:'smooth'});
+}
+howBtn.onclick = ()=>{
+  alert('الخطوات:\n1) اضغط "ابدأ صلاتك".\n2) اختر الصلاة.\n3) اضغط + بعد كل ركعة.\n— وضع الوسواس يثبّت كل زيادة 3 ثوانٍ ويمنع التراجع السريع.\n4) عند بلوغ الهدف، يتم الإشعار بالإتمام.\nيمكن تخصيص عدد ركعات صلاة الليل أو الصلوات الخاصة.');
+}
+backBtn.onclick = ()=>{ picker.style.display='grid'; showPanel(false); }
+incBtn.onclick = inc;
+decBtn.onclick = dec;
+resetBtn.onclick = resetAll;
+doneBtn.onclick = ()=>done(false);
+waswasToggle.onchange = (e)=>{ state.waswas = e.target.checked; saveState(); hintTemp(state.waswas?'تم تفعيل وضع الوسواس.':'تم إيقاف وضع الوسواس. يمكنك التراجع بحرية.'); };
 
-  <!-- Jamaah & Jumuah -->
-  <section id="jamaah" class="page glass rounded-3xl border border-white/10 p-6">
-    <h2 class="text-2xl font-bold text-sky-400">صلاة الجماعة والجمعة</h2>
-    <ul class="mt-3 list-disc pe-6 space-y-1 text-slate-300">
-      <li>استحباب مؤكد للجماعة مع شروط الإمام والمأموم ووظائفهما.</li>
-      <li>صلاة الجمعة: شروط الانعقاد، وقتها وكيفيتها وخطبتاها، وما يلزم الإمام والمصلّين.</li>
-    </ul>
-  </section>
-
-  <!-- Special prayers -->
-  <section id="special" class="page glass rounded-3xl border border-white/10 p-6">
-    <h2 class="text-2xl font-bold text-sky-400">صلوات خاصّة</h2>
-    <ul class="mt-3 list-disc pe-6 space-y-1 text-slate-300">
-      <li>صلاة القضاء: قضاء ما فات، وأحكام الاستئجار.</li>
-      <li>قضاء الوالدين: وظيفة الولد الأكبر.</li>
-      <li>صلاة الآيات: وقتها وكيفيتها والشك فيها.</li>
-      <li>صلاة العيدين: أحكامها في زمان الغيبة وآدابها.</li>
-    </ul>
-  </section>
-
-  <!-- Report -->
-  <section id="report" class="page glass rounded-3xl border border-white/10 p-6">
-    <h2 class="text-2xl font-bold text-rose-400">إعداد وتقرير</h2>
-    <p class="mt-2 text-slate-200">فاضل الريس</p>
-    <p class="mt-4 text-slate-400 text-sm">هذه النسخة HTML تلخيص شامل للمحتوى مع الحفاظ على الجوهر الفقهي، وليست بديلاً عن الرجوع للنص المفصل للمسائل عند الحاجة.</p>
-  </section>
-</main>
-
-  </div>  <!-- Footer -->  <footer class="border-t border-white/10 py-6 text-center text-slate-400">
-    <p>© <span id="y"></span> كتاب الصلاة — موسوعة مبوّبة • إعداد وتقرير: <b>فاضل الريس</b></p>
-  </footer>  <!-- Back to top --><button id="toTop" title="إلى الأعلى" class="fixed bottom-6 left-6 p-3 rounded-full bg-white/10 border border-white/10 hover:bg-white/20 hidden">↑</button>
-
-  <script>
-    // Router: activate sections via hash
-    const pages = Array.from(document.querySelectorAll('.page'));
-    const navLinks = Array.from(document.querySelectorAll('#sideNav a'));
-    function activate(hash){
-      const id = (hash || location.hash || '#home').replace('#','');
-      pages.forEach(p=>p.classList.toggle('active', p.id===id));
-      navLinks.forEach(a=>{
-        const match = a.getAttribute('href') === '#' + id;
-        a.classList.toggle('active-link', match);
-      });
-      document.title = (id==='home' ? 'كتاب الصلاة — موسوعة مبوّبة' : document.getElementById(id)?.querySelector('h2,h1')?.textContent + ' — كتاب الصلاة') || document.title;
-    }
-    window.addEventListener('hashchange', ()=>activate());
-    activate();
-
-    // Search nav
-    const navSearch = document.getElementById('navSearch');
-    navSearch.addEventListener('input', ()=>{
-      const q = navSearch.value.trim();
-      navLinks.forEach(a=>{
-        const show = a.textContent.includes(q) || !q;
-        a.style.display = show ? '' : 'none';
-      });
-    });
-
-    // Print current page
-    document.getElementById('printBtn').addEventListener('click', ()=>{
-      window.print();
-    });
-
-    // Back to top button
-    const toTop = document.getElementById('toTop');
-    window.addEventListener('scroll', ()=>{
-      if (window.scrollY > 600) toTop.classList.remove('hidden'); else toTop.classList.add('hidden');
-    });
-    toTop.addEventListener('click', ()=> window.scrollTo({top:0, behavior:'smooth'}));
-
-    // Footer year
-    document.getElementById('y').textContent = new Date().getFullYear();
-  </script></body>
+/* ------------------ بدء التشغيل ------------------ */
+loadState();
+drawPicker();
+if(state.selected){ picker.style.display='grid'; showPanel(true); updateUI(); waswasToggle.checked = state.waswas; }
+</script>
+</body>
 </html>
