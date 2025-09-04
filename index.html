@@ -6,76 +6,50 @@
 <title>خط التماس الأخباري</title>
 <style>
   :root{
-    --bg:#0b0f14; --card:#111827; --muted:#93a4b1; --text:#e6edf3; --acc:#00d3a7; --accent-weak:#0fd3a7;
-    --chip:#0f172a; --chip-b:#1f2937; --shadow: 0 10px 30px rgba(0,0,0,.35);
+    --bg:#f6f8fb; --card:#ffffff; --ink:#0b1220; --muted:#5b6b7c; --accent:#0aa27a;
+    --ring:#e5eef6; --shadow:0 10px 25px rgba(19,52,89,.08);
+    --chip:#eef4fb; --chip-b:#e6eef7;
   }
   *{box-sizing:border-box}
   html,body{height:100%}
-  body{
-    margin:0; background:linear-gradient(180deg, #0b0f14 0%, #0b1220 100%);
-    color:var(--text); font:16px/1.6 "Cairo","Tajawal",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-  }
-  header{
-    position:sticky; top:0; z-index:10; backdrop-filter:saturate(140%) blur(6px);
-    background:linear-gradient(180deg, rgba(7,12,18,.85), rgba(7,12,18,.55));
-    border-bottom:1px solid rgba(255,255,255,.06);
-  }
-  .container{max-width:1200px; margin:auto; padding:20px}
-  .brand{
-    display:flex; align-items:center; gap:14px;
-  }
-  .logo{
-    width:44px; height:44px; border-radius:12px; display:grid; place-items:center;
-    background:radial-gradient(circle at 30% 30%, var(--acc), #027a97 60%, #013a45 100%);
-    box-shadow: 0 10px 30px rgba(0, 211, 167, .25), inset 0 0 30px rgba(255,255,255,.08);
-  }
-  .logo svg{width:28px; height:28px; fill:white}
-  h1{margin:0; font-size:1.6rem; letter-spacing:0.3px}
-  .tagline{color:var(--muted); font-size:.95rem; margin-top:2px}
+  body{margin:0; background:var(--bg); color:var(--ink);
+    font:16px/1.65 "Cairo","Tajawal",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+  header{position:sticky; top:0; z-index:10; background:#ffffffcc; backdrop-filter:saturate(140%) blur(8px);
+    border-bottom:1px solid var(--ring)}
+  .container{max-width:1200px; margin:auto; padding:18px}
+  .brand{display:flex; align-items:center; gap:14px}
+  .logo{width:44px; height:44px; border-radius:12px; display:grid; place-items:center;
+    background:radial-gradient(circle at 30% 30%, #20d0a3, #0aa27a 60%, #0a8063 100%); color:#fff; box-shadow:0 8px 18px rgba(10,162,122,.25)}
+  .logo svg{width:26px; height:26px; fill:#fff}
+  h1{margin:0; font-size:1.6rem}
+  .tagline{color:#486076; font-size:.95rem; margin-top:2px}
   .toolbar{display:flex; align-items:center; gap:10px; flex-wrap:wrap}
-  .toolbar .chip{
-    background:linear-gradient(180deg,var(--chip),var(--chip-b)); color:#cfe7ff;
-    padding:8px 12px; border:1px solid rgba(255,255,255,.06); border-radius:999px; font-size:.9rem;
-    display:flex; align-items:center; gap:8px;
-  }
-  .btn{
-    border:1px solid rgba(255,255,255,.1); background:#0b1420; color:var(--text);
-    border-radius:12px; padding:10px 14px; cursor:pointer; transition:.2s; font-weight:600;
-  }
-  .btn:hover{transform:translateY(-1px); border-color:rgba(255,255,255,.2)}
-  .grid{
-    display:grid; gap:16px; margin-top:14px;
-    grid-template-columns: repeat( auto-fill, minmax(280px, 1fr) );
-  }
-  article.card{
-    background:linear-gradient(180deg, #0c1522, #0e1a2b);
-    border:1px solid rgba(255,255,255,.06); border-radius:18px; padding:16px;
-    box-shadow:var(--shadow); display:flex; flex-direction:column; gap:10px; position:relative; overflow:hidden;
-  }
-  .badge{display:inline-flex; gap:8px; align-items:center; font-size:.8rem;
-    color:#bfe; background:rgba(0,211,167,.08); border:1px solid rgba(0,211,167,.25);
-    padding:6px 10px; border-radius:999px; width:max-content}
-  .title{font-size:1.05rem; font-weight:800; margin:4px 0 0}
-  .excerpt{color:#d0dae4; font-size:.95rem}
-  .meta{display:flex; gap:10px; color:var(--muted); font-size:.8rem}
+  .chip{background:linear-gradient(180deg,var(--chip),var(--chip-b)); color:#214567;
+    padding:8px 12px; border:1px solid var(--ring); border-radius:999px; font-size:.92rem; display:flex; align-items:center; gap:8px}
+  .btn{border:1px solid var(--ring); background:#fff; color:var(--ink);
+    border-radius:12px; padding:10px 14px; cursor:pointer; transition:.2s; font-weight:700}
+  .btn:hover{transform:translateY(-1px); box-shadow:0 6px 18px rgba(12,57,95,.12)}
+  .grid{display:grid; gap:16px; margin-top:14px; grid-template-columns:repeat(auto-fill,minmax(280px,1fr))}
+  article.card{background:var(--card); border:1px solid var(--ring); border-radius:18px; padding:16px; box-shadow:var(--shadow);
+    display:flex; flex-direction:column; gap:10px; position:relative; overflow:hidden}
+  .badge{display:inline-flex; gap:8px; align-items:center; font-size:.8rem; color:#0a8063;
+    background:#e8fbf5; border:1px solid #b9f0df; padding:6px 10px; border-radius:999px; width:max-content}
+  .title{font-size:1.06rem; font-weight:800; margin:4px 0 0}
+  .excerpt{color:#2c3e50; font-size:.97rem}
+  .meta{display:flex; gap:10px; color:#5f7286; font-size:.85rem}
   .card-top{display:flex; align-items:flex-start; gap:8px}
-  .more{
-    margin-inline-start:auto; width:36px; height:36px; border-radius:10px; border:1px solid rgba(255,255,255,.1);
-    background:rgba(255,255,255,.02); display:grid; place-items:center; cursor:pointer; transition:.2s;
-  }
-  .more:hover{transform:translateY(-1px); border-color:rgba(255,255,255,.22)}
-  .more svg{width:18px; height:18px}
-  details{border-top:1px dashed rgba(255,255,255,.08); padding-top:10px}
+  .more{margin-inline-start:auto; width:38px; height:38px; border-radius:10px; border:1px solid var(--ring);
+    background:#fff; display:grid; place-items:center; cursor:pointer; transition:.2s}
+  .more:hover{transform:translateY(-1px); box-shadow:0 6px 16px rgba(10,162,122,.18)}
+  .more svg{width:18px; height:18px; color:#0b2e3f}
+  details{border-top:1px dashed var(--ring); padding-top:10px}
   details[open] summary{opacity:.6}
   summary{list-style:none; cursor:pointer; display:flex; align-items:center; gap:8px}
   summary::-webkit-details-marker{display:none}
-  .empty, .error{
-    text-align:center; color:var(--muted); padding:50px 20px; border:1px dashed rgba(255,255,255,.08);
-    border-radius:18px; background:linear-gradient(180deg,#0c1420,#0c1827)
-  }
-  .footer-note{color:var(--muted); font-size:.8rem; text-align:center; margin:24px 0 10px}
-  .pulse{display:inline-block; width:8px; height:8px; border-radius:999px; background:var(--accent-weak); box-shadow:0 0 0 0 rgba(15,211,167,.8); animation:pulse 2s infinite}
-  @keyframes pulse{ 0%{box-shadow:0 0 0 0 rgba(15,211,167,.8)} 70%{box-shadow:0 0 0 12px rgba(15,211,167,0)} 100%{box-shadow:0 0 0 0 rgba(15,211,167,0)} }
+  .empty,.error{text-align:center; color:#5b6b7c; padding:50px 20px; border:1px dashed var(--ring); border-radius:18px; background:#fff}
+  .footer-note{color:#5b6b7c; font-size:.85rem; text-align:center; margin:22px 0 10px}
+  .pulse{display:inline-block; width:8px; height:8px; border-radius:999px; background:#0aa27a; box-shadow:0 0 0 0 rgba(10,162,122,.6); animation:pulse 2s infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(10,162,122,.6)}70%{box-shadow:0 0 0 12px rgba(10,162,122,0)}100%{box-shadow:0 0 0 0 rgba(10,162,122,0)}}
 </style>
 </head>
 <body>
@@ -83,18 +57,15 @@
     <div class="container" style="display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap">
       <div class="brand">
         <div class="logo" aria-hidden="true" title="شعار خط التماس">
-          <!-- كرة + خط تماس -->
-          <svg viewBox="0 0 24 24" role="img" aria-label="كرة">
-            <path d="M12 2a10 10 0 1 0 10 10A10.012 10.012 0 0 0 12 2Zm0 2a8 8 0 1 1-8 8 8.009 8.009 0 0 1 8-8Zm4.5 6.75h-9a.75.75 0 0 0 0 1.5h9a.75.75 0 0 0 0-1.5Z"/>
-          </svg>
+          <svg viewBox="0 0 24 24" role="img" aria-label="كرة"><path d="M12 2a10 10 0 1 0 10 10A10.012 10.012 0 0 0 12 2Zm0 2a8 8 0 1 1-8 8 8.009 8.009 0 0 1 8-8Zm4.5 6.75h-9a.75.75 0 0 0 0 1.5h9a.75.75 0 0 0 0-1.5Z"/></svg>
         </div>
         <div>
           <h1>خط التماس الأخباري</h1>
-          <div class="tagline">آخر مستجدات الرياضة — تتحدّث تلقائيًا كل دقيقة</div>
+          <div class="tagline">أخبار رياضية عربية — تتحدّث تلقائيًا كل دقيقة</div>
         </div>
       </div>
       <div class="toolbar">
-        <div class="chip" id="liveChip"><span class="pulse" aria-hidden="true"></span> تحديث كل دقيقة</div>
+        <div class="chip"><span class="pulse" aria-hidden="true"></span> تحديث كل دقيقة</div>
         <div class="chip" id="lastUpdated">آخر تحديث: الآن</div>
         <button class="btn" id="refreshBtn" type="button">تحديث الآن</button>
       </div>
@@ -104,23 +75,31 @@
   <main class="container">
     <section id="news" class="grid" aria-live="polite" aria-busy="true"></section>
     <div id="status" class="empty" hidden>يتم جلب الأخبار…</div>
-
-    <p class="footer-note">يعرض العناوين والمقتطفات فقط (بدون روابط أو مصادر). يتم دمج عدة خلاصات رياضية وفرزها حسب الأحدث.</p>
+    <p class="footer-note">يعرض العناوين والمقتطفات فقط (بدون روابط أو مصادر). جميع الخلاصات عربية.</p>
   </main>
 
 <script>
 (() => {
-  // ——— الإعدادات ———
-  const MINUTE = 60_000;
+  // ——— مصادر عربية احترافية (RSS) ———
+  // تم اختيارها لتغطية عربية واسعة؛ يمكنك إضافة/حذف أي رابط بسهولة.
   const FEEDS = [
-    // نستخدم وكيل CORS عام لجلب RSS مباشرة من المتصفح
-    'https://api.allorigins.win/raw?url=' + encodeURIComponent('https://www.espn.com/espn/rss/news'),
-    'https://api.allorigins.win/raw?url=' + encodeURIComponent('https://feeds.bbci.co.uk/sport/rss.xml'),
-    'https://api.allorigins.win/raw?url=' + encodeURIComponent('https://www.skysports.com/rss/12040'),
-    'https://api.allorigins.win/raw?url=' + encodeURIComponent('https://www.reuters.com/rssFeed/sportsNews')
+    // العربية - رياضة (MRSS)
+    'https://api.allorigins.win/raw?url=' + encodeURIComponent('https://www.alarabiya.net/.mrss/ar/sports.xml'),
+    // الشرق الأوسط (Asharq Al-Awsat) - رياضة
+    'https://api.allorigins.win/raw?url=' + encodeURIComponent('https://aawsat.com/rss/section/sport'),
+    // RT Arabic - رياضة
+    'https://api.allorigins.win/raw?url=' + encodeURIComponent('https://arabic.rt.com/rss/sport/'),
+    // الجزيرة نت (عام بالعربية) + ترشيح رياضي بالأسفل
+    'https://api.allorigins.win/raw?url=' + encodeURIComponent('https://www.aljazeera.net/aljazeera/rss'),
+    // المصري اليوم (يشمل قسم الرياضة ضمن الخلاصة العامة)
+    'https://api.allorigins.win/raw?url=' + encodeURIComponent('https://www.almasryalyoum.com/rss'),
+    // اليوم السابع (بوابة RSS رسمية تشمل الرياضة)
+    'https://api.allorigins.win/raw?url=' + encodeURIComponent('https://www.youm7.com/rss/rss')
   ];
-  const LIMIT = 36; // عدد البطاقات المعروضة
-  const REFRESH_EVERY = MINUTE; // كل دقيقة
+
+  const MINUTE = 60_000;
+  const LIMIT = 40;              // أقصى عدد بطاقات
+  const REFRESH_EVERY = MINUTE;  // كل دقيقة
 
   const $grid = document.getElementById('news');
   const $status = document.getElementById('status');
@@ -148,11 +127,14 @@
     return (tmp.textContent || tmp.innerText || '').replace(/\s+/g,' ').trim();
   }
 
+  function includesSportArabic(text){
+    const t = (text||'').toLowerCase();
+    return /رياضة|كرة|قدم|دوري|مباراة|هداف|منتخب|كأس|بطولة|نادي|مدرب|لاعب|تصفيات|الملعب|الشوط|فريق/.test(t);
+  }
+
   function parseFeed(xmlText){
     const out = [];
     const xml = new DOMParser().parseFromString(xmlText, 'text/xml');
-
-    // محاولات عامة لـ RSS و Atom
     const items = Array.from(xml.querySelectorAll('item'));
     const entries = Array.from(xml.querySelectorAll('entry'));
     const nodes = items.length ? items : entries;
@@ -162,15 +144,25 @@
       if(!title) continue;
 
       const desc = n.querySelector('description, summary, content')?.textContent || '';
+      const cat = (n.querySelector('category')?.textContent || '') + ' ' + (n.querySelector('section')?.textContent || '');
       const pub = n.querySelector('pubDate, updated, published')?.textContent || new Date().toISOString();
       const date = new Date(pub);
+
+      // فلترة لغير الرياضي (ضرورية لبعض الخلاصات العامة)
+      const textForFilter = [title, desc, cat].join(' ');
+      if(!includesSportArabic(textForFilter)) continue;
+
       out.push({
         title,
-        excerpt: strip(desc).slice(0, 240),
+        excerpt: strip(desc).slice(0, 260),
         date: isNaN(date.getTime()) ? new Date() : date
       });
     }
     return out;
+  }
+
+  function escapeHTML(s){
+    return (s||'').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;');
   }
 
   function card({title, excerpt, date}){
@@ -180,10 +172,8 @@
         <div class="card-top">
           <span class="badge" aria-label="تصنيف الخبر">⚽ رياضة</span>
           <button class="more" title="مزيد" aria-label="مزيد (فتح المقتطف)">
-            <!-- أيقونة «مزيد»: ثلاث نقاط داخل دائرة -->
-            <svg viewBox="0 0 24 24" role="img" aria-label="مزيد">
-              <path fill="currentColor" d="M12 2a10 10 0 1 0 .001 20.001A10 10 0 0 0 12 2Zm-4 9a1 1 0 1 1 0 2 1 1 0 0 1 0-2Zm4 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2Zm4 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2Z"/>
-            </svg>
+            <!-- أيقونة مزيد: ثلاث نقاط داخل دائرة -->
+            <svg viewBox="0 0 24 24" role="img" aria-label="مزيد"><path d="M12 2a10 10 0 1 0 .001 20.001A10 10 0 0 0 12 2Zm-4 9a1 1 0 1 1 0 2 1 1 0 0 1 0-2Zm4 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2Zm4 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2Z"/></svg>
           </button>
         </div>
         <h2 class="title">${escapeHTML(title)}</h2>
@@ -196,10 +186,6 @@
     `;
   }
 
-  function escapeHTML(s){
-    return (s||'').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;');
-  }
-
   async function fetchOne(url){
     const r = await fetch(url, {cache:'no-store'});
     if(!r.ok) throw new Error('HTTP '+r.status);
@@ -207,17 +193,15 @@
   }
 
   async function load(){
-    $grid.setAttribute('aria-busy','true');
+    document.getElementById('news').setAttribute('aria-busy','true');
     $status.hidden = false;
     $status.textContent = 'يتم جلب الأخبار…';
 
     try{
       const texts = await Promise.allSettled(FEEDS.map(fetchOne));
-      const items = texts
-        .filter(x => x.status === 'fulfilled')
-        .flatMap(x => parseFeed(x.value));
+      const items = texts.filter(x => x.status === 'fulfilled').flatMap(x => parseFeed(x.value));
 
-      // إزالة التكرار بالعنوان + فرز زمني
+      // إزالة التكرارات + الفرز
       const seen = new Set();
       const unique = [];
       for(const it of items){
@@ -227,13 +211,6 @@
         unique.push(it);
       }
       unique.sort((a,b) => b.date - a.date);
-
-      // إبراز الجديد مقارنة بالتحديث السابق
-      const fresh = [];
-      for(const it of unique){
-        if(!lastTitles.has(it.title)) fresh.push(it.title);
-      }
-      lastTitles = new Set(unique.map(x => x.title));
 
       // رسم
       const limited = unique.slice(0, LIMIT);
@@ -245,17 +222,6 @@
       } else {
         $status.hidden = true;
         $grid.innerHTML = limited.map(card).join('');
-        // وميض خفيف للجديد
-        for(const t of fresh.slice(0, LIMIT)){
-          const id = btoa(unescape(encodeURIComponent(t))).slice(0,24);
-          const el = $grid.querySelector(`[data-id="${id}"]`);
-          if(el){
-            el.animate([{transform:'scale(1)', boxShadow:'var(--shadow)'},
-                        {transform:'scale(1.015)', boxShadow:'0 8px 30px rgba(0,211,167,.35)'},
-                        {transform:'scale(1)', boxShadow:'var(--shadow)'}],
-                        {duration:600, easing:'ease-out'});
-          }
-        }
       }
 
       const ts = new Date();
@@ -265,24 +231,22 @@
       $grid.innerHTML = '';
       $status.hidden = false;
       $status.className = 'error';
-      $status.textContent = 'تعذّر جلب الأخبار. تحقق من الاتصال أو جرّب لاحقًا.';
+      $status.textContent = 'تعذّر جلب الأخبار. تحقق من الاتصال أو غيّر روابط الخلاصات.';
     } finally{
-      $grid.removeAttribute('aria-busy');
+      document.getElementById('news').removeAttribute('aria-busy');
     }
   }
 
-  // حدث «مزيد»: فتح/إغلاق المقتطف بسرعة
+  // زر التحديث + أيقونة «مزيد»
+  document.getElementById('refreshBtn').addEventListener('click', load);
   document.addEventListener('click', (ev) => {
     const btn = ev.target.closest('.more');
     if(!btn) return;
-    const card = btn.closest('.card');
-    const det = card?.querySelector('details');
+    const det = btn.closest('.card')?.querySelector('details');
     if(det) det.open = !det.open;
   });
 
-  $btn.addEventListener('click', load);
-
-  // تحميل أولي وتحديث دوري كل دقيقة
+  // تشغيل أولي ثم كل دقيقة
   load();
   setInterval(load, REFRESH_EVERY);
 })();
