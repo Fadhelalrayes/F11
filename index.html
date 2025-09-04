@@ -5,58 +5,55 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>خط التماس الأخباري</title>
 
-<!-- خطوط جديدة -->
+<!-- خطوط محسّنة للعناوين والنص -->
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;800&family=Noto+Kufi+Arabic:wght@300;400;600&display=swap" rel="stylesheet" />
 
 <style>
   :root{
     --bg:#f6f8fb; --card:#ffffff; --ink:#0a1020; --muted:#5a6b7d;
     --ring:#e5eef6; --shadow:0 10px 25px rgba(19,52,89,.08);
-    --green1:#0fb98b; --green2:#0aa27a; --green3:#0a865f;
+    --green1:#11c295; --green2:#0aa27a; --green3:#0a865f;
   }
   *{box-sizing:border-box}
   html,body{height:100%}
-  body{
-    margin:0; background:var(--bg); color:var(--ink);
-    font:16px/1.75 "Noto Kufi Arabic",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-  }
+  body{margin:0; background:var(--bg); color:var(--ink);
+       font:16px/1.75 "Noto Kufi Arabic",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
   h1,h2{font-family:"Cairo","Noto Kufi Arabic",system-ui,sans-serif}
 
-  /* هيدر أخضر تدرّجي مع خط سفلي تدرّجي */
+  /* هيدر أخضر تدرّجي + خط سفلي تدرّجي */
   header{
-    position:sticky; top:0; z-index:20;
-    background:linear-gradient(180deg, #11c295, #09a678 70%, #099769 100%);
-    color:#fff; border-bottom:0;
+    position:sticky; top:0; z-index:20; color:#fff;
+    background:linear-gradient(180deg, var(--green1), var(--green2) 70%, var(--green3) 100%);
+    border-bottom:0;
   }
   header::after{
     content:""; display:block; height:4px;
-    background:linear-gradient(90deg, #11c295, #86f0d3, #11c295);
+    background:linear-gradient(90deg, var(--green1), #86f0d3, var(--green1));
   }
-
-  .container{max-width:1200px; margin:auto; padding:18px}
-  .brand{display:flex; align-items:center; gap:14px}
+  .container{max-width:1200px; margin:auto; padding:14px 18px}
+  /* تخطيط هادئ للهيدر */
+  .header-row{
+    display:grid; grid-template-columns:auto 1fr auto; align-items:center; gap:14px;
+  }
+  .brand{display:flex; align-items:center; gap:12px}
   .logo{
     width:52px; height:52px; border-radius:16px; display:grid; place-items:center; color:#fff;
     background:radial-gradient(circle at 30% 30%, #9ff5df, #37d7ae 55%, #0ca878 100%);
     box-shadow:0 10px 24px rgba(0,0,0,.15), inset 0 0 24px rgba(255,255,255,.12);
   }
-  /* لوجو جديد (كرة + نبضة) */
   .logo svg{width:28px; height:28px}
   h1{margin:0; font-size:2rem; letter-spacing:.3px}
-  .tagline{opacity:.9; font-size:.95rem; margin-top:4px}
-
-  .toolbar{display:flex; align-items:center; gap:10px; flex-wrap:wrap}
-  .chip{
-    background:rgba(255,255,255,.18); color:#eafff7;
-    padding:8px 12px; border:1px solid rgba(255,255,255,.25); border-radius:999px; font-size:.92rem;
-    display:flex; align-items:center; gap:8px
+  .tagline{opacity:.9; font-size:.95rem; margin-top:2px}
+  /* مجموعة أزرار نظيفة (أيقونة تحديث فقط) */
+  .actions{display:flex; align-items:center; gap:8px}
+  .iconbtn{
+    width:40px; height:40px; border-radius:12px; border:1px solid rgba(255,255,255,.35);
+    background:rgba(255,255,255,.12); color:#fff; display:grid; place-items:center; cursor:pointer; transition:.2s
   }
-  .btn{
-    border:1px solid rgba(255,255,255,.35); background:rgba(255,255,255,.12); color:#fff;
-    border-radius:12px; padding:10px 14px; cursor:pointer; transition:.2s; font-weight:800
-  }
-  .btn:hover{transform:translateY(-1px); box-shadow:0 6px 18px rgba(0,0,0,.15)}
+  .iconbtn:hover{transform:translateY(-1px); box-shadow:0 6px 18px rgba(0,0,0,.18)}
+  .iconbtn svg{width:18px; height:18px}
 
+  /* شبكة البطاقات */
   .grid{display:grid; gap:16px; margin-top:14px; grid-template-columns:repeat(auto-fill,minmax(280px,1fr))}
   article.card{
     background:var(--card); border:1px solid var(--ring); border-radius:18px; padding:16px;
@@ -80,8 +77,8 @@
   summary::-webkit-details-marker{display:none}
   .empty,.error{text-align:center; color:#5b6b7c; padding:50px 20px; border:1px dashed var(--ring); border-radius:18px; background:#fff}
 
-  /* شريط المشاركة في الأسفل + أيقونات جديدة دائرية بخطوط ناعمة */
-  .sharebar-wrap{border-top:1px solid var(--ring); margin-top:26px; padding-top:16px}
+  /* شريط المشاركة في الأسفل */
+  .sharebar-wrap{border-top:1px solid var(--ring); margin-top:26px; padding:16px 0}
   .sharebar{display:flex; align-items:center; gap:10px; flex-wrap:wrap; justify-content:center}
   .sharebtn{
     width:40px; height:40px; border-radius:50%;
@@ -99,33 +96,42 @@
   }
   a.credit:hover{transform:translateY(-1px)}
 
+  /* خط أخضر تدرّجي أسفل الموقع */
+  .site-bottom-bar{
+    height:6px; background:linear-gradient(90deg, var(--green1), #86f0d3, var(--green1));
+  }
+
   .copy-toast{
-    position:fixed; bottom:18px; inset-inline:0; margin:auto; width:max-content; background:linear-gradient(90deg,var(--green1),var(--green2));
-    color:white; padding:10px 14px; border-radius:12px; box-shadow:0 8px 30px rgba(10,162,122,.25); font-weight:800; display:none
+    position:fixed; bottom:18px; inset-inline:0; margin:auto; width:max-content;
+    background:linear-gradient(90deg,var(--green1),var(--green2)); color:white; padding:10px 14px;
+    border-radius:12px; box-shadow:0 8px 30px rgba(10,162,122,.25); font-weight:800; display:none
   }
 </style>
 </head>
 <body>
   <header>
-    <div class="container" style="display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap">
-      <div class="brand">
-        <div class="logo" aria-hidden="true" title="شعار خط التماس">
-          <!-- لوجو جديد: كرة بنبضة -->
-          <svg viewBox="0 0 24 24" fill="none" role="img" aria-label="شعار">
-            <circle cx="12" cy="12" r="9" stroke="white" stroke-opacity=".9" />
-            <path d="M4 12h3l2-3 2 6 2-4 2 3h3" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
+    <div class="container">
+      <div class="header-row">
+        <div class="brand">
+          <div class="logo" aria-hidden="true" title="شعار خط التماس">
+            <!-- لوجو جديد: كرة بنبضة -->
+            <svg viewBox="0 0 24 24" fill="none" role="img" aria-label="شعار">
+              <circle cx="12" cy="12" r="9" stroke="white" stroke-opacity=".9" />
+              <path d="M4 12h3l2-3 2 6 2-4 2 3h3" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div>
+            <h1>خط التماس الأخباري</h1>
+            <div class="tagline">أخبار رياضية عربية</div>
+          </div>
         </div>
-        <div>
-          <h1>خط التماس الأخباري</h1>
-          <div class="tagline">أخبار رياضية عربية</div>
+        <div></div><!-- عمود وسط للتوازن -->
+        <div class="actions">
+          <!-- زر تحديث (بدون نصوص مزعجة) -->
+          <button class="iconbtn" id="refreshBtn" type="button" title="تحديث الآن" aria-label="تحديث الآن">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M4 4v6h6M20 20v-6h-6M6 12a6 6 0 0 1 10.24-4.24L18 9M6 15l1.76-.76A6 6 0 0 0 18 12" stroke="white" stroke-width="1.6" stroke-linecap="round"/></svg>
+          </button>
         </div>
-      </div>
-
-      <div class="toolbar">
-        <div class="chip"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#d6fff2;box-shadow:0 0 0 0 rgba(255,255,255,.6);animation:pulse 2s infinite"></span> تحديث تلقائي</div>
-        <div class="chip" id="lastUpdated">آخر تحديث: الآن</div>
-        <button class="btn" id="refreshBtn" type="button" title="تحديث الآن">تحديث الآن</button>
       </div>
     </div>
   </header>
@@ -134,30 +140,24 @@
     <section id="news" class="grid" aria-live="polite" aria-busy="true"></section>
     <div id="status" class="empty" hidden>يتم جلب الأخبار…</div>
 
-    <!-- شريط المشاركة بأسفل الصفحة + قبل «برمجة وتطوير» -->
+    <!-- شريط المشاركة بأسفل الصفحة -->
     <div class="sharebar-wrap">
       <div class="sharebar" aria-label="مشاركة الصفحة">
-        <!-- واتساب -->
         <button class="sharebtn" data-share="whatsapp" title="واتساب" aria-label="مشاركة واتساب">
           <svg viewBox="0 0 24 24" fill="none"><path d="M12 2a10 10 0 0 0-8.66 15.08L2 22l4.99-1.29A10 10 0 1 0 12 2Z" stroke="#25D366"/><path d="M8.5 9.5c.2 3 3.1 5.9 6.1 6.1.4 0 .8-.2 1.1-.5l.7-.7c.3-.3.3-.8 0-1.1l-1.2-1.2c-.3-.3-.8-.3-1.1 0l-.3.3c-.2.2-.5.2-.8.1-1.1-.5-2-1.4-2.5-2.5-.1-.3-.1-.6.1-.8l.3-.3c.3-.3.3-.8 0-1.1L10 6.6c-.3-.3-.8-.3-1.1 0l-.7.7c-.3.3-.5.7-.5 1.1Z" fill="#25D366"/></svg>
         </button>
-        <!-- تيليجرام -->
         <button class="sharebtn" data-share="telegram" title="تيليجرام" aria-label="مشاركة تيليجرام">
           <svg viewBox="0 0 24 24" fill="none"><path d="M21 3 9.5 13.2" stroke="#229ED9"/><path d="m21 3-3.4 18a1 1 0 0 1-1.6.6l-4.7-3.6-3 2.9a.8.8 0 0 1-1.3-.4l.9-5.6L3 12.2a1 1 0 0 1 .2-1.8L20.1 2.2A.8.8 0 0 1 21 3Z" fill="#229ED9"/></svg>
         </button>
-        <!-- فيسبوك -->
         <button class="sharebtn" data-share="facebook" title="فيسبوك" aria-label="مشاركة فيسبوك">
           <svg viewBox="0 0 24 24" fill="none"><path d="M13 9h3V6h-3c-1.7 0-3 1.3-3 3v2H7v3h3v7h3v-7h3l1-3h-4V9Z" fill="#1877F2"/></svg>
         </button>
-        <!-- X -->
         <button class="sharebtn" data-share="x" title="X" aria-label="مشاركة X">
           <svg viewBox="0 0 24 24" fill="none"><path d="m4 4 16 16M20 4 4 20" stroke="#111"/></svg>
         </button>
-        <!-- لينكدإن -->
         <button class="sharebtn" data-share="linkedin" title="لينكدإن" aria-label="مشاركة لينكدإن">
           <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="3" stroke="#0A66C2"/><path d="M8 17v-6M8 8.5v-.5M12 17v-3c0-1.1.9-2 2-2s2 .9 2 2v3" stroke="#0A66C2"/></svg>
         </button>
-        <!-- نسخ الرابط -->
         <button class="sharebtn" data-share="copy" title="نسخ الرابط" aria-label="نسخ الرابط">
           <svg viewBox="0 0 24 24" fill="none"><rect x="8" y="8" width="10" height="12" rx="2" stroke="#333"/><rect x="6" y="4" width="10" height="12" rx="2" stroke="#333"/></svg>
         </button>
@@ -173,25 +173,25 @@
     </a>
   </footer>
 
+  <!-- خط أخضر تدرّجي أسفل الموقع -->
+  <div class="site-bottom-bar" aria-hidden="true"></div>
+
   <div class="copy-toast" id="copyToast">تم نسخ الرابط 👌</div>
 
 <script>
 (() => {
-  // ——— إعدادات ———
-  const REFRESH_MS = 30_000;       // تحديث سريع
-  const FEED_TIMEOUT_MS = 6000;    // مهلة لكل مصدر
-  const MAX_RETRIES = 1;           // إعادة محاولة
+  // تحديث سريع وهادئ (بدون إظهار نص في الهيدر)
+  const REFRESH_MS = 30_000;
+  const FEED_TIMEOUT_MS = 6000;
+  const MAX_RETRIES = 1;
   const LIMIT = 48;
 
-  // ——— مصادر عربية احترافية (RSS) ———
-  // (نرشّح رياضيًا إذا كان المصدر عامًا)
+  // مصادر عربية (يتم ترشيح الرياضي من العامة)
   const FEEDS = [
-    // رياضة مباشرة
     'https://api.allorigins.win/raw?url=' + encodeURIComponent('https://www.alarabiya.net/.mrss/ar/sports.xml'),
     'https://api.allorigins.win/raw?url=' + encodeURIComponent('https://aawsat.com/rss/section/sport'),
     'https://api.allorigins.win/raw?url=' + encodeURIComponent('https://arabic.rt.com/rss/sport/'),
     'https://api.allorigins.win/raw?url=' + encodeURIComponent('https://www.skynewsarabia.com/rss/sports'),
-    // عامة (نرشح بالكلمات)
     'https://api.allorigins.win/raw?url=' + encodeURIComponent('https://www.aljazeera.net/aljazeera/rss'),
     'https://api.allorigins.win/raw?url=' + encodeURIComponent('https://www.almasryalyoum.com/rss'),
     'https://api.allorigins.win/raw?url=' + encodeURIComponent('https://www.youm7.com/rss/rss'),
@@ -201,9 +201,7 @@
 
   const $grid = document.getElementById('news');
   const $status = document.getElementById('status');
-  const $last = document.getElementById('lastUpdated');
 
-  // ——— أدوات ———
   function relativeTime(date){
     try{
       const d = (date instanceof Date) ? date : new Date(date);
@@ -258,11 +256,9 @@
       if(!r.ok) throw new Error('HTTP '+r.status);
       return await r.text();
     } catch(e){
-      if(retries < MAX_RETRIES) return fetchWithTimeout(url, timeoutMs, retries+1);
+      if(retries < 1) return fetchWithTimeout(url, timeoutMs, retries+1);
       throw e;
-    } finally{
-      clearTimeout(t);
-    }
+    } finally{ clearTimeout(t); }
   }
 
   function parseFeed(xmlText){
@@ -282,8 +278,8 @@
         const pub  = n.querySelector('pubDate, updated, published')?.textContent || new Date().toISOString();
         const date = new Date(pub);
 
-        const filterText = [title, desc, cat].join(' ');
-        if(!includesSportArabic(filterText)) continue;
+        const textForFilter = [title, desc, cat].join(' ');
+        if(!includesSportArabic(textForFilter)) continue;
 
         out.push({
           title,
@@ -301,7 +297,6 @@
     $status.textContent = 'يتم جلب الأخبار…';
 
     try{
-      // توازي مضبوط
       const CONCURRENCY = 4;
       let allItems = [];
       for(let i=0;i<FEEDS.length;i+=CONCURRENCY){
@@ -331,9 +326,6 @@
         $status.hidden = true;
         $grid.innerHTML = limited.map(card).join('');
       }
-
-      const ts = new Date();
-      if($last) $last.textContent = 'آخر تحديث: ' + ts.toLocaleTimeString('ar', {hour:"2-digit", minute:"2-digit"});
     } catch(e){
       console.error(e);
       $grid.innerHTML = '';
@@ -345,7 +337,7 @@
     }
   }
 
-  // أيقونة «مزيد»
+  // «مزيد»
   document.addEventListener('click', (ev) => {
     const btn = ev.target.closest('.more');
     if(!btn) return;
@@ -379,7 +371,7 @@
     });
   });
 
-  // زر التحديث
+  // زر التحديث اليدوي
   const refreshBtn = document.getElementById('refreshBtn');
   if(refreshBtn) refreshBtn.addEventListener('click', load);
 
