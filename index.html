@@ -42,8 +42,11 @@ footer{margin-top:18px;border-top:1px dashed var(--line);padding:14px 0}
       <div class="row">
         <div class="logo">✈️</div>
         <div class="title">تذكرتك</div>
-      </div><!-- فقط من وإلى بالعربي، والقائمة تظهر داخل الحقل نفسه -->
-  <form id="searchForm" class="stack" onsubmit="event.preventDefault();">
+      </div>
+  <div style="margin-inline-start:auto">
+    <button id="apiBtn" type="button" style="border:1px solid var(--line);background:#fff;border-radius:12px;padding:8px 12px;cursor:pointer">إدخال مفتاح API (مجاني)</button>
+  </div>
+</div><!-- فقط من وإلى بالعربي، والقائمة تظهر داخل الحقل نفسه --><form id="searchForm" class="stack" onsubmit="event.preventDefault(); buildAndSearch();">
     <div class="fld" id="fromField">
       <label for="origin">من</label>
       <input id="origin" placeholder="اختر دولة أو مطار (مثال: البحرين — المنامة BAH)" autocomplete="off" onfocus="openDrop('from')" oninput="filterDrop('from')">
@@ -54,17 +57,44 @@ footer{margin-top:18px;border-top:1px dashed var(--line);padding:14px 0}
       <input id="destination" placeholder="اختر مطار/مدينة (مثال: مصر — القاهرة CAI)" autocomplete="off" onfocus="openDrop('to')" oninput="filterDrop('to')">
       <div class="dropdown" id="toDrop"></div>
     </div>
+    <button class="cta" type="submit">🔎 ابحث عن أرخص التذاكر</button>
   </form>
 </div>
 
   </header>  <main class="container">
-    <!-- لا يوجد أي صناديق أسفل: فقط حقلا من/إلى والقوائم المنسدلة -->
+    <!-- نتائج داخل نفس الصفحة (تظهر بعد الضغط على ابحث) -->
+    <section id="resultsCard" class="card" style="margin-top:12px; display:none">
+      <h4 style="margin:0 0 6px 0">النتائج</h4>
+      <p id="summary" style="font-size:12px;color:#64748b">—</p>
+      <div id="tickets" class="results"></div>
+      <div id="noApiProviders" style="display:none; margin-top:8px">
+        <p style="font-size:12px;color:#64748b;margin:0 0 6px 0">لا يوجد مفتاح API محفوظ، افتح أحد المواقع التالية للمقارنة مباشرة:</p>
+        <div id="providers" style="display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(160px,1fr))"></div>
+      </div>
+    </section>
     <footer>
       <div class="credit">
         <span>برمجة وتطوير: <a href="https://api.whatsapp.com/send/?phone=97333375858&text&type=phone_number&app_absent=0&wame_ctl=1" target="_blank" rel="noopener">فاضل الريس</a></span>
       </div>
     </footer>
-  </main>  <script>
+  </main>  <!-- نافذة إدخال مفتاح API --><div id="apiModal" style="position:fixed;inset:0;background:rgba(0,0,0,.35);display:none;align-items:center;justify-content:center;z-index:60">
+  <div style="background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;max-width:520px;width:92%">
+    <h3 style="margin:0 0 8px 0">مفتاح Kiwi Tequila API (مجاني)</h3>
+    <ol style="margin:0 0 10px 18px;color:var(--muted);line-height:1.8;font-size:14px">
+      <li>سجّل مجانًا في <strong>tequila.kiwi.com</strong>.</li>
+      <li>انسخ <strong>apikey</strong> من لوحة التحكم.</li>
+      <li>الصقه هنا واضغط حفظ.</li>
+    </ol>
+    <input id="apiInput" placeholder="أدخل apikey هنا" style="width:100%;border:1px solid var(--line);border-radius:12px;padding:10px;margin-bottom:10px" />
+    <div style="display:flex;gap:8px;justify-content:flex-end">
+      <button id="apiSave" type="button" style="background:#0ea5e9;color:#fff;border:0;border-radius:12px;padding:10px 14px;cursor:pointer">حفظ</button>
+      <button id="apiClose" type="button" style="border:1px solid var(--line);background:#fff;border-radius:12px;padding:10px 14px;cursor:pointer">إلغاء</button>
+    </div>
+  </div>
+</div><script>
+// مفتاح Kiwi Tequila يحفظ محليًا في المتصفح
+let TEQUILA_API_KEY = localStorage.getItem('tequila_api_key') || "";
+
     // قاعدة بيانات عربية: دول → مطارات رئيسية
     const DB = {
       "البحرين": [{c:"BAH", n:"المنامة"}],
@@ -125,5 +155,72 @@ footer{margin-top:18px;border-top:1px dashed var(--line);padding:14px 0}
 
     // قيَم افتراضية (BAH → CAI)
     (function init(){ originInput.value='BAH — المنامة'; destInput.value='CAI — القاهرة'; })();
-  </script></body>
+  // أزرار نافذة الـ API
+(function(){
+  const apiBtn=document.getElementById('apiBtn');
+  const apiModal=document.getElementById('apiModal');
+  const apiInput=document.getElementById('apiInput');
+  const apiSave=document.getElementById('apiSave');
+  const apiClose=document.getElementById('apiClose');
+  if(apiBtn){ apiBtn.addEventListener('click',()=>{ apiInput.value = localStorage.getItem('tequila_api_key')||''; apiModal.style.display='flex'; apiInput.focus(); }); }
+  if(apiClose){ apiClose.addEventListener('click',()=>{ apiModal.style.display='none'; }); }
+  if(apiSave){ apiSave.addEventListener('click',()=>{ const v=(apiInput.value||'').trim(); if(!v){ alert('أدخل مفتاحاً صالحاً'); return; } localStorage.setItem('tequila_api_key', v); TEQUILA_API_KEY=v; apiModal.style.display='none'; alert('تم حفظ المفتاح.'); }); }
+})();
+// ===== وظائف البحث والعرض داخل الصفحة =====
+function parseCode(v){ if(!v) return ''; const sep = v.includes('—') ? '—' : '-'; const code=(v.split(sep)[0]||'').trim().toUpperCase(); return code.length===3?code:v.trim().toUpperCase(); }
+
+async function buildAndSearch(){
+  const origin=parseCode(document.getElementById('origin').value);
+  const destination=parseCode(document.getElementById('destination').value);
+  const resultsCard=document.getElementById('resultsCard');
+  const ticketsBox=document.getElementById('tickets');
+  const summary=document.getElementById('summary');
+  const providersWrap=document.getElementById('noApiProviders');
+  const providers=document.getElementById('providers');
+
+  if(!origin||!destination){ alert('رجاءً اختر: من / إلى'); return; }
+  resultsCard.style.display='block';
+  summary.textContent = `من ${origin} إلى ${destination} — يتم ترتيب النتائج من الأرخص إلى الأعلى.`;
+  ticketsBox.innerHTML = `<div class='ticket'><div class='meta'>جارٍ جلب أرخص الأسعار...</div></div>`;
+
+  if(!window.TEQUILA_API_KEY){
+    // لا يوجد مفتاح API → عرض روابط خارجية موثوقة داخل نفس البطاقة
+    ticketsBox.innerHTML = `<div class='ticket'><div class='meta'>لإظهار الأسعار المباشرة داخل الصفحة، أدخل مفتاح Kiwi Tequila من زر "إدخال مفتاح API" بالأعلى.</div></div>`;
+    providersWrap.style.display='block';
+    providers.innerHTML='';
+    const list=[
+      {name:'Google Flights', url:`https://www.google.com/travel/flights?hl=ar&q=${encodeURIComponent(`flights from ${origin} to ${destination}`)}`},
+      {name:'Skyscanner', url:`https://www.skyscanner.net/transport/flights/${origin}/${destination}/?adults=1&cabinclass=economy`},
+      {name:'KAYAK', url:`https://www.kayak.com/flights/${origin}-${destination}?sort=best`},
+      {name:'Expedia', url:`https://www.expedia.com/Flights-Search?trip=oneway&leg1=from:${origin},to:${destination}&passengers=adults:1&mode=search`},
+      {name:'Wego', url:`https://www.wego.com/flights/${origin}-${destination}`}
+    ];
+    list.forEach(p=>{ const card=document.createElement('div'); card.className='ticket'; card.innerHTML=`<div><strong>${p.name}</strong><div class='meta'>افتح في تبويب جديد</div></div><a class='cta' style='padding:10px 12px;font-size:14px' href='${p.url}' target='_blank' rel='noopener'>فتح</a>`; providers.appendChild(card); });
+    return;
+  }
+
+  try{
+    const {data, note} = await searchCheapest(origin, destination);
+    ticketsBox.innerHTML=''; providersWrap.style.display='none';
+    if(note){ ticketsBox.innerHTML = `<div class='ticket'><div class='meta'>${note}</div></div>`; return; }
+    if(!data.length){ ticketsBox.innerHTML = `<div class='ticket'><div class='meta'>لم نجد نتائج في الوقت الحالي.</div></div>`; return; }
+    data.sort((a,b)=>a.price-b.price);
+    data.forEach(t=>{
+      const el=document.createElement('div'); el.className='ticket';
+      el.innerHTML = `
+        <div>
+          <div><strong>${t.carrier}</strong> • <span class='meta'>${t.stops? t.stops+' توقف' : 'مباشر'}</span></div>
+          <div class='meta'>المدة: ${t.duration} • من: ${t.depart||'-'} • إلى: ${t.arrive||'-'}</div>
+        </div>
+        <div style='display:flex;gap:8px;align-items:center'>
+          <span class='price'>${t.price} ${t.currency}</span>
+          ${t.link?`<a class='cta' href='${t.link}' target='_blank' rel='noopener' style='padding:10px 12px;font-size:14px'>احجز</a>`:''}
+        </div>`;
+      ticketsBox.appendChild(el);
+    });
+  }catch(e){
+    ticketsBox.innerHTML = `<div class='ticket'><div class='meta'>حدث خطأ أثناء الجلب. تأكد من صحة مفتاح API.</div></div>`;
+  }
+}
+</script></body>
 </html>
