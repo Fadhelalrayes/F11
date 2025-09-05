@@ -2,191 +2,442 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>صفحة الطقس — فاتحة مذهّبة</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <title>تذكرتك | أرخص الرحلات الجوية</title>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <meta name="description" content="تذكرتك — محرك بحث بسيط يفتح لك أفضل مواقع الحجز الموثوقة للعثور على أرخص تذكرة طيران." />
   <style>
     :root{
-      --bg:#fffdf7;         /* خلفية فاتحة دافئة */
-      --paper:#ffffff;      /* بطاقات بيضاء */
-      --ink:#1f2937;        /* نص داكن مريح */
-      --muted:#6b7280;      /* نص ثانوي */
-      --gold:#D4AF37;       /* ذهبي فاخر */
-      --ring:#e5e7eb;       /* حدود فاتحة */
-      --glow:0 10px 35px rgba(212,175,55,.18)
+      --bg:#0f172a;           /* slate-900 */
+      --bg-soft:#111827;      /* gray-900 */
+      --card:#0b132b;         /* deep navy */
+      --ink:#e5e7eb;          /* gray-200 */
+      --muted:#9ca3af;        /* gray-400 */
+      --brand:#00b3c4;        /* teal/cyan */
+      --accent:#ffb100;       /* amber */
+      --ok:#22c55e;           /* green-500 */
+      --danger:#ef4444;       /* red-500 */
+      --ring: 0 0 0 3px rgba(0,179,196,.25);
+      --radius:24px;
     }
     *{box-sizing:border-box}
-    html,body{margin:0;padding:0;background:linear-gradient(180deg,#fffdf7,#fbf4e6 35%,#fffdf7);color:var(--ink);font-family:'Cairo',system-ui,Arial,sans-serif}
-    a{color:inherit;text-decoration:none}/* رأس بسيط */
-.nav{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.75);backdrop-filter:saturate(180%) blur(10px);border-bottom:1px solid #ececec}
-.nav-wrap{max-width:980px;margin:auto;display:flex;align-items:center;justify-content:space-between;padding:12px 18px}
-.brand{display:flex;align-items:center;gap:10px}
-.logo{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--gold),#a88407);box-shadow:var(--glow)}
-.brand h1{margin:0;font-size:18px}
-.brand small{display:block;color:var(--muted);font-weight:400;font-size:12px;margin-top:-2px}
+    html,body{height:100%}
+    body{
+      margin:0;background:radial-gradient(1200px 700px at 90% -10%, rgba(0,179,196,.15), transparent 60%),
+      radial-gradient(1000px 600px at -20% 120%, rgba(255,177,0,.12), transparent 60%), var(--bg);
+      color:var(--ink); font-family:'Cairo','Tajawal', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      line-height:1.6;
+    }
+    header{
+      position:sticky; top:0; z-index:50; backdrop-filter: blur(10px);
+      background:linear-gradient(180deg, rgba(15,23,42,.85), rgba(15,23,42,.6));
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    .container{max-width:1100px;margin:0 auto;padding:20px}
+    .brand{display:flex;align-items:center;gap:14px}
+    .logo{
+      width:44px;height:44px;border-radius:14px;display:grid;place-items:center;
+      background:conic-gradient(from 120deg at 50% 50%, var(--brand), var(--accent), var(--brand));
+      box-shadow:0 10px 30px rgba(0,179,196,.25);
+      font-weight:900;color:#0b132b
+    }
+    .title{font-size:clamp(20px,3vw,28px);font-weight:900;letter-spacing:.5px}
+    .subtitle{color:var(--muted);font-size:14px;margin-top:-6px}main{padding:28px 0}
+.search-card{
+  background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.02));
+  border:1px solid rgba(255,255,255,.06); border-radius:var(--radius);
+  padding:22px; box-shadow:0 10px 40px rgba(0,0,0,.35);
+}
 
-/* بطل */
-.hero{max-width:980px;margin:28px auto 0;padding:0 18px}
-.hero h2{margin:0 0 8px;font-size:28px}
-.hero p{margin:0 0 12px;color:var(--muted)}
+.grid{display:grid; gap:14px}
+@media(min-width:840px){
+  .grid-cols{grid-template-columns: 1.2fr 1.2fr .9fr .9fr .7fr .7fr}
+}
 
-/* لوحة الطقس */
-.panel{max-width:980px;margin:14px auto 28px;padding:16px;border:1px solid var(--ring);background:var(--paper);border-radius:16px;box-shadow:0 4px 20px rgba(0,0,0,.04)}
-.controls{display:flex;gap:10px;flex-wrap:wrap}
-.input{flex:1;min-width:220px;padding:12px;border:1px solid var(--ring);border-radius:12px;background:#fff;color:var(--ink)}
-.btn{padding:12px 16px;border-radius:12px;border:1px solid var(--ring);background:#fff;cursor:pointer}
-.btn-primary{background:linear-gradient(135deg,var(--gold),#caa326);color:#0b0b0f;border:none;box-shadow:var(--glow)}
+label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px}
+input, select{width:100%;background:rgba(255,255,255,.06);color:var(--ink);
+  border:1px solid rgba(255,255,255,.12); border-radius:14px; padding:12px 14px; outline:none;
+}
+input:focus, select:focus{border-color:var(--brand); box-shadow:var(--ring)}
 
-/* الحالي */
-.current{display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-top:14px}
-.stat{background:#fff;border:1px solid var(--ring);border-radius:14px;padding:12px 14px;min-width:150px;text-align:center}
-.stat .k{font-size:13px;color:var(--muted)}
-.stat .v{font-size:22px;font-weight:800}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
+button{
+  background:linear-gradient(180deg, var(--brand), #00a5b5);
+  color:#001016; border:0; padding:13px 18px; border-radius:14px; font-weight:800; cursor:pointer;
+  box-shadow:0 10px 22px rgba(0,179,196,.25);
+}
+button.secondary{background:rgba(255,255,255,.06); color:var(--ink); font-weight:700}
+button:disabled{opacity:.5;cursor:not-allowed}
 
-/* توقع 7 أيام */
-.forecast{display:grid;grid-template-columns:repeat(7,1fr);gap:10px;margin-top:16px}
-.day{background:#fff;border:1px solid var(--ring);border-radius:14px;padding:10px;text-align:center}
-.day strong{display:block;margin-bottom:6px}
-.muted{color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.chip{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);padding:8px 12px;border-radius:999px;font-size:13px;cursor:pointer}
+.chip:hover{border-color:var(--brand)}
 
-/* توست */
-.toast{position:fixed;inset-inline-start:18px;bottom:18px;display:none;min-width:260px;background:#fff;border:1px solid var(--ring);padding:12px 14px;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.08)}
-.toast.show{display:block;animation:slide .25s ease}
-@keyframes slide{from{transform:translateY(8px);opacity:0}to{transform:translateY(0);opacity:1}}
+.providers{display:grid;gap:12px;margin-top:18px}
+@media(min-width:840px){.providers{grid-template-columns:repeat(5,1fr)}}
+.prov{
+  background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.08); border-radius:18px; padding:14px;
+  display:flex;flex-direction:column;gap:10px; justify-content:space-between; min-height:130px
+}
+.prov h4{margin:0;font-size:15px}
+.prov small{color:var(--muted)}
+.prov a{display:inline-block;background:rgba(255,255,255,.12); padding:10px 12px;border-radius:12px;color:var(--ink);text-decoration:none;font-weight:700}
+.prov a:hover{background:rgba(255,255,255,.18)}
 
-@media (max-width:720px){.forecast{grid-template-columns:repeat(3,1fr)}}
-@media (max-width:420px){.forecast{grid-template-columns:repeat(2,1fr)}}
+.note{color:var(--muted);font-size:13px;margin-top:6px}
+
+footer{margin-top:30px;padding:22px 0;border-top:1px dashed rgba(255,255,255,.1)}
+.credit{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.credit a{color:var(--accent);text-decoration:none;font-weight:800}
+.credit a:hover{text-decoration:underline}
+
+.badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12); padding:6px 10px; border-radius:999px; font-size:12px;color:var(--muted)}
 
   </style>
 </head>
 <body>
-  <div class="nav">
-    <div class="nav-wrap">
-      <a class="brand" href="#">
-        <div class="logo" aria-hidden="true"></div>
-        <div>
-          <h1>صفحة الطقس</h1>
-          <small>فاتحة مذهّبة — مجانية بالكامل</small>
+  <header>
+    <div class="container brand">
+      <div class="logo">✈️</div>
+      <div>
+        <div class="title">تذكرتك</div>
+        <div class="subtitle">ابحث بسرعة وافتح مواقع الحجز الموثوقة لإيجاد أرخص تذكرة</div>
+      </div>
+      <div style="margin-inline-start:auto;display:flex;gap:8px;align-items:center">
+        <span class="badge">مواقع موثوقة</span>
+        <span class="badge">بدون تسجيل</span>
+      </div>
+    </div>
+  </header>  <main class="container">
+    <section class="search-card">
+      <form id="searchForm" onsubmit="event.preventDefault(); buildLinks();">
+        <div class="grid grid-cols">
+          <div>
+            <label for="origin">من (مدينة/مطار)</label>
+            <input list="airports" id="origin" placeholder="مثال: BAH – المنامة" autocomplete="off" />
+          </div>
+          <div>
+            <label for="destination">إلى (مدينة/مطار)</label>
+            <input list="airports" id="destination" placeholder="مثال: CAI – القاهرة" autocomplete="off" />
+          </div>
+          <div>
+            <label for="depart">تاريخ الذهاب</label>
+            <input type="date" id="depart" />
+          </div>
+          <div>
+            <label for="return">تاريخ العودة (اختياري)</label>
+            <input type="date" id="return" />
+          </div>
+          <div>
+            <label for="adults">عدد المسافرين</label>
+            <select id="adults">
+              <option value="1" selected>1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+            </select>
+          </div>
+          <div>
+            <label for="cabin">الدرجة</label>
+            <select id="cabin">
+              <option value="economy" selected>اقتصادية</option>
+              <option value="premium_economy">اقتصادية مميزة</option>
+              <option value="business">رجال أعمال</option>
+              <option value="first">أولى</option>
+            </select>
+          </div>
         </div>
-      </a>
-    </div>
-  </div>  <header class="hero">
-    <h2>اعرض حالة الطقس بسرعة وبساطة</h2>
-    <p>اكتب اسم المدينة أو استخدم موقعك الحالي. لا اشتراكات ولا باقات — فقط الطقس.</p>
-  </header>  <section class="panel">
-    <div class="controls">
-      <input id="city" class="input" placeholder="اكتب اسم المدينة (مثال: المنامة)" />
-      <button id="searchBtn" class="btn btn-primary">بحث</button>
-      <button id="locBtn" class="btn">الموقع الحالي</button>
-    </div>
-    <div id="status" class="muted" style="margin-top:8px">جاهز للبحث…</div><div id="current" class="current" style="display:none">
-  <div class="stat">
-    <div class="k">الموقع</div>
-    <div class="v" id="place">—</div>
-    <div class="muted" id="coords" style="font-size:12px">—</div>
+        <div class="actions">
+          <button type="submit">ابحث عن أرخص تذكرة</button>
+          <button type="button" class="secondary" onclick="swap();">تبديل الاتجاه ↔︎</button>
+        </div>
+        <p class="note">ملحوظة: يعرض هذا الموقع روابط مباشرة لمواقع حجز موثوقة (Google Flights, Skyscanner, KAYAK, Expedia, Wego). الأسعار تُعرض هناك مباشرة.
+        </p>
+      </form><!-- وجهات جاهزة -->
+  <div style="margin-top:18px">
+    <h3 style="margin:0 0 8px 0">الدول العربية</h3>
+    <div class="chips" id="arabChips"></div>
   </div>
-  <div class="stat">
-    <div class="k">الآن</div>
-    <div class="v" id="temp">—°</div>
-    <div class="muted" id="winds" style="font-size:12px">—</div>
+  <div style="margin-top:10px">
+    <h3 style="margin:0 0 8px 0">وجهات سياحية عالمية</h3>
+    <div class="chips" id="worldChips"></div>
   </div>
-  <div class="stat">
-    <div class="k">الهطول اليوم</div>
-    <div class="v" id="precip">—%</div>
-    <div class="muted" style="font-size:12px">فرصة الأمطار</div>
+
+  <!-- النتائج/المواقع الموثوقة -->
+  <div class="providers" id="providers"></div>
+</section>
+
+<footer>
+  <div class="credit">
+    <span>برمجة وتطوير: <a id="devLink" href="https://api.whatsapp.com/send/?phone=97333375858&text&type=phone_number&app_absent=0&wame_ctl=1" target="_blank" rel="noopener">فاضل الريس</a></span>
+    <span class="note">اضغط للاطّلاع/المراسلة عبر واتساب (API الرسمي).</span>
   </div>
-</div>
+</footer>
 
-<div id="forecast" class="forecast"></div>
+  </main><datalist id="airports"></datalist>
 
-  </section>  <div class="toast" id="toast">تم التحديث بنجاح.</div>  <script>
-    const toast = document.getElementById('toast');
-    function notify(msg){ toast.textContent = msg; toast.classList.add('show'); clearTimeout(window.__t); window.__t=setTimeout(()=>toast.classList.remove('show'),3000) }
+  <script>
+    // ===== بيانات مبسطة لأهم المطارات (رمز IATA – اسم عربي) =====
+    const AIRPORTS = [
+      // البحرين والخليج
+      {code:'BAH', name:'المنامة – البحرين'},
+      {code:'RUH', name:'الرياض – السعودية'},
+      {code:'JED', name:'جدة – السعودية'},
+      {code:'DMM', name:'الدمام – السعودية'},
+      {code:'MED', name:'المدينة – السعودية'},
+      {code:'DXB', name:'دبي – الإمارات'},
+      {code:'AUH', name:'أبوظبي – الإمارات'},
+      {code:'SHJ', name:'الشارقة – الإمارات'},
+      {code:'KWI', name:'الكويت – الكويت'},
+      {code:'DOH', name:'الدوحة – قطر'},
+      {code:'MCT', name:'مسقط – عُمان'},
 
-    const statusEl = document.getElementById('status');
-    const forecastEl = document.getElementById('forecast');
-    const currentEl  = document.getElementById('current');
-    const placeEl    = document.getElementById('place');
-    const coordsEl   = document.getElementById('coords');
-    const tempEl     = document.getElementById('temp');
-    const windsEl    = document.getElementById('winds');
-    const precipEl   = document.getElementById('precip');
+      // المشرق وشمال أفريقيا
+      {code:'AMM', name:'عمّان – الأردن'},
+      {code:'BEY', name:'بيروت – لبنان'},
+      {code:'CAI', name:'القاهرة – مصر'},
+      {code:'HRG', name:'الغردقة – مصر'},
+      {code:'SSH', name:'شرم الشيخ – مصر'},
+      {code:'CMN', name:'الدار البيضاء – المغرب'},
+      {code:'RAK', name:'مراكش – المغرب'},
+      {code:'TUN', name:'تونس – تونس'},
+      {code:'ALG', name:'الجزائر – الجزائر'},
+      {code:'BGW', name:'بغداد – العراق'},
+      {code:'EBL', name:'أربيل – العراق'},
 
-    function fmt(n,fd=0){return new Intl.NumberFormat('ar-EG',{maximumFractionDigits:fd}).format(n)}
-    function dayName(d){return new Intl.DateTimeFormat('ar',{weekday:'short',month:'short',day:'numeric'}).format(new Date(d))}
+      // تركيا والقوقاز وأوروبا الشائعة
+      {code:'IST', name:'إسطنبول – تركيا'},
+      {code:'AYT', name:'أنطاليا – تركيا'},
+      {code:'TZX', name:'طرابزون – تركيا'},
+      {code:'TBS', name:'تبليسي – جورجيا'},
+      {code:'BUS', name:'باتومي – جورجيا'},
+      {code:'GYD', name:'باكو – أذربيجان'},
+      {code:'ATH', name:'أثينا – اليونان'},
+      {code:'FCO', name:'روما – إيطاليا'},
+      {code:'MXP', name:'ميلانو – إيطاليا'},
+      {code:'CDG', name:'باريس – فرنسا'},
+      {code:'BCN', name:'برشلونة – إسبانيا'},
+      {code:'MAD', name:'مدريد – إسبانيا'},
+      {code:'LHR', name:'لندن – المملكة المتحدة'},
+      {code:'AMS', name:'أمستردام – هولندا'},
+      {code:'ZRH', name:'زيورخ – سويسرا'},
+      {code:'GVA', name:'جنيف – سويسرا'},
+      {code:'VIE', name:'فيينا – النمسا'},
+      {code:'MUC', name:'ميونيخ – ألمانيا'},
 
-    async function fetchJSON(url, tries=3){
-      for(let i=0;i<tries;i++){
-        try{ const r = await fetch(url,{headers:{'Accept':'application/json'}}); if(!r.ok) throw new Error('HTTP '+r.status); return await r.json(); }
-        catch(e){ if(i===tries-1) throw e; await new Promise(res=>setTimeout(res, 700*(i+1))); }
-      }
-    }
+      // آسيا والوجهات الساحلية
+      {code:'BKK', name:'بانكوك – تايلاند'},
+      {code:'HKT', name:'بوكيت – تايلاند'},
+      {code:'KUL', name:'كوالالمبور – ماليزيا'},
+      {code:'DPS', name:'بالي دينباسار – إندونيسيا'},
+      {code:'SIN', name:'سنغافورة – سنغافورة'},
+      {code:'MLE', name:'ماليه – جزر المالديف'},
+      {code:'MRU', name:'موريشيوس – موريشيوس'},
+      {code:'SEZ', name:'سيشيل – سيشيل'},
+      {code:'NRT', name:'طوكيو ناريتا – اليابان'},
+      {code:'HND', name:'طوكيو هانيدا – اليابان'},
 
-    async function geocodeCity(name){
-      statusEl.textContent='جارٍ البحث عن المدينة…';
-      const u = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(name)}&count=1&language=ar&format=json`;
-      const j = await fetchJSON(u);
-      if(!j || !j.results || !j.results.length) throw new Error('لم يتم العثور على نتائج');
-      const r = j.results[0];
-      return {lat:r.latitude, lon:r.longitude, label:`${r.name}${r.admin1?'، '+r.admin1:''} — ${r.country}`};
-    }
+      // أمريكا (اختياري)
+      {code:'JFK', name:'نيويورك – الولايات المتحدة'},
+      {code:'LAX', name:'لوس أنجلِس – الولايات المتحدة'}
+    ];
 
-    async function loadWeather(lat,lon,label){
-      statusEl.textContent='يتم جلب حالة الطقس الآن…';
-      forecastEl.innerHTML='';
-      // الحالي + 7 أيام
-      const u = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max,wind_speed_10m_max&timezone=auto`;
-      const j = await fetchJSON(u);
+    const ARAB_COUNTRIES = [
+      {label:'البحرين (BAH)', code:'BAH'},
+      {label:'السعودية – الرياض (RUH)', code:'RUH'},
+      {label:'السعودية – جدة (JED)', code:'JED'},
+      {label:'السعودية – الدمام (DMM)', code:'DMM'},
+      {label:'الإمارات – دبي (DXB)', code:'DXB'},
+      {label:'الإمارات – أبوظبي (AUH)', code:'AUH'},
+      {label:'الكويت (KWI)', code:'KWI'},
+      {label:'قطر – الدوحة (DOH)', code:'DOH'},
+      {label:'عُمان – مسقط (MCT)', code:'MCT'},
+      {label:'الأردن – عمّان (AMM)', code:'AMM'},
+      {label:'لبنان – بيروت (BEY)', code:'BEY'},
+      {label:'مصر – القاهرة (CAI)', code:'CAI'},
+      {label:'المغرب – الدار البيضاء (CMN)', code:'CMN'},
+      {label:'تونس – تونس (TUN)', code:'TUN'},
+      {label:'الجزائر – الجزائر (ALG)', code:'ALG'},
+      {label:'العراق – أربيل (EBL)', code:'EBL'}
+    ];
 
-      // الحالي
-      currentEl.style.display='flex';
-      placeEl.textContent = label || 'موقع مخصّص';
-      coordsEl.textContent = `الإحداثيات: ${fmt(lat,2)}, ${fmt(lon,2)}`;
-      if(j.current_weather){
-        tempEl.textContent = fmt(j.current_weather.temperature)+'°';
-        windsEl.textContent = `الرياح: ${fmt(j.current_weather.windspeed)} كم/س`;
-      }
-      if(j.daily && j.daily.precipitation_probability_max){
-        precipEl.textContent = (j.daily.precipitation_probability_max[0] ?? '—') + '%';
-      }
+    const WORLD_HOLIDAYS = [
+      {label:'تركيا – إسطنبول (IST)', code:'IST'},
+      {label:'تركيا – أنطاليا (AYT)', code:'AYT'},
+      {label:'جورجيا – تبليسي (TBS)', code:'TBS'},
+      {label:'أذربيجان – باكو (GYD)', code:'GYD'},
+      {label:'اليونان – أثينا (ATH)', code:'ATH'},
+      {label:'إيطاليا – روما (FCO)', code:'FCO'},
+      {label:'فرنسا – باريس (CDG)', code:'CDG'},
+      {label:'إسبانيا – برشلونة (BCN)', code:'BCN'},
+      {label:'سويسرا – زيورخ (ZRH)', code:'ZRH'},
+      {label:'النمسا – فيينا (VIE)', code:'VIE'},
+      {label:'ألمانيا – ميونيخ (MUC)', code:'MUC'},
+      {label:'تايلاند – بانكوك (BKK)', code:'BKK'},
+      {label:'ماليزيا – كوالالمبور (KUL)', code:'KUL'},
+      {label:'إندونيسيا – بالي (DPS)', code:'DPS'},
+      {label:'سنغافورة – (SIN)', code:'SIN'},
+      {label:'المالديف – ماليه (MLE)', code:'MLE'}
+    ];
 
-      // الأيام
-      const d = j.daily; 
-      for(let i=0;i<d.time.length;i++){
-        const el = document.createElement('div'); el.className='day';
-        el.innerHTML = `<strong>${dayName(d.time[i])}</strong>
-          <div style="font-weight:800;font-size:18px">${fmt(d.temperature_2m_max[i])}° / ${fmt(d.temperature_2m_min[i])}°</div>
-          <div class="muted">أمطار: ${d.precipitation_probability_max[i]??'—'}% • رياح: ${fmt(d.wind_speed_10m_max[i]||0)} كم/س</div>`;
-        forecastEl.appendChild(el);
-      }
-      statusEl.textContent='تم التحديث.';
-      notify('تم تحديث بيانات التنبؤ');
-    }
-
-    document.getElementById('searchBtn').addEventListener('click', async ()=>{
-      const name = document.getElementById('city').value.trim();
-      if(!name){ statusEl.textContent='اكتب اسم المدينة أولًا.'; return }
-      try{ const {lat,lon,label} = await geocodeCity(name); await loadWeather(lat,lon,label); }
-      catch(e){ statusEl.textContent='تعذّر العثور على المدينة أو جلب الطقس.'; }
+    // تعبئة قائمة الاقتراحات (datalist)
+    const dl = document.getElementById('airports');
+    AIRPORTS.forEach(a => {
+      const opt = document.createElement('option');
+      opt.value = `${a.code} – ${a.name}`;
+      dl.appendChild(opt);
     });
 
-    document.getElementById('locBtn').addEventListener('click', ()=>{
-      if(!navigator.geolocation){ statusEl.textContent='المتصفح لا يدعم الموقع.'; return }
-      statusEl.textContent='جارٍ تحديد موقعك…';
-      navigator.geolocation.getCurrentPosition(async (pos)=>{
-        const {latitude:lat, longitude:lon} = pos.coords;
-        try{ await loadWeather(lat,lon,'موقعك الحالي'); }catch(e){ statusEl.textContent='فشل الجلب من الخدمة.' }
-      },()=>{ statusEl.textContent='رُفض الوصول للموقع. استخدم البحث بالمدينة.' },{enableHighAccuracy:true,timeout:10000,maximumAge:0});
-    });
+    // تعبئة الشرائح الجاهزة
+    function fillChips(){
+      const arab = document.getElementById('arabChips');
+      const world = document.getElementById('worldChips');
+      ARAB_COUNTRIES.forEach(c => arab.appendChild(makeChip(c)));
+      WORLD_HOLIDAYS.forEach(c => world.appendChild(makeChip(c)));
+    }
+    function makeChip({label, code}){
+      const el = document.createElement('div');
+      el.className = 'chip';
+      el.textContent = label;
+      el.title = 'تعيين كوجهة';
+      el.onclick = () => {
+        document.getElementById('destination').value = `${code} – ${findName(code)}`;
+        scrollTo({top:0, behavior:'smooth'});
+      };
+      return el;
+    }
 
-    // محاولة تلقائية خفيفة عند الفتح
-    setTimeout(()=>{
-      if(navigator.geolocation){
-        navigator.geolocation.getCurrentPosition(async (pos)=>{
-          try{ await loadWeather(pos.coords.latitude,pos.coords.longitude,'موقعك الحالي'); }catch(e){}
-        },()=>{});
+    function findName(code){
+      const f = AIRPORTS.find(x => x.code === code);
+      return f ? f.name : code;
+    }
+
+    function parseCode(inputValue){
+      if(!inputValue) return '';
+      // يقبل "BAH" أو "BAH – المنامة …"
+      const code = (inputValue.split('–')[0] || '').trim();
+      return code.length === 3 ? code.toUpperCase() : inputValue.trim().toUpperCase();
+    }
+
+    function ymd(dateStr){
+      if(!dateStr) return '';
+      const d = new Date(dateStr);
+      const y = d.getFullYear();
+      const m = String(d.getMonth()+1).padStart(2,'0');
+      const dd = String(d.getDate()).padStart(2,'0');
+      return `${y}-${m}-${dd}`;
+    }
+
+    function mmddyyyy(dateStr){
+      if(!dateStr) return '';
+      const d = new Date(dateStr);
+      const m = String(d.getMonth()+1).padStart(2,'0');
+      const dd = String(d.getDate()).padStart(2,'0');
+      const y = d.getFullYear();
+      return `${m}/${dd}/${y}`;
+    }
+
+    function swap(){
+      const o = document.getElementById('origin');
+      const d = document.getElementById('destination');
+      const t = o.value; o.value = d.value; d.value = t;
+    }
+
+    function buildLinks(){
+      const origin = parseCode(document.getElementById('origin').value);
+      const destination = parseCode(document.getElementById('destination').value);
+      const depart = ymd(document.getElementById('depart').value);
+      const ret = ymd(document.getElementById('return').value);
+      const adults = document.getElementById('adults').value || '1';
+      const cabin = document.getElementById('cabin').value || 'economy';
+
+      if(!origin || !destination || !depart){
+        alert('رجاءً أدخل: من / إلى / تاريخ الذهاب');
+        return;
       }
-    },800);
+
+      // حفظ محلي
+      localStorage.setItem('tz-ticketk', JSON.stringify({origin,destination,depart,ret,adults,cabin}));
+
+      const urls = [];
+
+      // Google Flights (بحث عام موثوق)
+      const gfQuery = encodeURIComponent(`flights from ${origin} to ${destination} ${depart}${ret?` return ${ret}`:''} ${adults} adult ${cabin}`);
+      urls.push({
+        name:'Google Flights',
+        url:`https://www.google.com/travel/flights?hl=ar&q=${gfQuery}`,
+        note:'يعرض أرخص الخيارات عبر شركات ووكالات مختلفة.'
+      });
+
+      // Skyscanner (رابط مباشر بالتواريخ)
+      // تنسيق: /flights/ORG/DST/YYYY-MM-DD[/YYYY-MM-DD]
+      const skyBase = `https://www.skyscanner.net/transport/flights/${origin}/${destination}/${depart}` + (ret?`/${ret}`:'') + `/?adults=${adults}&cabinclass=${cabin}`;
+      urls.push({name:'Skyscanner', url: skyBase, note:'مقارنة شاملة بين مئات الشركات.'});
+
+      // KAYAK
+      const kayak = `https://www.kayak.com/flights/${origin}-${destination}/${depart}${ret?`/${ret}`:''}?adults=${adults}`;
+      urls.push({name:'KAYAK', url:kayak, note:'نتائج كثيرة مع أدوات تصفية قوية.'});
+
+      // Expedia
+      const exp = `https://www.expedia.com/Flights-Search?trip=${ret?'roundtrip':'oneway'}&leg1=from:${origin},to:${destination},departure:${mmddyyyy(document.getElementById('depart').value)}TANYT&`+
+                  `${ret?`leg2=from:${destination},to:${origin},departure:${mmddyyyy(document.getElementById('return').value)}TANYT&`:''}`+
+                  `passengers=adults:${adults}&mode=search`;
+      urls.push({name:'Expedia', url:exp, note:'وكيل حجز عالمي موثوق.'});
+
+      // Wego (شائع بالمنطقة)
+      const wego = `https://www.wego.com/flights/searches/${origin}.${destination}.${depart}/${ret?`${destination}.${origin}.${ret}`:''}?adults=${adults}&cabin_class=${cabin}`;
+      urls.push({name:'Wego', url:wego, note:'مُجمِّع شهير في الشرق الأوسط.'});
+
+      renderProviders(urls, {origin, destination, depart, ret, adults, cabin});
+    }
+
+    function renderProviders(list, ctx){
+      const box = document.getElementById('providers');
+      box.innerHTML = '';
+      list.forEach(p => {
+        const card = document.createElement('div');
+        card.className = 'prov';
+        const h = document.createElement('h4');
+        h.textContent = p.name;
+        const s = document.createElement('small');
+        s.textContent = p.note;
+        const a = document.createElement('a');
+        a.href = p.url; a.target = '_blank'; a.rel = 'noopener'; a.textContent = 'افتح النتائج';
+        card.appendChild(h); card.appendChild(s); card.appendChild(a);
+        box.appendChild(card);
+      });
+
+      // ملخص صغير أسفل الشبكة
+      const summary = document.createElement('p');
+      summary.className = 'note';
+      summary.innerHTML = `تم تجهيز البحث من <strong>${ctx.origin}</strong> إلى <strong>${ctx.destination}</strong> في <strong>${ctx.depart}</strong>${ctx.ret?` والعودة <strong>${ctx.ret}</strong>`:''} لعدد <strong>${ctx.adults}</strong> ${ctx.adults==='1'?'مسافر':'مسافرين'} – الدرجة: <strong>${arabCabin(ctx.cabin)}</strong>.`;
+      document.querySelector('.providers').after(summary);
+    }
+
+    function arabCabin(c){
+      return ({economy:'اقتصادية', premium_economy:'اقتصادية مميزة', business:'رجال أعمال', first:'أولى'})[c] || c;
+    }
+
+    // تحميل آخر استخدام
+    (function init(){
+      fillChips();
+      try{
+        const saved = JSON.parse(localStorage.getItem('tz-ticketk')||'null');
+        if(saved){
+          const {origin,destination,depart,ret,adults,cabin} = saved;
+          if(origin) document.getElementById('origin').value = `${origin} – ${findName(origin)}`;
+          if(destination) document.getElementById('destination').value = `${destination} – ${findName(destination)}`;
+          if(depart) document.getElementById('depart').value = depart;
+          if(ret) document.getElementById('return').value = ret;
+          if(adults) document.getElementById('adults').value = adults;
+          if(cabin) document.getElementById('cabin').value = cabin;
+        } else {
+          // افتراض نقطة انطلاق البحرين
+          document.getElementById('origin').value = `BAH – ${findName('BAH')}`;
+        }
+      }catch(e){}
+    })();
   </script></body>
 </html>
