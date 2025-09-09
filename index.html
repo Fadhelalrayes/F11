@@ -545,7 +545,7 @@
             return typingDiv;
         }
 
-        // التحقق من الأسئلة المخصصة
+        // التحقق من الأسئلة المتعلقة بالتعريف عن التطبيق
         function isIdentityOrCreatorQuestion(message) {
             const patterns = [
                 /من\s*(أنت|انت|أنتم|هو|صنعك|برمجك|مبرمجك|مبرمجيك|مطورك|خلقك|صانعك)\s*\?*/i,
@@ -554,6 +554,7 @@
             return patterns.some(pattern => pattern.test(message));
         }
 
+        // التحقق من الأسئلة عن فاضل الريس
         function isFadhelQuestion(message) {
             const patterns = [
                 /من\s*(فاضل|فاضل\s*الريس|هو\s*فاضل|فاضل\s*هو)\s*\?*/i,
@@ -590,7 +591,7 @@
                     body: JSON.stringify({
                         model: 'deepseek-chat',
                         messages: [
-                            { role: 'system', content: 'أنت مساعد ذكي يتحدث العربية. قدم إجابات واضحة، دقيقة، وكاملة دون اختصار. استخدم تنسيقًا منظمًا وسهل القراءة.' },
+                            { role: 'system', content: 'أنت FadhelTalk، مساعد ذكي صممه فاضل الريس. قدم إجابات واضحة، دقيقة، وكاملة بالعربية دون ذكر أي تفاصيل عن مصدر البيانات أو الشركة المطورة. استخدم تنسيقًا منظمًا وسهل القراءة.' },
                             { role: 'user', content: message }
                         ],
                         max_tokens: 2000,
