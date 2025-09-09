@@ -34,11 +34,6 @@
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
 
-        header p {
-            font-size: 1.3rem;
-            font-family: 'Cairo', sans-serif;
-        }
-
         nav {
             padding: 1rem;
             background-color: #ffffff;
@@ -89,15 +84,14 @@
             margin-bottom: 0.5rem;
         }
 
-        .word-meaning {
-            display: none;
-            padding: 1rem;
-            background-color: #f0f8f0;
-            border-right: 4px solid #d4a373;
-            border-radius: 8px;
-            font-size: 1.2rem;
-            font-family: 'Cairo', sans-serif;
-            color: #2c3e50;
+        .audio-player {
+            margin-top: 0.5rem;
+        }
+
+        .audio-player audio {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 5px;
         }
 
         footer {
@@ -117,10 +111,6 @@
                 font-size: 2rem;
             }
 
-            header p {
-                font-size: 1rem;
-            }
-
             .ayah-text {
                 font-size: 1.6rem;
             }
@@ -133,13 +123,16 @@
             main {
                 padding: 0 0.5rem;
             }
+
+            .audio-player audio {
+                max-width: 100%;
+            }
         }
     </style>
 </head>
 <body>
     <header>
         <h1>القرآن الكريم</h1>
-        <p>مع شرح معاني الكلمات</p>
     </header>
     <nav>
         <select id="surahSelect" onchange="loadSurah()">
@@ -153,19 +146,6 @@
         <p>برمجة وتطوير: فاضل الريس</p>
     </footer>
     <script>
-        // بيانات افتراضية لمعاني الكلمات (مثال للسورة الأولى)
-        const wordMeanings = {
-            1: [
-                { number: 1, text: "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ", meanings: "بِسْمِ: بمعنى مع، ٱللَّهِ: الذات الإلهية، ٱلرَّحْمَٰنِ: الذي وسعت رحمته كل شيء، ٱلرَّحِيمِ: الذي يرحم المؤمنين بشكل خاص" },
-                { number: 2, text: "ٱلْحَمْدُ لِلَّهِ رَبِّ ٱلْعَٰلَمِينَ", meanings: "ٱلْحَمْدُ: الثناء والشكر، لِلَّهِ: للذات الإلهية، رَبِّ: المالك والمدبر، ٱلْعَٰلَمِينَ: جميع المخلوقات في الكون" },
-                { number: 3, text: "ٱلرَّحْمَٰنِ ٱلرَّحِيمِ", meanings: "ٱلرَّحْمَٰنِ: صاحب الرحمة الواسعة، ٱلرَّحِيمِ: الذي يخص المؤمنين برحمته" },
-                { number: 4, text: "مَٰلِكِ يَوْمِ ٱلدِّينِ", meanings: "مَٰلِكِ: الحاكم والمتصرف، يَوْمِ ٱلدِّينِ: يوم الحساب والجزاء" },
-                { number: 5, text: "إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ", meanings: "إِيَّاكَ: أنت وحدك، نَعْبُدُ: نعبد ونطيع، نَسْتَعِينُ: نطلب العون والمساعدة" },
-                { number: 6, text: "ٱهْدِنَا ٱلصِّرَٰطَ ٱلْمُسْتَقِيمَ", meanings: "ٱهْدِنَا: ارشدنا، ٱلصِّرَٰطَ: الطريق، ٱلْمُسْتَقِيمَ: المستقيم الخالي من الانحراف" },
-                { number: 7, text: "صِرَٰطَ ٱلَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ ٱلْمَغْضُوبِ عَلَيْهِمْ وَلَا ٱلضَّآلِّينَ", meanings: "صِرَٰطَ: طريق، ٱلَّذِينَ أَنْعَمْتَ: الذين أعطيتهم نعمة الهداية، غَيْرِ ٱلْمَغْضُوبِ: الذين لم يغضب الله عليهم، وَلَا ٱلضَّآلِّينَ: ولا الذين ضلوا عن الحق" }
-            ]
-        };
-
         // جلب قائمة السور
         async function loadSurahs() {
             try {
@@ -186,13 +166,13 @@
             }
         }
 
-        // جلب الآيات وعرض معاني الكلمات
+        // جلب الآيات مع التلاوة الصوتية
         async function loadSurah() {
             const surahNumber = document.getElementById('surahSelect').value;
             if (!surahNumber) return;
 
             try {
-                const response = await fetch(`https://api.alquran.cloud/v1/surah/${surahNumber}/quran-uthmani`);
+                const response = await fetch(`https://api.alquran.cloud/v1/surah/${surahNumber}/ar.abdulbasitmurattal`);
                 const data = await response.json();
                 const ayahs = data.data.ayahs;
                 const contentDiv = document.getElementById('quranContent');
@@ -201,15 +181,15 @@
                 ayahs.forEach(ayah => {
                     const ayahDiv = document.createElement('div');
                     ayahDiv.className = 'ayah';
-                    const meaning = wordMeanings[surahNumber]?.find(m => m.number === ayah.numberInSurah)?.meanings || "معاني الكلمات غير متوفرة حاليًا";
                     ayahDiv.innerHTML = `
                         <p class="ayah-text">${ayah.text} (${ayah.numberInSurah})</p>
-                        <div class="word-meaning">${meaning}</div>
+                        <div class="audio-player">
+                            <audio controls>
+                                <source src="${ayah.audio}" type="audio/mpeg">
+                                متصفحك لا يدعم تشغيل الصوت.
+                            </audio>
+                        </div>
                     `;
-                    ayahDiv.addEventListener('click', () => {
-                        const meaningDiv = ayahDiv.querySelector('.word-meaning');
-                        meaningDiv.style.display = meaningDiv.style.display === 'block' ? 'none' : 'block';
-                    });
                     contentDiv.appendChild(ayahDiv);
                 });
             } catch (error) {
