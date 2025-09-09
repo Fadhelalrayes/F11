@@ -554,11 +554,22 @@
             return patterns.some(pattern => pattern.test(message));
         }
 
+        function isFadhelQuestion(message) {
+            const patterns = [
+                /من\s*(فاضل|فاضل\s*الريس|هو\s*فاضل|فاضل\s*هو)\s*\?*/i,
+                /who\s*(is\s*fadhel|is\s*fadhel\s*al-rais|is\s*fadhel\s*alrais)\s*\?*/i
+            ];
+            return patterns.some(pattern => pattern.test(message));
+        }
+
         // استدعاء خدمة DeepSeek أو رد مخصص
         async function getAIResponse(message) {
             // التحقق من الأسئلة المخصصة
             if (isIdentityOrCreatorQuestion(message)) {
                 return "فاضل الريس";
+            }
+            if (isFadhelQuestion(message)) {
+                return "فاضل الريس هو مطور ومبرمج هذا التطبيق.";
             }
 
             // استدعاء DeepSeek للأسئلة الأخرى
