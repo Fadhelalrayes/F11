@@ -1,163 +1,244 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FadhelTalk - محادثة ذكية</title>
-  <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <!-- سياسة أمان محتوى بسيطة -->
-  <meta http-equiv="Content-Security-Policy"
-        content="default-src 'self' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; img-src 'self' data:; font-src https://cdnjs.cloudflare.com;">
-
-  <style>
-    * { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-    body { background:#0f172a; color:#e2e8f0; min-height:100vh; display:flex; align-items:center; justify-content:center; }
-    .container { width: min(980px, 92vw); }
-    .header { display:flex; align-items:center; gap:14px; margin-bottom:18px; }
-    .logo-icon { width:44px; height:44px; border-radius:12px; background:#1e293b; display:grid; place-items:center; }
-    .logo-icon i { font-size:20px; }
-    h1 { font-size:28px; font-weight:700; }
-    .subtitle { color:#94a3b8; margin-top:2px; }
-    .card { background:#0b1220; border:1px solid #1f2937; border-radius:16px; padding:18px; }
-    .muted { color:#94a3b8; font-size:14px; }
-    .app { margin-top:14px; background:#0b1220; border:1px dashed #243041; border-radius:14px; padding:20px; }
-    .pill { display:inline-block; font-size:12px; padding:6px 10px; border-radius:999px; border:1px solid #243041; color:#a3bffa; background:#0b1220; }
-    a { color:#93c5fd; text-decoration:none; }
-    a:hover { text-decoration:underline; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دليل صلاة الليل | وفق مذهب أهل البيت (ع)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Naskh Arabic', 'Amiri', serif;
+            line-height: 1.8;
+            margin: 0;
+            padding: 0;
+            background-color: #0a0e1a;
+            color: #e0e0e0;
+            direction: rtl;
+        }
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 25px;
+            background: linear-gradient(145deg, #1a2340, #0f142a);
+            border-radius: 15px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+        .header {
+            text-align: center;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #4a5588;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            font-family: 'Amiri', serif;
+            font-size: 2.8em;
+            color: #a6b3ff;
+            margin: 0;
+            font-weight: 700;
+            text-shadow: 0 0 10px rgba(166, 179, 255, 0.5);
+        }
+        .header p {
+            font-size: 1.2em;
+            color: #b0c4de;
+        }
+        h2 {
+            font-family: 'Amiri', serif;
+            font-size: 2.2em;
+            color: #8295e8;
+            border-right: 4px solid #8295e8;
+            padding-right: 15px;
+            margin-top: 40px;
+            margin-bottom: 20px;
+        }
+        p, li {
+            font-size: 1.15em;
+            text-align: justify;
+        }
+        ul {
+            list-style-type: none;
+            padding-right: 20px;
+        }
+        ul li::before {
+            content: "✨";
+            padding-left: 12px;
+            font-size: 1.2em;
+            color: #8295e8;
+        }
+        ol {
+            padding-right: 20px;
+        }
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: rgba(31, 42, 77, 0.5);
+            border-radius: 10px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        .quote {
+            font-style: italic;
+            font-family: 'Amiri', serif;
+            font-size: 1.2em;
+            color: #c7d2fe;
+            padding: 20px;
+            margin: 20px 0;
+            border-right: 4px solid #6a7fdb;
+            background-color: rgba(106, 127, 219, 0.1);
+            border-radius: 8px;
+        }
+        .highlight {
+            color: #a6b3ff;
+            font-weight: bold;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+        th, td {
+            border: 1px solid #4a5588;
+            padding: 15px;
+            text-align: right;
+        }
+        th {
+            background-color: #2a3966;
+            color: #c7d2fe;
+            font-size: 1.1em;
+        }
+        td {
+            background-color: #1f2a4d;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #4a5588;
+            font-size: 0.9em;
+            color: #8892b0;
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
 
-    <div class="header">
-      <div class="logo">
-        <div class="logo-icon"><i class="fas fa-comments"></i></div>
-      </div>
-      <div>
-        <h1>FadhelTalk</h1>
-        <p class="subtitle">تطبيق المحادثة الذكية</p>
-      </div>
+    <div class="container">
+        <div class="header">
+            <h1>صلاة الليل: شرف المؤمن ونور الآخرة</h1>
+            <p>دليل شامل ومبسط لأداء صلاة الليل وفقًا لمذهب أهل البيت (عليهم السلام)</p>
+        </div>
+
+        <div class="section">
+            <h2>فضل صلاة الليل وأهميتها</h2>
+            <p class="quote">
+                عن الإمام الصادق (عليه السلام): "ليس من شيعتنا من لم يصلِّ صلاة الليل".
+            </p>
+            <p>
+                تُعد صلاة الليل من أعظم النوافل وأهمها، وهي دأب الصالحين ووسيلة القرب من الله تعالى. وقد أكدت عليها الروايات الشريفة لما لها من آثار عظيمة في الدنيا والآخرة، فهي تبيض الوجه، تطيب الرائحة، تجلب الرزق، وتزيل وحشة القبر.
+            </p>
+        </div>
+
+        <div class="section">
+            <h2>وقت صلاة الليل</h2>
+            <p>
+                يبدأ وقتها من <span class="highlight">منتصف الليل ويمتد حتى طلوع الفجر الصادق</span>. وأفضل أوقاتها هو وقت السحر (الثلث الأخير من الليل)، وكلما اقتربت من الفجر كان فضلها أعظم.
+            </p>
+            <ul>
+                <li>لمن يخشى فواتها بسبب النوم أو التعب، يجوز أداؤها قبل النوم.</li>
+                <li>إذا فات وقتها، يُستحب قضاؤها في النهار، فإن في قضائها فضلاً عظيماً.</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>كيفية صلاة الليل (الطريقة الكاملة)</h2>
+            <p>
+                مجموع ركعات صلاة الليل هو <span class="highlight">11 ركعة</span>، مقسمة على النحو التالي:
+            </p>
+            <ol>
+                <li>
+                    <strong>نافلة الليل (8 ركعات):</strong> تُصلى ركعتين ركعتين، مثل صلاة الصبح تمامًا، وتنوي بها "أصلي نافلة الليل قربة إلى الله تعالى".
+                    <ul>
+                        <li>يُقرأ في كل ركعة سورة الحمد وما تشاء من السور، ويجوز الاكتفاء بالحمد فقط.</li>
+                        <li>يُستحب قراءة (التوحيد) في الركعة الأولى و(الكافرون) في الثانية من أول ركعتين.</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>صلاة الشفع (ركعتان):</strong> تُصلى كركعتين بنية "أصلي ركعتي الشفع قربة إلى الله تعالى".
+                    <ul>
+                        <li>يُستحب أن يُقرأ في الركعة الأولى (الحمد) و(الناس)، وفي الثانية (الحمد) و(الفلق).</li>
+                        <li>لا يوجد قنوت في صلاة الشفع على المشهور.</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>صلاة الوتر (ركعة واحدة):</strong> وهي أهم أجزاء صلاة الليل، وتُصلى بنية "أصلي ركعة الوتر قربة إلى الله تعالى".
+                    <ul>
+                        <li>يُقرأ فيها: سورة (الحمد) مرة واحدة، (التوحيد) ثلاث مرات، و(الفلق) و(الناس) مرة واحدة لكل منهما.</li>
+                        <li>بعد القراءة، يُرفع اليدان للقنوت وهو من أهم مستحبات هذه الركعة.</li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+
+        <div class="section">
+            <h2>مستحبات قنوت الوتر</h2>
+            <p>
+                القنوت في ركعة الوتر فرصة عظيمة للدعاء والمناجاة. من أهم مستحباته:
+            </p>
+            <ul>
+                <li>الدعاء لأربعين مؤمنًا بقول: <span class="highlight">"اللهم اغفر لفلان..."</span>.</li>
+                <li>الاستغفار 70 مرة بقول: <span class="highlight">"أستغفر الله ربي وأتوب إليه"</span>.</li>
+                <li>قول: <span class="highlight">"هذا مقام العائذ بك من النار"</span> 7 مرات.</li>
+                <li>قول: <span class="highlight">"العفو"</span> 300 مرة.</li>
+                <li>ثم تختم بالدعاء: "ربِّ اغفر لي وارحمني وتب عليَّ إنك أنت التواب الغفور الرحيم".</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>الاختصارات والتسهيلات</h2>
+            <p>
+                من رحمة الله تعالى أن لهذه الصلاة العظيمة اختصارات لمن لا يتسع وقته أو جهده:
+            </p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>الحالة</th>
+                        <th>الاختصار الممكن</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>ضيق الوقت الشديد</td>
+                        <td>الاقتصار على ركعة الوتر فقط.</td>
+                    </tr>
+                    <tr>
+                        <td>ضيق الوقت</td>
+                        <td>الاقتصار على ركعتي الشفع وركعة الوتر.</td>
+                    </tr>
+                    <tr>
+                        <td>للمسافر أو المريض</td>
+                        <td>يجوز أداؤها من جلوس أو حتى أثناء المشي.</td>
+                    </tr>
+                    <tr>
+                        <td>للتسهيل في القراءة</td>
+                        <td>يمكن الاكتفاء بقراءة سورة الحمد وحدها في جميع الركعات.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p class="quote">
+                روي عن الإمام الصادق (عليه السلام) ما معناه أن من قام قبيل الفجر وصلى الوتر وركعتي الفجر، كُتبت له صلاة الليل.
+            </p>
+        </div>
+
+        <div class="footer">
+            <p>تقبل الله أعمالكم بأحسن القبول</p>
+            <p>تم إنشاء هذه الصفحة بواسطة Manus</p>
+        </div>
     </div>
 
-    <!-- ملاحظة: قسم الحالة تمت إزالته نهائياً حسب الطلب -->
-
-    <div class="card">
-      <span class="pill">جاهز للاستخدام لجميع الزوار</span>
-      <p class="muted" style="margin-top:10px;">
-        يعمل التطبيق دون الحاجة لإدخال رقم. إن وُجد رقم في الرابط (مثلاً <code>?phone=</code>) فسيُشفَّر محلياً
-        ويُخزَّن مُشفّرًا فقط.
-      </p>
-
-      <div class="app" id="app-root">
-        <!-- ضع واجهة الدردشة الفعلية هنا -->
-        <p class="muted">واجهة الدردشة ستظهر هنا…</p>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    // ===== تشفير محلي للرقم (AES-GCM عبر Web Crypto) =====
-    // - يتم إنشاء مفتاح مخصص للجلسة وتخزينه في sessionStorage (لا يُحفظ بشكل دائم).
-    // - يتم حفظ الرقم مُشفّرًا فقط في localStorage تحت المفتاح 'ft_msisdn_enc'.
-    // - إذا كان الرقم محفوظًا قديماً كنص واضح تحت 'msisdn' فسنقوم بترحيله لتخزين مُشفّر ثم حذفه.
-
-    const KEY_STORAGE = 'ft_aes_raw_key_v1';
-    const ENC_MSISDN = 'ft_msisdn_enc';
-
-    async function getOrCreateKey() {
-      // جرّب تحميل مفتاح خام محفوظ للجلسة
-      let rawB64 = sessionStorage.getItem(KEY_STORAGE);
-      if (!rawB64) {
-        const key = await crypto.subtle.generateKey({ name: 'AES-GCM', length: 256 }, true, ['encrypt','decrypt']);
-        const raw = await crypto.subtle.exportKey('raw', key);
-        rawB64 = btoa(String.fromCharCode(...new Uint8Array(raw)));
-        sessionStorage.setItem(KEY_STORAGE, rawB64);
-        return key;
-      }
-      // استيراد المفتاح من Base64
-      const raw = Uint8Array.from(atob(rawB64), c => c.charCodeAt(0));
-      return crypto.subtle.importKey('raw', raw, { name:'AES-GCM' }, false, ['encrypt','decrypt']);
-    }
-
-    function concatUint8(a, b) {
-      const out = new Uint8Array(a.length + b.length);
-      out.set(a, 0); out.set(b, a.length);
-      return out;
-    }
-
-    async function encryptText(key, text) {
-      const iv = crypto.getRandomValues(new Uint8Array(12));
-      const enc = new TextEncoder().encode(text);
-      const ct = new Uint8Array(await crypto.subtle.encrypt({ name:'AES-GCM', iv }, key, enc));
-      // نخزن IV + CT بصيغة Base64
-      const payload = concatUint8(iv, ct);
-      return btoa(String.fromCharCode(...payload));
-    }
-
-    async function decryptText(key, b64) {
-      const bytes = Uint8Array.from(atob(b64), c => c.charCodeAt(0));
-      const iv = bytes.slice(0, 12);
-      const ct = bytes.slice(12);
-      const dec = await crypto.subtle.decrypt({ name:'AES-GCM', iv }, key, ct);
-      return new TextDecoder().decode(dec);
-    }
-
-    function getQueryParam(name) {
-      const url = new URL(window.location.href);
-      return url.searchParams.get(name);
-    }
-
-    async function migratePlainIfAny(key) {
-      // ترحيل محتوى قديم محتمل (لو كنت سابقاً تخزن الرقم كنص واضح)
-      const legacyPlain = localStorage.getItem('msisdn');
-      if (legacyPlain && legacyPlain.trim()) {
-        try {
-          const enc = await encryptText(key, legacyPlain.trim());
-          localStorage.setItem(ENC_MSISDN, enc);
-        } catch(e) {
-          console.error('Encryption failed during migration:', e);
-        } finally {
-          localStorage.removeItem('msisdn'); // حذف النص الواضح نهائياً
-        }
-      }
-    }
-
-    async function storePhoneIfInURL(key) {
-      const phone = getQueryParam('phone');
-      if (phone && phone.trim()) {
-        try {
-          const enc = await encryptText(key, phone.trim());
-          localStorage.setItem(ENC_MSISDN, enc);
-        } catch(e) {
-          console.error('Encryption failed for URL phone:', e);
-        }
-      }
-    }
-
-    // مثال اختياري: دالة لجلب الرقم (مُفكّك) إن احتجته داخل التطبيق.
-    async function getDecryptedPhone() {
-      const encB64 = localStorage.getItem(ENC_MSISDN);
-      if (!encB64) return null;
-      try {
-        const key = await getOrCreateKey();
-        return await decryptText(key, encB64);
-      } catch {
-        return null; // لو فشل فك التشفير لأي سبب، لا نعيد شيئاً
-      }
-    }
-
-    (async () => {
-      const key = await getOrCreateKey();
-      await migratePlainIfAny(key);
-      await storePhoneIfInURL(key);
-
-      // التطبيق يعمل لكل الزوار بغضّ النظر عن وجود رقم.
-      // إن احتجت الرقم لاحقاً في منطقك الداخلي، استدعِ getDecryptedPhone().
-      // مثال (اختباري، يمكن حذفه):
-      // const p = await getDecryptedPhone();
-      // console.log('Decrypted phone (if any):', p);
-    })();
-  </script>
 </body>
 </html>
