@@ -184,9 +184,9 @@
     </main>
     <footer>
         <div class="social-icons">
-            <a href="https://twitter.com/intent/tweet?url=https://quran-app.example.com&text=استمتع بقراءة وتلاوة القرآن الكريم" target="_blank" title="مشاركة على تويتر"><i class="fab fa-x-twitter"></i></a>
-            <a href="https://www.facebook.com/sharer/sharer.php?u=https://quran-app.example.com" target="_blank" title="مشاركة على فيسبوك"><i class="fab fa-facebook-f"></i></a>
-            <a href="https://wa.me/?text=استمتع بقراءة وتلاوة القرآن الكريم: https://quran-app.example.com" target="_blank" title="مشاركة على واتساب"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://twitter.com/intent/tweet?url=${encodeURIComponent(window.location.href)}&text=استمتع بقراءة وتلاوة القرآن الكريم" target="_blank" title="مشاركة على تويتر"><i class="fab fa-x-twitter"></i></a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}" target="_blank" title="مشاركة على فيسبوك"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://wa.me/?text=استمتع بقراءة وتلاوة القرآن الكريم: ${encodeURIComponent(window.location.href)}" target="_blank" title="مشاركة على واتساب"><i class="fab fa-whatsapp"></i></a>
         </div>
         <p>برمجة وتطوير: فاضل الريس</p>
     </footer>
@@ -245,7 +245,6 @@
 
             try {
                 const response = await fetch(`https://api.alquran.cloud/v1/surah/${surahNumber}/ar.abdulbasitmurattal`);
-                if (!response.ok) throw new Error('فشل جلب بيانات السورة');
                 const data = await response.json();
                 const ayahs = data.data.ayahs;
                 const contentDiv = document.getElementById('quranContent');
@@ -287,6 +286,11 @@
                             playNextAyah();
                         }
                     });
+                    audio.addEventListener('error', () => {
+                        console.error('خطأ في تحميل الصوت للآية:', index + 1);
+                        document.getElementById('autoplayAlert').innerHTML = '<p>خطأ في تحميل الصوت، حاول تحديث الصفحة أو اختيار سورة أخرى.</p>';
+                        document.getElementById('autoplayAlert').style.display = 'block';
+                    });
                     // النقر على الآية لتفعيل الصوت
                     audio.parentElement.parentElement.addEventListener('click', () => {
                         stopAllAudio();
@@ -305,9 +309,7 @@
                 if (audioElements.length > 0) {
                     currentAyahIndex = 0;
                     const firstAudio = audioElements[0];
-                    if (!firstAudio.src) {
-                        firstAudio.src = firstAudio.dataset.src;
-                    }
+                    firstAudio.src = firstAudio.dataset.src;
                     firstAudio.play().catch(error => {
                         console.error('خطأ في التشغيل التلقائي:', error);
                         document.getElementById('autoplayAlert').style.display = 'block';
