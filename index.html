@@ -220,6 +220,7 @@
             audioElements.forEach(audio => {
                 audio.pause();
                 audio.currentTime = 0;
+                audio.src = ''; // إعادة تعيين المصدر لتجنب التداخل
             });
         }
 
@@ -228,9 +229,7 @@
             if (currentAyahIndex + 1 < audioElements.length) {
                 currentAyahIndex++;
                 const nextAudio = audioElements[currentAyahIndex];
-                if (!nextAudio.src) {
-                    nextAudio.src = nextAudio.dataset.src;
-                }
+                nextAudio.src = nextAudio.dataset.src;
                 nextAudio.play().catch(error => {
                     console.error('خطأ في تشغيل الصوت:', error);
                     document.getElementById('autoplayAlert').style.display = 'block';
@@ -295,9 +294,7 @@
                     audio.parentElement.parentElement.addEventListener('click', () => {
                         stopAllAudio();
                         currentAyahIndex = index;
-                        if (!audio.src) {
-                            audio.src = audio.dataset.src;
-                        }
+                        audio.src = audio.dataset.src;
                         audio.play().catch(error => {
                             console.error('خطأ في تشغيل الصوت:', error);
                             document.getElementById('autoplayAlert').style.display = 'block';
