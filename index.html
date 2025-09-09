@@ -100,31 +100,12 @@
 
         .audio-player {
             margin-top: 0.5rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
         }
 
         .audio-player audio {
             width: 100%;
             max-width: 300px;
             border-radius: 5px;
-        }
-
-        .play-button {
-            padding: 0.5rem 1rem;
-            font-size: 1rem;
-            font-family: 'Cairo', sans-serif;
-            background-color: #1a3c34;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .play-button:hover {
-            background-color: #2e6b5b;
         }
 
         footer {
@@ -176,11 +157,6 @@
                 max-width: 100%;
             }
 
-            .play-button {
-                font-size: 0.9rem;
-                padding: 0.4rem 0.8rem;
-            }
-
             .social-icons a {
                 font-size: 1.2rem;
             }
@@ -201,7 +177,7 @@
         </select>
     </nav>
     <div class="alert" id="autoplayAlert">
-        <p>لتفعيل التشغيل التلقائي، انقر على أي آية أو زر التشغيل للسماح بتشغيل الصوت.</p>
+        <p>لتفعيل التشغيل، انقر على أي آية للسماح بتشغيل الصوت. إذا لم يعمل، تحقق من اتصالك بالإنترنت أو استخدم HTTPS.</p>
     </div>
     <main>
         <div id="quranContent"></div>
@@ -254,8 +230,9 @@
                 currentAyahIndex++;
                 const nextAudio = audioElements[currentAyahIndex];
                 nextAudio.src = nextAudio.dataset.src;
+                nextAudio.load(); // إعادة تحميل الملف للتأكد من الجاهزية
                 nextAudio.play().catch(error => {
-                    console.error('خطأ في تشغيل الصوت:', error);
+                    console.error('خطأ في تشغيل الصوت للآية:', currentAyahIndex + 1, error);
                     document.getElementById('autoplayAlert').style.display = 'block';
                 });
             }
@@ -269,6 +246,9 @@
             try {
                 const response = await fetch(`https://api.alquran.cloud/v1/surah/${surahNumber}/ar.abdulbasitmurattal`);
                 const data = await response.json();
+                if (!data.data || !data.data.ayahs) {
+                    throw new Error('بيانات السورة غير متاحة');
+                }
                 const ayahs = data.data.ayahs;
                 const contentDiv = document.getElementById('quranContent');
                 contentDiv.innerHTML = '';
@@ -287,7 +267,6 @@
                                 <source src="${ayah.audio}" type="audio/mpeg">
                                 متصفحك لا يدعم تشغيل الصوت.
                             </audio>
-                            <button class="play-button" onclick="playAyah(${index})">تشغيل</button>
                         </div>
                     `;
                     contentDiv.appendChild(ayahDiv);
@@ -300,6 +279,7 @@
                         stopAllAudio();
                         if (!audio.src) {
                             audio.src = audio.dataset.src;
+                            audio.load(); // إعادة تحميل الملف للتأكد من الجاهزية
                         }
                         currentAyahIndex = index;
                         isAutoplayAllowed = true;
@@ -310,22 +290,21 @@
                             playNextAyah();
                         }
                     });
-                    audio.addEventListener('error', () => {
-                        console.error('خطأ في تحميل الصوت للآية:', index + 1, 'رابط:', audio.dataset.src);
-                        document.getElementById('autoplayAlert').innerHTML = '<p>خطأ في تحميل الصوت للآية ' + (index + 1) + '، حاول تحديث الصفحة أو اختيار سورة أخرى.</p>';
+                    audio.addEventListener('error', (e) => {
+                        console.error('خطأ في تحميل الصوت للآية:', index + 1, e);
+                        document.getElementById('autoplayAlert').innerHTML = `<p>خطأ في تحميل الصوت للآية ${index + 1}. تحقق من الاتصال أو جرب سورة أخرى.</p>`;
                         document.getElementById('autoplayAlert').style.display = 'block';
                     });
                     // النقر على الآية لتفعيل الصوت
-                    audio.parentElement.parentElement.addEventListener('click', (e) => {
-                        if (e.target.tagName !== 'BUTTON') { // تجنب النقر على زر التشغيل
-                            stopAllAudio();
-                            currentAyahIndex = index;
-                            audio.src = audio.dataset.src;
-                            audio.play().catch(error => {
-                                console.error('خطأ في تشغيل الصوت:', error);
-                                document.getElementById('autoplayAlert').style.display = 'block';
-                            });
-                        }
+                    audio.parentElement.parentElement.addEventListener('click', () => {
+                        stopAllAudio();
+                        currentAyahIndex = index;
+                        audio.src = audio.dataset.src;
+                        audio.load(); // إعادة تحميل الملف قبل التشغيل
+                        audio.play().catch(error => {
+                            console.error('خطأ في تشغيل الصوت للآية:', index + 1, error);
+                            document.getElementById('autoplayAlert').style.display = 'block';
+                        });
                     });
                 });
 
@@ -334,8 +313,9 @@
                     currentAyahIndex = 0;
                     const firstAudio = audioElements[0];
                     firstAudio.src = firstAudio.dataset.src;
+                    firstAudio.load(); // إعادة تحميل الملف للتأكد من الجاهزية
                     firstAudio.play().catch(error => {
-                        console.error('خطأ في التشغيل التلقائي:', error);
+                        console.error('خطأ في التشغيل التلقائي للآية 1:', error);
                         document.getElementById('autoplayAlert').style.display = 'block';
                     });
                 }
@@ -343,18 +323,6 @@
                 console.error('خطأ في جلب الآيات:', error);
                 document.getElementById('quranContent').innerHTML = '<p style="color: red; text-align: center;">خطأ في جلب الآيات، حاول مرة أخرى.</p>';
             }
-        }
-
-        // دالة لتشغيل آية معينة يدويًا
-        function playAyah(index) {
-            stopAllAudio();
-            currentAyahIndex = index;
-            const audio = audioElements[index];
-            audio.src = audio.dataset.src;
-            audio.play().catch(error => {
-                console.error('خطأ في تشغيل الصوت:', error);
-                document.getElementById('autoplayAlert').style.display = 'block';
-            });
         }
 
         // تحميل قائمة السور عند تحميل الصفحة
