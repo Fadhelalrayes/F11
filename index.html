@@ -59,22 +59,16 @@
             border-color: #d4a373;
         }
 
-        .play-all {
-            display: inline-block;
-            margin: 1rem;
-            padding: 0.7rem 1.5rem;
-            font-size: 1.2rem;
-            font-family: 'Cairo', sans-serif;
-            background-color: #1a3c34;
-            color: white;
-            border: none;
+        .alert {
+            display: none;
+            padding: 1rem;
+            background-color: #f8d7da;
+            color: #721c24;
+            text-align: center;
+            margin: 1rem auto;
             border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .play-all:hover {
-            background-color: #2e6b5b;
+            max-width: 900px;
+            font-family: 'Cairo', sans-serif;
         }
 
         main {
@@ -155,11 +149,6 @@
                 font-size: 1rem;
             }
 
-            .play-all {
-                width: 100%;
-                font-size: 1rem;
-            }
-
             main {
                 padding: 0 0.5rem;
             }
@@ -170,6 +159,10 @@
 
             .social-icons a {
                 font-size: 1.2rem;
+            }
+
+            .alert {
+                font-size: 0.9rem;
             }
         }
     </style>
@@ -182,8 +175,10 @@
         <select id="surahSelect" onchange="loadSurah()">
             <option value="">اختر سورة</option>
         </select>
-        <button class="play-all" onclick="playAllAyahs()">بدء التلاوة</button>
     </nav>
+    <div class="alert" id="autoplayAlert">
+        <p>لتفعيل التشغيل التلقائي، انقر على أي آية للسماح بتشغيل الصوت.</p>
+    </div>
     <main>
         <div id="quranContent"></div>
     </main>
@@ -198,6 +193,7 @@
     <script>
         let currentAyahIndex = -1;
         let audioElements = [];
+        let isAutoplayAllowed = false;
 
         // جلب قائمة السور
         async function loadSurahs() {
@@ -227,6 +223,21 @@
             });
         }
 
+        // تشغيل الآية التالية
+        function playNextAyah() {
+            if (currentAyahIndex + 1 < audioElements.length) {
+                currentAyahIndex++;
+                const nextAudio = audioElements[currentAyahIndex];
+                if (!nextAudio.src) {
+                    nextAudio.src = nextAudio.dataset.src;
+                }
+                nextAudio.play().catch(error => {
+                    console.error('خطأ في تشغيل الصوت:', error);
+                    document.getElementById('autoplayAlert').style.display = 'block';
+                });
+            }
+        }
+
         // جلب الآيات مع التلاوة الصوتية
         async function loadSurah() {
             const surahNumber = document.getElementById('surahSelect').value;
@@ -240,8 +251,10 @@
                 contentDiv.innerHTML = '';
                 audioElements = [];
                 currentAyahIndex = -1;
+                isAutoplayAllowed = false;
+                document.getElementById('autoplayAlert').style.display = 'none';
 
-                ayahs.forEach(ayah => {
+                ayahs.forEach((ayah, index) => {
                     const ayahDiv = document.createElement('div');
                     ayahDiv.className = 'ayah';
                     ayahDiv.innerHTML = `
@@ -257,7 +270,7 @@
                     audioElements.push(ayahDiv.querySelector('audio'));
                 });
 
-                // إضافة حدث الانتهاء لكل آية
+                // إضافة أحداث للآيات
                 audioElements.forEach((audio, index) => {
                     audio.addEventListener('play', () => {
                         stopAllAudio();
@@ -265,28 +278,42 @@
                             audio.src = audio.dataset.src;
                         }
                         currentAyahIndex = index;
+                        isAutoplayAllowed = true;
+                        document.getElementById('autoplayAlert').style.display = 'none';
                     });
                     audio.addEventListener('ended', () => {
-                        if (index + 1 < audioElements.length) {
-                            audioElements[index + 1].src = audioElements[index + 1].dataset.src;
-                            audioElements[index + 1].play();
+                        if (isAutoplayAllowed) {
+                            playNextAyah();
                         }
                     });
+                    // النقر على الآية لتفعيل الصوت
+                    audio.parentElement.parentElement.addEventListener('click', () => {
+                        stopAllAudio();
+                        currentAyahIndex = index;
+                        if (!audio.src) {
+                            audio.src = audio.dataset.src;
+                        }
+                        audio.play().catch(error => {
+                            console.error('خطأ في تشغيل الصوت:', error);
+                            document.getElementById('autoplayAlert').style.display = 'block';
+                        });
+                    });
                 });
+
+                // محاولة التشغيل التلقائي للآية الأولى
+                if (audioElements.length > 0) {
+                    currentAyahIndex = 0;
+                    const firstAudio = audioElements[0];
+                    firstAudio.src = firstAudio.dataset.src;
+                    firstAudio.play().catch(error => {
+                        console.error('خطأ في التشغيل التلقائي:', error);
+                        document.getElementById('autoplayAlert').style.display = 'block';
+                    });
+                }
             } catch (error) {
                 console.error('خطأ في جلب الآيات:', error);
                 document.getElementById('quranContent').innerHTML = '<p style="color: red; text-align: center;">خطأ في جلب الآيات، حاول مرة أخرى.</p>';
             }
-        }
-
-        // تشغيل جميع الآيات تلقائيًا
-        function playAllAyahs() {
-            if (audioElements.length === 0) return;
-            stopAllAudio();
-            currentAyahIndex = 0;
-            const firstAudio = audioElements[0];
-            firstAudio.src = firstAudio.dataset.src;
-            firstAudio.play();
         }
 
         // تحميل قائمة السور عند تحميل الصفحة
