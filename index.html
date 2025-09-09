@@ -21,12 +21,6 @@
             justify-content: center; 
             align-items: center; 
             padding: 20px;
-            transition: background 0.5s ease;
-        }
-        
-        body.dark-mode {
-            background: linear-gradient(135deg, #1e3a8a 0%, #3b0764 100%);
-            color: #e5e7eb;
         }
         
         .container {
@@ -38,11 +32,6 @@
             overflow: hidden; 
             backdrop-filter: blur(10px); 
             animation: fadeIn 0.8s ease-out;
-            transition: background 0.5s ease, color 0.5s ease;
-        }
-        
-        body.dark-mode .container {
-            background: rgba(31, 41, 55, 0.95); 
         }
         
         @keyframes fadeIn { 
@@ -57,11 +46,6 @@
             text-align: center; 
             position: relative; 
             overflow: hidden;
-            transition: background 0.5s ease;
-        }
-        
-        body.dark-mode .header {
-            background: linear-gradient(135deg, #312e81 0%, #4c1d95 100%); 
         }
         
         .header::before {
@@ -96,11 +80,6 @@
             animation: pulse 2s infinite;
         }
         
-        body.dark-mode .logo-icon {
-            background: #1f2937; 
-            color: #a78bfa; 
-        }
-        
         @keyframes pulse { 
             0% {transform: scale(1);} 
             50% {transform: scale(1.05);} 
@@ -130,11 +109,6 @@
             padding: 5px 12px; 
             border-radius: 20px; 
             backdrop-filter: blur(5px);
-            transition: background 0.5s ease;
-        }
-        
-        body.dark-mode .status {
-            background: rgba(0,0,0,0.2); 
         }
         
         .status-dot { 
@@ -154,11 +128,6 @@
             gap: 20px;
             scrollbar-width: thin; 
             scrollbar-color: #cbd5e0 transparent;
-            transition: background 0.5s ease, color 0.5s ease;
-        }
-        
-        body.dark-mode .chat-container {
-            background: #1f2937; 
         }
         
         .chat-container::-webkit-scrollbar { 
@@ -170,10 +139,6 @@
             border-radius: 10px; 
         }
         
-        body.dark-mode .chat-container::-webkit-scrollbar-thumb { 
-            background: #4b5563; 
-        }
-        
         .message {
             max-width: 80%; 
             padding: 16px 20px; 
@@ -183,7 +148,6 @@
             animation: messageAppear 0.3s ease-out; 
             box-shadow: 0 4px 12px rgba(0,0,0,0.05);
             word-wrap: break-word;
-            transition: background 0.5s ease, color 0.5s ease;
         }
         
         @keyframes messageAppear { 
@@ -198,10 +162,6 @@
             border-bottom-right-radius: 5px; 
         }
         
-        body.dark-mode .user-message { 
-            background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%); 
-        }
-        
         .ai-message { 
             align-self: flex-start; 
             background: white; 
@@ -210,15 +170,22 @@
             border: 1px solid #e5e7eb; 
         }
         
-        body.dark-mode .ai-message { 
-            background: #374151; 
-            color: #e5e7eb; 
-            border: 1px solid #4b5563; 
-        }
-        
         .message-content { 
             margin-bottom: 5px; 
             font-size: 15px; 
+        }
+        
+        .message-content p { 
+            margin: 5px 0; 
+        }
+        
+        .message-content ul, .message-content ol { 
+            margin: 10px 20px; 
+            padding: 0; 
+        }
+        
+        .message-content li { 
+            margin-bottom: 5px; 
         }
         
         .message-time { 
@@ -234,12 +201,6 @@
             background: #f8fafc; 
             border-top: 1px solid #e5e7eb; 
             gap: 12px; 
-            transition: background 0.5s ease, border-color 0.5s ease;
-        }
-        
-        body.dark-mode .input-container { 
-            background: #1f2937; 
-            border-top: 1px solid #4b5563; 
         }
         
         input {
@@ -251,12 +212,7 @@
             font-size: 15px; 
             background: white;
             box-shadow: 0 2px 10px rgba(0,0,0,0.05); 
-            transition: all 0.3s, background 0.5s ease;
-        }
-        
-        body.dark-mode input {
-            background: #374151;
-            color: #e5e7eb;
+            transition: all 0.3s;
         }
         
         input:focus { 
@@ -264,10 +220,6 @@
         }
         
         input::placeholder { 
-            color: #9ca3af; 
-        }
-        
-        body.dark-mode input::placeholder { 
             color: #9ca3af; 
         }
         
@@ -284,10 +236,6 @@
             align-items: center; 
             gap: 8px; 
             box-shadow: 0 4px 12px rgba(139,92,246,0.3);
-        }
-        
-        body.dark-mode button {
-            background: linear-gradient(135deg, #6d28d9 0%, #5b21b6 100%); 
         }
         
         button:hover { 
@@ -312,13 +260,6 @@
             color: #64748b; 
             font-size: 12px; 
             border-top: 1px solid #e2e8f0; 
-            transition: background 0.5s ease, color 0.5s ease;
-        }
-        
-        body.dark-mode .footer { 
-            background: #111827; 
-            color: #9ca3af; 
-            border-top: 1px solid #374151; 
         }
         
         .typing-indicator {
@@ -333,13 +274,6 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.05); 
             border: 1px solid #e5e7eb; 
             animation: messageAppear 0.3s ease-out;
-            transition: background 0.5s ease, color 0.5s ease;
-        }
-        
-        body.dark-mode .typing-indicator {
-            background: #374151; 
-            color: #d1d5db; 
-            border: 1px solid #4b5563; 
         }
         
         .typing-dots { 
@@ -354,10 +288,6 @@
             border-radius: 50%; 
             margin: 0 2px; 
             animation: typing 1.4s infinite both; 
-        }
-        
-        body.dark-mode .typing-dots span { 
-            background: #9ca3af; 
         }
         
         .typing-dots span:nth-child(2) { 
@@ -385,23 +315,11 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
-            transition: background 0.5s ease, color 0.5s ease;
-        }
-        
-        body.dark-mode .api-status { 
-            background: #064e3b; 
-            color: #d1fae5; 
-            border-bottom: 1px solid #065f46; 
         }
         
         .api-status.error {
             background: #fee2e2;
             color: #991b1b;
-        }
-        
-        body.dark-mode .api-status.error {
-            background: #7f1d1d; 
-            color: #fecaca; 
         }
         
         .retry-btn {
@@ -413,26 +331,6 @@
             font-size: 12px;
             margin-right: 8px;
             cursor: pointer;
-        }
-        
-        .controls {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px 20px;
-            border-top: 1px solid #e5e7eb;
-            background: #f8fafc;
-            transition: background 0.5s ease, border-color 0.5s ease;
-        }
-        
-        body.dark-mode .controls {
-            background: #1f2937;
-            border-top: 1px solid #4b5563;
-        }
-        
-        .controls button {
-            padding: 8px 16px;
-            font-size: 14px;
-            border-radius: 20px;
         }
         
         @media (max-width: 600px) {
@@ -502,17 +400,6 @@
             </button>
         </div>
 
-        <div class="controls">
-            <button id="clear-chat-btn">
-                <i class="fas fa-trash"></i>
-                <span>مسح المحادثة</span>
-            </button>
-            <button id="toggle-mode-btn">
-                <i class="fas fa-moon"></i>
-                <span>الوضع الليلي</span>
-            </button>
-        </div>
-
         <div class="footer">برمجة وتطوير: فاضل الريس | جميع الحقوق محفوظة</div>
     </div>
 
@@ -525,19 +412,27 @@
         const statusText = document.getElementById('status-text');
         const statusDot = document.getElementById('status-dot');
         const apiStatus = document.getElementById('api-status');
-        const clearChatBtn = document.getElementById('clear-chat-btn');
-        const toggleModeBtn = document.getElementById('toggle-mode-btn');
-        const body = document.body;
 
         // حالة التطبيق
         let isConnected = true;
         let isWaitingForResponse = false;
-        let isDarkMode = localStorage.getItem('darkMode') === 'true';
 
         // مفتاح API المشفر (Base64) - للأمان البسيط
-        const encodedApiKey = 'c2stNmJmNWJjZTFmYTJlNDVkZGIwMTZhOWVjNDJiYzUxZDM='; // استبدل هذا بـ btoa('your-api-key')
+        const encodedApiKey = 'c2stNmJmNWJjZTFmYTJlNDVkZGIwMTZhOWVjNDJiYzUxZDM='; // استبدل بـ btoa('your-api-key')
         function getApiKey() {
             return atob(encodedApiKey);
+        }
+
+        // تنسيق الردود لإزالة الهاشتاغ والنقاط غير المنتظمة
+        function formatResponse(text) {
+            // إزالة الهاشتاغات والمسافات الزائدة
+            text = text.replace(/#+/g, '').replace(/\s+/g, ' ').trim();
+            // تحويل النقاط إلى قوائم HTML إذا لزم الأمر
+            text = text.replace(/^\s*-\s+/gm, '<li>').replace(/\n/g, '</li>');
+            if (text.includes('<li>')) text = `<ul>${text}</ul>`;
+            // تقسيم النص إلى فقرات
+            text = text.split('\n').map(line => `<p>${line}</p>`).join('');
+            return text;
         }
 
         // تحديث الوقت الحالي
@@ -579,7 +474,7 @@
             }
         }
 
-        // اختبار الاتصال بالخدمة مع تحقق Referer للأمان
+        // اختبار الاتصال بالخدمة مع تحقق Referer
         async function testConnection() {
             if (document.referrer && !document.referrer.includes(location.hostname)) {
                 console.warn('طلب غير مصرح من موقع خارجي');
@@ -605,8 +500,7 @@
             } catch (error) {
                 console.error('فشل اختبار الاتصال:', error);
                 updateConnectionStatus(false, `تعذّر الاتصال بالخدمة: ${error.message}`);
-                // إعادة محاولة تلقائية بعد 3 ثوانٍ
-                setTimeout(testConnection, 3000);
+                setTimeout(testConnection, 3000); // إعادة محاولة تلقائية
                 return false;
             }
         }
@@ -619,7 +513,7 @@
 
             const messageContent = document.createElement('div');
             messageContent.classList.add('message-content');
-            messageContent.textContent = text;
+            messageContent.innerHTML = isUser ? text : formatResponse(text); // تنسيق الردود للـ AI فقط
 
             const messageTime = document.createElement('div');
             messageTime.classList.add('message-time');
@@ -629,7 +523,6 @@
             messageDiv.appendChild(messageTime);
             chatContainer.appendChild(messageDiv);
             chatContainer.scrollTop = chatContainer.scrollHeight;
-            saveChat(); // حفظ المحادثة تلقائيًا
         }
 
         // مؤشر الكتابة
@@ -652,7 +545,7 @@
             return typingDiv;
         }
 
-        // استدعاء خدمة الذكاء الاصطناعي مع تعزيز للردود الكاملة
+        // استدعاء خدمة الذكاء الاصطناعي
         async function getAIResponse(message) {
             if (!isConnected) {
                 const connected = await testConnection();
@@ -671,10 +564,10 @@
                     body: JSON.stringify({
                         model: 'deepseek-chat',
                         messages: [
-                            { role: 'system', content: 'أنت مساعد مفيد يتحدث العربية. قدم إجابات واضحة، دقيقة، وكاملة دون اختصار.' },
+                            { role: 'system', content: 'أنت مساعد مفيد يتحدث العربية. قدم إجابات واضحة، دقيقة، وكاملة دون اختصار. استخدم تنسيقًا منظمًا وسهل القراءة.' },
                             { role: 'user', content: message }
                         ],
-                        max_tokens: 2000, // زيادة لردود كاملة
+                        max_tokens: 2000,
                         temperature: 0.7
                     })
                 });
@@ -728,45 +621,14 @@
             }
         }
 
-        // حفظ المحادثة في localStorage
-        function saveChat() {
-            localStorage.setItem('chatHistory', chatContainer.innerHTML);
-        }
-
-        // تحميل المحادثة من localStorage
-        function loadChat() {
-            const history = localStorage.getItem('chatHistory');
-            if (history) {
-                chatContainer.innerHTML = history;
-            }
-        }
-
-        // مسح المحادثة
-        function clearChat() {
-            chatContainer.innerHTML = '<div class="message ai-message"><div class="message-content">مرحبًا! أنا مساعدك في FadhelTalk. كيف يمكنني مساعدتك اليوم؟</div><div class="message-time">' + updateCurrentTime() + '</div></div>';
-            localStorage.removeItem('chatHistory');
-        }
-
-        // تبديل الوضع الليلي
-        function toggleDarkMode() {
-            isDarkMode = !isDarkMode;
-            body.classList.toggle('dark-mode', isDarkMode);
-            localStorage.setItem('darkMode', isDarkMode);
-            toggleModeBtn.innerHTML = isDarkMode ? '<i class="fas fa-sun"></i> <span>الوضع النهاري</span>' : '<i class="fas fa-moon"></i> <span>الوضع الليلي</span>';
-        }
-
         // تهيئة الأحداث
         function initEvents() {
             sendBtn.addEventListener('click', sendMessage);
             userInput.addEventListener('keypress', (e) => { 
                 if (e.key === 'Enter' && !isWaitingForResponse) sendMessage(); 
             });
-            clearChatBtn.addEventListener('click', clearChat);
-            toggleModeBtn.addEventListener('click', toggleDarkMode);
             
             window.addEventListener('load', () => {
-                loadChat();
-                if (isDarkMode) toggleDarkMode();
                 userInput.focus();
                 testConnection();
             });
