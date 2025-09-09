@@ -423,15 +423,17 @@
             return atob(encodedApiKey);
         }
 
-        // تنسيق الردود لإزالة الهاشتاغ والنقاط غير المنتظمة
+        // تنسيق الردود لإزالة جميع الرموز غير المرغوبة
         function formatResponse(text) {
-            // إزالة الهاشتاغات والمسافات الزائدة
-            text = text.replace(/#+/g, '').replace(/\s+/g, ' ').trim();
+            // إزالة الهاشتاغات، النجوم، والرموز الأخرى
+            text = text.replace(/[#+*_\[\]\(\)]+/g, '').replace(/\s+/g, ' ').trim();
             // تحويل النقاط إلى قوائم HTML إذا لزم الأمر
             text = text.replace(/^\s*-\s+/gm, '<li>').replace(/\n/g, '</li>');
             if (text.includes('<li>')) text = `<ul>${text}</ul>`;
             // تقسيم النص إلى فقرات
-            text = text.split('\n').map(line => `<p>${line}</p>`).join('');
+            text = text.split('\n').map(line => line.trim() ? `<p>${line}</p>` : '').join('');
+            // إزالة الفقرات الفارغة
+            text = text.replace(/<p>\s*<\/p>/g, '');
             return text;
         }
 
@@ -591,7 +593,7 @@
                     body: JSON.stringify({
                         model: 'deepseek-chat',
                         messages: [
-                            { role: 'system', content: 'أنت FadhelTalk، مساعد ذكي صممه فاضل الريس. قدم إجابات واضحة، دقيقة، وكاملة بالعربية دون ذكر أي تفاصيل عن مصدر البيانات أو الشركة المطورة. استخدم تنسيقًا منظمًا وسهل القراءة.' },
+                            { role: 'system', content: 'أنت FadhelTalk، مساعد ذكي صممه فاضل الريس. قدم إجابات واضحة، دقيقة، وكاملة بالعربية دون ذكر أي تفاصيل عن مصدر البيانات أو الشركة المطورة. تجنب استخدام الهاشتاغات (#)، النجوم (*)، أو أي رموز تنسيق. استخدم تنسيقًا منظمًا وسهل القراءة مع فقرات أو قوائم إذا لزم الأمر.' },
                             { role: 'user', content: message }
                         ],
                         max_tokens: 2000,
