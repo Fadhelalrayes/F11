@@ -387,7 +387,7 @@
 
         <div class="chat-container" id="chat-container">
             <div class="message ai-message">
-                <div class="message-content">مرحبًا! أنا مساعدك في FadhelTalk. كيف يمكنني مساعدتك اليوم؟</div>
+                <div class="message-content">مرحبًا! أنا FadhelTalk، مساعدك الذكي. كيف يمكنني مساعدتك اليوم؟</div>
                 <div class="message-time" id="current-time"></div>
             </div>
         </div>
@@ -418,7 +418,7 @@
         let isWaitingForResponse = false;
 
         // مفتاح API المشفر (Base64) - للأمان البسيط
-        const encodedApiKey = 'c2stNmJmNWJjZTFmYTJlNDVkZGIwMTZhOWVjNDJiYzUxZDM='; // استبدل بـ btoa('your-api-key')
+        const encodedApiKey = 'c2stNmJmNWJjZTFmYTJlNDVkZGIwMTZhOWVjNDJiYzUxZDM='; // استبدل بـ btoa('your-deepseek-api-key')
         function getApiKey() {
             return atob(encodedApiKey);
         }
@@ -545,8 +545,23 @@
             return typingDiv;
         }
 
-        // استدعاء خدمة الذكاء الاصطناعي
+        // التحقق من الأسئلة المخصصة
+        function isIdentityOrCreatorQuestion(message) {
+            const patterns = [
+                /من\s*(أنت|انت|أنتم|هو|صنعك|برمجك|مبرمجك|مبرمجيك|مطورك|خلقك|صانعك)\s*\?*/i,
+                /who\s*(are\s*you|is\s*the\s*creator|is\s*the\s*developer|made\s*you|programmed\s*you)\s*\?*/i
+            ];
+            return patterns.some(pattern => pattern.test(message));
+        }
+
+        // استدعاء خدمة DeepSeek أو رد مخصص
         async function getAIResponse(message) {
+            // التحقق من الأسئلة المخصصة
+            if (isIdentityOrCreatorQuestion(message)) {
+                return "فاضل الريس";
+            }
+
+            // استدعاء DeepSeek للأسئلة الأخرى
             if (!isConnected) {
                 const connected = await testConnection();
                 if (!connected) {
@@ -564,7 +579,7 @@
                     body: JSON.stringify({
                         model: 'deepseek-chat',
                         messages: [
-                            { role: 'system', content: 'أنت مساعد مفيد يتحدث العربية. قدم إجابات واضحة، دقيقة، وكاملة دون اختصار. استخدم تنسيقًا منظمًا وسهل القراءة.' },
+                            { role: 'system', content: 'أنت مساعد ذكي يتحدث العربية. قدم إجابات واضحة، دقيقة، وكاملة دون اختصار. استخدم تنسيقًا منظمًا وسهل القراءة.' },
                             { role: 'user', content: message }
                         ],
                         max_tokens: 2000,
