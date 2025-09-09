@@ -3,197 +3,191 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>صلاة الليل وفق مذهب أهل البيت عليهم السلام</title>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <title>القرآن الكريم</title>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri+Quran&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Tajawal', sans-serif;
         }
 
         body {
-            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            font-family: 'Amiri Quran', serif;
+            background-color: #f5f5f5;
             color: #333;
+            direction: rtl;
             line-height: 1.6;
         }
 
         header {
-            background: #fff;
-            padding: 20px;
+            background-color: #1a3c34;
+            color: white;
             text-align: center;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
         }
 
         header h1 {
-            font-size: 2.5em;
-            color: #1e3c72;
+            font-size: 2.5rem;
         }
 
-        .container {
+        header p {
+            font-size: 1.2rem;
+        }
+
+        nav {
+            padding: 1rem;
+            background-color: #e8f0e8;
+            text-align: center;
+        }
+
+        nav select {
+            padding: 0.5rem;
+            font-size: 1.2rem;
+            font-family: 'Amiri Quran', serif;
+            border-radius: 5px;
+            width: 200px;
+        }
+
+        main {
             max-width: 1200px;
-            margin: 20px auto;
-            padding: 20px;
-            background: #fff;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .ayah {
+            background-color: white;
+            padding: 1rem;
+            margin: 1rem 0;
             border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
         }
 
-        .section {
-            margin-bottom: 30px;
+        .ayah-text {
+            font-size: 1.8rem;
+            color: #1a3c34;
         }
 
-        .section h2 {
-            font-size: 1.8em;
-            color: #2a5298;
-            margin-bottom: 15px;
-            border-bottom: 2px solid #2a5298;
-            padding-bottom: 5px;
-            text-align: right;
-        }
-
-        .section p, .section ul {
-            font-size: 1.1em;
-            color: #444;
-            text-align: justify;
-        }
-
-        .section ul {
-            list-style: none;
-            padding-right: 20px;
-        }
-
-        .section ul li {
-            margin-bottom: 10px;
-            position: relative;
-            padding-right: 30px;
-            text-align: justify;
-        }
-
-        .section ul li::before {
-            content: '\f6c9'; /* رمز الهلال من Font Awesome */
-            font-family: 'Font Awesome 6 Free';
-            font-weight: 900;
-            position: absolute;
-            right: 0;
-            color: #2a5298;
-            font-size: 1.2em;
-        }
-
-        .highlight {
-            background: #e6f3ff;
-            padding: 15px;
-            border-radius: 8px;
-            margin: 15px 0;
-            text-align: justify;
+        .word-meaning {
+            display: none;
+            padding: 1rem;
+            background-color: #f0f8f0;
+            margin-top: 1rem;
+            border-radius: 5px;
+            font-size: 1.2rem;
         }
 
         footer {
             text-align: center;
-            padding: 20px;
-            background: #fff;
-            margin-top: 20px;
-            box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+            padding: 1rem;
+            background-color: #1a3c34;
+            color: white;
+            position: relative;
+            bottom: 0;
+            width: 100%;
         }
 
-        footer p {
-            color: #555;
-        }
-
+        /* تصميم متجاوب */
         @media (max-width: 768px) {
             header h1 {
-                font-size: 1.8em;
+                font-size: 1.8rem;
             }
 
-            .container {
-                padding: 15px;
+            header p {
+                font-size: 1rem;
             }
 
-            .section h2 {
-                font-size: 1.5em;
+            .ayah-text {
+                font-size: 1.4rem;
+            }
+
+            nav select {
+                width: 100%;
+                font-size: 1rem;
             }
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>صلاة الليل: فضلها وطريقتها وفق مذهب أهل البيت عليهم السلام</h1>
+        <h1>القرآن الكريم</h1>
+        <p>مع شرح معاني الكلمات</p>
     </header>
-
-    <div class="container">
-        <div class="section">
-            <h2>ما هي صلاة الليل؟</h2>
-            <p>صلاة الليل هي صلاة نافلة تُؤدى في الليل، وهي من أفضل العبادات التي يتقرب بها العبد إلى الله سبحانه وتعالى. وقد وردت فضائلها العظيمة في القرآن الكريم والأحاديث الشريفة عن النبي (ص) وأهل البيت (ع).</p>
-            <div class="highlight">
-                <p>قال الله تعالى: <strong>"وَمِنَ اللَّيْلِ فَتَهَجَّدْ بِهِ نَافِلَةً لَكَ" (الإسراء: 79)</strong></p>
-            </div>
-        </div>
-
-        <div class="section">
-            <h2>وقت صلاة الليل</h2>
-            <p>يبدأ وقت صلاة الليل من منتصف الليل الشرعي (وهو منتصف الفترة بين غروب الشمس وطلوع الفجر) ويستمر حتى قبيل أذان الفجر. ويُستحب أداؤها في الثلث الأخير من الليل.</p>
-        </div>
-
-        <div class="section">
-            <h2>طريقة أداء صلاة الليل</h2>
-            <p>تتكون صلاة الليل من <strong>11 ركعة</strong> تُؤدى على النحو التالي:</p>
-            <ul>
-                <li><strong>النوافل (8 ركعات):</strong> تُصلى مثنى مثنى (ركعتين ركعتين) كصلاة الصبح، وتُسمى صلاة الليل.</li>
-                <li><strong>صلاة الشفع (ركعتان):</strong> تُصلى ركعتين بنية صلاة الشفع، ويُستحب قراءة سورة الناس في الركعة الأولى وسورة الفلق في الثانية.</li>
-                <li><strong>صلاة الوتر (ركعة واحدة):</strong> تُصلى ركعة واحدة بنية صلاة الوتر، ويُستحب قراءة سورة الإخلاص ثلاث مرات، ثم الدعاء والاستغفار.</li>
-            </ul>
-        </div>
-
-        <div class="section">
-            <h2>واجبات صلاة الليل</h2>
-            <p>صلاة الليل نافلة وليست واجبة، لكن إذا بدأ المصلي بها يجب إتمامها بنية القربة إلى الله. تشمل الواجبات:</p>
-            <ul>
-                <li>النية الصحيحة للتقرب إلى الله.</li>
-                <li>أداء الركعات بالترتيب الصحيح.</li>
-                <li>الالتزام بشروط الصلاة كالطهارة والاستقبال للقبلة.</li>
-            </ul>
-        </div>
-
-        <div class="section">
-            <h2>مستحبات صلاة الليل</h2>
-            <p>هناك العديد من المستحبات التي تزيد من فضل صلاة الليل، منها:</p>
-            <ul>
-                <li>قراءة الأدعية المأثورة بعد كل ركعتين.</li>
-                <li>الاستغفار 70 مرة في صلاة الوتر.</li>
-                <li>قراءة دعاء القنوت في صلاة الوتر، ويُستحب أن يشمل الدعاء لأربعين مؤمناً.</li>
-                <li>السجود الطويل والدعاء فيه.</li>
-            </ul>
-        </div>
-
-        <div class="section">
-            <h2>فضل صلاة الليل</h2>
-            <p>وردت أحاديث كثيرة عن أهل البيت (ع) تبين فضل صلاة الليل، منها:</p>
-            <ul>
-                <li>تكفير الذنوب والخطايا.</li>
-                <li>إضاءة الوجه ونور القلب.</li>
-                <li>قربة إلى الله وزيادة في الرزق.</li>
-                <li>استجابة الدعاء وتحقيق الحوائج.</li>
-            </ul>
-            <div class="highlight">
-                <p>عن الإمام الصادق (ع): <strong>"صلاة الليل تجلب الرزق، وتدفع البلاء، وتبيض الوجه."</strong></p>
-            </div>
-        </div>
-
-        <div class="section">
-            <h2>اختصارات صلاة الليل</h2>
-            <p>في حالة العجز أو ضيق الوقت، يمكن أداء صلاة الليل باختصار:</p>
-            <ul>
-                <li>تأدية ركعتي الشفع وركعة الوتر فقط.</li>
-                <li>قراءة سور قصيرة بدلاً من الطويلة.</li>
-                <li>تقليل الأدعية والاستغفار مع الاحتفاظ بالنية الصحيحة.</li>
-            </ul>
-        </div>
-    </div>
-
+    <nav>
+        <select id="surahSelect" onchange="loadSurah()">
+            <option value="">اختر سورة</option>
+        </select>
+    </nav>
+    <main>
+        <div id="quranContent"></div>
+    </main>
     <footer>
         <p>برمجة وتطوير: فاضل الريس</p>
     </footer>
+    <script>
+        // بيانات افتراضية لتفسير الكلمات (يجب استبدالها ببيانات حقيقية)
+        const wordMeanings = {
+            1: [
+                { number: 1, text: "بسم الله الرحمن الرحيم", meanings: "بسم: بمعنى مع، الله: الذات الإلهية، الرحمن: الذي وسعت رحمته كل شيء، الرحيم: الذي يرحم المؤمنين" },
+                { number: 2, text: "الحمد لله رب العالمين", meanings: "الحمد: الثناء، رب: المالك والمدبر، العالمين: كل المخلوقات" }
+                // أضف المزيد من الآيات والمعاني هنا
+            ]
+        };
+
+        // جلب قائمة السور
+        async function loadSurahs() {
+            try {
+                const response = await fetch('http://api.alquran.cloud/v1/meta');
+                const data = await response.json();
+                const surahs = data.data.surahs.references;
+                const select = document.getElementById('surahSelect');
+
+                surahs.forEach(surah => {
+                    const option = document.createElement('option');
+                    option.value = surah.number;
+                    option.textContent = `${surah.number}. ${surah.name}`;
+                    select.appendChild(option);
+                });
+            } catch (error) {
+                console.error('خطأ في جلب السور:', error);
+            }
+        }
+
+        // جلب الآيات وعرض معاني الكلمات
+        async function loadSurah() {
+            const surahNumber = document.getElementById('surahSelect').value;
+            if (!surahNumber) return;
+
+            try {
+                const response = await fetch(`http://api.alquran.cloud/v1/surah/${surahNumber}`);
+                const data = await response.json();
+                const ayahs = data.data.ayahs;
+                const contentDiv = document.getElementById('quranContent');
+                contentDiv.innerHTML = '';
+
+                ayahs.forEach(ayah => {
+                    const ayahDiv = document.createElement('div');
+                    ayahDiv.className = 'ayah';
+                    const meaning = wordMeanings[surahNumber]?.find(m => m.number === ayah.numberInSurah)?.meanings || "معاني الكلمات غير متوفرة حاليًا";
+                    ayahDiv.innerHTML = `
+                        <p class="ayah-text">${ayah.text} (${ayah.numberInSurah})</p>
+                        <div class="word-meaning">${meaning}</div>
+                    `;
+                    ayahDiv.addEventListener('click', () => {
+                        const meaningDiv = ayahDiv.querySelector('.word-meaning');
+                        meaningDiv.style.display = meaningDiv.style.display === 'block' ? 'none' : 'block';
+                    });
+                    contentDiv.appendChild(ayahDiv);
+                });
+            } catch (error) {
+                console.error('خطأ في جلب الآيات:', error);
+                contentDiv.innerHTML = '<p>حدث خطأ أثناء تحميل السورة، حاول مرة أخرى.</p>';
+            }
+        }
+
+        // تحميل قائمة السور عند تحميل الصفحة
+        document.addEventListener('DOMContentLoaded', loadSurahs);
+    </script>
 </body>
 </html>
