@@ -177,7 +177,7 @@
         </select>
     </nav>
     <div class="alert" id="autoplayAlert">
-        <p>لتفعيل التشغيل، انقر على أي آية للسماح بتشغيل الصوت. إذا لم يعمل، تحقق من اتصالك بالإنترنت أو استخدم HTTPS.</p>
+        <p>لتفعيل التشغيل، انقر على أي آية. إذا لم يعمل الصوت، تحقق من: 1) اتصال الإنترنت، 2) استخدام HTTPS، 3) أي أخطاء في وحدة التحكم (F12).</p>
     </div>
     <main>
         <div id="quranContent"></div>
@@ -292,7 +292,7 @@
                     });
                     audio.addEventListener('error', (e) => {
                         console.error('خطأ في تحميل الصوت للآية:', index + 1, e);
-                        document.getElementById('autoplayAlert').innerHTML = `<p>خطأ في تحميل الصوت للآية ${index + 1}. تحقق من الاتصال أو جرب سورة أخرى.</p>`;
+                        document.getElementById('autoplayAlert').innerHTML = `<p>خطأ في تحميل الصوت للآية ${index + 1}. تحقق من الاتصال، HTTPS، أو جرب سورة أخرى.</p>`;
                         document.getElementById('autoplayAlert').style.display = 'block';
                     });
                     // النقر على الآية لتفعيل الصوت
