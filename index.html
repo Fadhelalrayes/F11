@@ -13,13 +13,14 @@
         }
         body {
             font-family: 'Amiri Quran', serif;
-            background: linear-gradient(to bottom, #e8f0e8, #ffffff); /* تدرج من أخضر فاتح إلى أبيض */
+            background: linear-gradient(to bottom, #e8f0e8, #ffffff);
             color: #2c3e50;
             direction: rtl;
             line-height: 1.6;
+            scroll-behavior: smooth; /* للتمرير الناعم */
         }
         header {
-            background: linear-gradient(to bottom, #1a3c34, #2e6b5b); /* تدرج من أخضر داكن إلى أخضر متوسط */
+            background: linear-gradient(to bottom, #1a3c34, #2e6b5b);
             color: white;
             text-align: center;
             padding: 20px;
@@ -28,10 +29,14 @@
             font-family: 'Cairo', sans-serif;
             font-size: 2.5rem;
         }
+        header p {
+            font-family: 'Cairo', sans-serif;
+            font-size: 1.2rem;
+        }
         nav {
             padding: 10px;
             text-align: center;
-            background: linear-gradient(to right, #ffffff, #f0f4f0); /* تدرج أفقي للنافيغيشن */
+            background: linear-gradient(to right, #ffffff, #f0f4f0);
         }
         nav select {
             padding: 10px;
@@ -55,7 +60,7 @@
             padding: 0 10px;
         }
         .ayah {
-            background: linear-gradient(to bottom, #ffffff, #f5f9f5); /* تدرج داخل كل آية */
+            background: linear-gradient(to bottom, #ffffff, #f5f9f5);
             padding: 15px;
             margin: 10px 0;
             border-radius: 8px;
@@ -71,7 +76,7 @@
             margin-top: 10px;
         }
         footer {
-            background: linear-gradient(to top, #1a3c34, #2e6b5b); /* تدرج عكسي في التذييل */
+            background: linear-gradient(to top, #1a3c34, #2e6b5b);
             color: white;
             text-align: center;
             padding: 15px;
@@ -79,6 +84,7 @@
         }
         @media (max-width: 768px) {
             header h1 { font-size: 1.8rem; }
+            header p { font-size: 1rem; }
             .ayah-text { font-size: 1.5rem; }
             nav select { width: 100%; }
             .audio-player audio { max-width: 100%; }
@@ -88,6 +94,7 @@
 <body>
     <header>
         <h1>القرآن الكريم</h1>
+        <p>قراءة وتلاوة</p>
     </header>
     <nav>
         <select id="surahSelect" onchange="loadSurah()">
@@ -101,7 +108,7 @@
         <div id="quranContent"></div>
     </main>
     <footer>
-        <p>برمجة وتطوير: فاضل الريس</p>
+        <p>برمجة وتطوير &nbsp;&nbsp;: فاضل الريس</p>
     </footer>
     <script>
         let audioElements = [];
@@ -144,6 +151,7 @@
                 ayahs.forEach((ayah, index) => {
                     const ayahDiv = document.createElement('div');
                     ayahDiv.className = 'ayah';
+                    ayahDiv.id = `ayah-${index}`; // إضافة معرف فريد لكل آية للتمرير
                     ayahDiv.innerHTML = `
                         <p class="ayah-text">${ayah.text} (${ayah.numberInSurah})</p>
                         <div class="audio-player">
@@ -176,6 +184,8 @@
                                 console.error(`خطأ في تشغيل الآية ${currentAyahIndex + 1}:`, error);
                                 document.getElementById('audioAlert').style.display = 'block';
                             });
+                            // التمرير الناعم إلى الآية التالية
+                            document.getElementById(`ayah-${currentAyahIndex}`).scrollIntoView({ behavior: 'smooth', block: 'center' });
                         }
                     });
 
@@ -193,6 +203,7 @@
                         console.error('خطأ في التشغيل التلقائي:', error);
                         document.getElementById('audioAlert').style.display = 'block';
                     });
+                    document.getElementById('ayah-0').scrollIntoView({ behavior: 'smooth', block: 'center' });
                 }
             } catch (error) {
                 console.error('خطأ في جلب السورة:', error);
