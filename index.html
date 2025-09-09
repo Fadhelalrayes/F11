@@ -12,158 +12,82 @@
             padding: 0;
             box-sizing: border-box;
         }
-
         body {
             font-family: 'Amiri Quran', serif;
-            background: linear-gradient(to bottom, #e8f0e8, #ffffff);
+            background-color: #f0f4f0;
             color: #2c3e50;
             direction: rtl;
-            line-height: 1.8;
+            line-height: 1.6;
         }
-
         header {
-            background: linear-gradient(to bottom, #1a3c34, #2e6b5b);
+            background-color: #1a3c34;
             color: white;
             text-align: center;
-            padding: 2.5rem 1rem;
-            border-bottom: 4px solid #d4a373;
+            padding: 20px;
         }
-
         header h1 {
-            font-size: 2.8rem;
             font-family: 'Cairo', sans-serif;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            font-size: 2.5rem;
         }
-
         nav {
-            padding: 1rem;
-            background-color: #ffffff;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 10px;
             text-align: center;
+            background-color: #fff;
         }
-
         nav select {
-            padding: 0.7rem;
-            font-size: 1.2rem;
+            padding: 10px;
+            font-size: 1.1rem;
             font-family: 'Cairo', sans-serif;
             border: 2px solid #1a3c34;
-            border-radius: 8px;
-            width: 250px;
-            background-color: #f5f5f5;
-            cursor: pointer;
-            transition: all 0.3s ease;
+            border-radius: 5px;
         }
-
-        nav select:focus {
-            outline: none;
-            border-color: #d4a373;
-        }
-
         .alert {
             display: none;
-            padding: 1rem;
+            padding: 10px;
             background-color: #f8d7da;
             color: #721c24;
             text-align: center;
-            margin: 1rem auto;
-            border-radius: 8px;
-            max-width: 900px;
-            font-family: 'Cairo', sans-serif;
+            margin: 10px auto;
+            max-width: 800px;
         }
-
         main {
-            max-width: 900px;
-            margin: 2rem auto;
-            padding: 0 1rem;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 0 10px;
         }
-
         .ayah {
-            background-color: #ffffff;
-            padding: 1.5rem;
-            margin: 1rem 0;
-            border-radius: 12px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background-color: #fff;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
-
-        .ayah:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-        }
-
         .ayah-text {
-            font-size: 2rem;
+            font-size: 1.8rem;
             color: #1a3c34;
-            font-family: 'Amiri Quran', serif;
-            margin-bottom: 0.5rem;
         }
-
-        .audio-player {
-            margin-top: 0.5rem;
-        }
-
         .audio-player audio {
             width: 100%;
-            max-width: 300px;
-            border-radius: 5px;
+            max-width: 250px;
+            margin-top: 10px;
         }
-
         footer {
             text-align: center;
-            padding: 1.5rem;
-            background: linear-gradient(to top, #1a3c34, #2e6b5b);
+            padding: 15px;
+            background-color: #1a3c34;
             color: white;
             font-family: 'Cairo', sans-serif;
-            position: relative;
-            bottom: 0;
-            width: 100%;
         }
-
-        .social-icons {
-            margin-bottom: 1rem;
-        }
-
         .social-icons a {
             color: white;
+            margin: 0 10px;
             font-size: 1.5rem;
-            margin: 0 0.5rem;
-            transition: color 0.3s ease;
         }
-
-        .social-icons a:hover {
-            color: #d4a373;
-        }
-
-        /* تصميم متجاوب */
         @media (max-width: 768px) {
-            header h1 {
-                font-size: 2rem;
-            }
-
-            .ayah-text {
-                font-size: 1.6rem;
-            }
-
-            nav select {
-                width: 100%;
-                font-size: 1rem;
-            }
-
-            main {
-                padding: 0 0.5rem;
-            }
-
-            .audio-player audio {
-                max-width: 100%;
-            }
-
-            .social-icons a {
-                font-size: 1.2rem;
-            }
-
-            .alert {
-                font-size: 0.9rem;
-            }
+            header h1 { font-size: 1.8rem; }
+            .ayah-text { font-size: 1.5rem; }
+            nav select { width: 100%; }
+            .audio-player audio { max-width: 100%; }
         }
     </style>
 </head>
@@ -176,24 +100,22 @@
             <option value="">اختر سورة</option>
         </select>
     </nav>
-    <div class="alert" id="autoplayAlert">
-        <p>لتفعيل التشغيل، انقر على أي آية. إذا لم يعمل الصوت، تحقق من: 1) اتصال الإنترنت، 2) استخدام HTTPS، 3) أي أخطاء في وحدة التحكم (F12).</p>
+    <div class="alert" id="audioAlert">
+        <p>انقر على آية لتشغيل الصوت. إذا لم يعمل، تحقق من الاتصال أو استخدم HTTPS (اضغط F12 للأخطاء).</p>
     </div>
     <main>
         <div id="quranContent"></div>
     </main>
     <footer>
         <div class="social-icons">
-            <a href="https://twitter.com/intent/tweet?url=${encodeURIComponent(window.location.href)}&text=استمتع بقراءة وتلاوة القرآن الكريم" target="_blank" title="مشاركة على تويتر"><i class="fab fa-x-twitter"></i></a>
-            <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}" target="_blank" title="مشاركة على فيسبوك"><i class="fab fa-facebook-f"></i></a>
-            <a href="https://wa.me/?text=استمتع بقراءة وتلاوة القرآن الكريم: ${encodeURIComponent(window.location.href)}" target="_blank" title="مشاركة على واتساب"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://twitter.com/intent/tweet?url=${encodeURIComponent(window.location.href)}&text=استمتع بقراءة القرآن" target="_blank"><i class="fab fa-x-twitter"></i></a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}" target="_blank"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://wa.me/?text=${encodeURIComponent(window.location.href)}" target="_blank"><i class="fab fa-whatsapp"></i></a>
         </div>
         <p>برمجة وتطوير: فاضل الريس</p>
     </footer>
     <script>
-        let currentAyahIndex = -1;
         let audioElements = [];
-        let isAutoplayAllowed = false;
 
         // جلب قائمة السور
         async function loadSurahs() {
@@ -202,7 +124,6 @@
                 const data = await response.json();
                 const surahs = data.data.surahs;
                 const select = document.getElementById('surahSelect');
-
                 surahs.forEach(surah => {
                     const option = document.createElement('option');
                     option.value = surah.number;
@@ -211,34 +132,11 @@
                 });
             } catch (error) {
                 console.error('خطأ في جلب السور:', error);
-                document.getElementById('quranContent').innerHTML = '<p style="color: red; text-align: center;">خطأ في جلب السور، تأكد من اتصالك بالإنترنت.</p>';
+                document.getElementById('quranContent').innerHTML = '<p style="color: red;">خطأ في الاتصال، تأكد من الإنترنت.</p>';
             }
         }
 
-        // إيقاف جميع الأصوات النشطة
-        function stopAllAudio() {
-            audioElements.forEach(audio => {
-                audio.pause();
-                audio.currentTime = 0;
-                audio.src = ''; // إعادة تعيين المصدر لتجنب التداخل
-            });
-        }
-
-        // تشغيل الآية التالية
-        function playNextAyah() {
-            if (currentAyahIndex + 1 < audioElements.length) {
-                currentAyahIndex++;
-                const nextAudio = audioElements[currentAyahIndex];
-                nextAudio.src = nextAudio.dataset.src;
-                nextAudio.load(); // إعادة تحميل الملف للتأكد من الجاهزية
-                nextAudio.play().catch(error => {
-                    console.error('خطأ في تشغيل الصوت للآية:', currentAyahIndex + 1, error);
-                    document.getElementById('autoplayAlert').style.display = 'block';
-                });
-            }
-        }
-
-        // جلب الآيات مع التلاوة الصوتية
+        // جلب السورة وتلاوتها
         async function loadSurah() {
             const surahNumber = document.getElementById('surahSelect').value;
             if (!surahNumber) return;
@@ -246,16 +144,11 @@
             try {
                 const response = await fetch(`https://api.alquran.cloud/v1/surah/${surahNumber}/ar.abdulbasitmurattal`);
                 const data = await response.json();
-                if (!data.data || !data.data.ayahs) {
-                    throw new Error('بيانات السورة غير متاحة');
-                }
+                if (!data.data || !data.data.ayahs) throw new Error('بيانات غير متاحة');
                 const ayahs = data.data.ayahs;
                 const contentDiv = document.getElementById('quranContent');
                 contentDiv.innerHTML = '';
                 audioElements = [];
-                currentAyahIndex = -1;
-                isAutoplayAllowed = false;
-                document.getElementById('autoplayAlert').style.display = 'none';
 
                 ayahs.forEach((ayah, index) => {
                     const ayahDiv = document.createElement('div');
@@ -263,69 +156,46 @@
                     ayahDiv.innerHTML = `
                         <p class="ayah-text">${ayah.text} (${ayah.numberInSurah})</p>
                         <div class="audio-player">
-                            <audio controls data-src="${ayah.audio}" preload="none">
+                            <audio controls preload="none">
                                 <source src="${ayah.audio}" type="audio/mpeg">
-                                متصفحك لا يدعم تشغيل الصوت.
+                                متصفحك لا يدعم الصوت.
                             </audio>
                         </div>
                     `;
                     contentDiv.appendChild(ayahDiv);
-                    audioElements.push(ayahDiv.querySelector('audio'));
-                });
+                    const audio = ayahDiv.querySelector('audio');
+                    audioElements.push(audio);
 
-                // إضافة أحداث للآيات
-                audioElements.forEach((audio, index) => {
+                    audio.addEventListener('error', () => {
+                        console.error(`خطأ في تحميل الصوت للآية ${index + 1}`);
+                        document.getElementById('audioAlert').style.display = 'block';
+                    });
+
                     audio.addEventListener('play', () => {
-                        stopAllAudio();
-                        if (!audio.src) {
-                            audio.src = audio.dataset.src;
-                            audio.load(); // إعادة تحميل الملف للتأكد من الجاهزية
-                        }
-                        currentAyahIndex = index;
-                        isAutoplayAllowed = true;
-                        document.getElementById('autoplayAlert').style.display = 'none';
+                        audioElements.forEach(a => { if (a !== audio) a.pause(); });
                     });
-                    audio.addEventListener('ended', () => {
-                        if (isAutoplayAllowed) {
-                            playNextAyah();
-                        }
-                    });
-                    audio.addEventListener('error', (e) => {
-                        console.error('خطأ في تحميل الصوت للآية:', index + 1, e);
-                        document.getElementById('autoplayAlert').innerHTML = `<p>خطأ في تحميل الصوت للآية ${index + 1}. تحقق من الاتصال، HTTPS، أو جرب سورة أخرى.</p>`;
-                        document.getElementById('autoplayAlert').style.display = 'block';
-                    });
-                    // النقر على الآية لتفعيل الصوت
-                    audio.parentElement.parentElement.addEventListener('click', () => {
-                        stopAllAudio();
-                        currentAyahIndex = index;
-                        audio.src = audio.dataset.src;
-                        audio.load(); // إعادة تحميل الملف قبل التشغيل
+
+                    ayahDiv.addEventListener('click', () => {
                         audio.play().catch(error => {
-                            console.error('خطأ في تشغيل الصوت للآية:', index + 1, error);
-                            document.getElementById('autoplayAlert').style.display = 'block';
+                            console.error(`خطأ في تشغيل الآية ${index + 1}:`, error);
+                            document.getElementById('audioAlert').style.display = 'block';
                         });
                     });
                 });
 
-                // محاولة التشغيل التلقائي للآية الأولى
+                // محاولة تشغيل الآية الأولى تلقائيًا
                 if (audioElements.length > 0) {
-                    currentAyahIndex = 0;
-                    const firstAudio = audioElements[0];
-                    firstAudio.src = firstAudio.dataset.src;
-                    firstAudio.load(); // إعادة تحميل الملف للتأكد من الجاهزية
-                    firstAudio.play().catch(error => {
-                        console.error('خطأ في التشغيل التلقائي للآية 1:', error);
-                        document.getElementById('autoplayAlert').style.display = 'block';
+                    audioElements[0].play().catch(error => {
+                        console.error('خطأ في التشغيل التلقائي:', error);
+                        document.getElementById('audioAlert').style.display = 'block';
                     });
                 }
             } catch (error) {
-                console.error('خطأ في جلب الآيات:', error);
-                document.getElementById('quranContent').innerHTML = '<p style="color: red; text-align: center;">خطأ في جلب الآيات، حاول مرة أخرى.</p>';
+                console.error('خطأ في جلب السورة:', error);
+                document.getElementById('quranContent').innerHTML = '<p style="color: red;">خطأ في تحميل السورة، جرب مرة أخرى.</p>';
             }
         }
 
-        // تحميل قائمة السور عند تحميل الصفحة
         document.addEventListener('DOMContentLoaded', loadSurahs);
     </script>
 </body>
