@@ -214,6 +214,40 @@
             transform: scale(1.05);
         }
 
+        /* Coming Soon Modal */
+        .coming-soon {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1001;
+        }
+
+        .coming-soon-content {
+            background: linear-gradient(135deg, #F26522, #FF8C00);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            max-width: 400px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .coming-soon-content h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .coming-soon-content p {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+
         /* Supermarket Section */
         .supermarket {
             background: linear-gradient(135deg, #f9f9f9, #ffffff);
@@ -223,19 +257,13 @@
         footer {
             background: linear-gradient(135deg, #2E2E2E, #1a1a1a);
             color: white;
-            padding: 3rem 2rem;
+            padding: 2rem;
             text-align: center;
+            font-size: 0.9rem;
         }
 
-        footer a {
-            color: #FFD700;
-            text-decoration: none;
-            margin: 0 1rem;
-            font-weight: 400;
-        }
-
-        footer a:hover {
-            text-decoration: underline;
+        footer p {
+            margin-bottom: 0.5rem;
         }
 
         /* Responsive Design */
@@ -276,6 +304,11 @@
             .grid {
                 grid-template-columns: 1fr;
             }
+
+            .coming-soon-content {
+                max-width: 90%;
+                padding: 1.5rem;
+            }
         }
     </style>
 </head>
@@ -285,10 +318,10 @@
         <div class="logo">دوري يا مبيركة</div>
         <nav>
             <a href="index.html"><i class="fas fa-home"></i> الرئيسية</a>
-            <a href="restaurants.html"><i class="fas fa-utensils"></i> المطاعم</a>
-            <a href="offers.html"><i class="fas fa-tags"></i> العروض</a>
-            <a href="supermarket.html"><i class="fas fa-shopping-cart"></i> السوبر ماركت</a>
-            <a href="contact.html"><i class="fas fa-envelope"></i> تواصل معنا</a>
+            <a href="#" onclick="showComingSoon('restaurants')"><i class="fas fa-utensils"></i> المطاعم</a>
+            <a href="#" onclick="showComingSoon('offers')"><i class="fas fa-tags"></i> العروض</a>
+            <a href="#" onclick="showComingSoon('supermarket')"><i class="fas fa-shopping-cart"></i> السوبر ماركت</a>
+            <a href="#" onclick="showComingSoon('contact')"><i class="fas fa-envelope"></i> تواصل معنا</a>
         </nav>
     </header>
 
@@ -313,7 +346,7 @@
                 <div class="card-content">
                     <h3>مطعم الشرق</h3>
                     <p>مأكولات شرقية أصيلة بجودة عالية</p>
-                    <a href="restaurant1.html">اطلب الآن</a>
+                    <a href="#" onclick="showComingSoon('restaurant1')">اطلب الآن</a>
                 </div>
             </div>
             <div class="card">
@@ -321,7 +354,7 @@
                 <div class="card-content">
                     <h3>بيتزا هت</h3>
                     <p>بيتزا طازجة مع مكونات مميزة</p>
-                    <a href="restaurant2.html">اطلب الآن</a>
+                    <a href="#" onclick="showComingSoon('restaurant2')">اطلب الآن</a>
                 </div>
             </div>
             <div class="card">
@@ -329,7 +362,7 @@
                 <div class="card-content">
                     <h3>برغر كينج</h3>
                     <p>برغر مشوي على اللهب بمذاق لا يُنسى</p>
-                    <a href="restaurant3.html">اطلب الآن</a>
+                    <a href="#" onclick="showComingSoon('restaurant3')">اطلب الآن</a>
                 </div>
             </div>
             <div class="card">
@@ -337,7 +370,7 @@
                 <div class="card-content">
                     <h3>مطعم المذاق</h3>
                     <p>تجربة طعام فريدة تناسب جميع الأذواق</p>
-                    <a href="restaurant4.html">اطلب الآن</a>
+                    <a href="#" onclick="showComingSoon('restaurant4')">اطلب الآن</a>
                 </div>
             </div>
         </div>
@@ -348,35 +381,35 @@
         <h2>تسوق من السوبر ماركت</h2>
         <div class="grid">
             <div class="card">
-                <img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f" alt="سوبر ماركت 1">
+                <img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f" alt="سوبر ماركت الفرح">
                 <div class="card-content">
                     <h3>سوبر ماركت الفرح</h3>
                     <p>منتجات طازجة وبأسعار تنافسية</p>
-                    <a href="supermarket1.html">تسوق الآن</a>
+                    <a href="#" onclick="showComingSoon('supermarket1')">تسوق الآن</a>
                 </div>
             </div>
             <div class="card">
-                <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3131" alt="سوبر ماركت 2">
+                <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3131" alt="سوبر ماركت الجودة">
                 <div class="card-content">
                     <h3>سوبر ماركت الجودة</h3>
                     <p>تشكيلة واسعة من السلع اليومية</p>
-                    <a href="supermarket2.html">تسوق الآن</a>
+                    <a href="#" onclick="showComingSoon('supermarket2')">تسوق الآن</a>
                 </div>
             </div>
             <div class="card">
-                <img src="https://images.unsplash.com/photo-1601001435828-89a1e4a5d230" alt="سوبر ماركت 3">
+                <img src="https://images.unsplash.com/photo-1601001435828-89a1e4a5d230" alt="سوبر ماركت السريع">
                 <div class="card-content">
                     <h3>سوبر ماركت السريع</h3>
                     <p>توصيل سريع لاحتياجاتك اليومية</p>
-                    <a href="supermarket3.html">تسوق الآن</a>
+                    <a href="#" onclick="showComingSoon('supermarket3')">تسوق الآن</a>
                 </div>
             </div>
             <div class="card">
-                <img src="https://images.unsplash.com/photo-1582359645151-237d4e8f7e54" alt="سوبر ماركت 4">
+                <img src="https://images.unsplash.com/photo-1582359645151-237d4e8f7e54" alt="سوبر ماركت المنزل">
                 <div class="card-content">
                     <h3>سوبر ماركت المنزل</h3>
                     <p>كل ما تحتاجه في مكان واحد</p>
-                    <a href="supermarket4.html">تسوق الآن</a>
+                    <a href="#" onclick="showComingSoon('supermarket4')">تسوق الآن</a>
                 </div>
             </div>
         </div>
@@ -385,19 +418,23 @@
     <!-- Footer -->
     <footer>
         <p>جميع الحقوق محفوظة © 2025 دوري يا مبيركة</p>
-        <div>
-            <a href="about.html">عن الشركة</a>
-            <a href="privacy.html">سياسة الخصوصية</a>
-            <a href="terms.html">شروط الاستخدام</a>
-        </div>
+        <p>برمجة وتطوير: فاضل الريس</p>
     </footer>
+
+    <!-- Coming Soon Modal -->
+    <div class="coming-soon" id="comingSoonModal">
+        <div class="coming-soon-content">
+            <h3>دوري يا مبيركة</h3>
+            <p>هذه الصفحة قيد التطوير وستكون متاحة قريبًا!</p>
+            <button onclick="hideComingSoon()">حسنًا</button>
+        </div>
+    </div>
 
     <script>
         // Search functionality
         function performSearch() {
             const query = document.querySelector('.search-bar input').value;
             if (query) {
-                // Simulate navigation to search results page
                 window.location.href = `search.html?q=${encodeURIComponent(query)}`;
             } else {
                 alert('الرجاء إدخال اسم مطعم أو طبق أو منتج');
@@ -411,19 +448,23 @@
             }
         });
 
-        // Navigation links (for smooth scroll if on same page)
-        document.querySelectorAll('nav a').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                const href = this.getAttribute('href');
-                if (href.startsWith('#')) {
-                    e.preventDefault();
-                    const targetId = href;
-                    const targetElement = document.querySelector(targetId);
-                    if (targetElement) {
-                        targetElement.scrollIntoView({ behavior: 'smooth' });
-                    }
-                }
-            });
+        // Coming Soon Modal
+        function showComingSoon(section) {
+            const modal = document.getElementById('comingSoonModal');
+            modal.style.display = 'flex';
+            console.log(`Coming soon for: ${section}`);
+        }
+
+        function hideComingSoon() {
+            const modal = document.getElementById('comingSoonModal');
+            modal.style.display = 'none';
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('comingSoonModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                hideComingSoon();
+            }
         });
     </script>
 </body>
