@@ -5,22 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>دوري يا مبيركة</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Tajawal', 'Arial', sans-serif;
+            font-family: 'Cairo', sans-serif;
         }
 
         body {
             background-color: #f8f8f8;
             color: #333;
+            line-height: 1.6;
         }
 
         /* Header */
         header {
-            background-color: #F26522;
+            background: linear-gradient(135deg, #F26522, #FF8C00);
             color: white;
             padding: 1rem 2rem;
             display: flex;
@@ -29,24 +31,26 @@
             position: sticky;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
 
         header .logo {
-            font-size: 1.8rem;
-            font-weight: bold;
+            font-size: 2rem;
+            font-weight: 700;
         }
 
         header nav a {
             color: white;
             text-decoration: none;
             margin-left: 1.5rem;
-            font-size: 1rem;
-            transition: color 0.3s;
+            font-size: 1.1rem;
+            font-weight: 400;
+            transition: color 0.3s, transform 0.3s;
         }
 
         header nav a:hover {
             color: #FFD700;
+            transform: scale(1.05);
         }
 
         header nav a i {
@@ -55,8 +59,8 @@
 
         /* Hero Section */
         .hero {
-            background: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c') no-repeat center center/cover;
-            height: 450px;
+            background: linear-gradient(rgba(242, 101, 34, 0.7), rgba(255, 140, 0, 0.5)), url('https://images.unsplash.com/photo-1544027993-37dbfe43562a') no-repeat center center/cover;
+            height: 500px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -72,68 +76,84 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.6);
+            background: rgba(0, 0, 0, 0.3);
         }
 
         .hero-content {
             z-index: 1;
+            max-width: 800px;
+            padding: 0 2rem;
         }
 
         .hero h1 {
-            font-size: 2.8rem;
+            font-size: 3rem;
             margin-bottom: 1rem;
+            font-weight: 700;
         }
 
         .hero p {
-            font-size: 1.2rem;
-            margin-bottom: 1.5rem;
+            font-size: 1.4rem;
+            margin-bottom: 2rem;
+            font-weight: 300;
         }
 
         .search-bar {
             display: flex;
             justify-content: center;
-            max-width: 500px;
+            max-width: 600px;
             margin: 0 auto;
+            background: white;
+            border-radius: 50px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            padding: 0.2rem;
         }
 
         .search-bar input {
-            padding: 0.9rem;
-            width: 70%;
+            flex: 1;
+            padding: 1rem 1.5rem;
             border: none;
-            border-radius: 25px 0 0 25px;
-            font-size: 1rem;
             outline: none;
+            font-size: 1.1rem;
+            font-weight: 400;
+            background: transparent;
         }
 
         .search-bar button {
-            padding: 0.9rem 1.5rem;
+            padding: 1rem 2rem;
             border: none;
-            background-color: #FFD700;
-            color: #F26522;
-            border-radius: 0 25px 25px 0;
+            background: linear-gradient(135deg, #F26522, #FF8C00);
+            color: white;
             cursor: pointer;
-            font-size: 1rem;
-            font-weight: bold;
-            transition: background-color 0.3s;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: transform 0.3s;
+            border-radius: 50px;
         }
 
         .search-bar button:hover {
-            background-color: #e6c200;
+            transform: scale(1.05);
         }
 
-        /* Restaurants Section */
-        .restaurants {
-            padding: 3rem 2rem;
+        .search-bar i {
+            color: #F26522;
+            margin-right: 1rem;
+        }
+
+        /* Sections */
+        .section {
+            padding: 4rem 2rem;
             text-align: center;
         }
 
-        .restaurants h2 {
-            font-size: 2.2rem;
-            margin-bottom: 2rem;
+        .section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2.5rem;
             color: #F26522;
+            font-weight: 700;
         }
 
-        .restaurant-grid {
+        .grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
@@ -141,57 +161,69 @@
             margin: 0 auto;
         }
 
-        .restaurant-card {
+        .card {
             background: white;
-            border-radius: 15px;
+            border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
         }
 
-        .restaurant-card:hover {
-            transform: translateY(-8px);
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
         }
 
-        .restaurant-card img {
+        .card img {
             width: 100%;
-            height: 180px;
+            height: 200px;
             object-fit: cover;
         }
 
-        .restaurant-card h3 {
-            padding: 1rem;
-            font-size: 1.3rem;
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
             color: #333;
+            font-weight: 600;
         }
 
-        .restaurant-card p {
-            padding: 0 1rem;
+        .card p {
             color: #777;
-            font-size: 0.9rem;
+            font-size: 1rem;
+            margin-bottom: 1rem;
         }
 
-        .restaurant-card a {
+        .card a {
             display: inline-block;
-            margin: 1rem;
-            padding: 0.7rem 1.5rem;
-            background-color: #F26522;
+            margin-top: 1rem;
+            padding: 0.8rem 2rem;
+            background: linear-gradient(135deg, #F26522, #FF8C00);
             color: white;
             text-decoration: none;
-            border-radius: 25px;
-            font-size: 0.9rem;
-            transition: background-color 0.3s;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: transform 0.3s;
         }
 
-        .restaurant-card a:hover {
-            background-color: #d35400;
+        .card a:hover {
+            transform: scale(1.05);
+        }
+
+        /* Supermarket Section */
+        .supermarket {
+            background: linear-gradient(135deg, #f9f9f9, #ffffff);
         }
 
         /* Footer */
         footer {
-            background-color: #2E2E2E;
+            background: linear-gradient(135deg, #2E2E2E, #1a1a1a);
             color: white;
-            padding: 2rem;
+            padding: 3rem 2rem;
             text-align: center;
         }
 
@@ -199,6 +231,7 @@
             color: #FFD700;
             text-decoration: none;
             margin: 0 1rem;
+            font-weight: 400;
         }
 
         footer a:hover {
@@ -210,6 +243,7 @@
             header {
                 flex-direction: column;
                 text-align: center;
+                padding: 1rem;
             }
 
             header nav {
@@ -217,14 +251,29 @@
             }
 
             .hero h1 {
-                font-size: 2rem;
+                font-size: 2.2rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+
+            .search-bar {
+                flex-direction: column;
+                border-radius: 15px;
             }
 
             .search-bar input {
-                width: 60%;
+                border-radius: 15px 15px 0 0;
+                padding: 1rem;
             }
 
-            .restaurant-grid {
+            .search-bar button {
+                border-radius: 0 0 15px 15px;
+                margin-top: 0;
+            }
+
+            .grid {
                 grid-template-columns: 1fr;
             }
         }
@@ -235,10 +284,11 @@
     <header>
         <div class="logo">دوري يا مبيركة</div>
         <nav>
-            <a href="#home"><i class="fas fa-home"></i> الرئيسية</a>
-            <a href="#restaurants"><i class="fas fa-utensils"></i> المطاعم</a>
-            <a href="#offers"><i class="fas fa-tags"></i> العروض</a>
-            <a href="#contact"><i class="fas fa-envelope"></i> تواصل معنا</a>
+            <a href="index.html"><i class="fas fa-home"></i> الرئيسية</a>
+            <a href="restaurants.html"><i class="fas fa-utensils"></i> المطاعم</a>
+            <a href="offers.html"><i class="fas fa-tags"></i> العروض</a>
+            <a href="supermarket.html"><i class="fas fa-shopping-cart"></i> السوبر ماركت</a>
+            <a href="contact.html"><i class="fas fa-envelope"></i> تواصل معنا</a>
         </nav>
     </header>
 
@@ -246,41 +296,88 @@
     <section class="hero" id="home">
         <div class="hero-content">
             <h1>اطلب طعامك المفضل مع دوري يا مبيركة!</h1>
-            <p>توصيل سريع من أفضل المطاعم إلى بابك</p>
+            <p>توصيل سريع من أفضل المطاعم والسوبر ماركت إلى بابك</p>
             <div class="search-bar">
-                <input type="text" placeholder="ابحث عن مطعم أو طبق...">
-                <button>ابحث الآن</button>
+                <input type="text" placeholder="ابحث عن مطعم أو طبق أو منتج...">
+                <button onclick="performSearch()"><i class="fas fa-search"></i> ابحث الآن</button>
             </div>
         </div>
     </section>
 
     <!-- Restaurants Section -->
-    <section class="restaurants" id="restaurants">
+    <section class="section" id="restaurants">
         <h2>استكشف المطاعم الرائعة</h2>
-        <div class="restaurant-grid">
-            <div class="restaurant-card">
+        <div class="grid">
+            <div class="card">
                 <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4" alt="مطعم الشرق">
-                <h3>مطعم الشرق</h3>
-                <p>مأكولات شرقية أصيلة بجودة عالية</p>
-                <a href="#restaurant1">اطلب الآن</a>
+                <div class="card-content">
+                    <h3>مطعم الشرق</h3>
+                    <p>مأكولات شرقية أصيلة بجودة عالية</p>
+                    <a href="restaurant1.html">اطلب الآن</a>
+                </div>
             </div>
-            <div class="restaurant-card">
+            <div class="card">
                 <img src="https://images.unsplash.com/photo-1552566626-52f8b828add6" alt="بيتزا هت">
-                <h3>بيتزا هت</h3>
-                <p>بيتزا طازجة مع مكونات مميزة</p>
-                <a href="#restaurant2">اطلب الآن</a>
+                <div class="card-content">
+                    <h3>بيتزا هت</h3>
+                    <p>بيتزا طازجة مع مكونات مميزة</p>
+                    <a href="restaurant2.html">اطلب الآن</a>
+                </div>
             </div>
-            <div class="restaurant-card">
+            <div class="card">
                 <img src="https://images.unsplash.com/photo-1550547660-d9450f859349" alt="برغر كينج">
-                <h3>برغر كينج</h3>
-                <p>برغر مشوي على اللهب بمذاق لا يُنسى</p>
-                <a href="#restaurant3">اطلب الآن</a>
+                <div class="card-content">
+                    <h3>برغر كينج</h3>
+                    <p>برغر مشوي على اللهب بمذاق لا يُنسى</p>
+                    <a href="restaurant3.html">اطلب الآن</a>
+                </div>
             </div>
-            <div class="restaurant-card">
+            <div class="card">
                 <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38" alt="مطعم المذاق">
-                <h3>مطعم المذاق</h3>
-                <p>تجربة طعام فريدة تناسب جميع الأذواق</p>
-                <a href="#restaurant4">اطلب الآن</a>
+                <div class="card-content">
+                    <h3>مطعم المذاق</h3>
+                    <p>تجربة طعام فريدة تناسب جميع الأذواق</p>
+                    <a href="restaurant4.html">اطلب الآن</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Supermarket Section -->
+    <section class="section supermarket" id="supermarket">
+        <h2>تسوق من السوبر ماركت</h2>
+        <div class="grid">
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f" alt="سوبر ماركت 1">
+                <div class="card-content">
+                    <h3>سوبر ماركت الفرح</h3>
+                    <p>منتجات طازجة وبأسعار تنافسية</p>
+                    <a href="supermarket1.html">تسوق الآن</a>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3131" alt="سوبر ماركت 2">
+                <div class="card-content">
+                    <h3>سوبر ماركت الجودة</h3>
+                    <p>تشكيلة واسعة من السلع اليومية</p>
+                    <a href="supermarket2.html">تسوق الآن</a>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1601001435828-89a1e4a5d230" alt="سوبر ماركت 3">
+                <div class="card-content">
+                    <h3>سوبر ماركت السريع</h3>
+                    <p>توصيل سريع لاحتياجاتك اليومية</p>
+                    <a href="supermarket3.html">تسوق الآن</a>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1582359645151-237d4e8f7e54" alt="سوبر ماركت 4">
+                <div class="card-content">
+                    <h3>سوبر ماركت المنزل</h3>
+                    <p>كل ما تحتاجه في مكان واحد</p>
+                    <a href="supermarket4.html">تسوق الآن</a>
+                </div>
             </div>
         </div>
     </section>
@@ -289,32 +386,42 @@
     <footer>
         <p>جميع الحقوق محفوظة © 2025 دوري يا مبيركة</p>
         <div>
-            <a href="#about">عن الشركة</a>
-            <a href="#privacy">سياسة الخصوصية</a>
-            <a href="#terms">شروط الاستخدام</a>
+            <a href="about.html">عن الشركة</a>
+            <a href="privacy.html">سياسة الخصوصية</a>
+            <a href="terms.html">شروط الاستخدام</a>
         </div>
     </footer>
 
     <script>
-        // Search bar functionality
-        document.querySelector('.search-bar button').addEventListener('click', () => {
+        // Search functionality
+        function performSearch() {
             const query = document.querySelector('.search-bar input').value;
             if (query) {
-                alert(`جاري البحث عن: ${query}`);
-                // يمكن إضافة منطق البحث الفعلي هنا
+                // Simulate navigation to search results page
+                window.location.href = `search.html?q=${encodeURIComponent(query)}`;
             } else {
-                alert('الرجاء إدخال اسم مطعم أو طبق');
+                alert('الرجاء إدخال اسم مطعم أو طبق أو منتج');
+            }
+        }
+
+        // Enter key support for search
+        document.querySelector('.search-bar input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                performSearch();
             }
         });
 
-        // Smooth scrolling for navigation links
+        // Navigation links (for smooth scroll if on same page)
         document.querySelectorAll('nav a').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    targetElement.scrollIntoView({ behavior: 'smooth' });
+                const href = this.getAttribute('href');
+                if (href.startsWith('#')) {
+                    e.preventDefault();
+                    const targetId = href;
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({ behavior: 'smooth' });
+                    }
                 }
             });
         });
