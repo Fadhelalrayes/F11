@@ -4,8 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>دوري يا مبيركة</title>
+
+    <!-- سياسة أمان المحتوى: تسمح بصور Unsplash والخطوط والسكربت المضمّن -->
+    <meta http-equiv="Content-Security-Policy"
+          content="default-src 'self';
+                   img-src 'self' https://images.unsplash.com https://*.unsplash.com https://picsum.photos data:;
+                   style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+                   font-src 'self' https://fonts.gstatic.com data:;
+                   script-src 'self' 'unsafe-inline';
+                   connect-src 'self';
+                   object-src 'none';
+                   base-uri 'self';
+                   frame-ancestors 'self';
+                   upgrade-insecure-requests">
+
+    <!-- تحسين الاتصال بالخطوط -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- أيقونات وخط -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+
     <style>
         * {
             margin: 0;
@@ -59,7 +79,10 @@
 
         /* Hero Section */
         .hero {
-            background: linear-gradient(rgba(242, 101, 34, 0.7), rgba(255, 140, 0, 0.5)), url('https://images.unsplash.com/photo-1600585156236-ab8a1b38f8a0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+            /* الخلفية: تدرّج + صورة (تعمل حتى لو فشلت الصورة سيبقى التدرّج) */
+            background:
+                linear-gradient(rgba(242, 101, 34, 0.7), rgba(255, 140, 0, 0.5)),
+                url('https://images.unsplash.com/photo-1600585156236-ab8a1b38f8a0?w=1600&q=80&auto=format') no-repeat center center / cover;
             height: 500px;
             display: flex;
             justify-content: center;
@@ -72,10 +95,7 @@
         .hero::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            inset: 0;
             background: rgba(0, 0, 0, 0.3);
         }
 
@@ -175,6 +195,7 @@
         }
 
         .card img {
+            display: block;
             width: 100%;
             height: 200px;
             object-fit: cover;
@@ -218,10 +239,7 @@
         .coming-soon {
             display: none;
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            inset: 0;
             background: rgba(0, 0, 0, 0.5);
             justify-content: center;
             align-items: center;
@@ -331,7 +349,7 @@
             <h1>اطلب طعامك المفضل مع دوري يا مبيركة!</h1>
             <p>توصيل سريع من أفضل المطاعم والسوبر ماركت إلى بابك</p>
             <div class="search-bar">
-                <input type="text" placeholder="ابحث عن مطعم أو طبق أو منتج...">
+                <input id="searchInput" type="text" placeholder="ابحث عن مطعم أو طبق أو منتج...">
                 <button onclick="performSearch()"><i class="fas fa-search"></i> ابحث الآن</button>
             </div>
         </div>
@@ -342,7 +360,10 @@
         <h2>استكشف المطاعم الرائعة</h2>
         <div class="grid">
             <div class="card">
-                <img src="https://images.unsplash.com/photo-1600585156236-ab8a1b38f8a0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="مطعم الشرق - وجبة شرقية">
+                <img loading="lazy"
+                     src="https://images.unsplash.com/photo-1600585156236-ab8a1b38f8a0?w=1200&q=80&auto=format"
+                     alt="مطعم الشرق - وجبة شرقية"
+                     onerror="imgFallback(this)">
                 <div class="card-content">
                     <h3>مطعم الشرق</h3>
                     <p>مأكولات شرقية أصيلة بجودة عالية</p>
@@ -350,7 +371,10 @@
                 </div>
             </div>
             <div class="card">
-                <img src="https://images.unsplash.com/photo-1565299626231-9e0a2f71fd36?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="بيتزا هت - بيتزا طازجة">
+                <img loading="lazy"
+                     src="https://images.unsplash.com/photo-1565299626231-9e0a2f71fd36?w=1200&q=80&auto=format"
+                     alt="بيتزا هت - بيتزا طازجة"
+                     onerror="imgFallback(this)">
                 <div class="card-content">
                     <h3>بيتزا هت</h3>
                     <p>بيتزا طازجة مع مكونات مميزة</p>
@@ -358,7 +382,10 @@
                 </div>
             </div>
             <div class="card">
-                <img src="https://images.unsplash.com/photo-1550547660-d9450f859349?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="برغر كينج - برغر مشوي">
+                <img loading="lazy"
+                     src="https://images.unsplash.com/photo-1550547660-d9450f859349?w=1200&q=80&auto=format"
+                     alt="برغر كينج - برغر مشوي"
+                     onerror="imgFallback(this)">
                 <div class="card-content">
                     <h3>برغر كينج</h3>
                     <p>برغر مشوي على اللهب بمذاق لا يُنسى</p>
@@ -366,7 +393,10 @@
                 </div>
             </div>
             <div class="card">
-                <img src="https://images.unsplash.com/photo-1567621146492-7b6c1f7e0f4b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="مطعم المذاق - وجبة متنوعة">
+                <img loading="lazy"
+                     src="https://images.unsplash.com/photo-1567621146492-7b6c1f7e0f4b?w=1200&q=80&auto=format"
+                     alt="مطعم المذاق - وجبة متنوعة"
+                     onerror="imgFallback(this)">
                 <div class="card-content">
                     <h3>مطعم المذاق</h3>
                     <p>تجربة طعام فريدة تناسب جميع الأذواق</p>
@@ -381,7 +411,10 @@
         <h2>تسوق من السوبر ماركت</h2>
         <div class="grid">
             <div class="card">
-                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="سوبر ماركت الفرح - خضروات">
+                <img loading="lazy"
+                     src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=80&auto=format"
+                     alt="سوبر ماركت الفرح - خضروات"
+                     onerror="imgFallback(this)">
                 <div class="card-content">
                     <h3>سوبر ماركت الفرح</h3>
                     <p>منتجات طازجة وبأسعار تنافسية</p>
@@ -389,7 +422,10 @@
                 </div>
             </div>
             <div class="card">
-                <img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="سوبر ماركت الجودة - فواكه">
+                <img loading="lazy"
+                     src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=1200&q=80&auto=format"
+                     alt="سوبر ماركت الجودة - فواكه"
+                     onerror="imgFallback(this)">
                 <div class="card-content">
                     <h3>سوبر ماركت الجودة</h3>
                     <p>تشكيلة واسعة من السلع اليومية</p>
@@ -397,7 +433,10 @@
                 </div>
             </div>
             <div class="card">
-                <img src="https://images.unsplash.com/photo-1601001435828-89a1e4a5d230?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="سوبر ماركت السريع - منتجات حليب">
+                <img loading="lazy"
+                     src="https://images.unsplash.com/photo-1601001435828-89a1e4a5d230?w=1200&q=80&auto=format"
+                     alt="سوبر ماركت السريع - منتجات حليب"
+                     onerror="imgFallback(this)">
                 <div class="card-content">
                     <h3>سوبر ماركت السريع</h3>
                     <p>توصيل سريع لاحتياجاتك اليومية</p>
@@ -405,7 +444,10 @@
                 </div>
             </div>
             <div class="card">
-                <img src="https://images.unsplash.com/photo-1582359645151-237d4e8f7e54?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="سوبر ماركت المنزل - بقالة">
+                <img loading="lazy"
+                     src="https://images.unsplash.com/photo-1582359645151-237d4e8f7e54?w=1200&q=80&auto=format"
+                     alt="سوبر ماركت المنزل - بقالة"
+                     onerror="imgFallback(this)">
                 <div class="card-content">
                     <h3>سوبر ماركت المنزل</h3>
                     <p>كل ما تحتاجه في مكان واحد</p>
@@ -431,9 +473,17 @@
     </div>
 
     <script>
+        // Fallback لأي صورة تفشل
+        function imgFallback(imgEl) {
+            // منع حلقة لا نهائية
+            if (imgEl.dataset.fallbackApplied) return;
+            imgEl.dataset.fallbackApplied = '1';
+            imgEl.src = 'https://picsum.photos/800/400';
+        }
+
         // Search functionality
         function performSearch() {
-            const query = document.querySelector('.search-bar input').value;
+            const query = document.getElementById('searchInput').value.trim();
             if (query) {
                 window.location.href = `search.html?q=${encodeURIComponent(query)}`;
             } else {
@@ -442,7 +492,7 @@
         }
 
         // Enter key support for search
-        document.querySelector('.search-bar input').addEventListener('keypress', function(e) {
+        document.getElementById('searchInput').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
                 performSearch();
             }
