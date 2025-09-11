@@ -18,15 +18,16 @@
   }
   .wrap{max-width:960px;margin:0 auto;padding:18px}
 
-  /* صندوقا الجواب والسؤال متساويان (حجم متوسط) */
+  /* صندوقا الجواب والسؤال (الجواب أكبر، السؤال أصغر) */
   .pane{
     background:#fff;border:1px solid var(--edge);border-radius:18px;
     box-shadow:0 12px 34px #0000000a, inset 0 0 0 1px #f5e8c7;
-    min-height:300px;max-height:60vh;overflow:auto;padding:20px;line-height:1.95
+    line-height:1.95; padding:18px; overflow:auto;
   }
-  .pane + .hint{color:#8b7a4a;font-size:.9rem;margin:.5rem 0 0}
+  .answer{min-height:360px;max-height:62vh}
+  .question{min-height:150px;max-height:40vh}
 
-  .answer .turn{display:flex;gap:10px;align-items:flex-start;margin:.6rem 0}
+  .turn{display:flex;gap:10px;align-items:flex-start;margin:.6rem 0}
   .who{flex:0 0 40px;height:40px;border-radius:12px;display:grid;place-items:center;font-weight:700}
   .user{background:linear-gradient(135deg,#f0e6cf,#e3c179);color:#4b2e05;border:1px solid #e6d8b3}
   .bot{background:linear-gradient(135deg,#e9f7ef,#b2ebc7);color:#064e3b;border:1px solid #c8f2da}
@@ -39,7 +40,7 @@
   .qa-form{margin-top:18px}
   label{display:block;font-weight:700;margin:0 0 6px}
   textarea{
-    width:100%;height:150px; /* خفضت الارتفاع لتحسين الواجهة */
+    width:100%;height:180px; /* أصغر من الجواب */
     border:1px solid var(--edge);border-radius:18px;padding:16px;font-size:1rem;outline:none;resize:vertical;
     line-height:1.9
   }
@@ -50,59 +51,51 @@
     border:none;color:#fff;font-weight:700;padding:12px 18px;border-radius:12px;cursor:pointer;font-size:1rem
   }
   .btn:hover{filter:brightness(.98)}
-  .btn:disabled{opacity:0.7;cursor:not-allowed}
   footer{margin:22px auto 18px;text-align:center;color:#7b6a42;font-size:.95rem}
   mark{background:#fff0c2;padding:0 .2em;border-radius:.25em}
   ul,ol{margin:.4rem 1.25rem 0 0}
-  .k{padding:.08rem .35rem;border:1px solid #e6e2cc;border-radius:6px;background:#fffaf1}
-  .loading{text-align:center;padding:10px;color:var(--muted)}
 </style>
 </head>
 <body>
   <header>مناسك الحج وفق رأي السيد القائد دامت بركاته</header>
 
   <div class="wrap">
-    <!-- الجواب (فوق) -->
+    <!-- الجواب في الأعلى -->
     <section id="ans" class="pane answer"></section>
 
-    <!-- السؤال (تحت) + زر الإرسال تحته -->
+    <!-- السؤال في الأسفل + زر الإرسال -->
     <form id="form" class="qa-form" autocomplete="off">
       <label for="q">السؤال</label>
-      <textarea id="q" placeholder="اكتب سؤالك هنا..."></textarea>
+      <textarea id="q" class="pane question"></textarea>
       <button type="submit" class="btn">إرسال</button>
     </form>
   </div>
 
   <footer>برمجة وتطوير : فاضل الريس</footer>
 
-  <!-- قاعدة معارف: سؤال مختصر q، مفاتيح keys، جواب a، مرجع ref، أسئلة متابعة fups -->
+  <!-- ملاحظة مهمة: JSON بلا تعليقات حتى لا يتعطل النموذج -->
   <script id="KB" type="application/json">[
-    /* ========== وجوب الحج والاستطاعة ========== */
     {"qid":"S001","q":"شروط وجوب حجة الإسلام","keys":["شروط الوجوب","عاقل","بالغ","مستطيع","فورية"],"a":"تجب حجة الإسلام مرة واحدة على العاقل البالغ المستطيع، وهي فورية بعد تحقق الاستطاعة (مالية، بدنية، أمن الطريق، زمانية).","ref":"مسائل 23–26","fups":["هل الاقتراض يكفي؟","هل يجب بيع المسكن؟","ما معنى الرجوع إلى الكفاية؟"]},
     {"qid":"S002","q":"ترك الحج مع الاستطاعة","keys":["ترك الحج","كبائر","التأخير"],"a":"ترك الحج بعد حصول الاستطاعة مع العلم بالوجوب من الكبائر، ويأثم بالتأخير بلا عذر معتبر.","ref":"مسألة 1","fups":["تأخرتُ ثم زالت الاستطاعة؟","هل يجب القضاء لاحقًا؟"]},
-    {"qid":"S003","q":"الاستطاعة المالية تفصيلًا","keys":["الزاد والراحلة","نفقة العيال","ضروريات","الرجوع إلى الكفاية"],"a":"يشترط ملك الزاد والراحلة، ونفقة العيال زمن الغياب، وصون الضروريات الموافقة للشأن، وأن يكون بعد الرجوع كفايةٌ للمعاش.","ref":"مسائل 34–55","fups":["تذكرة مجانية من متبرع؟","هل يجوز إجازة غير مدفوعة؟"]},
-    {"qid":"S004","q":"الدَّين والاقتراض","keys":["دين حال","مطالبة","اقتراض"],"a":"مع مطالبة الدائن لا تتحقق الاستطاعة حتى تُبرأ الذمة أو يأذن. ولا يجب الحج لمجرد إمكان الاقتراض؛ نعم لو اقترض فأصبح واجدًا وجب.","ref":"مسائل 44 ، 49","fups":["الدَّين المؤجل؟","رضا الدائن بالذهاب؟"]},
+    {"qid":"S003","q":"الاستطاعة المالية","keys":["الزاد والراحلة","نفقة العيال","ضروريات","الرجوع إلى الكفاية"],"a":"يشترط ملك الزاد والراحلة ونفقة العيال زمن الغياب وصون الضروريات الموافقة للشأن، وأن يكون بعد الرجوع كفايةٌ للمعاش.","ref":"مسائل 34–55","fups":["تذكرة مجانية من متبرع؟","هل يجوز إجازة غير مدفوعة؟"]},
+    {"qid":"S004","q":"الدين والاقتراض","keys":["دين حال","مطالبة","اقتراض"],"a":"مع مطالبة الدائن لا تتحقق الاستطاعة حتى تُبرأ الذمة أو يأذن. ولا يجب الحج لمجرد إمكان الاقتراض؛ نعم لو اقترض فأصبح واجدًا وجب الأداء.","ref":"مسائل 44 ، 49","fups":["الدَّين المؤجل؟","رضا الدائن بالذهاب؟"]},
 
-    /* ========== المواقيت والإحرام ========== */
     {"qid":"M001","q":"المواقيت ومحاذاتها","keys":["مسجد الشجرة","وادي العقيق","الجحفة","يلملم","قرن المنازل","محاذاة"],"a":"المواقيت: مسجد الشجرة، وادي العقيق (المسلخ/الغمرة/ذات عرق)، الجحفة، يلملم، قرن المنازل. من لم يمرّ بميقات يُحرم عند المحاذاة الصحيحة لمساره (برًا/جوًا) على خبرة الطريق.","ref":"مسائل 100–106","fups":["كيف أحدد المحاذاة بالطائرة؟","هل يصح الإحرام قبل الميقات؟"]},
-    {"qid":"M002","q":"ميقات العمرة المفردة لأهل مكة","keys":["أدنى الحل","التنعيم","الحديبية","الجعرانة"],"a":"من كان في مكة وأراد عمرة مفردة يُحرم من أدنى الحل، والأفضل: التنعيم أو الحديبية أو الجعرانة.","ref":"مسألة 111","fups":["أي نقطة من أدنى الحل تكفي؟","الخروج إلى جدة ثم الإحرام؟"]},
+    {"qid":"M002","q":"ميقات العمرة المفردة","keys":["أدنى الحل","التنعيم","الحديبية","الجعرانة"],"a":"من كان في مكة وأراد عمرة مفردة يُحرم من أدنى الحل، والأفضل: التنعيم أو الحديبية أو الجعرانة.","ref":"مسألة 111","fups":["أي نقطة من أدنى الحل تكفي؟","الخروج إلى جدة ثم الإحرام؟"]},
     {"qid":"M003","q":"انعقاد الإحرام والتلبية","keys":["التلبية","ينعقد الإحرام"],"a":"ينعقد الإحرام بالتلبية. الصيغة الواجبة: «لبيك اللهم لبيك، لبيك لا شريك لك لبيك».","ref":"مسائل 132–135","fups":["التلبية في الجو؟","هل يجب بالعربية؟"]},
 
-    /* ========== محرمات الإحرام ========== */
     {"qid":"P001","q":"محرمات الإحرام إجمالًا","keys":["محرمات","التظليل","الطيب","المخيط"],"a":"منها: لبس المخيط للرجال، تغطية رأس الرجل ووجه المرأة، التظليل للرجال نهارًا حال السير، الطيب، النظر في المرآة بقصد الزينة، الحناء، التدهين، إزالة الشعر، الكحل، تقليم الأظفار، إخراج الدم، الفسوق، الجدال، قتل هوام البدن، صيد البر، الجماع، عقد النكاح، الاستمناء… ولكل مورد تفصيل وكفارة.","ref":"مسائل 159–161","fups":["هل الصابون المعطّر محظور؟","هل يجوز ظل السيارة ليلًا؟"]},
-    {"qid":"P002","q":"لبس المخيط للرجال والنساء","keys":["لبس المخيط","قميص","قفازات"],"a":"يحرم على الرجال لبس المخيط كالقميص والسراويل ونحوهما. يجوز للنساء لبس المخيط، لكن لا يلبسن القفازات ولا يغطين الوجه بالقناع.","ref":"مسائل 162–170","fups":["حزام مخيط؟","كمامة طبية؟"]},
+    {"qid":"P002","q":"لبس المخيط (رجال/نساء)","keys":["لبس المخيط","قميص","قفازات"],"a":"يحرم على الرجال لبس المخيط كالقميص والسراويل ونحوهما. يجوز للنساء لبس المخيط، لكن لا يلبسن القفازات ولا يغطين الوجه بالقناع.","ref":"مسائل 162–170","fups":["حزام مخيط؟","كمامة طبية؟"]},
     {"qid":"P003","q":"التظليل نهارًا للمحرم","keys":["تظليل","سقف","مظلة"],"a":"يحرم على الرجل حال السير نهارًا التظليل بسقف ونحوه؛ ويختلف الحكم ليلًا أو في غير السير. وعند الضرورة تُلزم فدية غالبًا.","ref":"مسألة 168","fups":["مرض يتطلب الظل؟","خيمة عرفة؟"]},
     {"qid":"P004","q":"استعمال الطيب وشمّه","keys":["طيب","عطر"],"a":"يحرم استعمال الطيب وشمُّه بقصد التلذذ، وتجب الكفارة على العمد. يُفصّل في السهو ونوع الرائحة.","ref":"مسألة 171","fups":["صابون معطر؟","رائحة طعام قوية؟"]},
     {"qid":"P005","q":"إزالة الشعر وتقليم الأظفار","keys":["حلق","قص الأظفار"],"a":"يحرم عمدًا وتجب الكفارة بحسب المورد والنية.","ref":"مسألة 175","fups":["ظفر مكسور؟","شعرة مؤذية؟"]},
-    {"qid":"P006","q":"عقد النكاح حال الإحرام","keys":["عقد النكاح"],"a":"محرم وباطل لو وقع في حال الإحرام.","ref":"مسألة 182","fups":["الإشهار بلا صيغة؟"]},
+    {"qid":"P006","q":"عقد النكاح في الإحرام","keys":["عقد النكاح"],"a":"محرم وباطل لو وقع حال الإحرام.","ref":"مسألة 182","fups":["إشهار بلا صيغة؟"]},
     {"qid":"P007","q":"الجماع قبل طواف النساء","keys":["جماع","طواف النساء"],"a":"يحرم حتى يأتي بطواف النساء وصلاته، وتترتب كفارات مخصوصة بحسب المورد.","ref":"مسألة 185","fups":["جماع بعد الوقوف؟","ما أثره على الحلّ؟"]},
 
-    /* ========== أعمال العمرة ========== */
     {"qid":"A001","q":"أعمال عمرة التمتع","keys":["عمرة","أعمال"],"a":"الإحرام من الميقات → الطواف → صلاة الطواف → السعي بين الصفا والمروة → التقصير.","ref":"مسألة 13","fups":["تقديم السعي لعذر؟","عدد الأشواط؟"]},
     {"qid":"A002","q":"عدد أشواط الطواف والسعي","keys":["عدد الأشواط","الطواف","السعي"],"a":"الطواف سبعة أشواط ابتداءً من الحجر، والسعي سبعة أشواط مبتدئًا بالصفا ختامًا بالمروة.","ref":"باب الطواف/السعي","fups":["شككت في العدد؟","تركت شوطًا نسيانًا؟"]},
     {"qid":"A003","q":"الطهارة للطواف وصلاة الطواف","keys":["طهارة","صلاة الطواف"],"a":"يشترط للطواف وصلاة الطواف الطهارة من الحدث والنجاسة. من نسي صلاة الطواف أتى بها متى تذكّر في موضعها المقرر.","ref":"باب الطواف/الصلاة","fups":["أصلي خلف المقام البعيد؟","هل تجزئ أي بقعة من المسجد؟"]},
 
-    /* ========== أعمال الحج ========== */
     {"qid":"H001","q":"أعمال حج التمتع بإجمال","keys":["حج","أعمال الحج"],"a":"الإحرام من مكة → الوقوف بعرفات → الوقوف بالمشعر → رمي جمرة العقبة → الهدي → الحلق/التقصير → طواف الحج وصلاته → السعي → طواف النساء وصلاته → المبيت بمنى ورمي الجمار أيام التشريق.","ref":"مسألة 15","fups":["ترتيب يوم العيد؟","هل يجوز التقديم لعذر؟"]},
     {"qid":"H002","q":"وقت الوقوف بعرفات","keys":["عرفات","وقت"],"a":"الاختياري: من زوال يوم التاسع إلى الغروب. للاضطراري أحكامه إذا فات الاختياري.","ref":"باب الوقوف بعرفات","fups":["فاتني الغروب؟","حضرت بعد الزوال بلحظات؟"]},
     {"qid":"H003","q":"الوقوف بالمشعر (مزدلفة)","keys":["المشعر","مزدلفة"],"a":"من ليلة العيد إلى طلوع الفجر، ويكفي إدراك جزء منه للمعذورين على التفصيل.","ref":"باب المشعر","fups":["خروج الضعفة ليلًا؟","لم أدرك الفجر؟"]},
@@ -110,198 +103,128 @@
     {"qid":"H005","q":"من لم يجد الهدي","keys":["الهدي","الصوم"],"a":"ينتقل إلى الصوم: ثلاثة أيام في الحج وسبعة إذا رجع إلى أهله، على الترتيب المذكور.","ref":"مسألة 250","fups":["أصوم الثلاثة بمنى؟","وجدتُ الهدي بعد الصوم؟"]},
     {"qid":"H006","q":"العدول إلى الإفراد لضيق الوقت","keys":["عدول","إفراد","ضيق الوقت"],"a":"يجوز عند ضيق الوقت عن إدراك العمرة والحج معًا؛ وتكون الوظيفة حج الإفراد مع عمرة مفردة بعده.","ref":"مسألة 210","fups":["أرجع للتمتع لو اتسع الوقت؟","نية الإفراد كيف تكون؟"]},
 
-    /* ========== مسائل النساء ========== */
     {"qid":"W001","q":"لباس المرأة في الإحرام","keys":["لباس المرأة","قناع","قفازات"],"a":"تلبس الساتر غير المزخرف بلا زينة، ويجوز لبس المخيط. لا تغطي الوجه بالقناع/النقاب، ولا تلبس القفازات. يجوز ستر الرأس بلا طيب.","ref":"مسألة 170","fups":["كمامة طبية؟","الجوارب للمرأة؟"]},
     {"qid":"W002","q":"الحائض قبل/أثناء الطواف","keys":["حيض","طواف"],"a":"لا تأتي بالطواف حتى تطهر؛ وإن حاضت أثناءه قطعت وتنتظر الطهر لإتمامه ثم صلاة الطواف. ومع ضيق الوقت توجد رخص كالاستنابة أو ما يُقرّره باب العدول.","ref":"مسألة 220","fups":["حاضت قبل طواف النساء؟","طهرت بعد الرجوع؟"]},
     {"qid":"W003","q":"طواف النساء للمرأة","keys":["طواف النساء","حل الأزواج"],"a":"طواف النساء واجب، ولا تحلّ الأزواج بدونه. من لم تتمكن تطوف بعد الطهر أو تستنيب عند التعذر، ثم تُصلّي ركعتين.","ref":"مسألة 230","fups":["نسيته ثم رجعت لبلدي؟","هل تكفي النيابة بلا صلاة؟"]}
   ]</script>
 
   <script>
-    /* ================== محرك مطابقات مُحسَّن + جواب حواري على نمط شات جبيتي ================== */
+    /* ================== محرّك مطابقة ثابت + إجابة حوارية ================== */
     const KB = JSON.parse(document.getElementById('KB').textContent || '[]');
 
-    /* تطبيع عربي + مرادفات + مسافة تحرير (Levenshtein) مبسطة */
-    function norm(s) {
-      return (s || '').toLowerCase()
-        .replace(/[\u064B-\u065F]/g, '')    // حركات
-        .replace(/[إأآا]/g, 'ا').replace(/[ى]/g, 'ي').replace(/[ة]/g, 'ه')
-        .replace(/[ؤئ]/g, 'ء').replace(/[ـ]/g, '')
-        .replace(/[^\u0600-\u06FFa-z0-9 ]+/g, ' ')
-        .replace(/\s+/g, ' ').trim();
+    // تطبيع عربي
+    function norm(s){
+      return (s||'').toLowerCase()
+        .replace(/[\u064B-\u065F]/g,'')
+        .replace(/[إأآا]/g,'ا').replace(/[ى]/g,'ي').replace(/[ة]/g,'ه')
+        .replace(/[ؤئ]/g,'ء').replace(/[ـ]/g,'')
+        .replace(/[^\u0600-\u06FFa-z0-9 ]+/g,' ')
+        .replace(/\s+/g,' ').trim();
     }
-    function stripAl(w) { return w.startsWith('ال') && w.length > 3 ? w.slice(2) : w; }
-    function toks(s) { return norm(s).split(/[^ \u0600-\u06FFa-z0-9]+/).filter(Boolean).map(stripAl); }
-    function bigrams(arr) { const out = new Set(); for (let i = 0; i < arr.length - 1; i++) out.add(arr[i] + ' ' + arr[i + 1]); return out; }
+    function stripAl(w){return w.startsWith('ال') && w.length>3 ? w.slice(2) : w;}
+    function toks(s){return norm(s).split(/[^ \u0600-\u06FFa-z0-9]+/).filter(Boolean).map(stripAl);}
+    function bigrams(arr){const out=new Set();for(let i=0;i<arr.length-1;i++) out.add(arr[i]+' '+arr[i+1]);return out;}
 
-    // Levenshtein مسافة تحرير بسيطة
-    function lev(a, b) {
-      const m = a.length, n = b.length; const dp = Array.from({ length: m + 1 }, () => Array(n + 1).fill(0));
-      for (let i = 0; i <= m; i++) dp[i][0] = i; for (let j = 0; j <= n; j++) dp[0][j] = j;
-      for (let i = 1; i <= m; i++) { for (let j = 1; j <= n; j++) {
-        const c = a[i - 1] === b[j - 1] ? 0 : 1;
-        dp[i][j] = Math.min(dp[i - 1][j] + 1, dp[i][j - 1] + 1, dp[i - 1][j - 1] + c);
-      } } return dp[m][n];
+    // مسافة تحرير بسيطة
+    function lev(a,b){
+      const m=a.length,n=b.length; const dp=Array.from({length:m+1},()=>Array(n+1).fill(0));
+      for(let i=0;i<=m;i++) dp[i][0]=i; for(let j=0;j<=n;j++) dp[0][j]=j;
+      for(let i=1;i<=m;i++){for(let j=1;j<=n;j++){
+        const c=a[i-1]===b[j-1]?0:1;
+        dp[i][j]=Math.min(dp[i-1][j]+1,dp[i][j-1]+1,dp[i-1][j-1]+c);
+      }} return dp[m][n];
     }
-    function sim(a, b) { // تشابه 0..1
-      if (!a || !b) return 0;
-      const L = Math.max(a.length, b.length);
-      return 1 - (lev(a, b) / L);
-    }
+    function sim(a,b){ if(!a||!b) return 0; const L=Math.max(a.length,b.length); return 1-(lev(a,b)/L); }
 
-    // مرادفات لتوسيع الاستعلام
-    const SYNS = {
-      "حيض": "حائض حاضت دم",
-      "استحاضه": "مستحاضه دم مستمر",
-      "نفاس": "نفساء دم النفاس",
-      "مزدلفه": "مشعر المشعر",
-      "تظليل": "مظله ظل سقف شمس",
-      "طواف النساء": "طواف النسا",
-      "هدي": "ذبح نحر",
-      "رمي": "جمره جمار",
-      "محاذاه": "محاذيه موازاه طائره جو",
-      "تحلل": "حل محظورات",
-      "لباس": "كسوه ملابس"
-    };
-    function expand(q) { let t = norm(q); for (const k in SYNS) { if (t.includes(k)) t += ' ' + SYNS[k]; } return t; }
-
-    // فهرسة: نزن (keys>question>answer) + ثنائيات + تشابه عام
-    const INDEX = KB.map((e, i) => {
-      const k = toks((e.keys || []).join(' ')), q = toks(e.q || ''), a = toks(e.a || '');
-      return {
-        i, e, kset: new Set(k), qset: new Set(q), aset: new Set(a),
-        kbi: bigrams(k), qbi: bigrams(q), abi: bigrams(a),
-        flat: norm([e.q, e.a, (e.keys || []).join(' ')].join(' '))
+    // فهرسة
+    const INDEX = KB.map((e,i)=>{
+      const k=toks((e.keys||[]).join(' ')), q=toks(e.q||''), a=toks(e.a||'');
+      return {i,
+        flat:norm([e.q,e.a,(e.keys||[]).join(' ')].join(' ')),
+        kset:new Set(k), qset:new Set(q), aset:new Set(a),
+        kbi:bigrams(k), qbi:bigrams(q), abi:bigrams(a)
       };
     });
 
-    function scoreEntry(query) {
-      const exp = expand(query); const qtoks = toks(exp); const qset = new Set(qtoks); const qbi = bigrams(qtoks);
-      let best = [], top = 0;
-      for (const E of INDEX) {
-        let s = 0;
-        // أوزان الكلمات
-        qset.forEach(w => { if (E.kset.has(w)) s += 7; if (E.qset.has(w)) s += 3; if (E.aset.has(w)) s += 1; });
-        // ثنائيات
-        qbi.forEach(bg => { if (E.kbi.has(bg)) s += 6; if (E.qbi.has(bg)) s += 3; if (E.abi.has(bg)) s += 1; });
-        // تشابه عام للنص
-        s += Math.max(0, Math.floor(sim(norm(query), E.flat) * 6));
-        if (s > 0) { if (s > top) { top = s; best = [E.i]; } else if (s === top) { best.push(E.i); } }
+    function scoreAgainst(query){
+      const qt=toks(query); const qset=new Set(qt); const qbi=bigrams(qt);
+      let best=[], top=0;
+      for(const E of INDEX){
+        let s=0;
+        qset.forEach(w=>{ if(E.kset.has(w)) s+=7; if(E.qset.has(w)) s+=3; if(E.aset.has(w)) s+=1; });
+        qbi.forEach(bg=>{ if(E.kbi.has(bg)) s+=6; if(E.qbi.has(bg)) s+=3; if(E.abi.has(bg)) s+=1; });
+        s += Math.max(0, Math.floor(sim(norm(query), E.flat)*6));
+        if(s>0){ if(s>top){top=s; best=[E.i];} else if(s===top){best.push(E.i);} }
       }
-      return { ids: best.slice(0, 3), score: top };
+      return {ids:best.slice(0,3), score:top};
     }
 
-    // إبراز
-    function hi(text, query) {
-      let t = text; toks(query).forEach(w => { if (!w) return; try { t = t.replace(new RegExp('(' + w + ')', 'gi'), '<mark>$1</mark>'); } catch (_) { } });
+    function hi(text,query){
+      let t=text; toks(query).forEach(w=>{ if(!w) return; try{ t=t.replace(new RegExp('('+w+')','gi'),'<mark>$1</mark>'); }catch(_){} });
       return t;
     }
 
-    // تركيبة جواب حواري + نقاط + مصادر + أسئلة متابعة
-    function renderDialog(q, items) {
-      const questionBlock = `
+    function renderDialog(q, items){
+      const qHTML = `
         <div class="turn">
           <div class="who user">س</div>
-          <div class="bubble"><b>سؤال:</b> ${q.replace(/</g, '&lt;')}</div>
+          <div class="bubble"><b>سؤال:</b> ${q.replace(/</g,'&lt;')}</div>
         </div>`;
-      const answerSummary = hi(items.map(x => x.a).join(' '), q);
+      const answerSummary = hi(items.map(x=>x.a).join(' '), q);
 
       const steps = [];
-      items.forEach(x => {
-        const parts = x.a.split(/→|، ثم| ثم /).map(s => s.trim()).filter(p => p && p.length > 2);
-        parts.forEach(p => steps.push(p));
+      items.forEach(x=>{
+        x.a.split(/→|، ثم| ثم /).map(s=>s.trim()).filter(Boolean).forEach(p=>steps.push(p));
       });
-      const uniqSteps = [...new Set(steps)].slice(0, 7);
+      const uniqSteps = [...new Set(steps)].slice(0,7);
 
-      const refs = items.map(x => x.ref).join(' ، ');
-      const fups = items.reduce((acc, x) => acc.concat(x.fups || []), []).filter((v, i, a) => a.indexOf(v) === i).slice(0, 6);
+      const refs = items.map(x=>x.ref).join(' ، ');
+      const fups = (items[0].fups||[]).slice(0,6);
 
-      const answerBlock = `
+      const aHTML = `
         <div class="turn">
           <div class="who bot">ج</div>
           <div class="bubble">
             <div><b>إجابة مختصرة:</b> ${answerSummary}</div>
-            ${uniqSteps.length ? `<div style="margin-top:.6rem"><b>باختصار العمليّات:</b><ol>` + uniqSteps.map(s => `<li>${hi(s, q)}</li>`).join('') + `</ol></div>` : ``}
+            ${uniqSteps.length? `<div style="margin-top:.6rem"><b>باختصار العمليّات:</b><ol>`+uniqSteps.map(s=>`<li>${hi(s,q)}</li>`).join('')+`</ol></div>` : ``}
             <div class="src">المصدر: كتيّب أحكام الحج (leader.ir) — ${refs}</div>
-            ${fups.length ? `<div class="chips"><span style="color:#6b5d3a">أسئلة مقترحة:</span>` + fups.map(f => `<button class="chip" data-q="${f}">${f}</button>`).join('') + `</div>` : ``}
+            ${fups.length? `<div class="chips"><span style="color:#6b5d3a">أسئلة مقترحة:</span>`+fups.map(f=>`<button class="chip" data-q="${f}">${f}</button>`).join('')+`</div>`:``}
           </div>
         </div>`;
-      return questionBlock + answerBlock;
+      return qHTML + aHTML;
     }
 
-    function setAnswer(html) {
+    function setAnswer(html){
       const ans = document.getElementById('ans');
-      ans.innerHTML += html;
-      // فعّل أسئلة المتابعة
-      ans.querySelectorAll('.chip').forEach(ch => {
-        ch.addEventListener('click', (e) => {
-          e.preventDefault();
-          run(ch.dataset.q);
-        });
+      ans.innerHTML = html;
+      ans.querySelectorAll('.chip').forEach(ch=>{
+        ch.addEventListener('click', ()=> run(ch.dataset.q));
       });
-      // تمرير لآخر الإجابة
       ans.scrollTop = ans.scrollHeight;
     }
 
-    function showLoading(show) {
-      const ans = document.getElementById('ans');
-      if (show) {
-        ans.innerHTML += '<div class="loading">جاري البحث...</div>';
-        ans.scrollTop = ans.scrollHeight;
-      } else {
-        const loading = ans.querySelector('.loading');
-        if (loading) loading.remove();
-      }
-    }
-
-    function fallback(q) {
+    function fallback(q){
       const html = renderDialog(q, [{
-        a: "لم أعثر على مسألة دقيقة لهذه الصياغة. جرّب مفاتيح مختصرة مثل: طواف النساء، التظليل، المحاذاة، المبيت بمنى، الاستحاضة.",
-        ref: "—",
-        fups: ["طواف النساء وحكمه؟", "التظليل نهارًا للمحرم؟", "كيف أحدد المحاذاة في الطائرة؟"]
+        a:"لم أعثر على مسألة دقيقة لهذه الصياغة. جرّب مفاتيح مختصرة مثل: طواف النساء، التظليل، المحاذاة، المبيت بمنى، الاستحاضة.",
+        ref:"—",
+        fups:["طواف النساء وحكمه؟","التظليل نهارًا للمحرم؟","كيف أحدد المحاذاة في الطائرة؟"]
       }]);
       setAnswer(html);
     }
 
-    async function run(q) {
-      if (!q.trim()) return;
-      showLoading(true);
-      const { ids, score } = scoreEntry(q);
-      showLoading(false);
-      if (score < 6 || !ids.length) { fallback(q); return; }
-      const items = ids.map(i => KB[i]);
-      const html = renderDialog(q, items);
-      setAnswer(html);
+    function run(q){
+      const {ids,score} = scoreAgainst(q);
+      if(score<6 || !ids.length){ fallback(q); return; }
+      const items = ids.map(i=>KB[i]);
+      setAnswer(renderDialog(q, items));
     }
 
-    // إرسال
-    const form = document.getElementById('form');
-    const input = document.getElementById('q');
-    const btn = form.querySelector('.btn');
-    form.addEventListener('submit', async (e) => {
+    document.getElementById('form').addEventListener('submit', (e)=>{
       e.preventDefault();
-      const q = input.value.trim();
-      if (!q) return;
-      btn.disabled = true;
-      await run(q);
-      input.value = '';
-      input.focus();
-      btn.disabled = false;
+      const q = document.getElementById('q').value.trim();
+      if(!q) return;
+      run(q);
     });
-
-    // رسالة ترحيبية أولية
-    setAnswer(`
-      <div class="turn">
-        <div class="who bot">ج</div>
-        <div class="bubble">
-          <div>مرحبا! أنا مساعدك في أحكام مناسك الحج وفق رأي السيد القائد دامت بركاته. اسألني عن أي مسألة، وسأجيب بناءً على قاعدة المعارف المتاحة.</div>
-          <div class="chips"><span style="color:#6b5d3a">أسئلة مقترحة:</span>
-            <button class="chip" data-q="شروط وجوب حجة الإسلام">شروط وجوب حجة الإسلام</button>
-            <button class="chip" data-q="محرمات الإحرام إجمالًا">محرمات الإحرام إجمالًا</button>
-            <button class="chip" data-q="أعمال حج التمتع بإجمال">أعمال حج التمتع بإجمال</button>
-          </div>
-        </div>
-      </div>
-    `);
   </script>
 </body>
 </html>
