@@ -1,407 +1,413 @@
 <!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>مناسك الحج وفق رأي السيد القائد دامت بركاته</title>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>المتبقّي من عمرك — تقدير تقريبي</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#ffffff; --text:#0f172a; --muted:#6b7280; --edge:#e6e2cc;
-    --gold1:#f9f4e7; --gold2:#e3c179; --gold3:#c9a144;
-    --primary: #2b6cb0; --secondary: #718096; --success: #38a169;
+    --bg:#f5f6f8; --ink:#111827; --muted:#6b7280;
+    --card:#ffffff; --line:#e5e7eb;
+    --gold:#b58900; --gold-soft:#f5d574;
+    --emerald:#059669; --crimson:#dc2626; --ocean:#0b4d8a;
   }
   *{box-sizing:border-box}
-  body{margin:0;background:var(--bg);color:var(--text);font-family:'Cairo',system-ui}
-  header{
-    background:linear-gradient(135deg,var(--gold1),var(--gold2) 60%,var(--gold3));
-    color:#3b2b09;text-align:center;padding:18px;border-bottom:2px solid var(--gold3);font-weight:700;
-    position: relative;
+  body{margin:0; font-family:"Cairo",sans-serif; background:var(--bg); color:var(--ink)}
+  header{text-align:center; padding:24px 12px}
+  .brand{font-family:"Amiri",serif; font-size:clamp(26px,4.5vw,42px); color:var(--gold)}
+  .tag{margin-top:6px; font-size:14px; color:var(--muted)}
+  .shell{max-width:900px; margin:0 auto; padding:0 16px}
+  .hero{background:var(--card); border:1px solid var(--line); border-radius:20px; padding:20px; box-shadow:0 4px 12px rgba(0,0,0,.05)}
+  .row{display:grid; gap:16px}
+  @media(min-width:860px){ .row{grid-template-columns:1.2fr .8fr} }
+  .field{display:flex; flex-direction:column; gap:8px; margin-bottom:12px}
+  .center{text-align:center}
+  .date-grid{display:flex; justify-content:center; gap:8px; flex-wrap:wrap}
+  .date-grid input[type="number"]{
+    width:110px; padding:10px; border:1px solid var(--line); border-radius:10px; text-align:center; font-family:monospace;
   }
-  .header-content {
-    max-width: 960px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 15px;
-  }
-  .header-icon {
-    font-size: 28px;
-  }
-  .wrap{max-width:960px;margin:0 auto;padding:18px}
+  .seg{display:flex; gap:6px; justify-content:center; flex-wrap:wrap}
+  .seg button{flex:1; padding:8px 10px; border-radius:8px; border:1px solid var(--line); background:#f9fafb; cursor:pointer; max-width:140px}
+  .seg button.on{background:var(--gold); color:#fff; border-color:var(--gold)}
+  .btn{padding:12px 20px; border-radius:10px; border:none; cursor:pointer; background:linear-gradient(90deg,var(--gold),var(--gold-soft)); color:#111; font-weight:700; display:block; margin:0 auto}
+  .badge{display:inline-block; padding:10px 14px; border-radius:10px; margin-top:12px}
+  .ok{background:#eff6ff; color:var(--ocean)} /* معلومات */
+  .no{background:#fee2e2; color:var(--crimson)} /* أخطاء إدخال */
 
-  /* صندوقا الجواب والسؤال (الجواب أكبر، السؤال أصغر) */
-  .pane{
-    background:#fff;border:1px solid var(--edge);border-radius:18px;
-    box-shadow:0 12px 34px #0000000a, inset 0 0 0 1px #f5e8c7;
-    line-height:1.95; padding:18px; overflow:auto;
-    transition: all 0.3s ease;
-  }
-  .answer{min-height:360px;max-height:62vh}
-  .question{min-height:150px;max-height:40vh}
+  /* مؤشرات */
+  .kpi{display:grid; gap:10px; grid-template-columns:repeat(2,1fr); margin-top:10px}
+  .k{background:#f9fafb; border:1px solid var(--line); border-radius:10px; padding:10px; text-align:center}
+  .k .v{font-weight:700; font-size:18px}
 
-  .turn{display:flex;gap:10px;align-items:flex-start;margin:.6rem 0}
-  .who{flex:0 0 40px;height:40px;border-radius:12px;display:grid;place-items:center;font-weight:700}
-  .user{background:linear-gradient(135deg,#f0e6cf,#e3c179);color:#4b2e05;border:1px solid #e6d8b3}
-  .bot{background:linear-gradient(135deg,#e9f7ef,#b2ebc7);color:#064e3b;border:1px solid #c8f2da}
-  .bubble{background:#fffaf1;border:1px solid #efe3c3;border-radius:14px;padding:12px 14px;flex:1}
-  .src{margin-top:.6rem;color:#6b5d3a;font-size:.9rem;border-top:1px dashed #e8dfc2;padding-top:.5rem}
-  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:.6rem}
-  .chip{border:1px solid #e6e2cc;background:#fff;border-radius:999px;padding:8px 12px;font-size:.9rem;cursor:pointer;
-    transition: all 0.2s ease;
-  }
-  .chip:hover{background:#fff9ea; transform: translateY(-2px);}
+  /* صندوق التاريخ التقريبي */
+  .eqwrap{display:none; margin-top:8px}
+  .eqbox{background:#fff; border:1px solid var(--line); border-radius:12px; padding:10px; text-align:center}
+  .eqbox .v{font-weight:700; font-size:16px; margin-bottom:4px; color:#111}
+  .eqbox .l{font-size:12px; color:#6b7280}
 
-  .qa-form{margin-top:18px}
-  label{display:block;font-weight:700;margin:0 0 6px}
-  textarea{
-    width:100%;height:180px; /* أصغر من الجواب */
-    border:1px solid var(--edge);border-radius:18px;padding:16px;font-size:1rem;outline:none;resize:vertical;
-    line-height:1.9
+  .deck{display:grid; gap:12px; grid-template-columns:1fr; margin-top:16px}
+  @media(min-width:860px){ .deck{grid-template-columns:repeat(3,1fr)} }
+  .card{background:#fdfdfd; border:1px solid var(--line); border-radius:12px; padding:14px; box-shadow:0 2px 6px rgba(0,0,0,.04)}
+  .card h3{margin:0 0 6px; font-family:"Amiri",serif; color:var(--gold)}
+  .card p{margin:0; font-size:14px; color:#374151; line-height:1.6}
+  .card ul{margin:8px 0 0; padding-inline-start:20px; color:#374151}
+
+  /* العدّادات */
+  .counter{
+    margin:14px auto 0; max-width:700px;
+    background:linear-gradient(90deg, #fff7e6, #fff);
+    border:1px solid #f3e8c8; border-radius:16px; padding:12px;
+    box-shadow:0 4px 12px rgba(0,0,0,.05);
   }
-  textarea:focus{border-color:var(--gold3);box-shadow:0 0 0 3px #c9a14433}
-  .btn{
-    margin-top:10px;width:100%;
-    background:linear-gradient(135deg,var(--gold2),var(--gold3));
-    border:none;color:#fff;font-weight:700;padding:12px 18px;border-radius:12px;cursor:pointer;font-size:1rem;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
+  .counter.alt{
+    background:linear-gradient(90deg, #eef6ff, #fff);
+    border-color:#cfe6ff;
   }
-  .btn:hover{filter:brightness(.98); transform: translateY(-2px);}
-  .btn:active{transform: translateY(0);}
-  footer{margin:22px auto 18px;text-align:center;color:#7b6a42;font-size:.95rem}
-  mark{background:#fff0c2;padding:0 .2em;border-radius:.25em}
-  ul,ol{margin:.4rem 1.25rem 0 0}
-  
-  .suggestions {
-    margin-top: 20px;
-    background: var(--gold1);
-    padding: 15px;
-    border-radius: 18px;
-    border: 1px solid var(--gold2);
+  .counter h4{margin:0 0 8px; font-family:"Amiri",serif; color:#8b6a00; text-align:center}
+  .counter.alt h4{color:#0b4d8a}
+  .cflex{display:flex; gap:8px; justify-content:center; flex-wrap:wrap}
+  .cbox{min-width:110px; padding:10px 12px; border:1px solid var(--line); background:#fff; border-radius:12px; text-align:center}
+  .cbox .num{font-weight:800; font-size:22px}
+  .cbox .lbl{font-size:12px; color:#6b7280}
+
+  .sharebar{display:flex; justify-content:center; gap:8px; margin:16px 0; flex-wrap:wrap}
+  .iconbtn{width:34px; height:34px; border-radius:8px; display:flex; align-items:center; justify-content:center; border:1px solid var(--line); background:#fff; cursor:pointer}
+  .iconbtn svg{width:18px; height:18px; fill:#374151}
+  footer{text-align:center; margin:12px 0 16px; font-size:12px; color:#6b7280}
+  .ghost-link{color:inherit; text-decoration:none; cursor:default}
+  .ghost-link:visited{color:inherit}
+
+  /* Toast */
+  .toast{
+    position:fixed; left:50%; bottom:24px; transform:translateX(-50%) translateY(20px);
+    background:#ffffff; color:#111827; border:1px solid var(--line); box-shadow:0 8px 24px rgba(0,0,0,.12);
+    border-radius:14px; padding:12px 14px; min-width:260px; max-width:92vw; z-index:9999; opacity:0; transition:.25s ease;
   }
-  .suggestions h3 {
-    margin-top: 0;
-    color: #4b2e05;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .suggestion-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 10px;
-    margin-top: 10px;
-  }
-  .suggestion-item {
-    background: white;
-    padding: 12px;
-    border-radius: 12px;
-    border: 1px solid #e6d8b3;
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-  .suggestion-item:hover {
-    background: #fff9ea;
-    transform: translateY(-2px);
-  }
-  
-  .loading {
-    display: none;
-    text-align: center;
-    padding: 20px;
-    color: var(--gold3);
-  }
-  .loading i {
-    animation: spin 1s linear infinite;
-    font-size: 24px;
-    margin-bottom: 10px;
-  }
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
-  
-  .welcome-message {
-    text-align: center;
-    padding: 20px;
-    color: #4b2e05;
-  }
-  .welcome-message i {
-    font-size: 42px;
-    color: var(--gold3);
-    margin-bottom: 15px;
-  }
+  .toast.show{opacity:1; transform:translateX(-50%) translateY(0)}
+  .toast .title{font-weight:700; color:var(--gold); margin-bottom:4px; font-family:"Amiri",serif}
+  .toast.error{border-color:#fecaca; box-shadow:0 8px 24px rgba(220,38,38,.15)}
 </style>
 </head>
 <body>
-  <header>
-    <div class="header-content">
-      <i class="fas fa-kaaba header-icon"></i>
-      <h1>مناسك الحج وفق رأي السيد القائد دامت بركاته</h1>
-    </div>
-  </header>
+<header>
+  <div class="brand">المتبقّي من عمرك</div>
+  <div class="tag">أدخل تاريخ الميلاد (ميلادي) واختر مرجع العمر المتوقع. النتائج تقديرية للتثقيف فقط.</div>
+</header>
 
-  <div class="wrap">
-    <!-- رسالة ترحيب أولية -->
-    <div id="welcome" class="welcome-message">
-      <i class="fas fa-mosque"></i>
-      <h2>مرحباً بك في دليل مناسك الحج</h2>
-      <p>اسأل عن أي مسألة تتعلق بمناسك الحج وسأجيبك وفق رأي السيد القائد دامت بركاته</p>
-    </div>
-    
-    <!-- الجواب في الأعلى -->
-    <section id="ans" class="pane answer" style="display:none;"></section>
-    
-    <!-- تحميل -->
-    <div id="loading" class="loading">
-      <i class="fas fa-circle-notch"></i>
-      <p>جاري البحث عن الإجابة...</p>
-    </div>
+<main class="shell">
+  <section class="hero">
+    <div class="row">
+      <div>
+        <!-- التاريخ -->
+        <div class="field center">
+          <label><strong>تاريخ الميلاد (ميلادي)</strong></label>
+          <div class="date-grid" dir="ltr">
+            <input id="d" type="number" inputmode="numeric" placeholder="اليوم"  min="1"  max="31"  autocomplete="off"/>
+            <input id="m" type="number" inputmode="numeric" placeholder="الشهر" min="1"  max="12"  autocomplete="off"/>
+            <input id="y" type="number" inputmode="numeric" placeholder="السنة" min="1900" max="2100" autocomplete="off"/>
+          </div>
+        </div>
 
-    <!-- السؤال في الأسفل + زر الإرسال -->
-    <form id="form" class="qa-form" autocomplete="off">
-      <label for="q">السؤال</label>
-      <textarea id="q" class="pane question" placeholder="اكتب سؤالك حول مناسك الحج هنا..."></textarea>
-      <button type="submit" class="btn"><i class="fas fa-paper-plane"></i> إرسال</button>
-    </form>
-    
-    <!-- أسئلة مقترحة -->
-    <div class="suggestions">
-      <h3><i class="fas fa-lightbulb"></i> أسئلة مقترحة</h3>
-      <div class="suggestion-list">
-        <div class="suggestion-item" data-q="ما هي شروط وجوب حجة الإسلام؟">ما هي شروط وجوب حجة الإسلام؟</div>
-        <div class="suggestion-item" data-q="ما هي محرمات الإحرام؟">ما هي محرمات الإحرام؟</div>
-        <div class="suggestion-item" data-q="ما هي أعمال عمرة التمتع؟">ما هي أعمال عمرة التمتع؟</div>
-        <div class="suggestion-item" data-q="ما هي كفارة ترك الحج مع الاستطاعة؟">ما هي كفارة ترك الحج مع الاستطاعة؟</div>
+        <!-- اختيار مرجع العمر المتوقع (نفس شكل الأزرار) -->
+        <div class="field center">
+          <label><strong>مرجع العمر المتوقع</strong></label>
+          <div class="seg" id="leSeg">
+            <button type="button" class="on" data-key="Bahrain">البحرين</button>
+            <button type="button" data-key="Iraq">العراق</button>
+            <button type="button" data-key="Lebanon">لبنان</button>
+            <button type="button" data-key="Saudi">السعودية</button>
+            <button type="button" data-key="Custom">مخصّص</button>
+          </div>
+          <div id="customBox" style="display:none; margin-top:8px">
+            <input id="customLE" type="number" step="0.1" min="1" max="120" placeholder="أدخل العمر المتوقع (سنة) — مثال: 80.0"/>
+          </div>
+        </div>
+
+        <button class="btn" id="calc">احسب المتبقّي</button>
+      </div>
+
+      <div>
+        <!-- خلاصة -->
+        <div id="verdict" class="badge ok" style="display:none"></div>
+
+        <!-- مضى من عمرك -->
+        <div id="counterDone" class="counter" style="display:none">
+          <h4>مضى من عمرك</h4>
+          <div class="cflex">
+            <div class="cbox"><div class="num" id="cntY">0</div><div class="lbl">سنة</div></div>
+            <div class="cbox"><div class="num" id="cntM">0</div><div class="lbl">شهر</div></div>
+            <div class="cbox"><div class="num" id="cntD">0</div><div class="lbl">يوم</div></div>
+          </div>
+        </div>
+
+        <!-- المتبقّي من عمرك -->
+        <div id="counterRemain" class="counter alt" style="display:none">
+          <h4>المتبقّي من عمرك</h4>
+          <div class="cflex">
+            <div class="cbox"><div class="num" id="remY">0</div><div class="lbl">سنة</div></div>
+            <div class="cbox"><div class="num" id="remM">0</div><div class="lbl">شهر</div></div>
+            <div class="cbox"><div class="num" id="remD">0</div><div class="lbl">يوم</div></div>
+          </div>
+        </div>
+
+        <!-- مؤشرات -->
+        <div id="kpis" class="kpi" style="display:none">
+          <div class="k"><div class="v" id="ageSolar">—</div><div>عُمرك الآن (ميلادي)</div></div>
+          <div class="k"><div class="v" id="lifeExp">—</div><div>العمر المتوقع (سنة)</div></div>
+        </div>
+
+        <!-- تاريخ بلوغ العمر المتوقع -->
+        <div id="eqwrap" class="eqwrap">
+          <div class="eqbox">
+            <div class="v" id="eqVal">—</div>
+            <div class="l" id="eqLbl">تاريخ بلوغ العمر المتوقع (تقريب ميلادي)</div>
+          </div>
+        </div>
       </div>
     </div>
+
+    <div id="rules" class="deck" style="display:none"></div>
+  </section>
+
+  <!-- مشاركة -->
+  <div class="sharebar" id="sharebar">
+    <a class="iconbtn" id="shareWA" title="واتساب" target="_blank" aria-label="WhatsApp">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0a12 12 0 00-10 18.3L1 23l4.9-1A12 12 0 1012 0zm6.5 17.2c-.3.8-1.7 1.6-2.4 1.6-.6 0-1.4.1-3.8-1-3.2-1.4-5.3-4.6-5.5-4.8-.1-.2-1.3-1.7-1.3-3.2 0-1.6.8-2.4 1.1-2.7.3-.3.7-.4 1-.4h.8c.2 0 .6 0 .9.7.3.8 1.1 2.7 1.2 2.9.1.2.2.5 0 .8-.2.3-.3.5-.6.8-.3.3-.6.6-.2 1.2.4.6 1.7 2.8 4 3.8 2.9 1.2 3 .8 3.5.8.5 0 1.8-.8 2.1-1.5.2-.7 1-1.6 1.3-1.8.2-.1.3-.2.5-.1l1 .5c.3.1.5.3.5.5-.1.4-.7 2-1 2.7z"/></svg>
+    </a>
+    <a class="iconbtn" id="shareTG" title="تيليغرام" target="_blank" aria-label="Telegram">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18.2l-.3 4.1c.4 0 .6-.2.8-.4l2-1.8 4.1 3c.7.4 1.3.2 1.5-.7L22 6.2c.2-1.1-.4-1.5-1.1-1.2L2.3 11.1c-1.1.4-1 1.3 0 1.6l4.1 1.2 9.4-5.9c.4-.3.9-.1.5.2L9 18.2z"/></svg>
+    </a>
+    <a class="iconbtn" id="shareX" title="X" target="_blank" aria-label="X">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 2h4.7l5 6.8L18.7 2H22l-7.8 9.1L22 22h-4.8l-5.4-7.2L6 22H2.1l8.3-9.8L3 2z"/></svg>
+    </a>
+    <a class="iconbtn" id="shareFB" title="فيسبوك" target="_blank" aria-label="Facebook">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12a10 10 0 10-11.6 9.9v-7H7.7V12h2.7V9.8c0-2.7 1.6-4.2 4-4.2 1.2 0 2.5.2 2.5.2v2.7h-1.4c-1.4 0-1.9.9-1.9 1.8V12h3.2l-.5 2.9h-2.7v7A10 10 0 0022 12z"/></svg>
+    </a>
+    <button class="iconbtn" id="copyLink" title="نسخ الرابط" aria-label="Copy Link">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 1H8C6.3 1 5 2.3 5 4v12c0 1.7 1.3 3 3 3h8c1.7 0 3-1.3 3-3V4c0-1.7-1.3-3-3-3zm1 15c0 .6-.4 1-1 1H8c-.6 0-1-.4-1-1V4c0-.6.4-1 1-1h8c.6 0 1 .4 1 1v12zM7 20c0 .6.4 1 1 1h8v2H8c-1.7 0-3-1.3-3-3v-2h2v2z"/></svg>
+    </button>
   </div>
 
-  <footer>برمجة وتطوير : فاضل الريس</footer>
+  <!-- التذييل -->
+  <footer>
+    <a id="devLink" class="ghost-link" href="https://api.whatsapp.com/send/?phone=97333375858&text&type=phone_number&app_absent=0&wame_ctl=1&fbclid=PAVERDUAMlCr1leHRuA2FlbQIxMAABpwqPFLJG8laAnV5rw6XUJyaPM5Iu46lcNuSytaWagu69EOXocnveCBK9VAGO_aem_jZeAIULAjqXYmbzLyPrU1Q" target="_blank" rel="noopener">برمجة وتطوير: فاضل الريس</a>
+  </footer>
+</main>
 
-  <!-- ملاحظة مهمة: JSON بلا تعليقات حتى لا يتعطل النموذج -->
-  <script id="KB" type="application/json">[
-    {"qid":"S001","q":"شروط وجوب حجة الإسلام","keys":["شروط الوجوب","عاقل","بالغ","مستطيع","فورية"],"a":"تجب حجة الإسلام مرة واحدة على العاقل البالغ المستطيع، وهي فورية بعد تحقق الاستطاعة (مالية، بدنية، أمن الطريق، زمانية).","ref":"مسائل 23–26","fups":["هل الاقتراض يكفي؟","هل يجب بيع المسكن؟","ما معنى الرجوع إلى الكفاية؟"]},
-    {"qid":"S002","q":"ترك الحج مع الاستطاعة","keys":["ترك الحج","كبائر","التأخير"],"a":"ترك الحج بعد حصول الاستطاعة مع العلم بالوجوب من الكبائر، ويأثم بالتأخير بلا عذر معتبر.","ref":"مسألة 1","fups":["تأخرتُ ثم زالت الاستطاعة؟","هل يجب القضاء لاحقًا؟"]},
-    {"qid":"S003","q":"الاستطاعة المالية","keys":["الزاد والراحلة","نفقة العيال","ضروريات","الرجوع إلى الكفاية"],"a":"يشترط ملك الزاد والراحلة ونفقة العيال زمن الغياب وصون الضروريات الموافقة للشأن، وأن يكون بعد الرجوع كفايةٌ للمعاش.","ref":"مسائل 34–55","fups":["تذكرة مجانية من متبرع؟","هل يجوز إجازة غير مدفوعة؟"]},
-    {"qid":"S004","q":"الدين والاقتراض","keys":["دين حال","مطالبة","اقتراض"],"a":"مع مطالبة الدائن لا تتحقق الاستطاعة حتى تُبرأ الذمة أو يأذن. ولا يجب الحج لمجرد إمكان الاقتراض؛ نعم لو اقترض فأصبح واجدًا وجب الأداء.","ref":"مسائل 44 ، 49","fups":["الدَّين المؤجل؟","رضا الدائن بالذهاب؟"]},
+<!-- Toast -->
+<div id="toast" class="toast" role="status" aria-live="polite" aria-atomic="true" style="display:none">
+  <div class="title">تنبيه</div>
+  <div class="msg">—</div>
+</div>
 
-    {"qid":"M001","q":"المواقيت ومحاذاتها","keys":["مسجد الشجرة","وادي العقيق","الجحفة","يلملم","قرن المنازل","محاذاة"],"a":"المواقيت: مسجد الشجرة، وادي العقيق (المسلخ/الغمرة/ذات عرق)، الجحفة، يلملم، قرن المنازل. من لم يمرّ بميقات يُحرم عند المحاذاة الصحيحة لمساره (برًا/جوًا) على خبرة الطريق.","ref":"مسائل 100–106","fups":["كيف أحدد المحاذاة بالطائرة؟","هل يصح الإحرام قبل الميقات؟"]},
-    {"qid":"M002","q":"ميقات العمرة المفردة","keys":["أدنى الحل","التنعيم","الحديبية","الجعرانة"],"a":"من كان في مكة وأراد عمرة مفردة يُحرم من أدنى الحل، والأفضل: التنعيم أو الحديبية أو الجعرانة.","ref":"مسألة 111","fups":["أي نقطة من أدنى الحل تكفي؟","الخروج إلى جدة ثم الإحرام؟"]},
-    {"qid":"M003","q":"انعقاد الإحرام والتلبية","keys":["التلبية","ينعقد الإحرام"],"a":"ينعقد الإحرام بالتلبية. الصيغة الواجبة: «لبيك اللهم لبيك، لبيك لا شريك لك لبيك».","ref":"مسائل 132–135","fups":["التلبية في الجو؟","هل يجب بالعربية؟"]},
+<script>
+/* ثوابت */
+const SOLAR_YEAR=365.2425;
 
-    {"qid":"P001","q":"محرمات الإحرام إجمالًا","keys":["محرمات","التظليل","الطيب","المخيط"],"a":"منها: لبس المخيط للرجال، تغطية رأس الرجل ووجه المرأة، التظليل للرجال نهارًا حال السير، الطيب، النظر في المرآة بقصد الزينة، الحناء، التدهين، إزالة الشعر، الكحل، تقليم الأظفار، إخراج الدم، الفسوق، الجدال، قتل هوام البدن، صيد البر، الجماع، عقد النكاح، الاستمناء… ولكل مورد تفصيل وكفارة.","ref":"مسائل 159–161","fups":["هل الصابون المعطّر محظور؟","هل يجوز ظل السيارة ليلًا؟"]},
-    {"qid":"P002","q":"لبس المخيط (رجال/نساء)","keys":["لبس المخيط","قميص","قفازات"],"a":"يحرم على الرجال لبس المخيط كالقميص والسراويل ونحوهما. يجوز للنساء لبس المخيط، لكن لا يلبسن القفازات ولا يغطين الوجه بالقناع.","ref":"مسائل 162–170","fups":["حزام مخيط؟","كمامة طبية؟"]},
-    {"qid":"P003","q":"التظليل نهارًا للمحرم","keys":["تظليل","سقف","مظلة"],"a":"يحرم على الرجل حال السير نهارًا التظليل بسقف ونحوه؛ ويختلف الحكم ليلًا أو في غير السير. وعند الضرورة تُلزم فدية غالبًا.","ref":"مسألة 168","fups":["مرض يتطلب الظل؟","خيمة عرفة؟"]},
-    {"qid":"P004","q":"استعمال الطيب وشمّه","keys":["طيب","عطر"],"a":"يحرم استعمال الطيب وشمُّه بقصد التلذذ، وتجب الكفارة على العمد. يُفصّل في السهو ونوع الرائحة.","ref":"مسألة 171","fups":["صابون معطر؟","رائحة طعام قوية؟"]},
-    {"qid":"P005","q":"إزالة الشعر وتقليم الأظفار","keys":["حلق","قص الأظفار"],"a":"يحرم عمدًا وتجب الكفارة بحسب المورد والنية.","ref":"مسألة 175","fups":["ظفر مكسور؟","شعرة مؤذية؟"]},
-    {"qid":"P006","q":"عقد النكاح في الإحرام","keys":["عقد النكاح"],"a":"محرم وباطل لو وقع حال الإحرام.","ref":"مسألة 182","fups":["إشهار بلا صيغة؟"]},
-    {"qid":"P007","q":"الجماع قبل طواف النساء","keys":["جماع","طواف النساء"],"a":"يحرم حتى يأتي بطواف النساء وصلاته، وتترتب كفارات مخصوصة بحسب المورد.","ref":"مسألة 185","fups":["جماع بعد الوقوف؟","ما أثره على الحلّ؟"]},
+/* جداول عمر متوقع (يمكن تعديلها) */
+const LIFE_EXPECTANCY={
+  Bahrain:81.3,
+  Iraq:72.3,
+  Lebanon:77.8,
+  Saudi:78.8
+};
 
-    {"qid":"A001","q":"أعمال عمرة التمتع","keys":["عمرة","أعمال"],"a":"الإحرام من الميقات → الطواف → صلاة الطواف → السعي بين الصفا والمروة → التقصير.","ref":"مسألة 13","fups":["تقديم السعي لعذر؟","عدد الأشواط؟"]},
-    {"qid":"A002","q":"عدد أشواط الطواف والسعي","keys":["عدد الأشواط","الطواف","السعي"],"a":"الطواف سبعة أشواط ابتداءً من الحجر، والسعي سبعة أشواط مبتدئًا بالصفا ختامًا بالمروة.","ref":"باب الطواف/السعي","fups":["شككت في العدد؟","تركت شوطًا نسيانًا؟"]},
-    {"qid":"A003","q":"الطهارة للطواف وصلاة الطواف","keys":["طهارة","صلاة الطواف"],"a":"يشترط للطواف وصلاة الطواف الطهارة من الحدث والنجاسة. من نسي صلاة الطواف أتى بها متى تذكّر في موضعها المقرر.","ref":"باب الطواف/الصلاة","fups":["أصلي خلف المقام البعيد؟","هل تجزئ أي بقعة من المسجد؟"]},
+/* عناصر */
+const dEl=document.getElementById('d');
+const mEl=document.getElementById('m');
+const yEl=document.getElementById('y');
 
-    {"qid":"H001","q":"أعمال حج التمتع بإجمال","keys":["حج","أعمال الحج"],"a":"الإحرام من مكة → الوقوف بعرفات → الوقوف بالمشعر → رمي جمرة العقبة → الهدي → الحلق/التقصير → طواف الحج وصلاته → السعي → طواف النساء وصلاته → المبيت بمنى ورمي الجمار أيام التشريق.","ref":"مسألة 15","fups":["ترتيب يوم العيد؟","هل يجوز التقديم لعذر؟"]},
-    {"qid":"H002","q":"وقت الوقوف بعرفات","keys":["عرفات","وقت"],"a":"الاختياري: من زوال يوم التاسع إلى الغروب. للاضطراري أحكامه إذا فات الاختياري.","ref":"باب الوقوف بعرفات","fups":["فاتني الغروب؟","حضرت بعد الزوال بلحظات؟"]},
-    {"qid":"H003","q":"الوقوف بالمشعر (مزدلفة)","keys":["المشعر","مزدلفة"],"a":"من ليلة العيد إلى طلوع الفجر، ويكفي إدراك جزء منه للمعذورين على التفصيل.","ref":"باب المشعر","fups":["خروج الضعفة ليلًا؟","لم أدرك الفجر؟"]},
-    {"qid":"H004","q":"المبيت بمنى وأيام الرمي","keys":["المبيت بمنى","الجمار"],"a":"المبيت واجب ليلة 11 و12، وللمتأخر ليلة 13. الرمي: جمرة العقبة يوم العيد، والجمار الثلاث أيام التشريق. الأفضل النهار، ويجوز ليلًا للمعذور.","ref":"مسائل 240 ، 245","fups":["كم يكفي للمبيت؟","فاتني رمي يوم؟"]},
-    {"qid":"H005","q":"من لم يجد الهدي","keys":["الهدي","الصوم"],"a":"ينتقل إلى الصوم: ثلاثة أيام في الحج وسبعة إذا رجع إلى أهله، على الترتيب المذكور.","ref":"مسألة 250","fups":["أصوم الثلاثة بمنى؟","وجدتُ الهدي بعد الصوم؟"]},
-    {"qid":"H006","q":"العدول إلى الإفراد لضيق الوقت","keys":["عدول","إفراد","ضيق الوقت"],"a":"يجوز عند ضيق الوقت عن إدراك العمرة والحج معًا؛ وتكون الوظيفة حج الإفراد مع عمرة مفردة بعده.","ref":"مسألة 210","fups":["أرجع للتمتع لو اتسع الوقت؟","نية الإفراد كيف تكون؟"]},
+const leSeg=document.getElementById('leSeg');
+const customBox=document.getElementById('customBox');
+const customLEEl=document.getElementById('customLE');
 
-    {"qid":"W001","q":"لباس المرأة في الإحرام","keys":["لباس المرأة","قناع","قفازات"],"a":"تلبس الساتر غير المزخرف بلا زينة، ويجوز لبس المخيط. لا تغطي الوجه بالقناع/النقاب، ولا تلبس القفازات. يجوز ستر الرأس بلا طيب.","ref":"مسألة 170","fups":["كمامة طبية؟","الجوارب للمرأة؟"]},
-    {"qid":"W002","q":"الحائض قبل/أثناء الطواف","keys":["حيض","طواف"],"a":"لا تأتي بالطواف حتى تطهر؛ وإن حاضت أثناءه قطعت وتنتظر الطهر لإتمامه ثم صلاة الطواف. ومع ضيق الوقت توجد رخص كالاستنابة أو ما يُقرّره باب العدول.","ref":"مسألة 220","fups":["حاضت قبل طواف النساء؟","طهرت بعد الرجوع؟"]},
-    {"qid":"W003","q":"طواف النساء للمرأة","keys":["طواف النساء","حل الأزواج"],"a":"طواف النساء واجب، ولا تحلّ الأزواج بدونه. من لم تتمكن تطوف بعد الطهر أو تستنيب عند التعذر، ثم تُصلّي ركعتين.","ref":"مسألة 230","fups":["نسيته ثم رجعت لبلدي؟","هل تكفي النيابة بلا صلاة؟"]},
-    
-    <!-- أسئلة افتراضية جديدة -->
-    {"qid":"N001","q":"ما هي أنواع الحج","keys":["أنواع","تمتع","إفراد","قران"],"a":"أنواع الحج ثلاثة: 1- التمتع: وهو الإحرام بالعمرة في أشهر الحج ثم التحلل منها ثم الإحرام بالحج. 2- الإفراد: وهو الإحرام بالحج فقط. 3- القران: وهو الإحرام بالعمرة والحج معًا.","ref":"مسألة 10","fups":["أي أنواع الحج أفضل؟","هل يمكن تغيير النية أثناء الإحرام؟"]},
-    {"qid":"N002","q":"ما هي أركان الحج","keys":["أركان","ركن","واجب"],"a":"أركان الحج هي: 1- الإحرام. 2- الوقوف بعرفة. 3- طواف الحج (الزيارة). 4- السعي بين الصفا والمروة. وهذه الأركن لا يجوز تركها عمدًا أو سهوًا، وإلا بطل الحج.","ref":"مسألة 16","fups":["ما الفرق بين الركن والواجب؟","ماذا لو تركت ركنًا سهوًا؟"]},
-    {"qid":"N003","q":"ما هي واجبات الحج","keys":["واجبات","必須","فرض"],"a":"واجبات الحج هي: 1- الإحرام من الميقات. 2- الوقوف بالمشعر الحرام (مزدلفة). 3- المبيت بمنى. 4- رمي الجمار. 5- الحلق أو التقصير. 6- طواف النساء. وترك الواجب عمدًا يبطل الحج، وسهوًا يجبر بدم.","ref":"مسألة 17","fups":["ما هي كفارة ترك الواجب؟","هل يجب الترتيب في الواجبات؟"]},
-    {"qid":"N004","q":"كيفية الإحرام للمرأة","keys":["إحرام المرأة","ملابس الإحرام","لباس"],"a":"تلبس المرأة في الإحرام ملابس فضفاضة ساترة غير شفافة، ويجوز أن تكون ملونة ولكن غير مزينة. لا تلبس النقاب أو القفازات، ولكن تستر وجهها عن الأجانب بخمارها دون أن يلمس وجهها.","ref":"مسألة 125","fups":["هل يجوز للمرأة تغيير ملابس الإحرام؟","ماذا عن الملابس ذات الرائحة العطرية؟"]},
-    {"qid":"N005","q":"حكم تعدد الحج","keys":["تعدد","حج أكثر من مرة","تطوع"],"a":"الحج مرة واحدة فرض عين على المستطيع، وأما الحج بعد ذلك فهو تطوع ونافلة. وقد ورد في فضله أحاديث كثيرة، لكن يشترط أن لا يضرّ ذلك بالواجبات الأخرَى ولا يترتب عليه مفسدة.","ref":"مسألة 30","fups":["هل يجب الحج كل عام؟","ما فضل الحج المتطوع؟"]},
-    {"qid":"N006","q":"حكم الحج عن الغير","keys":["حج عن الغير","نيابة","حج الأموات"],"a":"يجوز الحج عن الغير بشروط: 1- أن يكون النائب قد حج عن نفسه. 2- أن يكون المحجوج عنه ميتًا أو عاجزًا عجزًا دائمًا. 3- الإذن من المحجوج عنه إن كان حيًا. والأولى أن يحج الشخص عن نفسه أولاً.","ref":"مسألة 60","fups":["هل يجوز الحج عن الأب المتوفى؟","ما شروط النائب في الحج؟"]},
-    {"qid":"N007","q":"ما هي مبطلات الحج","keys":["مبطلات","يبطل الحج","فساد"],"a":"من مبطلات الحج: 1- الجماع قبل التحلل الأول. 2- ترك ركن من أركان الحج عمدًا. 3- ترك الوقوف بعرفة عمدًا. 4- الخروج من الإحرام بغير حلقه أو تقصيره. 5- ارتكاب محظورات الإحرام مع العلم والذكر.","ref":"مسألة 190","fups":["ماذا لو جامع بعد التحلل الأول؟","هل يبطل الحج بالردة؟"]},
-    {"qid":"N008","q":"كفارة الجماع في الإحرام","keys":["كفارة الجماع","إثم","فساد الحج"],"a":"الجماع في الإحرام قبل التحلل الأول من أكبر المحظورات، ويترتب عليه: 1- فساد الحج. 2- وجوب الإتمام. 3- وجوب القضاء في العام القابل. 4- وجوب الكفارة وهي بدنة. 5- وجوب الدم على التفصيل المذكور في الرسالة العملية.","ref":"مسألة 185","fups":["هل يجب المبادرة إلى القضاء؟","ماذا لو كان الجماع نسيانًا؟"]}
-  ]</script>
+const calcBtn=document.getElementById('calc');
+const verdict=document.getElementById('verdict');
 
-  <script>
-    /* ================== محرّك مطابقة ثابت + إجابة حوارية ================== */
-    const KB = JSON.parse(document.getElementById('KB').textContent || '[]');
+const kpis=document.getElementById('kpis');
+const ageSolarEl=document.getElementById('ageSolar');
+const lifeExpEl=document.getElementById('lifeExp');
 
-    // تطبيع عربي
-    function norm(s){
-      return (s||'').toLowerCase()
-        .replace(/[\u064B-\u065F]/g,'')
-        .replace(/[إأآا]/g,'ا').replace(/[ى]/g,'ي').replace(/[ة]/g,'ه')
-        .replace(/[ؤئ]/g,'ء').replace(/[ـ]/g,'')
-        .replace(/[^\u0600-\u06FFa-z0-9 ]+/g,' ')
-        .replace(/\s+/g,' ').trim();
+const counterDone=document.getElementById('counterDone');
+const cntY=document.getElementById('cntY');
+const cntM=document.getElementById('cntM');
+const cntD=document.getElementById('cntD');
+
+const counterRemain=document.getElementById('counterRemain');
+const remY=document.getElementById('remY');
+const remM=document.getElementById('remM');
+const remD=document.getElementById('remD');
+
+const eqWrap=document.getElementById('eqwrap');
+const eqVal=document.getElementById('eqVal');
+const eqLbl=document.getElementById('eqLbl');
+
+const rulesDeck=document.getElementById('rules');
+
+const toast=document.getElementById('toast'); const toastMsg=toast.querySelector('.msg');
+
+/* حالة الاختيار */
+let leKey='Bahrain';
+
+/* فلترة أرقام فقط */
+[dEl,mEl,yEl].forEach(inp=>{
+  inp.addEventListener('input',()=>{ inp.value = inp.value.replace(/\D+/g,''); });
+});
+
+/* اختيار مرجع العمر المتوقع */
+leSeg.querySelectorAll('button').forEach(b=>{
+  b.addEventListener('click',()=>{
+    leSeg.querySelectorAll('button').forEach(x=>x.classList.remove('on'));
+    b.classList.add('on');
+    leKey = b.dataset.key;
+    if(leKey==='Custom'){
+      customBox.style.display='';
+    }else{
+      customBox.style.display='none';
     }
-    function stripAl(w){return w.startsWith('ال') && w.length>3 ? w.slice(2) : w;}
-    function toks(s){return norm(s).split(/[^ \u0600-\u06FFa-z0-9]+/).filter(Boolean).map(stripAl);}
-    function bigrams(arr){const out=new Set();for(let i=0;i<arr.length-1;i++) out.add(arr[i]+' '+arr[i+1]);return out;}
+  });
+});
 
-    // مسافة تحرير بسيطة
-    function lev(a,b){
-      const m=a.length,n=b.length; const dp=Array.from({length:m+1},()=>Array(n+1).fill(0));
-      for(let i=0;i<=m;i++) dp[i][0]=i; for(let j=0;j<=n;j++) dp[0][j]=j;
-      for(let i=1;i<=m;i++){for(let j=1;j<=n;j++){
-        const c=a[i-1]===b[j-1]?0:1;
-        dp[i][j]=Math.min(dp[i-1][j]+1,dp[i][j-1]+1,dp[i-1][j-1]+c);
-      }} return dp[m][n];
-    }
-    function sim(a,b){ if(!a||!b) return 0; const L=Math.max(a.length,b.length); return 1-(lev(a,b)/L); }
+/* Toast */
+let toastTimer=null;
+function showToast(message, opts={type:'info', title:'تنبيه', timeout:2800}){
+  toast.style.display='block';
+  toast.classList.remove('error');
+  if(opts.type==='error') toast.classList.add('error');
+  toast.querySelector('.title').textContent = opts.title || 'تنبيه';
+  toastMsg.textContent = message;
+  requestAnimationFrame(()=>toast.classList.add('show'));
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>{ toast.classList.remove('show'); }, opts.timeout||2800);
+}
 
-    // فهرسة
-    const INDEX = KB.map((e,i)=>{
-      const k=toks((e.keys||[]).join(' ')), q=toks(e.q||''), a=toks(e.a||'');
-      return {i,
-        flat:norm([e.q,e.a,(e.keys||[]).join(' ')].join(' ')),
-        kset:new Set(k), qset:new Set(q), aset:new Set(a),
-        kbi:bigrams(k), qbi:bigrams(q), abi:bigrams(a)
-      };
-    });
+/* أدوات التاريخ */
+function daysInMonthUTC(y,m){ return new Date(Date.UTC(y, m, 0)).getUTCDate(); } // m: 1..12
+function toUTC(d){ return new Date(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate())); }
+function fmtDate(d){ return `${d.getUTCFullYear()}-${String(d.getUTCMonth()+1).padStart(2,'0')}-${String(d.getUTCDate()).padStart(2,'0')}`; }
 
-    function scoreAgainst(query){
-      const qt=toks(query); const qset=new Set(qt); const qbi=bigrams(qt);
-      let best=[], top=0;
-      for(const E of INDEX){
-        let s=0;
-        qset.forEach(w=>{ if(E.kset.has(w)) s+=7; if(E.qset.has(w)) s+=3; if(E.aset.has(w)) s+=1; });
-        qbi.forEach(bg=>{ if(E.kbi.has(bg)) s+=6; if(E.qbi.has(bg)) s+=3; if(E.abi.has(bg)) s+=1; });
-        s += Math.max(0, Math.floor(sim(norm(query), E.flat)*6));
-        if(s>0){ if(s>top){top=s; best=[E.i];} else if(s===top){best.push(E.i);} }
-      }
-      return {ids:best.slice(0,3), score:top};
-    }
+/* فرق (Y/M/D) بسيط بين تاريخين UTC */
+function diffYMD(fromUTC, toUTCDate){
+  let y = toUTCDate.getUTCFullYear() - fromUTC.getUTCFullYear();
+  let m = toUTCDate.getUTCMonth() + 1 - (fromUTC.getUTCMonth() + 1);
+  let d = toUTCDate.getUTCDate() - fromUTC.getUTCDate();
+  if(d < 0){ const prevMonth = new Date(Date.UTC(toUTCDate.getUTCFullYear(), toUTCDate.getUTCMonth(), 0)); d += prevMonth.getUTCDate(); m -= 1; }
+  if(m < 0){ m += 12; y -= 1; }
+  if(y < 0){ y=0; m=0; d=0; }
+  return {y,m,d};
+}
 
-    function hi(text,query){
-      let t=text; toks(query).forEach(w=>{ if(!w) return; try{ t=t.replace(new RegExp('('+w+')','gi'),'<mark>$1</mark>'); }catch(_){} });
-      return t;
-    }
+/* إضافة سنوات (قد تكون عشرية) بدقة تقريبية بالأيام */
+function addYearsExact(baseUTC, years){
+  const days = Math.round(years * SOLAR_YEAR);
+  const ms = days * 24 * 60 * 60 * 1000;
+  return new Date(baseUTC.getTime() + ms);
+}
 
-    function renderDialog(q, items){
-      const qHTML = `
-        <div class="turn">
-          <div class="who user">س</div>
-          <div class="bubble"><b>سؤال:</b> ${q.replace(/</g,'&lt;')}</div>
-        </div>`;
-      const answerSummary = hi(items.map(x=>x.a).join(' '), q);
+/* بطاقة HTML */
+function makeCard(t,b){ const e=document.createElement('div'); e.className='card'; e.innerHTML=`<h3>${t}</h3>${b}`; return e; }
 
-      const steps = [];
-      items.forEach(x=>{
-        x.a.split(/→|، ثم| ثم /).map(s=>s.trim()).filter(Boolean).forEach(p=>steps.push(p));
-      });
-      const uniqSteps = [...new Set(steps)].slice(0,7);
+/* صناديق الملاحظات */
+function buildNotes(){
+  rulesDeck.innerHTML='';
+  const note1=makeCard('تنبيه مهم','<p>هذه أداة <strong>تقديرية</strong> وليست تنبؤًا فرديًا. يختلف العمر باختلاف العادات والصحة والبيئة والرعاية الطبية والقضاء والقدر.</p>');
+  const note2=makeCard('كيف تُحسّن تقديرك؟','<ul><li>يمكنك إدخال قيمة مخصّصة للعمر المتوقع إذا كان لديك مرجع أحدث أو ظروف صحية خاصة.</li><li>حدّث الدولة إذا تغيّر بلد الإقامة طويل الأمد.</li></ul>');
+  const note3=makeCard('استخدام تربوي','<p>اعرف قيمة الوقت؛ خطط لأهدافك، ووازن بين العبادة والعمل والصحة والعلاقات.</p>');
+  rulesDeck.append(note1,note2,note3);
+  rulesDeck.style.display='grid';
+}
 
-      const refs = items.map(x=>x.ref).join(' ، ');
-      const fups = (items[0].fups||[]).slice(0,6);
+/* تحقق صحة التاريخ */
+function validateFullDate(d,m,y){
+  if(!(y>=1900 && y<=2100)) { showToast('أدخل سنة صحيحة بين 1900 و 2100.', {type:'error', title:'خطأ في السنة'}); return false; }
+  if(!(m>=1 && m<=12))      { showToast('أدخل شهرًا صحيحًا بين 1 و 12.',      {type:'error', title:'خطأ في الشهر'}); return false; }
+  if(!(d>=1 && d<=31))      { showToast('أدخل يومًا صحيحًا بين 1 و 31.',       {type:'error', title:'خطأ في اليوم'});  return false; }
+  const dim = daysInMonthUTC(y, m);
+  if(d > dim){ showToast(`هذا الشهر يحتوي ${dim} يومًا فقط. صحّح اليوم.`, {type:'error', title:'اليوم يتجاوز الشهر'}); return false; }
+  const dob=new Date(Date.UTC(y, m-1, d));
+  const today=new Date();
+  if(dob > today){ showToast('تاريخ الميلاد لا يمكن أن يكون في المستقبل.', {type:'error', title:'تحقّق من التاريخ'}); return false; }
+  return true;
+}
 
-      const aHTML = `
-        <div class="turn">
-          <div class="who bot">ج</div>
-          <div class="bubble">
-            <div><b>إجابة مختصرة:</b> ${answerSummary}</div>
-            ${uniqSteps.length? `<div style="margin-top:.6rem"><b>باختصار العمليّات:</b><ol>`+uniqSteps.map(s=>`<li>${hi(s,q)}</li>`).join('')+`</ol></div>` : ``}
-            <div class="src">المصدر: كتيّب أحكام الحج (leader.ir) — ${refs}</div>
-            ${fups.length? `<div class="chips"><span style="color:#6b5d3a">أسئلة مقترحة:</span>`+fups.map(f=>`<button class="chip" data-q="${f}">${f}</button>`).join('')+`</div>`:``}
-          </div>
-        </div>`;
-      return qHTML + aHTML;
-    }
+/* الحساب */
+calcBtn.addEventListener('click',()=>{
+  const d=parseInt(dEl.value,10), m=parseInt(mEl.value,10), y=parseInt(yEl.value,10);
+  if(!validateFullDate(d,m,y)) return;
 
-    function setAnswer(html){
-      const ans = document.getElementById('ans');
-      ans.innerHTML = html;
-      ans.style.display = 'block';
-      document.getElementById('welcome').style.display = 'none';
-      
-      ans.querySelectorAll('.chip').forEach(ch=>{
-        ch.addEventListener('click', ()=> run(ch.dataset.q));
-      });
-      ans.scrollTop = ans.scrollHeight;
-    }
+  // العمر المتوقع
+  let le;
+  if(leKey==='Custom'){
+    le = parseFloat(customLEEl.value);
+    if(!le || le<=0){ showToast('أدخل العمر المتوقع المخصّص (عدد موجب).',{type:'error',title:'قيمة مفقودة'}); return; }
+  }else{
+    le = LIFE_EXPECTANCY[leKey];
+  }
 
-    function fallback(q){
-      // اقتراح أسئلة مشابهة من قاعدة المعرفة
-      const suggestedQuestions = [];
-      const queryTokens = toks(q);
-      
-      KB.forEach(item => {
-        let score = 0;
-        const itemTokens = toks(item.q + ' ' + item.keys.join(' '));
-        
-        queryTokens.forEach(token => {
-          if (itemTokens.includes(token)) score++;
-        });
-        
-        if (score > 0) {
-          suggestedQuestions.push({q: item.q, score});
-        }
-      });
-      
-      suggestedQuestions.sort((a, b) => b.score - a.score);
-      const topSuggestions = suggestedQuestions.slice(0, 5).map(item => item.q);
-      
-      const html = renderDialog(q, [{
-        a:"لم أعثر على مسألة دقيقة لهذه الصياغة. جرّب استخدام مصطلحات أكثر تحديدًا أو اطلع على الأسئلة المقترحة أدناه.",
-        ref:"—",
-        fups: topSuggestions.length > 0 ? topSuggestions : [
-          "شروط وجوب حجة الإسلام",
-          "محرمات الإحرام",
-          "أعمال عمرة التمتع",
-          "كفارة ترك الحج مع الاستطاعة"
-        ]
-      }]);
-      setAnswer(html);
-    }
+  const dobUTC=new Date(Date.UTC(y, m-1, d));
+  const today=new Date();
+  const todayUTC=new Date(Date.UTC(today.getFullYear(),today.getMonth(),today.getDate()));
 
-    function run(q){
-      // إظهار رسالة التحميل
-      document.getElementById('loading').style.display = 'block';
-      document.getElementById('ans').style.display = 'none';
-      
-      // محاكاة وقت المعالجة
-      setTimeout(() => {
-        document.getElementById('loading').style.display = 'none';
-        
-        const {ids,score} = scoreAgainst(q);
-        if(score<6 || !ids.length){ 
-          fallback(q); 
-          return; 
-        }
-        const items = ids.map(i=>KB[i]);
-        setAnswer(renderDialog(q, items));
-        
-        // تحديث حقل السؤال
-        document.getElementById('q').value = q;
-      }, 800);
-    }
+  // العمر الحالي بالسنوات (تقريبي عشري)
+  const daySpan=(todayUTC - dobUTC)/(1000*60*60*24);
+  const ageYears = (daySpan/SOLAR_YEAR);
 
-    document.getElementById('form').addEventListener('submit', (e)=>{
-      e.preventDefault();
-      const q = document.getElementById('q').value.trim();
-      if(!q) return;
-      run(q);
-    });
-    
-    // إضافة تفاعل للأسئلة المقترحة
-    document.querySelectorAll('.suggestion-item').forEach(item => {
-      item.addEventListener('click', () => {
-        run(item.dataset.q);
-      });
-    });
-    
-    // تركيز على حقل السؤال عند التحميل
-    window.addEventListener('load', () => {
-      document.getElementById('q').focus();
-    });
-  </script>
+  // تاريخ بلوغ العمر المتوقع
+  const targetUTC = addYearsExact(dobUTC, le);
+
+  // الحالات
+  const remainDiff = diffYMD(todayUTC, targetUTC);      // للمستقبل
+  const elapsedDiff = diffYMD(dobUTC, todayUTC);        // منذ الميلاد
+
+  // الملخص
+  verdict.style.display='inline-block';
+  const remainingTotalMs = targetUTC - todayUTC;
+  if(remainingTotalMs <= 0){
+    verdict.className='badge ok';
+    verdict.textContent='ℹ️ بلغت العمر المتوقع أو تجاوزته وفق هذا المرجع.';
+  }else{
+    verdict.className='badge ok';
+    verdict.textContent='🔎 هذا تقدير تقريبي للزمن المتبقّي وفق متوسط العمر المتوقع.';
+  }
+
+  // مؤشرات
+  kpis.style.display='grid';
+  ageSolarEl.textContent = `${ageYears.toFixed(1)} سنة`;
+  lifeExpEl.textContent  = `${le.toFixed(1)} سنة`;
+
+  // مضى من عمرك
+  cntY.textContent = elapsedDiff.y; cntM.textContent = elapsedDiff.m; cntD.textContent = elapsedDiff.d;
+  counterDone.style.display='block';
+
+  // المتبقّي من عمرك
+  if(remainingTotalMs > 0){
+    remY.textContent = remainDiff.y; remM.textContent = remainDiff.m; remD.textContent = remainDiff.d;
+    counterRemain.style.display='block';
+  }else{
+    counterRemain.style.display='none';
+  }
+
+  // تاريخ بلوغ العمر المتوقع
+  eqWrap.style.display='block';
+  eqVal.textContent = fmtDate(targetUTC);
+  eqLbl.textContent = 'تاريخ بلوغ العمر المتوقع (تقريب ميلادي)';
+
+  // الملاحظات
+  buildNotes();
+});
+
+/* مشاركة الصفحة */
+document.getElementById('shareWA').addEventListener('click', (e)=>{ e.preventDefault(); window.open(`https://wa.me/?text=${encodeURIComponent(location.href)}`,'_blank','noopener'); });
+document.getElementById('shareTG').addEventListener('click', (e)=>{ e.preventDefault(); window.open(`https://t.me/share/url?url=${encodeURIComponent(location.href)}`,'_blank','noopener'); });
+document.getElementById('shareX').addEventListener('click',  (e)=>{ e.preventDefault(); window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(location.href)}`,'_blank','noopener'); });
+document.getElementById('shareFB').addEventListener('click', (e)=>{ e.preventDefault(); window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(location.href)}`,'_blank','noopener'); });
+document.getElementById('copyLink').addEventListener('click', async ()=>{ try{ await navigator.clipboard.writeText(location.href); showToast('تمّ نسخ رابط الصفحة بنجاح.'); }catch(_){ showToast('تعذّر نسخ الرابط.',{type:'error',title:'محاولة نسخ'});} });
+
+/* رابط الواتساب يبدو نصًا عاديًا، مع احتياط في حال منع التبويب الجديد */
+document.getElementById('devLink').addEventListener('click', function(){
+  setTimeout(()=>{ if(!document.hasFocus()) return; location.href=this.href; }, 100);
+});
+</script>
 </body>
 </html>
