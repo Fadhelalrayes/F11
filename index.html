@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>فاحص أعراض السرطان — إرشادات أممية ومراكز حكومية</title>
+<title>فاحص أعراض السرطان — توعية وتحويل مباشر</title>
 <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;700&display=swap" rel="stylesheet">
 <style>
   :root{
@@ -17,241 +17,220 @@
   header{text-align:center; padding:24px 12px}
   .brand{font-family:"Amiri",serif; font-size:clamp(26px,4.5vw,42px); color:var(--gold)}
   .tag{margin-top:6px; font-size:14px; color:#6b7280}
-  .shell{max-width:1080px; margin:0 auto; padding:0 16px}
+  .shell{max-width:980px; margin:0 auto; padding:0 16px}
   .hero{background:var(--card); border:1px solid var(--line); border-radius:20px; padding:20px; box-shadow:0 4px 12px rgba(0,0,0,.05)}
   .row{display:grid; gap:16px}
-  @media(min-width:980px){ .row{grid-template-columns:1.1fr .9fr} }
-
+  @media(min-width:920px){ .row{grid-template-columns:1.2fr .8fr} }
   .field{display:flex; flex-direction:column; gap:8px; margin-bottom:12px}
   .center{text-align:center}
-  .date-grid{display:flex; justify-content:center; gap:8px; flex-wrap:wrap}
-  .date-grid input[type="number"], .date-grid input[type="text"]{
-    width:160px; padding:10px; border:1px solid var(--line); border-radius:10px; text-align:center; font-family:inherit;
-  }
   .seg{display:flex; gap:6px; justify-content:center; flex-wrap:wrap}
-  .seg button{flex:1; padding:8px 10px; border-radius:8px; border:1px solid var(--line); background:#f9fafb; cursor:pointer; max-width:200px}
+  .seg button{flex:1; padding:8px 10px; border-radius:8px; border:1px solid var(--line); background:#f9fafb; cursor:pointer; max-width:160px}
   .seg button.on{background:var(--gold); color:#111; border-color:var(--gold)}
   .btn{padding:12px 20px; border-radius:10px; border:none; cursor:pointer; background:linear-gradient(90deg,var(--gold),var(--gold-soft)); color:#111; font-weight:700; display:block; margin:0 auto}
   .badge{display:inline-block; padding:10px 14px; border-radius:10px; margin-top:12px}
   .ok{background:#eff6ff; color:var(--ocean)}
-  .bad{background:#fee2e2; color:#991b1b}
+  .warn{background:#fff7ed; color:#9a3412}
+  .danger{background:#fee2e2; color:#991b1b}
 
-  .kpi{display:grid; gap:10px; grid-template-columns:repeat(2,1fr); margin-top:10px}
+  .kpi{display:grid; gap:10px; grid-template-columns:1fr 1fr; margin-top:10px}
   .k{background:#f9fafb; border:1px solid var(--line); border-radius:10px; padding:10px; text-align:center}
   .k .v{font-weight:700; font-size:18px}
 
-  .qgroup{background:#fff; border:1px solid var(--line); border-radius:12px; padding:14px; margin-top:12px}
-  .qgroup h3{margin:0 0 8px; font-family:"Amiri",serif; color:var(--ocean)}
-  .q{display:flex; align-items:center; justify-content:space-between; gap:8px; padding:8px 0; border-top:1px dashed #e5e7eb}
-  .q:first-child{border-top:none}
-  .q label{flex:1}
-  .opt{display:flex; gap:6px}
-  .opt button{padding:6px 10px; border-radius:8px; border:1px solid var(--line); background:#f9fafb; cursor:pointer}
-  .opt button.on{background:#0ea5e9; color:#fff; border-color:#0ea5e9}
-
-  .eqwrap{display:none; margin-top:8px}
-  .eqbox{background:#fff; border:1px solid var(--line); border-radius:12px; padding:10px; text-align:center}
-  .eqbox .v{font-weight:700; font-size:16px; margin-bottom:4px; color:#111}
-  .eqbox .l{font-size:12px; color:#6b7280}
-
   .deck{display:grid; gap:12px; grid-template-columns:1fr; margin-top:16px}
-  @media(min-width:860px){ .deck{grid-template-columns:repeat(3,1fr)} }
+  @media(min-width:860px){ .deck{grid-template-columns:repeat(2,1fr)} }
   .card{background:#fdfdfd; border:1px solid var(--line); border-radius:12px; padding:14px; box-shadow:0 2px 6px rgba(0,0,0,.04)}
   .card h3{margin:0 0 6px; font-family:"Amiri",serif; color:var(--gold)}
-  .card p, .card ul{margin:0; font-size:14px; color:#374151; line-height:1.7}
+  .card p, .card ul{margin:0; font-size:14px; color:#374151; line-height:1.6}
   .card ul{margin-top:8px; padding-inline-start:20px}
 
-  .counter{ margin:14px auto 0; max-width:820px;
-    background:linear-gradient(90deg, #fff7e6, #fff); border:1px solid #f3e8c8; border-radius:16px; padding:12px;
-    box-shadow:0 4px 12px rgba(0,0,0,.05) }
-  .counter.alt{ background:linear-gradient(90deg, #eef6ff, #fff); border-color:#cfe6ff }
-  .counter h4{margin:0 0 8px; font-family:"Amiri",serif; color:#8b6a00; text-align:center}
-  .counter.alt h4{color:#0b4d8a}
-  .cflex{display:flex; gap:8px; justify-content:center; flex-wrap:wrap}
-  .cbox{min-width:140px; padding:10px 12px; border:1px solid var(--line); background:#fff; border-radius:12px; text-align:center}
-  .cbox .num{font-weight:800; font-size:22px}
-  .cbox .lbl{font-size:12px; color:#6b7280}
-
-  .list{margin-top:10px}
-  .list .item{border:1px solid var(--line); border-radius:12px; padding:10px; background:#fff; margin-bottom:8px}
-  .list .item .h{font-weight:700}
-  .list .item .p{font-size:13px; color:#374151}
-
-  .select{ position:relative; display:inline-block; width:100% }
-  .select select{
-    width:100%; appearance:none; background:#fff; border:1px solid var(--gold); border-radius:10px;
-    padding:10px 42px 10px 12px; font-size:1rem; cursor:pointer; color:#111; transition:.15s; text-align:right; box-shadow:0 1px 0 rgba(0,0,0,.02)
-  }
-  .select select:hover{ box-shadow:0 0 0 3px rgba(245,213,116,.15) }
-  .select select:focus{ outline:none; border-color:var(--gold); box-shadow:0 0 0 3px rgba(245,213,116,.35) }
-  .select::after{
-    content:""; position:absolute; top:50%; transform:translateY(-50%); right:12px; width:18px; height:18px;
-    background:linear-gradient(135deg,var(--gold),var(--gold-soft));
-    -webkit-mask:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path fill="black" d="M5.23 7.21a.75.75 0 011.06.02L10 11.06l3.71-3.83a.75.75 0 111.08 1.04l-4.24 4.38a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z"/></svg>') center/contain no-repeat;
-    mask:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path fill="black" d="M5.23 7.21a.75.75 0 011.06.02L10 11.06l3.71-3.83a.75.75 0 111.08 1.04l-4.24 4.38a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z"/></svg>') center/contain no-repeat;
-    pointer-events:none; opacity:.95;
-  }
-
-  .notice{ position:fixed; left:50%; bottom:20px; transform:translateX(-50%) translateY(10px);
+  .notice{
+    position:fixed; left:50%; bottom:20px; transform:translateX(-50%) translateY(10px);
     background:#fff; border:1px solid var(--gold); border-radius:12px; padding:10px 14px;
     box-shadow:0 8px 24px rgba(0,0,0,.12); display:flex; align-items:center; gap:10px;
-    opacity:0; transition:.25s ease; z-index:9999; max-width:92vw; font-size:14px; color:#111; }
+    opacity:0; transition:.25s ease; z-index:9999; max-width:92vw; font-size:14px; color:#111;
+  }
   .notice.show{ opacity:1; transform:translateX(-50%) translateY(0) }
   .notice .dot{width:10px; height:10px; border-radius:50%; background:linear-gradient(90deg,var(--gold),var(--gold-soft))}
   .notice .close{ margin-inline-start:8px; cursor:pointer; border:none; background:transparent; font-size:18px; line-height:1; color:#6b7280 }
   .notice.error{ border-color:#fecaca }
   .notice.error .dot{ background:linear-gradient(90deg,#fecaca,#fee2e2) }
 
+  /* زر تنزيل PDF */
   .pdfwrap{margin-top:12px; text-align:center; display:none}
   .pdfbtn{padding:10px 16px; border-radius:10px; border:1px solid var(--gold); background:#fff; cursor:pointer; font-weight:700}
   .pdfbtn:hover{ box-shadow:0 0 0 3px rgba(245,213,116,.15) }
 
-  footer{text-align:center; margin:16px 0 30px; font-size:12px; color:#6b7280}
-  .ghost-link{color:inherit; text-decoration:none; cursor:default}
+  /* قائمة عالمية + مستشفيات */
+  .list{display:grid; gap:8px}
+  .item{border:1px solid var(--line); background:#fff; border-radius:10px; padding:10px}
+  .item .h{font-weight:700}
+  .item .p{font-size:13px; color:#374151}
 </style>
 </head>
 <body>
 <header>
-  <div class="brand">فاحص أعراض السرطان</div>
-  <div class="tag">الأسئلة مبنية على إرشادات منظمة الصحة العالمية ووكالة أبحاث السرطان IARC وجمعيات معتمدة. النتيجة توعوية وليست تشخيصًا.</div>
+  <div class="brand">استبيان أعراض السرطان</div>
+  <div class="tag">نفس القالب الجميل — أسئلة دقيقة + نتيجة فورية + PDF + تحويل مباشر لأهم المراكز والمراجع العالمية.</div>
 </header>
 
 <main class="shell">
   <section class="hero">
     <div class="row">
       <div>
-        <!-- الاسم + العمر/الميلاد -->
-        <div class="qgroup">
-          <h3>البيانات الأساسية</h3>
-          <div class="field center">
-            <label>الاسم (اختياري)</label>
-            <div class="date-grid"><input id="name" type="text" placeholder="اكتب اسمك هنا (اختياري)"/></div>
-          </div>
+        <!-- البيانات -->
+        <div class="field">
+          <label><strong>الاسم (اختياري)</strong></label>
+          <input id="name" placeholder="مثال: فهد محمد" style="width:100%; background:#fff; border:1px solid var(--line); border-radius:10px; padding:10px 12px">
+        </div>
 
-          <div class="field center">
-            <label>العمر (بالسنوات) أو تاريخ الميلاد</label>
-            <div class="date-grid" dir="ltr">
-              <input id="age" type="number" inputmode="numeric" placeholder="العمر" min="0" max="120"/>
-              <span style="align-self:center;color:#6b7280">— أو —</span>
-              <input id="d" type="number" inputmode="numeric" placeholder="اليوم"  min="1"  max="31"/>
-              <input id="m" type="number" inputmode="numeric" placeholder="الشهر" min="1"  max="12"/>
-              <input id="y" type="number" inputmode="numeric" placeholder="السنة" min="1900" max="2100"/>
-            </div>
-          </div>
-
-          <!-- الدولة -->
-          <div class="field center">
-            <label><strong>الدولة</strong></label>
-            <div class="select">
-              <select id="countrySelect" aria-label="اختر الدولة">
-                <!-- جميع الدول العربية + إيران -->
-                <option value="DZA">الجزائر</option>
-                <option value="BHR">البحرين</option>
-                <option value="COM">جزر القمر</option>
-                <option value="DJI">جيبوتي</option>
-                <option value="EGY">مصر</option>
-                <option value="IRQ">العراق</option>
-                <option value="JOR">الأردن</option>
-                <option value="KWT">الكويت</option>
-                <option value="LBN">لبنان</option>
-                <option value="LBY">ليبيا</option>
-                <option value="MRT">موريتانيا</option>
-                <option value="MAR">المغرب</option>
-                <option value="OMN">عُمان</option>
-                <option value="PSE">فلسطين</option>
-                <option value="QAT">قطر</option>
-                <option value="SAU">السعودية</option>
-                <option value="SOM">الصومال</option>
-                <option value="SDN">السودان</option>
-                <option value="SYR">سوريا</option>
-                <option value="TUN">تونس</option>
-                <option value="ARE">الإمارات</option>
-                <option value="YEM">اليمن</option>
-                <option value="IRN">إيران</option>
-                <option value="LBY">ليبيا</option>
-              </select>
-            </div>
+        <div class="field center">
+          <label><strong>الدولة</strong></label>
+          <div class="select">
+            <select id="countrySelect" aria-label="اختر الدولة">
+              <option value="BHR" selected>البحرين</option>
+              <option value="KSA">السعودية</option>
+              <option value="ARE">الإمارات</option>
+              <option value="QAT">قطر</option>
+              <option value="KWT">الكويت</option>
+              <option value="OMN">عُمان</option>
+              <option value="EGY">مصر</option>
+              <option value="JOR">الأردن</option>
+              <option value="LBN">لبنان</option>
+              <option value="IRQ">العراق</option>
+              <option value="LBA">ليبيا</option>
+              <option value="MAR">المغرب</option>
+              <option value="DZA">الجزائر</option>
+              <option value="TUN">تونس</option>
+              <option value="SDN">السودان</option>
+              <option value="SYR">سوريا</option>
+              <option value="PSE">فلسطين</option>
+              <option value="DJI">جيبوتي</option>
+              <option value="COM">جزر القمر</option>
+              <option value="MRT">موريتانيا</option>
+              <option value="SOM">الصومال</option>
+              <option value="YEM">اليمن</option>
+              <option value="IRN">إيران</option>
+            </select>
           </div>
         </div>
 
-        <!-- عوامل خطورة عامة -->
-        <div class="qgroup">
-          <h3>عوامل خطورة (اختياري لكنها مفيدة)</h3>
-          <div class="q"><label>تدخين حالي أو سابق ≥ 20 باك-سنة؟</label><div class="opt" data-key="smoke"><button>لا</button><button>نعم</button></div></div>
-          <div class="q"><label>تاريخ عائلي (درجة أولى) لسرطان (ثدي/قولون/مبيض/بروستاتا/رئة/دم)؟</label><div class="opt" data-key="fhx"><button>لا</button><button>نعم</button></div></div>
-          <div class="q"><label>فقدان وزن غير مفسّر ≥ 5% خلال 6–12 شهرًا؟</label><div class="opt" data-key="wtloss"><button>لا</button><button>نعم</button></div></div>
-          <div class="q"><label>تعاطي كحول منتظم (أسبوعيًا)؟</label><div class="opt" data-key="etoh"><button>لا</button><button>نعم</button></div></div>
-          <div class="q"><label>تعرض مهني/بيئي (أسبستوس/سيليكا/بنزين/أشعة/أبخرة وقود)؟</label><div class="opt" data-key="occ"><button>لا</button><button>نعم</button></div></div>
-          <div class="q"><label>التهاب مزمن معروف (التهاب كبد B/C، قرحة/جرثومة المعدة، التهاب أمعاء مزمن...)؟</label><div class="opt" data-key="inflam"><button>لا</button><button>نعم</button></div></div>
+        <div class="field center">
+          <label><strong>النوع</strong></label>
+          <div class="seg" id="sexSeg">
+            <button type="button" class="on" data-sex="male">رجل</button>
+            <button type="button" data-sex="female">امرأة</button>
+          </div>
         </div>
 
-        <!-- أسئلة الأعراض الدقيقة (إبداعي/احترافي) -->
-        <div class="qgroup">
-          <h3>الأعراض الحالية (أجب بدقّة)</h3>
-          <div class="q"><label>سعال مستمر > 3 أسابيع أو بحة مزمنة/نفث دم</label><div class="opt" data-key="cough"><button>لا</button><button>نعم</button></div></div>
-          <div class="q"><label>كتلة جديدة في الثدي/الخصية/العنق أو أي موضع لا تزول خلال 3 أسابيع</label><div class="opt" data-key="lump"><button>لا</button><button>نعم</button></div></div>
-          <div class="q"><label>تغيّر في شامة/جلد (قاعدة ABCDE: عدم تناظر/حدود/لون/قطر>6مم/تطور)</label><div class="opt" data-key="skin"><button>لا</button><button>نعم</button></div></div>
-          <div class="q"><label>نزف غير مبرّر: دم مع البراز/البول/السعال/بين الدورات/بعد الجماع</label><div class="opt" data-key="bleed"><button>لا</button><button>نعم</button></div></div>
-          <div class="q"><label>ألم مُستمر جديد (خاصّة الصدر/العظم/البطن/الظهر) لا يتحسّن</label><div class="opt" data-key="pain"><button>لا</button><button>نعم</button></div></div>
-          <div class="q"><label>تغيّر مستمر في عادات الإخراج > 3 أسابيع (إمساك/إسهال/تناوب/قَولبة/نحول البراز)</label><div class="opt" data-key="bowel"><button>لا</button><button>نعم</button></div></div>
-          <div class="q"><label>صعوبة بلع/حرقة شديدة جديدة/امتلاء مبكّر مستمر</label><div class="opt" data-key="gi"><button>لا</button><button>نعم</button></div></div>
-          <div class="q"><label>حمّى/تعرّق ليلي غزير/إرهاق شديد مستمر</label><div class="opt" data-key="bsy"><button>لا</button><button>نعم</button></div></div>
-          <div class="q"><label>تورم عقد لمفية غير مؤلمة لا تزول</label><div class="opt" data-key="nodes"><button>لا</button><button>نعم</button></div></div>
-          <div class="q"><label>تغيّرات ثدي (إفراز/انكماش الحلمة/تغضّن الجلد/احمرار غير عادي)</label><div class="opt" data-key="breast"><button>لا</button><button>نعم</button></div></div>
-          <div class="q"><label>تغيّر في التبوّل لدى الرجال (تكرار/اندفاع ضعيف/دم) مع العمر ≥ 50</label><div class="opt" data-key="prostate"><button>لا</button><button>نعم</button></div></div>
-          <div class="q"><label>تقرّح لا يلتئم في الفم/اللسان/الحلق أو قرحة جلدية مزمنة</label><div class="opt" data-key="ulcer"><button>لا</button><button>نعم</button></div></div>
+        <div class="field">
+          <label><strong>العمر</strong></label>
+          <input id="age" type="number" inputmode="numeric" min="0" max="120" placeholder="مثال: 45" style="width:140px; padding:10px; border:1px solid var(--line); border-radius:10px; text-align:center">
         </div>
 
-        <button class="btn" id="calc">احسب التقييم</button>
+        <!-- عوامل -->
+        <div class="field center">
+          <label><strong>عوامل مؤثرة</strong></label>
+          <div class="seg" id="smokeSeg">
+            <button type="button" class="on" data-smoke="no">غير مدخّن</button>
+            <button type="button" data-smoke="yes">مدخّن</button>
+          </div>
+          <div style="margin-top:8px" class="seg" id="familySeg">
+            <button type="button" class="on" data-fh="no">لا تاريخ عائلي قوي</button>
+            <button type="button" data-fh="yes">تاريخ عائلي قوي</button>
+          </div>
+        </div>
 
+        <!-- أسئلة الأعراض -->
+        <div class="card">
+          <h3>أجب عن الأعراض التالية (نعم/لا)</h3>
+          <div id="symptoms" class="list"></div>
+          <div style="margin-top:8px; font-size:12px; color:#6b7280">* استمرار العرض لأكثر من 3 أسابيع أو تفاقمه يستدعي التقييم الطبي.</div>
+        </div>
+
+        <button class="btn" id="calc">اعرض النتيجة</button>
+
+        <!-- زر PDF -->
         <div class="pdfwrap" id="pdfwrap">
-          <button class="pdfbtn" id="pdfBtn">تنزيل تقرير PDF</button>
+          <button class="pdfbtn" id="pdfBtn">تنزيل النتائج PDF</button>
         </div>
       </div>
 
       <div>
         <div id="verdict" class="badge ok" style="display:none"></div>
 
-        <div id="counterRemain" class="counter alt" style="display:none">
-          <h4>توصية الإجراء</h4>
-          <div class="cflex">
-            <div class="cbox"><div class="num" id="urgency">—</div><div class="lbl">مستوى الإلحاح</div></div>
-            <div class="cbox"><div class="num" id="flags">—</div><div class="lbl">عدد الأعلام الحمراء</div></div>
-            <div class="cbox"><div class="num" id="risk">—</div><div class="lbl">درجة الخطورة (0–10)</div></div>
+        <div class="kpi" id="kpis" style="display:none">
+          <div class="k"><div class="v" id="riskLevel">—</div><div>مستوى التنبيه</div></div>
+          <div class="k"><div class="v" id="whatNext">—</div><div>ماذا تفعل الآن</div></div>
+        </div>
+
+        <div class="deck" id="adviceDeck" style="display:none"></div>
+
+        <!-- قائمة عالمية ومراكز محلية -->
+        <div class="card" style="margin-top:12px">
+          <h3>دليل عالمي موثوق</h3>
+          <ul style="margin:0; padding-inline-start:18px; font-size:14px">
+            <li><a href="https://www.who.int/health-topics/cancer" target="_blank" rel="noopener">منظمة الصحة العالمية WHO</a></li>
+            <li><a href="https://www.iarc.who.int/" target="_blank" rel="noopener">IARC — الوكالة الدولية لأبحاث السرطان</a></li>
+            <li><a href="https://www.cancer.gov/" target="_blank" rel="noopener">NCI — المعهد القومي للسرطان (الولايات المتحدة)</a></li>
+            <li><a href="https://www.cancer.org/" target="_blank" rel="noopener">ACS — الجمعية الأميركية للسرطان</a></li>
+            <li><a href="https://www.nhs.uk/conditions/cancer/" target="_blank" rel="noopener">NHS — دليل السرطان (بريطانيا)</a></li>
+            <li><a href="https://uicc.org/" target="_blank" rel="noopener">UICC — الاتحاد الدولي لمكافحة السرطان</a></li>
+          </ul>
+        </div>
+
+        <div class="card" style="margin-top:12px">
+          <h3>مستشفيات/مراكز حكومية — اختر لفتح الموقع</h3>
+          <div class="select">
+            <select id="centerSelect" aria-label="اختر المستشفى/المركز">
+              <option value="">— اختر مركزًا —</option>
+            </select>
+          </div>
+          <div id="centersNote" style="margin-top:8px; font-size:12px; color:#6b7280">المراكز معتمدة قدر الإمكان. قد تتطلب بعض الدول تحويلًا أو موعدًا مسبقًا.</div>
+        </div>
+
+        <!-- مشاركة -->
+        <div class="sharewrap" style="margin:16px 0; text-align:center">
+          <div class="share-title" style="font-family:'Amiri',serif; color:var(--gold); margin-bottom:8px">مشاركة الصفحة</div>
+          <div class="sharebar" style="display:flex; justify-content:center; gap:8px; flex-wrap:wrap">
+            <a class="iconbtn" id="shareWA" title="واتساب" aria-label="WhatsApp" style="width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;border:1px solid var(--line);background:#fff;cursor:pointer">
+              <svg viewBox="0 0 24 24" width="18" height="18"><path d="M12 0a12 12 0 00-10 18.3L1 23l4.9-1A12 12 0 1012 0zm6.5 17.2c-.3.8-1.7 1.6-2.4 1.6-.6 0-1.4.1-3.8-1-3.2-1.4-5.3-4.6-5.5-4.8-.1-.2-1.3-1.7-1.3-3.2 0-1.6.8-2.4 1.1-2.7.3-.3.7-.4 1-.4h.8c.2 0 .6 0 .9.7.3.8 1.1 2.7 1.2 2.9.1.2.2.5 0 .8-.2.3-.3.5-.6.8-.3.3-.6.6-.2 1.2.4.6 1.7 2.8 4 3.8 2.9 1.2 3 .8 3.5.8.5 0 1.8-.8 2.1-1.5.2-.7 1-1.6 1.3-1.8.2-.1.3-.2.5-.1l1 .5c.3.1.5.3.5.5-.1.4-.7 2-1 2.7z"/></svg>
+            </a>
+            <a class="iconbtn" id="shareTG" title="تيليغرام" aria-label="Telegram" style="width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;border:1px solid var(--line);background:#fff;cursor:pointer">
+              <svg viewBox="0 0 24 24" width="18" height="18"><path d="M9 18.2l-.3 4.1c.4 0 .6-.2.8-.4l2-1.8 4.1 3c.7.4 1.3.2 1.5-.7L22 6.2c.2-1.1-.4-1.5-1.1-1.2L2.3 11.1c-1.1.4-1 1.3 0 1.6l4.1 1.2 9.4-5.9c.4-.3.9-.1.5.2L9 18.2z"/></svg>
+            </a>
+            <a class="iconbtn" id="shareX" title="X" aria-label="X" style="width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;border:1px solid var(--line);background:#fff;cursor:pointer">
+              <svg viewBox="0 0 24 24" width="18" height="18"><path d="M3 2h4.7l5 6.8L18.7 2H22l-7.8 9.1L22 22h-4.8l-5.4-7.2L6 22H2.1l8.3-9.8L3 2z"/></svg>
+            </a>
+            <a class="iconbtn" id="shareFB" title="Facebook" aria-label="Facebook" style="width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;border:1px solid var(--line);background:#fff;cursor:pointer">
+              <svg viewBox="0 0 24 24" width="18" height="18"><path d="M22 12a10 10 0 10-11.6 9.9v-7H7.7V12h2.7V9.8c0-2.7 1.6-4.2 4-4.2 1.2 0 2.5.2 2.5.2v2.7h-1.4c-1.4 0-1.9.9-1.9 1.8V12h3.2l-.5 2.9h-2.7v7A10 10 0 0022 12z"/></svg>
+            </a>
+            <button class="iconbtn" id="copyLink" title="نسخ الرابط" aria-label="Copy Link" style="width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;border:1px solid var(--line);background:#fff;cursor:pointer">
+              <svg viewBox="0 0 24 24" width="18" height="18"><path d="M16 1H8C6.3 1 5 2.3 5 4v12c0 1.7 1.3 3 3 3h8c1.7 0 3-1.3 3-3V4c0-1.7-1.3-3-3-3zm1 15c0 .6-.4 1-1 1H8c-.6 0-1-.4-1-1V4c0-.6.4-1 1-1h8c.6 0 1 .4 1 1v12zM7 20c0 .6.4 1 1 1h8v2H8c-1.7 0-3-1.3-3-3v-2h2v2z"/></svg>
+            </button>
           </div>
         </div>
 
-        <div id="kpis" class="kpi" style="display:none">
-          <div class="k"><div class="v" id="ageShow">—</div><div>عُمرك المُحتسب</div></div>
-          <div class="k"><div class="v" id="countryShow">—</div><div>الدولة المختارة</div></div>
+        <div class="card" style="margin-top:12px">
+          <h3>المصادر الطبية</h3>
+          <ul style="margin:0; padding-inline-start:18px; font-size:14px">
+            <li><a href="https://www.who.int/news-room/fact-sheets/detail/cancer" target="_blank" rel="noopener">WHO — حقائق عن السرطان</a></li>
+            <li><a href="https://www.cancer.org/cancer/diagnosis-staging/signs-and-symptoms-of-cancer.html" target="_blank" rel="noopener">ACS — علامات وأعراض السرطان</a></li>
+            <li><a href="https://www.mayoclinic.org/diseases-conditions/cancer/symptoms-causes/syc-20370588" target="_blank" rel="noopener">Mayo Clinic — أعراض وأسباب</a></li>
+          </ul>
         </div>
-
-        <div class="qgroup" id="centersBox" style="display:none">
-          <h3>مراكز حكومية / وطنية للأورام في بلدك</h3>
-          <div class="list" id="centersList"></div>
-          <div class="eqwrap" id="eqwrap">
-            <div class="eqbox">
-              <div class="v">* اتصل قبل الذهاب، وقد تتطلب المراكز تحويلًا طبيًا.</div>
-              <div class="l">الأرقام مصدرها مواقع رسمية أو دلائل موثوقة.</div>
-            </div>
-          </div>
-        </div>
-
-        <div id="advice" class="deck" style="display:none"></div>
       </div>
     </div>
   </section>
 
-  <footer id="footer">
-    <div style="margin-top:8px; line-height:1.8">
-      <strong>تنبيه:</strong> هذا الفاحص للتوعية لا للتشخيص. إذا ظهرت لديك أعلام حمراء (نزف غير مبرّر، كتلة ثابتة، ضيق نفس شديد، ألم صدري حاد...) فاذهب للطوارئ.
-    </div>
-    <div style="margin-top:10px">
-      <span>© تصميم: قالب عربي أنيق. المصادر: WHO/IARC/ACS وروابط المراكز الوطنية.</span>
+  <footer style="text-align:center; margin:12px 0 24px; font-size:12px; color:#6b7280">
+    <div><strong>تنبيه:</strong> هذه أداة تثقيفية ولا تُشخّص المرض. عند وجود نزف غير مبرّر/كتلة ثابتة/ضيق نفس شديد — راجع الطوارئ.</div>
+    <div style="margin-top:6px">
+      <a id="devLink" class="ghost-link" href="https://api.whatsapp.com/send/?phone=97333375858&text&type=phone_number&app_absent=0&wame_ctl=1" target="_blank" rel="noopener">برمجة وتطوير: فاضل الريس</a>
     </div>
   </footer>
 </main>
 
+<!-- إشعار -->
 <div id="notice" class="notice" style="display:none">
   <div class="dot"></div>
   <div class="text">—</div>
@@ -263,51 +242,270 @@
 <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js" defer></script>
 
 <script>
-/* ========= أدوات واجهة ========= */
+/* ==== إشعارات أنيقة ==== */
 const notice=document.getElementById('notice'), noticeText=notice.querySelector('.text'); notice.querySelector('.close').onclick=()=>{ notice.classList.remove('show'); setTimeout(()=>notice.style.display='none',250); };
-function notify(msg,{type='info',timeout=3000}={}){ notice.style.display='flex'; notice.classList.toggle('error', type==='error'); noticeText.innerHTML=msg; requestAnimationFrame(()=>notice.classList.add('show')); setTimeout(()=>{ notice.classList.remove('show'); setTimeout(()=>notice.style.display='none',250); }, timeout); }
+function notify(msg,{type='info',timeout=3500}={}){ notice.style.display='flex'; notice.classList.toggle('error', type==='error'); noticeText.innerHTML=msg; requestAnimationFrame(()=>notice.classList.add('show')); clearTimeout(window.__nt); window.__nt=setTimeout(()=>{ notice.classList.remove('show'); setTimeout(()=>notice.style.display='none',250); }, timeout); }
 
-/* ========= أسئلة: تبديل أزرار ========= */
-document.querySelectorAll('.opt').forEach(group=>{
-  const btns=[...group.querySelectorAll('button')];
-  btns.forEach((b,i)=>b.addEventListener('click',()=>{ btns.forEach(x=>x.classList.remove('on')); b.classList.add('on'); group.dataset.val=(i===0?'no':'yes'); }));
+/* ==== تبديل أزرار القطاعات (مضمون تعمل) ==== */
+function makeToggle(segId, dataKey){
+  const seg=document.getElementById(segId);
+  seg.addEventListener('click', e=>{
+    const b=e.target.closest('button'); if(!b) return;
+    seg.querySelectorAll('button').forEach(x=>x.classList.remove('on'));
+    b.classList.add('on');
+    seg.dataset[dataKey]=Object.values(b.dataset)[0]; // يأخذ قيمة data-*
+  });
+}
+makeToggle('sexSeg','sex'); makeToggle('smokeSeg','smoke'); makeToggle('familySeg','fh');
+
+/* ==== أسئلة الأعراض (نعم/لا) ==== */
+const QUESTIONS = [
+  {id:"cough",  text:"سعال مستمر > 3 أسابيع/بحة مزمنة/نفث دم"},
+  {id:"lump",   text:"كتلة/تورّم جديد ثابت لأكثر من 3 أسابيع"},
+  {id:"bleed",  text:"نزف غير مبرّر (براز/بول/سعال/بين الدورات)"},
+  {id:"skin",   text:"تغيّر واضح في شامة (ABCDE)"},
+  {id:"bowel",  text:"تغيّر عادات الإخراج > 3 أسابيع"},
+  {id:"pain",   text:"ألم جديد مستمر (صدر/عظم/بطن/ظهر)"},
+  {id:"gi",     text:"صعوبة بلع/حرقة شديدة/امتلاء مبكّر"},
+  {id:"bsy",    text:"حمّى/تعرّق ليلي غزير/إرهاق شديد"},
+  {id:"nodes",  text:"تورم عقد لمفية غير مؤلمة لا تزول"},
+  {id:"breast", text:"تغيّرات في الثدي (إفراز/انكماش/تغضّن)"},
+  {id:"prostate",text:"تغيّر ملحوظ في التبوّل (للرجال 50+)"},
+  {id:"ulcer",  text:"قرحة فم/جلد لا تلتئم"}
+];
+const symWrap=document.getElementById('symptoms');
+QUESTIONS.forEach(q=>{
+  const div=document.createElement('div'); div.className='item';
+  div.innerHTML=`<div class="h">${q.text}</div>
+  <div class="p seg" data-q="${q.id}">
+    <button type="button" class="on" data-a="no">لا</button>
+    <button type="button" data-a="yes">نعم</button>
+  </div>`;
+  symWrap.appendChild(div);
+});
+symWrap.addEventListener('click', e=>{
+  const btn=e.target.closest('button'); if(!btn) return;
+  const seg=btn.parentElement;
+  seg.querySelectorAll('button').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
 });
 
-/* ========= معطيات المراكز (مختارة رسمياً قدر الإمكان) =========
-   المراجع موجودة بالتقرير أسفل الصفحة (سنضع روابط مختصرة عبر التعليقات هنا). */
+/* ==== مراكز حكومية (اختصرنا لأهم جهة موثوقة/وطنية) ==== */
 const CENTERS={
-  BHR:[{n:'قسم الأورام – مجمع السلمانية الطبي', tel:'+973 1728 8888', url:'https://www.moh.gov.bh/HealthInstitution/Index/SMC'}], // * الشائعة (كتلة ثابتة، نزف غير مبرر، تغيّر شامة، سعال/بحة مستمرة، تغيير في العادات الإخراجية…) كما تُعرض في مصادر WHO الإقليمية والجامعات/الجمعيات. 2  
-- توصيات النشاط البدني والوقاية (150–300 دقيقة أسبوعيًا)… من WHO/ACS/IARC. 3
+  BHR:[{n:'قسم الأورام — مجمع السلمانية الطبي', url:'https://www.moh.gov.bh/HealthInstitution/Index/SMC'}],
+  KSA:[{n:'مستشفى الملك فيصل التخصصي ومركز الأبحاث (الرياض)', url:'https://www.kfshrc.edu.sa/'}],
+  ARE:[{n:'مستشفى توام — مركز الأورام (العين)', url:'https://www.seha.ae/'}],
+  QAT:[{n:'NCCCR — مؤسسة حمد الطبية', url:'https://www.hamad.qa/EN/Hospitals-and-services/NCCCR/Pages/default.aspx'}],
+  KWT:[{n:'KCCC — مركز الكويت لمكافحة السرطان', url:'https://moh.gov.kw'}],
+  OMN:[{n:'المركز الوطني للأورام — المستشفى السلطاني', url:'https://www.moh.gov.om/'}],
+  EGY:[{n:'المعهد القومي للأورام — القاهرة', url:'http://www.nci.cu.edu.eg/'}],
+  JOR:[{n:'مركز الحسين للسرطان', url:'https://www.khcc.jo/'}],
+  LBN:[{n:'معهد نايف باسيل للسرطان — AUBMC', url:'https://www.aubmc.org.lb/'}],
+  IRQ:[{n:'مستشفى الأورام التعليمي — مدينة الطب بغداد', url:'https://www.teachinghospital.com (تحقق محليًا)'},{n:'مستشفى هيوا للأورام — السليمانية', url:'https://www.hiwasmch.org/'}],
+  LBA:[{n:'المعهد الوطني للسرطان — مصراتة', url:'https://nci.edu.ly/'}],
+  MAR:[{n:'المعهد الوطني للأنكولوجيا — الرباط', url:'https://www.sante.gov.ma/'}],
+  DZA:[{n:'مركز بيير وماري كوري لمكافحة السرطان — الجزائر', url:'http://www.cpmc.dz/'}],
+  TUN:[{n:'معهد صالح عزيز للأورام — تونس', url:'http://www.isa.rns.tn/'}],
+  SDN:[{n:'RICK — الخرطوم (العلاج بالأشعة والطب النووي)', url:'https://www.medpages.info/'}],
+  SYR:[{n:'مشفى البيروني الجامعي — دمشق', url:'https://albairouni-hospital.sy/'}],
+  PSE:[{n:'مستشفى المُطلع/أوغستا فكتوريا — القدس', url:'https://avh.org/'}],
+  DJI:[{n:'مستشفى بيلتير العام — جيبوتي', url:'https://dj.usembassy.gov/medical-assistance/'}],
+  COM:[{n:'المركز الوطني الاستشفائي المرّوف — موروني', url:'https://www.gov.uk/foreign-travel-advice/comoros/health'}],
+  MRT:[{n:'المستشفى الوطني — نواكشوط', url:'https://www.gov.uk/government/publications/mauritania-doctors/'}],
+  SOM:[{n:'مستشفى تركيا التعليمي — مقديشو', url:'https://www.somaliaturkiyehospital.com/'}],
+  YEM:[{n:'المركز الوطني للأورام — (تحقق حسب المحافظة)', url:'https://www.google.com/search?q=%D8%A7%D9%84%D9%85%D8%B1%D9%83%D8%B2+%D8%A7%D9%84%D9%88%D8%B7%D9%86%D9%8A+%D9%84%D9%84%D8%A3%D9%88%D8%B1%D8%A7%D9%85+%D8%A7%D9%84%D9%8A%D9%85%D9%86'}],
+  IRN:[{n:'معهد السرطان — مجمع إمام خميني (طهران)', url:'https://ikhc.tums.ac.ir/en/Cancer-Institute'}, {n:'MAHAK — أورام أطفال', url:'https://mahak-charity.org/en/mahak-hospital/'}]
+};
 
-### أمثلة من مصادر أرقام المراكز (عينات مما استُخدم داخل الكود)
-- البحرين: مجمع السلمانية الطبي/قسم الأورام. 4  
-- قطر: NCCCR حمد الطبية. 5  
-- الكويت: KCCC. 6  
-- عُمان: المركز الوطني للأورام – المستشفى السلطاني. 7  
-- الأردن: مركز الحسين للسرطان. 8  
-- مصر: المعهد القومي للأورام + 57357. 9  
-- المغرب: المعهد الوطني للأنكولوجيا (الرباط). 10  
-- تونس: معهد صالح عزيز. 11  
-- الجزائر: CPMC الجزائر العاصمة. 12  
-- لبنان: NKBCI – الجامعة الأميركية. 13  
-- العراق: مستشفى الأورام التعليمي بغداد؛ هيوا للأورام السليمانية. 14  
-- ليبيا: المعهد الوطني للسرطان – مصراتة. 15  
-- السودان: RICK الخرطوم؛ المعهد القومي للسرطان – الجزيرة. 16  
-- سوريا: مشفى البيروني الجامعي. 17  
-- فلسطين: مستشفى أوغستا فكتوريا – مركز السرطان. 18  
-- الإمارات: مستشفى توام – مركز الأورام. 19  
-- السعودية: كفشـر (الرياض)، PNOC (جدة – الحرس الوطني)، مدينة الملك فهد الطبية. 20  
-- جيبوتي: مستشفى بيلتير العام. 21  
-- جزر القمر: مستشفى المرّوف – موروني. 22  
-- موريتانيا: المستشفى الوطني – نواكشوط (جهة حكومية عامة؛ مركز الأورام الوطني مذكور بالأخبار والبحوث لكن رقم مباشر غير متاح علنًا بالمصادر الموثوقة، لذا وضعت رقم المستشفى الوطني كبديل حكومي). 23  
-- الصومال: مستشفى تركيا التعليمي – مقديشو. 24  
-- إيران: معهد السرطان – مجمع إمام خميني؛ مستشفى MAHAK لأورام الأطفال. 25
+/* بناء قائمة المراكز حسب الدولة */
+const centerSelect=document.getElementById('centerSelect');
+function fillCenters(code){
+  centerSelect.innerHTML='<option value="">— اختر مركزًا —</option>';
+  (CENTERS[code]||[]).forEach((c,i)=>{
+    const opt=document.createElement('option');
+    opt.value=c.url; opt.textContent=c.n; centerSelect.appendChild(opt);
+  });
+}
+fillCenters(document.getElementById('countrySelect').value);
+document.getElementById('countrySelect').addEventListener('change', e=>fillCenters(e.target.value));
+centerSelect.addEventListener('change', e=>{
+  const url=e.target.value; if(url) window.open(url,'_blank','noopener');
+});
 
----
+/* ==== مشاركة ==== */
+document.getElementById('shareWA').onclick=(e)=>{e.preventDefault(); window.open(`https://wa.me/?text=${encodeURIComponent(location.href)}`,'_blank','noopener');};
+document.getElementById('shareTG').onclick=(e)=>{e.preventDefault(); window.open(`https://t.me/share/url?url=${encodeURIComponent(location.href)}`,'_blank','noopener');};
+document.getElementById('shareX').onclick=(e)=>{e.preventDefault(); window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(location.href)}`,'_blank','noopener');};
+document.getElementById('shareFB').onclick=(e)=>{e.preventDefault(); window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(location.href)}`,'_blank','noopener');};
+document.getElementById('copyLink').onclick=async()=>{ try{ await navigator.clipboard.writeText(location.href); notify('🔗 تمّ نسخ رابط الصفحة.'); }catch(_){ notify('لم نتمكن من نسخ الرابط.',{type:'error'});} };
 
-إذا رغبت، أقدر:
-- أضيف مراكز/أرقام إضافية لبلد محدد (مثلاً مراكز الثدي/الأطفال/الإشعاع).  
-- أوسّع بنك الأسئلة (حسب الجنس/العمر) أو أضيف اختيار لغة ثانية.  
-- أضع شارة “طوارئ الآن” بلون أحمر عندما يجتمع نزف حاد + ألم شديد/ضيق نفس.  
+/* ==== التقييم ==== */
+function screening(age, sex, smoker, fh){
+  const list=[];
+  if(sex==='female' && age>=40){ list.push("تصوير الثدي (ماموغرام) كل 1–2 سنة."); }
+  if(sex==='female' && age>=21){ list.push("عنق الرحم: Pap/HPV حسب الجدولة (كل 3–5 سنوات)."); }
+  if(age>=45){ list.push("القولون والمستقيم: FIT سنويًا أو تنظير كل 10 سنوات."); }
+  if(age>=50 && smoker==='yes'){ list.push("الرئة: تصوير طبقي منخفض الجرعة (LDCT) سنويًا للمدخنين المؤهلين."); }
+  if(sex==='male' && age>=50){ list.push("البروستاتا: ناقش PSA/فحص المستقيم."); }
+  if(fh==='yes'){ list.push("لتاريخ عائلي قوي: استشر اختصاصي وراثة/أورام."); }
+  return list;
+}
+function computeRisk(){
+  let score=0, flags=0;
+  const heavy=['bleed','lump','skin','ulcer'];
+  QUESTIONS.forEach(q=>{
+    const seg=document.querySelector(`.seg[data-q="${q.id}"]`);
+    const a=seg.querySelector('button.on')?.dataset.a||'no';
+    if(a==='yes'){ score+=1; if(heavy.includes(q.id)) score+=1; flags+=(heavy.includes(q.id)?1:0); }
+  });
+  if((document.getElementById('smokeSeg').dataset.smoke||'no')==='yes') score+=1;
+  if((document.getElementById('familySeg').dataset.fh||'no')==='yes') score+=1;
+  if(score>10) score=10;
+  // إلحاح
+  let level='منخفض'; let action='راقب الأعراض واتّبع جدول التحري المناسب.';
+  if(score>=3){ level='متوسط'; action='احجز موعدًا أوليًا لدى طبيب الأسرة خلال أسبوع–أسبوعين.'; }
+  if(score>=6 || (document.querySelector('.seg[data-q="bleed"] .on')?.dataset.a==='yes' && document.querySelector('.seg[data-q="pain"] .on')?.dataset.a==='yes')){
+    level='مرتفع'; action='راجِع عاجلًا خلال 24–72 ساعة أو أقرب مستشفى إذا ساءت الحالة.';
+  }
+  if(document.querySelector('.seg[data-q="cough"] .on')?.dataset.a==='yes' && document.querySelector('.seg[data-q="bsy"] .on')?.dataset.a==='yes'){
+    level='مرتفع'; action='تقييم عاجل (قد يلزم تصوير صدر/تحاليل).';
+  }
+  return {score, flags, level, action};
+}
 
-قل لي الدولة/الدول التي تودّ التركيز عليها أولًا وسأدعمها بمراكز أكثر وروابط مواعيد مباشرة.26
+/* ==== عرض النتيجة + نصائح ==== */
+function buildAdvice(age, sex, smoke, fh){
+  const deck=document.getElementById('adviceDeck'); deck.innerHTML='';
+  const mk=(t,html)=>{ const e=document.createElement('div'); e.className='card'; e.innerHTML=`<h3>${t}</h3>${html}`; return e; };
+  const list=screening(age, sex, smoke, fh);
+  deck.append(
+    mk('نصائح سريعة','<ul><li>أي عرض جديد مستمر &gt; 3 أسابيع = تقييم طبي.</li><li>لا للتبغ، وزن صحي، نشاط بدني، حماية من الشمس.</li><li>لقاحات: التهاب كبد B، HPV حيث متاح.</li></ul>'),
+    mk('فحوص التحري المقترحة', list.length? '<ul>'+list.map(x=>`<li>${x}</li>`).join('')+'</ul>' : '<div>لا توجد فحوص روتينية خاصّة بعمرك الآن — اتبع نصيحة طبيبك.</div>')
+  );
+  deck.style.display='grid';
+}
+
+/* ==== زر احسب ==== */
+let lastResult=null;
+document.getElementById('calc').addEventListener('click', ()=>{
+  const age=parseFloat(document.getElementById('age').value);
+  if(!(age>=0 && age<=120)){ notify("أدخل عمرًا صحيحًا.", {type:'error'}); return; }
+  const sex = document.getElementById('sexSeg').dataset.sex || 'male';
+  const smoke = document.getElementById('smokeSeg').dataset.smoke || 'no';
+  const fh = document.getElementById('familySeg').dataset.fh || 'no';
+
+  const {score, flags, level, action}=computeRisk();
+
+  // شارة
+  const v=document.getElementById('verdict');
+  v.style.display='inline-block';
+  v.className='badge '+(level==='مرتفع'?'danger': (level==='متوسط'?'warn':'ok'));
+  v.textContent = (level==='مرتفع'?'⚠️ ':'ℹ️ ')+ 'هذه نتيجة تثقيفية — اتبع التوصيات وراجِع المختص عند القلق.';
+
+  // KPIs
+  document.getElementById('kpis').style.display='grid';
+  document.getElementById('riskLevel').textContent=level;
+  document.getElementById('whatNext').textContent=action;
+
+  // نصائح
+  buildAdvice(age, sex, smoke, fh);
+
+  // حفظ للـ PDF
+  lastResult = {
+    name: (document.getElementById('name').value||'—').trim()||'—',
+    country: document.querySelector('#countrySelect option:checked').textContent,
+    age, sex:(sex==='male'?'رجل':'امرأة'),
+    smoke:(smoke==='yes'?'مدخّن':'غير مدخّن'),
+    fh:(fh==='yes'?'تاريخ عائلي قوي':'لا'),
+    score, flags, level, action,
+    answers: QUESTIONS.map(q=>{
+      const a=document.querySelector(`.seg[data-q="${q.id}"] .on`)?.dataset.a||'no';
+      return {q:q.text, a:(a==='yes'?'نعم':'لا')};
+    })
+  };
+
+  // إظهار PDF
+  document.getElementById('pdfwrap').style.display='block';
+});
+
+/* ==== PDF ==== */
+document.getElementById('pdfBtn').addEventListener('click', async ()=>{
+  if(!lastResult){ notify('أجب عن الاستبيان أولًا.', {type:'error'}); return; }
+  const box=document.createElement('div');
+  box.setAttribute('dir','rtl');
+  box.style.width='780px'; box.style.background='#fff'; box.style.border='1px solid #e5e7eb'; box.style.borderRadius='16px'; box.style.padding='20px'; box.style.fontFamily='"Cairo",sans-serif'; box.style.color='#111827';
+  const rows = lastResult.answers.map(x=>`<tr><td style="padding:8px 10px;border-bottom:1px solid #f3f4f6">${x.q}</td><td style="padding:8px 10px;border-bottom:1px solid #f3f4f6">${x.a}</td></tr>`).join('');
+  box.innerHTML=`
+    <div style="text-align:center; margin-bottom:10px">
+      <div style="font-family:'Amiri',serif; font-size:26px; color:${getComputedStyle(document.documentElement).getPropertyValue('--gold')}">تقرير استبيان أعراض السرطان</div>
+      <div style="font-size:12px; color:#6b7280">${new Date().toLocaleString('ar')}</div>
+    </div>
+
+    <table style="width:100%; border-collapse:separate; border-spacing:0; overflow:hidden; border-radius:12px; border:1px solid #eee; margin-bottom:10px">
+      <thead><tr style="background:linear-gradient(90deg,#fff7e6,#fff)"><th style="padding:10px 12px; text-align:right">البند</th><th style="padding:10px 12px; text-align:right">القيمة</th></tr></thead>
+      <tbody>
+        ${row('الاسم', lastResult.name)}
+        ${row('الدولة', lastResult.country)}
+        ${row('العمر', lastResult.age)}
+        ${row('النوع', lastResult.sex)}
+        ${row('التدخين', lastResult.smoke)}
+        ${row('تاريخ عائلي', lastResult.fh)}
+        ${row('عدد الأعلام الحمراء', lastResult.flags)}
+        ${row('درجة تقديرية (0–10)', lastResult.score)}
+        ${row('مستوى التنبيه', lastResult.level)}
+        ${row('التوصية الآن', lastResult.action)}
+      </tbody>
+    </table>
+
+    <div style="font-weight:700; margin-bottom:6px">إجابات الأعراض</div>
+    <table style="width:100%; border:1px solid #eee; border-radius:12px; border-collapse:separate; border-spacing:0">
+      <thead><tr style="background:#f9fafb"><th style="padding:8px 10px; text-align:right">العَرَض</th><th style="padding:8px 10px; text-align:right">الإجابة</th></tr></thead>
+      <tbody>${rows}</tbody>
+    </table>
+
+    <div style="margin-top:10px; font-size:12px; color:#6b7280">هذه نتيجة تثقيفية مبنية على دلائل عامة (WHO/ACS). لا تغني عن الطبيب.</div>
+  `;
+  function row(k,v){ return `<tr><td style="padding:8px 10px;border-bottom:1px solid #f3f4f6"><strong>${k}</strong></td><td style="padding:8px 10px;border-bottom:1px solid #f3f4f6">${v}</td></tr>`; }
+
+  document.body.appendChild(box);
+  await new Promise(r=>setTimeout(r, 100));
+  const canvas = await html2canvas(box, {scale:2, useCORS:true});
+  document.body.removeChild(box);
+
+  const imgData = canvas.toDataURL('image/png');
+  const { jsPDF } = window.jspdf;
+  const pdf = new jsPDF({orientation:'p', unit:'pt', format:'a4'});
+  const pageW = pdf.internal.pageSize.getWidth();
+  const pageH = pdf.internal.pageSize.getHeight();
+  const margin = 28;
+  const imgW = pageW - margin*2;
+  const imgH = canvas.height * (imgW / canvas.width);
+
+  if(imgH <= pageH - margin*2){
+    pdf.addImage(imgData, 'PNG', margin, margin, imgW, imgH);
+  }else{
+    let sH = pageH - margin*2;
+    let ratio = canvas.width / imgW;
+    let slice = sH * ratio;
+    let pos = 0;
+    while(pos < canvas.height){
+      const sliceCanvas = document.createElement('canvas');
+      sliceCanvas.width = canvas.width;
+      sliceCanvas.height = Math.min(slice, canvas.height - pos);
+      const ctx = sliceCanvas.getContext('2d');
+      ctx.drawImage(canvas, 0, pos, canvas.width, sliceCanvas.height, 0, 0, sliceCanvas.width, sliceCanvas.height);
+      const sliceData = sliceCanvas.toDataURL('image/png');
+      if(pos>0) pdf.addPage();
+      pdf.addImage(sliceData, 'PNG', margin, margin, imgW, (sliceCanvas.height / ratio));
+      pos += slice;
+    }
+  }
+
+  pdf.save('نتيجة-استبيان-السرطان.pdf');
+});
+
+/* فتح رابط المطوّر برفق */
+document.getElementById('devLink').addEventListener('click', function(){ setTimeout(()=>{ if(!document.hasFocus()) return; location.href=this.href; }, 100); });
+</script>
+</body>
+</html>
