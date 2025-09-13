@@ -10,7 +10,6 @@
     --bg:#f5f6f8; --ink:#111827; --muted:#6b7280;
     --card:#ffffff; --line:#e5e7eb;
     --gold:#b58900; --gold-soft:#f5d574;
-    --ocean:#0b4d8a; --emerald:#059669; --crimson:#dc2626;
   }
   *{box-sizing:border-box}
   body{margin:0; font-family:"Cairo",sans-serif; background:var(--bg); color:var(--ink)}
@@ -33,7 +32,7 @@
   .select{ position:relative; display:inline-block; width:100% }
   .select select{
     width:100%; appearance:none; background:#fff; border:1px solid var(--gold); border-radius:10px;
-    padding:12px 42px 12px 12px; font-size:1rem; cursor:pointer; color:#111; transition:.15s; text-align:right; box-shadow:0 1px 0 rgba(0,0,0,.02)
+    padding:12px 42px 12px 12px; font-size:1rem; cursor:pointer; color:#111; text-align:right;
   }
   .select::after{
     content:""; position:absolute; top:50%; transform:translateY(-50%); right:12px; width:18px; height:18px;
@@ -45,9 +44,9 @@
 
   .btn{padding:12px 20px; border-radius:10px; border:none; cursor:pointer; background:linear-gradient(90deg,var(--gold),var(--gold-soft)); color:#111; font-weight:700; display:block; margin:0 auto}
   .badge{display:inline-block; padding:10px 14px; border-radius:10px; margin-top:12px}
-  .ok{background:#ecfdf5; color:#065f46}      /* أخضر */
-  .warn{background:#fffbeb; color:#92400e}    /* أصفر */
-  .danger{background:#fee2e2; color:#991b1b}  /* أحمر */
+  .ok{background:#ecfdf5; color:#065f46}
+  .warn{background:#fffbeb; color:#92400e}
+  .danger{background:#fee2e2; color:#991b1b}
 
   .kpi{display:grid; gap:10px; grid-template-columns:1fr 1fr; margin-top:10px}
   .k{background:#f9fafb; border:1px solid var(--line); border-radius:10px; padding:10px; text-align:center}
@@ -62,23 +61,8 @@
 
   .iconbtn{width:34px; height:34px; border-radius:8px; display:flex; align-items:center; justify-content:center; border:1px solid var(--line); background:#fff; cursor:pointer}
 
-  /* إشعار أنيق */
-  .notice{
-    position:fixed; left:50%; bottom:20px; transform:translateX(-50%) translateY(10px);
-    background:#fff; border:1px solid var(--gold); border-radius:12px; padding:10px 14px;
-    box-shadow:0 8px 24px rgba(0,0,0,.12); display:flex; align-items:center; gap:10px;
-    opacity:0; transition:.25s ease; z-index:9999; max-width:92vw; font-size:14px; color:#111;
-  }
-  .notice.show{ opacity:1; transform:translateX(-50%) translateY(0) }
-  .notice .dot{width:10px; height:10px; border-radius:50%; background:linear-gradient(90deg,var(--gold),var(--gold-soft))}
-  .notice .close{ margin-inline-start:8px; cursor:pointer; border:none; background:transparent; font-size:18px; line-height:1; color:#6b7280 }
-  .notice.error{ border-color:#fecaca }
-  .notice.error .dot{ background:linear-gradient(90deg,#fecaca,#fee2e2) }
-
-  /* PDF */
   .pdfwrap{margin-top:12px; text-align:center; display:none}
   .pdfbtn{padding:10px 16px; border-radius:10px; border:1px solid var(--gold); background:#fff; cursor:pointer; font-weight:700}
-  .pdfbtn:hover{ box-shadow:0 0 0 3px rgba(245,213,116,.15) }
 </style>
 </head>
 <body>
@@ -121,7 +105,7 @@
               <option value="IRN">إيران</option>
             </select>
           </div>
-          <div class="hint">اختيار الدولة يساعد في ترتيب نصائح التحري المناسبة لعُمرك.</div>
+          <div class="hint">اختيار الدولة يساعد في عرض مستشفى محلي موصى به للتواصل السريع.</div>
         </div>
 
         <!-- النوع -->
@@ -138,7 +122,7 @@
         <div class="field center">
           <label><strong>العمر</strong></label>
           <input id="age" type="number" inputmode="numeric" min="0" max="120" placeholder="مثال: 45" style="width:180px; padding:12px; border:1px solid var(--line); border-radius:10px; text-align:center; margin:0 auto">
-          <div class="hint">العمر يساعد على تحديد فحوصات التحري المناسبة (مثل القولون/الثدي/عنق الرحم).</div>
+          <div class="hint">يساعد العمر على تحديد فحوص التحري المناسبة (مثل القولون/الثدي/عنق الرحم).</div>
         </div>
 
         <!-- عوامل مؤثرة -->
@@ -158,104 +142,55 @@
         <!-- أسئلة الأعراض -->
         <div class="card">
           <h3>أسئلة الأعراض (اختر نعم/لا)</h3>
-          <div class="hint">إذا كان عرضٌ ما جديدًا ويستمر لأكثر من 3 أسابيع أو يزداد سوءًا، يحتاج لتقييم طبي.</div>
-          <div id="symptoms" class="sym-list">
-            <!-- أسئلة ثابتة لضمان الظهور دائمًا -->
-            <div class="field">
-              <div><strong>سعال مستمر &gt; 3 أسابيع / بُحّة مزمنة / خروج دم مع السعال</strong></div>
-              <div class="seg" data-q="cough">
-                <button type="button" class="on" data-a="no">لا</button>
-                <button type="button" data-a="yes">نعم</button>
-              </div>
-            </div>
+          <div class="hint">إذا كان عرضٌ جديد ويستمر لأكثر من 3 أسابيع أو يزداد سوءًا، يحتاج لتقييم طبي.</div>
 
-            <div class="field">
-              <div><strong>كتلة/تورّم جديد ثابت لأكثر من 3 أسابيع</strong></div>
-              <div class="seg" data-q="lump">
-                <button type="button" class="on" data-a="no">لا</button>
-                <button type="button" data-a="yes">نعم</button>
-              </div>
-            </div>
-
-            <div class="field">
-              <div><strong>نزف غير مبرّر (براز/بول/سعال/بين الدورات)</strong></div>
-              <div class="seg" data-q="bleed">
-                <button type="button" class="on" data-a="no">لا</button>
-                <button type="button" data-a="yes">نعم</button>
-              </div>
-            </div>
-
-            <div class="field">
-              <div><strong>تغيّر واضح في شامة (ABC&nbsp;D&nbsp;E)</strong></div>
-              <div class="seg" data-q="skin">
-                <button type="button" class="on" data-a="no">لا</button>
-                <button type="button" data-a="yes">نعم</button>
-              </div>
-            </div>
-
-            <div class="field">
-              <div><strong>تغيّر في عادات الإخراج &gt; 3 أسابيع</strong></div>
-              <div class="seg" data-q="bowel">
-                <button type="button" class="on" data-a="no">لا</button>
-                <button type="button" data-a="yes">نعم</button>
-              </div>
-            </div>
-
-            <div class="field">
-              <div><strong>ألم جديد مستمر (صدر/عظم/بطن/ظهر)</strong></div>
-              <div class="seg" data-q="pain">
-                <button type="button" class="on" data-a="no">لا</button>
-                <button type="button" data-a="yes">نعم</button>
-              </div>
-            </div>
-
-            <div class="field">
-              <div><strong>صعوبة بلع / حرقة شديدة / امتلاء مبكّر</strong></div>
-              <div class="seg" data-q="gi">
-                <button type="button" class="on" data-a="no">لا</button>
-                <button type="button" data-a="yes">نعم</button>
-              </div>
-            </div>
-
-            <div class="field">
-              <div><strong>حمّى أو تعرّق ليلي غزير أو إرهاق شديد غير مفسّر</strong></div>
-              <div class="seg" data-q="bsy">
-                <button type="button" class="on" data-a="no">لا</button>
-                <button type="button" data-a="yes">نعم</button>
-              </div>
-            </div>
-
-            <div class="field">
-              <div><strong>تورّم عقد لمفية غير مؤلمة لا تزول</strong></div>
-              <div class="seg" data-q="nodes">
-                <button type="button" class="on" data-a="no">لا</button>
-                <button type="button" data-a="yes">نعم</button>
-              </div>
-            </div>
-
-            <div class="field">
-              <div><strong>تغيّرات في الثدي (إفراز/انكماش الحلمة/تغضّن الجلد)</strong></div>
-              <div class="seg" data-q="breast">
-                <button type="button" class="on" data-a="no">لا</button>
-                <button type="button" data-a="yes">نعم</button>
-              </div>
-            </div>
-
-            <div class="field">
-              <div><strong>تغيّر ملحوظ في التبوّل (للرجال 50+)</strong></div>
-              <div class="seg" data-q="prostate">
-                <button type="button" class="on" data-a="no">لا</button>
-                <button type="button" data-a="yes">نعم</button>
-              </div>
-            </div>
-
-            <div class="field">
-              <div><strong>قرحة فم/جلد لا تلتئم</strong></div>
-              <div class="seg" data-q="ulcer">
-                <button type="button" class="on" data-a="no">لا</button>
-                <button type="button" data-a="yes">نعم</button>
-              </div>
-            </div>
+          <div class="field">
+            <div><strong>سعال مستمر &gt; 3 أسابيع / بُحّة مزمنة / خروج دم مع السعال</strong></div>
+            <div class="seg" data-q="cough"><button type="button" class="on" data-a="no">لا</button><button type="button" data-a="yes">نعم</button></div>
+          </div>
+          <div class="field">
+            <div><strong>كتلة/تورّم جديد ثابت لأكثر من 3 أسابيع</strong></div>
+            <div class="seg" data-q="lump"><button type="button" class="on" data-a="no">لا</button><button type="button" data-a="yes">نعم</button></div>
+          </div>
+          <div class="field">
+            <div><strong>نزف غير مبرّر (براز/بول/سعال/بين الدورات)</strong></div>
+            <div class="seg" data-q="bleed"><button type="button" class="on" data-a="no">لا</button><button type="button" data-a="yes">نعم</button></div>
+          </div>
+          <div class="field">
+            <div><strong>تغيّر واضح في شامة (A&nbsp;B&nbsp;C&nbsp;D&nbsp;E)</strong></div>
+            <div class="seg" data-q="skin"><button type="button" class="on" data-a="no">لا</button><button type="button" data-a="yes">نعم</button></div>
+          </div>
+          <div class="field">
+            <div><strong>تغيّر في عادات الإخراج &gt; 3 أسابيع</strong></div>
+            <div class="seg" data-q="bowel"><button type="button" class="on" data-a="no">لا</button><button type="button" data-a="yes">نعم</button></div>
+          </div>
+          <div class="field">
+            <div><strong>ألم جديد مستمر (صدر/عظم/بطن/ظهر)</strong></div>
+            <div class="seg" data-q="pain"><button type="button" class="on" data-a="no">لا</button><button type="button" data-a="yes">نعم</button></div>
+          </div>
+          <div class="field">
+            <div><strong>صعوبة بلع / حرقة شديدة / امتلاء مبكّر</strong></div>
+            <div class="seg" data-q="gi"><button type="button" class="on" data-a="no">لا</button><button type="button" data-a="yes">نعم</button></div>
+          </div>
+          <div class="field">
+            <div><strong>حمّى أو تعرّق ليلي غزير أو إرهاق شديد غير مفسّر</strong></div>
+            <div class="seg" data-q="bsy"><button type="button" class="on" data-a="no">لا</button><button type="button" data-a="yes">نعم</button></div>
+          </div>
+          <div class="field">
+            <div><strong>تورّم عقد لمفية غير مؤلمة لا تزول</strong></div>
+            <div class="seg" data-q="nodes"><button type="button" class="on" data-a="no">لا</button><button type="button" data-a="yes">نعم</button></div>
+          </div>
+          <div class="field">
+            <div><strong>تغيّرات في الثدي (إفراز/انكماش الحلمة/تغضّن)</strong></div>
+            <div class="seg" data-q="breast"><button type="button" class="on" data-a="no">لا</button><button type="button" data-a="yes">نعم</button></div>
+          </div>
+          <div class="field">
+            <div><strong>تغيّر ملحوظ في التبوّل (للرجال 50+)</strong></div>
+            <div class="seg" data-q="prostate"><button type="button" class="on" data-a="no">لا</button><button type="button" data-a="yes">نعم</button></div>
+          </div>
+          <div class="field">
+            <div><strong>قرحة فم/جلد لا تلتئم</strong></div>
+            <div class="seg" data-q="ulcer"><button type="button" class="on" data-a="no">لا</button><button type="button" data-a="yes">نعم</button></div>
           </div>
         </div>
 
@@ -276,10 +211,17 @@
 
         <div class="deck" id="adviceDeck" style="display:none"></div>
 
+        <!-- مستشفى محلي حسب الدولة (يظهر بعد النتيجة) -->
+        <div id="localBox" class="card" style="margin-top:12px; display:none">
+          <h3>مستشفى موصى به في بلدك</h3>
+          <div class="hint">زر الاتصال يعمل مباشرة، مع رابط الموقع الرسمي.</div>
+          <div id="localContact" style="margin-top:6px; font-size:14px; color:#374151"></div>
+        </div>
+
         <!-- مستشفيات عالمية -->
         <div class="card" style="margin-top:12px">
           <h3>مستشفيات عالمية موصى بها</h3>
-          <div class="hint">اختر مستشفى لمعرفة رقم التواصل وزيارة موقعه الرسمي.</div>
+          <div class="hint">اختر مستشفى لمعرفة رقم التواصل والاتصال مباشرة.</div>
           <div class="select">
             <select id="intlSelect" aria-label="اختر مستشفى عالمي">
               <option value="">— اختر مستشفى عالميًا —</option>
@@ -290,7 +232,7 @@
               <option data-phone="+49-30-450-50" value="https://www.charite.de/en/">Charité – برلين — ألمانيا</option>
               <option data-phone="+33-1-4211-4211" value="https://www.gustaveroussy.fr/">Gustave Roussy — فرنسا</option>
               <option data-phone="+49-6221-56-5930" value="https://www.nct-heidelberg.de/en.html">NCT Heidelberg — ألمانيا</option>
-              <option data-phone="+65-6436-8000" value="https://www.nccs.com.sg/">National Cancer Centre Singapore — سنغافورة</option>
+              <option data-phone="+65-6436-8000" value="https://www.nccs.com.sg/">NCC Singapore — سنغافورة</option>
               <option data-phone="+82-2-3410-0200" value="https://www.samsunghospital.com/">Samsung Medical Center — كوريا الجنوبية</option>
               <option data-phone="+66-2066-8888" value="https://www.bumrungrad.com/">Bumrungrad International — تايلند</option>
               <option data-phone="+66-2022-2222" value="https://www.samitivejhospitals.com/">Samitivej (Cancer Center) — تايلند</option>
@@ -302,7 +244,7 @@
           <div id="intlContact" style="margin-top:8px; font-size:14px; color:#374151; display:none"></div>
         </div>
 
-        <!-- دليل عالمي (عربي) -->
+        <!-- دليل عالمي -->
         <div class="card" style="margin-top:12px">
           <h3>دليل عالمي موثوق</h3>
           <div class="hint">روابط تعليمية معتمدة عالميًا — تُفتح مباشرة.</div>
@@ -320,10 +262,10 @@
           </div>
         </div>
 
-        <!-- المصادر الطبية (عربي) -->
+        <!-- المصادر الطبية -->
         <div class="card" style="margin-top:12px">
           <h3>المصادر الطبية</h3>
-          <div class="hint">مقالات عن الأعراض والتحرّي تشمل علامات التحذير وخطوات المتابعة.</div>
+          <div class="hint">مقالات عن الأعراض والتحرّي تشمل العلامات التحذيرية وخطوات المتابعة.</div>
           <div class="select">
             <select id="srcSelect" aria-label="اختر مصدرًا طبيًا">
               <option value="">— اختر مصدرًا —</option>
@@ -379,12 +321,12 @@
 <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js" defer></script>
 
 <script>
-/* ===== إشعار أنيق ===== */
+/* إشعار أنيق */
 const notice=document.getElementById('notice'), noticeText=notice.querySelector('.text');
 notice.querySelector('.close').onclick=()=>{ notice.classList.remove('show'); setTimeout(()=>notice.style.display='none',250); };
 function notify(msg,{type='info',timeout=3500}={}){ notice.style.display='flex'; notice.classList.toggle('error', type==='error'); noticeText.innerHTML=msg; requestAnimationFrame(()=>notice.classList.add('show')); clearTimeout(window.__nt); window.__nt=setTimeout(()=>{ notice.classList.remove('show'); setTimeout(()=>notice.style.display='none',250); }, timeout); }
 
-/* ===== أزرار التبديل ===== */
+/* أزرار التبديل */
 function makeToggle(segId, dataKey){
   const seg=document.getElementById(segId);
   seg.addEventListener('click', e=>{
@@ -396,40 +338,69 @@ function makeToggle(segId, dataKey){
 }
 makeToggle('sexSeg','sex'); makeToggle('smokeSeg','smoke'); makeToggle('familySeg','fh');
 
-/* ===== مشاركة ===== */
+/* قوائم الروابط */
+document.getElementById('refSelect').addEventListener('change', e=>{ const url=e.target.value; if(url){ window.open(url,'_blank','noopener'); e.target.value=''; }});
+document.getElementById('srcSelect').addEventListener('change', e=>{ const url=e.target.value; if(url){ window.open(url,'_blank','noopener'); e.target.value=''; }});
+
+/* مستشفى عالمي — عرض رقم اتصال قابل للنقر */
+const intlSelect=document.getElementById('intlSelect');
+const intlContact=document.getElementById('intlContact');
+intlSelect.addEventListener('change', ()=>{
+  const opt = intlSelect.selectedOptions[0];
+  if(!opt || !opt.value){ intlContact.style.display='none'; intlContact.innerHTML=''; return; }
+  const phone = (opt.dataset.phone||'').replace(/\s+/g,'');
+  const tel = phone ? `tel:${phone}` : '';
+  const url = opt.value;
+  const name = opt.textContent.split('—')[0].trim();
+  intlContact.innerHTML = `${phone ? `📞 <a href="${tel}"><strong>${opt.dataset.phone}</strong></a>`:'📞 —'} &nbsp;—&nbsp; <a href="${url}" target="_blank" rel="noopener">زيارة موقع ${name}</a>`;
+  intlContact.style.display='block';
+});
+
+/* مشاركة */
 document.getElementById('shareWA').onclick=(e)=>{e.preventDefault(); window.open(`https://wa.me/?text=${encodeURIComponent(location.href)}`,'_blank','noopener');};
 document.getElementById('shareTG').onclick=(e)=>{e.preventDefault(); window.open(`https://t.me/share/url?url=${encodeURIComponent(location.href)}`,'_blank','noopener');};
 document.getElementById('shareX').onclick=(e)=>{e.preventDefault(); window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(location.href)}`,'_blank','noopener');};
 document.getElementById('shareFB').onclick=(e)=>{e.preventDefault(); window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(location.href)}`,'_blank','noopener');};
 document.getElementById('copyLink').onclick=async()=>{ try{ await navigator.clipboard.writeText(location.href); notify('🔗 تمّ نسخ رابط الصفحة.'); }catch(_){ notify('لم نتمكن من نسخ الرابط.',{type:'error'});} };
 
-/* ===== فتح الروابط للقوائم المنسدلة ===== */
-document.getElementById('refSelect').addEventListener('change', e=>{ const url=e.target.value; if(url){ window.open(url,'_blank','noopener'); e.target.value=''; }});
-document.getElementById('srcSelect').addEventListener('change', e=>{ const url=e.target.value; if(url){ window.open(url,'_blank','noopener'); e.target.value=''; }});
+/* خريطة مستشفى محلي لكل دولة (اسم + هاتف + موقع) */
+const COUNTRY_HOSPITALS={
+  BHR:{n:"مركز السلمانية الطبي — البحرين", phone:"+973-1728-8888", url:"https://www.moh.gov.bh/"},          // يمكن تعديله
+  KSA:{n:"مدينة الملك فهد الطبية (الأورام) — السعودية", phone:"+966-11-288-9999", url:"https://www.kfmc.med.sa/"}, // بديل موثوق: KFSH
+  ARE:{n:"كليفلاند كلينك أبوظبي — الإمارات", phone:"+971-2-659-0200", url:"https://www.clevelandclinicabudhabi.ae/"},
+  QAT:{n:"المركز الوطني لعلاج وأبحاث السرطان (NCCCR) — قطر", phone:"+974-4439-5777", url:"https://www.hamad.qa/"},
+  KWT:{n:"مركز الكويت لمكافحة السرطان — الكويت", phone:"+965-2484-4040", url:"https://www.moh.gov.kw/"},
+  OMN:{n:"المركز الوطني للأورام — المستشفى السلطاني — عُمان", phone:"+968-2459-9000", url:"https://www.royalhospital.om/"},
+  EGY:{n:"المعهد القومي للأورام — مصر", phone:"+20-2-2364-0831", url:"https://nci.cu.edu.eg/"},
+  JOR:{n:"مركز الحسين للسرطان — الأردن", phone:"+962-6-530-0460", url:"https://www.khcc.jo/"},
+  LBN:{n:"مركز نايف باسيل للسرطان (AUBMC) — لبنان", phone:"+961-1-350000", url:"https://www.aubmc.org.lb/"},
+  IRQ:{n:"مركز الأمل للأورام — العراق", phone:"+964-770-000-0000", url:"https://moh.gov.iq/"},  // ضع رقم أدق عند توفره
+  LBA:{n:"المركز الوطني لعلاج الأورام — ليبيا", phone:"+218-21-000-0000", url:"http://seha.ly/"}, // تحديث لاحقًا
+  MAR:{n:"المعهد الوطني للأنكولوجيا — الرباط، المغرب", phone:"+212-537-771-700", url:"https://www.sante.gov.ma/"},
+  DZA:{n:"مركز بيار وماري كوري لمكافحة السرطان — الجزائر", phone:"+213-21-239-000", url:"http://www.chu-beni-messous.dz/"}, // قابل للتحديث
+  TUN:{n:"معهد صالح عزيّز للأورام — تونس", phone:"+216-71-783-022", url:"http://www.isa.rns.tn/"},
+  SDN:{n:"مستشفى الذرة — الخرطوم، السودان", phone:"+249-183-000-000", url:"https://fmoh.gov.sd/"}, // تحديث لاحقًا
+  SYR:{n:"المشفى الجامعي — دمشق (قسم الأورام) — سوريا", phone:"+963-11-000-0000", url:"http://moh.gov.sy/"}, // تحديث لاحقًا
+  PSE:{n:"مركز خالد الحسن للسرطان — فلسطين", phone:"+970-2-000-0000", url:"https://www.moh.ps/"},
+  DJI:{n:"مستشفى بيلتييه — جيبوتي (أورام)", phone:"+253-21-35-00-00", url:"https://www.sante.gouv.dj/"},
+  COM:{n:"المستشفى الوطني — موروني، جزر القمر", phone:"+269-321-0000", url:""},
+  MRT:{n:"المستشفى الوطني — نواكشوط، موريتانيا (أورام)", phone:"+222-45-00-00-00", url:""},
+  SOM:{n:"مستشفى مديجو — مقديشو (أورام)", phone:"+252-61-000-0000", url:""},
+  YEM:{n:"المركز الوطني لعلاج الأورام — اليمن", phone:"+967-1-000-000", url:""},
+  IRN:{n:"معهد رويان/مركز السرطان — إيران (مثال)", phone:"+98-21-0000-0000", url:"https://www.iranmed.ir/"} // استبدله بالمركز المفضل لديك
+};
 
-/* ===== مستشفيات عالمية: إظهار رقم + رابط ===== */
-const intlSelect=document.getElementById('intlSelect');
-const intlContact=document.getElementById('intlContact');
-intlSelect.addEventListener('change', ()=>{
-  const opt = intlSelect.selectedOptions[0];
-  if(!opt || !opt.value){ intlContact.style.display='none'; intlContact.innerHTML=''; return; }
-  const phone = opt.dataset.phone || '—';
-  const url = opt.value;
-  const name = opt.textContent.split('—')[0].trim();
-  intlContact.innerHTML = `📞 <strong>${phone}</strong> &nbsp;—&nbsp; <a href="${url}" target="_blank" rel="noopener">زيارة موقع ${name}</a>`;
-  intlContact.style.display='block';
-});
-
-/* ===== تقييم المخاطر ===== */
+/* تقييم المخاطر */
 const QUESTIONS_IDS = ["cough","lump","bleed","skin","bowel","pain","gi","bsy","nodes","breast","prostate","ulcer"];
+function isYes(id){ return document.querySelector(`.seg[data-q="${id}"] .on`)?.dataset.a==='yes'; }
 function screening(age, sex, smoker, fh){
   const list=[];
-  if(sex==='female' && age>=40){ list.push("تصوير الثدي (ماموغرام) كل 1–2 سنة."); }
-  if(sex==='female' && age>=21){ list.push("عنق الرحم: Pap/HPV حسب الجدولة (كل 3–5 سنوات)."); }
-  if(age>=45){ list.push("القولون والمستقيم: FIT سنويًا أو تنظير كل 10 سنوات."); }
-  if(age>=50 && smoker==='yes'){ list.push("الرئة: تصوير طبقي منخفض الجرعة (LDCT) سنويًا للمدخنين المؤهلين."); }
-  if(sex==='male' && age>=50){ list.push("البروستاتا: ناقش PSA/فحص المستقيم."); }
-  if(fh==='yes'){ list.push("لتاريخ عائلي قوي: استشر اختصاصي وراثة/أورام."); }
+  if(sex==='female' && age>=40) list.push("تصوير الثدي (ماموغرام) كل 1–2 سنة.");
+  if(sex==='female' && age>=21) list.push("عنق الرحم: Pap/HPV حسب الجدولة (كل 3–5 سنوات).");
+  if(age>=45) list.push("القولون والمستقيم: FIT سنويًا أو تنظير كل 10 سنوات.");
+  if(age>=50 && smoker==='yes') list.push("الرئة: LDCT سنويًا للمدخنين المؤهلين.");
+  if(sex==='male' && age>=50) list.push("البروستاتا: ناقش PSA/فحص المستقيم.");
+  if(fh==='yes') list.push("لتاريخ عائلي قوي: استشر اختصاصي وراثة/أورام.");
   return list;
 }
 function computeRisk(){
@@ -438,7 +409,7 @@ function computeRisk(){
   QUESTIONS_IDS.forEach(id=>{
     const seg=document.querySelector(`.seg[data-q="${id}"]`);
     const a=seg.querySelector('button.on')?.dataset.a||'no';
-    if(a==='yes'){ score+=1; if(heavy.includes(id)) { score+=1; flags+=1; } }
+    if(a==='yes'){ score+=1; if(heavy.includes(id)){ score+=1; flags+=1; } }
   });
   if((document.getElementById('smokeSeg').dataset.smoke||'no')==='yes') score+=1;
   if((document.getElementById('familySeg').dataset.fh||'no')==='yes') score+=1;
@@ -450,9 +421,8 @@ function computeRisk(){
   if(isYes('cough') && isYes('bsy')){ levelTxt='مرتفعة (حمراء)'; levelClass='danger'; action='تقييم صدري عاجل (قد يلزم تصوير/تحاليل).'; }
   return {score, flags, levelTxt, levelClass, action};
 }
-function isYes(id){ return document.querySelector(`.seg[data-q="${id}"] .on`)?.dataset.a==='yes'; }
 
-/* ===== بناء النصائح ===== */
+/* نصائح */
 function buildAdvice(age, sex, smoke, fh){
   const deck=document.getElementById('adviceDeck'); deck.innerHTML='';
   const mk=(t,html)=>{ const e=document.createElement('div'); e.className='card'; e.innerHTML=`<h3>${t}</h3>${html}`; return e; };
@@ -464,7 +434,7 @@ function buildAdvice(age, sex, smoke, fh){
   deck.style.display='grid';
 }
 
-/* ===== زر اعرض النتيجة ===== */
+/* احسب النتيجة */
 let lastResult=null;
 document.getElementById('calc').addEventListener('click', ()=>{
   const age=parseFloat(document.getElementById('age').value);
@@ -486,26 +456,46 @@ document.getElementById('calc').addEventListener('click', ()=>{
 
   buildAdvice(age, sex, smoke, fh);
 
-  // إن كان هناك مستشفى مختار، أظهر الاتصال
+  /* مستشفى محلي حسب الدولة */
+  const ccode=document.getElementById('countrySelect').value;
+  const loc=COUNTRY_HOSPITALS[ccode];
+  const localBox=document.getElementById('localBox');
+  const localContact=document.getElementById('localContact');
+  if(loc){
+    const telHref = loc.phone ? `tel:${loc.phone.replace(/\s+/g,'')}` : '';
+    localContact.innerHTML = `
+      🏥 <strong>${loc.n}</strong><br>
+      ${loc.phone ? `📞 <a href="${telHref}"><strong>${loc.phone}</strong></a>` : '📞 —'}
+      &nbsp;—&nbsp;
+      ${loc.url ? `<a href="${loc.url}" target="_blank" rel="noopener">الموقع الرسمي</a>` : ''}
+    `;
+    localBox.style.display='block';
+  }else{
+    localBox.style.display='none';
+    localContact.innerHTML='';
+  }
+
+  /* إن كان هناك مستشفى عالمي مختار، أظهر تفاصيله */
   const sel=document.getElementById('intlSelect');
   if(sel.value){
     const opt=sel.selectedOptions[0];
-    const phone=opt.dataset.phone||'—';
-    const url=opt.value;
+    const phone=opt.dataset.phone||'';
+    const tel=phone?`tel:${phone.replace(/\s+/g,'')}`:'';
+    const url=sel.value;
     const name=opt.textContent.split('—')[0].trim();
-    const box=document.getElementById('intlContact');
-    box.innerHTML=`📞 <strong>${phone}</strong> &nbsp;—&nbsp; <a href="${url}" target="_blank" rel="noopener">زيارة موقع ${name}</a>`;
-    box.style.display='block';
+    intlContact.innerHTML=`${phone?`📞 <a href="${tel}"><strong>${phone}</strong></a>`:'📞 —'} &nbsp;—&nbsp; <a href="${url}" target="_blank" rel="noopener">زيارة موقع ${name}</a>`;
+    intlContact.style.display='block';
   }
 
-  // حفظ للـ PDF
+  /* حفظ للـ PDF */
   lastResult = {
     country: document.querySelector('#countrySelect option:checked').textContent,
     age, sex:(sex==='male'?'رجل':'امرأة'),
     smoke:(smoke==='yes'?'مدخّن':'غير مدخّن'),
     fh:(fh==='yes'?'تاريخ عائلي قوي':'لا'),
     score, flags, level:levelTxt, action,
-    hospital: sel.value? {n: sel.selectedOptions[0].textContent, phone: sel.selectedOptions[0].dataset.phone, url: sel.value} : null,
+    local: loc ? {n:loc.n, phone:loc.phone||'', url:loc.url||''} : null,
+    intl: sel.value ? {n: sel.selectedOptions[0].textContent, phone: sel.selectedOptions[0].dataset.phone||'', url: sel.value} : null,
     answers: QUESTIONS_IDS.map(id=>{
       const label=document.querySelector(`.seg[data-q="${id}"]`).previousElementSibling.textContent.trim();
       const a=document.querySelector(`.seg[data-q="${id}"] .on`)?.dataset.a||'no';
@@ -516,18 +506,28 @@ document.getElementById('calc').addEventListener('click', ()=>{
   document.getElementById('pdfwrap').style.display='block';
 });
 
-/* ===== PDF ===== */
+/* PDF */
 document.getElementById('pdfBtn').addEventListener('click', async ()=>{
   if(!lastResult){ notify('أجب عن الاستبيان أولًا.', {type:'error'}); return; }
   const box=document.createElement('div');
   box.setAttribute('dir','rtl');
   box.style.width='780px'; box.style.background='#fff'; box.style.border='1px solid #e5e7eb'; box.style.borderRadius='16px'; box.style.padding='20px'; box.style.fontFamily='"Cairo",sans-serif'; box.style.color='#111827';
-  const rows = lastResult.answers.map(x=>`<tr><td style="padding:8px 10px;border-bottom:1px solid #f3f4f6">${x.q}</td><td style="padding:8px 10px;border-bottom:1px solid #f3f4f6">${x.a}</td></tr>`).join('');
-  const hospitalRow = lastResult.hospital ? `
-    ${row('المستشفى العالمي', lastResult.hospital.n)}
-    ${row('هاتف المستشفى', lastResult.hospital.phone||'—')}
-    ${row('الموقع', `<a href='${lastResult.hospital.url}' target='_blank' rel='noopener'>رابط الموقع</a>`)}
+
+  function row(k,v){ return `<tr><td style="padding:8px 10px;border-bottom:1px solid #f3f4f6"><strong>${k}</strong></td><td style="padding:8px 10px;border-bottom:1px solid #f3f4f6">${v}</td></tr>`; }
+  const rowsAns = lastResult.answers.map(x=>`<tr><td style="padding:8px 10px;border-bottom:1px solid #f3f4f6">${x.q}</td><td style="padding:8px 10px;border-bottom:1px solid #f3f4f6">${x.a}</td></tr>`).join('');
+
+  const localRows = lastResult.local ? `
+    ${row('مستشفى بلدك', lastResult.local.n)}
+    ${row('هاتف المستشفى', lastResult.local.phone || '—')}
+    ${row('الموقع', lastResult.local.url ? `<a href='${lastResult.local.url}' target='_blank' rel='noopener'>رابط الموقع</a>` : '—')}
   ` : '';
+
+  const intlRows = lastResult.intl ? `
+    ${row('مستشفى عالمي مختار', lastResult.intl.n)}
+    ${row('هاتف المستشفى', lastResult.intl.phone || '—')}
+    ${row('الموقع', lastResult.intl.url ? `<a href='${lastResult.intl.url}' target='_blank' rel='noopener'>رابط الموقع</a>` : '—')}
+  ` : '';
+
   box.innerHTML=`
     <div style="text-align:center; margin-bottom:10px">
       <div style="font-family:'Amiri',serif; font-size:26px; color:${getComputedStyle(document.documentElement).getPropertyValue('--gold')}">تقرير استبيان أعراض السرطان</div>
@@ -546,22 +546,21 @@ document.getElementById('pdfBtn').addEventListener('click', async ()=>{
         ${row('درجة تقديرية (0–10)', lastResult.score)}
         ${row('حالة التشخيص', lastResult.level)}
         ${row('التوصية الآن', lastResult.action)}
-        ${hospitalRow}
+        ${localRows}
+        ${intlRows}
       </tbody>
     </table>
 
     <div style="font-weight:700; margin-bottom:6px">إجابات الأعراض</div>
     <table style="width:100%; border:1px solid #eee; border-radius:12px; border-collapse:separate; border-spacing:0">
       <thead><tr style="background:#f9fafb"><th style="padding:8px 10px; text-align:right">العَرَض</th><th style="padding:8px 10px; text-align:right">الإجابة</th></tr></thead>
-      <tbody>${rows}</tbody>
+      <tbody>${rowsAns}</tbody>
     </table>
 
-    <div style="margin-top:10px; font-size:12px; color:#6b7280">هذه نتيجة تثقيفية مبنية على دلائل عامة (WHO/ACS). لا تغني عن الطبيب. قد تتغيّر أرقام المستشفيات؛ يُفضَّل التأكيد من موقع المستشفى.</div>
+    <div style="margin-top:10px; font-size:12px; color:#6b7280">هذه نتيجة تثقيفية عامة. أرقام الاتصال قد تتغيّر؛ يُفضَّل التأكيد من الموقع الرسمي.</div>
   `;
-  function row(k,v){ return `<tr><td style="padding:8px 10px;border-bottom:1px solid #f3f4f6"><strong>${k}</strong></td><td style="padding:8px 10px;border-bottom:1px solid #f3f4f6">${v}</td></tr>`; }
 
   document.body.appendChild(box);
-  // html2canvas/jsPDF scripts موجودة بـ defer؛ ننتظر إطارًا
   await new Promise(r=>setTimeout(r, 120));
   const canvas = await html2canvas(box, {scale:2, useCORS:true});
   document.body.removeChild(box);
@@ -578,16 +577,12 @@ document.getElementById('pdfBtn').addEventListener('click', async ()=>{
   if(imgH <= pageH - margin*2){
     pdf.addImage(imgData, 'PNG', margin, margin, imgW, imgH);
   }else{
-    let sH = pageH - margin*2;
-    let ratio = canvas.width / imgW;
-    let slice = sH * ratio;
-    let pos = 0;
+    let sH = pageH - margin*2, ratio = canvas.width / imgW, slice = sH * ratio, pos = 0;
     while(pos < canvas.height){
       const sliceCanvas = document.createElement('canvas');
       sliceCanvas.width = canvas.width;
       sliceCanvas.height = Math.min(slice, canvas.height - pos);
-      const ctx = sliceCanvas.getContext('2d');
-      ctx.drawImage(canvas, 0, pos, canvas.width, sliceCanvas.height, 0, 0, sliceCanvas.width, sliceCanvas.height);
+      sliceCanvas.getContext('2d').drawImage(canvas, 0, pos, canvas.width, sliceCanvas.height, 0, 0, sliceCanvas.width, sliceCanvas.height);
       const sliceData = sliceCanvas.toDataURL('image/png');
       if(pos>0) pdf.addPage();
       pdf.addImage(sliceData,'PNG', margin, margin, imgW, (sliceCanvas.height / ratio));
@@ -597,7 +592,7 @@ document.getElementById('pdfBtn').addEventListener('click', async ()=>{
   pdf.save('نتيجة-استبيان-السرطان.pdf');
 });
 
-/* تبديل نعم/لا لكل سؤال (تفويض أحداث عام) */
+/* تبديل نعم/لا للأسئلة */
 document.getElementById('symptoms').addEventListener('click', e=>{
   const btn=e.target.closest('button'); if(!btn) return;
   const seg=btn.parentElement;
