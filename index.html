@@ -2,106 +2,107 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>الكتابة على الصور — واجهة بسيطة</title>
+  <title>الكتابة على الصور — شبيه الوورد</title>
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    body { font-family: "Tajawal", sans-serif; background:#fdfdfd; color:#333; }
+    body { font-family: "Tajawal", sans-serif; background:#fafafa; color:#333; }
     header { background:#fff; border-bottom:1px solid #eee; }
     canvas { background:#fff; border:1px solid #ddd; border-radius:10px; }
-    .btn { padding:0.5rem 1rem; border-radius:8px; border:1px solid #ccc; background:#fff; font-size:0.9rem; cursor:pointer; }
-    .btn-primary { background:#4f46e5; color:#fff; border:none; }
-    .tool { width:100%; border:1px solid #ddd; border-radius:8px; padding:0.4rem 0.6rem; background:#fff; }
-    .section { background:#fff; border:1px solid #eee; border-radius:12px; padding:1rem; }
-    .hint { font-size:0.8rem; color:#666; }
+    .btn { padding:0.4rem 0.6rem; border-radius:6px; border:1px solid #ccc; background:#fff; cursor:pointer; }
+    .btn:hover { background:#f3f4f6; }
+    .toolbar { display:flex; gap:0.5rem; flex-wrap:wrap; align-items:center; background:#fff; border:1px solid #ddd; border-radius:8px; padding:0.5rem; }
+    .tool-input { border:1px solid #ddd; border-radius:6px; padding:0.3rem 0.5rem; }
+    .icon { width:20px; height:20px; display:inline-block; text-align:center; }
   </style>
 </head>
 <body>
   <header class="p-3 text-center">
     <h1 class="text-lg font-bold">أداة الكتابة على الصور</h1>
-    <p class="text-sm text-gray-500">واجهة سهلة — تعمل على جميع الأجهزة</p>
-  </header>  <main class="max-w-4xl mx-auto p-4 grid gap-4 md:grid-cols-2">
+    <p class="text-sm text-gray-500">بأدوات شبيهة ببرنامج الوورد</p>
+  </header>  <main class="max-w-5xl mx-auto p-4 grid gap-4 md:grid-cols-2">
     <!-- المعاينة -->
-    <section class="section">
-      <p class="text-sm text-gray-600 mb-2">المعاينة</p>
+    <section class="bg-white p-3 rounded-2xl border border-gray-200">
       <canvas id="stage" width="640" height="400" class="w-full"></canvas>
-      <p class="hint mt-2">اسحب لتحريك النص، أو كبّر باللمس/العجلة</p>
+      <p class="text-xs text-gray-500 mt-2">اسحب لتحريك النص، كبّر باللمس/العجلة</p>
     </section><!-- الأدوات -->
-<section class="section space-y-3">
-  <div>
+<section class="space-y-3">
+  <div class="bg-white p-3 rounded-2xl border border-gray-200 space-y-2">
     <label class="text-sm">تحميل صورة</label>
-    <input id="imageInput" type="file" accept="image/*" class="tool mt-1" />
+    <input id="imageInput" type="file" accept="image/*" class="tool-input w-full" />
   </div>
 
-  <div>
+  <div class="bg-white p-3 rounded-2xl border border-gray-200 space-y-2">
     <label class="text-sm">النص</label>
-    <input id="textInput" type="text" placeholder="أدخل النص هنا" class="tool mt-1" />
-    <button id="addText" class="btn btn-primary mt-2 w-full">إضافة النص</button>
-  </div>
+    <input id="textInput" type="text" placeholder="أدخل النص هنا" class="tool-input w-full" />
 
-  <div>
-    <label class="text-sm">الخط</label>
-    <select id="fontFamily" class="tool mt-1">
-      <option value="Tajawal">Tajawal</option>
-      <option value="Arial">Arial</option>
-      <option value="Georgia">Georgia</option>
-    </select>
-  </div>
+    <!-- شريط أدوات شبيه بالوورد -->
+    <div class="toolbar">
+      <select id="fontFamily" class="tool-input">
+        <option value="Tajawal">Tajawal</option>
+        <option value="Arial">Arial</option>
+        <option value="Georgia">Georgia</option>
+      </select>
 
-  <div>
-    <label class="text-sm">الحجم</label>
-    <input id="fontSize" type="range" min="16" max="120" value="40" class="w-full" />
-  </div>
+      <input id="fontSize" type="number" value="32" min="10" max="120" class="tool-input w-20" />
 
-  <div>
-    <label class="text-sm">لون النص</label>
-    <input id="fontColor" type="color" value="#000000" class="tool mt-1" />
-  </div>
+      <input id="fontColor" type="color" value="#000000" class="w-8 h-8 border rounded" />
 
-  <div class="flex gap-2 flex-wrap">
-    <label><input id="bold" type="checkbox" /> عريض</label>
-    <label><input id="italic" type="checkbox" /> مائل</label>
-    <label><input id="shadow" type="checkbox" checked /> ظل</label>
+      <button id="bold" class="btn"><b>B</b></button>
+      <button id="italic" class="btn"><i>I</i></button>
+      <button id="shadow" class="btn">ظل</button>
+
+      <button data-align="left" class="btn">🡸</button>
+      <button data-align="center" class="btn">☰</button>
+      <button data-align="right" class="btn">🡺</button>
+    </div>
+
+    <button id="addText" class="btn bg-indigo-600 text-white w-full">إضافة النص</button>
   </div>
 
   <div class="flex gap-2">
-    <button id="downloadPNG" class="btn btn-primary flex-1">تنزيل PNG</button>
+    <button id="downloadPNG" class="btn bg-indigo-600 text-white flex-1">تنزيل PNG</button>
     <button id="downloadJPG" class="btn flex-1">تنزيل JPG</button>
   </div>
 </section>
 
   </main>  <script>
     const $ = (s)=>document.querySelector(s);
-    const canvas = $('#stage');
-    const ctx = canvas.getContext('2d');
-    let image=null, texts=[], selected=null;
+    const canvas=$('#stage'), ctx=canvas.getContext('2d');
+    let image=null, texts=[];
 
-    const ui={ imageInput:$('#imageInput'), textInput:$('#textInput'), addText:$('#addText'), fontFamily:$('#fontFamily'), fontSize:$('#fontSize'), fontColor:$('#fontColor'), bold:$('#bold'), italic:$('#italic'), shadow:$('#shadow'), downloadPNG:$('#downloadPNG'), downloadJPG:$('#downloadJPG') };
+    const ui={ imageInput:$('#imageInput'), textInput:$('#textInput'), addText:$('#addText'), fontFamily:$('#fontFamily'), fontSize:$('#fontSize'), fontColor:$('#fontColor'), bold:$('#bold'), italic:$('#italic'), shadow:$('#shadow'), alignBtns:document.querySelectorAll('[data-align]'), downloadPNG:$('#downloadPNG'), downloadJPG:$('#downloadJPG') };
 
     function draw(){
       ctx.clearRect(0,0,canvas.width,canvas.height);
       if(image){ ctx.drawImage(image,0,0,canvas.width,canvas.height); }
       texts.forEach(t=>{
-        const weight=t.bold?'700':'400'; const style=t.italic?'italic':'normal';
-        ctx.font=`${style} ${weight} ${t.size}px ${t.family}`;
-        ctx.fillStyle=t.color;
-        ctx.textAlign='center'; ctx.textBaseline='middle';
+        ctx.font=`${t.italic?'italic':''} ${t.bold?'700':'400'} ${t.size}px ${t.family}`;
+        ctx.fillStyle=t.color; ctx.textAlign=t.align; ctx.textBaseline='middle';
         if(t.shadow){ ctx.shadowColor='rgba(0,0,0,.3)'; ctx.shadowBlur=4; } else { ctx.shadowColor='transparent'; }
         ctx.fillText(t.text,t.x,t.y);
       });
     }
 
-    ui.imageInput.addEventListener('change',e=>{ const f=e.target.files[0]; if(!f)return; const img=new Image(); img.onload=()=>{ image=img; draw(); }; img.src=URL.createObjectURL(f); });
+    ui.imageInput.addEventListener('change',e=>{const f=e.target.files[0];if(!f)return;const img=new Image();img.onload=()=>{image=img;draw();};img.src=URL.createObjectURL(f);});
 
-    ui.addText.addEventListener('click',()=>{ if(!ui.textInput.value.trim()) return; texts.push({ text:ui.textInput.value, x:canvas.width/2, y:canvas.height/2, family:ui.fontFamily.value, size:+ui.fontSize.value, color:ui.fontColor.value, bold:ui.bold.checked, italic:ui.italic.checked, shadow:ui.shadow.checked }); draw(); });
+    ui.addText.addEventListener('click',()=>{if(!ui.textInput.value.trim())return; texts.push({ text:ui.textInput.value, x:canvas.width/2, y:canvas.height/2, family:ui.fontFamily.value, size:+ui.fontSize.value, color:ui.fontColor.value, bold:ui.bold.classList.contains('active'), italic:ui.italic.classList.contains('active'), shadow:ui.shadow.classList.contains('active'), align:'center' }); draw();});
 
-    ;['fontFamily','fontSize','fontColor','bold','italic','shadow'].forEach(k=> ui[k].addEventListener('input',()=>{ if(texts.length===0)return; const t=texts[texts.length-1]; t.family=ui.fontFamily.value; t.size=+ui.fontSize.value; t.color=ui.fontColor.value; t.bold=ui.bold.checked; t.italic=ui.italic.checked; t.shadow=ui.shadow.checked; draw(); }));
+    ui.fontFamily.addEventListener('input',()=>{updateSel({family:ui.fontFamily.value});});
+    ui.fontSize.addEventListener('input',()=>{updateSel({size:+ui.fontSize.value});});
+    ui.fontColor.addEventListener('input',()=>{updateSel({color:ui.fontColor.value});});
 
-    function download(type){ if(!image){alert('حمّل صورة أولاً'); return;} const out=document.createElement('canvas'); const octx=out.getContext('2d'); out.width=image.naturalWidth; out.height=image.naturalHeight; octx.drawImage(image,0,0,out.width,out.height); texts.forEach(t=>{ const ratio=image.naturalWidth/canvas.width; octx.font=`${t.italic?'italic':'normal'} ${t.bold?'700':'400'} ${t.size*ratio}px ${t.family}`; octx.fillStyle=t.color; octx.textAlign='center'; octx.textBaseline='middle'; if(t.shadow){ octx.shadowColor='rgba(0,0,0,.3)'; octx.shadowBlur=4*ratio; } else { octx.shadowColor='transparent'; } octx.fillText(t.text,t.x*ratio,t.y*ratio); }); const mime=type==='png'?'image/png':'image/jpeg'; const a=document.createElement('a'); a.download=`output.${type}`; a.href=out.toDataURL(mime); a.click(); }
+    ;['bold','italic','shadow'].forEach(id=>{ui[id].addEventListener('click',()=>{ui[id].classList.toggle('active'); updateSel({[id]:ui[id].classList.contains('active')});});});
+
+    ui.alignBtns.forEach(btn=> btn.addEventListener('click',()=> updateSel({align:btn.dataset.align})));
+
+    function updateSel(props){ if(texts.length===0) return; Object.assign(texts[texts.length-1],props); draw(); }
+
+    function download(type){ if(!image){alert('حمّل صورة أولاً');return;} const out=document.createElement('canvas'); const octx=out.getContext('2d'); out.width=image.naturalWidth; out.height=image.naturalHeight; octx.drawImage(image,0,0,out.width,out.height); texts.forEach(t=>{const ratio=image.naturalWidth/canvas.width; octx.font=`${t.italic?'italic':''} ${t.bold?'700':'400'} ${t.size*ratio}px ${t.family}`; octx.fillStyle=t.color; octx.textAlign=t.align; octx.textBaseline='middle'; if(t.shadow){octx.shadowColor='rgba(0,0,0,.3)';octx.shadowBlur=4*ratio;} else {octx.shadowColor='transparent';} octx.fillText(t.text,t.x*ratio,t.y*ratio);}); const mime=type==='png'?'image/png':'image/jpeg'; const a=document.createElement('a'); a.download=`output.${type}`; a.href=out.toDataURL(mime); a.click(); }
     ui.downloadPNG.addEventListener('click',()=>download('png'));
     ui.downloadJPG.addEventListener('click',()=>download('jpg'));
 
     // سحب النص الأخير
-    let dragging=false; canvas.addEventListener('mousedown',e=>{ if(texts.length===0)return; dragging=true; }); canvas.addEventListener('mousemove',e=>{ if(!dragging||texts.length===0)return; const r=canvas.getBoundingClientRect(); const t=texts[texts.length-1]; t.x=(e.clientX-r.left)*(canvas.width/r.width); t.y=(e.clientY-r.top)*(canvas.height/r.height); draw(); }); window.addEventListener('mouseup',()=>dragging=false);
+    let dragging=false; canvas.addEventListener('mousedown',e=>{if(texts.length===0)return; dragging=true;}); canvas.addEventListener('mousemove',e=>{if(!dragging||texts.length===0)return;const r=canvas.getBoundingClientRect(); const t=texts[texts.length-1]; t.x=(e.clientX-r.left)*(canvas.width/r.width); t.y=(e.clientY-r.top)*(canvas.height/r.height); draw();}); window.addEventListener('mouseup',()=>dragging=false);
   </script></body>
 </html>
