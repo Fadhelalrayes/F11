@@ -1,442 +1,107 @@
 <!DOCTYPE html><html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>الكتابة على الصور — صفحة احترافية</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>الكتابة على الصور — واجهة بسيطة</title>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    :root { --card: #0f172a; --muted:#111827; --ink:#e5e7eb; }
-    body { font-family: "Tajawal", "Cairo", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"; }
-    .glass { background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(8px); }
-    .grid-smooth { display:grid; grid-template-columns: 360px 1fr; gap:1rem; }
-    @media (max-width: 1024px){ .grid-smooth{ grid-template-columns: 1fr; } }
-    .btn { @apply px-3 py-2 rounded-2xl shadow hover:shadow-md transition; }
-    .btn-ghost { @apply border border-slate-700; }
-    .btn-primary { @apply bg-indigo-600 text-white; }
-    .btn-danger { @apply bg-rose-600 text-white; }
-    .btn-muted { @apply bg-slate-700 text-slate-100; }
-    .tool-label { @apply text-sm text-slate-300; }
-    .tool-input { @apply w-full bg-slate-800/70 border border-slate-700 rounded-xl px-3 py-2 text-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-500; }
-    canvas { background: #0b1020; border-radius: 1rem; box-shadow: 0 10px 30px rgba(0,0,0,.3); }
-    .badge { @apply text-xs px-2 py-1 rounded-full bg-slate-700 text-slate-200; }
+    body { font-family: "Tajawal", sans-serif; background:#fdfdfd; color:#333; }
+    header { background:#fff; border-bottom:1px solid #eee; }
+    canvas { background:#fff; border:1px solid #ddd; border-radius:10px; }
+    .btn { padding:0.5rem 1rem; border-radius:8px; border:1px solid #ccc; background:#fff; font-size:0.9rem; cursor:pointer; }
+    .btn-primary { background:#4f46e5; color:#fff; border:none; }
+    .tool { width:100%; border:1px solid #ddd; border-radius:8px; padding:0.4rem 0.6rem; background:#fff; }
+    .section { background:#fff; border:1px solid #eee; border-radius:12px; padding:1rem; }
+    .hint { font-size:0.8rem; color:#666; }
   </style>
 </head>
-<body class="min-h-screen bg-slate-900 text-slate-100">
-  <header class="sticky top-0 z-10 glass border-b border-slate-800">
-    <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between gap-3">
-      <div class="flex items-center gap-3">
-        <div class="w-9 h-9 rounded-2xl bg-indigo-600 grid place-items-center shadow"><span class="font-black">Ai</span></div>
-        <div>
-          <h1 class="text-xl lg:text-2xl font-extrabold">الكتابة على الصور</h1>
-          <p class="text-xs text-slate-400">حمّل صورة، أضف نصوصًا، حرّكها، غيّر الخط والمحاذاة ثم نزّل النتيجة</p>
-        </div>
-      </div>
-      <div class="hidden md:flex items-center gap-2">
-        <span class="badge">يدعم العربية و RTL</span>
-        <span class="badge">تحميل PNG / JPG</span>
-      </div>
-    </div>
-  </header>  <main class="max-w-7xl mx-auto px-4 py-6 grid-smooth">
-    <!-- Sidebar Controls -->
-    <section class="glass rounded-3xl border border-slate-800 p-4 lg:p-5 space-y-4">
-      <div>
-        <label class="tool-label">تحميل صورة</label>
-        <input id="imageInput" type="file" accept="image/*" class="tool-input mt-1" />
-        <div class="flex gap-2 mt-3">
-          <button id="fitCanvas" class="btn btn-muted">ملاءمة المعاينة</button>
-          <button id="clearImage" class="btn btn-ghost">إزالة</button>
-        </div>
-      </div><hr class="border-slate-800">
-
-  <div class="space-y-2">
-    <label class="tool-label">نص جديد</label>
-    <input id="textInput" type="text" placeholder="اكتب تعليقك..." class="tool-input" />
-    <div class="grid grid-cols-2 gap-2">
-      <button id="addText" class="btn btn-primary">إضافة النص</button>
-      <button id="deleteText" class="btn btn-danger">حذف المحدد</button>
-    </div>
+<body>
+  <header class="p-3 text-center">
+    <h1 class="text-lg font-bold">أداة الكتابة على الصور</h1>
+    <p class="text-sm text-gray-500">واجهة سهلة — تعمل على جميع الأجهزة</p>
+  </header>  <main class="max-w-4xl mx-auto p-4 grid gap-4 md:grid-cols-2">
+    <!-- المعاينة -->
+    <section class="section">
+      <p class="text-sm text-gray-600 mb-2">المعاينة</p>
+      <canvas id="stage" width="640" height="400" class="w-full"></canvas>
+      <p class="hint mt-2">اسحب لتحريك النص، أو كبّر باللمس/العجلة</p>
+    </section><!-- الأدوات -->
+<section class="section space-y-3">
+  <div>
+    <label class="text-sm">تحميل صورة</label>
+    <input id="imageInput" type="file" accept="image/*" class="tool mt-1" />
   </div>
 
-  <div class="grid grid-cols-2 gap-3">
-    <div>
-      <label class="tool-label">الخط</label>
-      <select id="fontFamily" class="tool-input">
-        <option value="Tajawal" selected>Tajawal</option>
-        <option value="Cairo">Cairo</option>
-        <option value="Arial">Arial</option>
-        <option value="Georgia">Georgia</option>
-        <option value="Impact">Impact</option>
-      </select>
-    </div>
-    <div>
-      <label class="tool-label">الحجم</label>
-      <input id="fontSize" type="number" min="10" max="300" value="42" class="tool-input" />
-    </div>
-    <div>
-      <label class="tool-label">لون النص</label>
-      <input id="fontColor" type="color" value="#ffffff" class="tool-input h-10" />
-    </div>
-    <div>
-      <label class="tool-label">حد (Stroke)</label>
-      <div class="flex gap-2">
-        <input id="strokeColor" type="color" value="#000000" class="tool-input h-10" />
-        <input id="strokeWidth" type="number" min="0" max="20" value="3" class="tool-input" />
-      </div>
-    </div>
+  <div>
+    <label class="text-sm">النص</label>
+    <input id="textInput" type="text" placeholder="أدخل النص هنا" class="tool mt-1" />
+    <button id="addText" class="btn btn-primary mt-2 w-full">إضافة النص</button>
   </div>
 
-  <div class="grid grid-cols-3 gap-2">
-    <button data-align="right" class="btn btn-muted align-btn">يمين</button>
-    <button data-align="center" class="btn btn-muted align-btn">وسط</button>
-    <button data-align="left" class="btn btn-muted align-btn">يسار</button>
+  <div>
+    <label class="text-sm">الخط</label>
+    <select id="fontFamily" class="tool mt-1">
+      <option value="Tajawal">Tajawal</option>
+      <option value="Arial">Arial</option>
+      <option value="Georgia">Georgia</option>
+    </select>
   </div>
 
-  <div class="grid grid-cols-3 gap-2">
-    <button data-preset="tl" class="btn btn-ghost">فوق-يسار</button>
-    <button data-preset="tc" class="btn btn-ghost">فوق-وسط</button>
-    <button data-preset="tr" class="btn btn-ghost">فوق-يمين</button>
-    <button data-preset="bl" class="btn btn-ghost">تحت-يسار</button>
-    <button data-preset="bc" class="btn btn-ghost">تحت-وسط</button>
-    <button data-preset="br" class="btn btn-ghost">تحت-يمين</button>
+  <div>
+    <label class="text-sm">الحجم</label>
+    <input id="fontSize" type="range" min="16" max="120" value="40" class="w-full" />
   </div>
 
-  <div class="flex flex-wrap gap-2">
-    <label class="inline-flex items-center gap-2"><input id="bold" type="checkbox" class="accent-indigo-600"> <span>عريض</span></label>
-    <label class="inline-flex items-center gap-2"><input id="italic" type="checkbox" class="accent-indigo-600"> <span>مائل</span></label>
-    <label class="inline-flex items-center gap-2"><input id="shadow" type="checkbox" checked class="accent-indigo-600"> <span>ظل</span></label>
-    <label class="inline-flex items-center gap-2"><input id="rtl" type="checkbox" checked class="accent-indigo-600"> <span>اتجاه RTL</span></label>
+  <div>
+    <label class="text-sm">لون النص</label>
+    <input id="fontColor" type="color" value="#000000" class="tool mt-1" />
   </div>
 
-  <div class="grid grid-cols-2 gap-2">
-    <button id="bringFront" class="btn btn-muted">أمام</button>
-    <button id="duplicate" class="btn btn-muted">نسخ</button>
+  <div class="flex gap-2 flex-wrap">
+    <label><input id="bold" type="checkbox" /> عريض</label>
+    <label><input id="italic" type="checkbox" /> مائل</label>
+    <label><input id="shadow" type="checkbox" checked /> ظل</label>
   </div>
 
-  <div class="grid grid-cols-2 gap-2 pt-2">
-    <button id="downloadPNG" class="btn btn-primary">تنزيل PNG</button>
-    <button id="downloadJPG" class="btn btn-ghost">تنزيل JPG</button>
-  </div>
-
-  <p class="text-xs text-slate-400 pt-1">نصيحة: حرّك النصوص بالسحب داخل المعاينة. انقر لاختيار نص. عجلة الفأرة للتكبير/التصغير.</p>
-</section>
-
-<!-- Canvas / Preview -->
-<section class="space-y-3">
-  <div class="glass rounded-3xl border border-slate-800 p-3 lg:p-4">
-    <div class="flex items-center justify-between px-1 pb-2">
-      <div class="text-sm text-slate-300">المعاينة</div>
-      <div class="flex items-center gap-2 text-xs">
-        <span id="zoomLabel" class="badge">100%</span>
-        <span id="sizeLabel" class="badge">—</span>
-      </div>
-    </div>
-    <div class="w-full overflow-auto grid place-items-center" id="canvasWrap">
-      <canvas id="stage" width="900" height="600" class="max-w-full"></canvas>
-    </div>
-  </div>
-
-  <div class="glass rounded-3xl border border-slate-800 p-4 text-sm text-slate-300">
-    <b class="text-slate-100">دليل سريع</b>
-    <ul class="list-disc pr-6 pt-2 space-y-1">
-      <li>حمّل صورة بأي حجم؛ الأداة تحفظ الدقة الأصلية عند التنزيل.</li>
-      <li>أضف عدة نصوص، غيّر الخط والحجم واللون والمحاذاة والحد والظل.</li>
-      <li>محاذاة جاهزة للحواف: فوق/وسط/يمين/يسار/أسفل بزر واحد.</li>
-      <li>ادعم العربية عبر خيار RTL؛ خطوط Tajawal و Cairo مضافة.</li>
-    </ul>
+  <div class="flex gap-2">
+    <button id="downloadPNG" class="btn btn-primary flex-1">تنزيل PNG</button>
+    <button id="downloadJPG" class="btn flex-1">تنزيل JPG</button>
   </div>
 </section>
 
   </main>  <script>
-    const $ = (sel) => document.querySelector(sel);
+    const $ = (s)=>document.querySelector(s);
     const canvas = $('#stage');
     const ctx = canvas.getContext('2d');
-    const wrap = $('#canvasWrap');
+    let image=null, texts=[], selected=null;
 
-    let image = null; // HTMLImageElement
-    let zoom = 1;
-    let texts = []; // {id,text,x,y,fontFamily,fontSize,color,bold,italic,align,shadow,stroke,strokeColor,strokeWidth,rtl}
-    let selectedId = null;
-    let dragging = false; let dragOffX = 0, dragOffY = 0;
-
-    const controls = {
-      imageInput: $('#imageInput'),
-      fitCanvas: $('#fitCanvas'),
-      clearImage: $('#clearImage'),
-      textInput: $('#textInput'),
-      addText: $('#addText'),
-      deleteText: $('#deleteText'),
-      fontFamily: $('#fontFamily'),
-      fontSize: $('#fontSize'),
-      fontColor: $('#fontColor'),
-      strokeColor: $('#strokeColor'),
-      strokeWidth: $('#strokeWidth'),
-      bold: $('#bold'),
-      italic: $('#italic'),
-      shadow: $('#shadow'),
-      rtl: $('#rtl'),
-      bringFront: $('#bringFront'),
-      duplicate: $('#duplicate'),
-      downloadPNG: $('#downloadPNG'),
-      downloadJPG: $('#downloadJPG'),
-      zoomLabel: $('#zoomLabel'),
-      sizeLabel: $('#sizeLabel'),
-      alignBtns: document.querySelectorAll('.align-btn'),
-      presetBtns: document.querySelectorAll('[data-preset]'),
-    };
-
-    function setFont(o){
-      const weight = o.bold ? '700' : '400';
-      const style = o.italic ? 'italic' : 'normal';
-      ctx.font = `${style} ${weight} ${o.fontSize}px ${o.fontFamily}`;
-      ctx.direction = o.rtl ? 'rtl' : 'ltr';
-      ctx.fillStyle = o.color;
-      ctx.textAlign = o.align; // left | center | right
-      ctx.textBaseline = 'middle';
-      if (o.shadow) { ctx.shadowColor = 'rgba(0,0,0,.45)'; ctx.shadowBlur = 8; ctx.shadowOffsetX = 0; ctx.shadowOffsetY = 2; }
-      else { ctx.shadowColor = 'transparent'; ctx.shadowBlur = 0; ctx.shadowOffsetX = 0; ctx.shadowOffsetY = 0; }
-    }
+    const ui={ imageInput:$('#imageInput'), textInput:$('#textInput'), addText:$('#addText'), fontFamily:$('#fontFamily'), fontSize:$('#fontSize'), fontColor:$('#fontColor'), bold:$('#bold'), italic:$('#italic'), shadow:$('#shadow'), downloadPNG:$('#downloadPNG'), downloadJPG:$('#downloadJPG') };
 
     function draw(){
-      ctx.clearRect(0,0,canvas.width, canvas.height);
-      if (image) {
-        // center image
-        const fit = fitContain(image.naturalWidth, image.naturalHeight, canvas.width, canvas.height);
-        const ix = (canvas.width - fit.w)/2;
-        const iy = (canvas.height - fit.h)/2;
-        ctx.drawImage(image, 0,0,image.naturalWidth,image.naturalHeight, ix, iy, fit.w, fit.h);
-      }
-      texts.forEach(o => drawText(o));
-      updateLabels();
-    }
-
-    function drawText(o){
-      setFont(o);
-      // Stroke (outline) then fill for readability
-      if (o.strokeWidth > 0) {
-        ctx.lineWidth = o.strokeWidth;
-        ctx.strokeStyle = o.strokeColor;
-        ctx.strokeText(o.text, o.x, o.y);
-      }
-      ctx.fillText(o.text, o.x, o.y);
-      // Draw selection box
-      if (o.id === selectedId) {
-        const box = measureTextBox(o);
-        ctx.save();
-        ctx.shadowColor = 'transparent';
-        ctx.strokeStyle = 'rgba(99,102,241,.9)';
-        ctx.lineWidth = 1.5;
-        ctx.strokeRect(box.x, box.y, box.w, box.h);
-        ctx.restore();
-      }
-    }
-
-    function measureTextBox(o){
-      setFont(o);
-      const metrics = ctx.measureText(o.text || ' ');
-      const w = metrics.width + 20; // padding
-      const h = o.fontSize * 1.6;
-      let x = o.x, y = o.y;
-      if (o.align === 'center') x -= w/2; else if (o.align === 'right') x -= w;
-      return { x: x-10, y: y - h/2, w, h };
-    }
-
-    function fitContain(sw, sh, dw, dh){
-      const s = Math.min(dw/sw, dh/sh);
-      return { w: sw*s, h: sh*s, s };
-    }
-
-    function addTextAtCenter(text){
-      const o = {
-        id: crypto.randomUUID(),
-        text: text || 'نص جديد',
-        x: canvas.width/2,
-        y: canvas.height/2,
-        fontFamily: controls.fontFamily.value,
-        fontSize: parseInt(controls.fontSize.value||42,10),
-        color: controls.fontColor.value,
-        bold: controls.bold.checked,
-        italic: controls.italic.checked,
-        align: 'center',
-        shadow: controls.shadow.checked,
-        strokeColor: controls.strokeColor.value,
-        strokeWidth: parseInt(controls.strokeWidth.value||0,10),
-        rtl: controls.rtl.checked,
-      };
-      texts.push(o); selectedId = o.id; draw();
-    }
-
-    function updateSelected(up){
-      const i = texts.findIndex(t=>t.id===selectedId);
-      if (i===-1) return;
-      texts[i] = { ...texts[i], ...up };
-      draw();
-    }
-
-    function removeSelected(){
-      const i = texts.findIndex(t=>t.id===selectedId);
-      if (i===-1) return; texts.splice(i,1); selectedId = null; draw();
-    }
-
-    // Events
-    controls.imageInput.addEventListener('change', (e)=>{
-      const file = e.target.files[0]; if (!file) return;
-      const img = new Image(); img.onload = ()=>{ image = img; smartResizeCanvas(); draw(); };
-      img.src = URL.createObjectURL(file);
-    });
-
-    controls.fitCanvas.addEventListener('click', ()=>{ smartResizeCanvas(); draw(); });
-    controls.clearImage.addEventListener('click', ()=>{ image=null; draw(); });
-
-    controls.addText.addEventListener('click', ()=>{ addTextAtCenter(controls.textInput.value.trim() || 'نص جديد'); });
-    controls.deleteText.addEventListener('click', removeSelected);
-
-    ['fontFamily','fontSize','fontColor','strokeColor','strokeWidth','bold','italic','shadow','rtl'].forEach(k=>{
-      controls[k].addEventListener('input', ()=>{
-        if (!selectedId) return; updateSelected({
-          fontFamily: controls.fontFamily.value,
-          fontSize: parseInt(controls.fontSize.value||42,10),
-          color: controls.fontColor.value,
-          strokeColor: controls.strokeColor.value,
-          strokeWidth: parseInt(controls.strokeWidth.value||0,10),
-          bold: controls.bold.checked,
-          italic: controls.italic.checked,
-          shadow: controls.shadow.checked,
-          rtl: controls.rtl.checked,
-        });
-      });
-    });
-
-    controls.alignBtns.forEach(btn=>btn.addEventListener('click', ()=>{
-      if (!selectedId) return; updateSelected({ align: btn.dataset.align });
-    }));
-
-    controls.presetBtns.forEach(btn=>btn.addEventListener('click', ()=>{
-      if (!selectedId) return;
-      const pad = 24;
-      let x = canvas.width/2, y = canvas.height/2, align = 'center';
-      switch(btn.dataset.preset){
-        case 'tl': x = pad; y = pad*2; align='left'; break;
-        case 'tc': x = canvas.width/2; y = pad*2; align='center'; break;
-        case 'tr': x = canvas.width - pad; y = pad*2; align='right'; break;
-        case 'bl': x = pad; y = canvas.height - pad*2; align='left'; break;
-        case 'bc': x = canvas.width/2; y = canvas.height - pad*2; align='center'; break;
-        case 'br': x = canvas.width - pad; y = canvas.height - pad*2; align='right'; break;
-      }
-      updateSelected({ x, y, align });
-    }));
-
-    controls.bringFront.addEventListener('click', ()=>{
-      const i = texts.findIndex(t=>t.id===selectedId); if (i<0) return;
-      const [o] = texts.splice(i,1); texts.push(o); draw();
-    });
-
-    controls.duplicate.addEventListener('click', ()=>{
-      const o = texts.find(t=>t.id===selectedId); if (!o) return;
-      const c = { ...o, id: crypto.randomUUID(), y: o.y + o.fontSize + 10 };
-      texts.push(c); selectedId = c.id; draw();
-    });
-
-    // Download with full resolution
-    controls.downloadPNG.addEventListener('click', ()=> downloadImage('png'));
-    controls.downloadJPG.addEventListener('click', ()=> downloadImage('jpeg'));
-
-    function downloadImage(type='png'){
-      if (!image){ alert('من فضلك حمّل صورة أولًا'); return; }
-      const out = document.createElement('canvas');
-      const octx = out.getContext('2d');
-      out.width = image.naturalWidth; out.height = image.naturalHeight;
-      // Draw image
-      octx.drawImage(image, 0,0);
-      // Draw texts proportionally
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      if(image){ ctx.drawImage(image,0,0,canvas.width,canvas.height); }
       texts.forEach(t=>{
-        const fit = fitContain(image.naturalWidth, image.naturalHeight, canvas.width, canvas.height);
-        const ix = (canvas.width - fit.w)/2; const iy = (canvas.height - fit.h)/2;
-        const scale = image.naturalWidth / fit.w; // proportion from canvas coords to source image
-        const tx = (t.x - ix) * scale; const ty = (t.y - iy) * scale;
-        const o = { ...t, fontSize: t.fontSize * scale };
-        // apply font
-        const weight = o.bold ? '700' : '400';
-        const style = o.italic ? 'italic' : 'normal';
-        octx.font = `${style} ${weight} ${o.fontSize}px ${o.fontFamily}`;
-        octx.direction = o.rtl ? 'rtl' : 'ltr';
-        octx.fillStyle = o.color; octx.textAlign = o.align; octx.textBaseline = 'middle';
-        if (o.shadow) { octx.shadowColor='rgba(0,0,0,.45)'; octx.shadowBlur = 8*scale; octx.shadowOffsetX=0; octx.shadowOffsetY=2*scale; }
-        else { octx.shadowColor='transparent'; octx.shadowBlur=0; octx.shadowOffsetX=0; octx.shadowOffsetY=0; }
-        if (o.strokeWidth>0){ octx.lineWidth = o.strokeWidth * scale; octx.strokeStyle = o.strokeColor; octx.strokeText(o.text, tx, ty); }
-        octx.fillText(o.text, tx, ty);
+        const weight=t.bold?'700':'400'; const style=t.italic?'italic':'normal';
+        ctx.font=`${style} ${weight} ${t.size}px ${t.family}`;
+        ctx.fillStyle=t.color;
+        ctx.textAlign='center'; ctx.textBaseline='middle';
+        if(t.shadow){ ctx.shadowColor='rgba(0,0,0,.3)'; ctx.shadowBlur=4; } else { ctx.shadowColor='transparent'; }
+        ctx.fillText(t.text,t.x,t.y);
       });
-
-      const mime = type==='png' ? 'image/png' : 'image/jpeg';
-      const link = document.createElement('a');
-      link.download = `image-with-text.${type==='png'?'png':'jpg'}`;
-      link.href = out.toDataURL(mime, type==='jpeg'?0.92:1.0);
-      link.click();
     }
 
-    // Canvas interactions: select/drag
-    canvas.addEventListener('mousedown', (e)=>{
-      const pos = pointerPos(e);
-      // pick top-most hit
-      for (let i = texts.length-1; i>=0; i--){
-        const box = measureTextBox(texts[i]);
-        if (hit(pos, box)) { selectedId = texts[i].id; dragging = true; dragOffX = pos.x - texts[i].x; dragOffY = pos.y - texts[i].y; draw(); return; }
-      }
-      selectedId = null; draw();
-    });
-    canvas.addEventListener('mousemove', (e)=>{
-      if (!dragging) return; const pos = pointerPos(e);
-      updateSelected({ x: pos.x - dragOffX, y: pos.y - dragOffY });
-    });
-    window.addEventListener('mouseup', ()=> dragging=false);
+    ui.imageInput.addEventListener('change',e=>{ const f=e.target.files[0]; if(!f)return; const img=new Image(); img.onload=()=>{ image=img; draw(); }; img.src=URL.createObjectURL(f); });
 
-    // Zoom with wheel
-    canvas.addEventListener('wheel', (e)=>{
-      e.preventDefault();
-      const delta = Math.sign(e.deltaY);
-      const factor = delta>0 ? 0.9 : 1.1; // zoom in/out
-      const prev = zoom; zoom = Math.min(3, Math.max(0.4, zoom*factor));
-      if (Math.abs(prev-zoom) < 0.001) return;
-      const rect = canvas.getBoundingClientRect();
-      const cx = (e.clientX - rect.left) / rect.width;
-      const cy = (e.clientY - rect.top) / rect.height;
-      // resize canvas keeping center around mouse
-      const newW = Math.round(900 * zoom); const newH = Math.round(600 * zoom);
-      const oldW = canvas.width; const oldH = canvas.height;
-      canvas.width = newW; canvas.height = newH;
-      // shift texts to keep focus point stable roughly
-      const dx = (newW-oldW)*cx; const dy = (newH-oldH)*cy;
-      texts = texts.map(t=>({ ...t, x: t.x + dx, y: t.y + dy }));
-      draw();
-    }, { passive:false });
+    ui.addText.addEventListener('click',()=>{ if(!ui.textInput.value.trim()) return; texts.push({ text:ui.textInput.value, x:canvas.width/2, y:canvas.height/2, family:ui.fontFamily.value, size:+ui.fontSize.value, color:ui.fontColor.value, bold:ui.bold.checked, italic:ui.italic.checked, shadow:ui.shadow.checked }); draw(); });
 
-    function pointerPos(e){
-      const r = canvas.getBoundingClientRect();
-      return { x: (e.clientX - r.left) * (canvas.width / r.width), y: (e.clientY - r.top) * (canvas.height / r.height) };
-    }
-    function hit(p, box){ return p.x>=box.x && p.x<=box.x+box.w && p.y>=box.y && p.y<=box.y+box.h; }
+    ;['fontFamily','fontSize','fontColor','bold','italic','shadow'].forEach(k=> ui[k].addEventListener('input',()=>{ if(texts.length===0)return; const t=texts[texts.length-1]; t.family=ui.fontFamily.value; t.size=+ui.fontSize.value; t.color=ui.fontColor.value; t.bold=ui.bold.checked; t.italic=ui.italic.checked; t.shadow=ui.shadow.checked; draw(); }));
 
-    function smartResizeCanvas(){
-      // keep a friendly working size based on image aspect ratio
-      const maxW = Math.min(wrap.clientWidth - 40, 1100);
-      const maxH = 700;
-      if (image){
-        const f = fitContain(image.naturalWidth, image.naturalHeight, maxW, maxH);
-        canvas.width = Math.round(f.w); canvas.height = Math.round(f.h);
-      } else {
-        canvas.width = Math.round(maxW*0.8); canvas.height = 480;
-      }
-    }
+    function download(type){ if(!image){alert('حمّل صورة أولاً'); return;} const out=document.createElement('canvas'); const octx=out.getContext('2d'); out.width=image.naturalWidth; out.height=image.naturalHeight; octx.drawImage(image,0,0,out.width,out.height); texts.forEach(t=>{ const ratio=image.naturalWidth/canvas.width; octx.font=`${t.italic?'italic':'normal'} ${t.bold?'700':'400'} ${t.size*ratio}px ${t.family}`; octx.fillStyle=t.color; octx.textAlign='center'; octx.textBaseline='middle'; if(t.shadow){ octx.shadowColor='rgba(0,0,0,.3)'; octx.shadowBlur=4*ratio; } else { octx.shadowColor='transparent'; } octx.fillText(t.text,t.x*ratio,t.y*ratio); }); const mime=type==='png'?'image/png':'image/jpeg'; const a=document.createElement('a'); a.download=`output.${type}`; a.href=out.toDataURL(mime); a.click(); }
+    ui.downloadPNG.addEventListener('click',()=>download('png'));
+    ui.downloadJPG.addEventListener('click',()=>download('jpg'));
 
-    function updateLabels(){
-      controls.zoomLabel.textContent = `${Math.round(zoom*100)}%`;
-      const iw = image? image.naturalWidth:0, ih = image? image.naturalHeight:0;
-      controls.sizeLabel.textContent = image? `${iw}×${ih}px` : 'لا توجد صورة';
-    }
-
-    // init
-    smartResizeCanvas();
-    draw();
-    window.addEventListener('resize', ()=>{ smartResizeCanvas(); draw(); });
+    // سحب النص الأخير
+    let dragging=false; canvas.addEventListener('mousedown',e=>{ if(texts.length===0)return; dragging=true; }); canvas.addEventListener('mousemove',e=>{ if(!dragging||texts.length===0)return; const r=canvas.getBoundingClientRect(); const t=texts[texts.length-1]; t.x=(e.clientX-r.left)*(canvas.width/r.width); t.y=(e.clientY-r.top)*(canvas.height/r.height); draw(); }); window.addEventListener('mouseup',()=>dragging=false);
   </script></body>
 </html>
