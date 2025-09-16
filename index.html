@@ -1,139 +1,148 @@
-<!DOCTYPE html><html lang="ar" dir="rtl">
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>الكتابة على الصور — شريط علوي مثل الوورد</title>
+  <title>الكتابة على الصور — ملف واحد</title>
   <!-- خطوط احترافية -->
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&family=Cairo:wght@400;700&family=Amiri:wght@400;700&family=IBM+Plex+Sans+Arabic:wght@400;700&family=Changa:wght@400;700&display=swap" rel="stylesheet">
-  <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    :root{ --border:#e5e7eb; --text:#111827; }
-    body { font-family: "Tajawal", sans-serif; background:#ffffff; color:var(--text); }
-    header { position:sticky; top:0; z-index:20; background:#fff; border-bottom:1px solid var(--border); }
-    .ribbon { position:sticky; top:54px; z-index:15; background:#fff; border-bottom:1px solid var(--border); }
-    canvas { background:#fff; border:1px solid var(--border); border-radius:12px; }
-    .group { display:flex; gap:.5rem; align-items:center; padding:.5rem .75rem; border-inline-start:1px solid var(--border); }
+    :root{ --border:#e5e7eb; --text:#111827; --muted:#6b7280; }
+    *{ box-sizing: border-box; }
+    body { margin:0; font-family:"Tajawal",system-ui; color:var(--text); background:#fff; }
+    header { position:sticky; top:0; z-index:10; background:#fff; border-bottom:1px solid var(--border); }
+    .container{ max-width:1100px; margin:0 auto; padding:12px 16px; }
+    .row{ display:flex; flex-wrap:wrap; gap:.5rem; align-items:center; }
+    .group{ display:flex; gap:.5rem; align-items:center; padding:.5rem .75rem; border-inline-start:1px solid var(--border); }
     .group:first-child{ border-inline-start:none; }
-    .btn { padding:.45rem .7rem; border:1px solid var(--border); background:#fff; border-radius:8px; font-size:.9rem; cursor:pointer; }
-    .btn:hover{ background:#f5f6f8; }
+    .field{ border:1px solid var(--border); border-radius:10px; padding:.5rem .6rem; background:#fff; font:inherit; }
+    .btn{ border:1px solid var(--border); border-radius:10px; padding:.5rem .7rem; background:#fff; cursor:pointer; font:inherit; }
+    .btn:hover{ background:#f6f7f9; }
     .btn.active{ background:#111827; color:#fff; border-color:#111827; }
-    .field { border:1px solid var(--border); border-radius:8px; padding:.45rem .6rem; background:#fff; }
-    .row { display:flex; flex-wrap:wrap; gap:.5rem; }
-    .hint { font-size:.85rem; color:#6b7280; }
-    .muted { color:#6b7280; font-size:.85rem; }
+    .muted{ color:var(--muted); font-size:.9rem; }
+    main{ max-width:1100px; margin:0 auto; padding:16px; display:grid; grid-template-columns: 1fr 320px; gap:16px; }
+    @media (max-width: 900px){ main{ grid-template-columns:1fr; } }
+    canvas{ width:100%; height:auto; background:#fff; border:1px solid var(--border); border-radius:12px; display:block; }
+    textarea{ width:100%; min-height:340px; resize:vertical; }
+    .hint{ color:var(--muted); font-size:.85rem; margin-top:6px; }
   </style>
 </head>
 <body>
-  <!-- رأس بسيط -->
+  <!-- رأس -->
   <header>
-    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
-      <div class="text-base font-bold">أداة الكتابة على الصور</div>
-      <div class="text-xs text-gray-500">محاذاة تماثل حجم الصورة + خطوط احترافية</div>
+    <div class="container" style="display:flex;justify-content:space-between;align-items:center;">
+      <strong>أداة الكتابة على الصور</strong>
+      <span class="muted">محاذاة مثل الوورد + خطوط عربية</span>
     </div>
-  </header>  <!-- شريط علوي (Ribbon) مثل الوورد، نصوص فقط -->  <div class="ribbon">
-    <div class="max-w-6xl mx-auto px-4">
+  </header>
+
+  <!-- شريط علوي -->
+  <div style="position:sticky;top:54px;z-index:9;background:#fff;border-bottom:1px solid var(--border);">
+    <div class="container">
       <div class="row">
-        <!-- مجموعة الخط -->
         <div class="group">
-          <label class="text-sm text-gray-600">الخط</label>
+          <span class="muted">الخط</span>
           <select id="fontFamily" class="field">
-            <option value="Cairo" selected>Cairo (افتراضي)</option>
+            <option value="Cairo" selected>Cairo</option>
             <option value="Tajawal">Tajawal</option>
             <option value="IBM Plex Sans Arabic">IBM Plex Sans Arabic</option>
             <option value="Changa">Changa</option>
             <option value="Amiri">Amiri (كلاسيكي)</option>
-            <option value="Arial">Arial</option>
-            <option value="Georgia">Georgia</option>
           </select>
-          <label class="text-sm text-gray-600">الحجم</label>
-          <input id="fontSize" type="number" min="12" max="160" value="40" class="field w-20" />
-          <label class="text-sm text-gray-600">اللون</label>
-          <input id="fontColor" type="color" value="#111111" class="field h-9 w-16" />
-        </div><!-- مجموعة النمط -->
-    <div class="group">
-      <button id="bold" class="btn" aria-pressed="false">عريض</button>
-      <button id="italic" class="btn" aria-pressed="false">مائل</button>
-      <button id="underline" class="btn" aria-pressed="false">تحته خط</button>
-      <span class="muted">الظل</span>
-      <button id="shadow" class="btn active" aria-pressed="true">تشغيل</button>
-    </div>
+          <span class="muted">الحجم</span>
+          <input id="fontSize" class="field" type="number" min="12" max="160" value="40" style="width:80px;">
+          <span class="muted">اللون</span>
+          <input id="fontColor" class="field" type="color" value="#111111" style="height:38px;width:60px;">
+        </div>
 
-    <!-- مجموعة الفقرة -->
-    <div class="group">
-      <span class="muted">المحاذاة</span>
-      <button class="btn align active" data-align="center">وسط</button>
-      <button class="btn align" data-align="right">يمين</button>
-      <button class="btn align" data-align="left">يسار</button>
-      <button class="btn align" data-align="justify">الأطراف</button>
-      <span class="muted">تباعد الأسطر</span>
-      <select id="lineHeight" class="field">
-        <option value="1.2">1.2</option>
-        <option value="1.4" selected>1.4</option>
-        <option value="1.6">1.6</option>
-        <option value="1.8">1.8</option>
-        <option value="2.0">2.0</option>
-      </select>
-    </div>
+        <div class="group">
+          <button id="bold" class="btn" aria-pressed="false">عريض</button>
+          <button id="italic" class="btn" aria-pressed="false">مائل</button>
+          <button id="underline" class="btn" aria-pressed="false">تحته خط</button>
+          <span class="muted">الظل</span>
+          <button id="shadow" class="btn active" aria-pressed="true">تشغيل</button>
+        </div>
 
-    <!-- مجموعة الصندوق -->
-    <div class="group">
-      <span class="muted">عرض الصندوق</span>
-      <input id="boxWidth" type="range" min="200" max="900" value="520" />
-      <label class="inline-flex items-center gap-2"><input id="matchImage" type="checkbox" checked> <span>مطابقة عرض الصورة</span></label>
-      <span class="muted">هوامش</span>
-      <input id="padding" type="number" min="0" max="48" value="12" class="field w-16" />
-    </div>
+        <div class="group">
+          <span class="muted">المحاذاة</span>
+          <button class="btn align active" data-align="center">وسط</button>
+          <button class="btn align" data-align="right">يمين</button>
+          <button class="btn align" data-align="left">يسار</button>
+          <button class="btn align" data-align="justify">الأطراف</button>
+          <span class="muted">تباعد الأسطر</span>
+          <select id="lineHeight" class="field">
+            <option value="1.2">1.2</option>
+            <option value="1.4" selected>1.4</option>
+            <option value="1.6">1.6</option>
+            <option value="1.8">1.8</option>
+            <option value="2.0">2.0</option>
+          </select>
+        </div>
 
-    <!-- مجموعة الصورة والتنزيل -->
-    <div class="group">
-      <span class="muted">صورة</span>
-      <input id="imageInput" type="file" accept="image/*" class="field" />
-      <button id="downloadPNG" class="btn">تنزيل PNG</button>
-      <button id="downloadJPG" class="btn">تنزيل JPG</button>
+        <div class="group">
+          <span class="muted">صورة</span>
+          <input id="imageInput" class="field" type="file" accept="image/*">
+          <button id="downloadPNG" class="btn">تنزيل PNG</button>
+          <button id="downloadJPG" class="btn">تنزيل JPG</button>
+        </div>
+      </div>
     </div>
   </div>
-</div>
 
-  </div>  <main class="max-w-6xl mx-auto px-4 py-4 grid gap-4 md:grid-cols-5">
-    <!-- مساحة التحرير -->
-    <section class="md:col-span-3 order-2 md:order-1">
-      <canvas id="stage" width="900" height="560" class="w-full"></canvas>
-      <p class="hint mt-2">عند تفعيل "مطابقة عرض الصورة" يتم ضبط عرض الفقرة تلقائيًا ليطابق عرض الصورة داخل المعاينة.</p>
-    </section><!-- مربع كتابة كبير -->
-<section class="md:col-span-2 order-1 md:order-2">
-  <label class="text-sm text-gray-600">مربع الكتابة (متعدد الأسطر)</label>
-  <textarea id="textInput" rows="12" placeholder="اكتب نصك هنا..." class="field w-full mt-1"></textarea>
-</section>
+  <main>
+    <!-- المعاينة -->
+    <section>
+      <canvas id="stage" width="900" height="560"></canvas>
+      <p class="hint">فعّل خيار "مطابقة عرض الفقرة للصورة" لضبط العرض تلقائيًا.</p>
+      <label style="display:inline-flex;align-items:center;gap:.5rem;margin-top:8px;">
+        <input id="matchImage" type="checkbox" checked> مطابقة عرض الفقرة للصورة
+      </label>
+      <label style="display:inline-flex;align-items:center;gap:.5rem;margin-inline-start:12px;">
+        <span class="muted">عرض الصندوق</span>
+        <input id="boxWidth" type="range" min="200" max="900" value="520">
+      </label>
+      <label style="display:inline-flex;align-items:center;gap:.5rem;margin-inline-start:12px;">
+        <span class="muted">هوامش داخلية</span>
+        <input id="padding" class="field" type="number" min="0" max="48" value="12" style="width:70px;">
+      </label>
+    </section>
 
-  </main>  <script>
+    <!-- مربع الكتابة -->
+    <aside>
+      <label class="muted">مربع الكتابة (متعدد الأسطر)</label>
+      <textarea id="textInput" placeholder="اكتب نصك هنا..."></textarea>
+    </aside>
+  </main>
+
+  <script>
     const $ = (s)=>document.querySelector(s);
     const canvas = $('#stage');
     const ctx = canvas.getContext('2d');
 
-    // الحالة
-    let image=null;
+    let image = null;
     let block = {
-      text: '', x: canvas.width/2, y: canvas.height/2,
+      text: '',
+      x: canvas.width/2, y: canvas.height/2,
       boxWidth: 520, padding: 12,
       fontFamily: 'Cairo', fontSize: 40, color: '#111111',
-      bold: false, italic: false, underline:false, shadow: true,
+      bold: false, italic: false, underline:false, shadow:true,
       align: 'center', lineHeight: 1.4
     };
 
-    // عناصر الواجهة
     const ui = {
       fontFamily: $('#fontFamily'), fontSize: $('#fontSize'), fontColor: $('#fontColor'),
-      bold: $('#bold'), italic: $('#italic'), underline:$('#underline'), shadow: $('#shadow'),
+      bold: $('#bold'), italic: $('#italic'), underline: $('#underline'), shadow: $('#shadow'),
       alignBtns: document.querySelectorAll('.align'), lineHeight: $('#lineHeight'),
-      boxWidth: $('#boxWidth'), matchImage: $('#matchImage'), padding: $('#padding'),
-      imageInput: $('#imageInput'),
-      textInput: $('#textInput'),
-      downloadPNG: $('#downloadPNG'), downloadJPG: $('#downloadJPG')
+      imageInput: $('#imageInput'), textInput: $('#textInput'),
+      downloadPNG: $('#downloadPNG'), downloadJPG: $('#downloadJPG'),
+      matchImage: $('#matchImage'), boxWidth: $('#boxWidth'), padding: $('#padding')
     };
 
-    // أداة حساب احتواء الصورة داخل الكانفس
-    function fitContain(sw,sh,dw,dh){ const s=Math.min(dw/sw, dh/sh); return {w:sw*s, h:sh*s, s, x:(dw-sw*s)/2, y:(dh-sh*s)/2}; }
-
+    // حساب احتواء الصورة داخل الكانفس
+    function fitContain(sw, sh, dw, dh){
+      const s = Math.min(dw/sw, dh/sh);
+      return { w: sw*s, h: sh*s, s, x: (dw - sw*s)/2, y: (dh - sh*s)/2 };
+    }
     function getImageFit(){
       if(!image) return null;
       return fitContain(image.naturalWidth, image.naturalHeight, canvas.width, canvas.height);
@@ -141,32 +150,32 @@
 
     // إعداد الخط
     function setFont(o, target=ctx){
-      const weight = o.bold? '700':'400';
-      const style = o.italic? 'italic':'normal';
+      const weight = o.bold ? '700':'400';
+      const style = o.italic ? 'italic':'normal';
       target.font = `${style} ${weight} ${o.fontSize}px ${o.fontFamily}`;
       target.fillStyle = o.color;
       target.textBaseline = 'alphabetic';
       target.direction = 'rtl';
     }
 
-    // قياس ولفّ النص كسطور داخل صندوق
+    // لفّ النص لأسطر داخل الصندوق
     function wrapLines(o, target=ctx){
       setFont(o, target);
       const maxWidth = o.boxWidth - o.padding*2;
-      const words = (o.text||'').replace(/\n/g,' \n ').split(/\s+/);
+      const words = (o.text||'').replace(/\n/g,' \\n ').split(/\s+/);
       const lines=[]; let cur='';
       for(const w of words){
-        if(w==='\\n'){ if(cur) { lines.push(cur); cur=''; } else { lines.push(''); } continue; }
-        const test = cur? cur+' '+w : w;
-        if(target.measureText(test).width <= maxWidth){ cur=test; }
-        else { if(cur) lines.push(cur); cur=w; }
+        if(w=='\\n'){ if(cur){ lines.push(cur); cur=''; } else { lines.push(''); } continue; }
+        const test = cur ? cur+' '+w : w;
+        if(target.measureText(test).width <= maxWidth){ cur = test; }
+        else { if(cur) lines.push(cur); cur = w; }
       }
       if(cur) lines.push(cur);
       if(!lines.length) lines.push('');
       return lines;
     }
 
-    // رسم سطر واحد
+    // رسم سطر واحد (يدعم underline و justify)
     function drawLine(text, leftX, centerY, o, isLast, target=ctx){
       const maxWidth = o.boxWidth - o.padding*2;
       if(o.shadow){ target.shadowColor='rgba(0,0,0,.22)'; target.shadowBlur=6; target.shadowOffsetY=2; }
@@ -176,14 +185,26 @@
         if(o.align==='left') target.textAlign='left';
         else if(o.align==='right') target.textAlign='right';
         else target.textAlign='center';
-        let x = leftX + o.padding + (o.align==='right'? maxWidth : (o.align==='center'? maxWidth/2 : 0));
+        const x = leftX + o.padding + (o.align==='right'? maxWidth : (o.align==='center'? maxWidth/2 : 0));
         target.fillText(text, x, centerY);
-        if(o.underline){ const w = target.measureText(text).width; const uy = centerY + 3; const ux = x - (o.align==='right'? w : (o.align==='center'? w/2 : 0)); target.save(); target.shadowColor='transparent'; target.strokeStyle=o.color; target.lineWidth=Math.max(1, o.fontSize*0.05); target.beginPath(); target.moveTo(ux,uy); target.lineTo(ux+w,uy); target.stroke(); target.restore(); }
+        if(o.underline){
+          const w = target.measureText(text).width, uy = centerY + 3;
+          const ux = x - (o.align==='right'? w : (o.align==='center'? w/2 : 0));
+          target.save(); target.shadowColor='transparent'; target.strokeStyle=o.color;
+          target.lineWidth = Math.max(1, o.fontSize*0.05);
+          target.beginPath(); target.moveTo(ux,uy); target.lineTo(ux+w,uy); target.stroke(); target.restore();
+        }
         return;
       }
 
+      // Justify (ما عدا السطر الأخير)
       const words = text.split(/\s+/);
-      if(isLast || words.length<=1){ target.textAlign='right'; const x = leftX + o.padding + maxWidth; target.fillText(text, x, centerY); return; }
+      if(isLast || words.length<=1){
+        target.textAlign='right';
+        const x = leftX + o.padding + maxWidth;
+        target.fillText(text, x, centerY);
+        return;
+      }
       const plain = words.join(' ');
       const plainWidth = target.measureText(plain).width;
       const extra = Math.max(0, maxWidth - plainWidth);
@@ -191,10 +212,13 @@
       const add = extra / gaps;
       let x = leftX + o.padding;
       target.textAlign='left';
-      words.forEach((w)=>{ target.fillText(w, x, centerY); x += target.measureText(w).width + target.measureText(' ').width + add; });
+      words.forEach(w=>{
+        target.fillText(w, x, centerY);
+        x += target.measureText(w).width + target.measureText(' ').width + add;
+      });
     }
 
-    // رسم الفقرة داخل صندوق عند (block.x, block.y)
+    // رسم الفقرة كاملة داخل صندوق
     function drawParagraph(o, target=ctx){
       setFont(o, target);
       const lines = wrapLines(o, target);
@@ -202,28 +226,34 @@
       const bx = o.x - o.boxWidth/2;
       const top = o.y - Math.ceil(lines.length/2)*lineH + lineH;
 
-      // إطار خفيف للصندوق أثناء التحرير
-      target.save(); target.shadowColor='transparent'; target.setLineDash([6,6]); target.strokeStyle='#e5e7eb'; target.strokeRect(bx, top - lineH + o.padding, o.boxWidth, lines.length*lineH + o.padding*0.5); target.restore();
+      // إطار خفيف (أثناء التحرير فقط)
+      target.save(); target.shadowColor='transparent'; target.setLineDash([6,6]); target.strokeStyle='#e5e7eb';
+      target.strokeRect(bx, top - lineH + o.padding, o.boxWidth, lines.length*lineH + o.padding*0.5);
+      target.restore();
 
       lines.forEach((ln, i)=> drawLine(ln, bx, top + i*lineH, o, i===lines.length-1, target));
     }
 
+    // رسم المشهد
     function draw(){
       ctx.clearRect(0,0,canvas.width,canvas.height);
-      if(image){ const fit = getImageFit(); ctx.drawImage(image,0,0,image.naturalWidth,image.naturalHeight, fit.x,fit.y,fit.w,fit.h); }
+      if(image){
+        const fit = getImageFit();
+        ctx.drawImage(image, 0,0, image.naturalWidth,image.naturalHeight, fit.x,fit.y,fit.w,fit.h);
+      }
       drawParagraph(block, ctx);
     }
 
-    // مطابقة عرض الصندوق مع عرض الصورة
+    // مطابقة عرض الفقرة مع عرض الصورة في المعاينة
     function syncBoxWidthToImage(){
       if(!ui.matchImage.checked || !image) return;
       const fit = getImageFit();
       if(!fit) return;
       block.boxWidth = Math.max(200, Math.round(fit.w));
-      ui.boxWidth.value = block.boxWidth; // للتوافق عند إلغاء المطابقة
+      ui.boxWidth.value = block.boxWidth;
     }
 
-    // تحديث الحالة من الواجهة
+    // تحديث من الواجهة
     function refresh(){
       block.text = ui.textInput.value;
       block.fontFamily = ui.fontFamily.value;
@@ -232,72 +262,139 @@
       block.bold = ui.bold.classList.contains('active');
       block.italic = ui.italic.classList.contains('active');
       block.underline = ui.underline.classList.contains('active');
-      block.shadow = ui.shadow.getAttribute('aria-pressed')==='true';
+      block.shadow = ui.shadow.getAttribute('aria-pressed') === 'true';
       block.lineHeight = parseFloat(ui.lineHeight.value);
-      if(ui.matchImage.checked){ syncBoxWidthToImage(); }
-      else { block.boxWidth = +ui.boxWidth.value; }
       block.padding = +ui.padding.value;
+
+      if(ui.matchImage.checked) syncBoxWidthToImage();
+      else block.boxWidth = +ui.boxWidth.value;
+
       draw();
     }
 
-    // أحداث الواجهة
+    // أحداث
     ui.fontFamily.addEventListener('input', refresh);
     ui.fontSize.addEventListener('input', refresh);
     ui.fontColor.addEventListener('input', refresh);
     ui.lineHeight.addEventListener('input', refresh);
-    ui.boxWidth.addEventListener('input', ()=>{ if(!ui.matchImage.checked){ refresh(); }});
-    ui.matchImage.addEventListener('input', ()=>{ refresh(); });
     ui.padding.addEventListener('input', refresh);
+    ui.boxWidth.addEventListener('input', ()=>{ if(!ui.matchImage.checked) refresh(); });
+    ui.matchImage.addEventListener('input', refresh);
+    ui.textInput.addEventListener('input', refresh);
 
-    function toggleBtn(btn){ btn.classList.toggle('active'); const pressed = btn.classList.contains('active'); btn.setAttribute('aria-pressed', String(pressed)); refresh(); }
+    function toggleBtn(btn){
+      btn.classList.toggle('active');
+      btn.setAttribute('aria-pressed', String(btn.classList.contains('active')));
+      refresh();
+    }
     ui.bold.addEventListener('click', ()=> toggleBtn(ui.bold));
     ui.italic.addEventListener('click', ()=> toggleBtn(ui.italic));
     ui.underline.addEventListener('click', ()=> toggleBtn(ui.underline));
-    ui.shadow.addEventListener('click', ()=>{ const on = ui.shadow.getAttribute('aria-pressed')!=='true'; ui.shadow.setAttribute('aria-pressed', String(on)); ui.shadow.classList.toggle('active', on); refresh(); });
+    ui.shadow.addEventListener('click', ()=>{
+      const on = ui.shadow.getAttribute('aria-pressed')!=='true';
+      ui.shadow.setAttribute('aria-pressed', String(on));
+      ui.shadow.classList.toggle('active', on);
+      refresh();
+    });
 
-    ui.alignBtns.forEach(b=> b.addEventListener('click', ()=>{ ui.alignBtns.forEach(x=>x.classList.remove('active')); b.classList.add('active'); block.align = b.dataset.align; draw(); }));
-
-    ui.textInput.addEventListener('input', refresh);
+    ui.alignBtns.forEach(b=> b.addEventListener('click', ()=>{
+      ui.alignBtns.forEach(x=>x.classList.remove('active'));
+      b.classList.add('active');
+      block.align = b.dataset.align;
+      draw();
+    }));
 
     // تحميل صورة
-    ui.imageInput.addEventListener('change', e=>{ const f=e.target.files[0]; if(!f) return; const img=new Image(); img.onload=()=>{ image=img; syncBoxWidthToImage(); draw(); }; img.src=URL.createObjectURL(f); });
+    ui.imageInput.addEventListener('change', e=>{
+      const f = e.target.files[0];
+      if(!f) return;
+      const img = new Image();
+      img.onload = ()=>{ image = img; syncBoxWidthToImage(); draw(); };
+      img.src = URL.createObjectURL(f);
+    });
 
-    // سحب الفقرة
+    // سحب الفقرة على الكانفس
     let dragging=false, offX=0, offY=0;
     canvas.addEventListener('mousedown', e=>{
-      const r=canvas.getBoundingClientRect(); const x=(e.clientX-r.left)*(canvas.width/r.width); const y=(e.clientY-r.top)*(canvas.height/r.height);
+      const r=canvas.getBoundingClientRect();
+      const x=(e.clientX-r.left)*(canvas.width/r.width);
+      const y=(e.clientY-r.top)*(canvas.height/r.height);
       const lineH=Math.round(block.fontSize*block.lineHeight);
-      const bx=block.x - block.boxWidth/2; const by=block.y - Math.ceil(wrapLines(block).length/2)*lineH;
+      const bx=block.x - block.boxWidth/2;
+      const by=block.y - Math.ceil(wrapLines(block).length/2)*lineH;
       const bw=block.boxWidth; const bh=wrapLines(block).length*lineH + block.padding*2;
       if(x>=bx && x<=bx+bw && y>=by && y<=by+bh){ dragging=true; offX=x-block.x; offY=y-block.y; }
     });
-    canvas.addEventListener('mousemove', e=>{ if(!dragging) return; const r=canvas.getBoundingClientRect(); block.x=(e.clientX-r.left)*(canvas.width/r.width) - offX; block.y=(e.clientY-r.top)*(canvas.height/r.height) - offY; draw(); });
+    canvas.addEventListener('mousemove', e=>{
+      if(!dragging) return;
+      const r=canvas.getBoundingClientRect();
+      block.x=(e.clientX-r.left)*(canvas.width/r.width) - offX;
+      block.y=(e.clientY-r.top)*(canvas.height/r.height) - offY;
+      draw();
+    });
     window.addEventListener('mouseup', ()=> dragging=false);
 
-    // تنزيل بنفس الدقة
+    // تنزيل بنفس دقة الصورة
     function download(type='png'){
       if(!image){ alert('حمّل صورة أولاً'); return; }
-      const out=document.createElement('canvas'); const octx=out.getContext('2d');
-      out.width=image.naturalWidth; out.height=image.naturalHeight; octx.drawImage(image,0,0);
+      const out=document.createElement('canvas'), octx=out.getContext('2d');
+      out.width=image.naturalWidth; out.height=image.naturalHeight;
+      octx.drawImage(image,0,0);
       const fit = getImageFit();
       const scale = image.naturalWidth/fit.w;
-      const ix=fit.x, iy=fit.y;
-      const outBlock = { ...block, x:(block.x-ix)*scale, y:(block.y-iy)*scale, boxWidth:(ui.matchImage.checked? image.naturalWidth : block.boxWidth*scale), padding:block.padding*scale, fontSize:block.fontSize*scale };
+      const outBlock = {
+        ...block,
+        x: (block.x - fit.x)*scale,
+        y: (block.y - fit.y)*scale,
+        boxWidth: (ui.matchImage.checked ? image.naturalWidth : block.boxWidth*scale),
+        padding: block.padding*scale,
+        fontSize: block.fontSize*scale
+      };
 
-      function setFontOut(o){ const weight=o.bold?'700':'400', style=o.italic?'italic':'normal'; octx.font=`${style} ${weight} ${o.fontSize}px ${o.fontFamily}`; octx.fillStyle=o.color; octx.textBaseline='alphabetic'; octx.direction='rtl'; }
-      function wrapOut(o){ setFontOut(o); const maxW=o.boxWidth - o.padding*2; const words=(o.text||'').replace(/\n/g,' \n ').split(/\s+/); const lines=[]; let cur=''; for(const w of words){ if(w==='\\n'){ if(cur){lines.push(cur); cur='';} else {lines.push('');} continue; } const test=cur?cur+' '+w:w; if(octx.measureText(test).width<=maxW){cur=test;} else { if(cur) lines.push(cur); cur=w; } } if(cur) lines.push(cur); if(!lines.length) lines.push(''); return lines; }
-      function drawLineOut(text, leftX, centerY, o, isLast){ const maxW=o.boxWidth - o.padding*2; if(o.shadow){ octx.shadowColor='rgba(0,0,0,.22)'; octx.shadowBlur=6*scale; octx.shadowOffsetY=2*scale; } else { octx.shadowColor='transparent'; octx.shadowBlur=0; octx.shadowOffsetY=0; } if(o.align!=='justify'){ if(o.align==='left') octx.textAlign='left'; else if(o.align==='right') octx.textAlign='right'; else octx.textAlign='center'; let x=leftX + o.padding + (o.align==='right'? maxW : (o.align==='center'? maxW/2 : 0)); octx.fillText(text, x, centerY); return; } const words=text.split(/\s+/); if(isLast || words.length<=1){ octx.textAlign='right'; const x=leftX + o.padding + maxW; octx.fillText(text, x, centerY); return; } const plain=words.join(' '); const plainWidth=octx.measureText(plain).width; const extra=Math.max(0, maxW-plainWidth); const gaps=words.length-1; const add=extra/gaps; let x=leftX + o.padding; octx.textAlign='left'; words.forEach(w=>{ octx.fillText(w,x,centerY); x += octx.measureText(w).width + octx.measureText(' ').width + add; }); }
-      function outDraw(){ setFontOut(outBlock); const lines=wrapOut(outBlock); const lineH=Math.round(outBlock.fontSize*outBlock.lineHeight); const bx=outBlock.x - outBlock.boxWidth/2; const top=outBlock.y - Math.ceil(lines.length/2)*lineH + lineH; lines.forEach((ln,i)=> drawLineOut(ln, bx, top+i*lineH, outBlock, i===lines.length-1)); }
+      function setFontOut(o){ const w=o.bold?'700':'400', s=o.italic?'italic':'normal'; octx.font=`${s} ${w} ${o.fontSize}px ${o.fontFamily}`; octx.fillStyle=o.color; octx.textBaseline='alphabetic'; octx.direction='rtl'; }
+      function wrapOut(o){ setFontOut(o); const maxW=o.boxWidth - o.padding*2; const words=(o.text||'').replace(/\n/g,' \\n ').split(/\s+/); const lines=[]; let cur=''; for(const w of words){ if(w=='\\n'){ if(cur){lines.push(cur); cur='';} else {lines.push('');} continue; } const test=cur?cur+' '+w:w; if(octx.measureText(test).width<=maxW){cur=test;} else { if(cur) lines.push(cur); cur=w; } } if(cur) lines.push(cur); if(!lines.length) lines.push(''); return lines; }
+      function drawLineOut(text, leftX, centerY, o, isLast){
+        const maxW=o.boxWidth - o.padding*2;
+        if(o.shadow){ octx.shadowColor='rgba(0,0,0,.22)'; octx.shadowBlur=6*scale; octx.shadowOffsetY=2*scale; }
+        else { octx.shadowColor='transparent'; octx.shadowBlur=0; octx.shadowOffsetY=0; }
+        if(o.align!=='justify'){
+          if(o.align==='left') octx.textAlign='left';
+          else if(o.align==='right') octx.textAlign='right';
+          else octx.textAlign='center';
+          const x = leftX + o.padding + (o.align==='right'? maxW : (o.align==='center'? maxW/2 : 0));
+          octx.fillText(text, x, centerY);
+          return;
+        }
+        const words=text.split(/\s+/);
+        if(isLast || words.length<=1){ octx.textAlign='right'; const x=leftX + o.padding + maxW; octx.fillText(text, x, centerY); return; }
+        const plain=words.join(' '); const plainWidth=octx.measureText(plain).width;
+        const extra=Math.max(0, maxW-plainWidth); const gaps=words.length-1; const add=extra/gaps;
+        let x=leftX + o.padding; octx.textAlign='left';
+        words.forEach(w=>{ octx.fillText(w,x,centerY); x += octx.measureText(w).width + octx.measureText(' ').width + add; });
+      }
+      function outDraw(){
+        setFontOut(outBlock);
+        const lines=wrapOut(outBlock);
+        const lineH=Math.round(outBlock.fontSize*outBlock.lineHeight);
+        const bx=outBlock.x - outBlock.boxWidth/2;
+        const top=outBlock.y - Math.ceil(lines.length/2)*lineH + lineH;
+        lines.forEach((ln,i)=> drawLineOut(ln, bx, top+i*lineH, outBlock, i===lines.length-1));
+      }
       outDraw();
 
-      const mime = type==='png'? 'image/png' : 'image/jpeg';
-      const a=document.createElement('a'); a.download=`output.${type==='png'?'png':'jpg'}`; a.href=out.toDataURL(mime, type==='png'?1.0:0.92); a.click();
+      const mime = type==='png' ? 'image/png' : 'image/jpeg';
+      const a=document.createElement('a');
+      a.download = `output.${type==='png'?'png':'jpg'}`;
+      a.href = out.toDataURL(mime, type==='png'?1.0:0.92);
+      a.click();
     }
-    ui.downloadPNG.addEventListener('click', ()=> download('png'));
-    ui.downloadJPG.addEventListener('click', ()=> download('jpeg'));
 
-    // تهيئة أولية
-    window.addEventListener('resize', ()=>{ if(ui.matchImage.checked) { syncBoxWidthToImage(); draw(); } });
+    $('#downloadPNG').addEventListener('click', ()=> download('png'));
+    $('#downloadJPG').addEventListener('click', ()=> download('jpeg'));
+
+    // تهيئة
+    window.addEventListener('resize', ()=>{ if(ui.matchImage.checked){ syncBoxWidthToImage(); draw(); } });
     draw();
-  </script></body>
+  </script>
+</body>
 </html>
