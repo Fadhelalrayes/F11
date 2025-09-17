@@ -6,7 +6,7 @@
   <title>مجلس الشيخ عباس الريس الرمضاني</title>
   <meta name="description" content="خريطة مجلس الشيخ عباس الريس الرمضاني مع أوقات الاستقبال طيلة شهر رمضان المبارك." />
 
-  <!-- خط عربي (يمكن حذفه إن رغبت بالاعتماد على خطوط النظام فقط) -->
+  <!-- خط عربي (يمكنك حذفه إن أردت الاعتماد على خطوط النظام فقط) -->
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700;800&display=swap" rel="stylesheet">
 
   <style>
@@ -17,8 +17,8 @@
       --muted:#6b7280;
       --bg:#ffffff;
 
-      /* خلفية SVG زخرفية مضمّنة كـ data URI (تظهر دائمًا بلا اتصال خارجي) */
-      --hero-pattern: url("data:image/svg+xml;utf8,\
+      /* خلفية احتياطية SVG (تستخدم فقط إذا فشل تحميل الصورة) */
+      --hero-fallback: url("data:image/svg+xml;utf8,\
 <svg xmlns='http://www.w3.org/2000/svg' width='240' height='240' viewBox='0 0 240 240'>\
   <defs>\
     <linearGradient id='g' x1='0' y1='0' x2='1' y2='1'>\
@@ -27,7 +27,6 @@
     </linearGradient>\
   </defs>\
   <rect width='240' height='240' fill='url(%23g)'/>\
-  <!-- نجوم/زخارف بسيطة شبه شفافة -->\
   <g fill='%23c9a227' fill-opacity='0.12'>\
     <circle cx='40' cy='40' r='3'/>\
     <circle cx='120' cy='60' r='2'/>\
@@ -36,7 +35,6 @@
     <circle cx='180' cy='120' r='2'/>\
     <circle cx='90' cy='200' r='3'/>\
   </g>\
-  <!-- هلال زخرفي باهت كبير -->\
   <path d='M170 120a50 50 0 0 1-63-48a50 50 0 1 0 63 48z' fill='%23c9a227' fill-opacity='0.08'/>\
 </svg>");
     }
@@ -48,29 +46,37 @@
       background:var(--bg); color:var(--text); line-height:1.8;
     }
 
-    /* ====== القسم العلوي كخلفية مضمّنة (دون صور خارجية) ====== */
+    /* ====== HERO ====== */
     .hero{
-      position:relative; width:100%; min-height:56vh; overflow:hidden;
-      background-image:
-        var(--hero-pattern),
+      position:relative; width:100%; min-height:56vh; overflow:hidden; background:#fff;
+    }
+    .hero.has-fallback{
+      /* في حال فشل الصورة نُظهر الخلفية الاحتياطية */
+      background-image: var(--hero-fallback),
         radial-gradient(800px 400px at 20% 0%, rgba(201,162,39,0.08) 0%, rgba(255,255,255,0) 40%),
         linear-gradient(180deg, #ffffff 0%, #fff9ef 60%, #ffffff 100%);
       background-size: 480px 480px, 800px 400px, 100% 100%;
       background-position: center, top left, center;
       background-repeat: repeat, no-repeat, no-repeat;
-      filter: contrast(1.02) saturate(1.02) brightness(1);
-      isolation:isolate;
+    }
+    .hero img{
+      position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+      filter: brightness(0.98) contrast(1.05) saturate(1.03);
+      transition: opacity .25s ease;
+      opacity: 1;
     }
     .hero::after{
+      /* تدرّج سفلي يذيب الصورة في الخلفية البيضاء */
       content:""; position:absolute; inset:0; z-index:1;
-      background:linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,.9) 92%, rgba(255,255,255,1) 100%);
+      background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,.92) 92%, rgba(255,255,255,1) 100%);
+      pointer-events:none;
     }
 
     .wrap{ max-width:1000px; margin:0 auto; padding:18px 22px 34px; }
 
     header{ text-align:center; padding:24px 10px 8px; }
 
-    /* مربع العنوان (أبيض/ذهبي) */
+    /* مربع العنوان */
     .title{
       display:inline-block;
       background:#fff;
@@ -137,8 +143,14 @@
 </head>
 <body>
 
-  <!-- قسم علوي بخلفية SVG وتدرّجات (لا يعتمد على أي صورة خارجية) -->
-  <section class="hero" aria-label="خلفية رمضانية زخرفية"></section>
+  <!-- صورة الغلاف برابطك المباشر + احتياطي تلقائي -->
+  <section class="hero" id="hero" aria-label="صورة الغلاف">
+    <img id="heroImg"
+         src="https://www2.0zz0.com/2025/09/17/20/579063281.jpg"
+         alt="مجلس الشيخ عباس الريس"
+         loading="eager"
+         referrerpolicy="no-referrer" />
+  </section>
 
   <div class="wrap">
     <header>
@@ -173,6 +185,25 @@
       </div>
     </main>
   </div>
+
+  <script>
+    // احتياطي تلقائي: إذا فشل تحميل الصورة من 0zz0 لأي سبب (حجب/انقطاع)،
+    // لن نغيّر الرابط، لكن سنخفي الـ <img> ونفعّل خلفية زخرفية بديلة داخل القسم نفسه.
+    (function(){
+      const img = document.getElementById('heroImg');
+      const hero = document.getElementById('hero');
+      function fallback(){
+        img.style.opacity = '0';
+        setTimeout(()=>{ img.style.display = 'none'; }, 250);
+        hero.classList.add('has-fallback');
+      }
+      img.addEventListener('error', fallback);
+      // في حال استغرق التحميل وقتًا طويلًا جدًا (شبكات بطيئة)، نفعل احتياطيًا بعد 6 ثوانٍ
+      setTimeout(()=>{
+        if (img.naturalWidth === 0) fallback();
+      }, 6000);
+    })();
+  </script>
 
 </body>
 </html>
