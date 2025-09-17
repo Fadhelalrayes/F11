@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>منزل الشيخ عباس الريس</title>
-  <meta name="description" content="خريطة مجلس الشيخ عباس الريس ورابط فتح الموقع في Google Maps." />
+  <meta name="description" content="صفحة تعريفية تعرض خريطة مجلس الشيخ عباس الريس مع زر لفتح الموقع في Google Maps والحصول على الاتجاهات." />
 
   <!-- خط عربي أنيق -->
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;800&display=swap" rel="stylesheet">
@@ -27,55 +27,65 @@
       line-height: 1.75;
     }
 
-    /* قسم الصورة البطل (Hero) */
+    /* قسم الصورة البطل (Hero) — بدون أي كتابة فوقها */
     .hero{
       position: relative;
       width: 100%;
-      min-height: 56vh;                 /* يملأ أكثر من نصف الشاشة */
-      display: grid;
-      place-items: center;
+      min-height: 56vh;
       overflow: hidden;
       background: #000;
+      isolation: isolate; /* لضمان طبقة التدرج فوق الصورة فقط */
     }
     .hero img{
       position: absolute;
       inset: 0;
       width: 100%;
       height: 100%;
-      object-fit: cover;                /* يملأ مع قص احترافي */
+      object-fit: cover;               /* يملأ مع قص احترافي */
       filter: contrast(1.02) saturate(1.03);
       transform: scale(1.02);
+      z-index: 0;
     }
     .hero::after{
-      /* طبقة تدرّج ناعمة لإظهار العنوان فوق الصورة */
+      /* تدرّج يغطي الصورة بالكامل ويذوب في البياض */
       content:"";
       position:absolute; inset:0;
-      background: linear-gradient(to bottom,
-        rgba(255,255,255,0.00) 0%,
-        rgba(255,255,255,0.10) 35%,
-        rgba(255,255,255,0.55) 70%,
-        rgba(255,255,255,0.90) 100%);
-    }
-
-    .hero-content{
-      position: relative;
-      text-align: center;
-      padding: 24px;
       z-index: 1;
+      background:
+        linear-gradient(
+          to bottom,
+          rgba(255,255,255,0.00) 0%,
+          rgba(255,255,255,0.12) 25%,
+          rgba(255,255,255,0.45) 55%,
+          rgba(255,255,255,0.85) 85%,
+          rgba(255,255,255,1.00) 100%
+        );
+      /* لمسة ذهبية خفيفة ممزوجة */
+      mix-blend-mode: screen;
     }
 
+    .wrap{
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 18px 22px 34px;
+    }
+
+    header{
+      text-align:center;
+      padding: 22px 10px 8px;
+    }
     .title{
       font-size: clamp(28px, 5vw, 46px);
-      margin: 0;
+      margin: 0 0 8px;
       color: var(--text);
       font-weight: 800;
       letter-spacing: 0.2px;
       display: inline-block;
       padding: 6px 14px;
-      background: rgba(255,255,255,0.65);
+      background: #fff;
       border: 1px solid var(--gold-soft);
       border-radius: 16px;
-      box-shadow: 0 8px 22px rgba(0,0,0,0.08);
+      box-shadow: 0 8px 22px rgba(0,0,0,0.06);
     }
     .title::after{
       content:"";
@@ -86,11 +96,12 @@
       background: linear-gradient(90deg, transparent, var(--gold), transparent);
       border-radius: 6px;
     }
-
-    .wrap{
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 18px 22px 34px;
+    .site-desc{
+      margin: 10px auto 0;
+      color: var(--muted);
+      font-size: 15px;
+      max-width: 720px;
+      line-height: 1.8;
     }
 
     .card{
@@ -98,9 +109,9 @@
       border: 1px solid var(--gold-soft);
       border-radius: 20px;
       padding: 18px;
-      margin-top: -70px;                /* تداخل أنيق فوق الصورة */
+      margin-top: 14px;
       box-shadow:
-        0 12px 28px rgba(0,0,0,0.10),
+        0 12px 28px rgba(0,0,0,0.08),
         inset 0 0 0 1px rgba(201,162,39,0.06);
     }
 
@@ -163,7 +174,6 @@
 
     /* شاشات صغيرة */
     @media (max-width: 560px){
-      .card{ margin-top: -50px; }
       .info{
         flex-direction: column;
         align-items: flex-start;
@@ -176,29 +186,32 @@
 </head>
 <body>
 
-  <!-- قسم الصورة (يملأ الشاشة أفقياً وارتفاعاً مناسباً) -->
+  <!-- صورة الغلاف مع تدرّج يغطيها بالكامل (بدون نص فوق الصورة) -->
   <section class="hero" aria-label="صورة الغلاف">
     <img src="https://www2.0zz0.com/2025/09/17/20/579063281.jpg" alt="مجلس الشيخ عباس الريس" loading="lazy">
-    <div class="hero-content">
-      <h1 class="title">منزل الشيخ عباس الريس</h1>
-      <!-- تمت إزالة السطر التعريفي بناءً على طلبك -->
-    </div>
   </section>
 
   <div class="wrap">
+    <header>
+      <h1 class="title">منزل الشيخ عباس الريس</h1>
+      <p class="site-desc">
+        صفحة تعريفية تُظهر موقع <strong>مجلس الشيخ عباس الريس</strong> وتوفّر خريطة تفاعلية وزرّين سريعَيْن:
+        فتح الموقع مباشرة في Google&nbsp;Maps والحصول على الاتجاهات بسهولة.
+      </p>
+    </header>
+
     <main class="card" aria-label="خريطة الموقع">
       <div class="map-shell">
         <!-- يمكنك استبدال q بإحداثيات lat,lng للدقة -->
         <iframe
           loading="lazy"
           referrerpolicy="no-referrer-when-downgrade"
-          src="https://www.google.com/maps?q=%D9%85%D9%86%D8%B2%D9%84%20%D8%A7%D9%84%D8%B4%D9%8A%D8%AE%20%D8%B9%D8%A8%D8%A7%D8%B3%20%D8%A7%D9%84%D8%B1%D9%8A%D8%B3&output=embed"
+          src="https://www.google.com/maps?q=%D9%85%D8%AC%D9%84%D8%B3%20%D8%A7%D9%84%D8%B4%D9%8A%D8%AE%20%D8%B9%D8%A8%D8%A7%D8%B3%20%D8%A7%D9%84%D8%B1%D9%8A%D8%B3&output=embed"
           title="خريطة مجلس الشيخ عباس الريس">
         </iframe>
       </div>
 
       <div class="info">
-        <!-- تغيير النص المطلوب -->
         <div class="addr">مجلس الشيخ عباس الريس</div>
 
         <div class="actions">
@@ -210,16 +223,7 @@
           </a>
         </div>
       </div>
-
-      <!-- تمت إزالة فقرة التلميح للخصوصية بناءً على طلبك -->
-      <noscript>
-        متصفحك لا يدعم الجافاسكربت أو تم تعطيله.
-        يمكنك الوصول للموقع عبر هذا الرابط:
-        <a href="https://maps.app.goo.gl/m6qGZnSXFwU8Tfe78" target="_blank" rel="noopener">فتح في Google Maps</a>.
-      </noscript>
     </main>
-
-    <!-- تم حذف نص الفوتر العام -->
   </div>
 
 </body>
