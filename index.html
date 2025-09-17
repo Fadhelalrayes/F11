@@ -4,9 +4,9 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>مجلس الشيخ عباس الريس الرمضاني</title>
-  <meta name="description" content="صفحة تعريفية تعرض خريطة مجلس الشيخ عباس الريس الرمضاني مع زر لفتح الموقع في Google Maps والحصول على الاتجاهات." />
+  <meta name="description" content="صفحة تعريفية تعرض خريطة مجلس الشيخ عباس الريس الرمضاني مع أوقات الاستقبال طيلة شهر رمضان المبارك." />
 
-  <!-- خط عربي أنيق -->
+  <!-- خط عربي -->
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;800&display=swap" rel="stylesheet">
 
   <style>
@@ -27,13 +27,13 @@
       line-height: 1.75;
     }
 
+    /* صورة الغلاف */
     .hero{
       position: relative;
       width: 100%;
       min-height: 56vh;
       overflow: hidden;
       background: #000;
-      isolation: isolate;
     }
     .hero img{
       position: absolute;
@@ -41,24 +41,12 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      filter: contrast(1.02) saturate(1.03);
-      transform: scale(1.02);
-      z-index: 0;
+      filter: brightness(0.9) contrast(1.05);
     }
     .hero::after{
       content:"";
       position:absolute; inset:0;
-      z-index: 1;
-      background:
-        linear-gradient(
-          to bottom,
-          rgba(255,255,255,0.00) 0%,
-          rgba(255,255,255,0.12) 25%,
-          rgba(255,255,255,0.45) 55%,
-          rgba(255,255,255,0.85) 85%,
-          rgba(255,255,255,1.00) 100%
-        );
-      mix-blend-mode: screen;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.0) 0%, rgba(255,255,255,0.9) 100%);
     }
 
     .wrap{
@@ -76,7 +64,6 @@
       margin: 0 0 8px;
       color: var(--text);
       font-weight: 800;
-      letter-spacing: 0.2px;
       display: inline-block;
       padding: 6px 14px;
       background: #fff;
@@ -93,12 +80,40 @@
       background: linear-gradient(90deg, transparent, var(--gold), transparent);
       border-radius: 6px;
     }
+
     .site-desc{
       margin: 10px auto 0;
       color: var(--muted);
-      font-size: 15px;
+      font-size: 16px;
       max-width: 720px;
-      line-height: 1.8;
+    }
+
+    /* بطاقة الوقت الذهبية */
+    .time-box{
+      margin-top: 16px;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 28px;
+      font-size: 20px;
+      font-weight: 700;
+      color: #fff;
+      background: linear-gradient(135deg, #d4af37, #f7e488, #d4af37);
+      border-radius: 20px;
+      box-shadow: 0 8px 24px rgba(212,175,55,0.45);
+      animation: glow 2.5s infinite alternate;
+    }
+    .time-box span{
+      font-size: 24px;
+      margin-inline: 4px;
+    }
+    .time-box .moon{
+      font-size: 28px;
+    }
+
+    @keyframes glow {
+      from { box-shadow: 0 0 12px rgba(212,175,55,0.5); }
+      to   { box-shadow: 0 0 28px rgba(247,228,136,0.9); }
     }
 
     .card{
@@ -106,19 +121,15 @@
       border: 1px solid var(--gold-soft);
       border-radius: 20px;
       padding: 18px;
-      margin-top: 14px;
-      box-shadow:
-        0 12px 28px rgba(0,0,0,0.08),
-        inset 0 0 0 1px rgba(201,162,39,0.06);
+      margin-top: 20px;
+      box-shadow: 0 12px 28px rgba(0,0,0,0.08);
     }
 
-    /* تحسين عرض الخريطة */
     .map-shell{
       border-radius: 22px;
       overflow: hidden;
       border: 1px solid var(--gold-soft);
-      background: #fafafa;
-      aspect-ratio: 16 / 9;  /* خريطة بعرض سينمائي */
+      aspect-ratio: 16 / 9;
       width: 100%;
       box-shadow: 0 10px 30px rgba(0,0,0,0.15);
     }
@@ -155,25 +166,24 @@
       box-shadow: 0 10px 24px rgba(201,162,39,0.24);
       background: #fffdf7;
     }
-    .btn:active{
-      transform: translateY(0);
-      box-shadow: 0 4px 10px rgba(201,162,39,0.20);
-    }
   </style>
 </head>
 <body>
 
-  <!-- صورة الغلاف -->
-  <section class="hero" aria-label="صورة الغلاف">
-    <img src="https://www2.0zz0.com/2025/09/17/20/579063281.jpg" alt="مجلس الشيخ عباس الريس الرمضاني" loading="lazy">
+  <!-- صورة رمضانية احترافية -->
+  <section class="hero" aria-label="صورة رمضانية">
+    <img src="https://images.unsplash.com/photo-1616430587955-1e1c56e96365?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" 
+         alt="أجواء رمضانية - فوانيس وإضاءة" loading="lazy">
   </section>
 
   <div class="wrap">
     <header>
       <h1 class="title">مجلس الشيخ عباس الريس الرمضاني</h1>
-      <p class="site-desc">
-        صفحة تعريفية تعرض خريطة الموقع بدقة مع إمكانية فتحه مباشرة في Google&nbsp;Maps أو الحصول على الاتجاهات.
-      </p>
+      <p class="site-desc">يفتح طيلة شهر رمضان المبارك</p>
+      <div class="time-box">
+        <span class="moon">🌙</span>
+        🕖 من الساعة <span>7</span> مساءً &nbsp;–&nbsp; <span>9</span> مساءً
+      </div>
     </header>
 
     <main class="card" aria-label="خريطة الموقع">
