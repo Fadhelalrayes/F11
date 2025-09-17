@@ -4,9 +4,9 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>مجلس الشيخ عباس الريس الرمضاني</title>
-  <meta name="description" content="خريطة مجلس الشيخ عباس الريس الرمضاني مع أوقات الاستقبال طيلة شهر رمضان المبارك." />
+  <meta name="description" content="موقع مجلس الشيخ عباس الريس الرمضاني مع أوقات الاستقبال طيلة شهر رمضان المبارك." />
 
-  <!-- خط عربي (يمكنك حذفه إن أردت الاعتماد على خطوط النظام فقط) -->
+  <!-- خط عربي -->
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700;800&display=swap" rel="stylesheet">
 
   <style>
@@ -16,29 +16,7 @@
       --text:#1a1a1a;
       --muted:#6b7280;
       --bg:#ffffff;
-
-      /* خلفية احتياطية SVG (تستخدم فقط إذا فشل تحميل الصورة) */
-      --hero-fallback: url("data:image/svg+xml;utf8,\
-<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240' viewBox='0 0 240 240'>\
-  <defs>\
-    <linearGradient id='g' x1='0' y1='0' x2='1' y2='1'>\
-      <stop offset='0%' stop-color='%23fff8e6'/>\
-      <stop offset='100%' stop-color='%23ffffff'/>\
-    </linearGradient>\
-  </defs>\
-  <rect width='240' height='240' fill='url(%23g)'/>\
-  <g fill='%23c9a227' fill-opacity='0.12'>\
-    <circle cx='40' cy='40' r='3'/>\
-    <circle cx='120' cy='60' r='2'/>\
-    <circle cx='200' cy='30' r='3'/>\
-    <circle cx='30' cy='170' r='2'/>\
-    <circle cx='180' cy='120' r='2'/>\
-    <circle cx='90' cy='200' r='3'/>\
-  </g>\
-  <path d='M170 120a50 50 0 0 1-63-48a50 50 0 1 0 63 48z' fill='%23c9a227' fill-opacity='0.08'/>\
-</svg>");
     }
-
     *{ box-sizing:border-box }
     body{
       margin:0;
@@ -46,30 +24,17 @@
       background:var(--bg); color:var(--text); line-height:1.8;
     }
 
-    /* ====== HERO ====== */
+    /* ====== HERO IMAGE ====== */
     .hero{
       position:relative; width:100%; min-height:56vh; overflow:hidden; background:#fff;
     }
-    .hero.has-fallback{
-      /* في حال فشل الصورة نُظهر الخلفية الاحتياطية */
-      background-image: var(--hero-fallback),
-        radial-gradient(800px 400px at 20% 0%, rgba(201,162,39,0.08) 0%, rgba(255,255,255,0) 40%),
-        linear-gradient(180deg, #ffffff 0%, #fff9ef 60%, #ffffff 100%);
-      background-size: 480px 480px, 800px 400px, 100% 100%;
-      background-position: center, top left, center;
-      background-repeat: repeat, no-repeat, no-repeat;
-    }
     .hero img{
       position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
-      filter: brightness(0.98) contrast(1.05) saturate(1.03);
-      transition: opacity .25s ease;
-      opacity: 1;
+      filter:brightness(0.98) contrast(1.05) saturate(1.03);
     }
     .hero::after{
-      /* تدرّج سفلي يذيب الصورة في الخلفية البيضاء */
       content:""; position:absolute; inset:0; z-index:1;
-      background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,.92) 92%, rgba(255,255,255,1) 100%);
-      pointer-events:none;
+      background:linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,.92) 92%, rgba(255,255,255,1) 100%);
     }
 
     .wrap{ max-width:1000px; margin:0 auto; padding:18px 22px 34px; }
@@ -97,7 +62,7 @@
       margin:10px auto 0; color:var(--muted); font-size:16px; max-width:720px;
     }
 
-    /* مربع الوقت بنفس ستايل العنوان */
+    /* مربع الوقت */
     .time-chip{
       display:inline-block;
       background:#fff;
@@ -112,17 +77,24 @@
     .time-chip .moon{ margin-inline-end:8px }
     .time-chip .hrs strong{ font-size:20px; margin-inline:2px }
 
-    /* بطاقة الخريطة */
+    /* بطاقة الصورة مكان الخريطة */
     .card{
       background:#fff; border:1px solid var(--gold-soft); border-radius:22px; padding:18px; margin-top:24px;
       box-shadow:0 12px 28px rgba(0,0,0,.08), inset 0 0 0 1px rgba(201,162,39,.06);
+      text-align:center;
     }
-    .map-shell{
-      border-radius:22px; overflow:hidden; border:1px solid var(--gold-soft);
-      aspect-ratio:16/9; width:100%; background:#faf7ea;
+    .map-image{
+      display:block;
+      width:100%;
+      border-radius:22px;
+      border:1px solid var(--gold-soft);
       box-shadow:0 10px 30px rgba(0,0,0,.1);
+      transition:transform .2s ease, box-shadow .3s ease;
     }
-    .map-shell iframe{ width:100%; height:100%; border:0; display:block }
+    .map-image:hover{
+      transform:scale(1.02);
+      box-shadow:0 16px 36px rgba(0,0,0,.18);
+    }
 
     .actions{
       margin-top:16px; display:flex; gap:10px; flex-wrap:wrap; justify-content:center;
@@ -143,13 +115,10 @@
 </head>
 <body>
 
-  <!-- صورة الغلاف برابطك المباشر + احتياطي تلقائي -->
-  <section class="hero" id="hero" aria-label="صورة الغلاف">
-    <img id="heroImg"
-         src="https://www2.0zz0.com/2025/09/17/20/579063281.jpg"
-         alt="مجلس الشيخ عباس الريس"
-         loading="eager"
-         referrerpolicy="no-referrer" />
+  <!-- صورة الغلاف -->
+  <section class="hero" aria-label="صورة الغلاف">
+    <img src="https://www2.0zz0.com/2025/09/17/20/579063281.jpg"
+         alt="مجلس الشيخ عباس الريس" loading="eager" referrerpolicy="no-referrer" />
   </section>
 
   <div class="wrap">
@@ -157,23 +126,20 @@
       <h1 class="title">مجلس الشيخ عباس الريس الرمضاني</h1>
       <p class="site-desc">يفتح طيلة شهر رمضان المبارك</p>
 
-      <!-- مربع الوقت بنفس ستايل العنوان -->
+      <!-- مربع الوقت -->
       <div class="time-chip" aria-label="أوقات استقبال المجلس">
         <span class="moon">🌙</span>
         <span class="hrs">يوميًا — من <strong>7:00 مساءً</strong> إلى <strong>9:00 مساءً</strong></span>
       </div>
     </header>
 
-    <main class="card" aria-label="خريطة الموقع">
-      <div class="map-shell">
-        <!-- لإظهار نفس النقطة دائمًا بدقة أعلى، يمكنك استبدال q بالنمط: q=LAT,LNG -->
-        <iframe
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"
-          src="https://www.google.com/maps?q=%D9%85%D8%AC%D9%84%D8%B3%20%D8%A7%D9%84%D8%B4%D9%8A%D8%AE%20%D8%B9%D8%A8%D8%A7%D8%B3%20%D8%A7%D9%84%D8%B1%D9%8A%D8%B3&output=embed"
-          title="خريطة مجلس الشيخ عباس الريس الرمضاني">
-        </iframe>
-      </div>
+    <main class="card" aria-label="موقع المجلس">
+      <!-- صورة ثابتة تمثل الخريطة (تضغط عليها تفتح Google Maps) -->
+      <a href="https://maps.app.goo.gl/m6qGZnSXFwU8Tfe78" target="_blank" rel="noopener">
+        <img class="map-image"
+             src="https://images.unsplash.com/photo-1502920917128-1aa500764b84?auto=format&fit=crop&w=1200&q=80"
+             alt="صورة خريطة توضيحية لموقع المجلس" />
+      </a>
 
       <div class="actions">
         <a class="btn" href="https://maps.app.goo.gl/m6qGZnSXFwU8Tfe78" target="_blank" rel="noopener">
@@ -185,25 +151,6 @@
       </div>
     </main>
   </div>
-
-  <script>
-    // احتياطي تلقائي: إذا فشل تحميل الصورة من 0zz0 لأي سبب (حجب/انقطاع)،
-    // لن نغيّر الرابط، لكن سنخفي الـ <img> ونفعّل خلفية زخرفية بديلة داخل القسم نفسه.
-    (function(){
-      const img = document.getElementById('heroImg');
-      const hero = document.getElementById('hero');
-      function fallback(){
-        img.style.opacity = '0';
-        setTimeout(()=>{ img.style.display = 'none'; }, 250);
-        hero.classList.add('has-fallback');
-      }
-      img.addEventListener('error', fallback);
-      // في حال استغرق التحميل وقتًا طويلًا جدًا (شبكات بطيئة)، نفعل احتياطيًا بعد 6 ثوانٍ
-      setTimeout(()=>{
-        if (img.naturalWidth === 0) fallback();
-      }, 6000);
-    })();
-  </script>
 
 </body>
 </html>
