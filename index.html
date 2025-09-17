@@ -4,82 +4,94 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>مجلس الشيخ عباس الريس الرمضاني</title>
-  <meta name="description" content="صفحة تعرض خريطة مجلس الشيخ عباس الريس الرمضاني مع أوقات الاستقبال طيلة شهر رمضان المبارك." />
+  <meta name="description" content="صفحة تعريفية تعرض خريطة مجلس الشيخ عباس الريس الرمضاني مع أوقات الاستقبال طيلة شهر رمضان المبارك." />
 
-  <!-- خط عربي -->
+  <!-- خط عربي مهني -->
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700;800&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      --gold:#C9A227;
-      --gold-soft:#e8d9a6;
+      --gold:#C9A227;         /* ذهبي أساسي */
+      --gold-2:#e3c76b;       /* ذهبي فاتح */
+      --gold-3:#b0892d;       /* ذهبي أغمق */
       --text:#1a1a1a;
       --muted:#6b7280;
       --bg:#ffffff;
+      --card:#ffffff;
     }
-    *{ box-sizing:border-box; }
+    *{ box-sizing:border-box }
     body{
       margin:0;
-      font-family:"Cairo",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-      background:var(--bg);
-      color:var(--text);
-      line-height:1.8;
+      font-family:"Cairo",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+      background:var(--bg); color:var(--text); line-height:1.8;
     }
 
-    /* صورة الغلاف الاحترافية (لا نص فوقها) */
+    /* ======= HERO IMAGE (مع تدرّج واحتياطي) ======= */
     .hero{
-      position:relative; width:100%; min-height:56vh; overflow:hidden; background:#000;
+      position:relative; width:100%; min-height:56vh; overflow:hidden;
+      background: radial-gradient(1200px 600px at 50% 30%, #fff8e6 0%, #ffffff 60%, #ffffff 100%);
+      isolation:isolate;
     }
     .hero img{
       position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
-      filter:brightness(.9) contrast(1.06);
+      filter:brightness(.92) contrast(1.06) saturate(1.04);
+      transition:opacity .4s ease;
     }
     .hero::after{
-      content:""; position:absolute; inset:0;
-      background:linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,.92) 100%);
+      content:""; position:absolute; inset:0; z-index:1;
+      background:linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,.95) 90%, rgba(255,255,255,1) 100%);
     }
 
     .wrap{ max-width:1000px; margin:0 auto; padding:18px 22px 34px; }
 
-    header{ text-align:center; padding:22px 10px 8px; }
+    header{ text-align:center; padding:24px 10px 8px; }
     .title{
-      font-size:clamp(28px,5vw,46px); margin:0 0 10px; font-weight:800; color:var(--text);
-      display:inline-block; padding:8px 16px; background:#fff; border:1px solid var(--gold-soft);
-      border-radius:16px; box-shadow:0 8px 22px rgba(0,0,0,.06);
+      font-size:clamp(28px,5vw,46px); margin:0 0 12px; font-weight:800; color:var(--text);
+      display:inline-block; padding:10px 18px; background:#fff;
+      border:1px solid #efdca7; border-radius:18px;
+      box-shadow:0 10px 24px rgba(0,0,0,.06);
     }
     .title::after{
-      content:""; display:block; height:3px; width:55%; margin:10px auto 0;
+      content:""; display:block; height:3px; width:58%; margin:10px auto 0;
       background:linear-gradient(90deg,transparent,var(--gold),transparent); border-radius:6px;
     }
-    .site-desc{ margin:10px auto 0; color:var(--muted); font-size:16px; max-width:720px; }
-
-    /* بطاقة الوقت الذهبية الواضحة */
-    .time-box{
-      margin:16px auto 0;
-      display:inline-flex; align-items:center; gap:12px;
-      padding:14px 28px; border-radius:20px; font-weight:800;
-      color:#2b2100; /* نص داكن ليتباين مع الذهب الفاتح */
-      background:linear-gradient(135deg,#ffe08a,#f7d76a,#ffd34d);
-      box-shadow:0 10px 28px rgba(212,175,55,.35), inset 0 0 0 1px rgba(255,255,255,.45);
+    .site-desc{
+      margin:10px auto 0; color:var(--muted); font-size:16px; max-width:720px;
     }
-    .time-box .moon{ font-size:26px; }
-    .time-box .hrs{
-      font-size:22px; letter-spacing:.3px;
-    }
-    .time-box .hrs strong{ font-size:26px; margin-inline:4px; }
 
-    /* بطاقة الخريطة */
+    /* ======= TIME BANNER (احترافي) ======= */
+    .time-banner{
+      margin:18px auto 0;
+      display:inline-flex; align-items:center; gap:14px; padding:14px 22px;
+      border-radius:18px; position:relative; overflow:hidden;
+      background:linear-gradient(135deg, #fff6cf 0%, #ffe9a4 45%, #f7d76a 100%);
+      box-shadow:
+        0 10px 28px rgba(212,175,55,.28),
+        inset 0 0 0 1px rgba(255,255,255,.55);
+      border:1px solid #efdca7;
+    }
+    .time-icon{
+      width:28px; height:28px; flex:0 0 28px;
+    }
+    .time-text{
+      font-weight:800; color:#2b2100; letter-spacing:.2px;
+      font-size:20px;
+    }
+    .time-sub{
+      display:block; font-weight:700; font-size:14px; color:#6b5a19; margin-top:2px;
+    }
+
+    /* ======= MAP CARD ======= */
     .card{
-      background:#fff; border:1px solid var(--gold-soft); border-radius:22px; padding:18px; margin-top:22px;
+      background:var(--card); border:1px solid #efdca7; border-radius:22px; padding:18px; margin-top:24px;
       box-shadow:0 12px 28px rgba(0,0,0,.08), inset 0 0 0 1px rgba(201,162,39,.06);
     }
     .map-shell{
-      border-radius:22px; overflow:hidden; border:1px solid var(--gold-soft);
-      aspect-ratio:16/9; width:100%;
-      box-shadow:0 10px 30px rgba(0,0,0,.12);
-      background:#fafafa;
+      border-radius:22px; overflow:hidden; border:1px solid #efdca7;
+      aspect-ratio:16/9; width:100%; background:#faf7ea;
+      box-shadow:0 10px 30px rgba(0,0,0,.1);
     }
-    .map-shell iframe{ width:100%; height:100%; border:0; display:block; }
+    .map-shell iframe{ width:100%; height:100%; border:0; display:block }
 
     .actions{
       margin-top:16px; display:flex; gap:10px; flex-wrap:wrap; justify-content:center;
@@ -90,21 +102,22 @@
       transition:transform .07s ease, box-shadow .2s ease, background .2s ease;
       box-shadow:0 6px 16px rgba(201,162,39,.18); white-space:nowrap;
     }
-    .btn:hover{ transform:translateY(-1px); box-shadow:0 10px 24px rgba(201,162,39,.24); background:#fffdf7; }
+    .btn:hover{ transform:translateY(-1px); box-shadow:0 10px 24px rgba(201,162,39,.24); background:#fffdf7 }
 
-    /* شاشات صغيرة */
+    /* ======= Small screens ======= */
     @media (max-width:560px){
-      .btn{ width:100%; text-align:center; }
+      .btn{ width:100%; text-align:center }
+      .time-text{ font-size:18px }
     }
   </style>
 </head>
 <body>
 
-  <!-- صورة رمضانية احترافية (Unsplash) -->
+  <!-- صورة رمضانية احترافية + احتياطي تلقائي -->
   <section class="hero" aria-label="صورة رمضانية">
-    <img
-      src="https://images.unsplash.com/photo-1616430587955-1e1c56e96365?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80"
-      alt="أجواء رمضانية - فوانيس وإضاءة" loading="lazy">
+    <img id="heroImg"
+      src="https://images.unsplash.com/photo-1527766833261-b9ad92341f07?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80"
+      alt="أجواء رمضانية - فوانيس وإضاءة">
   </section>
 
   <div class="wrap">
@@ -112,16 +125,30 @@
       <h1 class="title">مجلس الشيخ عباس الريس الرمضاني</h1>
       <p class="site-desc">يفتح طيلة شهر رمضان المبارك</p>
 
-      <!-- الأوقات بشكل واضح جداً -->
-      <div class="time-box" aria-label="أوقات استقبال المجلس">
-        <span class="moon">🌙</span>
-        <span class="hrs">🕖 من الساعة <strong>7</strong> مساءً — <strong>9</strong> مساءً</span>
+      <!-- بطاقة أوقات احترافية -->
+      <div class="time-banner" aria-label="أوقات استقبال المجلس">
+        <!-- أيقونة هلال SVG (أدق من الإيموجي) -->
+        <svg class="time-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M21 12.6A8.5 8.5 0 0 1 10.2 3.3a8.4 8.4 0 1 0 10.8 9.3z"
+                stroke="#b0892d" stroke-width="1.2" fill="url(#g)" />
+          <defs>
+            <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#ffe8a2"/>
+              <stop offset="100%" stop-color="#d4af37"/>
+            </linearGradient>
+          </defs>
+        </svg>
+
+        <div>
+          <span class="time-text">يوميًا — من الساعة <strong>7:00 مساءً</strong> إلى <strong>9:00 مساءً</strong></span>
+          <span class="time-sub">خلال شهر رمضان المبارك</span>
+        </div>
       </div>
     </header>
 
     <main class="card" aria-label="خريطة الموقع">
       <div class="map-shell">
-        <!-- إن رغبت بدقّة أعلى، استبدل q بإحداثيات lat,lng -->
+        <!-- يمكنك استبدال q بإحداثيات دقيقة lat,lng لضبط اللقطة -->
         <iframe
           loading="lazy"
           referrerpolicy="no-referrer-when-downgrade"
@@ -141,5 +168,17 @@
     </main>
   </div>
 
+  <script>
+    // احتياطي: إذا فشل تحميل الصورة الأولى، نستبدلها برابط احتياطي موثوق.
+    (function(){
+      const img = document.getElementById('heroImg');
+      img.addEventListener('error', function(){
+        if (img.dataset.fallbackUsed) return;
+        img.dataset.fallbackUsed = "1";
+        img.src = "https://images.unsplash.com/photo-1520975922284-cc0c4e0b35b0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80";
+      }, { once:true });
+    })();
+  </script>
+
 </body>
-</html>00
+</html>
