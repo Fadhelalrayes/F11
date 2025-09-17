@@ -1,353 +1,231 @@
-<!DOCTYPE html><html lang="ar" dir="rtl">
+<!doctype html>
+<html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>محرّر نص على صورة — سحب لتكبير/تصغير + خطوط</title>
-  <!-- خطوط عربية احترافية إضافية -->
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Tajawal:wght@400;700&family=Amiri:wght@400;700&family=IBM+Plex+Sans+Arabic:wght@400;700&family=Changa:wght@400;700&family=Almarai:wght@400;700&family=Noto+Kufi+Arabic:wght@400;700&family=Noto+Naskh+Arabic:wght@400;700&display=swap" rel="stylesheet">
+  <title>منزل الشيخ عباس الريس</title>
+  <meta name="description" content="موقع منزل الشيخ عباس الريس على الخريطة مع رابط فتحه في Google Maps." />
+
   <style>
-    :root { --b:#e5e7eb; --t:#111827; --m:#6b7280; }
-    *{ box-sizing:border-box }
-    body{ margin:0; font-family:"Tajawal",system-ui; color:var(--t); background:#fff }
-    header{ padding:10px 16px; border-bottom:1px solid var(--b); display:flex; justify-content:space-between; align-items:center }
-    .wrap{ max-width:1000px; margin:16px auto; padding:0 16px; display:grid; gap:16px; grid-template-columns:1fr 320px }
-    @media (max-width:900px){ .wrap{ grid-template-columns:1fr } }
-    canvas{ width:100%; height:auto; background:#fff; border:1px solid var(--b); border-radius:12px; display:block; cursor:default }
-    .panel{ border:1px solid var(--b); border-radius:12px; padding:12px }
-    .row{ display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin-bottom:8px }
-    .field, .btn, select{ border:1px solid var(--b); border-radius:10px; padding:.5rem .6rem; background:#fff; font:inherit }
-    .btn{ cursor:pointer }
-    .btn:hover{ background:#f6f7f9 }
-    .btn.active{ background:#111827; color:#fff; border-color:#111827 }
-    .muted{ color:var(--m); font-size:.9rem }
-    textarea{ width:100%; min-height:220px; resize:vertical; border:1px solid var(--b); border-radius:10px; padding:.6rem .7rem; font:inherit }
-    small{ color:var(--m) }
+    :root{
+      --gold:#C9A227;           /* ذهبي هادئ */
+      --gold-soft:#e8d9a6;      /* ذهبي فاتح للإطارات */
+      --text:#1a1a1a;           /* أسود داكن للنص */
+      --muted:#6b7280;          /* رمادي للنص الثانوي */
+      --bg:#ffffff;             /* خلفية بيضاء */
+    }
+
+    *{ box-sizing: border-box; }
+
+    body{
+      margin:0;
+      font-family: "Tajawal", system-ui, -apple-system, Segoe UI, Roboto, "Noto Naskh Arabic", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    .wrap{
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    header{
+      text-align:center;
+      padding: 28px 16px 18px;
+      margin-bottom: 10px;
+    }
+
+    .title{
+      font-size: clamp(26px, 4vw, 40px);
+      letter-spacing: 0.3px;
+      margin: 0 0 8px;
+      color: var(--text);
+      font-weight: 800;
+      position: relative;
+      display: inline-block;
+    }
+
+    .title::after{
+      content:"";
+      display:block;
+      height: 3px;
+      width: 60%;
+      margin: 10px auto 0;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      border-radius: 6px;
+    }
+
+    .subtitle{
+      color: var(--muted);
+      font-size: 15px;
+      margin: 6px 0 0;
+    }
+
+    .card{
+      background: #fff;
+      border: 1px solid var(--gold-soft);
+      border-radius: 18px;
+      padding: 18px;
+      box-shadow:
+        0 10px 25px rgba(0,0,0,0.06),
+        inset 0 0 0 1px rgba(201,162,39,0.06);
+    }
+
+    .map-shell{
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid var(--gold-soft);
+      background: #fafafa;
+      aspect-ratio: 1.3 / 1; /* يحافظ على نسبة أبعاد لطيفة */
+      width: 100%;
+    }
+
+    .map-shell iframe{
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+    }
+
+    .info{
+      margin-top: 14px;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+
+    .addr{
+      color: var(--text);
+      font-weight: 600;
+      font-size: 16px;
+    }
+
+    .actions{
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn{
+      appearance: none;
+      border: 1.5px solid var(--gold);
+      background: #fff;
+      color: var(--text);
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: transform .07s ease, box-shadow .2s ease, background .2s ease;
+      box-shadow: 0 6px 16px rgba(201,162,39,0.15);
+      white-space: nowrap;
+    }
+
+    .btn:hover{
+      transform: translateY(-1px);
+      box-shadow: 0 10px 24px rgba(201,162,39,0.22);
+      background: #fffdf7;
+    }
+
+    .btn:active{
+      transform: translateY(0);
+      box-shadow: 0 4px 10px rgba(201,162,39,0.18);
+    }
+
+    .badge{
+      display:inline-block;
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: #fff7e0;
+      color: #7a5a00;
+      border: 1px solid var(--gold-soft);
+      margin-inline-start: 6px;
+      vertical-align: middle;
+    }
+
+    footer{
+      text-align:center;
+      color: var(--muted);
+      font-size: 13px;
+      padding: 26px 10px 8px;
+    }
+
+    .notice{
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 10px;
+    }
+
+    /* تحسينات صغيرة للشاشات الصغيرة */
+    @media (max-width: 560px){
+      .info{
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+      }
+      .actions{ width: 100%; }
+      .btn{ width: 100%; text-align:center; }
+    }
   </style>
 </head>
 <body>
-  <header>
-    <strong>محرّر نص على صورة</strong>
-    <small class="muted">اسحب المقبض لتكبير/تصغير النص داخل القالب + خطوط عربية إضافية</small>
-  </header>  <div class="wrap">
-    <!-- المعاينة -->
-    <section class="panel">
-      <div class="row">
-        <input id="imageInput" class="field" type="file" accept="image/*">
-        <button id="downloadPNG" class="btn">تنزيل PNG</button>
-        <button id="downloadJPG" class="btn">تنزيل JPG</button>
+
+  <div class="wrap">
+    <header>
+      <h1 class="title">منزل الشيخ عباس الريس <span class="badge">خريطة</span></h1>
+      <p class="subtitle">واجهة بيضاء بلمسات مذهّبة، وخريطة تفاعلية مع زر لفتح الموقع في Google&nbsp;Maps.</p>
+    </header>
+
+    <main class="card" aria-label="خريطة الموقع">
+      <!-- 
+        ملاحظة مهمة:
+        نحن نستخدم بحث Google Maps داخل iframe عبر معامل q باسم الموقع.
+        إذا رغبت بدقّة أعلى، استبدل قيمة q بإحداثيات خط العرض والطول (lat,lng) مثل: q=26.12345,50.54321
+      -->
+      <div class="map-shell">
+        <iframe
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          src="https://www.google.com/maps?q=%D9%85%D9%86%D8%B2%D9%84%20%D8%A7%D9%84%D8%B4%D9%8A%D8%AE%20%D8%B9%D8%A8%D8%A7%D8%B3%20%D8%A7%D9%84%D8%B1%D9%8A%D8%B3&output=embed"
+          title="خريطة منزل الشيخ عباس الريس">
+        </iframe>
       </div>
-      <canvas id="stage" width="900" height="560"></canvas>
-      <small>اسحب الفقرة لتحريكها. أمسك <b>المقبض المربّع</b> أسفل-يمين لتكبير/تصغير — يتم تغيير حجم الصندوق والخط معًا. يدعم RTL و"محاذاة الأطراف".</small>
-    </section><!-- الأدوات -->
-<aside class="panel">
-  <div class="row">
-    <span class="muted">الخط</span>
-    <select id="fontFamily">
-      <option value="Cairo" selected>Cairo</option>
-      <option value="Tajawal">Tajawal</option>
-      <option value="IBM Plex Sans Arabic">IBM Plex Sans Arabic</option>
-      <option value="Changa">Changa</option>
-      <option value="Amiri">Amiri (كلاسيكي)</option>
-      <option value="Almarai">Almarai</option>
-      <option value="Noto Kufi Arabic">Noto Kufi Arabic</option>
-      <option value="Noto Naskh Arabic">Noto Naskh Arabic</option>
-    </select>
-    <span class="muted">الحجم</span>
-    <input id="fontSize" class="field" type="number" min="10" max="200" value="40" style="width:80px">
-    <span class="muted">اللون</span>
-    <input id="fontColor" class="field" type="color" value="#111111" style="width:60px;height:38px">
+
+      <div class="info">
+        <div class="addr">العنوان: منزل الشيخ عباس الريس</div>
+
+        <div class="actions">
+          <!-- زر يفتح رابطك الأصلي مباشرة في Google Maps -->
+          <a class="btn" href="https://maps.app.goo.gl/m6qGZnSXFwU8Tfe78" target="_blank" rel="noopener">
+            افتح في Google&nbsp;Maps
+          </a>
+          <!-- زر للحصول على الاتجاهات عبر google.com/maps (يمكن للمستخدم إدخال موقعه) -->
+          <a class="btn" href="https://www.google.com/maps/dir/?api=1&destination=%D9%85%D9%86%D8%B2%D9%84%20%D8%A7%D9%84%D8%B4%D9%8A%D8%AE%20%D8%B9%D8%A8%D8%A7%D8%B3%20%D8%A7%D9%84%D8%B1%D9%8A%D8%B3" target="_blank" rel="noopener">
+            الحصول على الاتجاهات
+          </a>
+        </div>
+      </div>
+
+      <p class="notice">
+        تلميح للخصوصية: إن رغبت بعدم إظهار الموقع بدقة، اجعل البحث يشير إلى الحي أو المنطقة فقط.
+        ولأفضل دقّة على الخريطة المدمجة، استبدل قيمة <code>q=</code> بإحداثياتك الدقيقة (lat,lng).
+      </p>
+
+      <noscript>
+        المتصفح لديك لا يدعم الجافاسكربت أو تم تعطيله.
+        يمكنك الوصول للموقع عبر هذا الرابط:
+        <a href="https://maps.app.goo.gl/m6qGZnSXFwU8Tfe78" target="_blank" rel="noopener">فتح في Google Maps</a>.
+      </noscript>
+    </main>
+
+    <footer>
+      صفحة بسيطة بخلفية بيضاء ولمسات مذهّبة، تُبرز الخريطة والعنوان بشكل واضح.
+    </footer>
   </div>
 
-  <div class="row">
-    <button id="bold" class="btn" aria-pressed="false">عريض</button>
-    <button id="italic" class="btn" aria-pressed="false">مائل</button>
-    <button id="underline" class="btn" aria-pressed="false">تحته خط</button>
-    <span class="muted">ظل</span>
-    <button id="shadow" class="btn active" aria-pressed="true">تشغيل</button>
-  </div>
-
-  <div class="row">
-    <span class="muted">المحاذاة</span>
-    <button class="btn align active" data-align="center">وسط</button>
-    <button class="btn align" data-align="right">يمين</button>
-    <button class="btn align" data-align="left">يسار</button>
-    <button class="btn align" data-align="justify">الأطراف</button>
-  </div>
-
-  <div class="row">
-    <span class="muted">تباعد الأسطر</span>
-    <select id="lineHeight" class="field">
-      <option value="1.2">1.2</option>
-      <option value="1.4" selected>1.4</option>
-      <option value="1.6">1.6</option>
-      <option value="1.8">1.8</option>
-      <option value="2.0">2.0</option>
-    </select>
-  </div>
-
-  <div>
-    <label class="muted">النص (متعدد الأسطر)</label>
-    <textarea id="textInput" placeholder="اكتب نصك هنا..."></textarea>
-  </div>
-
-  <div class="row" style="margin-top:8px">
-    <label style="display:inline-flex;align-items:center;gap:.5rem">
-      <input id="matchImage" type="checkbox" checked> مطابقة عرض الفقرة للصورة
-    </label>
-    <label style="display:inline-flex;align-items:center;gap:.5rem">
-      <span class="muted">عرض الصندوق</span>
-      <input id="boxWidth" type="range" min="160" max="900" value="520">
-    </label>
-    <label style="display:inline-flex;align-items:center;gap:.5rem">
-      <span class="muted">هوامش داخلية</span>
-      <input id="padding" class="field" type="number" min="0" max="48" value="12" style="width:70px">
-    </label>
-  </div>
-</aside>
-
-  </div>  <script>
-    const $ = (s)=>document.querySelector(s);
-    const canvas = $('#stage');
-    const ctx = canvas.getContext('2d');
-
-    let image = null;
-    let block = {
-      text: '',
-      x: canvas.width/2, y: canvas.height/2,
-      boxWidth: 520, padding: 12,
-      fontFamily: 'Cairo', fontSize: 40, color: '#111111',
-      bold: false, italic: false, underline:false, shadow:true,
-      align: 'center', lineHeight: 1.4
-    };
-
-    const ui = {
-      imageInput: $('#imageInput'), downloadPNG: $('#downloadPNG'), downloadJPG: $('#downloadJPG'),
-      textInput: $('#textInput'), fontFamily: $('#fontFamily'), fontSize: $('#fontSize'), fontColor: $('#fontColor'),
-      bold: $('#bold'), italic: $('#italic'), underline: $('#underline'), shadow: $('#shadow'),
-      alignBtns: document.querySelectorAll('.align'), lineHeight: $('#lineHeight'),
-      matchImage: $('#matchImage'), boxWidth: $('#boxWidth'), padding: $('#padding')
-    };
-
-    function fitContain(sw, sh, dw, dh){
-      const s = Math.min(dw/sw, dh/sh);
-      return { w: sw*s, h: sh*s, s, x:(dw - sw*s)/2, y:(dh - sh*s)/2 };
-    }
-    function getImageFit(){ return image ? fitContain(image.naturalWidth, image.naturalHeight, canvas.width, canvas.height) : null; }
-
-    function setFont(o, target=ctx){
-      const weight = o.bold ? '700':'400';
-      const style = o.italic ? 'italic':'normal';
-      target.font = `${style} ${weight} ${o.fontSize}px ${o.fontFamily}`;
-      target.fillStyle = o.color;
-      target.textBaseline = 'alphabetic';
-      target.direction = 'rtl';
-    }
-
-    function wrapLines(o, target=ctx){
-      setFont(o, target);
-      const maxWidth = o.boxWidth - o.padding*2;
-      const words = (o.text||'').replace(/\n/g,' \\n ').split(/\s+/);
-      const lines=[]; let cur='';
-      for(const w of words){
-        if(w==='\\n'){ if(cur){ lines.push(cur); cur=''; } else { lines.push(''); } continue; }
-        const test = cur ? cur+' '+w : w;
-        if(target.measureText(test).width <= maxWidth) cur=test;
-        else { if(cur) lines.push(cur); cur=w; }
-      }
-      if(cur) lines.push(cur);
-      if(!lines.length) lines.push('');
-      return lines;
-    }
-
-    // مستطيل الفقرة وحساب المقبض
-    function paraRect(o){
-      const lines = wrapLines(o);
-      const lineH = Math.round(o.fontSize * o.lineHeight);
-      const w = o.boxWidth;
-      const h = lines.length * lineH + o.padding * 0.5; // تقريبي للعرض
-      const bx = o.x - w/2;
-      const top = o.y - Math.ceil(lines.length/2)*lineH + lineH;
-      const by = top - lineH + o.padding;
-      return { x:bx, y:by, w, h };
-    }
-
-    function drawLine(text, leftX, centerY, o, isLast, target=ctx){
-      const maxWidth = o.boxWidth - o.padding*2;
-      if(o.shadow){ target.shadowColor='rgba(0,0,0,.22)'; target.shadowBlur=6; target.shadowOffsetY=2; }
-      else { target.shadowColor='transparent'; target.shadowBlur=0; target.shadowOffsetY=0; }
-
-      if(o.align!=='justify'){
-        if(o.align==='left') target.textAlign='left';
-        else if(o.align==='right') target.textAlign='right';
-        else target.textAlign='center';
-        const x = leftX + o.padding + (o.align==='right'? maxWidth : (o.align==='center'? maxWidth/2 : 0));
-        target.fillText(text, x, centerY);
-        if(o.underline){
-          const w = target.measureText(text).width, uy = centerY + 3;
-          const ux = x - (o.align==='right'? w : (o.align==='center'? w/2 : 0));
-          target.save(); target.shadowColor='transparent'; target.strokeStyle=o.color;
-          target.lineWidth = Math.max(1, o.fontSize*0.05);
-          target.beginPath(); target.moveTo(ux,uy); target.lineTo(ux+w,uy); target.stroke(); target.restore();
-        }
-        return;
-      }
-
-      const words = text.split(/\s+/);
-      if(isLast || words.length<=1){
-        target.textAlign='right';
-        const x = leftX + o.padding + maxWidth;
-        target.fillText(text, x, centerY);
-        return;
-      }
-      const plain = words.join(' ');
-      const plainWidth = target.measureText(plain).width;
-      const extra = Math.max(0, maxWidth - plainWidth);
-      const gaps = words.length - 1;
-      const add = extra / gaps;
-      let x = leftX + o.padding;
-      target.textAlign='left';
-      words.forEach(w=>{ target.fillText(w, x, centerY); x += target.measureText(w).width + target.measureText(' ').width + add; });
-    }
-
-    function drawParagraph(o, target=ctx){
-      setFont(o, target);
-      const lines = wrapLines(o, target);
-      const lineH = Math.round(o.fontSize * o.lineHeight);
-      const bx = o.x - o.boxWidth/2;
-      const top = o.y - Math.ceil(lines.length/2)*lineH + lineH;
-
-      // صندوق وخطوط مساعدة
-      target.save(); target.shadowColor='transparent'; target.setLineDash([6,6]); target.strokeStyle='#e5e7eb';
-      target.strokeRect(bx, top - lineH + o.padding, o.boxWidth, lines.length*lineH + o.padding*0.5); target.restore();
-
-      lines.forEach((ln, i)=> drawLine(ln, bx, top + i*lineH, o, i===lines.length-1, target));
-
-      // مقابض التحجيم (أسفل يمين فقط + إظهار الأربعة بشكل مرئي)
-      const r = paraRect(o);
-      drawHandle(r.x + r.w, r.y + r.h); // أسفل يمين — الفعّال
-      drawHandle(r.x, r.y); // أعلى يسار (عرض فقط)
-      drawHandle(r.x + r.w, r.y); // أعلى يمين (عرض فقط)
-      drawHandle(r.x, r.y + r.h); // أسفل يسار (عرض فقط)
-    }
-
-    function drawHandle(x,y){
-      const s=10; ctx.save(); ctx.shadowColor='transparent'; ctx.fillStyle='#111827'; ctx.fillRect(x-s/2,y-s/2,s,s); ctx.restore();
-    }
-
-    function draw(){
-      ctx.clearRect(0,0,canvas.width,canvas.height);
-      if(image){ const fit=getImageFit(); ctx.drawImage(image,0,0,image.naturalWidth,image.naturalHeight,fit.x,fit.y,fit.w,fit.h); }
-      drawParagraph(block, ctx);
-    }
-
-    // مطابقة عرض الفقرة مع عرض الصورة
-    function syncBoxWidthToImage(){
-      if(!ui.matchImage.checked || !image) return;
-      const fit = getImageFit();
-      block.boxWidth = Math.max(160, Math.round(fit.w));
-      ui.boxWidth.value = block.boxWidth;
-    }
-
-    // أحداث إدخال عامة
-    function refresh(){
-      block.text = ui.textInput.value;
-      block.fontFamily = ui.fontFamily.value;
-      block.fontSize = +ui.fontSize.value;
-      block.color = ui.fontColor.value;
-      block.bold = ui.bold.classList.contains('active');
-      block.italic = ui.italic.classList.contains('active');
-      block.underline = ui.underline.classList.contains('active');
-      block.shadow = ui.shadow.getAttribute('aria-pressed')==='true';
-      block.lineHeight = parseFloat(ui.lineHeight.value);
-      block.padding = +ui.padding.value;
-      if(ui.matchImage.checked) syncBoxWidthToImage(); else block.boxWidth = +ui.boxWidth.value;
-      draw();
-    }
-    function toggleBtn(btn){ btn.classList.toggle('active'); btn.setAttribute('aria-pressed', String(btn.classList.contains('active'))); refresh(); }
-
-    ui.textInput.addEventListener('input', refresh);
-    ui.fontFamily.addEventListener('input', refresh);
-    ui.fontSize.addEventListener('input', refresh);
-    ui.fontColor.addEventListener('input', refresh);
-    ui.lineHeight.addEventListener('input', refresh);
-    ui.padding.addEventListener('input', refresh);
-    ui.boxWidth.addEventListener('input', ()=>{ if(!ui.matchImage.checked) refresh(); });
-    ui.matchImage.addEventListener('input', refresh);
-    ui.bold.addEventListener('click', ()=> toggleBtn(ui.bold));
-    ui.italic.addEventListener('click', ()=> toggleBtn(ui.italic));
-    ui.underline.addEventListener('click', ()=> toggleBtn(ui.underline));
-    ui.shadow.addEventListener('click', ()=>{ const on=ui.shadow.getAttribute('aria-pressed')!=='true'; ui.shadow.setAttribute('aria-pressed', String(on)); ui.shadow.classList.toggle('active', on); refresh(); });
-
-    ui.alignBtns.forEach(b=> b.addEventListener('click', ()=>{ ui.alignBtns.forEach(x=>x.classList.remove('active')); b.classList.add('active'); block.align = b.dataset.align; draw(); }));
-
-    ui.imageInput.addEventListener('change', e=>{ const f=e.target.files[0]; if(!f) return; const img=new Image(); img.onload=()=>{ image=img; syncBoxWidthToImage(); draw(); }; img.src=URL.createObjectURL(f); });
-
-    // سحب وتحريك/تحجيم
-    let dragging=false, scaling=false, offX=0, offY=0;
-    let startMouse=null, startBoxW=0, startFont=0; // للتحجيم
-
-    function isOnHandle(p){
-      const r = paraRect(block); const s=12;
-      const hx = r.x + r.w, hy = r.y + r.h; // أسفل يمين الفعّال
-      return (p.x>=hx-s && p.x<=hx+s && p.y>=hy-s && p.y<=hy+s);
-    }
-
-    function getMouse(e){ const rect=canvas.getBoundingClientRect(); return { x:(e.clientX-rect.left)*(canvas.width/rect.width), y:(e.clientY-rect.top)*(canvas.height/rect.height) } }
-
-    canvas.addEventListener('mousemove', e=>{
-      const p=getMouse(e);
-      canvas.style.cursor = isOnHandle(p)? 'nwse-resize' : (dragging? 'grabbing':'default');
-      if(scaling){
-        const dx = (p.x - startMouse.x); // التحجيم أفقيًا أساسًا
-        let newW = Math.max(160, startBoxW + dx*2); // *2 لأننا نكبر من المركز
-        const scale = newW / startBoxW;
-        block.boxWidth = newW;
-        block.fontSize = Math.max(10, Math.round(startFont * scale));
-        draw();
-      } else if(dragging){
-        block.x = p.x - offX; block.y = p.y - offY; draw();
-      }
-    });
-
-    canvas.addEventListener('mousedown', e=>{
-      const p=getMouse(e);
-      const r = paraRect(block);
-      if(isOnHandle(p)){
-        scaling=true; startMouse=p; startBoxW=block.boxWidth; startFont=block.fontSize; return;
-      }
-      // تحريك إذا داخل المستطيل
-      if(p.x>=r.x && p.x<=r.x+r.w && p.y>=r.y && p.y<=r.y+r.h){ dragging=true; offX=p.x-block.x; offY=p.y-block.y; }
-    });
-    window.addEventListener('mouseup', ()=>{ dragging=false; if(scaling){ scaling=false; refresh(); } });
-
-    // تنزيل بدقة الصورة الأصلية
-    function download(type='png'){
-      if(!image){ alert('حمّل صورة أولاً'); return; }
-      const out=document.createElement('canvas'), octx=out.getContext('2d');
-      out.width=image.naturalWidth; out.height=image.naturalHeight;
-      octx.drawImage(image,0,0);
-
-      const fit=getImageFit();
-      const scale=image.naturalWidth/fit.w;
-      const outBlock={ ...block, x:(block.x-fit.x)*scale, y:(block.y-fit.y)*scale, boxWidth:(ui.matchImage.checked? image.naturalWidth : block.boxWidth*scale), padding:block.padding*scale, fontSize:block.fontSize*scale };
-
-      function setFontOut(o){ const w=o.bold?'700':'400', s=o.italic?'italic':'normal'; octx.font=`${s} ${w} ${o.fontSize}px ${o.fontFamily}`; octx.fillStyle=o.color; octx.textBaseline='alphabetic'; octx.direction='rtl'; }
-      function wrapOut(o){ setFontOut(o); const maxW=o.boxWidth - o.padding*2; const words=(o.text||'').replace(/\n/g,' \\n ').split(/\s+/); const lines=[]; let cur=''; for(const w of words){ if(w==='\\n'){ if(cur){lines.push(cur); cur='';} else {lines.push('');} continue; } const test=cur?cur+' '+w:w; if(octx.measureText(test).width<=maxW){cur=test;} else { if(cur) lines.push(cur); cur=w; } } if(cur) lines.push(cur); if(!lines.length) lines.push(''); return lines; }
-      function drawLineOut(text, leftX, centerY, o, isLast){ const maxW=o.boxWidth - o.padding*2; if(o.shadow){ octx.shadowColor='rgba(0,0,0,.22)'; octx.shadowBlur=6*scale; octx.shadowOffsetY=2*scale; } else { octx.shadowColor='transparent'; octx.shadowBlur=0; octx.shadowOffsetY=0; } if(o.align!=='justify'){ if(o.align==='left') octx.textAlign='left'; else if(o.align==='right') octx.textAlign='right'; else octx.textAlign='center'; const x=leftX + o.padding + (o.align==='right'? maxW : (o.align==='center'? maxW/2 : 0)); octx.fillText(text,x,centerY); return; } const words=text.split(/\s+/); if(isLast || words.length<=1){ octx.textAlign='right'; const x=leftX + o.padding + maxW; octx.fillText(text,x,centerY); return; } const plain=words.join(' '); const plainWidth=octx.measureText(plain).width; const extra=Math.max(0, maxW-plainWidth); const gaps=words.length-1; const add=extra/gaps; let x=leftX + o.padding; octx.textAlign='left'; words.forEach(w=>{ octx.fillText(w,x,centerY); x += octx.measureText(w).width + octx.measureText(' ').width + add; }); }
-      function outDraw(){ setFontOut(outBlock); const lines=wrapOut(outBlock); const lineH=Math.round(outBlock.fontSize*outBlock.lineHeight); const bx=outBlock.x - outBlock.boxWidth/2; const top=outBlock.y - Math.ceil(lines.length/2)*lineH + lineH; lines.forEach((ln,i)=> drawLineOut(ln, bx, top+i*lineH, outBlock, i===lines.length-1)); }
-      outDraw();
-
-      const mime = type==='png' ? 'image/png' : 'image/jpeg';
-      const a=document.createElement('a');
-      a.download = `output.${type==='png'?'png':'jpg'}`;
-      a.href = out.toDataURL(mime, type==='png'?1.0:0.92);
-      a.click();
-    }
-
-    $('#downloadPNG').addEventListener('click', ()=> download('png'));
-    $('#downloadJPG').addEventListener('click', ()=> download('jpeg'));
-
-    // بدء
-    draw();
-  </script></body>
+</body>
 </html>
