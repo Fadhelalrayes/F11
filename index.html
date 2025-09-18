@@ -157,9 +157,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const MAPS = {
     GOLD:   ['gc.f','xauusd'],
     SILVER: ['si.f','xagusd'],
-    WTI:    ['cl.f','oil'],
-    BRENT:  ['br.f','brent'],
-    GAS:    ['ng.f','gas']
+    WTI:    ['cl.f'],
+    BRENT:  ['cb.f'],
+    GAS:    ['ng.f']
   };
   const STOCKS = ['aapl.us','msft.us','tsla.us','amzn.us','nvda.us','googl.us','meta.us'];
 
@@ -188,13 +188,23 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ============== محوّلات ============== */
   function parseStooqJSON(txt){
     try{
-      const d=JSON.parse(txt); if(!d||!d.length) return null;
-      const r=d[0]; const toNum=v=>(v&&v!=='N/D')?+v:null;
+      const d=JSON.parse(txt); 
+      if(!d||!d.length) {
+        console.warn('Invalid Stooq JSON: Empty or no data');
+        return null;
+      }
+      const r=d[0]; const toNum=v=>(v&&v!=='N/D' && !isNaN(v))?+v:null;
       const open=toNum(r.open), close=toNum(r.close), vol=toNum(r.volume)||0;
-      if(!close&&!open) return null;
+      if(!close&&!open) {
+        console.warn('No valid open or close price');
+        return null;
+      }
       const last=close??open; const ch=(open&&close)?((close-open)/open*100):0;
       return {last,change:ch,vol};
-    }catch{ return null; }
+    }catch(e){ 
+      console.error('Error parsing Stooq JSON:', e.message); 
+      return null; 
+    }
   }
 
   async function firstOk(symbols, mapTo){
@@ -203,8 +213,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const txt=await fetchCascade(STOOQ_JSON(s));
         const rec=parseStooqJSON(txt);
         if(rec) return {symbol:mapTo, last:rec.last, change:rec.change, vol:rec.vol};
-      }catch{}
+        else console.warn(`No valid data for symbol ${s}`);
+      }catch(e){ console.error(`Failed to fetch data for ${s}: ${e.message}`); }
     }
+    console.warn(`All attempts failed for ${mapTo}`);
     return null;
   }
 
@@ -254,6 +266,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const b  = await firstOk(MAPS.BRENT, 'BRENTUSD');
     const ng = await firstOk(MAPS.GAS,   'NGUSD');
     [g,ag,w,b,ng].forEach(x=>x&&out.push(x));
+    if (!out.length) console.warn('No commodities data loaded');
     COMM=out;
   }
 
@@ -285,7 +298,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function renderPrices(list){
     const tb=$("#pricesTbody"); tb.innerHTML="";
-    if(!list.length){tb.innerHTML='<tr><td colspan="4" class="empty">لا توجد بيانات متاحة حاليًا</td></tr>'; return;}
+    if(!list.length){tb.innerHTML='<tr><td colspan="4" class="empty">لا توجد بيانات متاحة حاليًا. تحقق من اتصال الإنترنت أو حاول لاحقًا.</td></tr>'; return;}
     for(const p of list){
       const tr=document.createElement("tr");
       const digits=p.symbol.endsWith("USD")?(p.symbol.startsWith("USD")?5:(p.symbol==='USDJPY'?3:2)):2;
@@ -299,7 +312,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function renderForecast(list){
     const tb=$("#forecastTbody"); tb.innerHTML="";
-    if(!list.length){tb.innerHTML='<tr><td colspan="4" class="empty">لا توجد بيانات متاحة حاليًا</td></tr>'; return;}
+    if(!list.length){tb.innerHTML='<tr><td colspan="4" class="empty">لا توجد بيانات متاحة حاليًا. تحقق من اتصال الإنترنت أو حاول لاحقًا.</td></tr>'; return;}
     for(const f of buildForecastRows(list)){
       let cls,icon;
       if(f.sig==='bull'){cls='sig-bull';icon=up()}
@@ -357,7 +370,7 @@ document.addEventListener('DOMContentLoaded', () => {
   (async function init(){
     await Promise.all([loadCryptoREST(), loadFX(), loadCommodities(), loadStocks()]);
     loadNews(); setInterval(loadNews, 120000);
-    renderAll(); setInterval(async()=>{ await Promise.all([loadCryptoREST(), loadCommodities(), loadStocks()]); renderAll(); }, 15000);
+    renderAll(); setInterval(async()=>{ await Promise.all([loadCryptoREST(), loadCommodities(), loadStocks()]); renderAll(); }, 30000);
   })();
 });
 </script>
