@@ -1,290 +1,273 @@
-<!DOCTYPE html><html lang="ar" dir="rtl">
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Cash4Life • مولّد أرقام ذهبي</title>
+  <title>Cash4Life • مولّد أرقام احترافي</title>
   <style>
     :root{
-      --gold:#C7A800;           /* ذهبي راقٍ */
-      --gold-deep:#A58900;      /* ظلّ الذهبي */
-      --gold-soft:#E8D98A;      /* ذهبي فاتح */
-      --bg:#fff;                /* أبيض */
-      --ink:#1a1a1a;            /* أسود ناعم */
-      --muted:#6b7280;          /* رمادي نصي */
-      --ring: rgba(199,168,0,.35);
+      --gold:#B9920B;           /* ذهبي فاخر */
+      --gold-2:#E6C45A;         /* ذهبي فاتح */
+      --ink:#0F172A;            /* حبر أنيق */
+      --muted:#6B7280;          /* رمادي ناعم */
+      --bg:#FFFFFF;             /* أبيض صريح */
+      --surface:#FCFCFD;        /* خلفية بطبقة واحدة */
+      --line:rgba(15,23,42,.08);
+      --ring:rgba(185,146,11,.35);
     }
     *{box-sizing:border-box}
+    html,body{height:100%}
     body{
       margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Noto Kufi Arabic", "Noto Sans Arabic", Tahoma, Arial, sans-serif;
-      background: radial-gradient(1200px 700px at 80% -10%, rgba(232,217,138,.25), transparent 70%),
-                  radial-gradient(1200px 700px at 10% 110%, rgba(232,217,138,.22), transparent 70%),
-                  var(--bg);
+      background: var(--surface);
       color:var(--ink);
     }
-    .wrap{max-width:980px;margin:32px auto;padding:24px}
-    .card{
-      background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:20px;box-shadow:0 10px 30px rgba(0,0,0,.05);
-      overflow:hidden
+    .app{display:grid;grid-template-columns: 320px 1fr; min-height:100vh}
+
+    /* ====== Sidebar ====== */
+    .side{
+      background: radial-gradient(900px 600px at 30% 10%, rgba(230,196,90,.22), transparent 60%),
+                  linear-gradient(180deg, #fff 0%, #fef8e9 100%);
+      border-inline-end:1px solid var(--line);
+      padding:28px 22px; display:flex; flex-direction:column; gap:28px; justify-content:space-between
     }
-    .hero{padding:28px 24px 18px;background:linear-gradient( to left, rgba(232,217,138,.35), rgba(232,217,138,.0));}
-    .brand{display:flex;align-items:center;gap:14px}
-    .logo{
-      width:48px;height:48px;border-radius:14px;background:linear-gradient(135deg,var(--gold),var(--gold-soft));
-      box-shadow:inset 0 0 0 2px rgba(255,255,255,.6), 0 4px 14px rgba(199,168,0,.35);
-      display:grid;place-items:center;font-weight:800;color:#fff;letter-spacing:.5px
+    .brand{display:flex; align-items:center; gap:14px}
+    .logo{width:54px;height:54px;border-radius:16px;display:grid;place-items:center;font-weight:900;color:#2B2200;letter-spacing:.4px;
+      background: conic-gradient(from 210deg,var(--gold),var(--gold-2),var(--gold));
+      box-shadow: inset 0 0 0 2px rgba(255,255,255,.75), 0 10px 30px rgba(185,146,11,.28);
     }
-    h1{margin:0;font-size: clamp(22px, 3vw, 28px)}
-    .sub{color:var(--muted);margin-top:6px}
-    .content{padding:18px 24px 24px}
-    .row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
-    .row > *{flex:1 1 220px}
-    label{font-weight:600;font-size:14px}
-    select, textarea, input[type="number"], input[type="text"]{
-      width:100%;background:#fff;border:1px solid rgba(0,0,0,.12);border-radius:12px;padding:10px 12px;font-size:14px;
-      outline:none;transition:.25s;border-color:rgba(0,0,0,.12)
+    h1{margin:0;font-size: clamp(22px, 2.4vw, 28px)}
+    .sub{color:var(--muted);margin-top:6px;line-height:1.6}
+    .side .tip{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px 14px;color:#4b3b00}
+    .side .mini{font-size:12px;color:var(--muted)}
+    .credits{display:flex;flex-direction:column;gap:6px}
+
+    /* ====== Main ====== */
+    .main{padding:36px; display:grid; place-items:start}
+    .panel{
+      width:min(980px, 100%);
+      background:#fff;border:1px solid var(--line);border-radius:20px;overflow:hidden
+    }
+    .hdr{display:flex;align-items:center;justify-content:space-between;padding:18px 20px;border-bottom:1px solid var(--line);backdrop-filter:saturate(140%)}
+    .hdr .title{font-weight:800}
+    .content{padding:18px 20px 24px}
+    .row{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end}
+    .row > *{flex:1 1 280px}
+    label{font-weight:700;font-size:13px;color:#111827}
+    select, textarea, input[type="text"]{
+      width:100%;background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 12px;font-size:14px;outline:none;transition:.25s
     }
     select:focus, textarea:focus, input:focus{box-shadow:0 0 0 4px var(--ring);border-color:var(--gold)}
-    textarea{min-height:84px;resize:vertical}
+    textarea{min-height:100px;resize:vertical}
+
     .btn{
-      appearance:none;border:none;cursor:pointer;border-radius:14px;padding:12px 18px;font-weight:800;font-size:15px;
-      background:linear-gradient(135deg,var(--gold),var(--gold-soft));color:#2B2200;
-      box-shadow: 0 6px 16px rgba(199,168,0,.35), inset 0 -2px 0 rgba(0,0,0,.08);
-      transition: transform .06s ease-in-out, box-shadow .2s ease
+      appearance:none;border:none;cursor:pointer;border-radius:12px;padding:12px 16px;font-weight:800;font-size:14px;
+      background:linear-gradient(135deg,var(--gold),var(--gold-2));color:#1F1A00;box-shadow:0 6px 18px rgba(185,146,11,.35), inset 0 -2px 0 rgba(0,0,0,.08);transition:transform .06s ease, box-shadow .2s ease
     }
-    .btn:hover{box-shadow: 0 10px 24px rgba(199,168,0,.45), inset 0 -2px 0 rgba(0,0,0,.09)}
-    .btn:active{transform: translateY(1px)}
-    .pill{
-      display:inline-grid;place-items:center;min-width:54px;height:54px;padding:8px 12px;border-radius:999px;
-      background:linear-gradient(160deg,#fff, #fff 60%, #faf7e6);border:1.5px solid var(--gold);
-      color:#2B2200;font-weight:900;font-size:18px;box-shadow:inset 0 0 0 2px rgba(255,255,255,.8), 0 6px 16px rgba(199,168,0,.25)
+    .btn:hover{box-shadow:0 10px 24px rgba(185,146,11,.45)}
+    .btn:active{transform:translateY(1px)}
+    .btn.secondary{background:#fff;border:1px solid var(--line);box-shadow:none;font-weight:700}
+
+    .result{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+    .ball{
+      display:grid;place-items:center;min-width:60px;height:60px;border-radius:999px;padding:10px 14px;font-weight:900;font-size:18px;color:#2B2200;
+      background:linear-gradient(160deg,#fff,#fff 60%, #faf7e6); border:1.5px solid var(--gold);
+      box-shadow:inset 0 0 0 2px rgba(255,255,255,.85), 0 8px 20px rgba(185,146,11,.2)
     }
-    .grid{display:flex;gap:10px;flex-wrap:wrap}
-    .cashball{border-color:var(--gold-deep);background:linear-gradient(160deg,#fff,#fff 60%, #f6f0c8)}
-    .tools{display:flex;gap:8px;flex-wrap:wrap}
-    .note{background: #fff8d8;border:1px dashed var(--gold-deep);border-radius:14px;color:#4b3b00;padding:10px 12px;font-size:13px}
-    .footer{padding:14px 20px;border-top:1px solid rgba(0,0,0,.06);display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:space-between}
+    .cash{border-color:#916F00;background:linear-gradient(160deg,#fff,#fff 60%, #f6f0cf)}
+
+    .stats{display:grid;grid-template-columns: repeat(3,1fr);gap:12px;margin-top:18px}
+    .stat{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px}
+    .stat h3{margin:0 0 6px 0;font-size:13px}
+    .muted{color:var(--muted);font-size:12px}
+
+    .footer{padding:14px 20px;border-top:1px solid var(--line);display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap}
     .badge{font-weight:800;letter-spacing:.4px;color:#5a4a00}
-    .link{color:var(--gold-deep);text-decoration:underline;cursor:pointer}
-    .mini{font-size:12px;color:var(--muted)}
-    .stat{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:12px;padding:10px 12px}
-    .stat h3{margin:0 0 8px 0;font-size:14px}
+
+    @media (max-width: 980px){
+      .app{grid-template-columns: 1fr}
+      .side{border-inline-end: none; border-bottom:1px solid var(--line)}
+      .main{padding:22px}
+    }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <div class="card">
-      <div class="hero">
+  <div class="app">
+    <!-- Sidebar -->
+    <aside class="side" aria-label="الشريط الجانبي">
+      <div>
         <div class="brand">
           <div class="logo">C4L</div>
           <div>
-            <h1>Cash4Life — مولّد أرقام بإستراتيجيات إحصائية</h1>
-            <div class="sub">اختر خوارزمية، ثم اضغط «توليد الأرقام». التنسيق الذهبي/الأبيض ✨</div>
+            <h1>Cash4Life</h1>
+            <div class="sub">مولّد أرقام بأسلوب احترافي ومظهر ذهبي أنيق.</div>
           </div>
         </div>
-      </div><div class="content">
-    <div class="row">
-      <div>
-        <label for="mode">الخوارزمية</label>
-        <select id="mode">
-          <option value="random">عشوائي بحت (Quick Pick)</option>
-          <option value="spread">توازن الانتشار (تقسيم 1–60 إلى 5 نطاقات)</option>
-          <option value="unpopular">شعبية أقل (ترجيح > 31 لتقليل تكرار التواريخ)</option>
-          <option value="freq">حسب تكرار السحوبات (باستخدام بيانات تُلصق أدناه)</option>
-        </select>
       </div>
-      <div>
-        <label for="seed">بذرة عشوائية (اختياري لثبات النتائج)</label>
-        <input id="seed" type="text" placeholder="مثال: 2025-09-18-مساء" />
+      <div class="credits">
+        <div class="tip"><strong>ملاحظة مهنية:</strong> لا توجد وسيلة مضمونة للتنبؤ بنتائج اليانصيب. هذا المولّد يقدّم انتقاءً مدروسًا فقط.</div>
+        <div class="mini">التصميم: أبيض/ذهبي • تجربة RTL كاملة • قابلية مشاركة</div>
       </div>
-    </div>
+    </aside>
 
-    <div style="margin-top:12px" class="row">
-      <div>
-        <label for="history">سجلّ سحوبات (اختياري للخوارزمية الإحصائية)</label>
-        <textarea id="history" placeholder="الصق أسطر من نتائج سابقة بصيغة: 05 14 21 33 57 | 3\n7 14 33 46 48 | 1\n...\nالأرقام مفصولة بمسافات؛ ضع Cash Ball بعد علامة |"></textarea>
-      </div>
-      <div>
-        <label>&nbsp;</label>
-        <div class="tools">
-          <button class="btn" id="generate">توليد الأرقام</button>
-          <button class="btn" id="copy">نسخ</button>
-          <button class="btn" id="share">مشاركة</button>
+    <!-- Main -->
+    <main class="main">
+      <section class="panel" aria-labelledby="panelTitle">
+        <div class="hdr">
+          <div class="title" id="panelTitle">توليد التشكيلة</div>
+          <div class="actions" style="display:flex; gap:8px">
+            <button class="btn" id="generate">توليد</button>
+            <button class="btn secondary" id="copy">نسخ</button>
+            <button class="btn secondary" id="share">مشاركة</button>
+          </div>
         </div>
-        <p class="note" style="margin-top:10px">تنبيه مسؤول: لا توجد خوارزمية تتنبأ بنتيجة يانصيب بضمان. هذا المولّد يقدّم توليدًا مدروسًا وفق استراتيجيات إحصائية اختيارية لانتقاء الأرقام فقط.</p>
-      </div>
-    </div>
+        <div class="content">
+          <div class="row" style="margin-bottom:12px">
+            <div>
+              <label for="mode">الخوارزمية</label>
+              <select id="mode" aria-label="اختيار الخوارزمية">
+                <option value="random">عشوائي بحت (Quick Pick)</option>
+                <option value="spread">توازن الانتشار (نطاق من كل شريحة)</option>
+                <option value="unpopular">شعبية أقل (ترجيح ما فوق 31)</option>
+                <option value="freq">اعتماد التكرارات (ألصق تاريخ السحوبات)</option>
+              </select>
+            </div>
+            <div>
+              <label for="seed">بذرة ثابتة (اختياري)</label>
+              <input id="seed" type="text" placeholder="مثال: 2025-09-18" />
+            </div>
+          </div>
 
-    <div style="margin-top:16px">
-      <h2 style="margin:0 0 8px 0;font-size:18px">نتيجتك</h2>
-      <div id="result" class="grid" aria-live="polite"></div>
-    </div>
+          <div class="row" style="margin-bottom:14px">
+            <div style="flex:2 1 420px">
+              <label for="history">سجلّ سحوبات سابق (لاستخدام خوارزمية التكرار)</label>
+              <textarea id="history" placeholder="مثال (سطر لكل سحب):&#10;05 14 21 33 57 | 3&#10;7 14 33 46 48 | 1&#10;...&#10;(أرقام رئيسية مفصولة بمسافة + Cash Ball بعد |)"></textarea>
+            </div>
+          </div>
 
-    <div class="row" style="margin-top:18px">
-      <div class="stat">
-        <h3>قواعد Cash4Life</h3>
-        <div class="mini">اختر 5 أرقام مختلفة من <b>1–60</b> + رقم Cash Ball من <b>1–4</b>.</div>
-      </div>
-      <div class="stat">
-        <h3>تلميحات</h3>
-        <div class="mini">يفضّل كثيرون تواريخ 1–31؛ اختيار أرقام أعلى قد يقلّل التشارك في الجائزة عند الفوز.</div>
-      </div>
-    </div>
+          <div style="margin:14px 0">
+            <div class="result" id="result" aria-live="polite"></div>
+          </div>
+
+          <div class="stats">
+            <div class="stat">
+              <h3>قواعد Cash4Life</h3>
+              <div class="muted">اختر 5 أرقام من <b>1–60</b> + رقم Cash Ball من <b>1–4</b>.</div>
+            </div>
+            <div class="stat">
+              <h3>نهج احترافي</h3>
+              <div class="muted">خيار "التوازن" يضمن توزيعًا على مدى 1–60؛ وخيار "الشعبية الأقل" يقلّل تكرار اختيارات الجمهور.</div>
+            </div>
+            <div class="stat">
+              <h3>البذرة (Seed)</h3>
+              <div class="muted">ضع قيمة ثابتة لإعادة إنتاج نفس التوليد لاحقًا (للتحقق أو المشاركة).</div>
+            </div>
+          </div>
+        </div>
+        <div class="footer">
+          <div class="badge">⚪️ أبيض • ✨ ذهبي</div>
+          <div class="muted">استخدام ترفيهي—لا علاقة رسمية بأي سحب</div>
+        </div>
+      </section>
+    </main>
   </div>
 
-  <div class="footer">
-    <div class="badge">⚪️ أبيض • ✨ ذهبي</div>
-    <div class="mini">للاستخدام الترفيهي • لا علاقة رسمية بأي يانصيب</div>
-  </div>
-</div>
-
-  </div>  <script>
-    // مولّد أرقام مع بذرة ثابتة (Linear Congruential Generator)
+  <script>
+    // ========== Utilities ==========
     function seededRandomFactory(seed) {
-      if (!seed) return Math.random; // عشوائي طبيعي
-      let h = 2166136261 >>> 0;
-      for (let i = 0; i < seed.length; i++) {
-        h ^= seed.charCodeAt(i);
-        h = Math.imul(h, 16777619);
-      }
+      if (!seed) return Math.random; // fallback
+      let h = 2166136261 >>> 0; // FNV-1a
+      for (let i = 0; i < seed.length; i++) { h ^= seed.charCodeAt(i); h = Math.imul(h, 16777619); }
       let state = h >>> 0;
-      return function() {
-        state = (1664525 * state + 1013904223) >>> 0;
-        return (state & 0xffffffff) / 0x100000000;
-      }
+      return function(){ state = (1664525 * state + 1013904223) >>> 0; return (state >>> 0) / 0x100000000 }
     }
 
-    function pickUnique(rnd, min, max, k, weights) {
-      const nums = [];
-      const available = [];
-      for (let i=min;i<=max;i++) available.push(i);
-
+    function pickUnique(rnd, min, max, k, weights){
+      const out = [], pool = []; for(let i=min;i<=max;i++) pool.push(i);
       for (let j=0;j<k;j++){
         let idx;
-        if (weights) {
-          // weighted by frequency array indexed by value
-          const total = available.reduce((s,v)=> s + (weights[v]||0.0001), 0);
-          let t = rnd()*total, acc = 0;
-          for (let i=0;i<available.length;i++){
-            acc += (weights[available[i]]||0.0001);
-            if (acc>=t){ idx=i; break; }
-          }
-        } else {
-          idx = Math.floor(rnd()*available.length);
-        }
-        nums.push(available[idx]);
-        available.splice(idx,1);
+        if (weights){
+          const total = pool.reduce((s,v)=> s + (weights[v]||0.0001), 0);
+          let t = rnd()*total, acc = 0; idx = 0;
+          for (let i=0;i<pool.length;i++){ acc += (weights[pool[i]]||0.0001); if (acc>=t){ idx=i; break; } }
+        } else { idx = Math.floor(rnd()*pool.length); }
+        out.push(pool[idx]); pool.splice(idx,1);
       }
-      nums.sort((a,b)=>a-b);
-      return nums;
+      return out.sort((a,b)=>a-b)
     }
 
     function parseHistory(text){
       const lines = (text||"").split(/\n+/).map(s=>s.trim()).filter(Boolean);
-      const freq = Array(61).fill(0); // 1..60
-      const cashFreq = Array(5).fill(0); // 1..4
-      let count=0, ccount=0;
+      const freq = Array(61).fill(0), cashFreq = Array(5).fill(0);
       for(const line of lines){
-        // e.g. "05 14 21 33 57 | 3"
-        const [left,right] = line.split('|').map(s=>s && s.trim());
-        if (!left) continue;
-        const parts = left.split(/\s+/).map(n=>parseInt(n,10)).filter(n=>n>=1 && n<=60);
-        const uniq = [...new Set(parts)].slice(0,5);
-        for(const v of uniq){ freq[v]++; count++; }
-        if (right){ const cb = parseInt(right,10); if (cb>=1 && cb<=4){ cashFreq[cb]++; ccount++; } }
+        const seg = line.split('|');
+        const left = (seg[0]||'').trim();
+        const right = (seg[1]||'').trim();
+        if(!left) continue;
+        const parts = left.split(/\s+/).map(Number).filter(n=>n>=1 && n<=60);
+        const uniq = Array.from(new Set(parts)).slice(0,5);
+        for(const v of uniq) freq[v] += 1;
+        if (right){ const cb = parseInt(right,10); if (cb>=1 && cb<=4) cashFreq[cb] += 1; }
       }
-      // smooth + normalize to avoid zeros
-      for(let i=1;i<=60;i++) freq[i] = (freq[i] + 0.5);
-      for(let i=1;i<=4;i++) cashFreq[i] = (cashFreq[i] + 0.5);
+      for(let i=1;i<=60;i++) freq[i] = freq[i] + 0.5; // smoothing
+      for(let i=1;i<=4;i++) cashFreq[i] = cashFreq[i] + 0.5;
       return {freq, cashFreq};
     }
 
+    // ========== Generation ==========
     function generate(){
       const mode = document.getElementById('mode').value;
       const seed = document.getElementById('seed').value.trim();
       const rnd = seededRandomFactory(seed);
       const historyText = document.getElementById('history').value;
-      const {freq, cashFreq} = parseHistory(historyText);
+      const data = parseHistory(historyText);
 
-      let mainWeights = null, cashWeights = null;
-      let main;
+      let main, cbWeights=null;
 
       if (mode === 'random'){
         main = pickUnique(rnd, 1, 60, 5);
       } else if (mode === 'spread'){
-        // خمس نطاقات: 1–12, 13–24, 25–36, 37–48, 49–60
         const bands = [[1,12],[13,24],[25,36],[37,48],[49,60]];
         main = bands.map(([a,b]) => pickUnique(rnd, a, b, 1)[0]).sort((a,b)=>a-b);
       } else if (mode === 'unpopular'){
-        // ترجيح للأرقام الأعلى من 31 لتجنب تواريخ الميلاد الشائعة
-        mainWeights = Array(61).fill(1);
-        for (let i=1;i<=60;i++) mainWeights[i] = i>31 ? 2.2 : 1; // مضاعِف بسيط
-        main = pickUnique(rnd, 1, 60, 5, mainWeights);
+        const w = Array(61).fill(1); for(let i=32;i<=60;i++) w[i] = 2.15; // ترجيح خفيف
+        main = pickUnique(rnd, 1, 60, 5, w);
       } else if (mode === 'freq'){
-        // استخدام تكرارات السجلّ، وإن لم يُوفَّر فتصبح عشوائية ملساء
-        mainWeights = freq;
-        main = pickUnique(rnd, 1, 60, 5, mainWeights);
+        main = pickUnique(rnd, 1, 60, 5, data.freq);
+        cbWeights = data.cashFreq;
       }
 
-      // Cash Ball
-      if (mode === 'freq'){
-        cashWeights = cashFreq;
-      }
-      const cash = pickUnique(rnd, 1, 4, 1, cashWeights)[0];
-
+      const cash = pickUnique(rnd, 1, 4, 1, cbWeights)[0];
       render(main, cash);
     }
 
     function render(arr, cash){
-      const box = document.getElementById('result');
-      box.innerHTML = '';
-      arr.forEach(v=>{
-        const d = document.createElement('div');
-        d.className='pill';
-        d.textContent = String(v).padStart(2,'0');
-        box.appendChild(d);
-      });
-      const d = document.createElement('div');
-      d.className='pill cashball';
-      d.title='Cash Ball';
-      d.textContent = String(cash);
-      box.appendChild(d);
+      const box = document.getElementById('result'); box.innerHTML = '';
+      arr.forEach(v=>{ const d=document.createElement('div'); d.className='ball'; d.textContent=String(v).padStart(2,'0'); box.appendChild(d); });
+      const c=document.createElement('div'); c.className='ball cash'; c.title='Cash Ball'; c.textContent=String(cash); box.appendChild(c);
       box.dataset.combo = `${arr.join('-')} | ${cash}`;
     }
 
-    function copyOut(){
-      const box = document.getElementById('result');
-      const t = box.dataset.combo || '';
-      if(!t) return;
-      navigator.clipboard.writeText(`Cash4Life: ${t}`).then(()=>{
-        toast('تم النسخ');
-      });
-    }
-
-    function shareOut(){
-      const box = document.getElementById('result');
-      const t = box.dataset.combo || '';
-      if(!t) return;
-      const text = `ترشيحي لـ Cash4Life: ${t}`;
-      if (navigator.share) {
-        navigator.share({text}).catch(()=>{});
-      } else {
-        navigator.clipboard.writeText(text).then(()=> toast('تم النسخ للمشاركة'));
-      }
-    }
-
+    // ========== Actions ==========
     function toast(msg){
-      const el = document.createElement('div');
-      el.textContent = msg;
-      el.style.cssText = `position:fixed;inset-inline:0;bottom:18px;margin:auto;width:fit-content;max-width:90%;padding:10px 14px;border-radius:999px;background:linear-gradient(135deg,var(--gold),var(--gold-soft));color:#2B2200;font-weight:800;box-shadow:0 10px 24px rgba(199,168,0,.35);z-index:9999`;
-      document.body.appendChild(el);
-      setTimeout(()=> el.remove(), 1400);
+      const el = document.createElement('div'); el.textContent = msg;
+      el.style.cssText = `position:fixed;inset-inline:0;bottom:18px;margin:auto;width:fit-content;max-width:90%;padding:10px 14px;border-radius:999px;background:linear-gradient(135deg,var(--gold),var(--gold-2));color:#1F1A00;font-weight:800;box-shadow:0 10px 24px rgba(185,146,11,.35);z-index:9999`;
+      document.body.appendChild(el); setTimeout(()=> el.remove(), 1400);
     }
 
     document.getElementById('generate').addEventListener('click', generate);
-    document.getElementById('copy').addEventListener('click', copyOut);
-    document.getElementById('share').addEventListener('click', shareOut);
+    document.getElementById('copy').addEventListener('click', ()=>{
+      const t = document.getElementById('result').dataset.combo || ''; if(!t) return;
+      navigator.clipboard.writeText(`Cash4Life: ${t}`).then(()=> toast('تم النسخ'));
+    });
+    document.getElementById('share').addEventListener('click', ()=>{
+      const t = document.getElementById('result').dataset.combo || ''; if(!t) return;
+      const text = `ترشيحي لـ Cash4Life: ${t}`;
+      if (navigator.share) navigator.share({text}).catch(()=>{}); else navigator.clipboard.writeText(text).then(()=> toast('تم النسخ للمشاركة'));
+    });
 
     // توليد أولي
     generate();
-  </script></body>
+  </script>
+</body>
 </html>
