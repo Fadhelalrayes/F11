@@ -38,6 +38,8 @@
   .brand{display:flex;align-items:center;gap:10px;font-weight:900;font-size:20px}
   .logo{width:28px;height:28px;border-radius:8px;background:conic-gradient(from 0deg,var(--gold),var(--gold-2),var(--gold))}
   .meta{font-size:13px;color:var(--muted)}
+
+  /* شريط الأخبار */
   .newsbar{display:none;overflow:hidden;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--bg-soft)}
   .news-track{display:flex;gap:28px;white-space:nowrap;animation:scroll 26s linear infinite;padding:8px 4px}
   .news-item{flex:0 0 auto;padding:6px 12px;border:1px solid var(--border);border-radius:999px;background:var(--card);font-size:13px;font-weight:700}
@@ -79,6 +81,7 @@
   .select-wrap a:hover{background:rgba(212,175,55,.10)}
 
   footer{margin-top:16px;padding:18px;border-top:1px solid var(--border);text-align:center;color:var(--muted);font-size:13px}
+  #devCredit{user-select:none}
 </style>
 </head>
 <body>
@@ -108,8 +111,8 @@
     <div class="head">التنبؤات</div>
     <div class="body">
       <table>
-        <thead><tr><th>الأصل</th><th>5د</th><th>1س</th><th>1ي</th><th>الثقة</th><th>الإشارة</th></tr></thead>
-        <tbody id="forecastTbody"><tr><td colspan="6" class="empty">جاري التحميل…</td></tr></tbody>
+        <thead><tr><th>الأصل</th><th>1س</th><th>1ي</th><th>الثقة</th><th>الإشارة</th></tr></thead>
+        <tbody id="forecastTbody"><tr><td colspan="5" class="empty">جاري التحميل…</td></tr></tbody>
       </table>
     </div>
   </section>
@@ -158,7 +161,7 @@
 </main>
 
 <footer>
-  برمجة وتطوير فاضل الريس
+  <span id="devCredit" title="انقر للتواصل">برمجة وتطوير فاضل الريس</span>
 </footer>
 
 <script>
@@ -167,10 +170,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const CONFIG = {
     CRYPTO_WS: ["btcusdt","ethusdt","solusdt","bnbusdt","xrpusdt"],
     STOOQ_F: (s) => `https://stooq.com/q/l/?s=${encodeURIComponent(s)}&f=sd2t2ohlcv&h&e=csv`,
-    // قوائم Stooq
     COMMODITIES: [
-      {stooq:'gc.f',  symbol:'XAUUSD'},   // Gold Futures
-      {stooq:'si.f',  symbol:'XAGUSD'},   // Silver Futures
+      {stooq:'gc.f',  symbol:'XAUUSD'},   // Gold
+      {stooq:'si.f',  symbol:'XAGUSD'},   // Silver
       {stooq:'cl.f',  symbol:'WTIUSD'},   // WTI
       {stooq:'br.f',  symbol:'BRENTUSD'}, // Brent
       {stooq:'ng.f',  symbol:'NGUSD'}     // Natural Gas
@@ -186,15 +188,20 @@ document.addEventListener('DOMContentLoaded', () => {
     ],
     FX_PRIMARY:  "https://open.er-api.com/v6/latest/USD",
     FX_FALLBACK: "https://api.frankfurter.app/latest?from=USD",
+    // مصادر أخبار عربية (RSS)
     NEWS: [
       "https://api.allorigins.win/raw?url=https%3A%2F%2Fwww.cnbcarabia.com%2Frss%2Flatest",
       "https://api.allorigins.win/raw?url=https%3A%2F%2Fwww.asharqbusiness.com%2Far%2Frss",
       "https://api.allorigins.win/raw?url=https%3A%2F%2Fwww.mubasher.info%2Frss%2Fnews%2Fall",
-      "https://api.allorigins.win/raw?url=https%3A%2F%2Fwww.alarabiya.net%2Ftools%2Frss%3Fcat%3Daswaq"
+      "https://api.allorigins.win/raw?url=https%3A%2F%2Fwww.alarabiya.net%2Ftools%2Frss%3Fcat%3Daswaq",
+      "https://api.allorigins.win/raw?url=https%3A%2F%2Fwww.argaam.com%2Frss%2Frss.xml",
+      "https://api.allorigins.win/raw?url=https%3A%2F%2Fwww.alborsanews.com%2Ffeed",
+      "https://api.allorigins.win/raw?url=https%3A%2F%2Fwww.skynewsarabia.com%2Frss%2Fbusiness"
     ],
     REFRESH_MS: 15000,
     NEWS_REFRESH_MS: 120000,
-    NEWS_LIMIT: 30
+    NEWS_LIMIT: 40,
+    WHATSAPP_URL: "https://api.whatsapp.com/send/?phone=97333375858&text&type=phone_number&app_absent=0&wame_ctl=1&fbclid=PAQ0xDSwM47SBleHRuA2FlbQIxMAABp_kyX38pB0gsODjRzVhQKTeY5ocu-YY5ziN9ajBUo-CdUWXFjvN0KmeCrDlS_aem_XeaTlriA2lW1NAuZYhhppw"
   };
 
   /* ================== أدوات ================== */
@@ -202,7 +209,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function fmt(n,d=2){ if(n==null||Number.isNaN(n)) return "—"; return Number(n).toLocaleString('en-US',{maximumFractionDigits:d}); }
   function now(){ const d=new Date(),p=n=>String(n).padStart(2,"0"); $("#lastUpdated").textContent = `${p(d.getHours())}:${p(d.getMinutes())}:${p(d.getSeconds())}`; }
 
-  // fetch نص/CSV مع بروكسي AllOrigins احتياطيًا لتفادي CORS
+  // جلب نص/CSV مع بروكسي احتياطي لتجاوز CORS
   async function fetchText(url, timeout=9000){
     const ctrl=new AbortController(); const t=setTimeout(()=>ctrl.abort(),timeout);
     try{ const r=await fetch(url,{signal:ctrl.signal,headers:{'Cache-Control':'no-cache'}}); if(!r.ok) throw new Error(r.status); return await r.text(); }
@@ -234,7 +241,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let COMM = [];
   let STOCKS = [];
 
-  /* ================== WebSocket: Binance (كريبتو) ================== */
+  /* ================== WebSocket: كريبتو ================== */
   (function openCryptoStream(){
     try{
       const streams = CONFIG.CRYPTO_WS.map(s=>`${s}@ticker`).join('/');
@@ -283,37 +290,33 @@ document.addEventListener('DOMContentLoaded', () => {
     }catch(e){ return []; }
   }
 
-  /* ================== Stooq CSV parsing ================== */
-  // Header: Symbol,Date,Time,Open,High,Low,Close,Volume
+  /* ================== Stooq CSV ================== */
+  // Symbol,Date,Time,Open,High,Low,Close,Volume
   function parseStooqCSV(csv){
     const lines = (csv||"").trim().split(/\r?\n/);
     if(lines.length<2) return null;
-    const parts = lines[1].split(',');
-    const rec = {
-      open: parts[3] ? +parts[3] : null,
-      close: parts[6] ? +parts[6] : null,
-      volume: parts[7] ? +parts[7] : 0
-    };
-    if(!rec.close || !rec.open) return null;
-    rec.change = (rec.close - rec.open)/rec.open * 100;
-    return rec;
+    const p = lines[1].split(',');
+    const open = p[3] ? +p[3] : null;
+    const close = p[6] ? +p[6] : null;
+    const vol = p[7] ? +p[7] : 0;
+    if(!open || !close) return null;
+    const change = (close - open)/open * 100;
+    return {open, close, volume: vol, change};
   }
 
   async function loadStooqItem(stooqSym, mappedSymbol){
     try{
       const csv = await fetchTextWithProxy(CONFIG.STOOQ_F(stooqSym));
       const rec = parseStooqCSV(csv);
-      if(rec){
-        return {symbol:mappedSymbol, last:rec.close, change:rec.change, vol:rec.volume};
-      }
+      if(rec){ return {symbol:mappedSymbol, last:rec.close, change:rec.change, vol:rec.volume}; }
     }catch(_){}
     return null;
   }
 
   async function loadListStooq(list){
     const out=[];
-    await Promise.all(list.map(async item=>{
-      const r = await loadStooqItem(item.stooq, item.symbol);
+    await Promise.all(list.map(async it=>{
+      const r = await loadStooqItem(it.stooq, it.symbol);
       if(r) out.push(r);
     }));
     return out;
@@ -322,26 +325,26 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ================== اشتقاقات ================== */
   function buildForecastRows(list){
     return list.map(p=>{
-      const m=(p.change||0)/100;
+      // إذا لم يوجد change نعتبره 0 لتظهر الإشارة محايدة
+      const m=((p.change ?? 0))/100;
       const conf=Math.min(0.9,Math.max(0.35,Math.abs(m)*3.5));
       const sig=m>0.003?"bull":m<-0.003?"bear":"neutral";
-      return {symbol:p.symbol, f5:p.last*(1+m*0.2), f1h:p.last*(1+m*0.6), f1d:p.last*(1+m*1.2), conf:Math.round(conf*100), sig};
+      return {symbol:p.symbol, f1h:p.last*(1+m*0.6), f1d:p.last*(1+m*1.2), conf:Math.round(conf*100), sig};
     });
   }
   function buildRecommendations(list){
     const buy=[],sell=[];
-    for(const p of list){ if(p.change>=1.5) buy.push(p); if(p.change<=-1.5) sell.push(p); }
+    for(const p of list){ if((p.change ?? 0)>=1.5) buy.push(p); if((p.change ?? 0)<=-1.5) sell.push(p); }
     return {buy,sell};
   }
   function buildAlerts(list){
-    // تنبيه عند |التغير| >= 3% (يوجد اتجاه واضح)
     return list.filter(p=>p.change!=null && Math.abs(p.change)>=3).map(p=>({
       symbol:p.symbol, change:p.change, dir: p.change>=0?'bull':'bear'
     }));
   }
 
   /* ================== أخبار عربية (سوق الأسهم فقط) ================== */
-  const NEWS_KEYWORDS = /(بورصة|تداول|سوق(?:\s*الأسهم)?|الأسهم|أسهم|مؤشر|السندات|اكتتاب|قيد|طرح|صندوق|محفظة|توزيعات|سيولة|متداولين|إغلاق|جلسة|ارتفاع|انخفاض)/i;
+  const NEWS_KEYWORDS = /(بورصة|تداول|سوق(?:\s*الأسهم)?|الأسهم|أسهم|مؤشر|السندات|اكتتاب|قيد|طرح|صندوق|محفظة|توزيعات|سيولة|متداولين|إغلاق|جلسة|ارتفاع|انخفاض|نمو|هوامش|سعر السهم|نتائج أعمال)/i;
   function parseRSS(xml){
     const out=[]; try{
       const doc=new DOMParser().parseFromString(xml,"text/xml");
@@ -362,26 +365,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const bar=$("#newsbar"), track=$("#newsScroller");
     if(!titles.length){ bar.style.display="none"; track.innerHTML=""; return; }
     bar.style.display="block"; track.innerHTML="";
-    const dup=titles.concat(titles);
+    const dup=titles.concat(titles); // حتى تمر الحركة بسلاسة
     for(const t of dup){
       const d=document.createElement("div"); d.className="news-item"; d.textContent=t; track.appendChild(d);
     }
   }
 
-  /* ===== SVG arrows (برمجي) ===== */
+  /* ===== SVG arrows ===== */
   function makeSvg(tag){ return document.createElementNS('http://www.w3.org/2000/svg', tag); }
-  function arrowUpSVG(){
-    const s=makeSvg('svg'); s.setAttribute('width','16'); s.setAttribute('height','16'); s.setAttribute('viewBox','0 0 24 24');
-    const p=makeSvg('path'); p.setAttribute('d','M12 4l6 6h-4v10h-4V10H6z'); p.setAttribute('fill','#0a7a2f'); s.appendChild(p); return s;
-  }
-  function arrowDownSVG(){
-    const s=makeSvg('svg'); s.setAttribute('width','16'); s.setAttribute('height','16'); s.setAttribute('viewBox','0 0 24 24');
-    const p=makeSvg('path'); p.setAttribute('d','M12 20l-6-6h4V4h4v10h4z'); p.setAttribute('fill','#b11a1a'); s.appendChild(p); return s;
-  }
-  function arrowFlatSVG(){
-    const s=makeSvg('svg'); s.setAttribute('width','16'); s.setAttribute('height','16'); s.setAttribute('viewBox','0 0 24 24');
-    const r=makeSvg('rect'); r.setAttribute('x','4'); r.setAttribute('y','11'); r.setAttribute('width','16'); r.setAttribute('height','2'); r.setAttribute('fill','#555'); s.appendChild(r); return s;
-  }
+  function arrowUpSVG(){ const s=makeSvg('svg'); s.setAttribute('width','16'); s.setAttribute('height','16'); s.setAttribute('viewBox','0 0 24 24'); const p=makeSvg('path'); p.setAttribute('d','M12 4l6 6h-4v10h-4V10H6z'); p.setAttribute('fill','#0a7a2f'); s.appendChild(p); return s; }
+  function arrowDownSVG(){ const s=makeSvg('svg'); s.setAttribute('width','16'); s.setAttribute('height','16'); s.setAttribute('viewBox','0 0 24 24'); const p=makeSvg('path'); p.setAttribute('d','M12 20l-6-6h4V4h4v10h4z'); p.setAttribute('fill','#b11a1a'); s.appendChild(p); return s; }
+  function arrowFlatSVG(){ const s=makeSvg('svg'); s.setAttribute('width','16'); s.setAttribute('height','16'); s.setAttribute('viewBox','0 0 24 24'); const r=makeSvg('rect'); r.setAttribute('x','4'); r.setAttribute('y','11'); r.setAttribute('width','16'); r.setAttribute('height','2'); r.setAttribute('fill','#555'); s.appendChild(r); return s; }
 
   /* ================== العرض ================== */
   function renderPrices(list){
@@ -391,19 +385,19 @@ document.addEventListener('DOMContentLoaded', () => {
       const tr=document.createElement("tr");
       const digits = p.symbol.endsWith("USD")
         ? (p.symbol.startsWith("USD")?5 : (p.symbol==='USDJPY'?3:2))
-        : 4;
+        : 2;
       tr.innerHTML = `
         <td><b>${arabicName(p.symbol)}</b></td>
         <td>${fmt(p.last,digits)}</td>
-        <td style="font-weight:800;color:${p.change>=0?'#0a7a2f':'#b11a1a'}">${p.change>=0?'↑':'↓'} ${fmt(Math.abs(p.change),2)}%</td>
-        <td>${fmt(p.vol,0)}</td>`;
+        <td style="font-weight:800;color:${(p.change ?? 0)>=0?'#0a7a2f':'#b11a1a'}">${(p.change ?? 0)>=0?'↑':'↓'} ${fmt(Math.abs(p.change ?? 0),2)}%</td>
+        <td>${fmt(p.vol ?? 0,0)}</td>`;
       tb.appendChild(tr);
     }
   }
 
   function renderForecast(list){
     const tb=$("#forecastTbody"); tb.innerHTML="";
-    if(!list.length){ tb.innerHTML='<tr><td colspan="6" class="empty">لا توجد بيانات متاحة حاليًا</td></tr>'; return; }
+    if(!list.length){ tb.innerHTML='<tr><td colspan="5" class="empty">لا توجد بيانات متاحة حاليًا</td></tr>'; return; }
     for(const f of buildForecastRows(list)){
       let label="", boxClass="", svgEl=null, pillCls="";
       if(f.sig==="bull"){ label="يرتفع"; boxClass="sig-bull"; svgEl=arrowUpSVG(); pillCls="bull"; }
@@ -414,26 +408,19 @@ document.addEventListener('DOMContentLoaded', () => {
       box.className = `sigbox ${boxClass}`;
       box.setAttribute('aria-label', label);
       box.setAttribute('title', label);
-      if(svgEl){ box.appendChild(svgEl); } else { box.classList.add('fallback'); box.textContent = (pillCls==="bull"?"▲":pillCls==="bear"?"▼":"↔"); }
+      if(svgEl){ box.appendChild(svgEl); } else { box.classList.add('fallback'); box.textContent = (pillCls==="bull"?"▲":pillCls==="bear"?"▼":"—"); }
 
-      const pill = document.createElement('span');
-      pill.className = `pill ${pillCls}`;
-      pill.textContent = label;
+      const pill = document.createElement('span'); pill.className = `pill ${pillCls}`; pill.textContent = label;
 
-      const wrap = document.createElement('div');
-      wrap.className = 'sigwrap';
-      wrap.appendChild(box);
-      wrap.appendChild(pill);
+      const wrap = document.createElement('div'); wrap.className = 'sigwrap'; wrap.appendChild(box); wrap.appendChild(pill);
 
       const tr=document.createElement("tr");
       tr.innerHTML=`
         <td><b>${arabicName(f.symbol)}</b></td>
-        <td>${fmt(f.f5,2)}</td>
         <td>${fmt(f.f1h,2)}</td>
         <td>${fmt(f.f1d,2)}</td>
         <td>${f.conf}%</td>`;
-      const td = document.createElement('td');
-      td.appendChild(wrap);
+      const td = document.createElement('td'); td.appendChild(wrap);
       tr.appendChild(td);
       tb.appendChild(tr);
     }
@@ -443,32 +430,26 @@ document.addEventListener('DOMContentLoaded', () => {
     const {buy,sell}=buildRecommendations(list);
     const b=$("#buyList"), s=$("#sellList");
     const cb=$("#card-buy"), cs=$("#card-sell");
+    b.innerHTML=""; s.innerHTML="";
 
-    b.innerHTML="";
     if(!buy.length){ cb.style.display="none"; }
     else {
       cb.style.display="block";
       for(const r of buy){
-        const d=document.createElement("div");
-        d.className="alert";
+        const d=document.createElement("div"); d.className="alert";
         d.innerHTML=`<span><b>${arabicName(r.symbol)}</b> — إشارة شراء (زخم إيجابي)</span>`;
         const sig = document.createElement('span'); sig.className='sigbox sig-bull'; sig.appendChild(arrowUpSVG());
-        d.appendChild(sig);
-        b.appendChild(d);
+        d.appendChild(sig); b.appendChild(d);
       }
     }
-
-    s.innerHTML="";
     if(!sell.length){ cs.style.display="none"; }
     else {
       cs.style.display="block";
       for(const r of sell){
-        const d=document.createElement("div");
-        d.className="alert";
+        const d=document.createElement("div"); d.className="alert";
         d.innerHTML=`<span><b>${arabicName(r.symbol)}</b> — إشارة بيع (زخم سلبي)</span>`;
         const sig = document.createElement('span'); sig.className='sigbox sig-bear'; sig.appendChild(arrowDownSVG());
-        d.appendChild(sig);
-        s.appendChild(d);
+        d.appendChild(sig); s.appendChild(d);
       }
     }
   }
@@ -483,9 +464,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const sig = document.createElement('span');
       sig.className = `sigbox ${x.dir==='bull'?'sig-bull':'sig-bear'}`;
       sig.appendChild(x.dir==='bull'?arrowUpSVG():arrowDownSVG());
-      row.appendChild(left);
-      row.appendChild(sig);
-      a.appendChild(row);
+      row.appendChild(left); row.appendChild(sig); a.appendChild(row);
     }
   }
 
@@ -545,13 +524,20 @@ document.addEventListener('DOMContentLoaded', () => {
     if(url) window.open(url, '_blank', 'noopener');
   });
 
+  /* ================== تفعيل واتساب عند الضغط على التذييل ================== */
+  const dev = document.getElementById('devCredit');
+  dev.style.cursor = 'pointer';
+  dev.addEventListener('click', ()=> {
+    window.open(CONFIG.WHATSAPP_URL, '_blank', 'noopener');
+  });
+
   /* ================== تشغيل ================== */
   (async function init(){
     // فوركس
     const pfx = await loadFXPrimary();
     FX = pfx ?? await loadFXFallback();
 
-    // سلع وأسهم عبر Stooq (مع بروكسي احتياطي مضمّن)
+    // سلع وأسهم عبر Stooq (مع بروكسي احتياطي)
     [COMM, STOCKS] = await Promise.all([
       loadListStooq(CONFIG.COMMODITIES),
       loadListStooq(CONFIG.STOCKS)
@@ -564,7 +550,7 @@ document.addEventListener('DOMContentLoaded', () => {
     renderAll();
     setInterval(renderAll, CONFIG.REFRESH_MS);
 
-    // تحديث دوري أقل تكرارًا للسلع/الأسهم (كل ~دقيقة)
+    // تحديث دوري للسلع/الأسهم (كل ~دقيقة)
     setInterval(async ()=>{
       [COMM, STOCKS] = await Promise.all([
         loadListStooq(CONFIG.COMMODITIES),
