@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>لوحة البورصة — مباشر</title>
+<title>توصيات البورصة — مباشر</title>
 <style>
   :root{
     --gold:#D4AF37; --gold-2:#C9A227;
@@ -18,17 +18,25 @@
     :root{ --bg:#0c0c0e; --bg-soft:#131318; --text:#f5f5f5; --card:#141419; --border:#292933; --shadow:0 10px 30px rgba(0,0,0,.35); }
   }
   *{box-sizing:border-box}
-  body{margin:0;background:var(--bg);color:var(--text);
-       font-family:"Cairo","Tajawal",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;line-height:1.65}
+  html,body{height:100%}
+  body{
+    margin:0;background:var(--bg);color:var(--text);
+    font-family:"Cairo","Tajawal",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+    line-height:1.65;
+  }
   .container{max-width:1160px;margin:0 auto;padding:12px}
-  header{position:sticky;top:0;z-index:80;background:linear-gradient(180deg,rgba(212,175,55,.08),transparent),var(--bg);
-         border-bottom:1px solid var(--border);backdrop-filter:blur(6px) saturate(130%)}
+  header{
+    position:sticky;top:0;z-index:80;
+    background:linear-gradient(180deg,rgba(212,175,55,.08),transparent),var(--bg);
+    border-bottom:1px solid var(--border);
+    backdrop-filter:blur(6px) saturate(130%);
+  }
   .topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 0}
   .brand{display:flex;align-items:center;gap:10px;font-weight:900;font-size:20px}
   .logo{width:28px;height:28px;border-radius:8px;background:conic-gradient(from 0deg,var(--gold),var(--gold-2),var(--gold))}
   .meta{font-size:13px;color:var(--muted)}
-  /* شريط الأخبار */
-  .newsbar{display:none; /* يُفعّل عند وجود عناوين */ overflow:hidden;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--bg-soft)}
+  /* شريط الأخبار (يختفي إذا لا توجد أخبار) */
+  .newsbar{display:none;overflow:hidden;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--bg-soft)}
   .news-track{display:flex;gap:28px;white-space:nowrap;animation:scroll 26s linear infinite;padding:8px 4px}
   .news-item{flex:0 0 auto;padding:6px 12px;border:1px solid var(--border);border-radius:999px;background:var(--card);font-size:13px;font-weight:700}
   @keyframes scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
@@ -56,11 +64,11 @@
 
 <header>
   <div class="container topbar">
-    <div class="brand"><div class="logo"></div>لوحة البورصة</div>
+    <div class="brand"><div class="logo"></div>توصيات البورصة</div>
     <div class="meta">آخر تحديث: <span id="lastUpdated">—:—:—</span></div>
   </div>
 
-  <!-- شريط الأخبار العربية (يختفي تلقائيًا إن لم توجد عناوين مطابقة) -->
+  <!-- شريط الأخبار العربية (يختفي تلقائيًا إذا لا توجد عناوين مطابقة) -->
   <div class="newsbar" id="newsbar">
     <div id="newsScroller" class="news-track"></div>
   </div>
@@ -90,15 +98,15 @@
     </div>
   </section>
 
-  <!-- توصيات شراء -->
+  <!-- الأسهم الموصى بشرائها -->
   <section class="card">
-    <div class="head">توصيات بالشراء</div>
+    <div class="head">الأسهم الموصى بشرائها</div>
     <div class="body" id="buyList"><div class="empty">لا توجد توصيات شراء حاليًا</div></div>
   </section>
 
-  <!-- توصيات بيع -->
+  <!-- الأسهم الموصى ببيعها -->
   <section class="card">
-    <div class="head">توصيات بالبيع</div>
+    <div class="head">الأسهم الموصى ببيعها</div>
     <div class="body" id="sellList"><div class="empty">لا توجد توصيات بيع حاليًا</div></div>
   </section>
 
@@ -117,10 +125,10 @@
 <script>
 /* =================== الإعدادات =================== */
 const CONFIG = {
-  // أسعار (حقيقية وبدون مفاتيح)
+  // أسعار (بدون مفاتيح)
   BINANCE: { API: "https://api.binance.com/api/v3", SYMBOLS: ["BTCUSDT","ETHUSDT","SOLUSDT","BNBUSDT","XRPUSDT"] },
   FX: { API: "https://open.er-api.com/v6/latest/USD", PAIRS: ["EURUSD","USDJPY","USDBHD","USDSAR","USDAED","GBPUSD","USDTRY"] },
-  // مصادر أخبار عربية فقط (RSS) عبر AllOrigins
+  // مصادر أخبار عربية متنوعة تركز على "الأسهم/التداول" فقط (RSS عبر AllOrigins)
   NEWS: [
     "https://api.allorigins.win/raw?url=https%3A%2F%2Fwww.cnbcarabia.com%2Frss%2Flatest",
     "https://api.allorigins.win/raw?url=https%3A%2F%2Fwww.asharqbusiness.com%2Far%2Frss",
@@ -132,11 +140,12 @@ const CONFIG = {
   NEWS_LIMIT: 30
 };
 
+/* =================== أدوات مساعدة =================== */
 const $ = s => document.querySelector(s);
 function fmt(n,d=2){ if(n==null||Number.isNaN(n)) return "—"; return Number(n).toLocaleString('en-US',{maximumFractionDigits:d}); }
 function now(){ const d=new Date(),p=n=>String(n).padStart(2,"0"); $("#lastUpdated").textContent = `${p(d.getHours())}:${p(d.getMinutes())}:${p(d.getSeconds())}`; }
 
-/* ====== تعريب الأسماء للعرض ====== */
+/* ====== تعريب أسماء الأصول للعرض ====== */
 function arabicName(symbol){
   const map = {
     "BTCUSD":"بيتكوين/دولار","ETHUSD":"إيثريوم/دولار","SOLUSD":"سولانا/دولار","BNBUSD":"بي إن بي/دولار","XRPUSD":"ريبل/دولار",
@@ -146,14 +155,14 @@ function arabicName(symbol){
   return map[symbol] || symbol;
 }
 
-/* ====== جلب JSON/NON-JSON مع مهلة ====== */
+/* =================== جلب (مع مهلة) =================== */
 async function fetchText(url, timeout=8000){
   const ctrl=new AbortController(); const t=setTimeout(()=>ctrl.abort(),timeout);
   try{ const r=await fetch(url,{signal:ctrl.signal,headers:{'Cache-Control':'no-cache'}}); if(!r.ok) throw new Error(r.status); return await r.text(); }
   finally{ clearTimeout(t); }
 }
 
-/* ====== الأسعار ====== */
+/* =================== الأسعار =================== */
 async function loadCrypto(){
   const out=[];
   for(const s of CONFIG.BINANCE.SYMBOLS){
@@ -184,6 +193,7 @@ async function loadFX(){
   }catch(_){ return []; }
 }
 
+/* =================== بناء التنبؤات/التوصيات/التنبيهات =================== */
 function buildForecastRows(list){
   return list.map(p=>{
     const m=(p.change||0)/100, conf=Math.min(0.9,Math.max(0.35,Math.abs(m)*3.5));
@@ -200,8 +210,8 @@ function buildAlerts(list){
   return list.filter(p=>Math.abs(p.change)>=3).map(p=>({symbol:p.symbol,msg:`تغيّر ${p.change.toFixed(2)}%`}));
 }
 
-/* ====== الأخبار العربية فقط + فلترة بورصة/تداول ====== */
-const NEWS_KEYWORDS = /(بورصة|تداول|سوق|الأسهم|أسهم|مؤشر|السندات|اكتتاب|تفسيخ|نسبة|الكهرباء\s*الساكنة)?الأسهم|الأسواق|السوق|مؤشر|بورص/i;
+/* =================== الأخبار العربية (أسهم/تداول فقط) =================== */
+const NEWS_KEYWORDS = /(بورصة|تداول|سوق(?:\s*الأسهم)?|الأسهم|أسهم|مؤشر|السندات|اكتتاب|قيد|طرح|صندوق|محفظة|توزيعات|سيولة|متداولين|إغلاق|جلسة|نمو|ارتفاع|انخفاض)/i;
 function parseRSS(xmlText){
   const out=[]; try{
     const doc=new DOMParser().parseFromString(xmlText,"text/xml");
@@ -223,7 +233,7 @@ async function loadNews(){
 }
 function renderNews(titles){
   const bar=$("#newsbar"), track=$("#newsScroller");
-  if(!titles.length){ bar.style.display="none"; track.innerHTML=""; return; }
+  if(!titles.length){ bar.style.display="none"; track.innerHTML=""; return; }  // ← يختفي عند عدم توفر أخبار
   bar.style.display="block"; track.innerHTML="";
   const dup=titles.concat(titles);
   for(const t of dup){
@@ -231,7 +241,7 @@ function renderNews(titles){
   }
 }
 
-/* ====== العرض ====== */
+/* =================== العرض =================== */
 function renderPrices(list){
   const tb=$("#pricesTbody"); tb.innerHTML="";
   if(!list.length){ tb.innerHTML='<tr><td colspan="4" class="empty">لا توجد بيانات متاحة حاليًا</td></tr>'; return; }
@@ -263,35 +273,47 @@ function renderForecast(list){
     tb.appendChild(tr);
   }
 }
-function renderSignals(list){
+function renderRecommendations(list){
   const {buy,sell}=buildRecommendations(list);
   const b=$("#buyList"), s=$("#sellList");
   b.innerHTML=""; s.innerHTML="";
   if(!buy.length) b.innerHTML='<div class="empty">لا توجد توصيات شراء حاليًا</div>';
   if(!sell.length) s.innerHTML='<div class="empty">لا توجد توصيات بيع حاليًا</div>';
-  for(const r of buy){ const d=document.createElement("div"); d.className="alert"; d.innerHTML=`<b>${arabicName(r.symbol)}</b> — إشارة شراء (زخم إيجابي)`; b.appendChild(d); }
-  for(const r of sell){ const d=document.createElement("div"); d.className="alert"; d.innerHTML=`<b>${arabicName(r.symbol)}</b> — إشارة بيع (زخم سلبي)`; s.appendChild(d); }
+  for(const r of buy){
+    const d=document.createElement("div"); d.className="alert";
+    d.innerHTML=`<b>${arabicName(r.symbol)}</b> — إشارة شراء (زخم إيجابي)`;
+    b.appendChild(d);
+  }
+  for(const r of sell){
+    const d=document.createElement("div"); d.className="alert";
+    d.innerHTML=`<b>${arabicName(r.symbol)}</b> — إشارة بيع (زخم سلبي)`;
+    s.appendChild(d);
+  }
 }
 function renderAlerts(list){
   const arr=buildAlerts(list), a=$("#alertsList"); a.innerHTML="";
   if(!arr.length){ a.innerHTML='<div class="empty">لا توجد تنبيهات حاليًا</div>'; return; }
-  for(const x of arr){ const d=document.createElement("div"); d.className="alert"; d.innerHTML=`<b>${arabicName(x.symbol)}</b> — ${x.msg}`; a.appendChild(d); }
+  for(const x of arr){
+    const d=document.createElement("div"); d.className="alert";
+    d.innerHTML=`<b>${arabicName(x.symbol)}</b> — ${x.msg}`;
+    a.appendChild(d);
+  }
 }
 
-/* ====== تدفق رئيسي ====== */
+/* =================== التدفق الرئيسي =================== */
 async function loadAll(){
   const [crypto, fx] = await Promise.all([loadCrypto(), loadFX()]);
   const all = [...crypto, ...fx];
   renderPrices(all);
   renderForecast(all);
-  renderSignals(all);
+  renderRecommendations(all);
   renderAlerts(all);
   now();
 }
 (async function init(){
   await Promise.all([loadAll(), loadNews()]);
-  setInterval(loadAll, CONFIG.REFRESH_MS);
-  setInterval(loadNews, CONFIG.NEWS_REFRESH_MS);
+  setInterval(loadAll, CONFIG.REFRESH_MS);       // تحديث تلقائي للأسعار/توصيات/تنبيهات
+  setInterval(loadNews, CONFIG.NEWS_REFRESH_MS); // تحديث الأخبار
 })();
 </script>
 </body>
