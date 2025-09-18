@@ -19,45 +19,42 @@
     :root{ --bg:#0c0c0e; --bg-soft:#131318; --text:#f5f5f5; --card:#141419; --border:#292933; --shadow:0 10px 30px rgba(0,0,0,.35); }
   }
   *{box-sizing:border-box}
-  html,body{height:100%}
-  body{
-    margin:0;background:var(--bg);color:var(--text);
-    font-family:"Cairo","Tajawal","Noto Kufi Arabic",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
-    line-height:1.65;
-  }
+  body{margin:0;background:var(--bg);color:var(--text);font-family:"Cairo","Tajawal","Noto Kufi Arabic",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;line-height:1.65}
   .container{max-width:1160px;margin:0 auto;padding:12px}
-  header{
-    position:sticky;top:0;z-index:80;
-    background:linear-gradient(180deg,rgba(212,175,55,.08),transparent),var(--bg);
-    border-bottom:1px solid var(--border);
-    backdrop-filter:blur(6px) saturate(130%);
-  }
+  header{position:sticky;top:0;z-index:80;background:linear-gradient(180deg,rgba(212,175,55,.08),transparent),var(--bg);border-bottom:1px solid var(--border);backdrop-filter:blur(6px) saturate(130%)}
   .topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 0}
   .brand{display:flex;align-items:center;gap:10px;font-weight:900;font-size:20px}
   .logo{width:28px;height:28px;border-radius:8px;background:conic-gradient(from 0deg,var(--gold),var(--gold-2),var(--gold))}
   .meta{font-size:13px;color:var(--muted)}
-
-  /* شريط الأخبار */
   .newsbar{display:none;overflow:hidden;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--bg-soft)}
   .news-track{display:flex;gap:28px;white-space:nowrap;animation:scroll 26s linear infinite;padding:8px 4px}
   .news-item{flex:0 0 auto;padding:6px 12px;border:1px solid var(--border);border-radius:999px;background:var(--card);font-size:13px;font-weight:700}
   @keyframes scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-
   main{padding:12px}
   .grid{display:grid;gap:14px}
   .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
   .head{padding:12px 14px;border-bottom:1px solid var(--border);font-weight:800;background:linear-gradient(180deg,rgba(212,175,55,.10),transparent)}
   .body{padding:12px}
-  table{width:100%;border-collapse:collapse}
+
+  table{width:100%;border-collapse:collapse;table-layout:fixed}
   th,td{padding:10px;border-bottom:1px solid var(--border);text-align:center;font-size:14px;vertical-align:middle}
   th{font-size:12px;color:var(--muted)}
   tr:hover td{background:rgba(212,175,55,.06)}
-  .prices-table{table-layout:fixed}
-  .forecast-table{table-layout:fixed}
-  .forecast-table th:nth-child(1){width:28%}
-  .forecast-table th:nth-child(2), .forecast-table th:nth-child(3){width:18%}
+  /* أعمدة مُحَدّدة العرض لتفادي الانزياح */
+  .prices-table th:nth-child(1){width:36%}
+  .prices-table th:nth-child(2){width:22%}
+  .prices-table th:nth-child(3){width:22%}
+  .prices-table th:nth-child(4){width:20%}
+
+  .forecast-table th:nth-child(1){width:34%}
+  .forecast-table th:nth-child(2){width:18%}
+  .forecast-table th:nth-child(3){width:18%}
   .forecast-table th:nth-child(4){width:12%}
-  .forecast-table th:nth-child(5){width:24%}
+  .forecast-table th:nth-child(5){width:18%}
+
+  /* منع التفاف للأرقام، والسماح لاسم الأصل فقط */
+  td.num{white-space:nowrap}
+  td.sym{white-space:normal;word-break:keep-all}
 
   .pill{display:inline-block;padding:4px 10px;border-radius:999px;font-size:12px;font-weight:800;border:1px solid var(--border);white-space:nowrap}
   .bull{background:#e6f8ec;color:var(--pos)}
@@ -66,31 +63,34 @@
   .alert{border:1px solid var(--border);border-radius:12px;padding:10px;margin-bottom:10px;background:var(--bg-soft);display:flex;align-items:center;gap:8px;justify-content:space-between}
   .empty{text-align:center;color:var(--muted);padding:12px}
 
-  /* صندوق الإشارة — أبعاد ثابتة */
-  .sigwrap{display:inline-flex;align-items:center;gap:8px;justify-content:center;white-space:nowrap}
+  /* صندوق الإشارة ثابت المقاس */
+  .sigwrap{display:inline-flex;align-items:center;gap:8px;justify-content:center;white-space:nowrap;max-width:100%}
   .sigbox{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;min-width:28px;min-height:28px;border-radius:6px;border:1px solid var(--border);box-shadow:var(--shadow);overflow:hidden;flex:0 0 28px}
   .sig-bull{background:#e6f8ec}
   .sig-bear{background:#fde8e8}
   .sig-neutral{background:#f1f1f1}
   .sigbox svg{display:block;width:16px;height:16px}
-  .sigbox.fallback{font-weight:900;color:#333}
+  .sigcell{display:flex;align-items:center;justify-content:center}
 
-  /* نصائح التداول */
+  /* جوّال */
+  @media (max-width: 480px){
+    th,td{padding:8px 6px;font-size:13px}
+    .pill{font-size:11px;padding:3px 8px}
+    .sigbox{width:26px;height:26px;min-width:26px;min-height:26px}
+    .sigbox svg{width:14px;height:14px}
+  }
+
   .tips{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:14px;margin-top:6px}
-
-  /* قائمة مواقع التداول */
   .links-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:14px}
   .select-wrap{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
   .select-wrap select{padding:10px 12px;border:1px solid var(--border);border-radius:10px;background:var(--bg-soft);font-family:inherit}
   .select-wrap a{padding:10px 12px;border:1px solid var(--border);border-radius:10px;text-decoration:none}
   .select-wrap a:hover{background:rgba(212,175,55,.10)}
-
   footer{margin-top:16px;padding:18px;border-top:1px solid var(--border);text-align:center;color:var(--muted);font-size:13px}
   #devCredit{user-select:none; cursor:pointer}
 </style>
 </head>
 <body>
-
 <header>
   <div class="container topbar">
     <div class="brand"><div class="logo"></div>توصيات البورصة</div>
@@ -174,492 +174,182 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ================== إعدادات ================== */
   const CONFIG = {
     CRYPTO_WS: ["btcusdt","ethusdt","solusdt","bnbusdt","xrpusdt"],
-
-    // مرادفات رموز Stooq لزيادة فرص الجلب
     MAPS: {
-      GOLD:   ['gc.f','xauusd'],         // ذهب
-      SILVER: ['si.f','xagusd'],         // فضة
-      WTI:    ['cl.f','oil'],            // نفط WTI
-      BRENT:  ['br.f','brent'],          // برنت
-      GAS:    ['ng.f','gas']             // غاز
+      GOLD:   ['gc.f','xauusd'],
+      SILVER: ['si.f','xagusd'],
+      WTI:    ['cl.f','oil'],
+      BRENT:  ['br.f','brent'],
+      GAS:    ['ng.f','gas']
     },
-
-    STOOQ_F: (s) => `https://stooq.com/q/l/?s=${encodeURIComponent(s)}&f=sd2t2ohlcv&h&e=csv`,
-
+    STOOQ_F: s => `https://stooq.com/q/l/?s=${encodeURIComponent(s)}&f=sd2t2ohlcv&h&e=csv`,
     STOCKS: [
-      {stooq:'aapl.us',  symbol:'AAPL'},
-      {stooq:'msft.us',  symbol:'MSFT'},
-      {stooq:'tsla.us',  symbol:'TSLA'},
-      {stooq:'amzn.us',  symbol:'AMZN'},
-      {stooq:'nvda.us',  symbol:'NVDA'},
-      {stooq:'googl.us', symbol:'GOOGL'},
-      {stooq:'meta.us',  symbol:'META'}
+      {stooq:'aapl.us',symbol:'AAPL'},{stooq:'msft.us',symbol:'MSFT'},{stooq:'tsla.us',symbol:'TSLA'},
+      {stooq:'amzn.us',symbol:'AMZN'},{stooq:'nvda.us',symbol:'NVDA'},{stooq:'googl.us',symbol:'GOOGL'},{stooq:'meta.us',symbol:'META'}
     ],
-
-    FX_PRIMARY:  "https://open.er-api.com/v6/latest/USD",
-    FX_FALLBACK: "https://api.frankfurter.app/latest?from=USD",
-
-    // أخبار عربية (RSS + صفحات)
-    NEWS_RSS: [
-      "https://www.cnbcarabia.com/rss/latest",
-      "https://www.asharqbusiness.com/ar/rss",
-      "https://www.mubasher.info/rss/news/all",
-      "https://www.alarabiya.net/tools/rss?cat=aswaq",
-      "https://www.argaam.com/rss/rss.xml",
-      "https://www.alborsanews.com/feed",
-      "https://www.skynewsarabia.com/rss/business"
+    FX_PRIMARY:"https://open.er-api.com/v6/latest/USD",
+    FX_FALLBACK:"https://api.frankfurter.app/latest?from=USD",
+    NEWS_RSS:[
+      "https://www.cnbcarabia.com/rss/latest","https://www.asharqbusiness.com/ar/rss","https://www.mubasher.info/rss/news/all",
+      "https://www.alarabiya.net/tools/rss?cat=aswaq","https://www.argaam.com/rss/rss.xml","https://www.alborsanews.com/feed","https://www.skynewsarabia.com/rss/business"
     ],
-    NEWS_PAGES: [
-      "https://www.cnbcarabia.com/category/markets",
-      "https://www.asharqbusiness.com/ar/markets",
-      "https://www.argaam.com/ar",
-      "https://www.mubasher.info/markets",
-      "https://www.alborsanews.com/category/%D8%A8%D9%88%D8%B1%D8%B5%D8%A9",
-      "https://www.skynewsarabia.com/business"
+    NEWS_PAGES:[
+      "https://www.cnbcarabia.com/category/markets","https://www.asharqbusiness.com/ar/markets","https://www.argaam.com/ar",
+      "https://www.mubasher.info/markets","https://www.alborsanews.com/category/%D8%A8%D9%88%D8%B1%D8%B5%D8%A9","https://www.skynewsarabia.com/business"
     ],
-
-    REFRESH_MS: 15000,
-    NEWS_REFRESH_MS: 120000,
-    NEWS_LIMIT: 40,
-    WHATSAPP_URL: "https://api.whatsapp.com/send/?phone=97333375858&text&type=phone_number&app_absent=0&wame_ctl=1&fbclid=PAQ0xDSwM47SBleHRuA2FlbQIxMAABp_kyX38pB0gsODjRzVhQKTeY5ocu-YY5ziN9ajBUo-CdUWXFjvN0KmeCrDlS_aem_XeaTlriA2lW1NAuZYhhppw"
+    REFRESH_MS:15000,
+    NEWS_REFRESH_MS:120000,
+    NEWS_LIMIT:40,
+    WHATSAPP_URL:"https://api.whatsapp.com/send/?phone=97333375858&text&type=phone_number&app_absent=0&wame_ctl=1&fbclid=PAQ0xDSwM47SBleHRuA2FlbQIxMAABp_kyX38pB0gsODjRzVhQKTeY5ocu-YY5ziN9ajBUo-CdUWXFjvN0KmeCrDlS_aem_XeaTlriA2lW1NAuZYhhppw"
   };
 
-  /* ================== أدوات عامة ================== */
-  const $ = s => document.querySelector(s);
-  function fmt(n,d=2){ if(n==null||Number.isNaN(n)) return "—"; return Number(n).toLocaleString('en-US',{maximumFractionDigits:d}); }
-  function now(){ const d=new Date(),p=n=>String(n).padStart(2,"0"); $("#lastUpdated").textContent = `${p(d.getHours())}:${p(d.getMinutes())}:${p(d.getSeconds())}`; }
+  /* ===== أدوات ===== */
+  const $=s=>document.querySelector(s);
+  const fmt=(n,d=2)=> (n==null||Number.isNaN(n))?"—":Number(n).toLocaleString('en-US',{maximumFractionDigits:d});
+  const now=()=>{const d=new Date(),p=n=>String(n).padStart(2,"0");$("#lastUpdated").textContent=`${p(d.getHours())}:${p(d.getMinutes())}:${p(d.getSeconds())}`;}
 
-  async function fetchText(url, timeout=9000){
-    const ctrl=new AbortController(); const t=setTimeout(()=>ctrl.abort(),timeout);
-    try{ const r=await fetch(url,{signal:ctrl.signal,headers:{'Cache-Control':'no-cache'}}); if(!r.ok) throw new Error(r.status); return await r.text(); }
-    finally{ clearTimeout(t); }
-  }
-  // تسلسل بروكسيات: مباشر → AllOrigins → r.jina.ai
-  async function fetchCascade(rawUrl){
-    const tryList = [
-      rawUrl,
-      `https://api.allorigins.win/raw?url=${encodeURIComponent(rawUrl)}`,
-      `https://r.jina.ai/http://` + rawUrl.replace(/^https?:\/\//,'')
-    ];
-    for(const u of tryList){
-      try{ return await fetchText(u); }catch(_){}
-    }
-    throw new Error('fetch failed');
-  }
+  async function fetchText(url,timeout=9000){const c=new AbortController(),t=setTimeout(()=>c.abort(),timeout);try{const r=await fetch(url,{signal:c.signal,headers:{'Cache-Control':'no-cache'}});if(!r.ok)throw new Error(r.status);return await r.text()}finally{clearTimeout(t)}}
+  async function cascade(raw){const list=[raw,`https://api.allorigins.win/raw?url=${encodeURIComponent(raw)}`,`https://r.jina.ai/http://`+raw.replace(/^https?:\/\//,'')];for(const u of list){try{return await fetchText(u)}catch{}}throw new Error('fetch failed')}
 
-  function arabicName(symbol){
-    const map = {
-      "BTCUSD":"بيتكوين/دولار","ETHUSD":"إيثريوم/دولار","SOLUSD":"سولانا/دولار","BNBUSD":"بي إن بي/دولار","XRPUSD":"ريبل/دولار",
-      "EURUSD":"يورو/دولار","USDJPY":"دولار/ين","USDBHD":"دولار/دينار بحريني","USDSAR":"دولار/ريال سعودي",
-      "USDAED":"دولار/درهم إماراتي","GBPUSD":"جنيه/دولار","USDTRY":"دولار/ليرة تركية",
-      "XAUUSD":"ذهب/دولار","XAGUSD":"فضة/دولار",
-      "WTIUSD":"نفط خام WTI/دولار","BRENTUSD":"نفط برنت/دولار","NGUSD":"غاز طبيعي/دولار",
-      "AAPL":"آبل","MSFT":"مايكروسوفت","TSLA":"تسلا","AMZN":"أمازون","NVDA":"إنفيديا","GOOGL":"ألفابت (جوجل)","META":"ميتا"
-    };
-    return map[symbol] || symbol;
-  }
+  function arabicName(s){const m={"BTCUSD":"بيتكوين/دولار","ETHUSD":"إيثريوم/دولار","SOLUSD":"سولانا/دولار","BNBUSD":"بي إن بي/دولار","XRPUSD":"ريبل/دولار","EURUSD":"يورو/دولار","USDJPY":"دولار/ين","USDBHD":"دولار/دينار بحريني","USDSAR":"دولار/ريال سعودي","USDAED":"دولار/درهم إماراتي","GBPUSD":"جنيه/دولار","USDTRY":"دولار/ليرة تركية","XAUUSD":"ذهب/دولار","XAGUSD":"فضة/دولار","WTIUSD":"نفط خام WTI/دولار","BRENTUSD":"نفط برنت/دولار","NGUSD":"غاز طبيعي/دولار","AAPL":"آبل","MSFT":"مايكروسوفت","TSLA":"تسلا","AMZN":"أمازون","NVDA":"إنفيديا","GOOGL":"ألفابت (جوجل)","META":"ميتا"};return m[s]||s}
 
-  /* ================== حالة ================== */
-  let CRYPTO = {}; // {symbol,last,change,vol}
-  let FX = [];
-  let COMM = [];   // ذهب/فضة/نفط/غاز
-  let STOCKS = [];
+  let CRYPTO={},FX=[],COMM=[],STOCKS=[];
 
-  /* ================== كريبتو عبر Binance WS ================== */
-  (function openCryptoStream(){
+  /* كريبتو */
+  (function cryptoWS(){
     try{
-      const streams = CONFIG.CRYPTO_WS.map(s=>`${s}@ticker`).join('/');
-      const ws = new WebSocket(`wss://stream.binance.com:9443/stream?streams=${streams}`);
-      ws.onmessage = ev => {
-        try{
-          const {data:t} = JSON.parse(ev.data);
-          const sym = (t.s||"").replace("USDT","USD");
-          CRYPTO[sym] = { symbol:sym, last:+t.c, change:+t.P, vol:+t.v };
-          renderAll();
-        }catch(_){}
-      };
-      ws.onclose = () => setTimeout(openCryptoStream, 2000);
-    }catch(_){}
+      const streams=CONFIG.CRYPTO_WS.map(s=>`${s}@ticker`).join('/');
+      const ws=new WebSocket(`wss://stream.binance.com:9443/stream?streams=${streams}`);
+      ws.onmessage=e=>{try{const {data:t}=JSON.parse(e.data);const sym=(t.s||"").replace("USDT","USD");CRYPTO[sym]={symbol:sym,last:+t.c,change:+t.P,vol:+t.v};renderAll()}catch{}};
+      ws.onclose=()=>setTimeout(cryptoWS,2000);
+    }catch{}
   })();
 
-  /* ================== فوركس ================== */
-  async function loadFXPrimary(){
-    try{
-      const txt = await fetchCascade(`https://open.er-api.com/v6/latest/USD?_=${Date.now()}`);
-      const d = JSON.parse(txt);
-      if(d.result!=="success") throw 0;
-      const r=d.rates||{}, out=[];
-      const push=(k,v)=>out.push({symbol:k,last:+v,change:0,vol:0});
-      if(r.EUR) push("EURUSD",1/r.EUR);
-      if(r.JPY) push("USDJPY",r.JPY);
-      if(r.BHD) push("USDBHD",r.BHD);
-      if(r.SAR) push("USDSAR",r.SAR);
-      if(r.AED) push("USDAED",r.AED);
-      if(r.GBP) push("GBPUSD",1/r.GBP);
-      if(r.TRY) push("USDTRY",r.TRY);
-      return out;
-    }catch(e){ return null; }
-  }
-  async function loadFXFallback(){
-    try{
-      const txt = await fetchCascade(`https://api.frankfurter.app/latest?from=USD&_=${Date.now()}`);
-      const d = JSON.parse(txt);
-      const r=d.rates||{}, out=[];
-      const push=(k,v)=>out.push({symbol:k,last:+v,change:0,vol:0});
-      if(r.EUR) push("EURUSD",1/r.EUR);
-      if(r.JPY) push("USDJPY",r.JPY);
-      if(r.GBP) push("GBPUSD",1/r.GBP);
-      if(r.TRY) push("USDTRY",r.TRY);
-      return out;
-    }catch(e){ return []; }
-  }
+  /* فوركس */
+  async function loadFXPrimary(){try{const txt=await cascade(`${CONFIG.FX_PRIMARY}?_=${Date.now()}`);const d=JSON.parse(txt);if(d.result!=="success")throw 0;const r=d.rates||{},o=[];const push=(k,v)=>o.push({symbol:k,last:+v,change:0,vol:0});if(r.EUR)push("EURUSD",1/r.EUR);if(r.JPY)push("USDJPY",r.JPY);if(r.BHD)push("USDBHD",r.BHD);if(r.SAR)push("USDSAR",r.SAR);if(r.AED)push("USDAED",r.AED);if(r.GBP)push("GBPUSD",1/r.GBP);if(r.TRY)push("USDTRY",r.TRY);return o}catch{return null}}
+  async function loadFXFallback(){try{const txt=await cascade(`${CONFIG.FX_FALLBACK}?_=${Date.now()}`);const d=JSON.parse(txt);const r=d.rates||{},o=[];const push=(k,v)=>o.push({symbol:k,last:+v,change:0,vol:0});if(r.EUR)push("EURUSD",1/r.EUR);if(r.JPY)push("USDJPY",r.JPY);if(r.GBP)push("GBPUSD",1/r.GBP);if(r.TRY)push("USDTRY",r.TRY);return o}catch{return[]}}
 
-  /* ================== Stooq CSV ================== */
-  // Symbol,Date,Time,Open,High,Low,Close,Volume  (قد تكون N/D)
-  function parseStooqCSV(csv){
-    const lines = (csv||"").trim().split(/\r?\n/);
-    if(lines.length<2) return null;
-    const p = lines[1].split(',');
-    const toNum = v => (v && v!=='N/D') ? +v : null;
-    const open = toNum(p[3]), close = toNum(p[6]), vol = toNum(p[7])||0;
-    if(!close && !open) return null;
-    const last = close ?? open;
-    const chg = (open && close) ? ((close-open)/open*100) : 0;
-    return {close:last, volume:vol, change:chg};
-  }
-
-  // جرّب قائمة رموز حتى تنجح
-  async function loadFirstAvailableSymbol(symbols, mapped){
-    for(const s of symbols){
-      try{
-        const csv = await fetchCascade(`https://stooq.com/q/l/?s=${encodeURIComponent(s)}&f=sd2t2ohlcv&h&e=csv`);
-        const rec = parseStooqCSV(csv);
-        if(rec){ return {symbol:mapped, last:rec.close, change:rec.change, vol:rec.volume}; }
-      }catch(_){}
-    }
-    return null;
-  }
-
+  /* Stooq CSV */
+  function parseStooqCSV(csv){const L=(csv||"").trim().split(/\r?\n/);if(L.length<2)return null;const p=L[1].split(',');const n=v=>(v&&v!=='N/D')?+v:null;const o=n(p[3]),c=n(p[6]),v=n(p[7])||0;if(!c&&!o)return null;const last=c??o;const ch=(o&&c)?((c-o)/o*100):0;return {close:last,volume:v,change:ch}}
+  async function loadFirstAvailable(symbols,mapped){for(const s of symbols){try{const csv=await cascade(CONFIG.STOOQ_F(s));const rec=parseStooqCSV(csv);if(rec)return {symbol:mapped,last:rec.close,change:rec.change,vol:rec.volume}}catch{}}return null}
   async function loadCommodities(){
     const out=[];
-    // ذهب/فضة
-    // metals.live أولاً
+    // ذهب/فضة (metals.live أولًا)
     try{
-      const txt = await fetchCascade(`https://api.metals.live/v1/spot?_=${Date.now()}`);
-      const arr = JSON.parse(txt);
-      let gold=null, silver=null;
-      if(Array.isArray(arr)){
-        for(const it of arr){
-          if(it && typeof it==='object'){
-            if(gold==null && ('gold' in it)) gold=+it.gold;
-            if(silver==null && ('silver' in it)) silver=+it.silver;
-          }else if(Array.isArray(it)){
-            if(it[0]==='gold' && gold==null) gold=+it[1];
-            if(it[0]==='silver' && silver==null) silver=+it[1];
-          }
-        }
-      }
-      if(gold)  out.push({symbol:'XAUUSD', last:gold, change:0, vol:0});
-      if(silver)out.push({symbol:'XAGUSD', last:silver, change:0, vol:0});
-    }catch(_){}
-
-    // إن لم ينجح الذهب/الفضة، جرّب Stooq برموز بديلة
-    if(!out.find(x=>x.symbol==='XAUUSD')){
-      const g = await loadFirstAvailableSymbol(CONFIG.MAPS.GOLD, 'XAUUSD'); if(g) out.push(g);
-    }
-    if(!out.find(x=>x.symbol==='XAGUSD')){
-      const s = await loadFirstAvailableSymbol(CONFIG.MAPS.SILVER, 'XAGUSD'); if(s) out.push(s);
-    }
-
-    // نفط/غاز (جرّب مرادفات)
-    const wti   = await loadFirstAvailableSymbol(CONFIG.MAPS.WTI,   'WTIUSD');
-    const brent = await loadFirstAvailableSymbol(CONFIG.MAPS.BRENT, 'BRENTUSD');
-    const gas   = await loadFirstAvailableSymbol(CONFIG.MAPS.GAS,   'NGUSD');
-    [wti, brent, gas].forEach(x=>{ if(x) out.push(x); });
-
+      const txt=await cascade(`https://api.metals.live/v1/spot?_=${Date.now()}`);const arr=JSON.parse(txt);let g=null,ag=null;
+      if(Array.isArray(arr)){for(const it of arr){if(it&&typeof it==='object'){if(g==null&&('gold'in it))g=+it.gold;if(ag==null&&('silver'in it))ag=+it.silver}else if(Array.isArray(it)){if(it[0]==='gold'&&g==null)g=+it[1];if(it[0]==='silver'&&ag==null)ag=+it[1]}}}
+      if(g)out.push({symbol:'XAUUSD',last:g,change:0,vol:0});
+      if(ag)out.push({symbol:'XAGUSD',last:ag,change:0,vol:0});
+    }catch{}
+    if(!out.find(x=>x.symbol==='XAUUSD')){const g=await loadFirstAvailable(CONFIG.MAPS.GOLD,'XAUUSD');if(g)out.push(g)}
+    if(!out.find(x=>x.symbol==='XAGUSD')){const s=await loadFirstAvailable(CONFIG.MAPS.SILVER,'XAGUSD');if(s)out.push(s)}
+    const wti=await loadFirstAvailable(CONFIG.MAPS.WTI,'WTIUSD');
+    const brent=await loadFirstAvailable(CONFIG.MAPS.BRENT,'BRENTUSD');
+    const gas=await loadFirstAvailable(CONFIG.MAPS.GAS,'NGUSD');
+    [wti,brent,gas].forEach(x=>x&&out.push(x));
     return out;
   }
+  async function loadStocks(){const arr=await Promise.all(CONFIG.STOCKS.map(c=>loadFirstAvailable([c.stooq],c.symbol)));return arr.filter(Boolean)}
 
-  async function loadStocks(){
-    const arr = await Promise.all(CONFIG.STOCKS.map(async c=>{
-      return await loadFirstAvailableSymbol([c.stooq], c.symbol);
-    }));
-    return arr.filter(Boolean);
-  }
+  /* اشتقاقات */
+  function buildForecastRows(list){return list.map(p=>{const m=((p.change??0))/100;const conf=Math.min(0.9,Math.max(0.35,Math.abs(m)*3.5));const sig=m>0.003?"bull":m<-0.003?"bear":"neutral";return {symbol:p.symbol,f1h:p.last*(1+m*0.6),f1d:p.last*(1+m*1.2),conf:Math.round(conf*100),sig}})}
+  function buildRecommendations(list){const buy=[],sell=[];for(const p of list){if((p.change??0)>=1.5)buy.push(p);if((p.change??0)<=-1.5)sell.push(p)}return {buy,sell}}
+  function buildAlerts(list){return list.filter(p=>p.change!=null&&Math.abs(p.change)>=3).map(p=>({symbol:p.symbol,change:p.change,dir:p.change>=0?'bull':'bear'}))}
 
-  /* ================== اشتقاقات وعرض ================== */
-  function buildForecastRows(list){
-    return list.map(p=>{
-      const m=((p.change ?? 0))/100;
-      const conf=Math.min(0.9,Math.max(0.35,Math.abs(m)*3.5));
-      const sig=m>0.003?"bull":m<-0.003?"bear":"neutral";
-      return {symbol:p.symbol, f1h:p.last*(1+m*0.6), f1d:p.last*(1+m*1.2), conf:Math.round(conf*100), sig};
-    });
-  }
-  function buildRecommendations(list){
-    const buy=[],sell=[];
-    for(const p of list){ if((p.change ?? 0)>=1.5) buy.push(p); if((p.change ?? 0)<=-1.5) sell.push(p); }
-    return {buy,sell};
-  }
-  function buildAlerts(list){
-    return list.filter(p=>p.change!=null && Math.abs(p.change)>=3).map(p=>({
-      symbol:p.symbol, change:p.change, dir: p.change>=0?'bull':'bear'
-    }));
-  }
-
-  /* ================== الأخبار العربية ================== */
-  const NEWS_KEYWORDS = /(بورصة|تداول|سوق(?:\s*الأسهم)?|الأسهم|أسهم|مؤشر|السندات|اكتتاب|قيد|طرح|صندوق|محفظة|توزيعات|سيولة|متداولين|إغلاق|جلسة|ارتفاع|انخفاض|نتائج|أرباح|خسائر|سهم|سوق المال)/i;
-
+  /* الأخبار */
+  const NEWS_RE=/\b(بورصة|تداول|سوق(?:\s*الأسهم)?|الأسهم|أسهم|مؤشر|السندات|اكتتاب|طرح|صندوق|توزيعات|سيولة|متداولين|إغلاق|جلسة|نتائج|أرباح|سهم|سوق المال)\b/i;
   function parseRSSFlexible(text){
-    try{
-      const doc = new DOMParser().parseFromString(text, "text/xml");
-      const parseErr = doc.querySelector("parsererror");
-      let titles=[];
-      if(!parseErr){
-        titles = [...doc.querySelectorAll("item > title, entry > title")].map(n=>(n.textContent||"").trim());
-      }
-      if(titles.length){ return titles.filter(t=>NEWS_KEYWORDS.test(t)); }
-    }catch(_){}
-    // Regex احتياطي
-    try{
-      const re = /<item[\s\S]*?<title>([\s\S]*?)<\/title>/gi;
-      const res=[]; let m;
-      while((m = re.exec(text))!==null){ const t = m[1].replace(/<!\[CDATA\[|\]\]>/g,'').trim(); if(t) res.push(t); }
-      return res.filter(t=>NEWS_KEYWORDS.test(t));
-    }catch(_){}
+    try{const doc=new DOMParser().parseFromString(text,"text/xml");if(!doc.querySelector("parsererror")){const t=[...doc.querySelectorAll("item>title,entry>title")].map(n=>(n.textContent||"").trim());if(t.length)return t.filter(x=>NEWS_RE.test(x))}}
+    catch{}
+    try{const re=/<item[\s\S]*?<title>([\s\S]*?)<\/title>/gi;const a=[];let m;while((m=re.exec(text))!==null){const t=m[1].replace(/<!\[CDATA\[|\]\]>/g,'').trim();if(t)a.push(t)}return a.filter(x=>NEWS_RE.test(x))}catch{}
     return [];
   }
-
   async function fetchHeadlines(){
     let titles=[];
-    // RSS أولاً
-    for(const raw of CONFIG.NEWS_RSS){
-      try{
-        const txt = await fetchCascade(raw);
-        titles = titles.concat(parseRSSFlexible(txt));
-        if(titles.length > CONFIG.NEWS_LIMIT) break;
-      }catch(_){}
-    }
-    // لو RSS صفر: جلب من الصفحات مباشرة (h1..h3/a)
+    for(const u of CONFIG.NEWS_RSS){try{const txt=await cascade(u);titles=titles.concat(parseRSSFlexible(txt));if(titles.length>5)break}catch{}}
     if(!titles.length){
-      for(const raw of CONFIG.NEWS_PAGES){
-        try{
-          const html = await fetchCascade(raw);
-          const list = [];
-          const reH = /<(h1|h2|h3)[^>]*>([\s\S]*?)<\/\1>/gi;
-          let m;
-          while((m=reH.exec(html))!==null){
-            const t = m[2].replace(/<[^>]+>/g,'').trim();
-            if(NEWS_KEYWORDS.test(t)) list.push(t);
-          }
-          // روابط
-          const reA = /<a[^>]*>([\s\S]*?)<\/a>/gi;
-          while((m=reA.exec(html))!==null){
-            const t = m[1].replace(/<[^>]+>/g,'').trim();
-            if(NEWS_KEYWORDS.test(t)) list.push(t);
-          }
-          titles = titles.concat(list);
-          if(titles.length) break;
-        }catch(_){}
-      }
-    }
-    // تنظيف وتحديد العدد
-    const seen=new Set(); const clean=[];
-    for(const t of titles){
-      const x=t.replace(/\s+/g,' ').trim();
-      if(x && !seen.has(x)){ seen.add(x); clean.push(x); }
-      if(clean.length>=CONFIG.NEWS_LIMIT) break;
-    }
-    return clean;
+      for(const u of CONFIG.NEWS_PAGES){try{const html=await cascade(u);const list=[];let m;const reH=/<(h1|h2|h3)[^>]*>([\s\S]*?)<\/\1>/gi;while((m=reH.exec(html))!==null){const t=m[2].replace(/<[^>]+>/g,'').trim();if(NEWS_RE.test(t))list.push(t)}const reA=/<a[^>]*>([\s\S]*?)<\/a>/gi;while((m=reA.exec(html))!==null){const t=m[1].replace(/<[^>]+>/g,'').trim();if(NEWS_RE.test(t))list.push(t)}if(list.length){titles=list;break}}catch{}}
+    const seen=new Set(), out=[];for(const t of titles){const x=t.replace(/\s+/g,' ').trim();if(x&&!seen.has(x)){seen.add(x);out.push(x)}if(out.length>=CONFIG.NEWS_LIMIT)break}
+    return out;
   }
-
   async function loadNews(){
     const bar=$("#newsbar"), track=$("#newsScroller");
-    const titles = await fetchHeadlines();
-    if(!titles.length){ bar.style.display="none"; track.innerHTML=""; return; }
-    bar.style.display="block"; track.innerHTML="";
+    const titles=await fetchHeadlines();
+    if(!titles.length){bar.style.display="none";track.innerHTML="";return}
+    bar.style.display="block";track.innerHTML="";
     const dup=titles.concat(titles);
-    for(const t of dup){
-      const d=document.createElement("div"); d.className="news-item"; d.textContent=t; track.appendChild(d);
-    }
+    for(const t of dup){const d=document.createElement("div");d.className="news-item";d.textContent=t;track.appendChild(d)}
   }
 
-  /* ===== SVG arrows ===== */
-  function makeSvg(tag){ return document.createElementNS('http://www.w3.org/2000/svg', tag); }
-  function arrowUpSVG(){ const s=makeSvg('svg'); s.setAttribute('width','16'); s.setAttribute('height','16'); s.setAttribute('viewBox','0 0 24 24'); const p=makeSvg('path'); p.setAttribute('d','M12 4l6 6h-4v10h-4V10H6z'); p.setAttribute('fill','#0a7a2f'); s.appendChild(p); return s; }
-  function arrowDownSVG(){ const s=makeSvg('svg'); s.setAttribute('width','16'); s.setAttribute('height','16'); s.setAttribute('viewBox','0 0 24 24'); const p=makeSvg('path'); p.setAttribute('d','M12 20l-6-6h4V4h4v10h4z'); p.setAttribute('fill','#b11a1a'); s.appendChild(p); return s; }
-  function arrowFlatSVG(){ const s=makeSvg('svg'); s.setAttribute('width','16'); s.setAttribute('height','16'); s.setAttribute('viewBox','0 0 24 24'); const r=makeSvg('rect'); r.setAttribute('x','4'); r.setAttribute('y','11'); r.setAttribute('width','16'); r.setAttribute('height','2'); r.setAttribute('fill','#555'); s.appendChild(r); return s; }
+  /* SVG */
+  const NS='http://www.w3.org/2000/svg';
+  const make=(d,fill)=>{const s=document.createElementNS(NS,'svg');s.setAttribute('width','16');s.setAttribute('height','16');s.setAttribute('viewBox','0 0 24 24');const p=document.createElementNS(NS,'path');p.setAttribute('d',d);p.setAttribute('fill',fill);s.appendChild(p);return s};
+  const up = ()=>make('M12 4l6 6h-4v10h-4V10H6z','#0a7a2f');
+  const dn = ()=>make('M12 20l-6-6h4V4h4v10h4z','#b11a1a');
+  const fl = ()=>{const s=document.createElementNS(NS,'svg');s.setAttribute('width','16');s.setAttribute('height','16');s.setAttribute('viewBox','0 0 24 24');const r=document.createElementNS(NS,'rect');r.setAttribute('x','4');r.setAttribute('y','11');r.setAttribute('width','16');r.setAttribute('height','2');r.setAttribute('fill','#555');s.appendChild(r);return s};
 
-  /* ================== العرض ================== */
+  /* العرض */
   function renderPrices(list){
-    const tb=$("#pricesTbody"); tb.innerHTML="";
-    if(!list.length){ tb.innerHTML='<tr><td colspan="4" class="empty">لا توجد بيانات متاحة حاليًا</td></tr>'; return; }
+    const tb=$("#pricesTbody");tb.innerHTML="";
+    if(!list.length){tb.innerHTML='<tr><td colspan="4" class="empty">لا توجد بيانات متاحة حاليًا</td></tr>';return}
     for(const p of list){
       const tr=document.createElement("tr");
-      const digits = p.symbol.endsWith("USD")
-        ? (p.symbol.startsWith("USD")?5 : (p.symbol==='USDJPY'?3:2))
-        : 2;
-      tr.innerHTML = `
-        <td><b>${arabicName(p.symbol)}</b></td>
-        <td>${fmt(p.last,digits)}</td>
-        <td style="font-weight:800;color:${(p.change ?? 0)>=0?'#0a7a2f':'#b11a1a'}">${(p.change ?? 0)>=0?'↑':'↓'} ${fmt(Math.abs(p.change ?? 0),2)}%</td>
-        <td>${fmt(p.vol ?? 0,0)}</td>`;
+      const digits=p.symbol.endsWith("USD")?(p.symbol.startsWith("USD")?5:(p.symbol==='USDJPY'?3:2)):2;
+      tr.innerHTML=`<td class="sym"><b>${arabicName(p.symbol)}</b></td>
+        <td class="num">${fmt(p.last,digits)}</td>
+        <td class="num" style="font-weight:800;color:${(p.change??0)>=0?'#0a7a2f':'#b11a1a'}">${(p.change??0)>=0?'↑':'↓'} ${fmt(Math.abs(p.change??0),2)}%</td>
+        <td class="num">${fmt(p.vol??0,0)}</td>`;
       tb.appendChild(tr);
     }
   }
-
   function renderForecast(list){
-    const tb=$("#forecastTbody"); tb.innerHTML="";
-    if(!list.length){ tb.innerHTML='<tr><td colspan="5" class="empty">لا توجد بيانات متاحة حاليًا</td></tr>'; return; }
+    const tb=$("#forecastTbody");tb.innerHTML="";
+    if(!list.length){tb.innerHTML='<tr><td colspan="5" class="empty">لا توجد بيانات متاحة حاليًا</td></tr>';return}
     for(const f of buildForecastRows(list)){
-      let label="", boxClass="", svgEl=null, pillCls="";
-      if(f.sig==="bull"){ label="يرتفع"; boxClass="sig-bull"; svgEl=arrowUpSVG(); pillCls="bull"; }
-      else if(f.sig==="bear"){ label="ينخفض"; boxClass="sig-bear"; svgEl=arrowDownSVG(); pillCls="bear"; }
-      else { label="مستقر"; boxClass="sig-neutral"; svgEl=arrowFlatSVG(); pillCls="neutral"; }
-
-      const box = document.createElement('span'); box.className = `sigbox ${boxClass}`; box.setAttribute('aria-label', label); box.setAttribute('title', label);
-      box.appendChild(svgEl||arrowFlatSVG());
-      const pill = document.createElement('span'); pill.className = `pill ${pillCls}`; pill.textContent = label;
-      const wrap = document.createElement('span'); wrap.className = 'sigwrap'; wrap.appendChild(box); wrap.appendChild(pill);
-
+      let label,cls,icon;pill='neutral';
+      if(f.sig==='bull'){label='يرتفع';cls='sig-bull';icon=up();pill='bull'}
+      else if(f.sig==='bear'){label='ينخفض';cls='sig-bear';icon=dn();pill='bear'}
+      else {label='مستقر';cls='sig-neutral';icon=fl();pill='neutral'}
+      const sigBox=document.createElement('span');sigBox.className=`sigbox ${cls}`;sigBox.appendChild(icon);
+      const pillSpan=document.createElement('span');pillSpan.className=`pill ${pill}`;pillSpan.textContent=label;
+      const wrap=document.createElement('span');wrap.className='sigwrap';wrap.appendChild(sigBox);wrap.appendChild(pillSpan);
       const tr=document.createElement("tr");
-      tr.innerHTML=`
-        <td><b>${arabicName(f.symbol)}</b></td>
-        <td>${fmt(f.f1h,2)}</td>
-        <td>${fmt(f.f1d,2)}</td>
-        <td>${f.conf}%</td>`;
-      const td = document.createElement('td'); td.appendChild(wrap);
-      tr.appendChild(td); tb.appendChild(tr);
+      tr.innerHTML=`<td class="sym"><b>${arabicName(f.symbol)}</b></td>
+                    <td class="num">${fmt(f.f1h,2)}</td>
+                    <td class="num">${fmt(f.f1d,2)}</td>
+                    <td class="num">${f.conf}%</td>`;
+      const td=document.createElement('td');td.className='sigcell';td.appendChild(wrap);tr.appendChild(td);
+      tb.appendChild(tr);
     }
   }
-
   function renderRecommendations(list){
-    const {buy,sell}=buildRecommendations(list);
-    const b=$("#buyList"), s=$("#sellList");
-    const cb=$("#card-buy"), cs=$("#card-sell");
-    b.innerHTML=""; s.innerHTML="";
-    if(!buy.length){ cb.style.display="none"; }
-    else {
-      cb.style.display="block";
-      for(const r of buy){
-        const d=document.createElement("div"); d.className="alert";
-        d.innerHTML=`<span><b>${arabicName(r.symbol)}</b> — إشارة شراء (زخم إيجابي)</span>`;
-        const sig = document.createElement('span'); sig.className='sigbox sig-bull'; sig.appendChild(arrowUpSVG());
-        d.appendChild(sig); b.appendChild(d);
-      }
-    }
-    if(!sell.length){ cs.style.display="none"; }
-    else {
-      cs.style.display="block";
-      for(const r of sell){
-        const d=document.createElement("div"); d.className="alert";
-        d.innerHTML=`<span><b>${arabicName(r.symbol)}</b> — إشارة بيع (زخم سلبي)</span>`;
-        const sig = document.createElement('span'); sig.className='sigbox sig-bear'; sig.appendChild(arrowDownSVG());
-        d.appendChild(sig); s.appendChild(d);
-      }
-    }
+    const {buy,sell}=buildRecommendations(list),b=$("#buyList"),s=$("#sellList"),cb=$("#card-buy"),cs=$("#card-sell");
+    b.innerHTML="";s.innerHTML="";
+    if(!buy.length)cb.style.display="none";else{cb.style.display="block";for(const r of buy){const d=document.createElement("div");d.className="alert";d.innerHTML=`<span><b>${arabicName(r.symbol)}</b> — إشارة شراء (زخم إيجابي)</span>`;const sig=document.createElement('span');sig.className='sigbox sig-bull';sig.appendChild(up());d.appendChild(sig);b.appendChild(d)}}
+    if(!sell.length)cs.style.display="none";else{cs.style.display="block";for(const r of sell){const d=document.createElement("div");d.className="alert";d.innerHTML=`<span><b>${arabicName(r.symbol)}</b> — إشارة بيع (زخم سلبي)</span>`;const sig=document.createElement('span');sig.className='sigbox sig-bear';sig.appendChild(dn());d.appendChild(sig);s.appendChild(d)}}
   }
-
   function renderAlerts(list){
-    const arr=buildAlerts(list), a=$("#alertsList"); a.innerHTML="";
-    if(!arr.length){ a.innerHTML='<div class="empty">لا توجد تنبيهات حاليًا</div>'; return; }
-    for(const x of arr){
-      const row=document.createElement("div"); row.className="alert";
-      const left = document.createElement('span');
-      left.innerHTML = `<b>${arabicName(x.symbol)}</b> — ${x.change>=0?'ارتفع':'انخفض'} ${fmt(Math.abs(x.change),2)}%`;
-      const sig = document.createElement('span');
-      sig.className = `sigbox ${x.dir==='bull'?'sig-bull':'sig-bear'}`;
-      sig.appendChild(x.dir==='bull'?arrowUpSVG():arrowDownSVG());
-      row.appendChild(left); row.appendChild(sig); a.appendChild(row);
-    }
+    const arr=buildAlerts(list),a=$("#alertsList");a.innerHTML="";
+    if(!arr.length){a.innerHTML='<div class="empty">لا توجد تنبيهات حاليًا</div>';return}
+    for(const x of arr){const row=document.createElement("div");row.className="alert";const left=document.createElement('span');left.innerHTML=`<b>${arabicName(x.symbol)}</b> — ${x.change>=0?'ارتفع':'انخفض'} ${fmt(Math.abs(x.change),2)}%`;const sig=document.createElement('span');sig.className=`sigbox ${x.dir==='bull'?'sig-bull':'sig-bear'}`;sig.appendChild(x.dir==='bull'?up():dn());row.appendChild(left);row.appendChild(sig);a.appendChild(row)}
   }
+  function renderAll(){const combined=Object.values(CRYPTO).concat(FX,COMM,STOCKS);renderPrices(combined);renderForecast(combined);renderRecommendations(combined);renderAlerts(combined);now()}
 
-  function renderAll(){
-    const combined = Object.values(CRYPTO).concat(FX).concat(COMM).concat(STOCKS);
-    renderPrices(combined);
-    renderForecast(combined);
-    renderRecommendations(combined);
-    renderAlerts(combined);
-    now();
-  }
+  /* نصيحة واحدة */
+  const TIPS=["ضع خطة مكتوبة للدخول والخروج وإدارة المخاطر قبل فتح الصفقة.","لا تخاطر بأكثر من 1–2% من رأس المال في صفقة واحدة.","استخدم أوامر وقف الخسارة دائمًا واحترمها.","جمّد عواطفك: لا تدع الخوف أو الطمع يقودان قرارك.","التزم بإستراتيجية مجرَّبة ولا تغيّرها بعد كل صفقة.","قيّم الصفقات على سلسلة نتائج، لا على صفقة منفردة.","تداول مع الاتجاه العام بدلًا من مصارعة السوق.","لا تُطارد الحركة بعد فواتها؛ انتظر إعادة اختبار منطقية.","نوّع محفظتك ولا تركّز كل المخاطر في أصل واحد.","احسب العائد إلى المخاطرة قبل الدخول (مثلاً 1:2 على الأقل).","تجنّب الإفراط في التداول؛ الجودة أهم من الكثرة.","تاجر بأموال يمكنك تحمل خسارتها دون ضغط نفسي.","استخدم أحجام صفقة ثابتة ومنضبطة.","دوّن أسباب الدخول والخروج وتعلّم من المراجعة الدورية.","لا تتداول وقت الأخبار عالية التقلّب دون خطة واضحة.","احذر من مضاعفة الحجم لتعويض الخسائر.","راقب السيولة والسبريد قبل التنفيذ.","اختبر الاستراتيجية تاريخيًا وعلى حساب تجريبي أولًا.","لا تدع صفقة رابحة تتحول إلى خاسرة—حرّك الوقف بحكمة.","احترم مستويات الدعم والمقاومة على الأطر الزمنية الأكبر.","اتبع إشارة واحدة واضحة بدل تكديس مؤشرات كثيرة.","تذكّر أن عدم الدخول قرار تداول أيضًا.","اعرف ما تتداول: العوامل المؤثرة والمخاطر الخاصة بالأصل.","اضبط توقيتك مع جلسات السوق النشطة.","لا تُهمل التكاليف: العمولات والانزلاق تؤثر على الأداء.","تقبّل الخسارة الصغيرة سريعًا لتجنب الخسارة الكبيرة.","لا تتداول بدافع الملل؛ انتظر فرصًا ذات ميزة واضحة.","راجع الخطة عند تغيّر هيكل السوق، لا بعد كل تذبذب.","تدرّج في زيادة الحجم بعد ثبات الأداء لا بعد صفقة واحدة.","احمِ رأس المال أولًا—الفرص لا تنتهي."];$("#tipOfTheDay").textContent=TIPS[Math.floor(Math.random()*TIPS.length)];
 
-  /* ================== نصيحة تداول واحدة (من 30) ================== */
-  const TIPS_POOL = [
-    "ضع خطة مكتوبة للدخول والخروج وإدارة المخاطر قبل فتح الصفقة.",
-    "لا تخاطر بأكثر من 1–2% من رأس المال في صفقة واحدة.",
-    "استخدم أوامر وقف الخسارة دائمًا واحترمها.",
-    "جمّد عواطفك: لا تدع الخوف أو الطمع يقودان قرارك.",
-    "التزم بإستراتيجية مجرَّبة ولا تغيّرها بعد كل صفقة.",
-    "قيّم الصفقات على سلسلة نتائج، لا على صفقة منفردة.",
-    "تداول مع الاتجاه العام بدلًا من مصارعة السوق.",
-    "لا تُطارد الحركة بعد فواتها؛ انتظر إعادة اختبار منطقية.",
-    "نوّع محفظتك ولا تركّز كل المخاطر في أصل واحد.",
-    "احسب العائد إلى المخاطرة قبل الدخول (مثلاً 1:2 على الأقل).",
-    "تجنّب الإفراط في التداول؛ الجودة أهم من الكثرة.",
-    "تاجر بأموال يمكنك تحمل خسارتها دون ضغط نفسي.",
-    "استخدم أحجام صفقة ثابتة ومنضبطة.",
-    "دوّن أسباب الدخول والخروج وتعلّم من المراجعة الدورية.",
-    "لا تتداول وقت الأخبار عالية التقلّب دون خطة واضحة.",
-    "احذر من مضاعفة الحجم لتعويض الخسائر.",
-    "راقب السيولة والسبريد قبل التنفيذ.",
-    "اختبر الاستراتيجية تاريخيًا وعلى حساب تجريبي أولًا.",
-    "لا تدع صفقة رابحة تتحول إلى خاسرة—حرّك الوقف بحكمة.",
-    "احترم مستويات الدعم والمقاومة على الأطر الزمنية الأكبر.",
-    "اتبع إشارة واحدة واضحة بدل تكديس مؤشرات كثيرة.",
-    "تذكّر أن عدم الدخول قرار تداول أيضًا.",
-    "اعرف ما تتداول: العوامل المؤثرة والمخاطر الخاصة بالأصل.",
-    "اضبط توقيتك مع جلسات السوق النشطة.",
-    "لا تُهمل التكاليف: العمولات والانزلاق تؤثر على الأداء.",
-    "تقبّل الخسارة الصغيرة سريعًا لتجنب الخسارة الكبيرة.",
-    "لا تتداول بدافع الملل؛ انتظر فرصًا ذات ميزة واضحة.",
-    "راجع الخطة عند تغيّر هيكل السوق، لا بعد كل تذبذب.",
-    "تدرّج في زيادة الحجم بعد ثبات الأداء لا بعد صفقة واحدة.",
-    "احمِ رأس المال أولًا—الفرص لا تنتهي."
-  ];
-  (function setPinnedTip(){
-    const tip = TIPS_POOL[Math.floor(Math.random()*TIPS_POOL.length)];
-    $("#tipOfTheDay").textContent = tip;
-  })();
+  /* مواقع التداول */
+  $("#openSite").addEventListener('click',e=>{e.preventDefault();const url=$("#siteSelect").value;if(url)window.open(url,'_blank','noopener')})
 
-  /* ================== مواقع التداول (زر فتح) ================== */
-  const siteSelect = $("#siteSelect");
-  const openBtn = $("#openSite");
-  openBtn.addEventListener('click', (e)=>{
-    e.preventDefault();
-    const url = siteSelect.value;
-    if(url) window.open(url, '_blank', 'noopener');
-  });
+  /* واتساب */
+  $("#devCredit").addEventListener('click',()=>window.open(CONFIG.WHATSAPP_URL,'_blank','noopener'))
 
-  /* ================== فتح واتساب عند الضغط على التذييل ================== */
-  const dev = document.getElementById('devCredit');
-  dev.addEventListener('click', ()=> {
-    window.open(CONFIG.WHATSAPP_URL, '_blank', 'noopener');
-  });
-
-  /* ================== تشغيل ================== */
+  /* تشغيل */
   (async function init(){
-    // فوركس
-    const pfx = await loadFXPrimary();
-    FX = pfx ?? await loadFXFallback();
-
-    // سلع وأسهم
-    [COMM, STOCKS] = await Promise.all([
-      loadCommodities(),
-      loadStocks()
-    ]);
-
-    // أخبار عربية
-    loadNews(); setInterval(loadNews, CONFIG.NEWS_REFRESH_MS);
-
-    // العرض الأولي + التحديثات
-    renderAll();
-    setInterval(renderAll, CONFIG.REFRESH_MS);
-
-    // تحديث دوري للسلع/الأسهم
-    setInterval(async ()=>{
-      [COMM, STOCKS] = await Promise.all([loadCommodities(), loadStocks()]);
-      renderAll();
-    }, CONFIG.REFRESH_MS * 4);
+    const pfx=await loadFXPrimary();FX=pfx??await loadFXFallback();
+    [COMM,STOCKS]=await Promise.all([loadCommodities(),loadStocks()]);
+    loadNews(); setInterval(loadNews,CONFIG.NEWS_REFRESH_MS);
+    renderAll(); setInterval(renderAll,CONFIG.REFRESH_MS);
+    setInterval(async()=>{[COMM,STOCKS]=await Promise.all([loadCommodities(),loadStocks()]);renderAll()},CONFIG.REFRESH_MS*4);
   })();
 });
 </script>
