@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>توصيات البورصة — مباشر</title>
 
-<!-- خط عربي (مع بدائل) -->
+<!-- خط عربي واضح -->
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
 
 <style>
@@ -56,7 +56,9 @@
   th{font-size:12px;color:var(--muted)}
   tr:hover td{background:rgba(212,175,55,.06)}
   .pill{display:inline-block;padding:4px 10px;border-radius:999px;font-size:12px;font-weight:800;border:1px solid var(--border)}
-  .bull{background:#e6f8ec;color:var(--pos)} .bear{background:#fde8e8;color:var(--neg)} .neutral{background:#f1f1f1;color:#555}
+  .bull{background:#e6f8ec;color:var(--pos)}      /* أخضر */
+  .bear{background:#fde8e8;color:var(--neg)}      /* أحمر */
+  .neutral{background:#f1f1f1;color:#555}         /* رمادي */
   .alert{border:1px solid var(--border);border-radius:12px;padding:10px;margin-bottom:10px;background:var(--bg-soft)}
   .empty{text-align:center;color:var(--muted);padding:12px}
   footer{margin-top:16px;padding:18px;border-top:1px solid var(--border);text-align:center;color:var(--muted);font-size:13px}
@@ -73,6 +75,7 @@
     <div class="meta">آخر تحديث: <span id="lastUpdated">—:—:—</span></div>
   </div>
 
+  <!-- شريط أخبار عربية يختفي تلقائيًا إن لم توجد عناوين -->
   <div class="newsbar" id="newsbar">
     <div id="newsScroller" class="news-track"></div>
   </div>
@@ -126,9 +129,12 @@ document.addEventListener('DOMContentLoaded', () => {
   try{
     /* ============ إعدادات ============ */
     const CONFIG = {
-      CRYPTO_WS: ["btcusdt","ethusdt","solusdt","bnbusdt","xrpusdt"], // lower-case
+      // WebSocket مباشر من Binance (حروف صغيرة)
+      CRYPTO_WS: ["btcusdt","ethusdt","solusdt","bnbusdt","xrpusdt"],
+      // فوركس: مصدر أساسي + احتياطي
       FX_PRIMARY:  "https://open.er-api.com/v6/latest/USD",
       FX_FALLBACK: "https://api.frankfurter.app/latest?from=USD",
+      // أخبار عربية مركّزة على الأسهم/التداول (RSS عبر AllOrigins)
       NEWS: [
         "https://api.allorigins.win/raw?url=https%3A%2F%2Fwww.cnbcarabia.com%2Frss%2Flatest",
         "https://api.allorigins.win/raw?url=https%3A%2F%2Fwww.asharqbusiness.com%2Far%2Frss",
@@ -165,7 +171,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let CRYPTO = {}; // {symbol:{last,change,vol}}
     let FX = [];
 
-    /* ============ WebSocket للعملات الرقمية ============ */
+    /* ============ WebSocket: Binance ============ */
     function openCryptoStream(){
       try{ if(WS) WS.close(); }catch(_){}
       const streams = CONFIG.CRYPTO_WS.map(s=>`${s}@ticker`).join('/');
@@ -182,7 +188,7 @@ document.addEventListener('DOMContentLoaded', () => {
       WS.onerror = () => showErr("تعذّر الاتصال بمصدر العملات الرقمية (WS).");
     }
 
-    /* ============ أسعار الصرف (أساسي + احتياطي) ============ */
+    /* ============ فوركس: أساسي + احتياطي ============ */
     async function loadFXPrimary(){
       try{
         const txt = await fetchText(`${CONFIG.FX_PRIMARY}?_=${Date.now()}`);
@@ -235,7 +241,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return list.filter(p=>Math.abs(p.change)>=3).map(p=>({symbol:p.symbol,msg:`تغيّر ${p.change.toFixed(2)}%`}));
     }
 
-    /* ============ أخبار عربية للأسهم/التداول فقط ============ */
+    /* ============ الأخبار العربية (أسهم/تداول فقط) ============ */
     const NEWS_KEYWORDS = /(بورصة|تداول|سوق(?:\s*الأسهم)?|الأسهم|أسهم|مؤشر|السندات|اكتتاب|قيد|طرح|صندوق|محفظة|توزيعات|سيولة|متداولين|إغلاق|جلسة|ارتفاع|انخفاض)/i;
     function parseRSS(xml){
       const out=[]; try{
@@ -255,7 +261,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }catch(_){}
       }
       const bar=$("#newsbar"), track=$("#newsScroller");
-      if(!titles.length){ bar.style.display="none"; track.innerHTML=""; return; }
+      if(!titles.length){ bar.style.display="none"; track.innerHTML=""; return; }  // ← يختفي عند عدم توفر أخبار
       bar.style.display="block"; track.innerHTML="";
       const dup=titles.concat(titles);
       for(const t of dup){
@@ -282,7 +288,12 @@ document.addEventListener('DOMContentLoaded', () => {
       const tb=$("#forecastTbody"); tb.innerHTML="";
       if(!list.length){ tb.innerHTML='<tr><td colspan="6" class="empty">لا توجد بيانات متاحة حاليًا</td></tr>'; return; }
       for(const f of buildForecastRows(list)){
-        const cls=f.sig==="bull"?"bull":f.sig==="bear"?"bear":"neutral";
+        // نص عربي واضح مع ألوان
+        let label="", cls="";
+        if(f.sig==="bull"){ label="يرتفع"; cls="bull"; }
+        else if(f.sig==="bear"){ label="ينخفض"; cls="bear"; }
+        else { label="مستقر"; cls="neutral"; }
+
         const tr=document.createElement("tr");
         tr.innerHTML=`
           <td><b>${arabicName(f.symbol)}</b></td>
@@ -290,7 +301,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <td>${fmt(f.f1h,2)}</td>
           <td>${fmt(f.f1d,2)}</td>
           <td>${f.conf}%</td>
-          <td><span class="pill ${cls}">${f.sig==="bull"?"صاعد":f.sig==="bear"?"هابط":"محايد"}</span></td>`;
+          <td><span class="pill ${cls}">${label}</span></td>`;
         tb.appendChild(tr);
       }
     }
@@ -306,7 +317,11 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderAlerts(list){
       const arr=buildAlerts(list), a=$("#alertsList"); a.innerHTML="";
       if(!arr.length){ a.innerHTML='<div class="empty">لا توجد تنبيهات حاليًا</div>'; return; }
-      for(const x of arr){ const d=document.createElement("div"); d.className="alert"; d.innerHTML=`<b>${arabicName(x.symbol)}</b> — ${x.msg}`; a.appendChild(d); }
+      for(const x of arr){
+        const d=document.createElement("div"); d.className="alert";
+        d.innerHTML=`<b>${arabicName(x.symbol)}</b> — ${x.msg}`;
+        a.appendChild(d);
+      }
     }
     function renderAll(){
       const combined = Object.values(CRYPTO).concat(FX);
@@ -319,11 +334,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /* ============ تشغيل ============ */
     (async function init(){
-      openCryptoStream();
-      await loadFXAll();
-      renderAll();
+      openCryptoStream();     // تيكر حي
+      await loadFXAll();      // فوركس مع احتياطي
+      renderAll();            // رسم أولي
       setInterval(renderAll, CONFIG.REFRESH_MS);
-      loadNews();
+      loadNews();             // الأخبار العربية للأسهم/التداول فقط
       setInterval(loadNews, CONFIG.NEWS_REFRESH_MS);
     })();
 
