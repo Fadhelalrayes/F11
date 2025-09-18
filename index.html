@@ -58,20 +58,25 @@
   .bull{background:#e6f8ec;color:var(--pos)}  .bear{background:#fde8e8;color:#b11a1a}  .neutral{background:#f1f1f1;color:#555}
   .alert{border:1px solid var(--border);border-radius:12px;padding:10px;margin-bottom:10px;background:var(--bg-soft)}
   .empty{text-align:center;color:var(--muted);padding:12px}
-  footer{margin-top:16px;padding:18px;border-top:1px solid var(--border);text-align:center;color:var(--muted);font-size:13px}
 
   /* صندوق إشارة التنبؤ (SVG) */
   .sigwrap{display:flex;align-items:center;justify-content:center;gap:8px}
   .sigbox{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:6px;border:1px solid var(--border);box-shadow:var(--shadow);position:relative;overflow:hidden}
   .sig-bull{background:#e6f8ec} .sig-bear{background:#fde8e8} .sig-neutral{background:#f1f1f1}
   .sigbox svg{display:block}
-  .sig-bull svg path{fill:var(--pos)} .sig-bear svg path{fill:var(--neg)} .sig-neutral svg rect{fill:#555}
   .sigbox.fallback{font-weight:900;color:#333}
 
-  /* صندوق نصائح التداول */
+  /* صندوق نصيحة التداول */
   .tips{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:14px;margin-top:6px}
-  .tips h3{margin:0 0 8px;font-weight:900}
-  .tips .today{padding:10px;border:1px dashed var(--border);border-radius:12px;background:var(--bg-soft);margin:0}
+
+  /* قائمة منسدلة لمواقع التداول */
+  .links-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:14px}
+  .select-wrap{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .select-wrap select{padding:10px 12px;border:1px solid var(--border);border-radius:10px;background:var(--bg-soft);font-family:inherit}
+  .select-wrap a{padding:10px 12px;border:1px solid var(--border);border-radius:10px;text-decoration:none}
+  .select-wrap a:hover{background:rgba(212,175,55,.10)}
+
+  footer{margin-top:16px;padding:18px;border-top:1px solid var(--border);text-align:center;color:var(--muted);font-size:13px}
 </style>
 </head>
 <body>
@@ -128,10 +133,33 @@
     <div class="body" id="alertsList"><div class="empty">لا توجد تنبيهات حاليًا</div></div>
   </section>
 
-  <!-- نصيحة تداول واحدة مثبتة (تتغير مع كل تصفح) -->
+  <!-- نصيحة تداول واحدة مثبتة -->
   <section class="tips" id="tipsBox">
-    <h3>نصيحة تداول مثبتة</h3>
-    <p class="today" id="tipOfTheDay">…</p>
+    <h3 style="margin:0 0 8px;font-weight:900">نصيحة تداول مثبتة</h3>
+    <p id="tipOfTheDay" style="margin:0;padding:10px;border:1px dashed var(--border);border-radius:12px;background:var(--bg-soft)">…</p>
+  </section>
+
+  <!-- مواقع تداول عالمية -->
+  <section class="links-card">
+    <h3 style="margin:0 0 8px;font-weight:900">مواقع تداول عالمية</h3>
+    <div class="select-wrap">
+      <select id="siteSelect" aria-label="اختر موقع تداول">
+        <option value="" selected disabled>اختر موقعًا</option>
+        <option value="https://www.interactivebrokers.com/">Interactive Brokers</option>
+        <option value="https://www.saxobank.com/">Saxo Bank</option>
+        <option value="https://www.ig.com/">IG</option>
+        <option value="https://www.cmcmarkets.com/">CMC Markets</option>
+        <option value="https://www.etoro.com/">eToro</option>
+        <option value="https://www.plus500.com/">Plus500</option>
+        <option value="https://www.xtb.com/">XTB</option>
+        <option value="https://www.avatrade.com/">AvaTrade</option>
+        <option value="https://www.fidelity.com/">Fidelity</option>
+        <option value="https://www.schwab.com/">Charles Schwab</option>
+        <option value="https://www.tdameritrade.com/">TD Ameritrade</option>
+        <option value="https://www.robinhood.com/">Robinhood</option>
+      </select>
+      <a id="openSite" href="#" target="_blank" rel="noopener" style="color:var(--text)">فتح الموقع</a>
+    </div>
   </section>
 </main>
 
@@ -141,379 +169,432 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-  try{
-    /* ============ إعدادات ============ */
-    const CONFIG = {
-      CRYPTO_WS: ["btcusdt","ethusdt","solusdt","bnbusdt","xrpusdt"],
-      FX_PRIMARY:  "https://open.er-api.com/v6/latest/USD",
-      FX_FALLBACK: "https://api.frankfurter.app/latest?from=USD",
-      GOLD_PRIMARY: "https://api.metals.live/v1/spot",
-      GOLD_FALLBACK: "https://api.exchangerate.host/latest?base=XAU&symbols=USD",
-      SILVER_PRIMARY: "https://api.metals.live/v1/spot",
-      SILVER_FALLBACK: "https://api.exchangerate.host/latest?base=XAG&symbols=USD",
-      OIL_WTI: "https://stooq.com/q/l/?s=cl.f&f=sd2t2ohlcv&h&e=csv",
-      OIL_BRENT: "https://stooq.com/q/l/?s=br.f&f=sd2t2ohlcv&h&e=csv",
-      GAS_NG: "https://stooq.com/q/l/?s=ng.f&f=sd2t2ohlcv&h&e=csv",
-      NEWS: [
-        "https://api.allorigins.win/raw?url=https%3A%2F%2Fwww.cnbcarabia.com%2Frss%2Flatest",
-        "https://api.allorigins.win/raw?url=https%3A%2F%2Fwww.asharqbusiness.com%2Far%2Frss",
-        "https://api.allorigins.win/raw?url=https%3A%2F%2Fwww.mubasher.info%2Frss%2Fnews%2Fall",
-        "https://api.allorigins.win/raw?url=https%3A%2F%2Fwww.alarabiya.net%2Ftools%2Frss%3Fcat%3Daswaq"
-      ],
-      REFRESH_MS: 15000,
-      NEWS_REFRESH_MS: 120000,
-      NEWS_LIMIT: 30
-    };
+  /* ================== إعدادات ================== */
+  const CONFIG = {
+    CRYPTO_WS: ["btcusdt","ethusdt","solusdt","bnbusdt","xrpusdt"],
+    // سلع وفوركس عبر مصادر عامة (Stooq CSV مفضل لتفادي CORS)
+    GOLD_STOOQ:  "https://stooq.com/q/l/?s=gc.f&f=sd2t2ohlcv&h&e=csv",   // Gold Futures
+    SILVER_STOOQ:"https://stooq.com/q/l/?s=si.f&f=sd2t2ohlcv&h&e=csv",   // Silver Futures
+    OIL_WTI:     "https://stooq.com/q/l/?s=cl.f&f=sd2t2ohlcv&h&e=csv",   // WTI
+    OIL_BRENT:   "https://stooq.com/q/l/?s=br.f&f=sd2t2ohlcv&h&e=csv",   // Brent
+    GAS_NG:      "https://stooq.com/q/l/?s=ng.f&f=sd2t2ohlcv&h&e=csv",   // Natural Gas
+    METALS_SPOT: "https://api.metals.live/v1/spot",                      // احتياطي
 
-    /* ============ أدوات ============ */
-    const $ = s => document.querySelector(s);
-    function fmt(n,d=2){ if(n==null||Number.isNaN(n)) return "—"; return Number(n).toLocaleString('en-US',{maximumFractionDigits:d}); }
-    function now(){ const d=new Date(),p=n=>String(n).padStart(2,"0"); $("#lastUpdated").textContent = `${p(d.getHours())}:${p(d.getMinutes())}:${p(d.getSeconds())}`; }
-    function arabicName(symbol){
-      const map = {
-        "BTCUSD":"بيتكوين/دولار","ETHUSD":"إيثريوم/دولار","SOLUSD":"سولانا/دولار","BNBUSD":"بي إن بي/دولار","XRPUSD":"ريبل/دولار",
-        "EURUSD":"يورو/دولار","USDJPY":"دولار/ين","USDBHD":"دولار/دينار بحريني","USDSAR":"دولار/ريال سعودي",
-        "USDAED":"دولار/درهم إماراتي","GBPUSD":"جنيه/دولار","USDTRY":"دولار/ليرة تركية",
-        "XAUUSD":"ذهب/دولار","XAGUSD":"فضة/دولار",
-        "WTIUSD":"نفط خام WTI/دولار","BRENTUSD":"نفط برنت/دولار","NGUSD":"غاز طبيعي/دولار"
-      };
-      return map[symbol] || symbol;
-    }
-    async function fetchText(url, timeout=9000){
-      const ctrl=new AbortController(); const t=setTimeout(()=>ctrl.abort(),timeout);
-      try{ const r=await fetch(url,{signal:ctrl.signal,headers:{'Cache-Control':'no-cache'}}); if(!r.ok) throw new Error(r.status); return await r.text(); }
-      finally{ clearTimeout(t); }
-    }
+    FX_PRIMARY:  "https://open.er-api.com/v6/latest/USD",
+    FX_FALLBACK: "https://api.frankfurter.app/latest?from=USD",
 
-    /* ============ حالة ============ */
-    let CRYPTO = {}; // {symbol:{last,change,vol}}
-    let FX = [];    // فوركس
-    let COMM = [];  // ذهب/فضة/نفط/غاز
+    NEWS: [
+      "https://api.allorigins.win/raw?url=https%3A%2F%2Fwww.cnbcarabia.com%2Frss%2Flatest",
+      "https://api.allorigins.win/raw?url=https%3A%2F%2Fwww.asharqbusiness.com%2Far%2Frss",
+      "https://api.allorigins.win/raw?url=https%3A%2F%2Fwww.mubasher.info%2Frss%2Fnews%2Fall",
+      "https://api.allorigins.win/raw?url=https%3A%2F%2Fwww.alarabiya.net%2Ftools%2Frss%3Fcat%3Daswaq"
+    ],
+    REFRESH_MS: 15000,
+    NEWS_REFRESH_MS: 120000,
+    NEWS_LIMIT: 30
+  };
 
-    /* ============ WebSocket: Binance ============ */
-    (function openCryptoStream(){
-      try{
-        const streams = CONFIG.CRYPTO_WS.map(s=>`${s}@ticker`).join('/');
-        const ws = new WebSocket(`wss://stream.binance.com:9443/stream?streams=${streams}`);
-        ws.onmessage = ev => {
-          try{
-            const {data:t} = JSON.parse(ev.data);
-            const sym = (t.s||"").replace("USDT","USD");
-            CRYPTO[sym] = { symbol:sym, last:+t.c, change:+t.P, vol:+t.v };
-            renderAll();
-          }catch(_){}
-        };
-        ws.onclose = () => setTimeout(openCryptoStream, 2000);
-      }catch(_){}
-    })();
-
-    /* ============ فوركس: أساسي + احتياطي ============ */
-    async function loadFXPrimary(){
-      try{
-        const txt = await fetchText(`${CONFIG.FX_PRIMARY}?_=${Date.now()}`);
-        const d = JSON.parse(txt);
-        if(d.result!=="success") throw 0;
-        const r=d.rates||{}, out=[];
-        const push=(k,v)=>out.push({symbol:k,last:+v,change:0,vol:0});
-        if(r.EUR) push("EURUSD",1/r.EUR);
-        if(r.JPY) push("USDJPY",r.JPY);
-        if(r.BHD) push("USDBHD",r.BHD);
-        if(r.SAR) push("USDSAR",r.SAR);
-        if(r.AED) push("USDAED",r.AED);
-        if(r.GBP) push("GBPUSD",1/r.GBP);
-        if(r.TRY) push("USDTRY",r.TRY);
-        return out;
-      }catch(e){ return null; }
-    }
-    async function loadFXFallback(){
-      try{
-        const txt = await fetchText(`${CONFIG.FX_FALLBACK}?_=${Date.now()}`);
-        const d = JSON.parse(txt);
-        const r=d.rates||{}, out=[];
-        const push=(k,v)=>out.push({symbol:k,last:+v,change:0,vol:0});
-        if(r.EUR) push("EURUSD",1/r.EUR);
-        if(r.JPY) push("USDJPY",r.JPY);
-        if(r.GBP) push("GBPUSD",1/r.GBP);
-        if(r.TRY) push("USDTRY",r.TRY);
-        return out;
-      }catch(e){ return []; }
-    }
-    async function loadFXAll(){
-      const p = await loadFXPrimary();
-      FX = p ?? await loadFXFallback();
-    }
-
-    /* ============ ذهب ============ */
-    async function loadGold(){
-      try{
-        const txt = await fetchText(`${CONFIG.GOLD_PRIMARY}?_=${Date.now()}`);
-        const arr = JSON.parse(txt);
-        let xau = null;
-        if(Array.isArray(arr)){
-          for(const it of arr){
-            if(it && typeof it === 'object' && 'gold' in it){ xau = +it.gold; break; }
-            if(Array.isArray(it) && it[0]==='gold'){ xau = +it[1]; break; }
-          }
-        }
-        if(xau){ return [{symbol:'XAUUSD', last:xau, change:0, vol:0}]; }
-        throw 0;
-      }catch(_){
-        try{
-          const txt = await fetchText(`${CONFIG.GOLD_FALLBACK}&_=${Date.now()}`);
-          const d = JSON.parse(txt);
-          const rate = d?.rates?.USD ? +d.rates.USD : null;
-          if(rate){ return [{symbol:'XAUUSD', last:rate, change:0, vol:0}]; }
-        }catch(__){}
-      }
-      return [];
-    }
-
-    /* ============ فضّة ============ */
-    async function loadSilver(){
-      try{
-        const txt = await fetchText(`${CONFIG.SILVER_PRIMARY}?_=${Date.now()}`);
-        const arr = JSON.parse(txt);
-        let xag = null;
-        if(Array.isArray(arr)){
-          for(const it of arr){
-            if(it && typeof it === 'object' && 'silver' in it){ xag = +it.silver; break; }
-            if(Array.isArray(it) && it[0]==='silver'){ xag = +it[1]; break; }
-          }
-        }
-        if(xag){ return [{symbol:'XAGUSD', last:xag, change:0, vol:0}]; }
-        throw 0;
-      }catch(_){
-        try{
-          const txt = await fetchText(`${CONFIG.SILVER_FALLBACK}&_=${Date.now()}`);
-          const d = JSON.parse(txt);
-          const rate = d?.rates?.USD ? +d.rates.USD : null;
-          if(rate){ return [{symbol:'XAGUSD', last:rate, change:0, vol:0}]; }
-        }catch(__){}
-      }
-      return [];
-    }
-
-    /* ============ نفط/غاز عبر Stooq CSV ============ */
-    function parseStooqCSV(csv){
-      const lines = (csv||"").trim().split(/\r?\n/);
-      if(lines.length<2) return null;
-      const parts = lines[1].split(',');
-      const close = parts[6] ? +parts[6] : null;
-      return close;
-    }
-    async function loadOilGas(){
-      const out=[];
-      try{
-        const wtiTxt = await fetchText(`${CONFIG.OIL_WTI}&_=${Date.now()}`, 8000);
-        const wti = parseStooqCSV(wtiTxt);
-        if(wti) out.push({symbol:'WTIUSD', last:wti, change:0, vol:0});
-      }catch(_){}
-      try{
-        const brTxt = await fetchText(`${CONFIG.OIL_BRENT}&_=${Date.now()}`, 8000);
-        const br = parseStooqCSV(brTxt);
-        if(br) out.push({symbol:'BRENTUSD', last:br, change:0, vol:0});
-      }catch(_){}
-      try{
-        const ngTxt = await fetchText(`${CONFIG.GAS_NG}&_=${Date.now()}`, 8000);
-        const ng = parseStooqCSV(ngTxt);
-        if(ng) out.push({symbol:'NGUSD', last:ng, change:0, vol:0});
-      }catch(_){}
-      return out;
-    }
-
-    /* ============ اشتقاقات ============ */
-    function buildForecastRows(list){
-      return list.map(p=>{
-        const m=(p.change||0)/100, conf=Math.min(0.9,Math.max(0.35,Math.abs(m)*3.5));
-        const sig=m>0.003?"bull":m<-0.003?"bear":"neutral";
-        return {symbol:p.symbol, f5:p.last*(1+m*0.2), f1h:p.last*(1+m*0.6), f1d:p.last*(1+m*1.2), conf:Math.round(conf*100), sig};
-      });
-    }
-    function buildRecommendations(list){
-      const buy=[],sell=[];
-      for(const p of list){ if(p.change>=1.5) buy.push(p); if(p.change<=-1.5) sell.push(p); }
-      return {buy,sell};
-    }
-    function buildAlerts(list){
-      return list.filter(p=>Math.abs(p.change)>=3).map(p=>({symbol:p.symbol,msg:`تغيّر ${p.change.toFixed(2)}%`}));
-    }
-
-    /* ============ أخبار عربية (أسهم/تداول فقط) ============ */
-    const NEWS_KEYWORDS = /(بورصة|تداول|سوق(?:\s*الأسهم)?|الأسهم|أسهم|مؤشر|السندات|اكتتاب|قيد|طرح|صندوق|محفظة|توزيعات|سيولة|متداولين|إغلاق|جلسة|ارتفاع|انخفاض)/i;
-    function parseRSS(xml){
-      const out=[]; try{
-        const doc=new DOMParser().parseFromString(xml,"text/xml");
-        const items=[...doc.querySelectorAll("item > title, entry > title")].map(n=>(n.textContent||"").trim()).filter(Boolean);
-        for(const t of items){ if(NEWS_KEYWORDS.test(t)) out.push(t); }
-      }catch(_){}
-      return out;
-    }
-    async function loadNews(){
-      const titles=[]; const seen=new Set();
-      for(const url of CONFIG.NEWS){
-        try{
-          const txt=await fetchText(url,9000);
-          const arr=parseRSS(txt);
-          for(const t of arr){ if(!seen.has(t) && titles.length<CONFIG.NEWS_LIMIT){ seen.add(t); titles.push(t); } }
-        }catch(_){}
-      }
-      const bar=$("#newsbar"), track=$("#newsScroller");
-      if(!titles.length){ bar.style.display="none"; track.innerHTML=""; return; }
-      bar.style.display="block"; track.innerHTML="";
-      const dup=titles.concat(titles);
-      for(const t of dup){
-        const d=document.createElement("div"); d.className="news-item"; d.textContent=t; track.appendChild(d);
-      }
-    }
-
-    /* ===== SVG arrows (برمجي) ===== */
-    function makeSvg(tag){ return document.createElementNS('http://www.w3.org/2000/svg', tag); }
-    function arrowUpSVG(){ const s=makeSvg('svg'); s.setAttribute('width','16'); s.setAttribute('height','16'); s.setAttribute('viewBox','0 0 24 24'); const p=makeSvg('path'); p.setAttribute('d','M12 4l6 6h-4v10h-4V10H6z'); s.appendChild(p); return s;}
-    function arrowDownSVG(){ const s=makeSvg('svg'); s.setAttribute('width','16'); s.setAttribute('height','16'); s.setAttribute('viewBox','0 0 24 24'); const p=makeSvg('path'); p.setAttribute('d','M12 20l-6-6h4V4h4v10h4z'); s.appendChild(p); return s;}
-    function arrowFlatSVG(){ const s=makeSvg('svg'); s.setAttribute('width','16'); s.setAttribute('height','16'); s.setAttribute('viewBox','0 0 24 24'); const r=makeSvg('rect'); r.setAttribute('x','4'); r.setAttribute('y','11'); r.setAttribute('width','16'); r.setAttribute('height','2'); s.appendChild(r); return s;}
-
-    /* ============ العرض ============ */
-    function renderPrices(list){
-      const tb=$("#pricesTbody"); tb.innerHTML="";
-      if(!list.length){ tb.innerHTML='<tr><td colspan="4" class="empty">لا توجد بيانات متاحة حاليًا</td></tr>'; return; }
-      for(const p of list){
-        const tr=document.createElement("tr");
-        const digits = p.symbol.endsWith("USD")
-          ? (p.symbol.startsWith("USD")?5 : (p.symbol==='USDJPY'?3:2))
-          : 4;
-        tr.innerHTML = `
-          <td><b>${arabicName(p.symbol)}</b></td>
-          <td>${fmt(p.last,digits)}</td>
-          <td style="font-weight:800;color:${p.change>=0?'#0a7a2f':'#b11a1a'}">${p.change>=0?'↑':'↓'} ${fmt(Math.abs(p.change),2)}%</td>
-          <td>${fmt(p.vol,0)}</td>`;
-        tb.appendChild(tr);
-      }
-    }
-
-    function renderForecast(list){
-      const tb=$("#forecastTbody"); tb.innerHTML="";
-      if(!list.length){ tb.innerHTML='<tr><td colspan="6" class="empty">لا توجد بيانات متاحة حاليًا</td></tr>'; return; }
-      for(const f of buildForecastRows(list)){
-        let label="", boxCls="", svgEl=null, pillCls="";
-        if(f.sig==="bull"){ label="يرتفع"; boxCls="sig-bull"; svgEl=arrowUpSVG(); pillCls="bull"; }
-        else if(f.sig==="bear"){ label="ينخفض"; boxCls="sig-bear"; svgEl=arrowDownSVG(); pillCls="bear"; }
-        else { label="مستقر"; boxCls="sig-neutral"; svgEl=arrowFlatSVG(); pillCls="neutral"; }
-
-        const box = document.createElement('span');
-        box.className = `sigbox ${boxCls}`;
-        box.setAttribute('aria-label', label);
-        box.setAttribute('title', label);
-        if(svgEl){ box.appendChild(svgEl); } else { box.classList.add('fallback'); box.textContent = (pillCls==="bull"?"▲":pillCls==="bear"?"▼":"↔"); }
-
-        const pill = document.createElement('span');
-        pill.className = `pill ${pillCls}`;
-        pill.textContent = label;
-
-        const wrap = document.createElement('div');
-        wrap.className = 'sigwrap';
-        wrap.appendChild(box);
-        wrap.appendChild(pill);
-
-        const tr=document.createElement("tr");
-        tr.innerHTML=`
-          <td><b>${arabicName(f.symbol)}</b></td>
-          <td>${fmt(f.f5,2)}</td>
-          <td>${fmt(f.f1h,2)}</td>
-          <td>${fmt(f.f1d,2)}</td>
-          <td>${f.conf}%</td>`;
-        const td = document.createElement('td');
-        td.appendChild(wrap);
-        tr.appendChild(td);
-        tb.appendChild(tr);
-      }
-    }
-
-    function renderRecommendations(list){
-      const {buy,sell}=buildRecommendations(list);
-      const b=$("#buyList"), s=$("#sellList");
-      const cb=$("#card-buy"), cs=$("#card-sell");
-
-      b.innerHTML="";
-      if(!buy.length){ cb.style.display="none"; }
-      else {
-        cb.style.display="block";
-        for(const r of buy){
-          const d=document.createElement("div");
-          d.className="alert";
-          d.innerHTML=`<b>${arabicName(r.symbol)}</b> — إشارة شراء (زخم إيجابي)`;
-          b.appendChild(d);
-        }
-      }
-
-      s.innerHTML="";
-      if(!sell.length){ cs.style.display="none"; }
-      else {
-        cs.style.display="block";
-        for(const r of sell){
-          const d=document.createElement("div");
-          d.className="alert";
-          d.innerHTML=`<b>${arabicName(r.symbol)}</b> — إشارة بيع (زخم سلبي)`;
-          s.appendChild(d);
-        }
-      }
-    }
-
-    function renderAlerts(list){
-      const arr=buildAlerts(list), a=$("#alertsList"); a.innerHTML="";
-      if(!arr.length){ a.innerHTML='<div class="empty">لا توجد تنبيهات حاليًا</div>'; return; }
-      for(const x of arr){
-        const d=document.createElement("div"); d.className="alert";
-        d.innerHTML=`<b>${arabicName(x.symbol)}</b> — ${x.msg}`;
-        a.appendChild(d);
-      }
-    }
-
-    function renderAll(){
-      const combined = Object.values(CRYPTO).concat(FX).concat(COMM);
-      renderPrices(combined);
-      renderForecast(combined);
-      renderRecommendations(combined);
-      renderAlerts(combined);
-      now();
-    }
-
-    /* ============ نصيحة تداول واحدة (مثبتة وتتغير مع التصفح) ============ */
-    const TIPS_POOL = [
-      "حدّد مسبقًا نقطة الخروج للربح والخسارة ولا تغيّرها تحت الضغط.",
-      "تنوّع المحافظ يقلّل المخاطر—لا تضع كل رأس المال في أصل واحد.",
-      "التداول عند وضوح الاتجاه أسهل من اصطياد القيعان والقمم.",
-      "إدارة المخاطر أهم من توقّع السوق—احمِ رأس المال أولاً.",
-      "دوّن أسباب دخولك وخروجك وتعلّم من الأداء بانتظام."
-    ];
-    (function setPinnedTip(){
-      const tip = TIPS_POOL[Math.floor(Math.random()*TIPS_POOL.length)];
-      $("#tipOfTheDay").textContent = tip;
-    })();
-
-    /* ============ تشغيل ============ */
-    (async function init(){
-      await Promise.all([
-        (async()=>{ const p=await loadFXPrimary(); FX = p ?? await loadFXFallback(); })(),
-        (async()=>{ COMM = COMM.concat(await loadGold()); })(),
-        (async()=>{ COMM = COMM.concat(await loadSilver()); })(),
-        (async()=>{ COMM = COMM.concat(await loadOilGas()); })(),
-        (async()=>{ loadNews(); setInterval(loadNews, CONFIG.NEWS_REFRESH_MS); })()
-      ]);
-      renderAll();
-      // تحديث دوري للسلع (ذهب/فضة/نفط/غاز)
-      setInterval(async ()=>{
-        COMM = [];
-        COMM = COMM.concat(await loadGold());
-        COMM = COMM.concat(await loadSilver());
-        COMM = COMM.concat(await loadOilGas());
-        renderAll();
-      }, CONFIG.REFRESH_MS * 4);
-      setInterval(renderAll, CONFIG.REFRESH_MS);
-    })();
-
-  }catch(e){
-    console.error(e);
+  /* ================== أدوات ================== */
+  const $ = s => document.querySelector(s);
+  function fmt(n,d=2){ if(n==null||Number.isNaN(n)) return "—"; return Number(n).toLocaleString('en-US',{maximumFractionDigits:d}); }
+  function now(){ const d=new Date(),p=n=>String(n).padStart(2,"0"); $("#lastUpdated").textContent = `${p(d.getHours())}:${p(d.getMinutes())}:${p(d.getSeconds())}`; }
+  async function fetchText(url, timeout=9000){
+    const ctrl=new AbortController(); const t=setTimeout(()=>ctrl.abort(),timeout);
+    try{ const r=await fetch(url,{signal:ctrl.signal,headers:{'Cache-Control':'no-cache'}}); if(!r.ok) throw new Error(r.status); return await r.text(); }
+    finally{ clearTimeout(t); }
   }
+  function arabicName(symbol){
+    const map = {
+      "BTCUSD":"بيتكوين/دولار","ETHUSD":"إيثريوم/دولار","SOLUSD":"سولانا/دولار","BNBUSD":"بي إن بي/دولار","XRPUSD":"ريبل/دولار",
+      "EURUSD":"يورو/دولار","USDJPY":"دولار/ين","USDBHD":"دولار/دينار بحريني","USDSAR":"دولار/ريال سعودي",
+      "USDAED":"دولار/درهم إماراتي","GBPUSD":"جنيه/دولار","USDTRY":"دولار/ليرة تركية",
+      "XAUUSD":"ذهب/دولار","XAGUSD":"فضة/دولار",
+      "WTIUSD":"نفط خام WTI/دولار","BRENTUSD":"نفط برنت/دولار","NGUSD":"غاز طبيعي/دولار"
+    };
+    return map[symbol] || symbol;
+  }
+
+  /* ================== حالة ================== */
+  let CRYPTO = {}; // {symbol:{last,change,vol}}
+  let FX = [];     // فوركس
+  let COMM = [];   // ذهب/فضة/نفط/غاز
+
+  /* ================== WebSocket: Binance ================== */
+  (function openCryptoStream(){
+    try{
+      const streams = CONFIG.CRYPTO_WS.map(s=>`${s}@ticker`).join('/');
+      const ws = new WebSocket(`wss://stream.binance.com:9443/stream?streams=${streams}`);
+      ws.onmessage = ev => {
+        try{
+          const {data:t} = JSON.parse(ev.data);
+          const sym = (t.s||"").replace("USDT","USD");
+          CRYPTO[sym] = { symbol:sym, last:+t.c, change:+t.P, vol:+t.v };
+          renderAll();
+        }catch(_){}
+      };
+      ws.onclose = () => setTimeout(openCryptoStream, 2000);
+    }catch(_){}
+  })();
+
+  /* ================== فوركس ================== */
+  async function loadFXPrimary(){
+    try{
+      const txt = await fetchText(`${CONFIG.FX_PRIMARY}?_=${Date.now()}`);
+      const d = JSON.parse(txt);
+      if(d.result!=="success") throw 0;
+      const r=d.rates||{}, out=[];
+      const push=(k,v)=>out.push({symbol:k,last:+v,change:0,vol:0});
+      if(r.EUR) push("EURUSD",1/r.EUR);
+      if(r.JPY) push("USDJPY",r.JPY);
+      if(r.BHD) push("USDBHD",r.BHD);
+      if(r.SAR) push("USDSAR",r.SAR);
+      if(r.AED) push("USDAED",r.AED);
+      if(r.GBP) push("GBPUSD",1/r.GBP);
+      if(r.TRY) push("USDTRY",r.TRY);
+      return out;
+    }catch(e){ return null; }
+  }
+  async function loadFXFallback(){
+    try{
+      const txt = await fetchText(`${CONFIG.FX_FALLBACK}?_=${Date.now()}`);
+      const d = JSON.parse(txt);
+      const r=d.rates||{}, out=[];
+      const push=(k,v)=>out.push({symbol:k,last:+v,change:0,vol:0});
+      if(r.EUR) push("EURUSD",1/r.EUR);
+      if(r.JPY) push("USDJPY",r.JPY);
+      if(r.GBP) push("GBPUSD",1/r.GBP);
+      if(r.TRY) push("USDTRY",r.TRY);
+      return out;
+    }catch(e){ return []; }
+  }
+  async function loadFXAll(){
+    const p = await loadFXPrimary();
+    FX = p ?? await loadFXFallback();
+  }
+
+  /* ================== سلع عبر Stooq + احتياطي ================== */
+  function parseStooqCSV(csv){
+    const lines = (csv||"").trim().split(/\r?\n/);
+    if(lines.length<2) return null;
+    const parts = lines[1].split(',');
+    const close = parts[6] ? +parts[6] : null;
+    return close;
+  }
+
+  async function loadGoldStooq(){
+    try{
+      const txt = await fetchText(`${CONFIG.GOLD_STOOQ}&_=${Date.now()}`, 8000);
+      const px = parseStooqCSV(txt);
+      if(px) return [{symbol:'XAUUSD', last:px, change:0, vol:0}];
+    }catch(_){}
+    // احتياطي عبر metals.live
+    try{
+      const txt = await fetchText(`${CONFIG.METALS_SPOT}?_=${Date.now()}`, 8000);
+      const arr = JSON.parse(txt);
+      let val=null;
+      if(Array.isArray(arr)){
+        for(const it of arr){
+          if(it && typeof it === 'object' && 'gold' in it){ val=+it.gold; break; }
+          if(Array.isArray(it) && it[0]==='gold'){ val=+it[1]; break; }
+        }
+      }
+      if(val) return [{symbol:'XAUUSD', last:val, change:0, vol:0}];
+    }catch(_){}
+    return [];
+  }
+  async function loadSilverStooq(){
+    try{
+      const txt = await fetchText(`${CONFIG.SILVER_STOOQ}&_=${Date.now()}`, 8000);
+      const px = parseStooqCSV(txt);
+      if(px) return [{symbol:'XAGUSD', last:px, change:0, vol:0}];
+    }catch(_){}
+    // احتياطي عبر metals.live
+    try{
+      const txt = await fetchText(`${CONFIG.METALS_SPOT}?_=${Date.now()}`, 8000);
+      const arr = JSON.parse(txt);
+      let val=null;
+      if(Array.isArray(arr)){
+        for(const it of arr){
+          if(it && typeof it === 'object' && 'silver' in it){ val=+it.silver; break; }
+          if(Array.isArray(it) && it[0]==='silver'){ val=+it[1]; break; }
+        }
+      }
+      if(val) return [{symbol:'XAGUSD', last:val, change:0, vol:0}];
+    }catch(_){}
+    return [];
+  }
+  async function loadOilGas(){
+    const out=[];
+    try{
+      const wtiTxt = await fetchText(`${CONFIG.OIL_WTI}&_=${Date.now()}`, 8000);
+      const wti = parseStooqCSV(wtiTxt);
+      if(wti) out.push({symbol:'WTIUSD', last:wti, change:0, vol:0});
+    }catch(_){}
+    try{
+      const brTxt = await fetchText(`${CONFIG.OIL_BRENT}&_=${Date.now()}`, 8000);
+      const br = parseStooqCSV(brTxt);
+      if(br) out.push({symbol:'BRENTUSD', last:br, change:0, vol:0});
+    }catch(_){}
+    try{
+      const ngTxt = await fetchText(`${CONFIG.GAS_NG}&_=${Date.now()}`, 8000);
+      const ng = parseStooqCSV(ngTxt);
+      if(ng) out.push({symbol:'NGUSD', last:ng, change:0, vol:0});
+    }catch(_){}
+    return out;
+  }
+
+  /* ================== اشتقاقات ================== */
+  function buildForecastRows(list){
+    return list.map(p=>{
+      const m=(p.change||0)/100, conf=Math.min(0.9,Math.max(0.35,Math.abs(m)*3.5));
+      const sig=m>0.003?"bull":m<-0.003?"bear":"neutral";
+      return {symbol:p.symbol, f5:p.last*(1+m*0.2), f1h:p.last*(1+m*0.6), f1d:p.last*(1+m*1.2), conf:Math.round(conf*100), sig};
+    });
+  }
+  function buildRecommendations(list){
+    const buy=[],sell=[];
+    for(const p of list){ if(p.change>=1.5) buy.push(p); if(p.change<=-1.5) sell.push(p); }
+    return {buy,sell};
+  }
+  function buildAlerts(list){
+    return list.filter(p=>Math.abs(p.change)>=3).map(p=>({symbol:p.symbol,msg:`تغيّر ${p.change.toFixed(2)}%`}));
+  }
+
+  /* ================== الأخبار العربية (أسهم/تداول فقط) ================== */
+  const NEWS_KEYWORDS = /(بورصة|تداول|سوق(?:\s*الأسهم)?|الأسهم|أسهم|مؤشر|السندات|اكتتاب|قيد|طرح|صندوق|محفظة|توزيعات|سيولة|متداولين|إغلاق|جلسة|ارتفاع|انخفاض)/i;
+  function parseRSS(xml){
+    const out=[]; try{
+      const doc=new DOMParser().parseFromString(xml,"text/xml");
+      const items=[...doc.querySelectorAll("item > title, entry > title")].map(n=>(n.textContent||"").trim()).filter(Boolean);
+      for(const t of items){ if(NEWS_KEYWORDS.test(t)) out.push(t); }
+    }catch(_){}
+    return out;
+  }
+  async function loadNews(){
+    const titles=[]; const seen=new Set();
+    for(const url of CONFIG.NEWS){
+      try{
+        const txt=await fetchText(url,9000);
+        const arr=parseRSS(txt);
+        for(const t of arr){ if(!seen.has(t) && titles.length<CONFIG.NEWS_LIMIT){ seen.add(t); titles.push(t); } }
+      }catch(_){}
+    }
+    const bar=$("#newsbar"), track=$("#newsScroller");
+    if(!titles.length){ bar.style.display="none"; track.innerHTML=""; return; }
+    bar.style.display="block"; track.innerHTML="";
+    const dup=titles.concat(titles);
+    for(const t of dup){
+      const d=document.createElement("div"); d.className="news-item"; d.textContent=t; track.appendChild(d);
+    }
+  }
+
+  /* ===== SVG arrows (برمجي مع تعيين اللون) ===== */
+  function makeSvg(tag){ return document.createElementNS('http://www.w3.org/2000/svg', tag); }
+  function arrowUpSVG(){
+    const s=makeSvg('svg'); s.setAttribute('width','16'); s.setAttribute('height','16'); s.setAttribute('viewBox','0 0 24 24');
+    const p=makeSvg('path'); p.setAttribute('d','M12 4l6 6h-4v10h-4V10H6z'); p.setAttribute('fill','#0a7a2f'); s.appendChild(p); return s;
+  }
+  function arrowDownSVG(){
+    const s=makeSvg('svg'); s.setAttribute('width','16'); s.setAttribute('height','16'); s.setAttribute('viewBox','0 0 24 24');
+    const p=makeSvg('path'); p.setAttribute('d','M12 20l-6-6h4V4h4v10h4z'); p.setAttribute('fill','#b11a1a'); s.appendChild(p); return s;
+  }
+  function arrowFlatSVG(){
+    const s=makeSvg('svg'); s.setAttribute('width','16'); s.setAttribute('height','16'); s.setAttribute('viewBox','0 0 24 24');
+    const r=makeSvg('rect'); r.setAttribute('x','4'); r.setAttribute('y','11'); r.setAttribute('width','16'); r.setAttribute('height','2'); r.setAttribute('fill','#555'); s.appendChild(r); return s;
+  }
+
+  /* ================== العرض ================== */
+  function renderPrices(list){
+    const tb=$("#pricesTbody"); tb.innerHTML="";
+    if(!list.length){ tb.innerHTML='<tr><td colspan="4" class="empty">لا توجد بيانات متاحة حاليًا</td></tr>'; return; }
+    for(const p of list){
+      const tr=document.createElement("tr");
+      const digits = p.symbol.endsWith("USD")
+        ? (p.symbol.startsWith("USD")?5 : (p.symbol==='USDJPY'?3:2))
+        : 4;
+      tr.innerHTML = `
+        <td><b>${arabicName(p.symbol)}</b></td>
+        <td>${fmt(p.last,digits)}</td>
+        <td style="font-weight:800;color:${p.change>=0?'#0a7a2f':'#b11a1a'}">${p.change>=0?'↑':'↓'} ${fmt(Math.abs(p.change),2)}%</td>
+        <td>${fmt(p.vol,0)}</td>`;
+      tb.appendChild(tr);
+    }
+  }
+
+  function renderForecast(list){
+    const tb=$("#forecastTbody"); tb.innerHTML="";
+    if(!list.length){ tb.innerHTML='<tr><td colspan="6" class="empty">لا توجد بيانات متاحة حاليًا</td></tr>'; return; }
+    for(const f of buildForecastRows(list)){
+      let label="", boxClass="", svgEl=null, pillCls="";
+      if(f.sig==="bull"){ label="يرتفع"; boxClass="sig-bull"; svgEl=arrowUpSVG(); pillCls="bull"; }
+      else if(f.sig==="bear"){ label="ينخفض"; boxClass="sig-bear"; svgEl=arrowDownSVG(); pillCls="bear"; }
+      else { label="مستقر"; boxClass="sig-neutral"; svgEl=arrowFlatSVG(); pillCls="neutral"; }
+
+      const box = document.createElement('span');
+      box.className = `sigbox ${boxClass}`;
+      box.setAttribute('aria-label', label);
+      box.setAttribute('title', label);
+      if(svgEl){ box.appendChild(svgEl); } else { box.classList.add('fallback'); box.textContent = (pillCls==="bull"?"▲":pillCls==="bear"?"▼":"↔"); }
+
+      const pill = document.createElement('span');
+      pill.className = `pill ${pillCls}`;
+      pill.textContent = label;
+
+      const wrap = document.createElement('div');
+      wrap.className = 'sigwrap';
+      wrap.appendChild(box);
+      wrap.appendChild(pill);
+
+      const tr=document.createElement("tr");
+      tr.innerHTML=`
+        <td><b>${arabicName(f.symbol)}</b></td>
+        <td>${fmt(f.f5,2)}</td>
+        <td>${fmt(f.f1h,2)}</td>
+        <td>${fmt(f.f1d,2)}</td>
+        <td>${f.conf}%</td>`;
+      const td = document.createElement('td');
+      td.appendChild(wrap);
+      tr.appendChild(td);
+      tb.appendChild(tr);
+    }
+  }
+
+  function renderRecommendations(list){
+    const {buy,sell}=buildRecommendations(list);
+    const b=$("#buyList"), s=$("#sellList");
+    const cb=$("#card-buy"), cs=$("#card-sell");
+
+    b.innerHTML="";
+    if(!buy.length){ cb.style.display="none"; }
+    else {
+      cb.style.display="block";
+      for(const r of buy){
+        const d=document.createElement("div");
+        d.className="alert";
+        d.innerHTML=`<b>${arabicName(r.symbol)}</b> — إشارة شراء (زخم إيجابي)`;
+        b.appendChild(d);
+      }
+    }
+
+    s.innerHTML="";
+    if(!sell.length){ cs.style.display="none"; }
+    else {
+      cs.style.display="block";
+      for(const r of sell){
+        const d=document.createElement("div");
+        d.className="alert";
+        d.innerHTML=`<b>${arabicName(r.symbol)}</b> — إشارة بيع (زخم سلبي)`;
+        s.appendChild(d);
+      }
+    }
+  }
+
+  function renderAlerts(list){
+    const arr=buildAlerts(list), a=$("#alertsList"); a.innerHTML="";
+    if(!arr.length){ a.innerHTML='<div class="empty">لا توجد تنبيهات حاليًا</div>'; return; }
+    for(const x of arr){
+      const d=document.createElement("div"); d.className="alert";
+      d.innerHTML=`<b>${arabicName(x.symbol)}</b> — ${x.msg}`;
+      a.appendChild(d);
+    }
+  }
+
+  function renderAll(){
+    const combined = Object.values(CRYPTO).concat(FX).concat(COMM);
+    renderPrices(combined);
+    renderForecast(combined);
+    renderRecommendations(combined);
+    renderAlerts(combined);
+    now();
+  }
+
+  /* ================== نصائح التداول (30 نصيحة) ================== */
+  const TIPS_POOL = [
+    "ضع خطة مكتوبة للدخول والخروج وإدارة المخاطر قبل فتح الصفقة.",
+    "لا تخاطر بأكثر من 1–2% من رأس المال في صفقة واحدة.",
+    "استخدم أوامر وقف الخسارة دائمًا واحترمها.",
+    "جمّد عواطفك: لا تدع الخوف أو الطمع يقودان قرارك.",
+    "التزم بإستراتيجية مجرَّبة ولا تغيّرها بعد كل صفقة.",
+    "قيّم الصفقات على سلسلة نتائج، لا على صفقة منفردة.",
+    "تداول مع الاتجاه العام بدلًا من مصارعة السوق.",
+    "لا تُطارد الحركة بعد فواتها؛ انتظر إعادة اختبار منطقية.",
+    "نوّع محفظتك ولا تركّز كل المخاطر في أصل واحد.",
+    "احسب العائد إلى المخاطرة قبل الدخول (مثلاً 1:2 على الأقل).",
+    "تجنّب الإفراط في التداول؛ الجودة أهم من الكثرة.",
+    "تاجر بأموال يمكنك تحمل خسارتها دون ضغط نفسي.",
+    "استخدم أحجام صفقة ثابتة ومنضبطة.",
+    "دوّن أسباب الدخول والخروج وتعلّم من المراجعة الدورية.",
+    "لا تتداول وقت الأخبار عالية التقلّب دون خطة واضحة.",
+    "احذر من مضاعفة الحجم لتعويض الخسائر.",
+    "راقب السيولة والسبريد قبل التنفيذ.",
+    "اختبر الاستراتيجية تاريخيًا وعلى حساب تجريبي أولًا.",
+    "لا تدع صفقة رابحة تتحول إلى خاسرة—حرّك الوقف بحكمة.",
+    "احترم مستويات الدعم والمقاومة على الأطر الزمنية الأكبر.",
+    "اتبع إشارة واحدة واضحة بدل تكديس مؤشرات كثيرة.",
+    "تذكّر أن عدم الدخول قرار تداول أيضًا.",
+    "اعرف ما تتداول: العوامل المؤثرة والمخاطر الخاصة بالأصل.",
+    "اضبط توقيتك مع جلسات السوق النشطة.",
+    "لا تُهمل التكاليف: العمولات والانزلاق تؤثر على الأداء.",
+    "تقبّل الخسارة الصغيرة سريعًا لتجنب الخسارة الكبيرة.",
+    "لا تتداول بدافع الملل؛ انتظر فرصًا ذات ميزة واضحة.",
+    "راجع الخطة عند تغيّر هيكل السوق، لا بعد كل تذبذب.",
+    "تدرّج في زيادة الحجم بعد ثبات الأداء لا بعد صفقة واحدة.",
+    "احمِ رأس المال أولًا—الفرص لا تنتهي."
+  ];
+  (function setPinnedTip(){
+    const tip = TIPS_POOL[Math.floor(Math.random()*TIPS_POOL.length)];
+    $("#tipOfTheDay").textContent = tip;
+  })();
+
+  /* ================== مواقع التداول (زر فتح) ================== */
+  const siteSelect = $("#siteSelect");
+  const openBtn = $("#openSite");
+  openBtn.addEventListener('click', (e)=>{
+    e.preventDefault();
+    const url = siteSelect.value;
+    if(url) window.open(url, '_blank', 'noopener');
+  });
+
+  /* ================== تشغيل ================== */
+  (async function init(){
+    // فوركس
+    await (async()=>{ const p=await loadFXPrimary(); FX = p ?? await loadFXFallback(); })();
+
+    // سلع
+    const [xauS, xagS, oils] = await Promise.all([
+      loadGoldStooq(),
+      loadSilverStooq(),
+      loadOilGas()
+    ]);
+    // احتياطيات للذهب/الفضة إن احتجنا
+    let comm = [].concat(xauS, xagS, oils);
+    if(!xauS.length){
+      const xauAlt = await loadGoldStooq().then(r=> r.length?r:[]).catch(()=>[]);
+      if(!xauAlt.length){
+        comm = comm.concat(await (async()=>await loadGoldStooq())());
+      }
+    }
+    if(!xagS.length){
+      comm = comm.concat(await (async()=>await loadSilverStooq())());
+    }
+    COMM = comm;
+
+    // أخبار عربية
+    loadNews(); setInterval(loadNews, CONFIG.NEWS_REFRESH_MS);
+
+    // تحديثات دورية
+    renderAll();
+    setInterval(renderAll, CONFIG.REFRESH_MS);
+    setInterval(async ()=>{
+      const [gx, sx, ox] = await Promise.all([
+        loadGoldStooq(),
+        loadSilverStooq(),
+        loadOilGas()
+      ]);
+      COMM = [].concat(gx, sx, ox);
+      renderAll();
+    }, CONFIG.REFRESH_MS * 4);
+  })();
 });
 </script>
 </body>
