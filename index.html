@@ -1,273 +1,483 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Cash4Life • مولّد أرقام احترافي</title>
-  <style>
-    :root{
-      --gold:#B9920B;           /* ذهبي فاخر */
-      --gold-2:#E6C45A;         /* ذهبي فاتح */
-      --ink:#0F172A;            /* حبر أنيق */
-      --muted:#6B7280;          /* رمادي ناعم */
-      --bg:#FFFFFF;             /* أبيض صريح */
-      --surface:#FCFCFD;        /* خلفية بطبقة واحدة */
-      --line:rgba(15,23,42,.08);
-      --ring:rgba(185,146,11,.35);
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Noto Kufi Arabic", "Noto Sans Arabic", Tahoma, Arial, sans-serif;
-      background: var(--surface);
-      color:var(--ink);
-    }
-    .app{display:grid;grid-template-columns: 320px 1fr; min-height:100vh}
-
-    /* ====== Sidebar ====== */
-    .side{
-      background: radial-gradient(900px 600px at 30% 10%, rgba(230,196,90,.22), transparent 60%),
-                  linear-gradient(180deg, #fff 0%, #fef8e9 100%);
-      border-inline-end:1px solid var(--line);
-      padding:28px 22px; display:flex; flex-direction:column; gap:28px; justify-content:space-between
-    }
-    .brand{display:flex; align-items:center; gap:14px}
-    .logo{width:54px;height:54px;border-radius:16px;display:grid;place-items:center;font-weight:900;color:#2B2200;letter-spacing:.4px;
-      background: conic-gradient(from 210deg,var(--gold),var(--gold-2),var(--gold));
-      box-shadow: inset 0 0 0 2px rgba(255,255,255,.75), 0 10px 30px rgba(185,146,11,.28);
-    }
-    h1{margin:0;font-size: clamp(22px, 2.4vw, 28px)}
-    .sub{color:var(--muted);margin-top:6px;line-height:1.6}
-    .side .tip{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px 14px;color:#4b3b00}
-    .side .mini{font-size:12px;color:var(--muted)}
-    .credits{display:flex;flex-direction:column;gap:6px}
-
-    /* ====== Main ====== */
-    .main{padding:36px; display:grid; place-items:start}
-    .panel{
-      width:min(980px, 100%);
-      background:#fff;border:1px solid var(--line);border-radius:20px;overflow:hidden
-    }
-    .hdr{display:flex;align-items:center;justify-content:space-between;padding:18px 20px;border-bottom:1px solid var(--line);backdrop-filter:saturate(140%)}
-    .hdr .title{font-weight:800}
-    .content{padding:18px 20px 24px}
-    .row{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end}
-    .row > *{flex:1 1 280px}
-    label{font-weight:700;font-size:13px;color:#111827}
-    select, textarea, input[type="text"]{
-      width:100%;background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 12px;font-size:14px;outline:none;transition:.25s
-    }
-    select:focus, textarea:focus, input:focus{box-shadow:0 0 0 4px var(--ring);border-color:var(--gold)}
-    textarea{min-height:100px;resize:vertical}
-
-    .btn{
-      appearance:none;border:none;cursor:pointer;border-radius:12px;padding:12px 16px;font-weight:800;font-size:14px;
-      background:linear-gradient(135deg,var(--gold),var(--gold-2));color:#1F1A00;box-shadow:0 6px 18px rgba(185,146,11,.35), inset 0 -2px 0 rgba(0,0,0,.08);transition:transform .06s ease, box-shadow .2s ease
-    }
-    .btn:hover{box-shadow:0 10px 24px rgba(185,146,11,.45)}
-    .btn:active{transform:translateY(1px)}
-    .btn.secondary{background:#fff;border:1px solid var(--line);box-shadow:none;font-weight:700}
-
-    .result{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-    .ball{
-      display:grid;place-items:center;min-width:60px;height:60px;border-radius:999px;padding:10px 14px;font-weight:900;font-size:18px;color:#2B2200;
-      background:linear-gradient(160deg,#fff,#fff 60%, #faf7e6); border:1.5px solid var(--gold);
-      box-shadow:inset 0 0 0 2px rgba(255,255,255,.85), 0 8px 20px rgba(185,146,11,.2)
-    }
-    .cash{border-color:#916F00;background:linear-gradient(160deg,#fff,#fff 60%, #f6f0cf)}
-
-    .stats{display:grid;grid-template-columns: repeat(3,1fr);gap:12px;margin-top:18px}
-    .stat{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px}
-    .stat h3{margin:0 0 6px 0;font-size:13px}
-    .muted{color:var(--muted);font-size:12px}
-
-    .footer{padding:14px 20px;border-top:1px solid var(--line);display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap}
-    .badge{font-weight:800;letter-spacing:.4px;color:#5a4a00}
-
-    @media (max-width: 980px){
-      .app{grid-template-columns: 1fr}
-      .side{border-inline-end: none; border-bottom:1px solid var(--line)}
-      .main{padding:22px}
-    }
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>لوحة البورصة — أسعار، توقعات، توصيات</title>
+<style>
+  :root{
+    --gold:#D4AF37; --gold-2:#C9A227; --bg:#FFFFFF; --bg-soft:#FAFAFA;
+    --text:#111; --muted:#6b7280; --card:#FFFFFF; --border:#eee;
+    --pos:#0a7a2f; --neg:#b11a1a; --shadow:0 6px 20px rgba(0,0,0,.06);
+    --chip-bg:#fff8e1;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --bg:#0b0b0c; --bg-soft:#121215; --text:#f5f5f5; --card:#141417; --border:#26262c; --shadow:0 10px 30px rgba(0,0,0,.35); --chip-bg:#2a220a; }
+  }
+  *{box-sizing:border-box} html,body{height:100%}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Noto Naskh Arabic UI","Cairo","Tajawal",Arial,sans-serif;line-height:1.6}
+  .container{max-width:1200px;margin:0 auto;padding:16px}
+  header.top{position:sticky;top:0;z-index:50;background:linear-gradient(180deg,rgba(212,175,55,.08),transparent),var(--bg);backdrop-filter:saturate(140%) blur(6px);border-bottom:1px solid var(--border)}
+  .topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:18px;letter-spacing:.3px}
+  .brand .logo{width:32px;height:32px;border-radius:10px;background:conic-gradient(from 0deg,var(--gold),var(--gold-2),var(--gold));box-shadow:inset 0 0 0 2px rgba(255,255,255,.25)}
+  .meta{display:flex;align-items:center;gap:14px;color:var(--muted);font-size:13px;flex-wrap:wrap}
+  .dot{width:10px;height:10px;border-radius:50%;background:#bbb;box-shadow:0 0 0 2px rgba(0,0,0,.05) inset}
+  .dot.ok{background:#16a34a}.dot.warn{background:#f59e0b}.dot.err{background:#ef4444}
+  .chip{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;border:1px solid var(--border);background:var(--chip-bg);color:#5b4400;font-size:12px;font-weight:600}
+  .controls{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .btn{cursor:pointer;border:1px solid var(--border);background:var(--card);padding:8px 12px;border-radius:12px;box-shadow:var(--shadow);font-weight:700;transition:.15s;font-size:14px}
+  .btn:hover{transform:translateY(-1px)} .btn.gold{border-color:transparent;background:linear-gradient(180deg,var(--gold),var(--gold-2));color:#1a1200}
+  .search{display:flex;gap:8px;align-items:center;background:var(--card);border:1px solid var(--border);padding:8px 12px;border-radius:12px;box-shadow:var(--shadow);min-width:260px}
+  .search input{border:0;outline:none;background:transparent;color:var(--text);width:160px;font-size:14px}
+  nav.tabs{margin-top:8px;display:flex;gap:8px;flex-wrap:wrap;border-bottom:1px solid var(--border);padding-bottom:6px}
+  .tab{padding:10px 14px;border-radius:12px 12px 0 0;border:1px solid var(--border);border-bottom:0;background:var(--card);cursor:pointer;font-weight:700;box-shadow:0 -2px 12px rgba(0,0,0,.06);opacity:.8}
+  .tab.active{opacity:1;background:linear-gradient(180deg,#fff8e6,var(--card));border-color:var(--gold-2)}
+  .grid{display:grid;gap:14px}
+  .cards{display:grid;grid-template-columns:repeat(12,1fr);gap:14px}
+  .card{grid-column:span 12;background:var(--card);border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow);overflow:hidden}
+  .card .head{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;border-bottom:1px solid var(--border);background:linear-gradient(180deg,rgba(212,175,55,.10),transparent)}
+  .card .body{padding:12px}
+  .ticker{display:flex;gap:8px;overflow:auto;padding:8px 0}
+  .badge{flex:0 0 auto;display:flex;align-items:center;gap:8px;padding:8px 10px;border:1px solid var(--border);border-radius:999px;background:var(--card);box-shadow:var(--shadow);min-width:140px;justify-content:space-between}
+  .badge .chg.pos{color:var(--pos);font-weight:800}.badge .chg.neg{color:var(--neg);font-weight:800}
+  table{width:100%;border-collapse:collapse} th,td{padding:10px;border-bottom:1px solid var(--border);text-align:center;font-size:14px}
+  th{font-size:12px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);cursor:pointer}
+  tr:hover td{background:rgba(212,175,55,.06)}
+  .pill{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;border:1px solid var(--border);font-size:12px;font-weight:800}
+  .pill.bull{color:var(--pos);background:rgba(22,163,74,.08)} .pill.bear{color:var(--neg);background:rgba(239,68,68,.08)} .pill.neutral{color:#6b7280;background:rgba(107,114,128,.12)}
+  .kpi{display:flex;gap:8px;flex-wrap:wrap} .kpi .item{padding:10px 12px;border:1px dashed var(--border);border-radius:12px}
+  .two-col{display:grid;grid-template-columns:1fr;gap:14px} @media(min-width:860px){.two-col{grid-template-columns:1fr 1fr}}
+  .alert{border:1px solid var(--border);border-radius:12px;padding:10px;display:flex;justify-content:space-between;align-items:center;gap:10px;background:var(--bg-soft)}
+  .sev{font-size:12px;font-weight:900;padding:6px 10px;border-radius:999px}
+  .sev.low{background:#e8f7ff;color:#075985} .sev.med{background:#fff7ed;color:#9a3412} .sev.high{background:#fef2f2;color:#991b1b}
+  .fade-flash{animation:flash .7s ease}@keyframes flash{0%{background:rgba(212,175,55,.25)}100%{background:transparent}}
+  footer{margin-top:24px;padding:16px;border-top:1px solid var(--border);color:var(--muted);font-size:12px}
+  .hidden{display:none !important}
+</style>
 </head>
 <body>
-  <div class="app">
-    <!-- Sidebar -->
-    <aside class="side" aria-label="الشريط الجانبي">
-      <div>
-        <div class="brand">
-          <div class="logo">C4L</div>
-          <div>
-            <h1>Cash4Life</h1>
-            <div class="sub">مولّد أرقام بأسلوب احترافي ومظهر ذهبي أنيق.</div>
-          </div>
+<header class="top">
+  <div class="container">
+    <div class="topbar">
+      <div class="brand">
+        <div class="logo"></div><div>لوحة البورصة</div>
+        <span class="chip" id="demoChip" title="وضع تجريبي">بدون مفاتيح</span>
+      </div>
+      <div class="meta">
+        <div style="display:flex;align-items:center;gap:8px">
+          <div class="dot" id="connDot" title="حالة الاتصال"></div>
+          <span>آخر تحديث: <strong id="lastUpdated">—:—:—</strong></span>
+        </div>
+        <div class="kpi">
+          <div class="item">عدد الرموز: <b id="kpiCount">0</b></div>
+          <div class="item">تنبيهات: <b id="kpiAlerts">0</b></div>
         </div>
       </div>
-      <div class="credits">
-        <div class="tip"><strong>ملاحظة مهنية:</strong> لا توجد وسيلة مضمونة للتنبؤ بنتائج اليانصيب. هذا المولّد يقدّم انتقاءً مدروسًا فقط.</div>
-        <div class="mini">التصميم: أبيض/ذهبي • تجربة RTL كاملة • قابلية مشاركة</div>
+      <div class="controls">
+        <label class="search" title="ابحث عن رمز">
+          <input id="q" placeholder="ابحث عن رمز (AAPL, BTCUSD, EURUSD)" />
+          <button class="btn" id="clearBtn">مسح</button>
+        </label>
+        <button class="btn gold" id="refreshBtn">تحديث الآن</button>
       </div>
-    </aside>
-
-    <!-- Main -->
-    <main class="main">
-      <section class="panel" aria-labelledby="panelTitle">
-        <div class="hdr">
-          <div class="title" id="panelTitle">توليد التشكيلة</div>
-          <div class="actions" style="display:flex; gap:8px">
-            <button class="btn" id="generate">توليد</button>
-            <button class="btn secondary" id="copy">نسخ</button>
-            <button class="btn secondary" id="share">مشاركة</button>
-          </div>
-        </div>
-        <div class="content">
-          <div class="row" style="margin-bottom:12px">
-            <div>
-              <label for="mode">الخوارزمية</label>
-              <select id="mode" aria-label="اختيار الخوارزمية">
-                <option value="random">عشوائي بحت (Quick Pick)</option>
-                <option value="spread">توازن الانتشار (نطاق من كل شريحة)</option>
-                <option value="unpopular">شعبية أقل (ترجيح ما فوق 31)</option>
-                <option value="freq">اعتماد التكرارات (ألصق تاريخ السحوبات)</option>
-              </select>
-            </div>
-            <div>
-              <label for="seed">بذرة ثابتة (اختياري)</label>
-              <input id="seed" type="text" placeholder="مثال: 2025-09-18" />
-            </div>
-          </div>
-
-          <div class="row" style="margin-bottom:14px">
-            <div style="flex:2 1 420px">
-              <label for="history">سجلّ سحوبات سابق (لاستخدام خوارزمية التكرار)</label>
-              <textarea id="history" placeholder="مثال (سطر لكل سحب):&#10;05 14 21 33 57 | 3&#10;7 14 33 46 48 | 1&#10;...&#10;(أرقام رئيسية مفصولة بمسافة + Cash Ball بعد |)"></textarea>
-            </div>
-          </div>
-
-          <div style="margin:14px 0">
-            <div class="result" id="result" aria-live="polite"></div>
-          </div>
-
-          <div class="stats">
-            <div class="stat">
-              <h3>قواعد Cash4Life</h3>
-              <div class="muted">اختر 5 أرقام من <b>1–60</b> + رقم Cash Ball من <b>1–4</b>.</div>
-            </div>
-            <div class="stat">
-              <h3>نهج احترافي</h3>
-              <div class="muted">خيار "التوازن" يضمن توزيعًا على مدى 1–60؛ وخيار "الشعبية الأقل" يقلّل تكرار اختيارات الجمهور.</div>
-            </div>
-            <div class="stat">
-              <h3>البذرة (Seed)</h3>
-              <div class="muted">ضع قيمة ثابتة لإعادة إنتاج نفس التوليد لاحقًا (للتحقق أو المشاركة).</div>
-            </div>
-          </div>
-        </div>
-        <div class="footer">
-          <div class="badge">⚪️ أبيض • ✨ ذهبي</div>
-          <div class="muted">استخدام ترفيهي—لا علاقة رسمية بأي سحب</div>
-        </div>
-      </section>
-    </main>
+    </div>
+    <div class="ticker" id="ticker"></div>
+    <nav class="tabs">
+      <button class="tab active" data-tab="prices">الأسعار الحالية</button>
+      <button class="tab" data-tab="forecast">التوقعات</button>
+      <button class="tab" data-tab="reco">التوصيات</button>
+      <button class="tab" data-tab="alerts">التنبيهات</button>
+    </nav>
   </div>
+</header>
 
-  <script>
-    // ========== Utilities ==========
-    function seededRandomFactory(seed) {
-      if (!seed) return Math.random; // fallback
-      let h = 2166136261 >>> 0; // FNV-1a
-      for (let i = 0; i < seed.length; i++) { h ^= seed.charCodeAt(i); h = Math.imul(h, 16777619); }
-      let state = h >>> 0;
-      return function(){ state = (1664525 * state + 1013904223) >>> 0; return (state >>> 0) / 0x100000000 }
-    }
+<main class="container grid" style="margin-top:12px">
+  <section class="card" id="tab-prices">
+    <div class="head"><div>الأسعار الحالية</div><div style="font-size:12px;color:var(--muted)">انقر على عناوين الأعمدة للفرز</div></div>
+    <div class="body">
+      <div class="kpi"><span class="pill">الأكثر صعودًا</span><span class="pill">الأكثر هبوطًا</span><span class="pill">حجم مرتفع</span></div>
+      <div class="table-wrap">
+        <table id="pricesTable" aria-label="جدول الأسعار">
+          <thead><tr>
+            <th data-sort="symbol">الرمز</th>
+            <th data-sort="last">السعر</th>
+            <th data-sort="changePct">التغير %</th>
+            <th data-sort="volume">الحجم</th>
+            <th data-sort="high">أعلى</th>
+            <th data-sort="low">أدنى</th>
+          </tr></thead>
+          <tbody id="pricesTbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
 
-    function pickUnique(rnd, min, max, k, weights){
-      const out = [], pool = []; for(let i=min;i<=max;i++) pool.push(i);
-      for (let j=0;j<k;j++){
-        let idx;
-        if (weights){
-          const total = pool.reduce((s,v)=> s + (weights[v]||0.0001), 0);
-          let t = rnd()*total, acc = 0; idx = 0;
-          for (let i=0;i<pool.length;i++){ acc += (weights[pool[i]]||0.0001); if (acc>=t){ idx=i; break; } }
-        } else { idx = Math.floor(rnd()*pool.length); }
-        out.push(pool[idx]); pool.splice(idx,1);
-      }
-      return out.sort((a,b)=>a-b)
-    }
+  <section class="card hidden" id="tab-forecast">
+    <div class="head"><div>التوقعات</div><div><span class="pill neutral">تقديرات تقريبة بالمتصفح</span></div></div>
+    <div class="body">
+      <table id="forecastTable">
+        <thead><tr>
+          <th data-sort="symbol">الرمز</th>
+          <th>5د</th><th>1س</th><th>1ي</th>
+          <th data-sort="confidence">الثقة</th>
+          <th data-sort="signal">الإشارة</th>
+        </tr></thead>
+        <tbody id="forecastTbody"></tbody>
+      </table>
+    </div>
+  </section>
 
-    function parseHistory(text){
-      const lines = (text||"").split(/\n+/).map(s=>s.trim()).filter(Boolean);
-      const freq = Array(61).fill(0), cashFreq = Array(5).fill(0);
-      for(const line of lines){
-        const seg = line.split('|');
-        const left = (seg[0]||'').trim();
-        const right = (seg[1]||'').trim();
-        if(!left) continue;
-        const parts = left.split(/\s+/).map(Number).filter(n=>n>=1 && n<=60);
-        const uniq = Array.from(new Set(parts)).slice(0,5);
-        for(const v of uniq) freq[v] += 1;
-        if (right){ const cb = parseInt(right,10); if (cb>=1 && cb<=4) cashFreq[cb] += 1; }
-      }
-      for(let i=1;i<=60;i++) freq[i] = freq[i] + 0.5; // smoothing
-      for(let i=1;i<=4;i++) cashFreq[i] = cashFreq[i] + 0.5;
-      return {freq, cashFreq};
-    }
+  <section class="card hidden" id="tab-reco">
+    <div class="head"><div>التوصيات</div><div style="font-size:12px;color:var(--muted)">منطق بسيط يعتمد على الزخم/الحجم</div></div>
+    <div class="body two-col">
+      <div><h3>شراء</h3><div id="buyList" class="grid" style="gap:10px"></div></div>
+      <div><h3>بيع</h3><div id="sellList" class="grid" style="gap:10px"></div></div>
+    </div>
+  </section>
 
-    // ========== Generation ==========
-    function generate(){
-      const mode = document.getElementById('mode').value;
-      const seed = document.getElementById('seed').value.trim();
-      const rnd = seededRandomFactory(seed);
-      const historyText = document.getElementById('history').value;
-      const data = parseHistory(historyText);
+  <section class="card hidden" id="tab-alerts">
+    <div class="head"><div>التنبيهات</div><div style="font-size:12px;color:var(--muted)">قواعد: تغيّر حاد/كسر نطاق</div></div>
+    <div class="body grid" id="alertsList"></div>
+  </section>
 
-      let main, cbWeights=null;
+  <footer>
+    أسعار الصرف مقدّمة من <a href="https://www.exchangerate-api.com" target="_blank" rel="noopener">ExchangeRate-API</a> (إسناد مطلوب). هذا المحتوى معلوماتي فقط ولا يمثل نصيحة مالية.
+  </footer>
+</main>
 
-      if (mode === 'random'){
-        main = pickUnique(rnd, 1, 60, 5);
-      } else if (mode === 'spread'){
-        const bands = [[1,12],[13,24],[25,36],[37,48],[49,60]];
-        main = bands.map(([a,b]) => pickUnique(rnd, a, b, 1)[0]).sort((a,b)=>a-b);
-      } else if (mode === 'unpopular'){
-        const w = Array(61).fill(1); for(let i=32;i<=60;i++) w[i] = 2.15; // ترجيح خفيف
-        main = pickUnique(rnd, 1, 60, 5, w);
-      } else if (mode === 'freq'){
-        main = pickUnique(rnd, 1, 60, 5, data.freq);
-        cbWeights = data.cashFreq;
-      }
+<script>
+/************* الإعدادات: مصادر بيانات مجانية *************/
+const CONFIG = {
+  // الأسهم: FinancialModelingPrep (مجاني بمفتاح demo لرموز محدودة — استبدل بمفتاحك لتوسيع التغطية)
+  FMP: {
+    API: "https://financialmodelingprep.com/api/v3",
+    API_KEY: "demo", // ← ضع مفتاحك هنا لبيانات أوسع
+    SYMBOLS: ["AAPL","MSFT","TSLA","GOOGL","AMZN"]
+  },
+  // العملات الرقمية: Binance (بدون مفتاح)
+  BINANCE: {
+    API: "https://api.binance.com/api/v3",
+    SYMBOLS: ["BTCUSDT","ETHUSDT","BNBUSDT","SOLUSDT"]
+  },
+  // أسعار الصرف: ExchangeRate-API المفتوح (بدون مفتاح، تحديث يومي)
+  FX: {
+    API: "https://open.er-api.com/v6/latest/USD",
+    PAIRS: ["EURUSD","USDJPY","USDBHD","USDEUR","GBPUSD","USDTRY"]
+  },
+  INTERVALS: {
+    prices: 10000,   // 10 ثوانٍ
+    alerts: 10000,
+    forecast: 45000, // 45 ثانية
+    reco: 60000      // 60 ثانية
+  },
+  TIMEOUT_MS: 5000
+};
 
-      const cash = pickUnique(rnd, 1, 4, 1, cbWeights)[0];
-      render(main, cash);
-    }
+/************* حالة التطبيق *************/
+const State = {
+  prices: [],       // {symbol,last,changePct,volume,high,low,kind:'stock|crypto|fx'}
+  forecast: [],     // {symbol,horizons:[{t,price,confidence,signal}]}
+  reco: {buy:[],sell:[]},
+  alerts: [],
+  sort: {table:"prices", key:"symbol", dir:"asc"},
+  q: "", failures: 0
+};
 
-    function render(arr, cash){
-      const box = document.getElementById('result'); box.innerHTML = '';
-      arr.forEach(v=>{ const d=document.createElement('div'); d.className='ball'; d.textContent=String(v).padStart(2,'0'); box.appendChild(d); });
-      const c=document.createElement('div'); c.className='ball cash'; c.title='Cash Ball'; c.textContent=String(cash); box.appendChild(c);
-      box.dataset.combo = `${arr.join('-')} | ${cash}`;
-    }
+/************* أدوات عامة *************/
+const $ = s => document.querySelector(s);
+const $$ = s => Array.from(document.querySelectorAll(s));
+const sleep = ms => new Promise(r=>setTimeout(r, ms));
+function fmtNum(n,d=2){ if(n==null||Number.isNaN(n)) return "—"; return Number(n).toLocaleString('en-US',{maximumFractionDigits:d, minimumFractionDigits:d}); }
+function nowStr(){ const d=new Date(); const p=n=>String(n).padStart(2,'0'); return `${p(d.getHours())}:${p(d.getMinutes())}:${p(d.getSeconds())}`; }
+function setConn(s){ const dot=$("#connDot"); dot.classList.remove("ok","warn","err"); dot.classList.add(s); }
+function updateTS(){ $("#lastUpdated").textContent = nowStr(); }
+async function fetchJSON(url,{timeout=CONFIG.TIMEOUT_MS}={}){ const ctrl=new AbortController(); const t=setTimeout(()=>ctrl.abort(),timeout);
+  try{ const r=await fetch(url,{signal:ctrl.signal,headers:{'Cache-Control':'no-cache'}}); if(!r.ok) throw new Error("HTTP "+r.status); return {ok:true,data:await r.json()}; }
+  catch(err){ return {ok:false,err}; } finally{ clearTimeout(t); }
+}
 
-    // ========== Actions ==========
-    function toast(msg){
-      const el = document.createElement('div'); el.textContent = msg;
-      el.style.cssText = `position:fixed;inset-inline:0;bottom:18px;margin:auto;width:fit-content;max-width:90%;padding:10px 14px;border-radius:999px;background:linear-gradient(135deg,var(--gold),var(--gold-2));color:#1F1A00;font-weight:800;box-shadow:0 10px 24px rgba(185,146,11,.35);z-index:9999`;
-      document.body.appendChild(el); setTimeout(()=> el.remove(), 1400);
-    }
+/************* التحميل من المصادر *************/
+// الأسهم (FMP)
+async function loadStocks(){
+  const syms = CONFIG.FMP.SYMBOLS.join(",");
+  const url = `${CONFIG.FMP.API}/quote/${syms}?apikey=${encodeURIComponent(CONFIG.FMP.API_KEY)}&_=${Date.now()}`;
+  const {ok,data} = await fetchJSON(url);
+  if(!ok) throw "fmp failed";
+  // مخطط: [{symbol, price, change, changesPercentage, dayHigh, dayLow, volume}]
+  const mapped = (Array.isArray(data)?data:[]).map(x=>({
+    symbol: x.symbol, last: x.price, changePct: x.changesPercentage ?? x.changePercent ?? 0,
+    volume: x.volume ?? 0, high: x.dayHigh ?? x.yearHigh ?? null, low: x.dayLow ?? x.yearLow ?? null,
+    kind:"stock"
+  }));
+  return mapped;
+}
 
-    document.getElementById('generate').addEventListener('click', generate);
-    document.getElementById('copy').addEventListener('click', ()=>{
-      const t = document.getElementById('result').dataset.combo || ''; if(!t) return;
-      navigator.clipboard.writeText(`Cash4Life: ${t}`).then(()=> toast('تم النسخ'));
+// العملات الرقمية (Binance)
+async function loadCrypto(){
+  const out=[];
+  for(const s of CONFIG.BINANCE.SYMBOLS){
+    const url = `${CONFIG.BINANCE.API}/ticker/24hr?symbol=${s}&_=${Date.now()}`;
+    const {ok,data} = await fetchJSON(url);
+    if(!ok) continue;
+    // مخطط: {symbol,lastPrice,priceChangePercent,highPrice,lowPrice,volume}
+    out.push({
+      symbol: s.replace("USDT","USD").replace("BUSD","USD"),
+      last: Number(data.lastPrice), changePct: Number(data.priceChangePercent),
+      volume: Number(data.volume), high: Number(data.highPrice), low: Number(data.lowPrice),
+      kind:"crypto"
     });
-    document.getElementById('share').addEventListener('click', ()=>{
-      const t = document.getElementById('result').dataset.combo || ''; if(!t) return;
-      const text = `ترشيحي لـ Cash4Life: ${t}`;
-      if (navigator.share) navigator.share({text}).catch(()=>{}); else navigator.clipboard.writeText(text).then(()=> toast('تم النسخ للمشاركة'));
-    });
+    // هدنة قصيرة لتجنّب القيود
+    await sleep(120);
+  }
+  return out;
+}
 
-    // توليد أولي
-    generate();
-  </script>
+// أسعار الصرف (ExchangeRate-API)
+async function loadFX(){
+  const url = `${CONFIG.FX.API}?_=${Date.now()}`;
+  const {ok,data} = await fetchJSON(url);
+  if(!ok || data.result!=="success") throw "fx failed";
+  const rates = data.rates || {};
+  const out=[];
+  // بناء بعض الأزواج من جدول معدلات USD→X
+  function pair(sym){
+    // أمثلة: EURUSD = 1 / (USD→EUR),  USDJPY = USD→JPY,  GBPUSD = 1 / (USD→GBP)
+    if(sym==="EURUSD") return 1/(rates.EUR||NaN);
+    if(sym==="USDEUR") return rates.EUR||NaN;
+    if(sym==="USDJPY") return rates.JPY||NaN;
+    if(sym==="USDBHD") return rates.BHD||NaN;
+    if(sym==="GBPUSD") return 1/(rates.GBP||NaN);
+    if(sym==="USDTRY") return rates.TRY||NaN;
+    return NaN;
+  }
+  for(const p of CONFIG.FX.PAIRS){
+    const val = pair(p);
+    if(!Number.isFinite(val)) continue;
+    // لا يوجد تغيّر يومي مباشر؛ نضع changePct = 0 ونترك التنبيهات أقل حساسية
+    out.push({symbol:p, last: Number(val), changePct: 0, volume: 0, high:null, low:null, kind:"fx"});
+  }
+  return out;
+}
+
+/************* جلب وتوحيد *************/
+async function loadPrices(){
+  const [stocks, crypto, fx] = await Promise.allSettled([loadStocks(), loadCrypto(), loadFX()]);
+  const items = []
+    .concat(stocks.value||[])
+    .concat(crypto.value||[])
+    .concat(fx.value||[]);
+  // حساب أعلى/أدنى افتراضي إن لم يوجد
+  for(const it of items){
+    if(it.high==null) it.high = it.last;
+    if(it.low==null) it.low = it.last;
+  }
+  State.prices = items;
+  renderTicker(); renderPrices(); updateTS();
+}
+
+/************* توليد توقعات/توصيات/تنبيهات محليًا *************/
+function buildForecast(){
+  // تقدير بسيط: إسقاط السعر بالزخم الحالي، وثقة مبنية على حجم نسبي
+  State.forecast = State.prices.map(p=>{
+    const m = (p.changePct||0)/100;
+    const f5 = p.last * (1 + m*0.2);
+    const f1h = p.last * (1 + m*0.6);
+    const f1d = p.last * (1 + m*1.4);
+    const conf = Math.max(0, Math.min(1, Math.abs(m)*4)); // 0..1
+    const signal = m>0.003 ? "bull" : m<-0.003 ? "bear" : "neutral";
+    return {symbol:p.symbol, horizons:[
+      {t:"5m", price: f5, confidence: conf, signal},
+      {t:"1h", price: f1h, confidence: conf, signal},
+      {t:"1d", price: f1d, confidence: conf, signal},
+    ], confidence: conf};
+  });
+  renderForecast();
+}
+
+function buildRecommendations(){
+  const buy=[], sell=[];
+  for(const p of State.prices){
+    const strongUp = p.changePct>=1.2;
+    const strongDown = p.changePct<=-1.2;
+    const side = strongUp ? "buy" : strongDown ? "sell" : null;
+    if(!side) continue;
+    const rr = side==="buy" ? {sl: (p.last*0.985).toFixed(3), tp:(p.last*1.02).toFixed(3)} :
+                              {sl: (p.last*1.015).toFixed(3), tp:(p.last*0.98).toFixed(3)};
+    const reason = side==="buy" ? "زخم إيجابي وتجاوز نطاق يومي" : "زخم سلبي وكسر دعم قصير";
+    const row = {symbol:p.symbol, reason, timeframe:"قصير", ...rr, confidence: Math.min(0.9, Math.max(0.6, Math.abs(p.changePct)/100))};
+    (side==="buy"?buy:sell).push(row);
+  }
+  State.reco = {buy, sell};
+  renderReco();
+}
+
+function buildAlerts(){
+  const alerts=[];
+  for(const p of State.prices){
+    if(Math.abs(p.changePct)>=2){
+      alerts.push({symbol:p.symbol, type:"volatility", severity: Math.abs(p.changePct)>=4?"high":"med", message:`تغيّر ${p.changePct.toFixed(2)}% آخر 24س`, ts: Date.now()});
+    }
+    // كسر نطاق بسيط
+    if(p.last>=p.high*0.999 || p.last<=p.low*1.001){
+      alerts.push({symbol:p.symbol, type:"range_break", severity:"low", message:"ملامسة نطاق اليوم", ts: Date.now()});
+    }
+  }
+  State.alerts = alerts;
+  renderAlerts();
+}
+
+/************* العرض *************/
+function renderTicker(){
+  const el=$("#ticker"); el.innerHTML="";
+  const top=[...State.prices].sort((a,b)=>Math.abs(b.changePct)-Math.abs(a.changePct)).slice(0,7);
+  for(const p of top){
+    const badge=document.createElement("div"); badge.className="badge";
+    const chgCls = p.changePct>=0 ? "pos" : "neg";
+    badge.innerHTML = `<strong>${p.symbol}</strong>
+      <span style="display:flex;flex-direction:column;align-items:end">
+        <span>${fmtNum(p.last, p.kind==='fx'?5: (p.kind==='crypto'?4:2))}</span>
+        <span class="chg ${chgCls}">${(p.changePct>=0?'↑':'↓')} ${fmtNum(Math.abs(p.changePct),2)}%</span>
+      </span>`;
+    el.appendChild(badge);
+  }
+}
+function renderPrices(){
+  const body=$("#pricesTbody"); body.innerHTML="";
+  let list = applySearch(State.prices, ["symbol"]);
+  list = sortBy(list, State.sort.key, State.sort.dir);
+  $("#kpiCount").textContent = list.length;
+  for(const p of list){
+    const tr=document.createElement("tr");
+    tr.innerHTML = `
+      <td><b>${p.symbol}</b><div style="font-size:11px;color:var(--muted)">${p.kind==='stock'?'سهم':p.kind==='crypto'?'عملة رقمية':'فوركس'}</div></td>
+      <td data-k="last">${fmtNum(p.last, p.kind==='fx'?5: (p.kind==='crypto'?4:2))}</td>
+      <td data-k="changePct" style="font-weight:800;color:${p.changePct>=0?'var(--pos)':'var(--neg)'}">${(p.changePct>=0?'↑':'↓')} ${fmtNum(Math.abs(p.changePct),2)}%</td>
+      <td>${fmtNum(p.volume,0)}</td>
+      <td>${fmtNum(p.high, p.kind==='fx'?5:2)}</td>
+      <td>${fmtNum(p.low, p.kind==='fx'?5:2)}</td>`;
+    body.appendChild(tr);
+  }
+}
+function applySearch(list, keys){
+  const q=State.q.trim().toLowerCase(); if(!q) return list;
+  return list.filter(it=>keys.some(k=>String(it[k]??"").toLowerCase().includes(q)));
+}
+function sortBy(list,key,dir){ const mul=dir==="asc"?1:-1; return list.slice().sort((a,b)=>{const va=a[key], vb=b[key]; if(typeof va==="number"&&typeof vb==="number") return (va-vb)*mul; return String(va).localeCompare(String(vb))*mul;}); }
+
+function renderForecast(){
+  const body=$("#forecastTbody"); body.innerHTML="";
+  let list = applySearch(State.forecast, ["symbol"]);
+  const key = State.sort.table==="forecast" ? State.sort.key : "symbol";
+  const dir = State.sort.table==="forecast" ? State.sort.dir : "asc";
+  list = sortBy(list, key, dir);
+  for(const f of list){
+    const h=indexHorizons(f.horizons);
+    const signal=h.signal||"neutral";
+    const cls=signal==="bull"?"bull":signal==="bear"?"bear":"neutral";
+    const conf=Math.round((f.confidence??h.confidence??0)*100);
+    const td=v=>v!=null?fmtNum(v,2):"—";
+    const tr=document.createElement("tr");
+    tr.innerHTML = `
+      <td><b>${f.symbol}</b></td>
+      <td>${td(h["5m"])}</td><td>${td(h["1h"])}</td><td>${td(h["1d"])}</td>
+      <td data-k="confidence">${conf}%</td>
+      <td data-k="signal"><span class="pill ${cls}">${signalLabel(signal)}</span></td>`;
+    body.appendChild(tr);
+  }
+}
+function indexHorizons(arr){
+  const out={"5m":null,"1h":null,"1d":null,confidence:null,signal:"neutral"};
+  if(!Array.isArray(arr)) return out;
+  for(const h of arr){
+    if(h.t==="5m") out["5m"]=h.price;
+    if(h.t==="1h") out["1h"]=h.price;
+    if(h.t==="1d") out["1d"]=h.price;
+    if(typeof h.confidence==="number") out.confidence = Math.max(out.confidence??0, h.confidence);
+    if(h.signal && h.signal!=="neutral") out.signal = h.signal;
+  }
+  return out;
+}
+function signalLabel(s){ return s==="bull"?"صاعد": s==="bear"?"هابط":"محايد"; }
+
+function renderReco(){
+  const buy=$("#buyList"), sell=$("#sellList"); buy.innerHTML=""; sell.innerHTML="";
+  const addCard = r=>{
+    const div=document.createElement("div"); div.className="alert";
+    div.innerHTML = `
+      <div>
+        <div style="display:flex;align-items:center;gap:10px">
+          <span class="pill ${r.side==='buy'?'bull':'bear'}">${r.side==='buy'?'شراء':'بيع'}</span>
+          <b>${r.symbol}</b> <span style="color:var(--muted);font-size:12px">${r.timeframe||''}</span>
+        </div>
+        <div style="margin-top:6px;font-size:14px">${escapeHTML(r.reason||'—')}</div>
+        <div style="margin-top:6px;font-size:12px;color:var(--muted)">
+          SL: <b>${r.sl??'—'}</b> • TP: <b>${r.tp??'—'}</b> • ثقة: <b>${r.confidence?Math.round(r.confidence*100)+'%':'—'}</b>
+        </div>
+      </div>
+      <button class="btn" onclick="this.closest('.alert').remove()">إخفاء</button>`;
+    return div;
+  };
+  for(const r of State.reco.buy){ buy.appendChild(addCard({...r, side:'buy'})); }
+  for(const r of State.reco.sell){ sell.appendChild(addCard({...r, side:'sell'})); }
+}
+function renderAlerts(){
+  const list=$("#alertsList"); list.innerHTML=""; $("#kpiAlerts").textContent = State.alerts.length;
+  for(const a of State.alerts){
+    const div=document.createElement("div"); div.className="alert";
+    const sevCls = a.severity==="high"?"high": a.severity==="med"?"med":"low";
+    div.innerHTML = `
+      <div>
+        <div style="display:flex;align-items:center;gap:10px">
+          <span class="sev ${sevCls}">${sevLabel(a.severity)}</span>
+          <b>${a.symbol}</b> <span style="color:var(--muted);font-size:12px">${a.type||''}</span>
+        </div>
+        <div style="margin-top:6px">${escapeHTML(a.message||'—')}</div>
+        <div style="margin-top:6px;font-size:12px;color:var(--muted)">${new Date(a.ts||Date.now()).toLocaleString()}</div>
+      </div>
+      <button class="btn" onclick="this.closest('.alert').remove()">إخفاء</button>`;
+    list.appendChild(div);
+  }
+}
+function sevLabel(s){ return s==="high"?"عالٍ": s==="med"?"متوسط":"منخفض"; }
+function escapeHTML(s){ return String(s).replace(/[&<>"']/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
+
+/************* تهيئة وتحديث *************/
+async function loadAll(){
+  setConn("warn");
+  const ok = await loadPrices().then(()=>true).catch(()=>false);
+  if(ok){ setConn("ok"); buildForecast(); buildRecommendations(); buildAlerts(); updateTS(); }
+  else { setConn("err"); }
+}
+function bindUI(){
+  $("#q").addEventListener("input", e=>{ State.q=e.target.value; renderPrices(); renderForecast(); renderReco(); renderAlerts(); });
+  $("#clearBtn").addEventListener("click", ()=>{ $("#q").value=""; State.q=""; renderPrices(); renderForecast(); });
+  $$("#pricesTable th").forEach(th=>th.addEventListener("click", ()=>{ const k=th.dataset.sort; if(!k) return;
+    if(State.sort.table==="prices" && State.sort.key===k) State.sort.dir = (State.sort.dir==="asc"?"desc":"asc");
+    else { State.sort.table="prices"; State.sort.key=k; State.sort.dir="asc"; }
+    renderPrices();
+  }));
+  $$("#forecastTable th").forEach(th=>th.addEventListener("click", ()=>{ const k=th.dataset.sort; if(!k) return;
+    if(State.sort.table==="forecast" && State.sort.key===k) State.sort.dir = (State.sort.dir==="asc"?"desc":"asc");
+    else { State.sort.table="forecast"; State.sort.key=k; State.sort.dir="asc"; }
+    renderForecast();
+  }));
+  $("#refreshBtn").addEventListener("click", loadAll);
+}
+function tabsInit(){
+  const tabs=$$(".tab");
+  const sections={ prices:$("#tab-prices"), forecast:$("#tab-forecast"), reco:$("#tab-reco"), alerts:$("#tab-alerts") };
+  tabs.forEach(btn=>btn.addEventListener("click", ()=>{
+    tabs.forEach(b=>b.classList.remove("active")); btn.classList.add("active");
+    const t=btn.dataset.tab; for(const k in sections){ sections[k].classList.toggle("hidden", k!==t); }
+  }));
+}
+function bootstrap(){ bindUI(); tabsInit(); $("#demoChip").style.display="inline-flex"; loadAll();
+  setInterval(loadAll, CONFIG.INTERVALS.prices);
+  setInterval(()=>{ buildForecast(); }, CONFIG.INTERVALS.forecast);
+  setInterval(()=>{ buildRecommendations(); buildAlerts(); }, CONFIG.INTERVALS.reco);
+}
+bootstrap();
+</script>
 </body>
 </html>
