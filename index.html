@@ -1,221 +1,290 @@
-<!doctype html>
-<html lang="ar" dir="rtl">
+<!DOCTYPE html><html lang="ar" dir="rtl">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>مجلس الشيخ عباس الريس الرمضاني</title>
-  <meta name="description" content="موقع مجلس الشيخ عباس الريس الرمضاني وأوقات الاستقبال طيلة شهر رمضان المبارك." />
-
-  <!-- خط عربي -->
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700;800&display=swap" rel="stylesheet">
-
+  <title>Cash4Life • مولّد أرقام ذهبي</title>
   <style>
     :root{
-      --gold:#C9A227;
-      --gold-soft:#e8d9a6;
-      --text:#1a1a1a;
-      --muted:#6b7280;
-      --bg:#ffffff;
+      --gold:#C7A800;           /* ذهبي راقٍ */
+      --gold-deep:#A58900;      /* ظلّ الذهبي */
+      --gold-soft:#E8D98A;      /* ذهبي فاتح */
+      --bg:#fff;                /* أبيض */
+      --ink:#1a1a1a;            /* أسود ناعم */
+      --muted:#6b7280;          /* رمادي نصي */
+      --ring: rgba(199,168,0,.35);
     }
-    *{ box-sizing:border-box }
+    *{box-sizing:border-box}
     body{
-      margin:0;
-      font-family:"Cairo",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
-      background:var(--bg); color:var(--text); line-height:1.8;
+      margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Noto Kufi Arabic", "Noto Sans Arabic", Tahoma, Arial, sans-serif;
+      background: radial-gradient(1200px 700px at 80% -10%, rgba(232,217,138,.25), transparent 70%),
+                  radial-gradient(1200px 700px at 10% 110%, rgba(232,217,138,.22), transparent 70%),
+                  var(--bg);
+      color:var(--ink);
     }
-
-    /* ====== صورة الغلاف (0zz0 كما طلبت) ====== */
-    .hero{
-      position:relative; width:100%; min-height:56vh; overflow:hidden; background:#fff;
-    }
-    .hero img{
-      position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
-      filter:brightness(0.98) contrast(1.05) saturate(1.03);
-    }
-    .hero::after{
-      content:""; position:absolute; inset:0; z-index:1;
-      background:linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,.92) 92%, rgba(255,255,255,1) 100%);
-      pointer-events:none;
-    }
-
-    .wrap{ max-width:1000px; margin:0 auto; padding:18px 22px 34px; }
-
-    header{ text-align:center; padding:24px 10px 8px; }
-
-    /* مربع العنوان */
-    .title{
-      display:inline-block;
-      background:#fff;
-      border:1px solid var(--gold-soft);
-      border-radius:18px;
-      box-shadow:0 10px 24px rgba(0,0,0,.06);
-      padding:10px 18px;
-      font-size:clamp(28px,5vw,46px);
-      margin:0 0 12px;
-      font-weight:800; color:var(--text);
-    }
-    .title::after{
-      content:""; display:block; height:3px; width:58%; margin:10px auto 0;
-      background:linear-gradient(90deg,transparent,var(--gold),transparent); border-radius:6px;
-    }
-
-    .site-desc{
-      margin:10px auto 0; color:var(--muted); font-size:16px; max-width:720px;
-    }
-
-    /* مربع الوقت بنفس ستايل العنوان */
-    .time-chip{
-      display:inline-block;
-      background:#fff;
-      border:1px solid var(--gold-soft);
-      border-radius:18px;
-      box-shadow:0 10px 24px rgba(0,0,0,.06);
-      padding:10px 18px;
-      margin-top:14px;
-      font-weight:800; color:var(--text);
-      font-size:18px;
-    }
-    .time-chip .moon{ margin-inline-end:8px }
-    .time-chip .hrs strong{ font-size:20px; margin-inline:2px }
-
-    /* ====== بطاقة "الخريطة" (SVG مضمّن) ====== */
+    .wrap{max-width:980px;margin:32px auto;padding:24px}
     .card{
-      background:#fff; border:1px solid var(--gold-soft); border-radius:22px; padding:18px; margin-top:24px;
-      box-shadow:0 12px 28px rgba(0,0,0,.08), inset 0 0 0 1px rgba(201,162,39,.06);
-      text-align:center;
+      background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:20px;box-shadow:0 10px 30px rgba(0,0,0,.05);
+      overflow:hidden
     }
-
-    .map-link{
-      display:block; width:100%; aspect-ratio:16/9; border-radius:22px;
-      border:1px solid var(--gold-soft); overflow:hidden;
-      box-shadow:0 10px 30px rgba(0,0,0,.1);
-      transition:transform .2s ease, box-shadow .3s ease;
-      position:relative; background:#faf7ea;
+    .hero{padding:28px 24px 18px;background:linear-gradient( to left, rgba(232,217,138,.35), rgba(232,217,138,.0));}
+    .brand{display:flex;align-items:center;gap:14px}
+    .logo{
+      width:48px;height:48px;border-radius:14px;background:linear-gradient(135deg,var(--gold),var(--gold-soft));
+      box-shadow:inset 0 0 0 2px rgba(255,255,255,.6), 0 4px 14px rgba(199,168,0,.35);
+      display:grid;place-items:center;font-weight:800;color:#fff;letter-spacing:.5px
     }
-    .map-link:hover{
-      transform:scale(1.02);
-      box-shadow:0 16px 36px rgba(0,0,0,.18);
+    h1{margin:0;font-size: clamp(22px, 3vw, 28px)}
+    .sub{color:var(--muted);margin-top:6px}
+    .content{padding:18px 24px 24px}
+    .row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+    .row > *{flex:1 1 220px}
+    label{font-weight:600;font-size:14px}
+    select, textarea, input[type="number"], input[type="text"]{
+      width:100%;background:#fff;border:1px solid rgba(0,0,0,.12);border-radius:12px;padding:10px 12px;font-size:14px;
+      outline:none;transition:.25s;border-color:rgba(0,0,0,.12)
     }
-    .map-cta{
-      position:absolute; inset:auto 12px 12px auto;
-      background:#fff; border:1px solid var(--gold-soft); border-radius:999px;
-      padding:8px 12px; font-weight:800; color:var(--text); font-size:14px;
-      box-shadow:0 6px 16px rgba(0,0,0,.08);
-    }
-
-    .actions{
-      margin-top:16px; display:flex; gap:10px; flex-wrap:wrap; justify-content:center;
-    }
+    select:focus, textarea:focus, input:focus{box-shadow:0 0 0 4px var(--ring);border-color:var(--gold)}
+    textarea{min-height:84px;resize:vertical}
     .btn{
-      appearance:none; border:1.6px solid var(--gold); background:#fff; color:var(--text);
-      padding:10px 16px; border-radius:999px; font-weight:800; text-decoration:none;
-      transition:transform .07s ease, box-shadow .2s ease, background .2s ease;
-      box-shadow:0 6px 16px rgba(201,162,39,.18); white-space:nowrap;
+      appearance:none;border:none;cursor:pointer;border-radius:14px;padding:12px 18px;font-weight:800;font-size:15px;
+      background:linear-gradient(135deg,var(--gold),var(--gold-soft));color:#2B2200;
+      box-shadow: 0 6px 16px rgba(199,168,0,.35), inset 0 -2px 0 rgba(0,0,0,.08);
+      transition: transform .06s ease-in-out, box-shadow .2s ease
     }
-    .btn:hover{ transform:translateY(-1px); box-shadow:0 10px 24px rgba(201,162,39,.24); background:#fffdf7 }
-
-    /* شاشات صغيرة */
-    @media (max-width:560px){
-      .btn{ width:100%; text-align:center }
-      .map-cta{ font-size:13px; padding:7px 10px }
+    .btn:hover{box-shadow: 0 10px 24px rgba(199,168,0,.45), inset 0 -2px 0 rgba(0,0,0,.09)}
+    .btn:active{transform: translateY(1px)}
+    .pill{
+      display:inline-grid;place-items:center;min-width:54px;height:54px;padding:8px 12px;border-radius:999px;
+      background:linear-gradient(160deg,#fff, #fff 60%, #faf7e6);border:1.5px solid var(--gold);
+      color:#2B2200;font-weight:900;font-size:18px;box-shadow:inset 0 0 0 2px rgba(255,255,255,.8), 0 6px 16px rgba(199,168,0,.25)
     }
+    .grid{display:flex;gap:10px;flex-wrap:wrap}
+    .cashball{border-color:var(--gold-deep);background:linear-gradient(160deg,#fff,#fff 60%, #f6f0c8)}
+    .tools{display:flex;gap:8px;flex-wrap:wrap}
+    .note{background: #fff8d8;border:1px dashed var(--gold-deep);border-radius:14px;color:#4b3b00;padding:10px 12px;font-size:13px}
+    .footer{padding:14px 20px;border-top:1px solid rgba(0,0,0,.06);display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:space-between}
+    .badge{font-weight:800;letter-spacing:.4px;color:#5a4a00}
+    .link{color:var(--gold-deep);text-decoration:underline;cursor:pointer}
+    .mini{font-size:12px;color:var(--muted)}
+    .stat{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:12px;padding:10px 12px}
+    .stat h3{margin:0 0 8px 0;font-size:14px}
   </style>
 </head>
 <body>
-
-  <!-- صورة الغلاف من 0zz0 -->
-  <section class="hero" aria-label="صورة الغلاف">
-    <img src="https://www2.0zz0.com/2025/09/17/20/579063281.jpg"
-         alt="مجلس الشيخ عباس الريس" loading="eager" referrerpolicy="no-referrer" />
-  </section>
-
   <div class="wrap">
-    <header>
-      <h1 class="title">مجلس الشيخ عباس الريس الرمضاني</h1>
-      <p class="site-desc">يفتح طيلة شهر رمضان المبارك</p>
-
-      <!-- مربع الوقت -->
-      <div class="time-chip" aria-label="أوقات استقبال المجلس">
-        <span class="moon">🌙</span>
-        <span class="hrs">يوميًا — من <strong>7:00 مساءً</strong> إلى <strong>9:00 مساءً</strong></span>
+    <div class="card">
+      <div class="hero">
+        <div class="brand">
+          <div class="logo">C4L</div>
+          <div>
+            <h1>Cash4Life — مولّد أرقام بإستراتيجيات إحصائية</h1>
+            <div class="sub">اختر خوارزمية، ثم اضغط «توليد الأرقام». التنسيق الذهبي/الأبيض ✨</div>
+          </div>
+        </div>
+      </div><div class="content">
+    <div class="row">
+      <div>
+        <label for="mode">الخوارزمية</label>
+        <select id="mode">
+          <option value="random">عشوائي بحت (Quick Pick)</option>
+          <option value="spread">توازن الانتشار (تقسيم 1–60 إلى 5 نطاقات)</option>
+          <option value="unpopular">شعبية أقل (ترجيح > 31 لتقليل تكرار التواريخ)</option>
+          <option value="freq">حسب تكرار السحوبات (باستخدام بيانات تُلصق أدناه)</option>
+        </select>
       </div>
-    </header>
-
-    <main class="card" aria-label="موقع المجلس">
-      <!-- خريطة SVG احترافية، وعند الضغط تفتح Google Maps -->
-      <a class="map-link" href="https://maps.app.goo.gl/m6qGZnSXFwU8Tfe78" target="_blank" rel="noopener" aria-label="افتح موقع المجلس على خرائط جوجل">
-        <svg viewBox="0 0 1200 675" width="100%" height="100%" preserveAspectRatio="none" role="img" aria-hidden="true">
-          <defs>
-            <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stop-color="#fffaf0"/>
-              <stop offset="100%" stop-color="#fff"/>
-            </linearGradient>
-            <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
-              <feDropShadow dx="0" dy="2" stdDeviation="6" flood-color="#c9a227" flood-opacity="0.25"/>
-            </filter>
-          </defs>
-
-          <!-- خلفية -->
-          <rect x="0" y="0" width="1200" height="675" fill="url(#bg)"/>
-
-          <!-- مسطّح مائي -->
-          <path d="M0,140 C220,100 260,180 420,160 C620,140 660,200 800,180 C980,160 1020,200 1200,160
-                   L1200,0 L0,0 Z"
-                fill="#cfe9ff" opacity="0.55"/>
-
-          <!-- متنزّه/مساحات خضراء -->
-          <path d="M60,560 C200,520 280,600 420,570 C540,545 640,605 760,585 C880,565 980,620 1120,600
-                   L1120,675 L60,675 Z"
-                fill="#e7f6df" opacity="0.8"/>
-
-          <!-- شبكة طرق -->
-          <g stroke="#d7c284" stroke-width="10" stroke-linecap="round" opacity="0.9">
-            <path d="M80,120 L1100,620"/>
-            <path d="M90,480 L900,120"/>
-            <path d="M300,40 L980,640"/>
-            <path d="M60,300 L1150,300"/>
-            <path d="M200,580 L1050,200"/>
-          </g>
-
-          <!-- طرق ثانوية -->
-          <g stroke="#ead9a1" stroke-width="5" stroke-linecap="round" opacity="0.9">
-            <path d="M150,90 L400,250 L700,230 L1050,420"/>
-            <path d="M220,350 L480,360 L780,330 L1000,500"/>
-            <path d="M120,520 L360,520 L680,540 L940,560"/>
-          </g>
-
-          <!-- موقع المجلس (دبوس ذهبي) -->
-          <g filter="url(#shadow)">
-            <!-- دائرة توهج -->
-            <circle cx="760" cy="360" r="34" fill="#ffe9a4" opacity="0.8"/>
-            <!-- الدبوس -->
-            <path d="M760 310
-                     C732 310 710 332 710 360
-                     C710 392 745 430 760 455
-                     C775 430 810 392 810 360
-                     C810 332 788 310 760 310 Z"
-                  fill="#c9a227"/>
-            <circle cx="760" cy="360" r="16" fill="#fff9d6"/>
-          </g>
-
-          <!-- اسم توضيحي -->
-          <text x="770" y="305" font-family="Cairo, system-ui, sans-serif" font-weight="800"
-                font-size="28" fill="#7a5a00">مجلس الشيخ عباس الريس</text>
-        </svg>
-
-        <span class="map-cta">اضغط لفتح الخريطة</span>
-      </a>
-
-      <div class="actions">
-        <a class="btn" href="https://maps.app.goo.gl/m6qGZnSXFwU8Tfe78" target="_blank" rel="noopener">
-          افتح في Google&nbsp;Maps
-        </a>
-        <a class="btn" href="https://www.google.com/maps/dir/?api=1&destination=%D9%85%D8%AC%D9%84%D8%B3%20%D8%A7%D9%84%D8%B4%D9%8A%D8%AE%20%D8%B9%D8%A8%D8%A7%D8%B3%20%D8%A7%D9%84%D8%B1%D9%85%D8%B6%D8%A7%D9%86%D9%8A" target="_blank" rel="noopener">
-          الحصول على الاتجاهات
-        </a>
+      <div>
+        <label for="seed">بذرة عشوائية (اختياري لثبات النتائج)</label>
+        <input id="seed" type="text" placeholder="مثال: 2025-09-18-مساء" />
       </div>
-    </main>
+    </div>
+
+    <div style="margin-top:12px" class="row">
+      <div>
+        <label for="history">سجلّ سحوبات (اختياري للخوارزمية الإحصائية)</label>
+        <textarea id="history" placeholder="الصق أسطر من نتائج سابقة بصيغة: 05 14 21 33 57 | 3\n7 14 33 46 48 | 1\n...\nالأرقام مفصولة بمسافات؛ ضع Cash Ball بعد علامة |"></textarea>
+      </div>
+      <div>
+        <label>&nbsp;</label>
+        <div class="tools">
+          <button class="btn" id="generate">توليد الأرقام</button>
+          <button class="btn" id="copy">نسخ</button>
+          <button class="btn" id="share">مشاركة</button>
+        </div>
+        <p class="note" style="margin-top:10px">تنبيه مسؤول: لا توجد خوارزمية تتنبأ بنتيجة يانصيب بضمان. هذا المولّد يقدّم توليدًا مدروسًا وفق استراتيجيات إحصائية اختيارية لانتقاء الأرقام فقط.</p>
+      </div>
+    </div>
+
+    <div style="margin-top:16px">
+      <h2 style="margin:0 0 8px 0;font-size:18px">نتيجتك</h2>
+      <div id="result" class="grid" aria-live="polite"></div>
+    </div>
+
+    <div class="row" style="margin-top:18px">
+      <div class="stat">
+        <h3>قواعد Cash4Life</h3>
+        <div class="mini">اختر 5 أرقام مختلفة من <b>1–60</b> + رقم Cash Ball من <b>1–4</b>.</div>
+      </div>
+      <div class="stat">
+        <h3>تلميحات</h3>
+        <div class="mini">يفضّل كثيرون تواريخ 1–31؛ اختيار أرقام أعلى قد يقلّل التشارك في الجائزة عند الفوز.</div>
+      </div>
+    </div>
   </div>
 
-</body>
+  <div class="footer">
+    <div class="badge">⚪️ أبيض • ✨ ذهبي</div>
+    <div class="mini">للاستخدام الترفيهي • لا علاقة رسمية بأي يانصيب</div>
+  </div>
+</div>
+
+  </div>  <script>
+    // مولّد أرقام مع بذرة ثابتة (Linear Congruential Generator)
+    function seededRandomFactory(seed) {
+      if (!seed) return Math.random; // عشوائي طبيعي
+      let h = 2166136261 >>> 0;
+      for (let i = 0; i < seed.length; i++) {
+        h ^= seed.charCodeAt(i);
+        h = Math.imul(h, 16777619);
+      }
+      let state = h >>> 0;
+      return function() {
+        state = (1664525 * state + 1013904223) >>> 0;
+        return (state & 0xffffffff) / 0x100000000;
+      }
+    }
+
+    function pickUnique(rnd, min, max, k, weights) {
+      const nums = [];
+      const available = [];
+      for (let i=min;i<=max;i++) available.push(i);
+
+      for (let j=0;j<k;j++){
+        let idx;
+        if (weights) {
+          // weighted by frequency array indexed by value
+          const total = available.reduce((s,v)=> s + (weights[v]||0.0001), 0);
+          let t = rnd()*total, acc = 0;
+          for (let i=0;i<available.length;i++){
+            acc += (weights[available[i]]||0.0001);
+            if (acc>=t){ idx=i; break; }
+          }
+        } else {
+          idx = Math.floor(rnd()*available.length);
+        }
+        nums.push(available[idx]);
+        available.splice(idx,1);
+      }
+      nums.sort((a,b)=>a-b);
+      return nums;
+    }
+
+    function parseHistory(text){
+      const lines = (text||"").split(/\n+/).map(s=>s.trim()).filter(Boolean);
+      const freq = Array(61).fill(0); // 1..60
+      const cashFreq = Array(5).fill(0); // 1..4
+      let count=0, ccount=0;
+      for(const line of lines){
+        // e.g. "05 14 21 33 57 | 3"
+        const [left,right] = line.split('|').map(s=>s && s.trim());
+        if (!left) continue;
+        const parts = left.split(/\s+/).map(n=>parseInt(n,10)).filter(n=>n>=1 && n<=60);
+        const uniq = [...new Set(parts)].slice(0,5);
+        for(const v of uniq){ freq[v]++; count++; }
+        if (right){ const cb = parseInt(right,10); if (cb>=1 && cb<=4){ cashFreq[cb]++; ccount++; } }
+      }
+      // smooth + normalize to avoid zeros
+      for(let i=1;i<=60;i++) freq[i] = (freq[i] + 0.5);
+      for(let i=1;i<=4;i++) cashFreq[i] = (cashFreq[i] + 0.5);
+      return {freq, cashFreq};
+    }
+
+    function generate(){
+      const mode = document.getElementById('mode').value;
+      const seed = document.getElementById('seed').value.trim();
+      const rnd = seededRandomFactory(seed);
+      const historyText = document.getElementById('history').value;
+      const {freq, cashFreq} = parseHistory(historyText);
+
+      let mainWeights = null, cashWeights = null;
+      let main;
+
+      if (mode === 'random'){
+        main = pickUnique(rnd, 1, 60, 5);
+      } else if (mode === 'spread'){
+        // خمس نطاقات: 1–12, 13–24, 25–36, 37–48, 49–60
+        const bands = [[1,12],[13,24],[25,36],[37,48],[49,60]];
+        main = bands.map(([a,b]) => pickUnique(rnd, a, b, 1)[0]).sort((a,b)=>a-b);
+      } else if (mode === 'unpopular'){
+        // ترجيح للأرقام الأعلى من 31 لتجنب تواريخ الميلاد الشائعة
+        mainWeights = Array(61).fill(1);
+        for (let i=1;i<=60;i++) mainWeights[i] = i>31 ? 2.2 : 1; // مضاعِف بسيط
+        main = pickUnique(rnd, 1, 60, 5, mainWeights);
+      } else if (mode === 'freq'){
+        // استخدام تكرارات السجلّ، وإن لم يُوفَّر فتصبح عشوائية ملساء
+        mainWeights = freq;
+        main = pickUnique(rnd, 1, 60, 5, mainWeights);
+      }
+
+      // Cash Ball
+      if (mode === 'freq'){
+        cashWeights = cashFreq;
+      }
+      const cash = pickUnique(rnd, 1, 4, 1, cashWeights)[0];
+
+      render(main, cash);
+    }
+
+    function render(arr, cash){
+      const box = document.getElementById('result');
+      box.innerHTML = '';
+      arr.forEach(v=>{
+        const d = document.createElement('div');
+        d.className='pill';
+        d.textContent = String(v).padStart(2,'0');
+        box.appendChild(d);
+      });
+      const d = document.createElement('div');
+      d.className='pill cashball';
+      d.title='Cash Ball';
+      d.textContent = String(cash);
+      box.appendChild(d);
+      box.dataset.combo = `${arr.join('-')} | ${cash}`;
+    }
+
+    function copyOut(){
+      const box = document.getElementById('result');
+      const t = box.dataset.combo || '';
+      if(!t) return;
+      navigator.clipboard.writeText(`Cash4Life: ${t}`).then(()=>{
+        toast('تم النسخ');
+      });
+    }
+
+    function shareOut(){
+      const box = document.getElementById('result');
+      const t = box.dataset.combo || '';
+      if(!t) return;
+      const text = `ترشيحي لـ Cash4Life: ${t}`;
+      if (navigator.share) {
+        navigator.share({text}).catch(()=>{});
+      } else {
+        navigator.clipboard.writeText(text).then(()=> toast('تم النسخ للمشاركة'));
+      }
+    }
+
+    function toast(msg){
+      const el = document.createElement('div');
+      el.textContent = msg;
+      el.style.cssText = `position:fixed;inset-inline:0;bottom:18px;margin:auto;width:fit-content;max-width:90%;padding:10px 14px;border-radius:999px;background:linear-gradient(135deg,var(--gold),var(--gold-soft));color:#2B2200;font-weight:800;box-shadow:0 10px 24px rgba(199,168,0,.35);z-index:9999`;
+      document.body.appendChild(el);
+      setTimeout(()=> el.remove(), 1400);
+    }
+
+    document.getElementById('generate').addEventListener('click', generate);
+    document.getElementById('copy').addEventListener('click', copyOut);
+    document.getElementById('share').addEventListener('click', shareOut);
+
+    // توليد أولي
+    generate();
+  </script></body>
 </html>
