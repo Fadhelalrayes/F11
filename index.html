@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>توصيات البورصة — مباشر</title>
 
-<!-- خط عربي واضح -->
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
 
 <style>
@@ -25,7 +24,7 @@
   html,body{height:100%}
   body{
     margin:0;background:var(--bg);color:var(--text);
-    font-family: "Cairo","Tajawal","Noto Kufi Arabic",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+    font-family:"Cairo","Tajawal","Noto Kufi Arabic",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
     line-height:1.65;
   }
   .container{max-width:1160px;margin:0 auto;padding:12px}
@@ -56,18 +55,19 @@
   th{font-size:12px;color:var(--muted)}
   tr:hover td{background:rgba(212,175,55,.06)}
   .pill{display:inline-block;padding:4px 10px;border-radius:999px;font-size:12px;font-weight:800;border:1px solid var(--border)}
-  .bull{background:#e6f8ec;color:var(--pos)}      /* أخضر */
-  .bear{background:#fde8e8;color:#b11a1a}        /* أحمر */
-  .neutral{background:#f1f1f1;color:#555}         /* رمادي */
+  .bull{background:#e6f8ec;color:var(--pos)}
+  .bear{background:#fde8e8;color:#b11a1a}
+  .neutral{background:#f1f1f1;color:#555}
   .alert{border:1px solid var(--border);border-radius:12px;padding:10px;margin-bottom:10px;background:var(--bg-soft)}
   .empty{text-align:center;color:var(--muted);padding:12px}
   footer{margin-top:16px;padding:18px;border-top:1px solid var(--border);text-align:center;color:var(--muted);font-size:13px}
 
-  /* صندوق إشارة السهم داخل التنبؤات */
-  .sigbox{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:6px;border:1px solid var(--border);font-weight:900}
-  .sig-bull{background:#e6f8ec;color:#0a7a2f}   /* ▲ أخضر */
-  .sig-bear{background:#fde8e8;color:#b11a1a}   /* ▼ أحمر */
-  .sig-neutral{background:#f1f1f1;color:#555}   /* ↔ رمادي */
+  /* صندوق إشارة بسهم SVG ملوّن */
+  .sigwrap{display:flex;align-items:center;justify-content:center;gap:8px}
+  .sigbox{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:6px;border:1px solid var(--border);box-shadow:var(--shadow)}
+  .sig-bull{background:#e6f8ec}
+  .sig-bear{background:#fde8e8}
+  .sig-neutral{background:#f1f1f1}
 
   /* شريط خطأ بسيط بدل الصفحة البيضاء (عام) */
   .errbar{display:none;position:fixed;inset-inline:12px;bottom:12px;background:#fff3f3;border:1px solid #f3dada;color:#7a1111;padding:10px;border-radius:12px;box-shadow:var(--shadow);font-size:13px;z-index:99}
@@ -81,7 +81,6 @@
     <div class="meta">آخر تحديث: <span id="lastUpdated">—:—:—</span></div>
   </div>
 
-  <!-- شريط أخبار عربية يختفي تلقائيًا إن لم توجد عناوين -->
   <div class="newsbar" id="newsbar">
     <div id="newsScroller" class="news-track"></div>
   </div>
@@ -110,13 +109,13 @@
     </div>
   </section>
 
-  <!-- الأسهم الموصى بشرائها (مخفى مبدئيًا؛ يظهر عند وجود بيانات) -->
+  <!-- الأسهم الموصى بشرائها (مخفى مبدئيًا) -->
   <section class="card" id="card-buy" style="display:none">
     <div class="head">الأسهم الموصى بشرائها</div>
     <div class="body" id="buyList"></div>
   </section>
 
-  <!-- الأسهم الموصى ببيعها (مخفى مبدئيًا؛ يظهر عند وجود بيانات) -->
+  <!-- الأسهم الموصى ببيعها (مخفى مبدئيًا) -->
   <section class="card" id="card-sell" style="display:none">
     <div class="head">الأسهم الموصى ببيعها</div>
     <div class="body" id="sellList"></div>
@@ -138,11 +137,11 @@
 <script>
 document.addEventListener('DOMContentLoaded', () => {
   try{
-    /* ================== إعدادات ================== */
+    /* ============ إعدادات ============ */
     const CONFIG = {
-      CRYPTO_WS: ["btcusdt","ethusdt","solusdt","bnbusdt","xrpusdt"],   // WebSocket مباشر من Binance
-      FX_PRIMARY:  "https://open.er-api.com/v6/latest/USD",             // فوركس: مصدر أساسي
-      FX_FALLBACK: "https://api.frankfurter.app/latest?from=USD",       // فوركس: احتياطي
+      CRYPTO_WS: ["btcusdt","ethusdt","solusdt","bnbusdt","xrpusdt"],
+      FX_PRIMARY:  "https://open.er-api.com/v6/latest/USD",
+      FX_FALLBACK: "https://api.frankfurter.app/latest?from=USD",
       NEWS: [
         "https://api.allorigins.win/raw?url=https%3A%2F%2Fwww.cnbcarabia.com%2Frss%2Flatest",
         "https://api.allorigins.win/raw?url=https%3A%2F%2Fwww.asharqbusiness.com%2Far%2Frss",
@@ -154,7 +153,7 @@ document.addEventListener('DOMContentLoaded', () => {
       NEWS_LIMIT: 30
     };
 
-    /* ================== أدوات ================== */
+    /* ============ أدوات ============ */
     const $ = s => document.querySelector(s);
     const errbar = $('#errbar');
     function showErr(msg){ errbar.textContent = msg; errbar.style.display='block'; setTimeout(()=>errbar.style.display='none',6000); }
@@ -174,12 +173,12 @@ document.addEventListener('DOMContentLoaded', () => {
       finally{ clearTimeout(t); }
     }
 
-    /* ================== حالة ================== */
+    /* ============ حالة ============ */
     let WS;
     let CRYPTO = {}; // {symbol:{last,change,vol}}
     let FX = [];
 
-    /* ================== WebSocket: Binance ================== */
+    /* ============ WebSocket: Binance ============ */
     function openCryptoStream(){
       try{ if(WS) WS.close(); }catch(_){}
       const streams = CONFIG.CRYPTO_WS.map(s=>`${s}@ticker`).join('/');
@@ -196,7 +195,7 @@ document.addEventListener('DOMContentLoaded', () => {
       WS.onerror = () => showErr("تعذّر الاتصال بمصدر العملات الرقمية (WS).");
     }
 
-    /* ================== فوركس: أساسي + احتياطي ================== */
+    /* ============ فوركس: أساسي + احتياطي ============ */
     async function loadFXPrimary(){
       try{
         const txt = await fetchText(`${CONFIG.FX_PRIMARY}?_=${Date.now()}`);
@@ -225,14 +224,14 @@ document.addEventListener('DOMContentLoaded', () => {
         if(r.GBP) push("GBPUSD",1/r.GBP);
         if(r.TRY) push("USDTRY",r.TRY);
         return out;
-      }catch(e){ return []; }   /* بلا رسائل للمستخدم */
+      }catch(e){ return []; }
     }
     async function loadFXAll(){
       const p = await loadFXPrimary();
       FX = p ?? await loadFXFallback();
     }
 
-    /* ================== اشتقاقات ================== */
+    /* ============ اشتقاقات ============ */
     function buildForecastRows(list){
       return list.map(p=>{
         const m=(p.change||0)/100, conf=Math.min(0.9,Math.max(0.35,Math.abs(m)*3.5));
@@ -249,7 +248,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return list.filter(p=>Math.abs(p.change)>=3).map(p=>({symbol:p.symbol,msg:`تغيّر ${p.change.toFixed(2)}%`}));
     }
 
-    /* ================== الأخبار العربية (أسهم/تداول فقط) ================== */
+    /* ============ الأخبار العربية (أسهم/تداول فقط) ============ */
     const NEWS_KEYWORDS = /(بورصة|تداول|سوق(?:\s*الأسهم)?|الأسهم|أسهم|مؤشر|السندات|اكتتاب|قيد|طرح|صندوق|محفظة|توزيعات|سيولة|متداولين|إغلاق|جلسة|ارتفاع|انخفاض)/i;
     function parseRSS(xml){
       const out=[]; try{
@@ -269,7 +268,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }catch(_){}
       }
       const bar=$("#newsbar"), track=$("#newsScroller");
-      if(!titles.length){ bar.style.display="none"; track.innerHTML=""; return; }  // يختفي عند عدم توفر أخبار
+      if(!titles.length){ bar.style.display="none"; track.innerHTML=""; return; }
       bar.style.display="block"; track.innerHTML="";
       const dup=titles.concat(titles);
       for(const t of dup){
@@ -277,7 +276,12 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
-    /* ================== العرض ================== */
+    /* ===== SVG arrows ===== */
+    function svgUp(){ return `<svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path fill="#0a7a2f" d="M12 4l6 6h-4v10h-4V10H6z"/></svg>`; }
+    function svgDown(){ return `<svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path fill="#b11a1a" d="M12 20l-6-6h4V4h4v10h4z"/></svg>`; }
+    function svgFlat(){ return `<svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="11" width="16" height="2" fill="#555"/></svg>`; }
+
+    /* ============ العرض ============ */
     function renderPrices(list){
       const tb=$("#pricesTbody"); tb.innerHTML="";
       if(!list.length){ tb.innerHTML='<tr><td colspan="4" class="empty">لا توجد بيانات متاحة حاليًا</td></tr>'; return; }
@@ -296,10 +300,10 @@ document.addEventListener('DOMContentLoaded', () => {
       const tb=$("#forecastTbody"); tb.innerHTML="";
       if(!list.length){ tb.innerHTML='<tr><td colspan="6" class="empty">لا توجد بيانات متاحة حاليًا</td></tr>'; return; }
       for(const f of buildForecastRows(list)){
-        let label="", boxCls="", arrow="";
-        if(f.sig==="bull"){ label="يرتفع"; boxCls="sig-bull"; arrow="▲"; }
-        else if(f.sig==="bear"){ label="ينخفض"; boxCls="sig-bear"; arrow="▼"; }
-        else { label="مستقر"; boxCls="sig-neutral"; arrow="↔"; }
+        let label="", boxCls="", icon="";
+        if(f.sig==="bull"){ label="يرتفع"; boxCls="sig-bull"; icon=svgUp(); }
+        else if(f.sig==="bear"){ label="ينخفض"; boxCls="sig-bear"; icon=svgDown(); }
+        else { label="مستقر"; boxCls="sig-neutral"; icon=svgFlat(); }
 
         const tr=document.createElement("tr");
         tr.innerHTML=`
@@ -309,8 +313,8 @@ document.addEventListener('DOMContentLoaded', () => {
           <td>${fmt(f.f1d,2)}</td>
           <td>${f.conf}%</td>
           <td>
-            <div style="display:flex;align-items:center;justify-content:center;gap:8px">
-              <span class="sigbox ${boxCls}">${arrow}</span>
+            <div class="sigwrap">
+              <span class="sigbox ${boxCls}" aria-label="${label}" title="${label}">${icon}</span>
               <span class="pill ${boxCls==='sig-bull'?'bull':boxCls==='sig-bear'?'bear':'neutral'}">${label}</span>
             </div>
           </td>`;
@@ -318,13 +322,12 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
-    /* ↓↓↓ هنا تطبيق شرط إخفاء أقسام التوصيات عند عدم وجودها ↓↓↓ */
     function renderRecommendations(list){
       const {buy,sell}=buildRecommendations(list);
       const b=$("#buyList"), s=$("#sellList");
       const cb=$("#card-buy"), cs=$("#card-sell");
 
-      // توصيات الشراء
+      // شراء
       b.innerHTML="";
       if(!buy.length){ cb.style.display="none"; }
       else {
@@ -337,7 +340,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       }
 
-      // توصيات البيع
+      // بيع
       s.innerHTML="";
       if(!sell.length){ cs.style.display="none"; }
       else {
@@ -364,19 +367,40 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderAll(){
       const combined = Object.values(CRYPTO).concat(FX);
       renderPrices(combined);
-      renderForecast(combined);
-      renderRecommendations(combined);   // ← هنا يُظهر/يُخفي أقسام الشراء/البيع
+      renderForecast(combined);     // ← أسهم ملوّنة مؤكدة (SVG)
+      renderRecommendations(combined);
       renderAlerts(combined);
       now();
     }
 
-    /* ================== تشغيل ================== */
+    /* ============ تشغيل ============ */
     (async function init(){
-      openCryptoStream();     // تيكر حي
-      await loadFXAll();      // فوركس مع احتياطي (بدون رسائل للمستخدم)
-      renderAll();            // رسم أولي
+      // تيكر كريبتو
+      try{
+        const streams = CONFIG.CRYPTO_WS.map(s=>`${s}@ticker`).join('/');
+        const ws = new WebSocket(`wss://stream.binance.com:9443/stream?streams=${streams}`);
+        ws.onmessage = ev => {
+          try{
+            const {data:t} = JSON.parse(ev.data);
+            const sym = (t.s||"").replace("USDT","USD");
+            CRYPTO[sym] = { symbol:sym, last:+t.c, change:+t.P, vol:+t.v };
+            renderAll();
+          }catch(_){}
+        };
+        ws.onclose = () => setTimeout(() => { /* إعادة محاولة بسيطة */ init(); }, 2000);
+        ws.onerror = () => showErr("تعذّر الاتصال بمصدر العملات الرقمية (WS).");
+        // خزّنه عالمياً لإغلاقه لو لزم
+        window._wsCrypto = ws;
+      }catch(_){}
+
+      // فوركس
+      await (async()=>{ const p=await loadFXPrimary(); FX = p ?? await loadFXFallback(); })();
+
+      renderAll();
       setInterval(renderAll, CONFIG.REFRESH_MS);
-      loadNews();             // الأخبار العربية للأسهم/التداول فقط
+
+      // الأخبار العربية
+      loadNews();
       setInterval(loadNews, CONFIG.NEWS_REFRESH_MS);
     })();
 
