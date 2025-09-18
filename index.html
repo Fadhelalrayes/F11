@@ -151,96 +151,90 @@ document.addEventListener('DOMContentLoaded', () => {
   const fmt=(n,d=2)=> (n==null||Number.isNaN(n))?"—":Number(n).toLocaleString('en-US',{maximumFractionDigits:d});
   const now=()=>{const d=new Date(),p=n=>String(n).padStart(2,"0");$("#lastUpdated").textContent=`${p(d.getHours())}:${p(d.getMinutes())}:${p(d.getSeconds())}`;}
 
-  /* ============== مصادر جديدة ============== */
-  const CRYPTO_SYMBOLS = ["bitcoin", "ethereum", "solana", "binancecoin", "ripple"]; // CoinGecko IDs
-  const STOCKS = ['AAPL', 'MSFT', 'TSLA', 'AMZN', 'NVDA', 'GOOGL', 'META'];
-  const FX_PAIRS = ["EURUSD", "USDJPY", "USDBHD", "USDSAR", "USDAED", "GBPUSD", "USDTRY"];
-  const COMM_SYMBOLS = ['XAU', 'XAG', 'WTI', 'BRENT', 'NG']; // GoldAPI for gold/silver, Commodities-API for oil/gas
+  /* ============== مصادر ============== */
+  const CRYPTO_SYMBOLS = ["bitcoin","ethereum","solana","binancecoin","ripple"];
+  const STOCKS = ['AAPL','MSFT','TSLA','AMZN','NVDA','GOOGL','META'];
+  const FX_PAIRS = ["EURUSD","USDJPY","USDBHD","USDSAR","USDAED","GBPUSD","USDTRY"];
+  const COMM_SYMBOLS = ["XAU","XAG","WTI","BRENT","NG"];
 
-  const ALPHA_VANTAGE_KEY = 'YOUR_ALPHA_VANTAGE_KEY'; // سجل مجانًا على https://www.alphavantage.co/support/#api-key
+  const ALPHA_VANTAGE_KEY = 'YOUR_ALPHA_VANTAGE_KEY'; // استبدل بمفتاحك من https://www.alphavantage.co/support/#api-key
 
-  const arabicName = (s) => {
-    const m = {
-      "bitcoin": "بيتكوين/دولار", "ethereum": "إيثريوم/دولار", "solana": "سولانا/دولار", "binancecoin": "بي إن بي/دولار", "ripple": "ريبل/دولار",
-      "EURUSD": "يورو/دولار", "USDJPY": "دولار/ين", "USDBHD": "دولار/دينار بحريني", "USDSAR": "دولار/ريال سعودي", "USDAED": "دولار/درهم إماراتي",
-      "GBPUSD": "جنيه/دولار", "USDTRY": "دولار/ليرة تركية", "XAU": "ذهب/دولار", "XAG": "فضة/دولار", "WTI": "نفط خام WTI/دولار",
-      "BRENT": "نفط برنت/دولار", "NG": "غاز طبيعي/دولار", "AAPL": "آبل", "MSFT": "مايكروسوفت", "TSLA": "تسلا", "AMZN": "أمازون",
-      "NVDA": "إنفيديا", "GOOGL": "ألفابت (جوجل)", "META": "ميتا"
-    };
-    return m[s] || s;
-  };
+  const NEWS_RSS = [
+    "https://www.cnbcarabia.com/rss/latest",
+    "https://www.asharqbusiness.com/ar/rss",
+    "https://www.mubasher.info/rss/news/all",
+    "https://www.alarabiya.net/tools/rss?cat=aswaq",
+    "https://www.argaam.com/rss/rss.xml",
+    "https://www.alborsanews.com/feed",
+    "https://www.skynewsarabia.com/rss/business"
+  ];
 
-  /* ============== جلب البيانات من مصادر جديدة ============== */
-  let CRYPTO = [], FX = [], COMM = [], STOCKS_LIST = [];
-
-  async function loadCryptoREST() {
-    try {
-      const txt = await fetchCascade('https://api.coingecko.com/api/v3/simple/price?ids=' + CRYPTO_SYMBOLS.join(',') + '&vs_currencies=usd&include_24hr_change=true');
-      const d = JSON.parse(txt);
-      CRYPTO = CRYPTO_SYMBOLS.map(s => ({
-        symbol: arabicName(s).split('/')[0] + 'USD',
-        last: d[s].usd,
-        change: d[s].usd_24h_change,
-        vol: 0 // CoinGecko لا يقدم حجمًا، يمكن إضافته لاحقًا
-      }));
-    } catch (e) {
-      console.error('Error loading Crypto from CoinGecko:', e.message);
-    }
+  /* ============== أسماء عربية ============== */
+  function arabicName(s){
+    const m={"bitcoin":"بيتكوين/دولار","ethereum":"إيثريوم/دولار","solana":"سولانا/دولار","binancecoin":"بي إن بي/دولار","ripple":"ريبل/دولار",
+      "EURUSD":"يورو/دولار","USDJPY":"دولار/ين","USDBHD":"دولار/دينار بحريني","USDSAR":"دولار/ريال سعودي","USDAED":"دولار/درهم إماراتي",
+      "GBPUSD":"جنيه/دولار","USDTRY":"دولار/ليرة تركية","XAU":"ذهب/دولار","XAG":"فضة/دولار","WTI":"نفط خام WTI/دولار",
+      "BRENT":"نفط برنت/دولار","NG":"غاز طبيعي/دولار","AAPL":"آبل","MSFT":"مايكروسوفت","TSLA":"تسلا","AMZN":"أمازون","NVDA":"إنفيديا","GOOGL":"ألفابت (جوجل)","META":"ميتا"};
+    return m[s]||s;
   }
 
-  async function loadFX() {
-    try {
-      const txt = await fetchCascade('https://api.exchangeratesapi.io/v1/latest?access_key=free&base=USD'); // استبدل 'free' بمفتاح إذا طلب
-      const d = JSON.parse(txt);
-      const r = d.rates;
-      FX = FX_PAIRS.map(p => {
-        const base = p.startsWith('USD') ? r[p.slice(3)] : 1 / r[p.slice(0,3)];
-        return { symbol: p, last: base, change: 0, vol: 0 };
-      });
-    } catch (e) {
-      console.error('Error loading FX from ExchangeRatesAPI:', e.message);
-    }
+  /* ============== الحالة ============== */
+  let CRYPTO=[], FX=[], COMM=[], STOCKS_LIST=[];
+
+  /* ============== جلب البيانات ============== */
+  async function loadCryptoREST(){
+    try{
+      const txt=await fetchCascade('https://api.coingecko.com/api/v3/simple/price?ids='+CRYPTO_SYMBOLS.join(',')+'&vs_currencies=usd&include_24hr_change=true');
+      const d=JSON.parse(txt);
+      CRYPTO=CRYPTO_SYMBOLS.map(s=>({symbol:s.toUpperCase()+'USD',last:d[s].usd,change:d[s].usd_24h_change,vol:0}));
+    }catch(e){console.error('Error loading Crypto:',e.message);}
   }
 
-  async function loadCommodities() {
-    const out = [];
-    try {
-      // GoldAPI للذهب والفضة
-      const txtGold = await fetchCascade('https://www.goldapi.io/api/XAU/USD');
-      const dGold = JSON.parse(txtGold);
-      out.push({ symbol: 'XAUUSD', last: dGold.price, change: dGold.ch_p, vol: 0 });
-      const txtSilver = await fetchCascade('https://www.goldapi.io/api/XAG/USD');
-      const dSilver = JSON.parse(txtSilver);
-      out.push({ symbol: 'XAGUSD', last: dSilver.price, change: dSilver.ch_p, vol: 0 });
-
-      // Commodities-API للنفط والغاز
-      const txtOil = await fetchCascade('https://commodities-api.com/api/latest?access_key=free&symbols=WTI,BRENT,NG'); // استبدل 'free' بمفتاح إذا طلب
-      const dOil = JSON.parse(txtOil);
-      out.push({ symbol: 'WTIUSD', last: dOil.data.rates.WTI, change: 0, vol: 0 });
-      out.push({ symbol: 'BRENTUSD', last: dOil.data.rates.BRENT, change: 0, vol: 0 });
-      out.push({ symbol: 'NGUSD', last: dOil.data.rates.NG, change: 0, vol: 0 });
-    } catch (e) {
-      console.error('Error loading Commodities:', e.message);
-    }
-    COMM = out;
+  async function loadFX(){
+    try{
+      const pairs=FX_PAIRS.join(',');
+      const txt=await fetchCascade(`https://www.freeforexapi.com/api/live?pairs=${pairs}`);
+      const d=JSON.parse(txt).rates;
+      FX=FX_PAIRS.map(p=>({symbol:p,last:d[p].rate,change:0,vol:0}));
+    }catch(e){console.error('Error loading FX:',e.message);}
   }
 
-  async function loadStocks() {
-    const arr = [];
-    for (const s of STOCKS) {
-      try {
-        const txt = await fetchCascade(`https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${s}&apikey=${ALPHA_VANTAGE_KEY}`);
-        const d = JSON.parse(txt)['Global Quote'];
-        arr.push({ symbol: s, last: +d['05. price'], change: +d['10. change percent'].replace('%', ''), vol: +d['06. volume'] });
-      } catch (e) {
-        console.error('Error loading stock ' + s + ' from Alpha Vantage:', e.message);
-      }
-    }
-    STOCKS_LIST = arr;
+  async function loadCommodities(){
+    const out=[];
+    try{
+      // الذهب والفضة من GoldAPI
+      const txtGold=await fetchCascade('https://www.goldapi.io/api/XAU/USD');
+      const dGold=JSON.parse(txtGold);
+      out.push({symbol:'XAUUSD',last:dGold.price,change:dGold.ch_p,vol:0});
+      const txtSilver=await fetchCascade('https://www.goldapi.io/api/XAG/USD');
+      const dSilver=JSON.parse(txtSilver);
+      out.push({symbol:'XAGUSD',last:dSilver.price,change:dSilver.ch_p,vol:0});
+
+      // النفط والغاز من Commodities-API
+      const txtOil=await fetchCascade('https://commodities-api.com/api/latest?base=USD&symbols=WTI%2CBRENT%2CNG');
+      const dOil=JSON.parse(txtOil);
+      const rates=dOil.data.rates;
+      out.push({symbol:'WTIUSD',last:1/rates.WTI,change:0,vol:0});
+      out.push({symbol:'BRENTUSD',last:1/rates.BRENT,change:0,vol:0});
+      out.push({symbol:'NGUSD',last:1/rates.NG,change:0,vol:0});
+    }catch(e){console.error('Error loading Commodities:',e.message);}
+    COMM=out;
   }
 
-  /* ============== باقي الكود بدون تغيير (عرض البيانات) ============== */
-  function arabicNameMap(s){return arabicName(s.replace('USD', '')) + '/دولار';} // تعديل للتوافق
+  async function loadStocks(){
+    const arr=[];
+    for(const s of STOCKS){
+      try{
+        const txt=await fetchCascade(`https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${s}&apikey=${ALPHA_VANTAGE_KEY}`);
+        const d=JSON.parse(txt)['Global Quote'];
+        arr.push({symbol:s,last:+d['05. price'],change:+d['10. change percent'].replace('%',''),vol:+d['06. volume']});
+      }catch(e){console.error('Error loading stock '+s+':',e.message);}
+    }
+    STOCKS_LIST=arr;
+  }
+
+  /* ============== اشتقاقات/عرض ============== */
+  function arabicNameMap(s){return arabicName(s.replace('USD',''));}
   function buildForecastRows(list){
     return list.map(p=>{
       const m=((p.change ?? 0))/100;
@@ -315,7 +309,7 @@ document.addEventListener('DOMContentLoaded', () => {
   $("#openSite").addEventListener('click',e=>{e.preventDefault();const v=$("#siteSelect").value;if(v)window.open(v,'_blank','noopener')});
   $("#devCredit").addEventListener('click',()=>window.open("https://api.whatsapp.com/send/?phone=97333375858&text&type=phone_number&app_absent=0&wame_ctl=1&fbclid=PAQ0xDSwM47SBleHRuA2FlbQIxMAABp_kyX38pB0gsODjRzVhQKTeY5ocu-YY5ziN9ajBUo-CdUWXFjvN0KmeCrDlS_aem_XeaTlriA2lW1NAuZYhhppw",'_blank','noopener'));
 
-  /* ============== الأخبار العربية ============== */
+  /* ============== الأخبار العربية (يظهر الشريط فقط عند توفر عناوين) ============== */
   async function loadNews(){
     const titles=[]; const seen=new Set(); const RE=/\b(بورصة|تداول|سوق(?:\s*الأسهم)?|الأسهم|أسهم|مؤشر|أرباح|سهم|جلسة|إغلاق|توزيعات)\b/i;
     for(const u of NEWS_RSS){ try{ const txt=await fetchCascade(u); const doc=new DOMParser().parseFromString(txt,"text/xml"); if(doc.querySelector("parsererror")) continue; const arr=[...doc.querySelectorAll("item>title,entry>title")].map(n=>(n.textContent||"").trim()); for(const t of arr){ if(RE.test(t) && !seen.has(t)){ seen.add(t); titles.push(t) } } }catch(e){console.error('News fetch failed:', e.message);} }
