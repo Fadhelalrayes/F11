@@ -128,7 +128,7 @@
 <script>
 document.addEventListener('DOMContentLoaded', () => {
   /* ============== أداة جلب مرنة (Cascade) ============== */
-  async function fetchCascade(rawUrl, timeout=15000) { // زيادة الـ timeout إلى 15 ثانية
+  async function fetchCascade(rawUrl, timeout = 15000) {
     const ctrl = new AbortController();
     const timer = setTimeout(() => ctrl.abort(), timeout);
     const tries = [
@@ -151,7 +151,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
     console.error('All fetch attempts failed:', lastErr?.message || 'Unknown error');
-    return null; // إرجاع null إذا فشلت جميع المحاولات
+    return null;
   }
 
   const $ = s => document.querySelector(s);
@@ -247,14 +247,19 @@ document.addEventListener('DOMContentLoaded', () => {
       const out = [];
       for (const s of CRYPTO_REST) {
         let txt;
-        try { txt = await fetchCascade(`https://api.binance.com/api/v3/ticker/24hr?symbol=${s.toUpperCase()}`); }
-        catch { txt = await fetchCascade(`https://api.binance.com/api/v3/ticker/24hr?symbol=${s.toUpperCase()}`); }
-        if (!txt) throw new Error('No data from Binance');
+        try {
+          txt = await fetchCascade(`https://api.binance.com/api/v3/ticker/24hr?symbol=${s.toUpperCase()}`);
+          if (!txt) throw new Error('No data from Binance');
+        } catch (e) {
+          console.error(`Binance fetch failed for ${s}: ${e.message}`);
+          continue;
+        }
         const d = JSON.parse(txt);
         const sym = d.symbol.replace('USDT', 'USD');
         out.push({ symbol: sym, last: +d.lastPrice, change: +d.priceChangePercent, vol: +d.volume });
       }
-      CRYPTO = Object.fromEntries(out.map(x => [x.symbol, x]));
+      if (out.length) CRYPTO = Object.fromEntries(out.map(x => [x.symbol, x]));
+      else console.warn('No crypto data loaded');
     } catch (e) {
       console.error('Error loading Crypto REST:', e.message);
     }
@@ -262,7 +267,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   async function loadFX() {
     try {
-      const txt = await fetchCascade(`${FX_PRIMARY}?_=${Date.now()}`);
+      let txt = await fetchCascade(`${FX_PRIMARY}?_=${Date.now()}`);
       if (!txt) throw new Error('No data from FX Primary');
       const d = JSON.parse(txt);
       if (d.result !== "success") throw new Error('Invalid FX data');
@@ -274,8 +279,10 @@ document.addEventListener('DOMContentLoaded', () => {
       if (r.AED) push("USDAED", r.AED);
       if (r.GBP) push("GBPUSD", 1 / r.GBP);
       if (r.TRY) push("USDTRY", r.TRY);
-      FX = o;
-    } catch {
+      if (o.length) FX = o;
+      else throw new Error('No FX rates available');
+    } catch (e) {
+      console.warn(`FX Primary failed: ${e.message}, trying fallback...`);
       try {
         const txt = await fetchCascade(`${FX_FALLBACK}?_=${Date.now()}`);
         if (!txt) throw new Error('No data from FX Fallback');
@@ -285,7 +292,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (r.JPY) push("USDJPY", r.JPY);
         if (r.GBP) push("GBPUSD", 1 / r.GBP);
         if (r.TRY) push("USDTRY", r.TRY);
-        FX = o;
+        if (o.length) FX = o;
+        else throw new Error('No FX rates from fallback');
       } catch (e) {
         console.error('Error loading FX data:', e.message);
         FX = [];
@@ -301,8 +309,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const b = await firstOk(MAPS.BRENT, 'BRENTUSD');
     const ng = await firstOk(MAPS.GAS, 'NGUSD');
     [g, ag, w, b, ng].forEach(x => x && out.push(x));
-    if (!out.length) console.warn('No commodities data loaded');
-    COMM = out;
+    if (out.length) COMM = out;
+    else console.warn('No commodities data loaded');
   }
 
   async function loadStocks() {
@@ -312,7 +320,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const rec = await firstOk([s], sym);
       if (rec) arr.push(rec);
     }
-    STOCKS_LIST = arr;
+    if (arr.length) STOCKS_LIST = arr;
+    else console.warn('No stocks data loaded');
   }
 
   /* ============== اشتقاقات/عرض ============== */
@@ -555,7 +564,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* ============== تشغيل ============== */
   (async function init() {
-    // بيانات افتراضية مؤقتة إذا فشل التحميل
     const defaultData = [
       { symbol: 'XAUUSD', last: 1900, change: 0.5, vol: 1000 },
       { symbol: 'WTIUSD', last: 70, change: -0.2, vol: 500 },
@@ -568,7 +576,7 @@ document.addEventListener('DOMContentLoaded', () => {
     renderAll();
     if (!([...Object.values(CRYPTO), ...FX, ...COMM, ...STOCKS_LIST].length)) {
       console.warn('No data loaded, using default data temporarily');
-      COMM = defaultData; // استخدام بيانات افتراضية مؤقتة
+      COMM = [...COMM, ...defaultData]; // دمج البيانات الافتراضية مع أي بيانات موجودة
       renderAll();
     }
     setInterval(async () => {
@@ -576,7 +584,7 @@ document.addEventListener('DOMContentLoaded', () => {
       renderAll();
       if (!([...Object.values(CRYPTO), ...FX, ...COMM, ...STOCKS_LIST].length)) {
         console.warn('No data loaded, reverting to default data');
-        COMM = defaultData;
+        COMM = [...COMM, ...defaultData];
         renderAll();
       }
     }, 30000);
