@@ -3,23 +3,22 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>CV — منشئ سيرة ذاتية بسيط ومتجاوب (عربي/English)</title>
+<title>منشئ سيرة ذاتية — عربي / English — PDF & Word</title>
 
 <!-- خطوط احترافية تدعم العربية والإنجليزية -->
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
-  /* ============ تصميم ذهبي/أبيض مع لمسات احترافية ============ */
   :root{
-    --gold:#D4AF37;           /* ذهبية أنيقة */
-    --gold-2:#c8a23a;         /* درجة أغمق للهوفر */
-    --ink:#0f172a;            /* نص أساسي */
-    --muted:#6b7280;          /* نص ثانوي */
-    --paper:#ffffff;          /* خلفية البطاقات */
-    --bg:#faf9f6;             /* خلفية عامة دافئة */
-    --border:#ece7da;         /* حد محايد مائل للذهبي */
-    --shadow:0 10px 24px rgba(15,23,42,.06);
+    --gold:#D4AF37;          /* ذهبي أنيق */
+    --gold-2:#caa535;        /* للهوفر */
+    --ink:#0f172a;           /* نص أساسي */
+    --muted:#6b7280;         /* نص ثانوي */
+    --paper:#ffffff;         /* بطاقات */
+    --bg:#fbfaf7;            /* خلفية عامة هادئة */
+    --border:#efe7d2;        /* حافة هادئة */
     --radius:16px;
+    --shadow:0 10px 22px rgba(15,23,42,.05);
   }
   *,*::before,*::after{box-sizing:border-box}
   html,body{height:100%}
@@ -29,306 +28,273 @@
     -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
   }
 
-  /* ===== تخطيط متجاوب بسيط: عمود واحد على الهاتف، عمودان على الشاشات الأوسع ===== */
+  /* تخطيط متجاوب: عمود واحد على الموبايل، عمودان على الشاشات الأوسع */
   .container{
     max-width:1200px;margin-inline:auto;padding:16px;
     display:grid;gap:16px;grid-template-columns:1fr;
   }
-  @media(min-width:992px){
-    .container{grid-template-columns:420px 1fr}
-  }
+  @media(min-width:992px){ .container{grid-template-columns:480px 1fr} }
 
-  /* ===== لوحة الإدخال (أسهل ما يكون) ===== */
-  .panel{
-    background:var(--paper);border:1px solid var(--border);border-radius:var(--radius);
-    box-shadow:var(--shadow);padding:16px;
-  }
-  .panel h1{
-    margin:0 0 8px;font-weight:700;font-size:1.35rem;
-    letter-spacing:.2px
-  }
-  .sub{
-    margin:0 0 12px;color:var(--muted);font-size:.95rem
-  }
+  /* لوحة إدخال واضحة: (وصف) ثم (مستطيل كتابة) */
+  .panel{background:var(--paper);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px}
+  .panel h1{margin:0 0 10px;font-weight:700;font-size:1.35rem;letter-spacing:.2px}
 
-  /* شريط خطوات بسيط لسهولة التنقل على الهاتف */
-  .steps{
-    display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px
-  }
-  .step{
-    flex:1;min-width:120px;text-align:center;padding:.6rem .8rem;cursor:pointer;
-    border:1px solid var(--border);border-radius:12px;background:#fff;font-weight:700
-  }
-  .step.active{border-color:var(--gold);box-shadow:0 0 0 2px #0000, inset 0 0 0 999px rgba(212,175,55,.06)}
-  .sections > .section{display:none}
-  .sections > .section.active{display:block}
-
-  /* حقول مبسطة بملصق عائم */
-  .field{position:relative;margin:12px 0}
-  .input, .textarea, .select{
+  .field{margin:10px 0}
+  .field label{display:block;font-weight:700;margin:0 0 6px}
+  .input,.textarea,.select{
     width:100%;padding:14px 12px;border:1px solid var(--border);border-radius:12px;background:#fff;font-weight:600
   }
   .textarea{min-height:96px;resize:vertical}
-  .label{
-    position:absolute;inset-inline-start:12px;top:50%;transform:translateY(-50%);
-    background:#fff;padding:0 6px;color:#8b8b8b;font-weight:600;pointer-events:none;transition:.15s ease;
-  }
-  .input:focus + .label, .textarea:focus + .label, .input:not(:placeholder-shown)+.label, .textarea:not(:placeholder-shown)+.label{
-    top:-8px;font-size:.78rem;color:var(--gold)
-  }
 
-  /* شبكات سهلة */
   .row{display:grid;gap:10px}
-  @media(min-width:600px){ .row.cols-2{grid-template-columns:1fr 1fr} }
-  @media(min-width:800px){ .row.cols-3{grid-template-columns:1fr 1fr 1fr} }
+  @media(min-width:640px){ .row.cols-2{grid-template-columns:1fr 1fr} }
+  @media(min-width:860px){ .row.cols-3{grid-template-columns:1fr 1fr 1fr} }
 
-  /* أزرار كبيرة لمس/محمول */
-  .btn{
-    border:1px solid var(--border);background:#fff;border-radius:12px;padding:.75rem 1rem;font-weight:800;cursor:pointer
-  }
-  .btn.gold{background:linear-gradient(180deg,#f9eac0,#f5d774);border-color:#e7c96a}
-  .btn.gold:hover{filter:saturate(1.05) brightness(1.01)}
+  .btn{border:1px solid var(--border);background:#fff;border-radius:12px;padding:.75rem 1rem;font-weight:800;cursor:pointer}
+  .btn.gold{background:linear-gradient(180deg,#faedc6,#f3d878);border-color:#e7c96a}
+  .btn.gold:hover{filter:brightness(1.01)}
   .btn.ghost{background:#fff}
-  .btn.icon{display:inline-flex;align-items:center;gap:8px}
+  .btn.full{width:100%}
 
-  /* شريط تصدير لاصق أسفل الشاشة على الهاتف */
-  .sticky-actions{
-    position:sticky;bottom:0;background:#fff;border:1px solid var(--border);
-    border-radius:14px;padding:10px;display:flex;gap:8px;flex-wrap:wrap;justify-content:space-between;margin-top:12px
-  }
-  .hint{color:var(--muted);font-size:.85rem}
+  .help{font-size:.9rem;color:var(--muted)}
 
-  /* ===== معاينة CV متجاوبة ===== */
-  .preview{
-    background:var(--paper);border:1px solid var(--border);border-radius:var(--radius);
-    box-shadow:var(--shadow);padding:0;overflow:hidden
-  }
-  .cv{
-    width:100%;max-width:900px;margin:auto;padding:18px 18px 24px;
-  }
-  @media(min-width:992px){
-    .cv{padding:26px 30px}
-  }
+  /* أقسام قابلة للطي على الهاتف لتقليل الفوضى */
+  details.block{border:1px dashed var(--border);border-radius:12px;padding:10px;margin:10px 0;background:#fff}
+  details.block>summary{cursor:pointer;font-weight:800;list-style:none}
+  details.block>summary::-webkit-details-marker{display:none}
+
+  /* قائمة لغات بشكل مربعات اختيار */
+  .checkgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+  @media(min-width:520px){ .checkgrid{grid-template-columns:repeat(4,1fr)} }
+  .check{display:flex;gap:8px;align-items:center;border:1px solid var(--border);border-radius:10px;padding:10px;background:#fff}
+  .check input{width:18px;height:18px;accent-color:var(--gold)}
+
+  /* المعاينة */
+  .preview{background:var(--paper);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
+  .cv{padding:18px}
+  @media(min-width:992px){ .cv{padding:26px 30px} }
 
   .cv-head{display:grid;gap:14px;grid-template-columns:1fr 120px;align-items:center}
-  .cv-name{margin:0;font-size:1.5rem;font-weight:700;letter-spacing:.2px}
+  .cv-name{margin:0;font-size:1.55rem;font-weight:700}
   .cv-role{margin:2px 0 6px;font-weight:700;color:#5b4a11}
   .cv-photo{width:120px;height:120px;border-radius:14px;border:2px solid var(--gold);object-fit:cover;background:#f1f1f1;justify-self:end}
   .cv-summary{color:#374151;line-height:1.8;white-space:pre-line}
+
   .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
-  .chip{
-    display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border:1px solid var(--border);border-radius:999px;background:#fff;font-weight:700
-  }
+  .chip{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border:1px solid var(--border);border-radius:999px;background:#fff;font-weight:700}
 
   .cv-grid{display:grid;gap:16px;margin-top:16px}
   @media(min-width:820px){ .cv-grid{grid-template-columns:1.15fr .85fr} }
 
-  .sec-title{
-    font-weight:800;margin:0 0 8px;display:inline-block;padding-bottom:4px;
-    border-bottom:3px solid var(--gold);letter-spacing:.3px
-  }
+  .sec-title{font-weight:800;margin:0 0 8px;display:inline-block;padding-bottom:4px;border-bottom:3px solid var(--gold)}
   .item{margin:10px 0}
   .item .top{display:flex;justify-content:space-between;font-weight:700}
-  .item .meta{color:#6b7280;font-weight:600}
-  .item .desc{margin-top:6px;color:#374151;white-space:pre-line}
+  .item .meta{color:#6b7280}
+  .item .desc{margin-top:6px;white-space:pre-line}
   .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
   .tag{padding:6px 10px;border-radius:999px;background:#fff;border:1px dashed var(--gold);font-weight:700}
 
-  /* طباعة: A4 نظيفة */
+  /* شريط الأدوات السفلي */
+  .actions{display:grid;gap:10px}
+  @media(min-width:640px){ .actions{grid-template-columns:1fr 1fr} }
+
+  /* طباعة A4 */
   @media print{
     body{background:#fff}
     .container{display:block}
     .panel{display:none}
     .preview{border:none;box-shadow:none}
-    .cv{max-width:none;padding:0}
+    .cv{padding:0}
     @page{size:A4;margin:12mm}
   }
+
+  /* فوتر */
+  footer{margin-top:14px;text-align:center;color:#5b4a11;font-weight:800}
 </style>
 </head>
 <body>
 
 <div class="container">
-  <!-- ========== لوحة إدخال مبسطة ومتجاوبة ========== -->
-  <section class="panel" id="formPanel">
-    <h1>منشئ سيرة ذاتية — بسيط ومتجاوب</h1>
-    <p class="sub">املأ بياناتك بسرعة. يدعم عربي/English تلقائيًا. الألوان ذهبية/بيضاء مع مظهر احترافي.</p>
+  <!-- ======= لوحة الإدخال (مرتبة وسهلة) ======= -->
+  <section class="panel" id="formPanel" aria-label="إدخال السيرة الذاتية">
+    <h1>منشئ السيرة الذاتية</h1>
 
-    <!-- خطوات للتنقل السريع (سهلة على الهاتف) -->
-    <div class="steps" role="tablist" aria-label="خطوات إدخال السيرة">
-      <button class="step active" data-step="basic" role="tab">الأساسيات</button>
-      <button class="step" data-step="exp" role="tab">الخبرات</button>
-      <button class="step" data-step="edu" role="tab">التعليم/المهارات</button>
-      <button class="step" data-step="more" role="tab">المزيد</button>
+    <div class="field">
+      <label for="uiLang">واجهة الاستخدام</label>
+      <select id="uiLang" class="select">
+        <option value="ar" selected>عربية (RTL)</option>
+        <option value="en">English (LTR)</option>
+      </select>
+      <div class="help">يمكنك كتابة البيانات بالعربية أو الإنجليزية — المعاينة تتكيّف تلقائيًا.</div>
     </div>
 
-    <div class="sections">
-      <!-- الأساسيات -->
-      <div class="section active" id="sec-basic">
-        <div class="row cols-2">
-          <div class="field">
-            <input class="input" id="name" placeholder=" " />
-            <label class="label" for="name">الاسم الكامل / Full Name</label>
-          </div>
-          <div class="field">
-            <input class="input" id="role" placeholder=" " />
-            <label class="label" for="role">المسمّى / Title</label>
-          </div>
-        </div>
+    <details class="block" open>
+      <summary>البيانات الأساسية</summary>
+      <div class="field"><label for="name">الاسم الكامل</label><input id="name" class="input" placeholder="اكتب الاسم هنا"/></div>
+      <div class="field"><label for="birth">تاريخ الميلاد</label><input id="birth" class="input" placeholder="مثال: 1998-05-14"/></div>
+      <div class="field"><label for="role">المسمى / التخصص</label><input id="role" class="input" placeholder="مثال: مطوّر برمجيات"/></div>
+      <div class="field"><label for="summary">الملخص المهني</label><textarea id="summary" class="textarea" placeholder="نبذة قصيرة عنك (2–4 أسطر)"></textarea></div>
+    </details>
 
+    <details class="block" open>
+      <summary>العنوان وطرق التواصل</summary>
+      <div class="row cols-2">
+        <div class="field"><label for="address">العنوان</label><input id="address" class="input" placeholder="المنامة، البحرين"/></div>
+        <div class="field"><label for="phone">رقم الاتصال</label><input id="phone" class="input" placeholder="+973 …"/></div>
+      </div>
+      <div class="row cols-2">
+        <div class="field"><label for="email">البريد الإلكتروني</label><input id="email" class="input" placeholder="you@example.com"/></div>
+        <div class="field"><label for="website">الموقع / البورتفوليو</label><input id="website" class="input" placeholder="your-portfolio.com"/></div>
+      </div>
+      <div class="field"><label for="linkedin">LinkedIn</label><input id="linkedin" class="input" placeholder="linkedin.com/in/username"/></div>
+      <div class="field"><label for="photo">الصورة الشخصية (اختياري)</label><input id="photo" class="input" type="file" accept="image/*"/></div>
+    </details>
+
+    <details class="block" open>
+      <summary>التعليم</summary>
+      <div class="field"><label for="university">الجامعة</label><input id="university" class="input" placeholder="جامعة …"/></div>
+      <div class="row cols-3">
+        <div class="field"><label for="major">التخصص</label><input id="major" class="input" placeholder="علوم الحاسوب"/></div>
+        <div class="field"><label for="degree">الشهادة</label><input id="degree" class="input" placeholder="بكالوريوس / ماجستير"/></div>
+        <div class="field"><label for="grad">سنة التخرج</label><input id="grad" class="input" placeholder="2024"/></div>
+      </div>
+      <div class="field"><label for="eduNotes">مقررات أو إنجازات</label><textarea id="eduNotes" class="textarea" placeholder="اكتب نقاطًا مختصرة (سطر لكل نقطة)"></textarea></div>
+    </details>
+
+    <details class="block" open>
+      <summary>اللغات</summary>
+      <div class="checkgrid">
+        <label class="check"><input type="checkbox" id="lang_ar"> <span>العربية</span></label>
+        <label class="check"><input type="checkbox" id="lang_en"> <span>الإنجليزية</span></label>
+        <label class="check"><input type="checkbox" id="lang_hi"> <span>الهندية/الأردو</span></label>
+        <label class="check"><input type="checkbox" id="lang_other"> <span>أخرى</span></label>
+      </div>
+      <div class="field"><label for="langExtra">لغات أخرى (إن وجدت)</label><input id="langExtra" class="input" placeholder="مثال: الفارسية — متقدم"/></div>
+    </details>
+
+    <details class="block" open>
+      <summary>الخبرات</summary>
+      <div id="expList"></div>
+      <button class="btn gold full" id="addExp" type="button">➕ إضافة خبرة</button>
+      <div class="help">الخبرات تكون في مستطيلات منفصلة: اسم الشركة، المسمى، الفترة، رقم تواصل (إن وجد)، وصف مختصر.</div>
+    </details>
+
+    <details class="block">
+      <summary>المشاريع (اختياري)</summary>
+      <div id="projList"></div>
+      <button class="btn gold full" id="addProj" type="button">➕ إضافة مشروع</button>
+    </details>
+
+    <details class="block">
+      <summary>الشهادات / الدورات (اختياري)</summary>
+      <div id="certList"></div>
+      <button class="btn gold full" id="addCert" type="button">➕ إضافة شهادة/دورة</button>
+    </details>
+
+    <div class="actions" style="margin-top:12px">
+      <button class="btn gold" id="pdfAR" type="button">⬇️ تنزيل PDF (عربي)</button>
+      <button class="btn ghost" id="pdfEN" type="button">⬇️ تنزيل PDF (English)</button>
+      <button class="btn ghost" id="docAR" type="button">⬇️ Word (AR)</button>
+      <button class="btn ghost" id="docEN" type="button">⬇️ Word (EN)</button>
+    </div>
+
+    <details class="block" open>
+      <summary>إرسال السيرة إلى الشركات (البحرين)</summary>
+      <div class="field">
+        <label for="company">اختر شركة</label>
+        <select id="company" class="select">
+          <option value="">— اختر —</option>
+          <option>Bapco (بابكو)</option>
+          <option>Aluminium Bahrain (Alba)</option>
+          <option>Gulf Air</option>
+          <option>Batelco</option>
+          <option>stc Bahrain</option>
+          <option>Zain Bahrain</option>
+          <option>GPIC</option>
+          <option>Bahrain Airport Company</option>
+          <option>Y.K. Almoayyed & Sons (المؤيد)</option>
+          <option>Ahmed Zayani & Sons</option>
+          <option>National Bank of Bahrain (NBB)</option>
+          <option>Bank ABC</option>
+          <option>Ahli United Bank</option>
+          <option>BBK</option>
+          <option>Gulf International Bank (GIB)</option>
+          <option>Bahrain Petroleum Company (Bapco Energies)</option>
+          <option>Bahrain Steel</option>
+          <option>Ministry of Health</option>
+          <option>Ministry of Education</option>
+          <option>Ministry of Labour</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="companyEmail">بريد الشركة (إن وجد)</label>
+        <input id="companyEmail" class="input" placeholder="اكتب بريد التوظيف أو الموارد البشرية"/>
+      </div>
+
+      <div class="row cols-2">
+        <button class="btn gold" id="openEmail" type="button">✉️ فتح رسالة بريد (mailto)</button>
+        <button class="btn ghost" id="copyEmailBody" type="button">📋 نسخ نص الرسالة</button>
+      </div>
+
+      <div class="help">💡 حمّل ملف الـ PDF أولاً ثم أرفقه يدويًا عند إرسال البريد.</div>
+    </details>
+
+    <details class="block" open>
+      <summary>معلومة مفيدة</summary>
+      <div class="row cols-2">
         <div class="field">
-          <textarea class="textarea" id="summary" placeholder=" "></textarea>
-          <label class="label" for="summary">الملخص المهني / Professional Summary (سطرين إلى 4)</label>
+          <label>رقم وزارة العمل (تعديل يدويًا عند الحاجة)</label>
+          <input id="molPhone" class="input" value="رقم وزارة العمل: —"/>
         </div>
-
-        <div class="row cols-2">
-          <div class="field">
-            <input class="input" id="email" placeholder=" " />
-            <label class="label" for="email">البريد الإلكتروني / Email</label>
-          </div>
-          <div class="field">
-            <input class="input" id="phone" placeholder=" " />
-            <label class="label" for="phone">الهاتف / Phone</label>
-          </div>
-        </div>
-
-        <div class="row cols-2">
-          <div class="field">
-            <input class="input" id="location" placeholder=" " />
-            <label class="label" for="location">المدينة، الدولة / City, Country</label>
-          </div>
-          <div class="field">
-            <input class="input" id="linkedin" placeholder=" " />
-            <label class="label" for="linkedin">LinkedIn</label>
-          </div>
-        </div>
-
-        <div class="row cols-2">
-          <div class="field">
-            <input class="input" id="website" placeholder=" " />
-            <label class="label" for="website">Website / Portfolio</label>
-          </div>
-          <div class="field">
-            <select class="select" id="uiLang">
-              <option value="ar" selected>واجهة عربية (RTL)</option>
-              <option value="en">English UI (LTR)</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="row cols-2" style="align-items:center">
-          <div class="field">
-            <input class="input" id="accent" type="color" value="#D4AF37" />
-            <label class="label" for="accent">لون اللمسة (Accent)</label>
-          </div>
-          <div class="field">
-            <input class="input" id="photo" type="file" accept="image/*" />
-            <label class="label" for="photo">صورة شخصية (اختياري)</label>
-          </div>
+        <div class="field">
+          <label>موقع وزارة العمل</label>
+          <input id="molSite" class="input" value="https://www.mlsd.gov.bh/"/>
         </div>
       </div>
+    </details>
 
-      <!-- الخبرات -->
-      <div class="section" id="sec-exp">
-        <div id="expList"></div>
-        <button class="btn icon gold" type="button" id="addExp">➕ إضافة خبرة</button>
-      </div>
-
-      <!-- التعليم والمهارات -->
-      <div class="section" id="sec-edu">
-        <div id="eduList"></div>
-        <button class="btn icon gold" type="button" id="addEdu">➕ إضافة تعليم</button>
-
-        <div class="field" style="margin-top:12px">
-          <input class="input" id="skills" placeholder=" " />
-          <label class="label" for="skills">المهارات (اكتبها بفواصل) — Skills (comma separated)</label>
-        </div>
-
-        <div class="row cols-2">
-          <div class="field">
-            <input class="input" id="lang1" placeholder=" " />
-            <label class="label" for="lang1">اللغة الأولى — Language</label>
-          </div>
-          <div class="field">
-            <input class="input" id="lang1lvl" placeholder=" " />
-            <label class="label" for="lang1lvl">المستوى — Level</label>
-          </div>
-        </div>
-        <div class="row cols-2">
-          <div class="field">
-            <input class="input" id="lang2" placeholder=" " />
-            <label class="label" for="lang2">اللغة الثانية — Language</label>
-          </div>
-          <div class="field">
-            <input class="input" id="lang2lvl" placeholder=" " />
-            <label class="label" for="lang2lvl">المستوى — Level</label>
-          </div>
-        </div>
-      </div>
-
-      <!-- المزيد: مشاريع/شهادات + تصدير -->
-      <div class="section" id="sec-more">
-        <div id="projList"></div>
-        <button class="btn icon gold" type="button" id="addProj">➕ إضافة مشروع</button>
-
-        <div style="height:8px"></div>
-
-        <div id="certList"></div>
-        <button class="btn icon gold" type="button" id="addCert">➕ إضافة شهادة</button>
-
-        <div class="sticky-actions">
-          <div style="display:flex;gap:8px;flex-wrap:wrap">
-            <button class="btn gold" id="pdfAR" type="button">⬇️ PDF (عربي)</button>
-            <button class="btn gold" id="pdfEN" type="button">⬇️ PDF (English)</button>
-            <button class="btn ghost" id="docAR" type="button">⬇️ Word (AR)</button>
-            <button class="btn ghost" id="docEN" type="button">⬇️ Word (EN)</button>
-          </div>
-          <button class="btn" id="clearAll" type="button">مسح الكل</button>
-        </div>
-        <div class="hint">نصيحة: على الهاتف، سيظهر شريط التصدير دائمًا أسفل القسم لسهولة الوصول.</div>
-      </div>
-    </div>
+    <footer>برمحة وتطوير فاضل الريس</footer>
   </section>
 
-  <!-- ========== المعاينة (مرنة على الهاتف) ========== -->
+  <!-- ======= المعاينة (مرتبة وبسيطة) ======= -->
   <section class="preview" aria-label="معاينة السيرة">
     <div class="cv" id="cv">
       <div class="cv-head">
         <div>
-          <h2 class="cv-name" id="cvName">اسمك الكامل / Your Name</h2>
-          <div class="cv-role" id="cvRole">المسمّى / Title</div>
-          <div class="cv-summary" id="cvSummary">اكتب ملخصًا قصيرًا عن خبرتك.\nWrite a brief professional summary.</div>
+          <h2 class="cv-name" id="cvName">اسمك الكامل</h2>
+          <div class="cv-role" id="cvRole">المسمى / التخصص</div>
+          <div class="cv-summary" id="cvSummary">ملخص مهني قصير.</div>
         </div>
         <img class="cv-photo" id="cvPhoto" alt="" style="display:none"/>
       </div>
 
       <div class="chips" id="cvChips">
-        <span class="chip" id="cEmail" style="display:none">✉️ <b></b></span>
-        <span class="chip" id="cPhone" style="display:none">📞 <b></b></span>
-        <span class="chip" id="cLoc"   style="display:none">📍 <b></b></span>
-        <span class="chip" id="cLn"    style="display:none">🔗 <b>LinkedIn</b></span>
-        <span class="chip" id="cWeb"   style="display:none">🌐 <b>Website</b></span>
+        <span class="chip" id="chipAddress" style="display:none">📍 <b></b></span>
+        <span class="chip" id="chipPhone"   style="display:none">📞 <b></b></span>
+        <span class="chip" id="chipEmail"   style="display:none">✉️ <b></b></span>
+        <span class="chip" id="chipSite"    style="display:none">🌐 <b></b></span>
+        <span class="chip" id="chipLinked"  style="display:none">🔗 <b>LinkedIn</b></span>
+        <span class="chip" id="chipBirth"   style="display:none">🎂 <b></b></span>
       </div>
 
       <div class="cv-grid">
         <div>
           <h3 class="sec-title" id="hExp">الخبرات العملية</h3>
-          <div id="cvExp" class="items"></div>
+          <div id="cvExp"></div>
 
           <h3 class="sec-title" id="hProj" style="margin-top:12px">المشاريع</h3>
-          <div id="cvProj" class="items"></div>
+          <div id="cvProj"></div>
         </div>
         <div>
           <h3 class="sec-title" id="hEdu">التعليم</h3>
-          <div id="cvEdu" class="items"></div>
+          <div id="cvEdu"></div>
 
           <h3 class="sec-title" id="hSkills" style="margin-top:12px">المهارات</h3>
-          <div class="tags" id="cvSkills"><span class="tag">HTML</span><span class="tag">CSS</span></div>
+          <div class="tags" id="cvSkills"><span class="tag">—</span></div>
 
           <h3 class="sec-title" id="hLang" style="margin-top:12px">اللغات</h3>
-          <div id="cvLangs" class="items"></div>
-
-          <h3 class="sec-title" id="hCert" style="margin-top:12px">الشهادات</h3>
-          <div id="cvCerts" class="items"></div>
+          <div id="cvLangs"></div>
         </div>
       </div>
     </div>
@@ -336,299 +302,233 @@
 </div>
 
 <script>
-/* ===== أدوات سريعة ===== */
+/* ===== helpers ===== */
 const $=s=>document.querySelector(s);
 const $$=s=>Array.from(document.querySelectorAll(s));
-const fmtRange=(a,b)=>[a,b].filter(Boolean).join(" — ");
 const bullets=t=>(t||'').split(/\r?\n/).filter(x=>x.trim()).map(x=>'• '+x.trim()).join('\n');
+const fmtRange=(a,b)=>[a,b].filter(Boolean).join(" — ");
 
-/* ===== تبسيط التنقل بين الأقسام (خطوة واحدة كل مرة على الهاتف) ===== */
-const sections = {
-  basic: $('#sec-basic'),
-  exp: $('#sec-exp'),
-  edu: $('#sec-edu'),
-  more: $('#sec-more')
-};
-$$('.step').forEach(btn=>{
-  btn.addEventListener('click', ()=>{
-    $$('.step').forEach(b=>b.classList.remove('active'));
-    btn.classList.add('active');
-    const key = btn.dataset.step;
-    Object.values(sections).forEach(s=>s.classList.remove('active'));
-    sections[key].classList.add('active');
-    window.scrollTo({top:0, behavior:'smooth'});
-  });
-});
-
-/* ===== ربط الحقول بالمعاينة (سهل وواضح) ===== */
-const state = {
-  ui:'ar',
-  name:'', role:'', summary:'',
-  email:'', phone:'', location:'', linkedin:'', website:'',
-  accent:'#D4AF37',
-  exp:[], edu:[], proj:[], cert:[],
-  langs:[]
-};
-const bind = (id, key, cb=render)=>$(id).addEventListener('input', e=>{ state[key]=e.target.value; cb(); });
-
-bind('#name','name');
-bind('#role','role');
-bind('#summary','summary');
-bind('#email','email');
-bind('#phone','phone');
-bind('#location','location');
-bind('#linkedin','linkedin');
-bind('#website','website');
-bind('#accent','accent', ()=>{
-  document.documentElement.style.setProperty('--gold', state.accent || '#D4AF37');
-  render();
-});
-
+/* ===== UI language dir ===== */
 $('#uiLang').addEventListener('change', e=>{
-  state.ui = e.target.value;
-  document.documentElement.dir = state.ui==='ar' ? 'rtl' : 'ltr';
-  document.documentElement.lang = state.ui;
-  // ترجمات عناوين الأقسام الأساسية فقط (المحتوى يبقى كما كتبه المستخدم)
-  const T = state.ui==='ar' ? {
-    exp:'الخبرات العملية', proj:'المشاريع', edu:'التعليم', skills:'المهارات', lang:'اللغات', cert:'الشهادات'
-  } : {
-    exp:'Experience', proj:'Projects', edu:'Education', skills:'Skills', lang:'Languages', cert:'Certificates'
-  };
-  $('#hExp').textContent=T.exp; $('#hProj').textContent=T.proj; $('#hEdu').textContent=T.edu;
-  $('#hSkills').textContent=T.skills; $('#hLang').textContent=T.lang; $('#hCert').textContent=T.cert;
-  render();
+  const v=e.target.value;
+  document.documentElement.dir = v==='ar'?'rtl':'ltr';
+  document.documentElement.lang = v;
+  const T = v==='ar'? {exp:'الخبرات العملية',proj:'المشاريع',edu:'التعليم',skills:'المهارات',lang:'اللغات'} :
+                       {exp:'Experience',projects:'Projects',edu:'Education',skills:'Skills',lang:'Languages'};
+  $('#hExp').textContent = v==='ar'?T.exp:'Experience';
+  $('#hProj').textContent = v==='ar'?'المشاريع':'Projects';
+  $('#hEdu').textContent = v==='ar'?T.edu:'Education';
+  $('#hSkills').textContent = v==='ar'?T.skills:'Skills';
+  $('#hLang').textContent = v==='ar'?T.lang:'Languages';
 });
 
-/* ===== صورة شخصية مبسطة ===== */
+/* ===== bind inputs to preview ===== */
+const state = {
+  name:'', birth:'', role:'', summary:'',
+  address:'', phone:'', email:'', website:'', linkedin:'',
+  university:'', major:'', degree:'', grad:'', eduNotes:'',
+  skills:[],
+  langs:[],
+  exp:[], proj:[], cert:[]
+};
+
+function bind(id, key, cb){ $(id).addEventListener('input', e=>{ state[key]=e.target.value; render(); }); }
+bind('#name','name'); bind('#birth','birth'); bind('#role','role'); bind('#summary','summary');
+bind('#address','address'); bind('#phone','phone'); bind('#email','email'); bind('#website','website'); bind('#linkedin','linkedin');
+bind('#university','university'); bind('#major','major'); bind('#degree','degree'); bind('#grad','grad'); bind('#eduNotes','eduNotes');
+
 $('#photo').addEventListener('change', e=>{
   const f = e.target.files?.[0]; if(!f) return;
   const reader = new FileReader();
-  reader.onload = ev => {
-    $('#cvPhoto').src = ev.target.result;
-    $('#cvPhoto').style.display='block';
-  };
+  reader.onload = ev => { $('#cvPhoto').src = ev.target.result; $('#cvPhoto').style.display='block'; };
   reader.readAsDataURL(f);
 });
 
-/* ===== عناصر ديناميكية صغيرة وسهلة (بطاقات بسيطة) ===== */
-function mkCard(title){
-  const wrap = document.createElement('div');
-  wrap.className='panel';
-  wrap.style.padding='12px';
-  wrap.style.margin='8px 0';
-  wrap.innerHTML = `
-    <div class="row cols-2">
-      <div class="field"><input class="input" placeholder=" " /><label class="label">${title} / Title</label></div>
-      <div class="field"><input class="input" placeholder=" " /><label class="label">الجهة / Company</label></div>
-    </div>
-    <div class="row cols-3">
-      <div class="field"><input class="input" placeholder=" " /><label class="label">من / From</label></div>
-      <div class="field"><input class="input" placeholder=" " /><label class="label">إلى / To</label></div>
-      <div class="field"><input class="input" placeholder=" " /><label class="label">الموقع / Location</label></div>
-    </div>
-    <div class="field"><textarea class="textarea" placeholder=" "></textarea><label class="label">وصف / Description (سطر لكل نقطة)</label></div>
-    <div style="display:flex;gap:8px;justify-content:flex-end">
-      <button type="button" class="btn">حذف</button>
-    </div>`;
-  return wrap;
+/* ===== languages checkboxes ===== */
+function updateLangs(){
+  const arr=[];
+  if($('#lang_ar').checked) arr.push('العربية');
+  if($('#lang_en').checked) arr.push('الإنجليزية');
+  if($('#lang_hi').checked) arr.push('الهندية/الأردو');
+  if($('#lang_other').checked && $('#langExtra').value.trim()) arr.push($('#langExtra').value.trim());
+  state.langs = arr; render();
 }
+['#lang_ar','#lang_en','#lang_hi','#lang_other','#langExtra'].forEach(id=>{
+  $(id).addEventListener(id==='#langExtra'?'input':'change', updateLangs);
+});
 
-function mkSmallCard(title){
-  const wrap = document.createElement('div');
-  wrap.className='panel';
-  wrap.style.padding='12px';
-  wrap.style.margin='8px 0';
-  wrap.innerHTML = `
-    <div class="row cols-2">
-      <div class="field"><input class="input" placeholder=" " /><label class="label">${title} / Name</label></div>
-      <div class="field"><input class="input" placeholder=" " /><label class="label">الجهة / Issuer</label></div>
-    </div>
-    <div class="row cols-2">
-      <div class="field"><input class="input" placeholder=" " /><label class="label">السنة / Year</label></div>
-      <div class="field"><input class="input" placeholder=" " /><label class="label">رابط (اختياري) / Link</label></div>
-    </div>
-    <div style="display:flex;gap:8px;justify-content:flex-end">
-      <button type="button" class="btn">حذف</button>
-    </div>`;
-  return wrap;
-}
-
+/* ===== dynamic cards ===== */
 const expList = $('#expList');
-const eduList = $('#eduList');
 const projList = $('#projList');
 const certList = $('#certList');
 
-function addHandlers(container, storeArr, renderTo){
-  container.addEventListener('click', e=>{
-    if(e.target.matches('.btn') && e.target.textContent.includes('حذف')){
-      const idx = Array.from(container.children).indexOf(e.target.closest('.panel'));
-      container.children[idx]?.remove();
-      storeArr.splice(idx,1);
-      renderTo();
-    }
-  });
-  container.addEventListener('input', ()=>{
-    storeArr.length = 0;
-    Array.from(container.children).forEach(card=>{
-      const ins = card.querySelectorAll('input,textarea');
-      storeArr.push({
-        title:ins[0].value, org:ins[1].value, from:ins[2].value, to:ins[3].value, place:ins[4].value, desc:ins[5]?.value || ''
-      });
-    });
-    renderTo();
-  });
+function cardExperience(){
+  const wrap = document.createElement('div');
+  wrap.className='panel';
+  wrap.style.padding='12px'; wrap.style.margin='8px 0';
+  wrap.innerHTML=`
+    <div class="field"><label>اسم الشركة</label><input class="input" placeholder="Company"/></div>
+    <div class="field"><label>المسمى الوظيفي</label><input class="input" placeholder="Job title"/></div>
+    <div class="row cols-3">
+      <div class="field"><label>من</label><input class="input" placeholder="09/2022"/></div>
+      <div class="field"><label>إلى</label><input class="input" placeholder="Present"/></div>
+      <div class="field"><label>رقم تواصل الشركة (اختياري)</label><input class="input" placeholder="+973 …"/></div>
+    </div>
+    <div class="field"><label>الوصف (سطر لكل نقطة)</label><textarea class="textarea" placeholder="أنجزت…&#10;حسّنت…"></textarea></div>
+    <button class="btn" type="button">حذف</button>
+  `;
+  return wrap;
+}
+function cardProject(){
+  const wrap = document.createElement('div');
+  wrap.className='panel'; wrap.style.padding='12px'; wrap.style.margin='8px 0';
+  wrap.innerHTML=`
+    <div class="field"><label>اسم المشروع</label><input class="input" placeholder="Project name"/></div>
+    <div class="row cols-2">
+      <div class="field"><label>التقنيات</label><input class="input" placeholder="React, Node…"/></div>
+      <div class="field"><label>رابط (اختياري)</label><input class="input" placeholder="https://…"/></div>
+    </div>
+    <div class="field"><label>الوصف</label><textarea class="textarea" placeholder="الدور والنتيجة…"></textarea></div>
+    <button class="btn" type="button">حذف</button>
+  `;
+  return wrap;
+}
+function cardCert(){
+  const wrap=document.createElement('div');
+  wrap.className='panel'; wrap.style.padding='12px'; wrap.style.margin='8px 0';
+  wrap.innerHTML=`
+    <div class="row cols-2">
+      <div class="field"><label>الشهادة/الدورة</label><input class="input" placeholder="Name"/></div>
+      <div class="field"><label>الجهة / السنة</label><input class="input" placeholder="Issuer — 2024"/></div>
+    </div>
+    <button class="btn" type="button">حذف</button>
+  `;
+  return wrap;
 }
 
-$('#addExp').addEventListener('click', ()=>{
-  expList.appendChild(mkCard('المسمّى'));
-  state.exp.push({}); render();
-});
-$('#addEdu').addEventListener('click', ()=>{
-  const card = mkCard('الدرجة / Degree'); // نعيد استخدام نفس القالب
-  eduList.appendChild(card);
-  state.edu.push({}); render();
-});
-$('#addProj').addEventListener('click', ()=>{
-  const card = mkCard('المشروع / Project');
-  projList.appendChild(card);
-  state.proj.push({}); render();
-});
-$('#addCert').addEventListener('click', ()=>{
-  certList.appendChild(mkSmallCard('الشهادة / Certificate'));
-  state.cert.push({}); render();
-});
-
-addHandlers(expList, state.exp, render);
-addHandlers(eduList, state.edu, render);
-addHandlers(projList, state.proj, render);
-addHandlers(certList, state.cert, render);
-
-/* ===== ربط لغات بسيطة ===== */
-function renderLanguages(){
-  const arr=[];
-  const l1 = $('#lang1').value?.trim(), l1l = $('#lang1lvl').value?.trim();
-  const l2 = $('#lang2').value?.trim(), l2l = $('#lang2lvl').value?.trim();
-  if(l1) arr.push([l1,l1l]); if(l2) arr.push([l2,l2l]);
-  const box = $('#cvLangs'); box.innerHTML='';
-  if(arr.length===0){ box.innerHTML='<div class="item"><div class="meta">—</div></div>'; return; }
-  arr.forEach(([n,l])=>{
-    box.insertAdjacentHTML('beforeend', `<div class="item"><div class="top"><div>${n}</div><div class="meta">${l||''}</div></div></div>`);
-  });
-}
-$('#lang1').addEventListener('input', renderLanguages);
-$('#lang1lvl').addEventListener('input', renderLanguages);
-$('#lang2').addEventListener('input', renderLanguages);
-$('#lang2lvl').addEventListener('input', renderLanguages);
-
-/* ===== رندر المعاينة (سريع وخفيف) ===== */
-function setChip(id, val, label){
-  const el=$(id); if(!el) return;
-  if(val){ el.style.display='inline-flex'; el.querySelector('b').textContent = label || val; }
-  else{ el.style.display='none'; }
-}
-function render(){
-  // أسماء وعناوين
-  $('#cvName').textContent = state.name || 'اسمك الكامل / Your Name';
-  $('#cvRole').textContent = state.role || 'المسمّى / Title';
-  $('#cvSummary').textContent = state.summary || 'اكتب ملخصًا قصيرًا عن خبرتك.\nWrite a brief professional summary.';
-
-  // رقائق تواصل
-  setChip('#cEmail', state.email);
-  setChip('#cPhone', state.phone);
-  setChip('#cLoc',   state.location);
-  setChip('#cLn',    state.linkedin, 'LinkedIn');
-  setChip('#cWeb',   state.website,  'Website');
-
-  // خبرات
-  const cvExp = $('#cvExp'); cvExp.innerHTML='';
-  if(state.exp.length===0) cvExp.innerHTML='<div class="item"><div class="meta">—</div></div>';
-  state.exp.forEach(x=>{
-    cvExp.insertAdjacentHTML('beforeend', `
-      <div class="item">
-        <div class="top"><div>${x.title||''}${x.org?` — ${x.org}`:''}</div><div class="meta">${fmtRange(x.from||'',x.to||'')}</div></div>
-        <div class="meta">${x.place||''}</div>
-        <div class="desc">${bullets(x.desc||'')}</div>
-      </div>
-    `);
-  });
-
-  // تعليم
-  const cvEdu = $('#cvEdu'); cvEdu.innerHTML='';
-  if(state.edu.length===0) cvEdu.innerHTML='<div class="item"><div class="meta">—</div></div>';
-  state.edu.forEach(x=>{
-    cvEdu.insertAdjacentHTML('beforeend', `
-      <div class="item">
-        <div class="top"><div>${x.title||''}${x.org?` — ${x.org}`:''}</div><div class="meta">${fmtRange(x.from||'',x.to||'')}</div></div>
-        <div class="meta">${x.place||''}</div>
-        <div class="desc">${bullets(x.desc||'')}</div>
-      </div>
-    `);
-  });
-
-  // مشاريع
-  const cvProj = $('#cvProj'); cvProj.innerHTML='';
-  if(state.proj.length===0) cvProj.innerHTML='<div class="item"><div class="meta">—</div></div>';
-  state.proj.forEach(x=>{
-    const link = (x.place && x.place.startsWith('http')) ? ` — <a href="${x.place}" target="_blank" rel="noopener" style="color:var(--gold);font-weight:800">Link</a>` : '';
-    cvProj.insertAdjacentHTML('beforeend', `
-      <div class="item">
-        <div class="top"><div>${x.title||''}</div><div class="meta">${x.org||''}</div></div>
-        <div class="desc">${bullets(x.desc||'')}${link}</div>
-      </div>
-    `);
-  });
-
-  // مهارات
-  const tags = ( ($('#skills').value||'').split(',').map(s=>s.trim()).filter(Boolean) );
-  const cvSkills = $('#cvSkills'); cvSkills.innerHTML='';
-  if(tags.length===0){ cvSkills.innerHTML='<span class="tag">—</span>'; }
-  else tags.forEach(t=>cvSkills.insertAdjacentHTML('beforeend', `<span class="tag">${t}</span>`));
-
-  // شهادات
-  const cvCerts = $('#cvCerts'); cvCerts.innerHTML='';
-  if(state.cert.length===0) cvCerts.innerHTML='<div class="item"><div class="meta">—</div></div>';
-  state.cert.forEach(x=>{
-    cvCerts.insertAdjacentHTML('beforeend', `
-      <div class="item">
-        <div class="top"><div>${x.title||''}</div><div class="meta">${x.from||''}</div></div>
-        <div class="meta">${x.org||''}</div>
-      </div>
-    `);
-  });
-}
-render();
-
-/* ===== مزامنة حقول الديناميك ===== */
-function syncArray(container, arr){
-  arr.length = 0;
-  Array.from(container.children).forEach(card=>{
-    const ins = card.querySelectorAll('input,textarea');
-    arr.push({
-      title:ins[0]?.value||'', org:ins[1]?.value||'',
-      from:ins[2]?.value||'', to:ins[3]?.value||'',
-      place:ins[4]?.value||'', desc:ins[5]?.value||''
-    });
+function sync(container, targetArr, mapFn){
+  targetArr.length=0;
+  Array.from(container.children).forEach(c=>{
+    targetArr.push( mapFn(c) );
   });
   render();
 }
-[expList,eduList,projList,certList].forEach(c=>{
-  c.addEventListener('input', ()=>{
-    if(c===expList) syncArray(expList,state.exp);
-    if(c===eduList) syncArray(eduList,state.edu);
-    if(c===projList) syncArray(projList,state.proj);
-    if(c===certList) syncArray(certList,state.cert);
-  });
+
+expList.addEventListener('input', ()=>sync(expList, state.exp, c=>{
+  const ins=c.querySelectorAll('input,textarea');
+  return {company:ins[0].value, title:ins[1].value, from:ins[2].value, to:ins[3].value, phone:ins[4].value, desc:ins[5].value};
+}));
+projList.addEventListener('input', ()=>sync(projList, state.proj, c=>{
+  const ins=c.querySelectorAll('input,textarea');
+  return {name:ins[0].value, tech:ins[1].value, link:ins[2].value, desc:ins[3].value};
+}));
+certList.addEventListener('input', ()=>sync(certList, state.cert, c=>{
+  const ins=c.querySelectorAll('input');
+  return {name:ins[0].value, meta:ins[1].value};
+}));
+
+;['click'].forEach(ev=>{
+  expList.addEventListener(ev, e=>{ if(e.target.textContent.includes('حذف')){ e.target.closest('.panel').remove(); sync(expList, state.exp, c=>{ const ins=c.querySelectorAll('input,textarea'); return {company:ins[0].value,title:ins[1].value,from:ins[2].value,to:ins[3].value,phone:ins[4].value,desc:ins[5].value}; }); }});
+  projList.addEventListener(ev, e=>{ if(e.target.textContent.includes('حذف')){ e.target.closest('.panel').remove(); sync(projList, state.proj, c=>{ const ins=c.querySelectorAll('input,textarea'); return {name:ins[0].value,tech:ins[1].value,link:ins[2].value,desc:ins[3].value}; }); }});
+  certList.addEventListener(ev, e=>{ if(e.target.textContent.includes('حذف')){ e.target.closest('.panel').remove(); sync(certList, state.cert, c=>{ const ins=c.querySelectorAll('input'); return {name:ins[0].value,meta:ins[1].value}; }); }});
 });
 
-/* ===== تصدير PDF/Word (عربي/إنجليزي) ===== */
-// نحضر نسخة نظيفة للطباعة/التنزيل
-function makeCV(lang='ar'){
+$('#addExp').addEventListener('click', ()=>{ expList.appendChild(cardExperience()); sync(expList, state.exp, c=>{ const ins=c.querySelectorAll('input,textarea'); return {company:ins[0].value,title:ins[1].value,from:ins[2].value,to:ins[3].value,phone:ins[4].value,desc:ins[5].value}; }); });
+$('#addProj').addEventListener('click', ()=>{ projList.appendChild(cardProject()); sync(projList, state.proj, c=>{ const ins=c.querySelectorAll('input,textarea'); return {name:ins[0].value,tech:ins[1].value,link:ins[2].value,desc:ins[3].value}; }); });
+$('#addCert').addEventListener('click', ()=>{ certList.appendChild(cardCert()); sync(certList, state.cert, c=>{ const ins=c.querySelectorAll('input'); return {name:ins[0].value,meta:ins[1].value}; }); });
+
+/* ===== skills input (comma separated) ===== */
+const skillsInput = document.createElement('input');
+skillsInput.className='input';
+skillsInput.placeholder='اكتب المهارات بفواصل، مثل: Excel, Python, Communication';
+const skillsWrap = document.createElement('div');
+skillsWrap.className='field';
+skillsWrap.innerHTML='<label>المهارات</label>';
+skillsWrap.appendChild(skillsInput);
+$('#sec-more');
+/* نضعه في قسم التعليم (أسفل) لسهولة الوصول */
+$('#formPanel').querySelectorAll('details.block')[2].appendChild(skillsWrap);
+skillsInput.addEventListener('input', ()=>{
+  state.skills = skillsInput.value.split(',').map(s=>s.trim()).filter(Boolean);
+  render();
+});
+
+/* ===== render preview ===== */
+function setChip(id, text){
+  const el=$(id);
+  if(text){ el.style.display='inline-flex'; el.querySelector('b').textContent=text; }
+  else el.style.display='none';
+}
+
+function render(){
+  $('#cvName').textContent = state.name || 'اسمك الكامل';
+  $('#cvRole').textContent = state.role || 'المسمى / التخصص';
+  $('#cvSummary').textContent = state.summary || 'ملخص مهني قصير.';
+  setChip('#chipBirth', state.birth || '');
+  setChip('#chipAddress', state.address || '');
+  setChip('#chipPhone', state.phone || '');
+  setChip('#chipEmail', state.email || '');
+  setChip('#chipSite', state.website || '');
+  $('#chipLinked').style.display = state.linkedin ? 'inline-flex' : 'none';
+
+  // Education
+  const cvEdu = $('#cvEdu'); cvEdu.innerHTML='';
+  if(!(state.university||state.major||state.degree||state.grad||state.eduNotes)){
+    cvEdu.innerHTML = '<div class="item"><div class="meta">—</div></div>';
+  }else{
+    cvEdu.insertAdjacentHTML('beforeend', `
+      <div class="item">
+        <div class="top"><div>${state.university||''}</div><div class="meta">${state.grad||''}</div></div>
+        <div class="meta">${[state.degree, state.major].filter(Boolean).join(' — ')}</div>
+        ${state.eduNotes? `<div class="desc">${bullets(state.eduNotes)}</div>`:''}
+      </div>
+    `);
+  }
+
+  // Experience
+  const cvExp = $('#cvExp'); cvExp.innerHTML='';
+  if(state.exp.length===0){ cvExp.innerHTML='<div class="item"><div class="meta">—</div></div>'; }
+  state.exp.forEach(x=>{
+    const phone = x.phone? ` — ${x.phone}`:'';
+    cvExp.insertAdjacentHTML('beforeend', `
+      <div class="item">
+        <div class="top"><div>${x.title||''}${x.company?` — ${x.company}`:''}</div><div class="meta">${fmtRange(x.from||'',x.to||'')}</div></div>
+        <div class="meta">${phone}</div>
+        <div class="desc">${bullets(x.desc||'')}</div>
+      </div>
+    `);
+  });
+
+  // Projects
+  const cvProj = $('#cvProj'); cvProj.innerHTML='';
+  if(state.proj.length===0){ cvProj.innerHTML='<div class="item"><div class="meta">—</div></div>'; }
+  state.proj.forEach(p=>{
+    const link = p.link? ` — <a href="${p.link}" target="_blank" rel="noopener" style="color:var(--gold);font-weight:800">Link</a>`:'';
+    cvProj.insertAdjacentHTML('beforeend', `
+      <div class="item">
+        <div class="top"><div>${p.name||''}</div><div class="meta">${p.tech||''}</div></div>
+        <div class="desc">${bullets(p.desc||'')}${link}</div>
+      </div>
+    `);
+  });
+
+  // Skills
+  const cvSkills = $('#cvSkills'); cvSkills.innerHTML='';
+  if(state.skills.length===0){ cvSkills.innerHTML='<span class="tag">—</span>'; }
+  else state.skills.forEach(s=>cvSkills.insertAdjacentHTML('beforeend', `<span class="tag">${s}</span>`));
+
+  // Languages
+  const cvLangs = $('#cvLangs'); cvLangs.innerHTML='';
+  if(state.langs.length===0){ cvLangs.innerHTML='<div class="item"><div class="meta">—</div></div>'; }
+  else state.langs.forEach(l=>cvLangs.insertAdjacentHTML('beforeend', `<div class="item"><div class="top"><div>${l}</div></div></div>`));
+}
+render();
+
+/* ===== export (PDF / Word) ===== */
+function cvHTML(){
   const cv = $('#cv').cloneNode(true);
-  cv.setAttribute('lang', lang);
-  cv.setAttribute('dir', lang==='ar'?'rtl':'ltr');
-  return `
-<!DOCTYPE html>
-<html lang="${lang}" dir="${lang==='ar'?'rtl':'ltr'}">
+  return `<!DOCTYPE html>
+<html lang="${document.documentElement.lang||'ar'}" dir="${document.documentElement.dir||'rtl'}">
 <head>
 <meta charset="utf-8">
 <title>CV</title>
@@ -637,18 +537,18 @@ function makeCV(lang='ar'){
   :root{--gold:${getComputedStyle(document.documentElement).getPropertyValue('--gold').trim()||'#D4AF37'}}
   body{margin:0;font-family:"IBM Plex Sans Arabic","Inter",sans-serif;color:#0f172a}
   a{color:var(--gold)}
-  .cv{padding:18px 18px 24px}
+  .cv{padding:18px}
   .cv-head{display:grid;gap:14px;grid-template-columns:1fr 120px;align-items:center}
-  .cv-name{margin:0;font-size:1.5rem;font-weight:700}
+  .cv-name{margin:0;font-size:1.55rem;font-weight:700}
   .cv-role{margin:2px 0 6px;font-weight:700;color:#5b4a11}
   .cv-photo{width:120px;height:120px;border-radius:14px;border:2px solid var(--gold);object-fit:cover}
   .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
-  .chip{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border:1px solid #ece7da;border-radius:999px;background:#fff;font-weight:700}
+  .chip{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border:1px solid #efe7d2;border-radius:999px;background:#fff;font-weight:700}
   .cv-grid{display:grid;gap:16px;margin-top:16px}
   @media(min-width:820px){ .cv-grid{grid-template-columns:1.15fr .85fr} }
   .sec-title{font-weight:800;margin:0 0 8px;display:inline-block;padding-bottom:4px;border-bottom:3px solid var(--gold)}
   .item{margin:10px 0}.item .top{display:flex;justify-content:space-between;font-weight:700}
-  .item .meta{color:#6b7280;font-weight:600}.item .desc{margin-top:6px;color:#374151;white-space:pre-line}
+  .item .meta{color:#6b7280}.item .desc{margin-top:6px;white-space:pre-line}
   .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
   .tag{padding:6px 10px;border-radius:999px;background:#fff;border:1px dashed var(--gold);font-weight:700}
   @page{size:A4;margin:12mm}
@@ -656,81 +556,87 @@ function makeCV(lang='ar'){
 </head>
 <body>${cv.outerHTML}
 <script>window.onload=()=>setTimeout(()=>window.print(),200);<\/script>
-</body></html>`;
+</body>
+</html>`;
 }
-
-function exportPDF(lang='ar'){
+function exportPDF(lang){
   const w = window.open('', '_blank');
-  w.document.open(); w.document.write( makeCV(lang) ); w.document.close();
+  // ضبط اتجاه/لغة النسخة المطبوعة حسب الاختيار
+  const rootLang = lang==='en'?'en':'ar';
+  document.documentElement.lang = rootLang;
+  document.documentElement.dir  = rootLang==='ar'?'rtl':'ltr';
+  render();
+  w.document.open(); w.document.write(cvHTML()); w.document.close();
 }
-
-function exportDOC(lang='ar'){
-  const html = makeCV(lang).replace(/<script>[^]*<\/script>/,''); // إزالة السكربت الخاص بالطباعة
+function exportDOC(lang){
+  const html = cvHTML().replace(/<script>[^]*<\/script>/,'');
   const blob = new Blob([html], {type:'application/msword'});
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
-  const fname = (state.name || (lang==='ar'?'سيرة_ذاتية':'CV')).replace(/\s+/g,'_');
-  a.href=url; a.download=`${fname}-${lang.toUpperCase()}.doc`; document.body.appendChild(a); a.click(); a.remove();
+  const fname = ($('#name').value || (lang==='en'?'CV':'سيرة_ذاتية')).replace(/\s+/g,'_');
+  a.href=url; a.download=`${fname}-${(lang||'ar').toUpperCase()}.doc`; document.body.appendChild(a); a.click(); a.remove();
   URL.revokeObjectURL(url);
 }
-
 $('#pdfAR').onclick = ()=>exportPDF('ar');
 $('#pdfEN').onclick = ()=>exportPDF('en');
 $('#docAR').onclick = ()=>exportDOC('ar');
 $('#docEN').onclick = ()=>exportDOC('en');
 
-/* مسح سريع */
-$('#clearAll').onclick = ()=>{
-  if(!confirm('هل تريد مسح جميع البيانات؟')) return;
-  ['name','role','summary','email','phone','location','linkedin','website','skills','lang1','lang1lvl','lang2','lang2lvl'].forEach(id=>{
-    const el = document.getElementById(id); if(el) el.value='';
-  });
-  [expList,eduList,projList,certList].forEach(c=>c.innerHTML='');
-  Object.assign(state,{name:'',role:'',summary:'',email:'',phone:'',location:'',linkedin:'',website:'',exp:[],edu:[],proj:[],cert:[]});
-  $('#cvPhoto').src=''; $('#cvPhoto').style.display='none';
-  render(); renderLanguages();
-};
+/* ===== mailto helper ===== */
+function buildEmailBody(){
+  const lines=[];
+  lines.push(`السادة ${$('#company').value || 'شركة'} المحترمين،`);
+  lines.push('');
+  lines.push(`أرفق لكم سيرتي الذاتية للتقدم على وظيفة مناسبة.`);
+  lines.push('');
+  lines.push(`الاسم: ${state.name||''}`);
+  if(state.role)   lines.push(`المسمى/التخصص: ${state.role}`);
+  if(state.address)lines.push(`العنوان: ${state.address}`);
+  if(state.phone)  lines.push(`الهاتف: ${state.phone}`);
+  if(state.email)  lines.push(`البريد: ${state.email}`);
+  lines.push('');
+  lines.push('شكراً لوقتكم الكريم.');
+  lines.push('');
+  if($('#molPhone').value) lines.push($('#molPhone').value);
+  if($('#molSite').value)  lines.push($('#molSite').value);
+  return lines.join('\n');
+}
+$('#openEmail').addEventListener('click', ()=>{
+  const to = $('#companyEmail').value || '';
+  const subject = encodeURIComponent(`Job Application — ${state.name||''}`);
+  const body = encodeURIComponent(buildEmailBody());
+  window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
+});
+$('#copyEmailBody').addEventListener('click', async ()=>{
+  const txt = buildEmailBody();
+  try{ await navigator.clipboard.writeText(txt); alert('تم نسخ نص الرسالة.'); }
+  catch{ prompt('انسخ النص التالي:', txt); }
+});
 
-/* تعبئة أمثلة خفيفة (تساعدك تبدأ فوراً) */
+/* ===== demo minimal to illustrate layout ===== */
 (function demo(){
   $('#name').value='فاضل الريس / Fadhel Al-Rayes';
-  $('#role').value='Frontend Developer / مطوّر واجهات';
-  $('#summary').value='مطوّر واجهات يركز على الأداء وتجربة المستخدم.\nFrontend dev focused on UX & performance.';
-  $('#email').value='you@example.com';
+  $('#role').value='مطوّر برمجيات';
+  $('#address').value='المنامة، البحرين';
   $('#phone').value='+973 3x xxx xxx';
-  $('#location').value='المنامة، البحرين / Manama, Bahrain';
-  $('#linkedin').value='linkedin.com/in/username';
-  $('#website').value='your-portfolio.com';
-  $('#skills').value='HTML, CSS, JavaScript, React, Git, Figma';
-
-  // إضافة بطاقة خبرة واحدة فقط كبداية
-  $('#addExp').click();
-  const firstExp = expList.querySelector('.panel');
-  const ins = firstExp.querySelectorAll('input,textarea');
-  ins[0].value='Frontend Developer';
-  ins[1].value='Modern Tech Co.';
-  ins[2].value='09/2022';
-  ins[3].value='Present';
-  ins[4].value='Manama, Bahrain';
-  ins[5].value='Built interactive dashboards.\nImproved performance by 35%.';
-  syncArray(expList,state.exp);
-
-  // تعليم
-  $('#addEdu').click();
-  const eIns = eduList.querySelectorAll('input,textarea');
-  eIns[0].value='B.Sc. Computer Science';
-  eIns[1].value='University of Bahrain';
-  eIns[2].value='2018';
-  eIns[3].value='2022';
-  eIns[4].value='GPA 3.6';
-  eIns[5].value='Capstone: Task tracking system.';
-  syncArray(eduList,state.edu);
-
-  // لغات
-  $('#lang1').value='Arabic'; $('#lang1lvl').value='Fluent';
-  $('#lang2').value='English'; $('#lang2lvl').value='Advanced';
-  renderLanguages();
+  $('#email').value='you@example.com';
+  $('#university').value='جامعة البحرين';
+  $('#major').value='علوم الحاسوب';
+  $('#degree').value='بكالوريوس';
+  $('#grad').value='2022';
+  $('#summary').value='مطوّر يركز على الأداء وتجربة المستخدم.\nReady to contribute immediately.';
+  skillsInput.value='HTML, CSS, JavaScript, React, Git';
+  state.skills = ['HTML','CSS','JavaScript','React','Git'];
+  $('#lang_ar').checked=true; $('#lang_en').checked=true; updateLangs();
   render();
+
+  // بطاقة خبرة نموذجية
+  $('#addExp').click();
+  const ins = expList.querySelectorAll('input,textarea');
+  ins[0].value='Modern Tech Co.'; ins[1].value='Frontend Developer';
+  ins[2].value='09/2022'; ins[3].value='Present'; ins[4].value='+973 17…';
+  ins[5].value='Built interactive dashboards.\nImproved performance by 35%.';
+  expList.dispatchEvent(new Event('input'));
 })();
 </script>
 </body>
