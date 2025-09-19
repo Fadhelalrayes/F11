@@ -1,642 +1,723 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>منشئ سيرة ذاتية — عربي / English — PDF & Word</title>
-
-<!-- خطوط احترافية تدعم العربية والإنجليزية -->
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>مولّد سيرة ذاتية — ذهبي/أبيض</title>
 <style>
   :root{
-    --gold:#D4AF37;          /* ذهبي أنيق */
-    --gold-2:#caa535;        /* للهوفر */
-    --ink:#0f172a;           /* نص أساسي */
-    --muted:#6b7280;         /* نص ثانوي */
-    --paper:#ffffff;         /* بطاقات */
-    --bg:#fbfaf7;            /* خلفية عامة هادئة */
-    --border:#efe7d2;        /* حافة هادئة */
-    --radius:16px;
-    --shadow:0 10px 22px rgba(15,23,42,.05);
+    --bg:#FFFFFF;
+    --fg:#0F172A;           /* نص داكن */
+    --muted:#475569;        /* نص ثانوي */
+    --accent:#C7A046;       /* ذهبي راقٍ */
+    --accent-weak:#EAD9A2;  /* ذهبي فاتح */
+    --border:#E5E7EB;
+    --card:#FFFFFF;
+    --chip:#F8FAFC;
+    --danger:#DC2626;
+    --ok:#16A34A;
+    --radius:14px;
+    --shadow:0 6px 24px rgba(15,23,42,.06);
   }
-  *,*::before,*::after{box-sizing:border-box}
-  html,body{height:100%}
-  body{
-    margin:0;background:var(--bg);color:var(--ink);
-    font-family:"IBM Plex Sans Arabic","Inter",system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial,sans-serif;
-    -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+  html,body{background:var(--bg);color:var(--fg);font-family:"Cairo","Noto Naskh Arabic","Inter","Helvetica",Arial,sans-serif;line-height:1.45}
+  *{box-sizing:border-box}
+  a{color:var(--accent);text-decoration:none}
+  .container{max-width:1200px;margin:24px auto;padding:0 16px}
+  .header{display:flex;gap:12px;align-items:center;justify-content:space-between;margin-bottom:16px}
+  .brand{display:flex;align-items:center;gap:10px}
+  .logo{width:24px;height:24px;border-radius:6px;background:linear-gradient(145deg,var(--accent),#d8b45a);}
+  h1{font-size:20px;margin:0}
+  .controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+  .btn{border:1px solid var(--accent);color:#fff;background:var(--accent);padding:10px 14px;border-radius:10px;cursor:pointer;box-shadow:var(--shadow);font-weight:600}
+  .btn.secondary{background:transparent;color:var(--accent)}
+  .btn.ghost{background:transparent;border-color:var(--border);color:var(--fg)}
+  .row{display:grid;grid-template-columns:1fr;gap:16px}
+  @media(min-width:1024px){.row{grid-template-columns:420px 1fr}}
+
+  /* Cards */
+  .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow)}
+  .card .card-h{padding:12px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+  .card .card-h h2{font-size:16px;margin:0;position:relative;padding-bottom:6px}
+  .card .card-h h2:after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--accent);opacity:.85}
+  .card .card-b{padding:16px}
+
+  /* Form */
+  form{display:flex;flex-direction:column;gap:16px}
+  .grid{display:grid;grid-template-columns:1fr;gap:12px}
+  @media(min-width:640px){.grid.two{grid-template-columns:1fr 1fr}}
+  @media(min-width:840px){.grid.three{grid-template-columns:1fr 1fr 1fr}}
+
+  label{font-weight:600;font-size:13px;color:var(--muted)}
+  input[type="text"],input[type="email"],input[type="tel"],input[type="url"],textarea,select{
+    width:100%;border:1px solid var(--border);border-radius:10px;padding:10px 12px;background:#fff;color:var(--fg);
+    outline:none;transition:.2s border;
   }
+  textarea{min-height:96px;resize:vertical}
+  input:focus,textarea:focus,select:focus{border-color:var(--accent)}
+  .hint{font-size:12px;color:var(--muted)}
+  .chipline{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+  .chip{padding:6px 10px;background:var(--chip);border:1px solid var(--border);border-radius:999px;font-size:12px}
+  .muted{color:var(--muted)}
+  .inline{display:flex;gap:8px;flex-wrap:wrap}
+  .danger{color:var(--danger)}
+  .ok{color:var(--ok)}
+  .hr{height:1px;background:var(--border);margin:8px 0}
 
-  /* تخطيط متجاوب: عمود واحد على الموبايل، عمودان على الشاشات الأوسع */
-  .container{
-    max-width:1200px;margin-inline:auto;padding:16px;
-    display:grid;gap:16px;grid-template-columns:1fr;
+  /* Repeatable item */
+  .rep{border:1px dashed var(--border);border-radius:12px;padding:12px;margin-top:8px}
+  .rep .rep-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+  .rep .rep-actions{display:flex;gap:6px}
+  .sm{padding:6px 9px;font-size:12px;border-radius:8px}
+
+  /* Preview (CV) */
+  .cv{
+    background:#fff;border:1px solid var(--border);border-radius:var(--radius);
+    padding:28px;min-height:400px;box-shadow:var(--shadow)
   }
-  @media(min-width:992px){ .container{grid-template-columns:480px 1fr} }
+  .cv header .title{font-size:24px;font-weight:800;margin:0 0 6px}
+  .cv header .subtitle{font-size:14px;color:var(--muted);margin:0 0 12px}
+  .cv .bar{height:2px;background:var(--accent);margin:10px 0 18px}
+  .cv .sec{margin-bottom:18px}
+  .cv .sec h3{font-size:15px;margin:0 0 8px;position:relative;padding-bottom:6px}
+  .cv .sec h3:after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--accent-weak)}
+  .cv .item{margin-bottom:10px}
+  .cv .pos{display:flex;flex-wrap:wrap;gap:8px;align-items:baseline}
+  .cv .pos .role{font-weight:700}
+  .cv .pos .company{color:var(--muted)}
+  .cv .meta{font-size:12px;color:var(--muted)}
+  .cv ul{margin:6px 0 0 18px}
+  .cv li{margin:4px 0}
 
-  /* لوحة إدخال واضحة: (وصف) ثم (مستطيل كتابة) */
-  .panel{background:var(--paper);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px}
-  .panel h1{margin:0 0 10px;font-weight:700;font-size:1.35rem;letter-spacing:.2px}
-
-  .field{margin:10px 0}
-  .field label{display:block;font-weight:700;margin:0 0 6px}
-  .input,.textarea,.select{
-    width:100%;padding:14px 12px;border:1px solid var(--border);border-radius:12px;background:#fff;font-weight:600
-  }
-  .textarea{min-height:96px;resize:vertical}
-
-  .row{display:grid;gap:10px}
-  @media(min-width:640px){ .row.cols-2{grid-template-columns:1fr 1fr} }
-  @media(min-width:860px){ .row.cols-3{grid-template-columns:1fr 1fr 1fr} }
-
-  .btn{border:1px solid var(--border);background:#fff;border-radius:12px;padding:.75rem 1rem;font-weight:800;cursor:pointer}
-  .btn.gold{background:linear-gradient(180deg,#faedc6,#f3d878);border-color:#e7c96a}
-  .btn.gold:hover{filter:brightness(1.01)}
-  .btn.ghost{background:#fff}
-  .btn.full{width:100%}
-
-  .help{font-size:.9rem;color:var(--muted)}
-
-  /* أقسام قابلة للطي على الهاتف لتقليل الفوضى */
-  details.block{border:1px dashed var(--border);border-radius:12px;padding:10px;margin:10px 0;background:#fff}
-  details.block>summary{cursor:pointer;font-weight:800;list-style:none}
-  details.block>summary::-webkit-details-marker{display:none}
-
-  /* قائمة لغات بشكل مربعات اختيار */
-  .checkgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
-  @media(min-width:520px){ .checkgrid{grid-template-columns:repeat(4,1fr)} }
-  .check{display:flex;gap:8px;align-items:center;border:1px solid var(--border);border-radius:10px;padding:10px;background:#fff}
-  .check input{width:18px;height:18px;accent-color:var(--gold)}
-
-  /* المعاينة */
-  .preview{background:var(--paper);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
-  .cv{padding:18px}
-  @media(min-width:992px){ .cv{padding:26px 30px} }
-
-  .cv-head{display:grid;gap:14px;grid-template-columns:1fr 120px;align-items:center}
-  .cv-name{margin:0;font-size:1.55rem;font-weight:700}
-  .cv-role{margin:2px 0 6px;font-weight:700;color:#5b4a11}
-  .cv-photo{width:120px;height:120px;border-radius:14px;border:2px solid var(--gold);object-fit:cover;background:#f1f1f1;justify-self:end}
-  .cv-summary{color:#374151;line-height:1.8;white-space:pre-line}
-
-  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
-  .chip{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border:1px solid var(--border);border-radius:999px;background:#fff;font-weight:700}
-
-  .cv-grid{display:grid;gap:16px;margin-top:16px}
-  @media(min-width:820px){ .cv-grid{grid-template-columns:1.15fr .85fr} }
-
-  .sec-title{font-weight:800;margin:0 0 8px;display:inline-block;padding-bottom:4px;border-bottom:3px solid var(--gold)}
-  .item{margin:10px 0}
-  .item .top{display:flex;justify-content:space-between;font-weight:700}
-  .item .meta{color:#6b7280}
-  .item .desc{margin-top:6px;white-space:pre-line}
-  .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
-  .tag{padding:6px 10px;border-radius:999px;background:#fff;border:1px dashed var(--gold);font-weight:700}
-
-  /* شريط الأدوات السفلي */
-  .actions{display:grid;gap:10px}
-  @media(min-width:640px){ .actions{grid-template-columns:1fr 1fr} }
-
-  /* طباعة A4 */
+  /* Print A4 */
+  @page{size:A4;margin:20mm}
   @media print{
     body{background:#fff}
-    .container{display:block}
-    .panel{display:none}
-    .preview{border:none;box-shadow:none}
-    .cv{padding:0}
-    @page{size:A4;margin:12mm}
+    .no-print{display:none !important}
+    .cv{box-shadow:none;border:none;padding:0}
+    .cv .sec h3:after{height:1.5px}
   }
-
-  /* فوتر */
-  footer{margin-top:14px;text-align:center;color:#5b4a11;font-weight:800}
 </style>
 </head>
 <body>
-
-<div class="container">
-  <!-- ======= لوحة الإدخال (مرتبة وسهلة) ======= -->
-  <section class="panel" id="formPanel" aria-label="إدخال السيرة الذاتية">
-    <h1>منشئ السيرة الذاتية</h1>
-
-    <div class="field">
-      <label for="uiLang">واجهة الاستخدام</label>
-      <select id="uiLang" class="select">
-        <option value="ar" selected>عربية (RTL)</option>
-        <option value="en">English (LTR)</option>
-      </select>
-      <div class="help">يمكنك كتابة البيانات بالعربية أو الإنجليزية — المعاينة تتكيّف تلقائيًا.</div>
-    </div>
-
-    <details class="block" open>
-      <summary>البيانات الأساسية</summary>
-      <div class="field"><label for="name">الاسم الكامل</label><input id="name" class="input" placeholder="اكتب الاسم هنا"/></div>
-      <div class="field"><label for="birth">تاريخ الميلاد</label><input id="birth" class="input" placeholder="مثال: 1998-05-14"/></div>
-      <div class="field"><label for="role">المسمى / التخصص</label><input id="role" class="input" placeholder="مثال: مطوّر برمجيات"/></div>
-      <div class="field"><label for="summary">الملخص المهني</label><textarea id="summary" class="textarea" placeholder="نبذة قصيرة عنك (2–4 أسطر)"></textarea></div>
-    </details>
-
-    <details class="block" open>
-      <summary>العنوان وطرق التواصل</summary>
-      <div class="row cols-2">
-        <div class="field"><label for="address">العنوان</label><input id="address" class="input" placeholder="المنامة، البحرين"/></div>
-        <div class="field"><label for="phone">رقم الاتصال</label><input id="phone" class="input" placeholder="+973 …"/></div>
-      </div>
-      <div class="row cols-2">
-        <div class="field"><label for="email">البريد الإلكتروني</label><input id="email" class="input" placeholder="you@example.com"/></div>
-        <div class="field"><label for="website">الموقع / البورتفوليو</label><input id="website" class="input" placeholder="your-portfolio.com"/></div>
-      </div>
-      <div class="field"><label for="linkedin">LinkedIn</label><input id="linkedin" class="input" placeholder="linkedin.com/in/username"/></div>
-      <div class="field"><label for="photo">الصورة الشخصية (اختياري)</label><input id="photo" class="input" type="file" accept="image/*"/></div>
-    </details>
-
-    <details class="block" open>
-      <summary>التعليم</summary>
-      <div class="field"><label for="university">الجامعة</label><input id="university" class="input" placeholder="جامعة …"/></div>
-      <div class="row cols-3">
-        <div class="field"><label for="major">التخصص</label><input id="major" class="input" placeholder="علوم الحاسوب"/></div>
-        <div class="field"><label for="degree">الشهادة</label><input id="degree" class="input" placeholder="بكالوريوس / ماجستير"/></div>
-        <div class="field"><label for="grad">سنة التخرج</label><input id="grad" class="input" placeholder="2024"/></div>
-      </div>
-      <div class="field"><label for="eduNotes">مقررات أو إنجازات</label><textarea id="eduNotes" class="textarea" placeholder="اكتب نقاطًا مختصرة (سطر لكل نقطة)"></textarea></div>
-    </details>
-
-    <details class="block" open>
-      <summary>اللغات</summary>
-      <div class="checkgrid">
-        <label class="check"><input type="checkbox" id="lang_ar"> <span>العربية</span></label>
-        <label class="check"><input type="checkbox" id="lang_en"> <span>الإنجليزية</span></label>
-        <label class="check"><input type="checkbox" id="lang_hi"> <span>الهندية/الأردو</span></label>
-        <label class="check"><input type="checkbox" id="lang_other"> <span>أخرى</span></label>
-      </div>
-      <div class="field"><label for="langExtra">لغات أخرى (إن وجدت)</label><input id="langExtra" class="input" placeholder="مثال: الفارسية — متقدم"/></div>
-    </details>
-
-    <details class="block" open>
-      <summary>الخبرات</summary>
-      <div id="expList"></div>
-      <button class="btn gold full" id="addExp" type="button">➕ إضافة خبرة</button>
-      <div class="help">الخبرات تكون في مستطيلات منفصلة: اسم الشركة، المسمى، الفترة، رقم تواصل (إن وجد)، وصف مختصر.</div>
-    </details>
-
-    <details class="block">
-      <summary>المشاريع (اختياري)</summary>
-      <div id="projList"></div>
-      <button class="btn gold full" id="addProj" type="button">➕ إضافة مشروع</button>
-    </details>
-
-    <details class="block">
-      <summary>الشهادات / الدورات (اختياري)</summary>
-      <div id="certList"></div>
-      <button class="btn gold full" id="addCert" type="button">➕ إضافة شهادة/دورة</button>
-    </details>
-
-    <div class="actions" style="margin-top:12px">
-      <button class="btn gold" id="pdfAR" type="button">⬇️ تنزيل PDF (عربي)</button>
-      <button class="btn ghost" id="pdfEN" type="button">⬇️ تنزيل PDF (English)</button>
-      <button class="btn ghost" id="docAR" type="button">⬇️ Word (AR)</button>
-      <button class="btn ghost" id="docEN" type="button">⬇️ Word (EN)</button>
-    </div>
-
-    <details class="block" open>
-      <summary>إرسال السيرة إلى الشركات (البحرين)</summary>
-      <div class="field">
-        <label for="company">اختر شركة</label>
-        <select id="company" class="select">
-          <option value="">— اختر —</option>
-          <option>Bapco (بابكو)</option>
-          <option>Aluminium Bahrain (Alba)</option>
-          <option>Gulf Air</option>
-          <option>Batelco</option>
-          <option>stc Bahrain</option>
-          <option>Zain Bahrain</option>
-          <option>GPIC</option>
-          <option>Bahrain Airport Company</option>
-          <option>Y.K. Almoayyed & Sons (المؤيد)</option>
-          <option>Ahmed Zayani & Sons</option>
-          <option>National Bank of Bahrain (NBB)</option>
-          <option>Bank ABC</option>
-          <option>Ahli United Bank</option>
-          <option>BBK</option>
-          <option>Gulf International Bank (GIB)</option>
-          <option>Bahrain Petroleum Company (Bapco Energies)</option>
-          <option>Bahrain Steel</option>
-          <option>Ministry of Health</option>
-          <option>Ministry of Education</option>
-          <option>Ministry of Labour</option>
+  <div class="container">
+    <div class="header no-print">
+      <div class="brand"><div class="logo" aria-hidden="true"></div><h1>مولِّد سيرة ذاتية — ذهبي/أبيض</h1></div>
+      <div class="controls">
+        <button class="btn" id="btnPrint" title="طباعة إلى PDF">طباعة PDF</button>
+        <button class="btn secondary" id="btnWord" title="تنزيل Word">تنزيل Word (.doc)</button>
+        <button class="btn ghost" id="btnSave" title="تنزيل JSON">حفظ JSON</button>
+        <label class="btn ghost" for="jsonFile" title="استيراد JSON" style="cursor:pointer;">استيراد JSON</label>
+        <input id="jsonFile" type="file" accept="application/json" class="no-print" style="display:none" />
+        <select id="dirSelect" class="btn ghost" title="اتجاه الصفحة">
+          <option value="rtl" selected>RTL (عربي)</option>
+          <option value="ltr">LTR (English)</option>
         </select>
       </div>
+    </div>
 
-      <div class="field">
-        <label for="companyEmail">بريد الشركة (إن وجد)</label>
-        <input id="companyEmail" class="input" placeholder="اكتب بريد التوظيف أو الموارد البشرية"/>
-      </div>
+    <div class="row">
+      <!-- ============== FORM ============== -->
+      <div class="card no-print" id="formCard">
+        <div class="card-h"><h2>البيانات</h2></div>
+        <div class="card-b">
+          <form id="cvForm" novalidate>
+            <!-- Basics -->
+            <div class="grid two">
+              <div>
+                <label>الاسم الكامل *</label>
+                <input type="text" id="fullName" required placeholder="مثال: محمد أحمد العبدالله" />
+              </div>
+              <div>
+                <label>المسمّى المستهدف *</label>
+                <input type="text" id="targetTitle" required placeholder="مثال: مطوّر واجهات أمامية" />
+              </div>
+              <div>
+                <label>البريد الإلكتروني *</label>
+                <input type="email" id="email" required placeholder="name@example.com" />
+              </div>
+              <div>
+                <label>رقم الهاتف *</label>
+                <input type="tel" id="phone" required placeholder="+966 5x xxx xxxx" />
+              </div>
+              <div>
+                <label>المدينة / الدولة *</label>
+                <input type="text" id="location" required placeholder="الرياض، السعودية" />
+              </div>
+              <div>
+                <label>روابط (LinkedIn / GitHub / موقع)</label>
+                <input type="url" id="links" placeholder="https://linkedin.com/in/username" />
+                <div class="hint">يمكن إدخال عدة روابط مفصولة بفاصلة</div>
+              </div>
+            </div>
 
-      <div class="row cols-2">
-        <button class="btn gold" id="openEmail" type="button">✉️ فتح رسالة بريد (mailto)</button>
-        <button class="btn ghost" id="copyEmailBody" type="button">📋 نسخ نص الرسالة</button>
-      </div>
+            <div>
+              <label>الملخّص المهني</label>
+              <textarea id="summary" maxlength="600" placeholder="3–5 جمل تُبرز خبرتك وإنجازاتك مع أرقام"></textarea>
+              <div class="hint"><span id="summaryCount">0</span> / 600</div>
+            </div>
 
-      <div class="help">💡 حمّل ملف الـ PDF أولاً ثم أرفقه يدويًا عند إرسال البريد.</div>
-    </details>
+            <!-- Skills & Languages -->
+            <div class="grid two">
+              <div>
+                <label>المهارات (افصل بفواصل)</label>
+                <input type="text" id="skills" placeholder="JavaScript, React, Node.js, Agile, Communication" />
+                <div class="hint">تظهر كشرائط قصيرة في السيرة</div>
+              </div>
+              <div>
+                <label>اللغات (مثال: العربية:Native، الإنجليزية:C1)</label>
+                <input type="text" id="languages" placeholder="العربية:Native، الإنجليزية:C1" />
+              </div>
+            </div>
 
-    <details class="block" open>
-      <summary>معلومة مفيدة</summary>
-      <div class="row cols-2">
-        <div class="field">
-          <label>رقم وزارة العمل (تعديل يدويًا عند الحاجة)</label>
-          <input id="molPhone" class="input" value="رقم وزارة العمل: —"/>
+            <!-- Experience -->
+            <div>
+              <div class="inline" style="justify-content:space-between">
+                <label>الخبرة العملية</label>
+                <button type="button" class="btn sm secondary" id="addExp">+ إضافة خبرة</button>
+              </div>
+              <div id="expList"></div>
+            </div>
+
+            <!-- Education -->
+            <div>
+              <div class="inline" style="justify-content:space-between">
+                <label>التعليم</label>
+                <button type="button" class="btn sm secondary" id="addEdu">+ إضافة مؤهل</button>
+              </div>
+              <div id="eduList"></div>
+            </div>
+
+            <!-- Projects -->
+            <div>
+              <div class="inline" style="justify-content:space-between">
+                <label>المشاريع</label>
+                <button type="button" class="btn sm secondary" id="addProj">+ إضافة مشروع</button>
+              </div>
+              <div id="projList"></div>
+            </div>
+
+            <!-- Certifications -->
+            <div>
+              <div class="inline" style="justify-content:space-between">
+                <label>الشهادات</label>
+                <button type="button" class="btn sm secondary" id="addCert">+ إضافة شهادة</button>
+              </div>
+              <div id="certList"></div>
+            </div>
+
+          </form>
+          <div class="hr"></div>
+          <div class="muted hint">
+            * الحقول ذات النجمة مطلوبة للتصدير. — جرّب الطباعة إلى PDF أو تنزيل Word حين يكتمل الحد الأدنى.
+          </div>
         </div>
-        <div class="field">
-          <label>موقع وزارة العمل</label>
-          <input id="molSite" class="input" value="https://www.mlsd.gov.bh/"/>
-        </div>
-      </div>
-    </details>
-
-    <footer>برمحة وتطوير فاضل الريس</footer>
-  </section>
-
-  <!-- ======= المعاينة (مرتبة وبسيطة) ======= -->
-  <section class="preview" aria-label="معاينة السيرة">
-    <div class="cv" id="cv">
-      <div class="cv-head">
-        <div>
-          <h2 class="cv-name" id="cvName">اسمك الكامل</h2>
-          <div class="cv-role" id="cvRole">المسمى / التخصص</div>
-          <div class="cv-summary" id="cvSummary">ملخص مهني قصير.</div>
-        </div>
-        <img class="cv-photo" id="cvPhoto" alt="" style="display:none"/>
       </div>
 
-      <div class="chips" id="cvChips">
-        <span class="chip" id="chipAddress" style="display:none">📍 <b></b></span>
-        <span class="chip" id="chipPhone"   style="display:none">📞 <b></b></span>
-        <span class="chip" id="chipEmail"   style="display:none">✉️ <b></b></span>
-        <span class="chip" id="chipSite"    style="display:none">🌐 <b></b></span>
-        <span class="chip" id="chipLinked"  style="display:none">🔗 <b>LinkedIn</b></span>
-        <span class="chip" id="chipBirth"   style="display:none">🎂 <b></b></span>
-      </div>
+      <!-- ============== PREVIEW ============== -->
+      <div class="card">
+        <div class="card-h"><h2>المعاينة الحيّة</h2></div>
+        <div class="card-b">
+          <article id="cv" class="cv" aria-label="معاينة السيرة">
+            <header>
+              <h1 class="title" id="v_name">اسم المتقدّم</h1>
+              <p class="subtitle" id="v_title">المسمّى المستهدف</p>
+              <div class="meta" id="v_contacts">email@example.com · +000000000 · المدينة، الدولة · linkedin.com/in/…</div>
+              <div class="bar"></div>
+            </header>
 
-      <div class="cv-grid">
-        <div>
-          <h3 class="sec-title" id="hExp">الخبرات العملية</h3>
-          <div id="cvExp"></div>
+            <section class="sec" id="sec_summary" hidden>
+              <h3>الملخّص</h3>
+              <p id="v_summary"></p>
+            </section>
 
-          <h3 class="sec-title" id="hProj" style="margin-top:12px">المشاريع</h3>
-          <div id="cvProj"></div>
-        </div>
-        <div>
-          <h3 class="sec-title" id="hEdu">التعليم</h3>
-          <div id="cvEdu"></div>
+            <section class="sec" id="sec_experience" hidden>
+              <h3>الخبرة العملية</h3>
+              <div id="v_experience"></div>
+            </section>
 
-          <h3 class="sec-title" id="hSkills" style="margin-top:12px">المهارات</h3>
-          <div class="tags" id="cvSkills"><span class="tag">—</span></div>
+            <section class="sec" id="sec_projects" hidden>
+              <h3>المشاريع</h3>
+              <div id="v_projects"></div>
+            </section>
 
-          <h3 class="sec-title" id="hLang" style="margin-top:12px">اللغات</h3>
-          <div id="cvLangs"></div>
+            <section class="sec" id="sec_skills" hidden>
+              <h3>المهارات</h3>
+              <div class="chipline" id="v_skills"></div>
+            </section>
+
+            <section class="sec" id="sec_education" hidden>
+              <h3>التعليم</h3>
+              <div id="v_education"></div>
+            </section>
+
+            <section class="sec" id="sec_languages" hidden>
+              <h3>اللغات</h3>
+              <div id="v_languages"></div>
+            </section>
+
+            <section class="sec" id="sec_certs" hidden>
+              <h3>الشهادات</h3>
+              <div id="v_certs"></div>
+            </section>
+          </article>
         </div>
       </div>
     </div>
-  </section>
-</div>
+  </div>
 
 <script>
-/* ===== helpers ===== */
-const $=s=>document.querySelector(s);
-const $$=s=>Array.from(document.querySelectorAll(s));
-const bullets=t=>(t||'').split(/\r?\n/).filter(x=>x.trim()).map(x=>'• '+x.trim()).join('\n');
-const fmtRange=(a,b)=>[a,b].filter(Boolean).join(" — ");
+(function(){
+  const $ = (sel, root=document)=>root.querySelector(sel);
+  const $$ = (sel, root=document)=>Array.from(root.querySelectorAll(sel));
 
-/* ===== UI language dir ===== */
-$('#uiLang').addEventListener('change', e=>{
-  const v=e.target.value;
-  document.documentElement.dir = v==='ar'?'rtl':'ltr';
-  document.documentElement.lang = v;
-  const T = v==='ar'? {exp:'الخبرات العملية',proj:'المشاريع',edu:'التعليم',skills:'المهارات',lang:'اللغات'} :
-                       {exp:'Experience',projects:'Projects',edu:'Education',skills:'Skills',lang:'Languages'};
-  $('#hExp').textContent = v==='ar'?T.exp:'Experience';
-  $('#hProj').textContent = v==='ar'?'المشاريع':'Projects';
-  $('#hEdu').textContent = v==='ar'?T.edu:'Education';
-  $('#hSkills').textContent = v==='ar'?T.skills:'Skills';
-  $('#hLang').textContent = v==='ar'?T.lang:'Languages';
-});
+  const form = $('#cvForm');
+  const state = {
+    basics:{fullName:"",targetTitle:"",email:"",phone:"",location:"",links:"",summary:"",skills:"",languages:""},
+    experience:[], education:[], projects:[], certs:[]
+  };
 
-/* ===== bind inputs to preview ===== */
-const state = {
-  name:'', birth:'', role:'', summary:'',
-  address:'', phone:'', email:'', website:'', linkedin:'',
-  university:'', major:'', degree:'', grad:'', eduNotes:'',
-  skills:[],
-  langs:[],
-  exp:[], proj:[], cert:[]
-};
+  // DOM refs
+  const refs = {
+    fullName: $('#fullName'), targetTitle: $('#targetTitle'), email: $('#email'),
+    phone: $('#phone'), location: $('#location'), links: $('#links'), summary: $('#summary'),
+    skills: $('#skills'), languages: $('#languages'),
+    expList: $('#expList'), eduList: $('#eduList'), projList: $('#projList'), certList: $('#certList'),
+    v: {
+      name: $('#v_name'), title: $('#v_title'), contacts: $('#v_contacts'),
+      summarySec: $('#sec_summary'), summary: $('#v_summary'),
+      expSec: $('#sec_experience'), exp: $('#v_experience'),
+      eduSec: $('#sec_education'), edu: $('#v_education'),
+      skillsSec: $('#sec_skills'), skills: $('#v_skills'),
+      langSec: $('#sec_languages'), lang: $('#v_languages'),
+      projSec: $('#sec_projects'), proj: $('#v_projects'),
+      certSec: $('#sec_certs'), cert: $('#v_certs')
+    }
+  };
 
-function bind(id, key, cb){ $(id).addEventListener('input', e=>{ state[key]=e.target.value; render(); }); }
-bind('#name','name'); bind('#birth','birth'); bind('#role','role'); bind('#summary','summary');
-bind('#address','address'); bind('#phone','phone'); bind('#email','email'); bind('#website','website'); bind('#linkedin','linkedin');
-bind('#university','university'); bind('#major','major'); bind('#degree','degree'); bind('#grad','grad'); bind('#eduNotes','eduNotes');
+  // Helpers
+  function sanitize(s){ return (s||"").toString().replace(/\s+/g,' ').trim(); }
+  function splitByComma(s){ return sanitize(s).split(/[,，،]\s*/).filter(Boolean); }
 
-$('#photo').addEventListener('change', e=>{
-  const f = e.target.files?.[0]; if(!f) return;
-  const reader = new FileReader();
-  reader.onload = ev => { $('#cvPhoto').src = ev.target.result; $('#cvPhoto').style.display='block'; };
-  reader.readAsDataURL(f);
-});
-
-/* ===== languages checkboxes ===== */
-function updateLangs(){
-  const arr=[];
-  if($('#lang_ar').checked) arr.push('العربية');
-  if($('#lang_en').checked) arr.push('الإنجليزية');
-  if($('#lang_hi').checked) arr.push('الهندية/الأردو');
-  if($('#lang_other').checked && $('#langExtra').value.trim()) arr.push($('#langExtra').value.trim());
-  state.langs = arr; render();
-}
-['#lang_ar','#lang_en','#lang_hi','#lang_other','#langExtra'].forEach(id=>{
-  $(id).addEventListener(id==='#langExtra'?'input':'change', updateLangs);
-});
-
-/* ===== dynamic cards ===== */
-const expList = $('#expList');
-const projList = $('#projList');
-const certList = $('#certList');
-
-function cardExperience(){
-  const wrap = document.createElement('div');
-  wrap.className='panel';
-  wrap.style.padding='12px'; wrap.style.margin='8px 0';
-  wrap.innerHTML=`
-    <div class="field"><label>اسم الشركة</label><input class="input" placeholder="Company"/></div>
-    <div class="field"><label>المسمى الوظيفي</label><input class="input" placeholder="Job title"/></div>
-    <div class="row cols-3">
-      <div class="field"><label>من</label><input class="input" placeholder="09/2022"/></div>
-      <div class="field"><label>إلى</label><input class="input" placeholder="Present"/></div>
-      <div class="field"><label>رقم تواصل الشركة (اختياري)</label><input class="input" placeholder="+973 …"/></div>
-    </div>
-    <div class="field"><label>الوصف (سطر لكل نقطة)</label><textarea class="textarea" placeholder="أنجزت…&#10;حسّنت…"></textarea></div>
-    <button class="btn" type="button">حذف</button>
-  `;
-  return wrap;
-}
-function cardProject(){
-  const wrap = document.createElement('div');
-  wrap.className='panel'; wrap.style.padding='12px'; wrap.style.margin='8px 0';
-  wrap.innerHTML=`
-    <div class="field"><label>اسم المشروع</label><input class="input" placeholder="Project name"/></div>
-    <div class="row cols-2">
-      <div class="field"><label>التقنيات</label><input class="input" placeholder="React, Node…"/></div>
-      <div class="field"><label>رابط (اختياري)</label><input class="input" placeholder="https://…"/></div>
-    </div>
-    <div class="field"><label>الوصف</label><textarea class="textarea" placeholder="الدور والنتيجة…"></textarea></div>
-    <button class="btn" type="button">حذف</button>
-  `;
-  return wrap;
-}
-function cardCert(){
-  const wrap=document.createElement('div');
-  wrap.className='panel'; wrap.style.padding='12px'; wrap.style.margin='8px 0';
-  wrap.innerHTML=`
-    <div class="row cols-2">
-      <div class="field"><label>الشهادة/الدورة</label><input class="input" placeholder="Name"/></div>
-      <div class="field"><label>الجهة / السنة</label><input class="input" placeholder="Issuer — 2024"/></div>
-    </div>
-    <button class="btn" type="button">حذف</button>
-  `;
-  return wrap;
-}
-
-function sync(container, targetArr, mapFn){
-  targetArr.length=0;
-  Array.from(container.children).forEach(c=>{
-    targetArr.push( mapFn(c) );
-  });
-  render();
-}
-
-expList.addEventListener('input', ()=>sync(expList, state.exp, c=>{
-  const ins=c.querySelectorAll('input,textarea');
-  return {company:ins[0].value, title:ins[1].value, from:ins[2].value, to:ins[3].value, phone:ins[4].value, desc:ins[5].value};
-}));
-projList.addEventListener('input', ()=>sync(projList, state.proj, c=>{
-  const ins=c.querySelectorAll('input,textarea');
-  return {name:ins[0].value, tech:ins[1].value, link:ins[2].value, desc:ins[3].value};
-}));
-certList.addEventListener('input', ()=>sync(certList, state.cert, c=>{
-  const ins=c.querySelectorAll('input');
-  return {name:ins[0].value, meta:ins[1].value};
-}));
-
-;['click'].forEach(ev=>{
-  expList.addEventListener(ev, e=>{ if(e.target.textContent.includes('حذف')){ e.target.closest('.panel').remove(); sync(expList, state.exp, c=>{ const ins=c.querySelectorAll('input,textarea'); return {company:ins[0].value,title:ins[1].value,from:ins[2].value,to:ins[3].value,phone:ins[4].value,desc:ins[5].value}; }); }});
-  projList.addEventListener(ev, e=>{ if(e.target.textContent.includes('حذف')){ e.target.closest('.panel').remove(); sync(projList, state.proj, c=>{ const ins=c.querySelectorAll('input,textarea'); return {name:ins[0].value,tech:ins[1].value,link:ins[2].value,desc:ins[3].value}; }); }});
-  certList.addEventListener(ev, e=>{ if(e.target.textContent.includes('حذف')){ e.target.closest('.panel').remove(); sync(certList, state.cert, c=>{ const ins=c.querySelectorAll('input'); return {name:ins[0].value,meta:ins[1].value}; }); }});
-});
-
-$('#addExp').addEventListener('click', ()=>{ expList.appendChild(cardExperience()); sync(expList, state.exp, c=>{ const ins=c.querySelectorAll('input,textarea'); return {company:ins[0].value,title:ins[1].value,from:ins[2].value,to:ins[3].value,phone:ins[4].value,desc:ins[5].value}; }); });
-$('#addProj').addEventListener('click', ()=>{ projList.appendChild(cardProject()); sync(projList, state.proj, c=>{ const ins=c.querySelectorAll('input,textarea'); return {name:ins[0].value,tech:ins[1].value,link:ins[2].value,desc:ins[3].value}; }); });
-$('#addCert').addEventListener('click', ()=>{ certList.appendChild(cardCert()); sync(certList, state.cert, c=>{ const ins=c.querySelectorAll('input'); return {name:ins[0].value,meta:ins[1].value}; }); });
-
-/* ===== skills input (comma separated) ===== */
-const skillsInput = document.createElement('input');
-skillsInput.className='input';
-skillsInput.placeholder='اكتب المهارات بفواصل، مثل: Excel, Python, Communication';
-const skillsWrap = document.createElement('div');
-skillsWrap.className='field';
-skillsWrap.innerHTML='<label>المهارات</label>';
-skillsWrap.appendChild(skillsInput);
-$('#sec-more');
-/* نضعه في قسم التعليم (أسفل) لسهولة الوصول */
-$('#formPanel').querySelectorAll('details.block')[2].appendChild(skillsWrap);
-skillsInput.addEventListener('input', ()=>{
-  state.skills = skillsInput.value.split(',').map(s=>s.trim()).filter(Boolean);
-  render();
-});
-
-/* ===== render preview ===== */
-function setChip(id, text){
-  const el=$(id);
-  if(text){ el.style.display='inline-flex'; el.querySelector('b').textContent=text; }
-  else el.style.display='none';
-}
-
-function render(){
-  $('#cvName').textContent = state.name || 'اسمك الكامل';
-  $('#cvRole').textContent = state.role || 'المسمى / التخصص';
-  $('#cvSummary').textContent = state.summary || 'ملخص مهني قصير.';
-  setChip('#chipBirth', state.birth || '');
-  setChip('#chipAddress', state.address || '');
-  setChip('#chipPhone', state.phone || '');
-  setChip('#chipEmail', state.email || '');
-  setChip('#chipSite', state.website || '');
-  $('#chipLinked').style.display = state.linkedin ? 'inline-flex' : 'none';
-
-  // Education
-  const cvEdu = $('#cvEdu'); cvEdu.innerHTML='';
-  if(!(state.university||state.major||state.degree||state.grad||state.eduNotes)){
-    cvEdu.innerHTML = '<div class="item"><div class="meta">—</div></div>';
-  }else{
-    cvEdu.insertAdjacentHTML('beforeend', `
-      <div class="item">
-        <div class="top"><div>${state.university||''}</div><div class="meta">${state.grad||''}</div></div>
-        <div class="meta">${[state.degree, state.major].filter(Boolean).join(' — ')}</div>
-        ${state.eduNotes? `<div class="desc">${bullets(state.eduNotes)}</div>`:''}
-      </div>
-    `);
+  function renderContacts(){
+    const b = state.basics;
+    const parts = [];
+    if (b.email) parts.push(b.email);
+    if (b.phone) parts.push(b.phone);
+    if (b.location) parts.push(b.location);
+    if (b.links){
+      const links = splitByComma(b.links).map(x=>{
+        try{
+          const u = new URL(x);
+          return (u.hostname.replace(/^www\./,'') + u.pathname).replace(/\/$/,'');
+        }catch{ return x; }
+      });
+      parts.push(links.join(' · '));
+    }
+    refs.v.contacts.textContent = parts.join(' · ');
   }
 
-  // Experience
-  const cvExp = $('#cvExp'); cvExp.innerHTML='';
-  if(state.exp.length===0){ cvExp.innerHTML='<div class="item"><div class="meta">—</div></div>'; }
-  state.exp.forEach(x=>{
-    const phone = x.phone? ` — ${x.phone}`:'';
-    cvExp.insertAdjacentHTML('beforeend', `
-      <div class="item">
-        <div class="top"><div>${x.title||''}${x.company?` — ${x.company}`:''}</div><div class="meta">${fmtRange(x.from||'',x.to||'')}</div></div>
-        <div class="meta">${phone}</div>
-        <div class="desc">${bullets(x.desc||'')}</div>
+  function toggleSec(el, show){ el.hidden = !show; }
+
+  function renderChips(container, items){
+    container.innerHTML = '';
+    items.forEach(t=>{
+      const span = document.createElement('span');
+      span.className='chip'; span.textContent = t;
+      container.appendChild(span);
+    });
+  }
+
+  function para(text){ const p=document.createElement('p'); p.textContent=text; return p; }
+
+  function bulletList(list){
+    const ul=document.createElement('ul');
+    list.filter(Boolean).forEach(item=>{ const li=document.createElement('li'); li.textContent=item; ul.appendChild(li); });
+    return ul;
+  }
+
+  // Experience item UI
+  function expItem(data={}){
+    const def = Object.assign({role:"",company:"",location:"",start:"",end:"",highlights:""}, data);
+    const wrap = document.createElement('div'); wrap.className='rep';
+    wrap.innerHTML = `
+      <div class="rep-head">
+        <strong>خبرة</strong>
+        <div class="rep-actions">
+          <button type="button" class="btn sm ghost moveUp">▲</button>
+          <button type="button" class="btn sm ghost moveDn">▼</button>
+          <button type="button" class="btn sm danger del">حذف</button>
+        </div>
       </div>
-    `);
+      <div class="grid two">
+        <div><label>المسمّى</label><input type="text" class="role" placeholder="مثال: مهندس برمجيات" value="${def.role}"></div>
+        <div><label>الشركة</label><input type="text" class="company" placeholder="اسم الشركة" value="${def.company}"></div>
+        <div><label>الموقع</label><input type="text" class="loc" placeholder="الرياض، السعودية" value="${def.location}"></div>
+        <div><label>الفترة (بداية–نهاية)</label><div class="inline"><input type="text" class="start" placeholder="YYYY-MM" value="${def.start}" style="flex:1"><input type="text" class="end" placeholder="YYYY-MM أو حاضر" value="${def.end}" style="flex:1"></div></div>
+        <div class="grid"><label>إنجازات (سطور مفصولة بفواصل منقوطة ;)</label><textarea class="highlights" placeholder="رفعت الدقة 23% ; خفّضت زمن البناء 12 دقيقة">${def.highlights}</textarea></div>
+      </div>
+    `;
+    return wrap;
+  }
+
+  function eduItem(data={}){
+    const def = Object.assign({degree:"",major:"",school:"",location:"",date:""}, data);
+    const wrap = document.createElement('div'); wrap.className='rep';
+    wrap.innerHTML = `
+      <div class="rep-head">
+        <strong>تعليم</strong>
+        <div class="rep-actions">
+          <button type="button" class="btn sm ghost moveUp">▲</button>
+          <button type="button" class="btn sm ghost moveDn">▼</button>
+          <button type="button" class="btn sm danger del">حذف</button>
+        </div>
+      </div>
+      <div class="grid two">
+        <div><label>الدرجة</label><input type="text" class="degree" placeholder="بكالوريوس / ماجستير" value="${def.degree}"></div>
+        <div><label>التخصّص</label><input type="text" class="major" placeholder="علوم حاسب" value="${def.major}"></div>
+        <div><label>المؤسسة</label><input type="text" class="school" placeholder="اسم الجامعة" value="${def.school}"></div>
+        <div><label>الموقع</label><input type="text" class="loc" placeholder="الرياض، السعودية" value="${def.location}"></div>
+        <div><label>تاريخ التخرج</label><input type="text" class="date" placeholder="YYYY-MM" value="${def.date}"></div>
+      </div>
+    `;
+    return wrap;
+  }
+
+  function projItem(data={}){
+    const def = Object.assign({name:"",role:"",stack:"",desc:"",link:""}, data);
+    const wrap = document.createElement('div'); wrap.className='rep';
+    wrap.innerHTML = `
+      <div class="rep-head">
+        <strong>مشروع</strong>
+        <div class="rep-actions">
+          <button type="button" class="btn sm ghost moveUp">▲</button>
+          <button type="button" class="btn sm ghost moveDn">▼</button>
+          <button type="button" class="btn sm danger del">حذف</button>
+        </div>
+      </div>
+      <div class="grid two">
+        <div><label>اسم المشروع</label><input type="text" class="name" placeholder="Project X" value="${def.name}"></div>
+        <div><label>الدور</label><input type="text" class="role" placeholder="قائد فريق / مطوّر" value="${def.role}"></div>
+        <div><label>التقنيات</label><input type="text" class="stack" placeholder="React, Node.js, Docker" value="${def.stack}"></div>
+        <div><label>رابط</label><input type="url" class="link" placeholder="https://…" value="${def.link}"></div>
+        <div class="grid"><label>وصف مختصر</label><textarea class="desc" placeholder="هدف المشروع، مساهمتك، نتيجة قابلة للقياس">${def.desc}</textarea></div>
+      </div>
+    `;
+    return wrap;
+  }
+
+  function certItem(data={}){
+    const def = Object.assign({name:"",issuer:"",date:""}, data);
+    const wrap = document.createElement('div'); wrap.className='rep';
+    wrap.innerHTML = `
+      <div class="rep-head">
+        <strong>شهادة</strong>
+        <div class="rep-actions">
+          <button type="button" class="btn sm ghost moveUp">▲</button>
+          <button type="button" class="btn sm ghost moveDn">▼</button>
+          <button type="button" class="btn sm danger del">حذف</button>
+        </div>
+      </div>
+      <div class="grid two">
+        <div><label>الاسم</label><input type="text" class="name" placeholder="PMP / AWS SAA" value="${def.name}"></div>
+        <div><label>الجهة</label><input type="text" class="issuer" placeholder="PMI / AWS" value="${def.issuer}"></div>
+        <div><label>التاريخ</label><input type="text" class="date" placeholder="YYYY-MM" value="${def.date}"></div>
+      </div>
+    `;
+    return wrap;
+  }
+
+  function attachRepHandlers(container){
+    container.addEventListener('click', (e)=>{
+      const btn = e.target.closest('button'); if(!btn) return;
+      const rep = e.target.closest('.rep'); if(!rep) return;
+      const list = rep.parentElement;
+      if(btn.classList.contains('del')) rep.remove();
+      if(btn.classList.contains('moveUp') && rep.previousElementSibling) list.insertBefore(rep, rep.previousElementSibling);
+      if(btn.classList.contains('moveDn') && rep.nextElementSibling) list.insertBefore(rep.nextElementSibling, rep);
+      saveLocal(); render();
+    });
+    container.addEventListener('input', ()=>{ saveLocal(); render(); });
+  }
+
+  // Add initial one each (optional)
+  $('#addExp').addEventListener('click', ()=>{ refs.expList.appendChild(expItem()); attachRepHandlers(refs.expList); saveLocal(); });
+  $('#addEdu').addEventListener('click', ()=>{ refs.eduList.appendChild(eduItem()); attachRepHandlers(refs.eduList); saveLocal(); });
+  $('#addProj').addEventListener('click', ()=>{ refs.projList.appendChild(projItem()); attachRepHandlers(refs.projList); saveLocal(); });
+  $('#addCert').addEventListener('click', ()=>{ refs.certList.appendChild(certItem()); attachRepHandlers(refs.certList); saveLocal(); });
+
+  attachRepHandlers(refs.expList);
+  attachRepHandlers(refs.eduList);
+  attachRepHandlers(refs.projList);
+  attachRepHandlers(refs.certList);
+
+  // Bind basics
+  ['fullName','targetTitle','email','phone','location','links','summary','skills','languages'].forEach(id=>{
+    const el = refs[id]; if(!el) return;
+    el.addEventListener('input', ()=>{
+      if(id==='summary'){ $('#summaryCount').textContent = el.value.length; }
+      saveLocal(); render();
+    });
   });
 
-  // Projects
-  const cvProj = $('#cvProj'); cvProj.innerHTML='';
-  if(state.proj.length===0){ cvProj.innerHTML='<div class="item"><div class="meta">—</div></div>'; }
-  state.proj.forEach(p=>{
-    const link = p.link? ` — <a href="${p.link}" target="_blank" rel="noopener" style="color:var(--gold);font-weight:800">Link</a>`:'';
-    cvProj.insertAdjacentHTML('beforeend', `
-      <div class="item">
-        <div class="top"><div>${p.name||''}</div><div class="meta">${p.tech||''}</div></div>
-        <div class="desc">${bullets(p.desc||'')}${link}</div>
-      </div>
-    `);
+  // Direction toggle
+  $('#dirSelect').addEventListener('change', (e)=>{
+    const dir = e.target.value;
+    document.documentElement.setAttribute('dir', dir);
+    document.documentElement.setAttribute('lang', dir==='rtl'?'ar':'en');
   });
 
-  // Skills
-  const cvSkills = $('#cvSkills'); cvSkills.innerHTML='';
-  if(state.skills.length===0){ cvSkills.innerHTML='<span class="tag">—</span>'; }
-  else state.skills.forEach(s=>cvSkills.insertAdjacentHTML('beforeend', `<span class="tag">${s}</span>`));
+  // Save/Load JSON
+  $('#btnSave').addEventListener('click', ()=>{
+    const data = collect();
+    download('cv-data.json', JSON.stringify(data, null, 2), 'application/json');
+  });
+  $('#jsonFile').addEventListener('change', async (e)=>{
+    const file = e.target.files[0]; if(!file) return;
+    try{
+      const text = await file.text();
+      const data = JSON.parse(text);
+      loadData(data);
+      saveLocal(); render();
+    }catch(err){ alert('تعذّر استيراد JSON'); }
+    e.target.value='';
+  });
 
-  // Languages
-  const cvLangs = $('#cvLangs'); cvLangs.innerHTML='';
-  if(state.langs.length===0){ cvLangs.innerHTML='<div class="item"><div class="meta">—</div></div>'; }
-  else state.langs.forEach(l=>cvLangs.insertAdjacentHTML('beforeend', `<div class="item"><div class="top"><div>${l}</div></div></div>`));
-}
-render();
+  // Print PDF
+  $('#btnPrint').addEventListener('click', ()=>{ if(validateMin()) window.print(); });
 
-/* ===== export (PDF / Word) ===== */
-function cvHTML(){
-  const cv = $('#cv').cloneNode(true);
-  return `<!DOCTYPE html>
-<html lang="${document.documentElement.lang||'ar'}" dir="${document.documentElement.dir||'rtl'}">
-<head>
-<meta charset="utf-8">
-<title>CV</title>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-<style>
-  :root{--gold:${getComputedStyle(document.documentElement).getPropertyValue('--gold').trim()||'#D4AF37'}}
-  body{margin:0;font-family:"IBM Plex Sans Arabic","Inter",sans-serif;color:#0f172a}
-  a{color:var(--gold)}
-  .cv{padding:18px}
-  .cv-head{display:grid;gap:14px;grid-template-columns:1fr 120px;align-items:center}
-  .cv-name{margin:0;font-size:1.55rem;font-weight:700}
-  .cv-role{margin:2px 0 6px;font-weight:700;color:#5b4a11}
-  .cv-photo{width:120px;height:120px;border-radius:14px;border:2px solid var(--gold);object-fit:cover}
-  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
-  .chip{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border:1px solid #efe7d2;border-radius:999px;background:#fff;font-weight:700}
-  .cv-grid{display:grid;gap:16px;margin-top:16px}
-  @media(min-width:820px){ .cv-grid{grid-template-columns:1.15fr .85fr} }
-  .sec-title{font-weight:800;margin:0 0 8px;display:inline-block;padding-bottom:4px;border-bottom:3px solid var(--gold)}
-  .item{margin:10px 0}.item .top{display:flex;justify-content:space-between;font-weight:700}
-  .item .meta{color:#6b7280}.item .desc{margin-top:6px;white-space:pre-line}
-  .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
-  .tag{padding:6px 10px;border-radius:999px;background:#fff;border:1px dashed var(--gold);font-weight:700}
-  @page{size:A4;margin:12mm}
-</style>
-</head>
-<body>${cv.outerHTML}
-<script>window.onload=()=>setTimeout(()=>window.print(),200);<\/script>
-</body>
-</html>`;
-}
-function exportPDF(lang){
-  const w = window.open('', '_blank');
-  // ضبط اتجاه/لغة النسخة المطبوعة حسب الاختيار
-  const rootLang = lang==='en'?'en':'ar';
-  document.documentElement.lang = rootLang;
-  document.documentElement.dir  = rootLang==='ar'?'rtl':'ltr';
+  // Word .doc (HTML)
+  $('#btnWord').addEventListener('click', ()=>{
+    if(!validateMin()) return;
+    const html = buildWordHtml();
+    download('CV.doc', html, 'application/msword');
+  });
+
+  // Persistence
+  function saveLocal(){
+    const data = collect();
+    try{ localStorage.setItem('cv-data', JSON.stringify(data)); }catch{}
+  }
+  function restoreLocal(){
+    try{
+      const raw = localStorage.getItem('cv-data');
+      if(raw){ loadData(JSON.parse(raw)); }
+    }catch{}
+  }
+
+  // Collect form to JSON
+  function collect(){
+    const basics = {
+      fullName:sanitize(refs.fullName.value),
+      targetTitle:sanitize(refs.targetTitle.value),
+      email:sanitize(refs.email.value),
+      phone:sanitize(refs.phone.value),
+      location:sanitize(refs.location.value),
+      links:sanitize(refs.links.value),
+      summary:sanitize(refs.summary.value),
+      skills:sanitize(refs.skills.value),
+      languages:sanitize(refs.languages.value)
+    };
+    const experience = $$('#expList .rep').map(rep=>({
+      role:sanitize($('.role',rep).value),
+      company:sanitize($('.company',rep).value),
+      location:sanitize($('.loc',rep).value),
+      start:sanitize($('.start',rep).value),
+      end:sanitize($('.end',rep).value),
+      highlights:sanitize($('.highlights',rep).value)
+    }));
+    const education = $$('#eduList .rep').map(rep=>({
+      degree:sanitize($('.degree',rep).value),
+      major:sanitize($('.major',rep).value),
+      school:sanitize($('.school',rep).value),
+      location:sanitize($('.loc',rep).value),
+      date:sanitize($('.date',rep).value)
+    }));
+    const projects = $$('#projList .rep').map(rep=>({
+      name:sanitize($('.name',rep).value),
+      role:sanitize($('.role',rep).value),
+      stack:sanitize($('.stack',rep).value),
+      desc:sanitize($('.desc',rep).value),
+      link:sanitize($('.link',rep).value)
+    }));
+    const certs = $$('#certList .rep').map(rep=>({
+      name:sanitize($('.name',rep).value),
+      issuer:sanitize($('.issuer',rep).value),
+      date:sanitize($('.date',rep).value)
+    }));
+    return {basics,experience,education,projects,certs};
+  }
+
+  // Load data into form
+  function loadData(data){
+    const b = data.basics||{};
+    refs.fullName.value = b.fullName||"";
+    refs.targetTitle.value = b.targetTitle||"";
+    refs.email.value = b.email||"";
+    refs.phone.value = b.phone||"";
+    refs.location.value = b.location||"";
+    refs.links.value = b.links||"";
+    refs.summary.value = b.summary||"";
+    refs.skills.value = b.skills||"";
+    refs.languages.value = b.languages||"";
+    $('#summaryCount').textContent = refs.summary.value.length;
+
+    refs.expList.innerHTML = '';
+    (data.experience||[]).forEach(x=>refs.expList.appendChild(expItem(x)));
+    refs.eduList.innerHTML = '';
+    (data.education||[]).forEach(x=>refs.eduList.appendChild(eduItem(x)));
+    refs.projList.innerHTML = '';
+    (data.projects||[]).forEach(x=>refs.projList.appendChild(projItem(x)));
+    refs.certList.innerHTML = '';
+    (data.certs||[]).forEach(x=>refs.certList.appendChild(certItem(x)));
+
+    attachRepHandlers(refs.expList);
+    attachRepHandlers(refs.eduList);
+    attachRepHandlers(refs.projList);
+    attachRepHandlers(refs.certList);
+  }
+
+  // Minimal validation for export
+  function validateMin(){
+    const b = state.basics;
+    const missing = [];
+    if(!b.fullName) missing.push('الاسم الكامل');
+    if(!b.targetTitle) missing.push('المسمّى المستهدف');
+    if(!b.email) missing.push('البريد الإلكتروني');
+    if(!b.phone) missing.push('رقم الهاتف');
+    if(!b.location) missing.push('المدينة/الدولة');
+    if(missing.length){
+      alert('فضلاً أكمل الحقول الأساسية:\n• ' + missing.join('\n• '));
+      return false;
+    }
+    return true;
+  }
+
+  // Render CV preview
+  function render(){
+    Object.assign(state, collect());
+    const b = state.basics;
+
+    refs.v.name.textContent = b.fullName || 'اسم المتقدّم';
+    refs.v.title.textContent = b.targetTitle || 'المسمّى المستهدف';
+    renderContacts();
+
+    // Summary
+    toggleSec(refs.v.summarySec, !!b.summary);
+    refs.v.summary.textContent = b.summary||'';
+
+    // Skills
+    const skillItems = splitByComma(b.skills);
+    toggleSec(refs.v.skillsSec, skillItems.length>0);
+    renderChips(refs.v.skills, skillItems);
+
+    // Languages
+    const langs = splitByComma(b.languages);
+    toggleSec(refs.v.langSec, langs.length>0);
+    refs.v.lang.innerHTML = '';
+    langs.forEach(l=>refs.v.lang.appendChild(para('• '+l)));
+
+    // Experience
+    refs.v.exp.innerHTML='';
+    state.experience.forEach(x=>{
+      if(!(x.role||x.company||x.highlights)) return;
+      const wrap = document.createElement('div'); wrap.className='item';
+      const pos = document.createElement('div'); pos.className='pos';
+      const role = document.createElement('span'); role.className='role'; role.textContent = x.role;
+      const company = document.createElement('span'); company.className='company'; company.textContent = x.company?(' — '+x.company):'';
+      pos.append(role, company);
+      const meta = document.createElement('div'); meta.className='meta';
+      const date = [x.start, x.end].filter(Boolean).join(' – ');
+      meta.textContent = [x.location, date].filter(Boolean).join(' · ');
+      const hi = (x.highlights||'').split(/\s*;\s*/).filter(Boolean);
+      wrap.append(pos, meta, bulletList(hi));
+      refs.v.exp.appendChild(wrap);
+    });
+    toggleSec(refs.v.expSec, refs.v.exp.children.length>0);
+
+    // Education
+    refs.v.edu.innerHTML='';
+    state.education.forEach(x=>{
+      if(!(x.degree||x.school)) return;
+      const wrap = document.createElement('div'); wrap.className='item';
+      const line = document.createElement('div'); line.className='pos';
+      const degree = document.createElement('span'); degree.className='role'; degree.textContent = x.degree + (x.major?(' — '+x.major):'');
+      const school = document.createElement('span'); school.className='company'; school.textContent = x.school?(' — '+x.school):'';
+      line.append(degree, school);
+      const meta = document.createElement('div'); meta.className='meta';
+      meta.textContent = [x.location, x.date].filter(Boolean).join(' · ');
+      refs.v.edu.append(line, meta);
+    });
+    toggleSec(refs.v.eduSec, refs.v.edu.children.length>0);
+
+    // Projects
+    refs.v.proj.innerHTML='';
+    state.projects.forEach(x=>{
+      if(!(x.name||x.desc)) return;
+      const wrap = document.createElement('div'); wrap.className='item';
+      const line = document.createElement('div'); line.className='pos';
+      const name = document.createElement('span'); name.className='role'; name.textContent = x.name;
+      const role = document.createElement('span'); role.className='company'; role.textContent = x.role?(' — '+x.role):'';
+      line.append(name, role);
+      const meta = document.createElement('div'); meta.className='meta';
+      meta.textContent = [x.stack, x.link].filter(Boolean).join(' · ');
+      wrap.append(line, meta, para(x.desc||''));
+      refs.v.proj.appendChild(wrap);
+    });
+    toggleSec(refs.v.projSec, refs.v.proj.children.length>0);
+
+    // Certs
+    refs.v.cert.innerHTML='';
+    state.certs.forEach(x=>{
+      if(!(x.name||x.issuer)) return;
+      const wrap = document.createElement('div'); wrap.className='item';
+      const line = document.createElement('div'); line.className='pos';
+      const name = document.createElement('span'); name.className='role'; name.textContent = x.name;
+      const issuer = document.createElement('span'); issuer.className='company'; issuer.textContent = x.issuer?(' — '+x.issuer):'';
+      line.append(name, issuer);
+      const meta = document.createElement('div'); meta.className='meta';
+      meta.textContent = x.date || '';
+      wrap.append(line, meta);
+      refs.v.cert.appendChild(wrap);
+    });
+    toggleSec(refs.v.certSec, refs.v.cert.children.length>0);
+  }
+
+  // Build Word (.doc) as HTML
+  function buildWordHtml(){
+    const dir = document.documentElement.getAttribute('dir') || 'rtl';
+    const cv = $('#cv').cloneNode(true);
+    // إزالة عناصر تفاعلية إن وجدت (لا يوجد هنا)
+    const styles = `
+      <style>
+        body{font-family:"Cairo","Noto Naskh Arabic",Arial;direction:${dir};color:#0F172A}
+        h1{margin:0 0 6px;font-size:24px}
+        h3{margin:14px 0 6px;font-size:15px}
+        .bar{height:2px;background:#C7A046;margin:10px 0 18px}
+        .meta{color:#475569;font-size:12px}
+        ul{margin:6px 0 0 18px}
+        li{margin:4px 0}
+        .chip{display:inline-block;margin:2px 4px;padding:3px 8px;border:1px solid #E5E7EB;border-radius:999px;font-size:12px;background:#F8FAFC}
+      </style>
+    `;
+    // تحويل chips إلى نص بسيط داخل DOC (Word يدعم الـ span)
+    // لا حاجة لتعديل لأن Word يقرأ الـ span.
+    const html =
+`<!DOCTYPE html><html><head><meta charset="utf-8"><title>CV</title>${styles}</head><body>${cv.outerHTML}</body></html>`;
+    return html;
+  }
+
+  function download(filename, content, mime){
+    const blob = new Blob([content], {type:mime});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = filename; document.body.appendChild(a); a.click();
+    setTimeout(()=>{ URL.revokeObjectURL(url); a.remove(); }, 200);
+  }
+
+  // Init
+  restoreLocal();
   render();
-  w.document.open(); w.document.write(cvHTML()); w.document.close();
-}
-function exportDOC(lang){
-  const html = cvHTML().replace(/<script>[^]*<\/script>/,'');
-  const blob = new Blob([html], {type:'application/msword'});
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  const fname = ($('#name').value || (lang==='en'?'CV':'سيرة_ذاتية')).replace(/\s+/g,'_');
-  a.href=url; a.download=`${fname}-${(lang||'ar').toUpperCase()}.doc`; document.body.appendChild(a); a.click(); a.remove();
-  URL.revokeObjectURL(url);
-}
-$('#pdfAR').onclick = ()=>exportPDF('ar');
-$('#pdfEN').onclick = ()=>exportPDF('en');
-$('#docAR').onclick = ()=>exportDOC('ar');
-$('#docEN').onclick = ()=>exportDOC('en');
 
-/* ===== mailto helper ===== */
-function buildEmailBody(){
-  const lines=[];
-  lines.push(`السادة ${$('#company').value || 'شركة'} المحترمين،`);
-  lines.push('');
-  lines.push(`أرفق لكم سيرتي الذاتية للتقدم على وظيفة مناسبة.`);
-  lines.push('');
-  lines.push(`الاسم: ${state.name||''}`);
-  if(state.role)   lines.push(`المسمى/التخصص: ${state.role}`);
-  if(state.address)lines.push(`العنوان: ${state.address}`);
-  if(state.phone)  lines.push(`الهاتف: ${state.phone}`);
-  if(state.email)  lines.push(`البريد: ${state.email}`);
-  lines.push('');
-  lines.push('شكراً لوقتكم الكريم.');
-  lines.push('');
-  if($('#molPhone').value) lines.push($('#molPhone').value);
-  if($('#molSite').value)  lines.push($('#molSite').value);
-  return lines.join('\n');
-}
-$('#openEmail').addEventListener('click', ()=>{
-  const to = $('#companyEmail').value || '';
-  const subject = encodeURIComponent(`Job Application — ${state.name||''}`);
-  const body = encodeURIComponent(buildEmailBody());
-  window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
-});
-$('#copyEmailBody').addEventListener('click', async ()=>{
-  const txt = buildEmailBody();
-  try{ await navigator.clipboard.writeText(txt); alert('تم نسخ نص الرسالة.'); }
-  catch{ prompt('انسخ النص التالي:', txt); }
-});
-
-/* ===== demo minimal to illustrate layout ===== */
-(function demo(){
-  $('#name').value='فاضل الريس / Fadhel Al-Rayes';
-  $('#role').value='مطوّر برمجيات';
-  $('#address').value='المنامة، البحرين';
-  $('#phone').value='+973 3x xxx xxx';
-  $('#email').value='you@example.com';
-  $('#university').value='جامعة البحرين';
-  $('#major').value='علوم الحاسوب';
-  $('#degree').value='بكالوريوس';
-  $('#grad').value='2022';
-  $('#summary').value='مطوّر يركز على الأداء وتجربة المستخدم.\nReady to contribute immediately.';
-  skillsInput.value='HTML, CSS, JavaScript, React, Git';
-  state.skills = ['HTML','CSS','JavaScript','React','Git'];
-  $('#lang_ar').checked=true; $('#lang_en').checked=true; updateLangs();
-  render();
-
-  // بطاقة خبرة نموذجية
-  $('#addExp').click();
-  const ins = expList.querySelectorAll('input,textarea');
-  ins[0].value='Modern Tech Co.'; ins[1].value='Frontend Developer';
-  ins[2].value='09/2022'; ins[3].value='Present'; ins[4].value='+973 17…';
-  ins[5].value='Built interactive dashboards.\nImproved performance by 35%.';
-  expList.dispatchEvent(new Event('input'));
 })();
 </script>
 </body>
