@@ -2,237 +2,103 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>العدّ التنازلي لبداية شهر محرم — تقويم هجري مُعتمد</title>
+  <title>العدّ التنازلي لبداية شهر محرم</title>
   <style>
     :root{
-      --bg:#ffffff;            /* صفحة بيضاء */
-      --ink:#0a0a0a;           /* أسود للنصوص */
-      --ink-soft:#202020;
-      --gold-1:#fef9e7;        /* تدرجات ذهبية فاتحة */
+      --bg:#ffffff;
+      --ink:#0a0a0a;
+      --gold-1:#fef9e7;
       --gold-2:#f3e6b2;
       --gold-3:#e0c56d;
-      --gold-4:#d4af37;        /* الذهبي الكلاسيكي */
-      --gold-5:#a37c10;        /* ذهبي داكن */
-      --accent-shadow: 0 20px 60px rgba(164, 130, 29, .18);
+      --gold-4:#d4af37;
+      --gold-5:#a37c10;
     }
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
-      margin:0; font-family: "Tajawal", system-ui, -apple-system, Segoe UI, Roboto, "Noto Naskh Arabic", Arial, sans-serif; color:var(--ink);
-      background:
-        radial-gradient(1100px 700px at 120% -10%, rgba(212,175,55,.10), transparent 60%),
-        radial-gradient(900px 700px at -20% 120%, rgba(212,175,55,.10), transparent 60%),
-        var(--bg);
+      margin:0; font-family: "Tajawal", system-ui, sans-serif; color:var(--ink);
+      background: var(--bg);
     }
     .wrap{ min-height:100%; display:flex; align-items:center; justify-content:center; padding:28px; }
     .card{
-      width:min(1100px, 96vw); border-radius:28px; padding:28px; background:
-        linear-gradient(180deg, rgba(250,245,230,.75), rgba(255,255,255,.85) 30%, rgba(255,255,255,.92)), var(--bg);
+      width:min(1100px, 96vw); border-radius:28px; padding:28px; background: linear-gradient(180deg, rgba(250,245,230,.75), rgba(255,255,255,.9));
       border:1px solid rgba(212,175,55,.35);
-      box-shadow: inset 0 0 0 1px rgba(212,175,55,.10), var(--accent-shadow);
-    }/* رأس الصفحة */
-.header{ text-align:center; }
-.badge{
-  display:inline-flex; align-items:center; gap:10px; padding:8px 14px; border-radius:999px;
-  border:1px solid rgba(212,175,55,.35);
-  background: linear-gradient(135deg, var(--gold-1), var(--gold-2));
-  color:#1a1506; font-weight:700; font-size:.92rem;
-}
-h1{
-  margin:12px 0 6px; font-size:clamp(1.6rem, 2.2vw + 1rem, 3rem); font-weight:900;
-  background: linear-gradient(180deg, #1a1a1a, #000 40%); -webkit-background-clip:text; background-clip:text; color:transparent;
-}
-.sub{ color:#3b2f07; opacity:.9 }
-
-/* أسود زخرفية (SVG) */
-.lions{ display:flex; justify-content:center; gap:18px; margin:16px 0 6px; }
-.lion{ width:96px; height:96px; filter: drop-shadow(0 6px 22px rgba(0,0,0,.18)); }
-
-/* شبكة العدّ */
-.grid{ display:grid; grid-template-columns:repeat(5, minmax(140px,1fr)); gap:16px; margin:18px 0 8px; }
-@media (max-width: 960px){ .grid{ grid-template-columns:repeat(3, minmax(140px,1fr)); } }
-@media (max-width: 560px){ .grid{ grid-template-columns:repeat(2, minmax(140px,1fr)); } }
-
-.unit{
-  position:relative; padding:18px 16px; border-radius:18px; text-align:center;
-  background: linear-gradient(180deg, rgba(223,197,109,.16), rgba(223,197,109,.08));
-  border:1px solid rgba(212,175,55,.45);
-}
-.unit .label{ font-size:.95rem; letter-spacing:.3px; color:#5a4711; font-weight:700 }
-.unit .value{ font-variant-numeric: tabular-nums; font-size:clamp(2rem, 2vw + 1.4rem, 3.2rem); font-weight:900; line-height:1.1; margin-top:4px;
-  background: linear-gradient(180deg, var(--gold-5), #000); -webkit-background-clip:text; background-clip:text; color:transparent;
-}
-
-.meta{ text-align:center; color:#5a4711; margin-top:8px }
-
-.controls{ display:flex; justify-content:center; flex-wrap:wrap; gap:10px; margin-top:10px }
-.btn{
-  cursor:pointer; padding:10px 14px; border-radius:12px; border:1px solid rgba(212,175,55,.55);
-  background: linear-gradient(180deg, var(--gold-2), var(--gold-1)); font-weight:800; color:#1a1506;
-}
-.btn:disabled{ opacity:.6; cursor:not-allowed }
-
-.api-note{ text-align:center; font-size:.92rem; color:#6d5a18; margin-top:6px }
-
+    }
+    h1{
+      margin:12px 0 16px; text-align:center; font-size:clamp(1.6rem, 2.2vw + 1rem, 3rem); font-weight:900;
+      background: linear-gradient(180deg, #1a1a1a, #000 40%);
+      -webkit-background-clip:text; background-clip:text; color:transparent;
+    }
+    .grid{ display:grid; grid-template-columns:repeat(5, minmax(140px,1fr)); gap:16px; margin:18px 0 8px; }
+    @media (max-width: 960px){ .grid{ grid-template-columns:repeat(3, minmax(140px,1fr)); } }
+    @media (max-width: 560px){ .grid{ grid-template-columns:repeat(2, minmax(140px,1fr)); } }
+    .unit{ padding:18px 16px; border-radius:18px; text-align:center;
+      background: linear-gradient(180deg, rgba(223,197,109,.16), rgba(223,197,109,.08));
+      border:1px solid rgba(212,175,55,.45);
+    }
+    .unit .label{ font-size:.95rem; color:#5a4711; font-weight:700 }
+    .unit .value{ font-size:clamp(2rem, 2vw + 1.4rem, 3.2rem); font-weight:900;
+      background: linear-gradient(180deg, var(--gold-5), #000); -webkit-background-clip:text; background-clip:text; color:transparent;
+    }
   </style>
 </head>
 <body>
   <div class="wrap">
     <div class="card">
-      <div class="header">
-        <span class="badge">✦ صفحة عاشورائية — تقويم هجري عبر API (أم القرى)</span>
-        <h1>العدّ التنازلي لبداية شهر مُحَرَّم</h1>
-        <div class="sub">بالشهور • الأيام • الساعات • الدقائق • الثواني — مصدر التاريخ: <b>Umm al‑Qura</b></div>
-      </div><div class="lions" aria-hidden="true">
-    <!-- أسد أيقوني باللون الأسود (SVG) -->
-    <svg class="lion" viewBox="0 0 64 64" fill="#000" xmlns="http://www.w3.org/2000/svg">
-      <path d="M20 24c-2-6 2-12 8-14 6-2 12 2 14 8 6 0 10 6 8 12-2 6-8 10-14 10H24c-6 0-10-4-12-10-2-6 2-12 8-12z" opacity=".9"/>
-      <path d="M14 40c0 8 6 14 14 14h8c8 0 14-6 14-14v-2c-4 4-10 6-16 6h-8c-6 0-12-2-16-6v2z"/>
-      <circle cx="26" cy="26" r="2.2" fill="#111"/>
-      <circle cx="38" cy="26" r="2.2" fill="#111"/>
-    </svg>
-    <svg class="lion" viewBox="0 0 64 64" fill="#000" xmlns="http://www.w3.org/2000/svg">
-      <path d="M20 24c-2-6 2-12 8-14 6-2 12 2 14 8 6 0 10 6 8 12-2 6-8 10-14 10H24c-6 0-10-4-12-10-2-6 2-12 8-12z" opacity=".9"/>
-      <path d="M14 40c0 8 6 14 14 14h8c8 0 14-6 14-14v-2c-4 4-10 6-16 6h-8c-6 0-12-2-16-6v2z"/>
-      <circle cx="26" cy="26" r="2.2" fill="#111"/>
-      <circle cx="38" cy="26" r="2.2" fill="#111"/>
-    </svg>
+      <h1>العدّ التنازلي لبداية شهر مُحَرَّم</h1>
+      <div class="grid">
+        <div class="unit"><div class="label">الشهور</div><div class="value" id="months">—</div></div>
+        <div class="unit"><div class="label">الأيام</div><div class="value" id="days">—</div></div>
+        <div class="unit"><div class="label">الساعات</div><div class="value" id="hours">—</div></div>
+        <div class="unit"><div class="label">الدقائق</div><div class="value" id="minutes">—</div></div>
+        <div class="unit"><div class="label">الثواني</div><div class="value" id="seconds">—</div></div>
+      </div>
+    </div>
   </div>
+  <script>
+    const monthsEl=document.getElementById('months');
+    const daysEl=document.getElementById('days');
+    const hoursEl=document.getElementById('hours');
+    const minutesEl=document.getElementById('minutes');
+    const secondsEl=document.getElementById('seconds');function findNextViaIntl(){
+  const fmtHijriParts=new Intl.DateTimeFormat('en-u-ca-islamic',{year:'numeric',month:'numeric',day:'numeric'});
+  let d=new Date();d.setHours(0,0,0,0);
+  for(let i=0;i<420;i++){
+    const parts=fmtHijriParts.formatToParts(d);
+    const map=Object.fromEntries(parts.map(p=>[p.type,p.value]));
+    if(Number(map.month)===1 && Number(map.day)===1){return new Date(d);}
+    d.setDate(d.getDate()+1);
+  }
+  return new Date();
+}
 
-  <div class="grid">
-    <div class="unit"><div class="label">الشهور</div><div class="value" id="months">—</div></div>
-    <div class="unit"><div class="label">الأيام</div><div class="value" id="days">—</div></div>
-    <div class="unit"><div class="label">الساعات</div><div class="value" id="hours">—</div></div>
-    <div class="unit"><div class="label">الدقائق</div><div class="value" id="minutes">—</div></div>
-    <div class="unit"><div class="label">الثواني</div><div class="value" id="seconds">—</div></div>
-  </div>
+const targetDate=findNextViaIntl();
 
-  <div class="controls">
-    <button class="btn" id="refresh">تحديث من الـ API</button>
-  </div>
+function update(){
+  const now=new Date();
+  let diff=targetDate-now;
+  if(diff<0) diff=0;
+  const lunarMonth=29.530588*24*60*60*1000;
+  const months=Math.floor(diff/lunarMonth);
+  const remAfterMonths=diff-months*lunarMonth;
+  const days=Math.floor(remAfterMonths/(24*60*60*1000));
+  const remAfterDays=remAfterMonths-days*24*60*60*1000;
+  const hours=Math.floor(remAfterDays/(60*60*1000));
+  const remAfterHours=remAfterDays-hours*60*60*1000;
+  const minutes=Math.floor(remAfterHours/(60*1000));
+  const remAfterMinutes=remAfterHours-minutes*60*1000;
+  const seconds=Math.floor(remAfterMinutes/1000);
 
-  <div class="meta" id="meta">التاريخ المستهدف: — (هجري) • — (ميلادي)</div>
-  <div class="api-note">يتم تحديد <b>١ محرم</b> القادم عبر <b>Aladhan API</b> (تقويم أم القرى). في حال تعذّر الاتصال، ستُستخدم خوارزمية بديلة داخلية مؤقتًا.</div>
-</div>
+  monthsEl.textContent=String(months);
+  daysEl.textContent=String(days);
+  hoursEl.textContent=String(hours).padStart(2,'0');
+  minutesEl.textContent=String(minutes).padStart(2,'0');
+  secondsEl.textContent=String(seconds).padStart(2,'0');
+}
 
-  </div>  <script>
-    // ===== إعدادات API =====
-    // سنستخدم Aladhan (مجاني) لتحويل التاريخ الميلادي إلى هجري حسب أم القرى:
-    // مثال: https://api.aladhan.com/v1/gToH?date=21-09-2025
-    const API_BASE = 'https://api.aladhan.com/v1/gToH?date='; // يوم-شهر-سنة
+update();
+setInterval(update,1000);
 
-    const fmtGregAR = new Intl.DateTimeFormat('ar', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
-    const fmtHijriAR = new Intl.DateTimeFormat('ar-u-ca-islamic', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
-
-    function ddmmyyyy(d){
-      const dd = String(d.getDate()).padStart(2,'0');
-      const mm = String(d.getMonth()+1).padStart(2,'0');
-      const yyyy = d.getFullYear();
-      return `${dd}-${mm}-${yyyy}`;
-    }
-
-    async function gregorianToHijri(date){
-      const url = API_BASE + encodeURIComponent(ddmmyyyy(date));
-      const res = await fetch(url);
-      if(!res.ok) throw new Error('API error');
-      const json = await res.json();
-      const h = json?.data?.hijri;
-      if(!h) throw new Error('No hijri data');
-      return {
-        day: Number(h.day),
-        month: Number(h.month?.number),
-        year: Number(h.year),
-        formatted: `${h.weekday?.ar}، ${h.day} ${h.month?.ar} ${h.year} هـ`
-      };
-    }
-
-    // ابحث عن أقرب 1 محرم (اليوم/الشهر 1/1) ابتداءً من اليوم
-    async function findNextMuharramStart(){
-      const start = new Date();
-      start.setHours(0,0,0,0);
-      let probe = new Date(start);
-      for(let i=0;i<420;i++){
-        const hij = await gregorianToHijri(probe);
-        if(hij.day === 1 && hij.month === 1){
-          return new Date(probe); // هذا هو يوم 1 محرم (بداية اليوم الميلادي المحلي)
-        }
-        probe.setDate(probe.getDate()+1);
-      }
-      throw new Error('Muharram 1 not found within range');
-    }
-
-    function updateDiff(target){
-      const now = new Date();
-      let diff = target - now;
-      if(diff < 0) diff = 0;
-      // تقدير بالأشهر القمرية
-      const lunarMonth = 29.530588 * 24*60*60*1000;
-      const months = Math.floor(diff / lunarMonth);
-      const remAfterMonths = diff - months*lunarMonth;
-      const days = Math.floor(remAfterMonths / (24*60*60*1000));
-      const remAfterDays = remAfterMonths - days*24*60*60*1000;
-      const hours = Math.floor(remAfterDays / (60*60*1000));
-      const remAfterHours = remAfterDays - hours*60*60*1000;
-      const minutes = Math.floor(remAfterHours / (60*1000));
-      const remAfterMinutes = remAfterHours - minutes*60*1000;
-      const seconds = Math.floor(remAfterMinutes / 1000);
-
-      monthsEl.textContent = String(months);
-      daysEl.textContent = String(days);
-      hoursEl.textContent = String(hours).padStart(2,'0');
-      minutesEl.textContent = String(minutes).padStart(2,'0');
-      secondsEl.textContent = String(seconds).padStart(2,'0');
-    }
-
-    const monthsEl = document.getElementById('months');
-    const daysEl   = document.getElementById('days');
-    const hoursEl  = document.getElementById('hours');
-    const minutesEl= document.getElementById('minutes');
-    const secondsEl= document.getElementById('seconds');
-    const metaEl   = document.getElementById('meta');
-
-    let targetDate = null;
-    let timer = null;
-
-    async function initFromAPI(){
-      document.getElementById('refresh').disabled = true;
-      try{
-        targetDate = await findNextMuharramStart();
-        // اعرض التاريخين
-        const hij = await gregorianToHijri(targetDate);
-        metaEl.textContent = `التاريخ المستهدف: ${hij.formatted} (هجري) • ${fmtGregAR.format(targetDate)} (ميلادي)`;
-        if(timer) clearInterval(timer);
-        updateDiff(targetDate);
-        timer = setInterval(()=>updateDiff(targetDate), 1000);
-      }catch(err){
-        console.error(err);
-        // بديل احتياطي باستخدام Intl (قد يختلف عن أم القرى)
-        const fallback = findNextViaIntl();
-        targetDate = fallback;
-        metaEl.textContent = `التاريخ المستهدف (احتياطي): ${fmtHijriAR.format(targetDate)} (هجري) • ${fmtGregAR.format(targetDate)} (ميلادي)`;
-        if(timer) clearInterval(timer);
-        updateDiff(targetDate);
-        timer = setInterval(()=>updateDiff(targetDate), 1000);
-      }finally{
-        document.getElementById('refresh').disabled = false;
-      }
-    }
-
-    function findNextViaIntl(){
-      const fmtHijriParts = new Intl.DateTimeFormat('en-u-ca-islamic', { year:'numeric', month:'numeric', day:'numeric' });
-      let d = new Date(); d.setHours(0,0,0,0);
-      for(let i=0;i<420;i++){
-        const parts = fmtHijriParts.formatToParts(d);
-        const map = Object.fromEntries(parts.map(p => [p.type, p.value]));
-        const m = Number(map.month), day = Number(map.day);
-        if(m === 1 && day === 1) return new Date(d);
-        d.setDate(d.getDate()+1);
-      }
-      return new Date();
-    }
-
-    document.getElementById('refresh').addEventListener('click', initFromAPI);
-    // ابدأ مباشرة
-    initFromAPI();
-  </script></body>
+  </script>
+</body>
 </html>
