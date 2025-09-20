@@ -6,12 +6,12 @@
   <title>فاحص أعراض العقم — إرشاد أولي ومراكز خصوبة</title>
 
   <!-- SEO -->
-  <meta name="description" content="أداة تثقيفية عربية للتنبّه إلى مؤشرات العقم وتأخر الإنجاب لدى النساء والرجال، مع نتيجة إرشادية، ونصائح، وروابط مراكز خصوبة عالمية ومحلية. لا تُغني عن الاستشارة الطبية."/>
-  <meta name="keywords" content="عقم, خصوبة, تأخر الإنجاب, IVF, ICSI, فحص خصوبة, مراكز خصوبة, استبيان العقم, أطفال الأنابيب"/>
+  <meta name="description" content="أداة تثقيفية عربية للتنبه إلى مؤشرات العقم وتأخر الإنجاب للنساء والرجال، مع نتيجة إرشادية ونصائح وروابط لمراكز خصوبة موثوقة عالميًا ومحليًا. ليست بديلاً عن الاستشارة الطبية."/>
+  <meta name="keywords" content="عقم, خصوبة, فحص خصوبة, IVF, ICSI, IUI, أطفال الأنابيب, استبيان العقم, فقيه IVF, رويان, سدرة للطب"/>
   <link rel="canonical" href="https://fadhel-alrayes.fun/index89.html"/>
   <meta name="robots" content="index, follow"/>
 
-  <!-- Open Graph -->
+  <!-- OG / Twitter -->
   <meta property="og:type" content="website"/>
   <meta property="og:title" content="فاحص أعراض العقم — إرشاد أولي ومراكز خصوبة"/>
   <meta property="og:description" content="استبيان إرشادي بالعربية مع نصائح وروابط مراكز خصوبة موثوقة."/>
@@ -30,7 +30,6 @@
       --ok:#10b981; --ok-bg:#ecfdf5; --ok-br:#a7f3d0;
       --warn:#f59e0b; --warn-bg:#fffbeb; --warn-br:#fde68a;
       --danger:#ef4444; --danger-bg:#fef2f2; --danger-br:#fecaca;
-      --vio:#6d28d9; --vio-bg:#f5f3ff; --vio-br:#ddd6fe;
       --info:#0ea5e9; --info-bg:#eff6ff; --info-br:#bfdbfe;
     }
     *{box-sizing:border-box}
@@ -84,6 +83,7 @@
     .card h3{margin:0 0 6px; font-family:"Amiri",serif; color:var(--gold)}
     .card p, .card ul{margin:0; font-size:14px; color:#374151; line-height:1.8}
     .card ul{margin-top:8px; padding-inline-start:20px}
+
     /* بطاقات مضغوطة وجميلة */
     .card--compact{ padding:12px; border-radius:12px }
     .card--compact h3{ font-size:1rem; margin:0 0 6px }
@@ -91,9 +91,15 @@
     .select--sm select{ font-size:.95rem; padding:10px 40px 10px 12px; border-radius:10px }
     .small-note{ font-size:12px; color:#6b7280; margin-top:6px }
 
-    .note-box{ border:1px dashed var(--vio-br); background:var(--vio-bg); color:#372e6b; padding:12px; border-radius:12px; font-size:14px }
+    /* نسخة مصغّرة لقسم المراكز حسب الدولة */
+    .card.region-compact{ padding:10px; border-radius:10px }
+    .card.region-compact *{ line-height:1.5 }
+    .card.region-compact h3{ font-size:.95rem; margin:0 0 4px }
+    .card.region-compact .hint{ font-size:.78rem; color:#6b7280 }
+    .card.region-compact .select select{ font-size:.9rem; padding:8px 34px 8px 10px; border-radius:8px; border:1px solid #d9d9d9 }
+    .card.region-compact .small-note{ font-size:.78rem; color:#64748b; margin-top:6px }
 
-    /* مربع الحقائق الأنيق */
+    /* مربع الحقائق */
     .fact-wrap{ margin-top:12px; border:1px solid var(--info-br); background:var(--info-bg);
       border-radius:14px; padding:14px; box-shadow:0 6px 20px rgba(2,132,199,.12) }
     .fact-title{ display:flex; align-items:center; gap:8px; margin:0 0 8px; font-family:"Amiri",serif; color:var(--info); font-size:18px }
@@ -119,12 +125,13 @@
 <body>
 <header>
   <div class="brand">فاحص أعراض العقم</div>
-  <div class="tag">أداة تثقيفية للتنبّه إلى مؤشرات العقم وتأخر الإنجاب لدى النساء والرجال — ليست تشخيصًا ولا بديلًا عن الطبيب.</div>
+  <div class="tag">أداة تثقيفية للتنبّه إلى مؤشرات العقم وتأخر الإنجاب — ليست تشخيصًا ولا بديلًا عن الطبيب.</div>
 </header>
 
 <main class="shell">
   <section class="hero">
     <div class="row">
+      <!-- العمود الأيسر -->
       <div>
         <!-- الدولة -->
         <div class="field">
@@ -172,11 +179,11 @@
 
         <!-- العمر -->
         <div class="field center">
-          <label><strong>العمر</strong> <span class="small">(أكبر من 0 وأقل من 65)</span></label>
+          <label><strong>العمر</strong> <span class="small">(بين 1 و 65)</span></label>
           <input id="age" type="number" inputmode="numeric" min="1" max="65" placeholder="مثال: 32" style="width:180px; padding:12px; border:1px solid var(--line); border-radius:10px; text-align:center; margin:0 auto">
         </div>
 
-        <!-- عوامل نمط الحياة/تاريخ -->
+        <!-- عوامل نمط الحياة/التاريخ -->
         <div class="field center">
           <label><strong>عوامل مؤثرة</strong></label>
           <div class="seg" id="smokeSeg" data-smoke="no">
@@ -196,7 +203,7 @@
         <!-- أسئلة المؤشرات -->
         <div id="symptoms" class="card">
           <h3>أسئلة المؤشرات (اختر نعم/لا)</h3>
-          <div class="hint">المؤشرات لا تعني تشخيصًا. الغرض هو التنبيه ومتى يلزم التقييم الطبي.</div>
+          <div class="hint">المؤشرات لا تعني تشخيصًا. الهدف التنبيه ومتى يلزم التقييم الطبي.</div>
 
           <!-- عامة -->
           <div class="field"><div><strong>محاولة حمل لأكثر من 12 شهرًا بدون نجاح (أكثر من 6 أشهر إذا ≥ 35 سنة)</strong></div>
@@ -234,6 +241,7 @@
         <button class="btn" id="calc">اعرض النتيجة</button>
       </div>
 
+      <!-- العمود الأيمن -->
       <div>
         <!-- نتيجة -->
         <div id="resultBox" class="resultbox rb-ok" aria-live="polite">
@@ -251,15 +259,13 @@
             <li>العمر &lt; 35 سنة ومحاولة حمل &gt; 12 شهرًا.</li>
             <li>عدم انتظام الدورة/ألم حوض مزمن/أمراض تناسلية سابقة/مشكلات جنسية للزوج.</li>
           </ul>
-          <div class="note-box" style="margin-top:8px">
-            تذكير: هذه أداة تثقيفية عامة. التشخيص والخطة العلاجية لدى الطبيب/الاستشاري.
-          </div>
+          <p class="hint" style="margin-top:6px">تذكير: هذه أداة تثقيفية عامة — التشخيص والخطة العلاجية لدى الطبيب/الاستشاري.</p>
         </div>
 
-        <!-- مراكز عالمية مرموقة (عناوين بالعربية - الموقع يُفتح بلغته) -->
+        <!-- مراكز عالمية مرموقة -->
         <div class="card card--compact" style="margin-top:12px">
           <h3>مراكز خصوبة عالمية مرموقة</h3>
-          <div class="hint">الأسماء بالعربية لسهولة التصفح — يفتح الرابط الموقع بلغته الأصلية.</div>
+          <div class="hint">الأسماء بالعربية — يفتح الرابط الموقع بلغته الأصلية.</div>
           <div class="select select--sm">
             <select id="intlSelect" aria-label="اختر مركزًا عالميًا">
               <option value="">— اختر مركزًا عالميًا —</option>
@@ -291,10 +297,12 @@
           <div id="intlContact" class="small-note" style="display:none"></div>
         </div>
 
-        <!-- مراكز مختارة حسب الدولة (تصميم مضغوط) -->
-        <div class="card card--compact" style="margin-top:12px">
+        <!-- مراكز مختارة حسب الدولة (نسخة مصغّرة) -->
+        <div class="card region-compact" style="margin-top:12px">
           <h3>مراكز مختارة حسب الدولة</h3>
-          <div class="select select--sm">
+          <div class="hint">اختر مركزًا لفتح الموقع الرسمي في نافذة جديدة.</div>
+
+          <div class="select">
             <select id="regionalSelect" aria-label="اختر مركزًا إقليميًا">
               <option value="">— اختر مركزًا —</option>
 
@@ -332,7 +340,7 @@
 
               <optgroup label="الأردن">
                 <option value="https://ivfjo.com/">مركز حدّاد للخصوبة</option>
-                <option value="https://www.khcc.jo/">مركز الحسين — استشارات ما بعد علاج السرطان</option>
+                <option value="https://www.khcc.jo/">مركز الحسين — استشارات خصوبة</option>
               </optgroup>
 
               <optgroup label="لبنان">
@@ -396,6 +404,7 @@
               </optgroup>
             </select>
           </div>
+
           <div id="regionalContact" class="small-note" style="display:none"></div>
         </div>
 
@@ -432,7 +441,7 @@
 </div>
 
 <script>
-/* نافذة الرسائل */
+/* نافذة الرسائل الأنيقة */
 const $mb = document.getElementById('msgBackdrop');
 const $txt = document.getElementById('msgText');
 const $ttl = document.getElementById('msgTitle');
@@ -515,9 +524,8 @@ const COUNTRY_CENTERS={
   SDN:[{n:"وزارة الصحة — إحالات", url:"https://fmoh.gov.sd/"}]
 };
 
-function yes(id){ return document.querySelector(`.seg[data-q="${id}"] .on`)?.dataset.a==='yes'; }
-
 /* حساب الإرشاد */
+function yes(id){ return document.querySelector(`.seg[data-q="${id}"] .on`)?.dataset.a==='yes'; }
 function computeGuidance(){
   let score=0;
   const age = parseFloat(document.getElementById('age').value);
@@ -573,13 +581,14 @@ function buildAdvice(age, sex){
 
 /* نتيجة + مراكز محلية سريعة */
 document.getElementById('calc').addEventListener('click', ()=>{
-  const age=parseFloat(document.getElementById('age').value);
+  const ageField=document.getElementById('age');
+  const age=parseFloat(ageField.value);
   if(!(age>=1 && age<=65)){
     openMsg('من فضلك أدخل عمرًا صحيحًا بين 1 و 65 لعرض النتيجة.', 'error', 'مطلوب إدخال');
+    ageField.focus();
     return;
   }
   const sex = document.getElementById('sexSeg').dataset.sex || 'couple';
-
   const {level, cls, action}=computeGuidance();
 
   const box=document.getElementById('resultBox');
