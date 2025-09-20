@@ -1,478 +1,238 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<!DOCTYPE html><html lang="ar" dir="rtl">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>سيرة — قالب جانبي ذهبي/داكن (البحرين)</title>
-<style>
-  :root{
-    --bg:#ffffff; --fg:#0f172a; --muted:#475569;
-    --accent:#C7A046; --accent-2:#EAD9A2;
-    --side:#111827; --side-text:#e5e7eb; --border:#e5e7eb;
-    --radius:14px; --shadow:0 8px 28px rgba(15,23,42,.08);
-  }
-  html,body{background:var(--bg);color:var(--fg);font-family:"Cairo","Noto Naskh Arabic",system-ui,Arial;line-height:1.55}
-  *{box-sizing:border-box}
-  h1,h2,h3{margin:0}
-  .wrap{max-width:1100px;margin:20px auto;padding:0 14px}
-  .step{position:sticky;top:0;z-index:5;background:#fff;border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow);padding:10px 12px;margin-bottom:14px}
-  .card{background:#fff;border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow);margin-bottom:12px}
-  .card-h{padding:14px 16px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
-  .card-b{padding:14px 16px}
-  .toggle{border:1px solid var(--border);background:#fff;border-radius:10px;width:34px;height:34px;font-weight:800;cursor:pointer}
-  .row{display:grid;gap:10px}
-  .two{grid-template-columns:1fr}
-  @media(min-width:640px){.two{grid-template-columns:1fr 1fr}}
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>العدّ التنازلي لبداية شهر محرم — تقويم هجري مُعتمد</title>
+  <style>
+    :root{
+      --bg:#ffffff;            /* صفحة بيضاء */
+      --ink:#0a0a0a;           /* أسود للنصوص */
+      --ink-soft:#202020;
+      --gold-1:#fef9e7;        /* تدرجات ذهبية فاتحة */
+      --gold-2:#f3e6b2;
+      --gold-3:#e0c56d;
+      --gold-4:#d4af37;        /* الذهبي الكلاسيكي */
+      --gold-5:#a37c10;        /* ذهبي داكن */
+      --accent-shadow: 0 20px 60px rgba(164, 130, 29, .18);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family: "Tajawal", system-ui, -apple-system, Segoe UI, Roboto, "Noto Naskh Arabic", Arial, sans-serif; color:var(--ink);
+      background:
+        radial-gradient(1100px 700px at 120% -10%, rgba(212,175,55,.10), transparent 60%),
+        radial-gradient(900px 700px at -20% 120%, rgba(212,175,55,.10), transparent 60%),
+        var(--bg);
+    }
+    .wrap{ min-height:100%; display:flex; align-items:center; justify-content:center; padding:28px; }
+    .card{
+      width:min(1100px, 96vw); border-radius:28px; padding:28px; background:
+        linear-gradient(180deg, rgba(250,245,230,.75), rgba(255,255,255,.85) 30%, rgba(255,255,255,.92)), var(--bg);
+      border:1px solid rgba(212,175,55,.35);
+      box-shadow: inset 0 0 0 1px rgba(212,175,55,.10), var(--accent-shadow);
+    }/* رأس الصفحة */
+.header{ text-align:center; }
+.badge{
+  display:inline-flex; align-items:center; gap:10px; padding:8px 14px; border-radius:999px;
+  border:1px solid rgba(212,175,55,.35);
+  background: linear-gradient(135deg, var(--gold-1), var(--gold-2));
+  color:#1a1506; font-weight:700; font-size:.92rem;
+}
+h1{
+  margin:12px 0 6px; font-size:clamp(1.6rem, 2.2vw + 1rem, 3rem); font-weight:900;
+  background: linear-gradient(180deg, #1a1a1a, #000 40%); -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.sub{ color:#3b2f07; opacity:.9 }
 
-  label{font-size:13px;color:var(--muted);font-weight:700}
-  input[type="text"],input[type="email"],input[type="url"],textarea,select{
-    width:100%;border:1px solid var(--border);border-radius:10px;padding:10px 12px;outline:none;background:#fff
-  }
-  textarea{min-height:90px;resize:vertical}
-  input:focus,textarea:focus,select:focus{border-color:var(--accent)}
+/* أسود زخرفية (SVG) */
+.lions{ display:flex; justify-content:center; gap:18px; margin:16px 0 6px; }
+.lion{ width:96px; height:96px; filter: drop-shadow(0 6px 22px rgba(0,0,0,.18)); }
 
-  /* +973 fixed phone */
-  .phone{display:flex;align-items:center;border:1px solid var(--border);border-radius:10px;overflow:hidden}
-  .phone .pre{background:#fafaf9;color:#7a5a16;border-inline-end:1px solid var(--border);padding:10px 12px;font-weight:800}
-  .phone input{border:none;flex:1;padding:10px 12px;outline:none}
-  .hint{font-size:12px;color:var(--muted)}
+/* شبكة العدّ */
+.grid{ display:grid; grid-template-columns:repeat(5, minmax(140px,1fr)); gap:16px; margin:18px 0 8px; }
+@media (max-width: 960px){ .grid{ grid-template-columns:repeat(3, minmax(140px,1fr)); } }
+@media (max-width: 560px){ .grid{ grid-template-columns:repeat(2, minmax(140px,1fr)); } }
 
-  /* ===== CV TEMPLATE (matches screenshot) ===== */
-  .cv{display:grid;grid-template-columns:320px 1fr;min-height:500px;border:1px solid var(--border);border-radius:12px;overflow:hidden}
-  .cv .side{background:var(--side);color:var(--side-text);padding:24px}
-  .avatar{width:140px;height:140px;border-radius:999px;overflow:hidden;border:6px solid var(--accent);box-shadow:var(--shadow);background:#222;margin:0 auto}
-  .avatar img{width:100%;height:100%;object-fit:cover}
-  .side .name{color:#fff;text-align:center;margin-top:16px}
-  .side .name h1{font-size:26px;font-weight:900}
-  .side .name p{margin-top:4px;color:#cbd5e1}
-  .side .sec{margin-top:22px}
-  .tag{display:inline-flex;align-items:center;gap:8px;color:#fff;font-weight:800}
-  .tag:before{content:"";display:inline-block;width:18px;height:18px;border-radius:50%;background:var(--accent)}
-  .side hr{border:none;border-top:1px solid rgba(255,255,255,.08);margin:10px 0}
-  .contact p{margin:6px 0}
-  .skill{display:flex;align-items:center;gap:10px;margin:8px 0}
-  .skill span{min-width:90px}
-  .bar{flex:1;height:8px;background:#1f2937;border-radius:99px;overflow:hidden;border:1px solid rgba(255,255,255,.08)}
-  .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),#d9b96b)}
-  .side ul{margin:8px 0 0 18px}
-  .side li{margin:4px 0}
+.unit{
+  position:relative; padding:18px 16px; border-radius:18px; text-align:center;
+  background: linear-gradient(180deg, rgba(223,197,109,.16), rgba(223,197,109,.08));
+  border:1px solid rgba(212,175,55,.45);
+}
+.unit .label{ font-size:.95rem; letter-spacing:.3px; color:#5a4711; font-weight:700 }
+.unit .value{ font-variant-numeric: tabular-nums; font-size:clamp(2rem, 2vw + 1.4rem, 3.2rem); font-weight:900; line-height:1.1; margin-top:4px;
+  background: linear-gradient(180deg, var(--gold-5), #000); -webkit-background-clip:text; background-clip:text; color:transparent;
+}
 
-  .cv .main{background:#fff;padding:26px}
-  .block{margin-bottom:22px}
-  .block h2{display:flex;align-items:center;gap:8px;font-size:18px}
-  .block h2:before{content:"";display:inline-block;width:28px;height:28px;border-radius:50%;background:var(--accent);opacity:.9}
-  .underline{height:3px;background:var(--accent-2);width:80px;margin:8px 0 10px;border-radius:99px}
-  .job{margin-bottom:12px}
-  .job h3{font-size:16px}
-  .meta{color:#64748b;font-size:13px;margin:2px 0 6px}
-  .main ul{margin:6px 0 0 18px} .main li{margin:4px 0}
+.meta{ text-align:center; color:#5a4711; margin-top:8px }
 
-  /* Bottom bar */
-  .bottom{position:sticky;bottom:0;background:#fff;border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow);margin:14px 0;padding:10px 12px;display:flex;gap:8px;justify-content:center;align-items:center}
-  .btn{border:1px solid var(--accent);background:var(--accent);color:#fff;padding:9px 12px;border-radius:10px;cursor:pointer;font-weight:800}
-  .btn.ghost{background:#fff;color:var(--accent)}
-  .btn[disabled]{opacity:.5;cursor:not-allowed}
-  .hide{display:none}
+.controls{ display:flex; justify-content:center; flex-wrap:wrap; gap:10px; margin-top:10px }
+.btn{
+  cursor:pointer; padding:10px 14px; border-radius:12px; border:1px solid rgba(212,175,55,.55);
+  background: linear-gradient(180deg, var(--gold-2), var(--gold-1)); font-weight:800; color:#1a1506;
+}
+.btn:disabled{ opacity:.6; cursor:not-allowed }
 
-  /* Print */
-  @page{size:A4;margin:16mm}
-  @media print{.no-print{display:none!important}.cv{border:none}}
-</style>
+.api-note{ text-align:center; font-size:.92rem; color:#6d5a18; margin-top:6px }
+
+  </style>
 </head>
 <body>
-<div class="wrap">
-
-  <div class="step no-print"><strong>املأ الحقول ثم نزّل السيرة — التنسيق النهائي يطابق القالب الجانبي.</strong></div>
-
-  <!-- ===== FORM (مختصر + قوائم) ===== -->
-  <section class="card no-print">
-    <div class="card-h"><h2>البيانات</h2><button class="toggle" aria-expanded="true">+</button></div>
-    <div class="card-b" id="formWrap">
-      <div class="row two">
-        <div><label>الاسم الكامل *</label><input id="fullName" type="text" placeholder="مثال: علي حسن محمد" required></div>
-        <div><label>المسمّى المستهدف *</label><input id="title" type="text" placeholder="مثال: مصمم جرافيك" required></div>
-
-        <div><label>البريد الإلكتروني *</label><input id="email" type="email" placeholder="name@example.com" required></div>
-        <div>
-          <label>رقم الهاتف (البحرين) *</label>
-          <div class="phone"><span class="pre">+973</span><input id="phoneDigits" type="text" inputmode="numeric" maxlength="8" placeholder="أدخل 8 أرقام فقط"></div>
-          <div class="hint">البادئة ثابتة — اكتب الثمانية أرقام.</div>
-        </div>
-
-        <div><label>المدينة / الدولة *</label><input id="location" type="text" value="المنامة، البحرين" required></div>
-        <div><label>رابط موقع/بورتفوليو</label><input id="website" type="url" placeholder="your-portfolio.com"></div>
-
-        <div>
-          <label>المستوى العلمي *</label>
-          <select id="eduLevel" required>
-            <option value="">اختر…</option>
-            <option>دبلوم</option><option>بكالوريوس</option><option>ماجستير</option><option>دكتوراه</option>
-          </select>
-        </div>
-        <div>
-          <label>الجنسية *</label>
-          <select id="nationality" required>
-            <option value="">اختر…</option>
-            <option>بحرينية</option><option>سعودية</option><option>إماراتية</option><option>كويتية</option><option>عُمانية</option>
-            <option>مصرية</option><option>أردنية</option><option>سورية</option><option>لبنانية</option><option>فلسطينية</option>
-            <option>هندية</option><option>باكستانية</option><option>بنغلاديشية</option><option>فلبينية</option>
-            <option>أخرى</option>
-          </select>
-        </div>
-
-        <div>
-          <label>هل لديك رخصة قيادة؟ *</label>
-          <select id="hasLicense" required><option value="">اختر…</option><option>نعم</option><option>لا</option></select>
-        </div>
-        <div>
-          <label>هل لديك مواصلات؟ *</label>
-          <select id="hasTransport" required><option value="">اختر…</option><option>نعم</option><option>لا</option></select>
-        </div>
-      </div>
-
-      <div class="row two" style="margin-top:6px">
-        <div>
-          <label>التخصص *</label>
-          <select id="majorList" required>
-            <option value="">اختر…</option>
-            <option>تصميم جرافيك</option><option>هندسة برمجيات</option><option>علوم الحاسب</option>
-            <option>محاسبة</option><option>إدارة أعمال</option><option value="other">أخرى (اكتبها)</option>
-          </select>
-        </div>
-        <div id="majorCustomBox" class="hide"><label>اكتب التخصص</label><input id="majorCustom" type="text" placeholder="مثال: تصميم واجهات UI"></div>
-      </div>
-
-      <div style="margin-top:6px">
-        <label>اللغات (ضع ✔️)</label>
-        <div class="chipline" id="langChecks">
-          <label class="chip"><input type="checkbox" value="العربية"> العربية</label>
-          <label class="chip"><input type="checkbox" value="الإنجليزية"> الإنجليزية</label>
-          <label class="chip"><input type="checkbox" value="الهندية"> الهندية</label>
-          <label class="chip"><input type="checkbox" value="الأوردو"> الأوردو</label>
-          <label class="chip"><input type="checkbox" value="أخرى"> أخرى</label>
-        </div>
-      </div>
-
-      <div class="row two" style="margin-top:6px">
-        <div>
-          <label>المؤسسة (البحرين)</label>
-          <select id="bhInstitution">
-            <option value="">اختر…</option>
-            <option>جامعة البحرين</option><option>جامعة الخليج العربي</option>
-            <option>بوليتكنك البحرين</option><option>RCSI البحرين</option><option>BIBF</option>
-            <option value="abroad">خارج البحرين</option>
-          </select>
-        </div>
-        <div><label>تاريخ التخرج</label><input id="gradDate" type="text" placeholder="YYYY-MM"></div>
-      </div>
-
-      <div id="abroadBox" class="row two hide">
-        <div>
-          <label>الدولة</label>
-          <select id="country">
-            <option value="">اختر الدولة…</option>
-            <option>السعودية</option><option>الإمارات</option><option>الكويت</option><option>عُمان</option><option>قطر</option>
-            <option>مصر</option><option>الأردن</option><option>الهند</option><option>باكستان</option>
-            <option>المملكة المتحدة</option><option>الولايات المتحدة</option><option>ألمانيا</option><option>تركيا</option>
-            <option>أخرى</option>
-          </select>
-        </div>
-        <div><label>اسم الجامعة</label><input id="uniName" type="text" placeholder="اسم الجامعة"></div>
-        <div><label>التخصص</label><input id="uniMajor" type="text" placeholder="التخصص"></div>
-      </div>
-
-      <div style="margin-top:6px">
-        <label>ملف شخصي (3–4 جمل)</label>
-        <textarea id="summary" maxlength="450" placeholder="نبذة احترافية مختصرة…"></textarea>
-        <div class="hint"><span id="sumCount">0</span> / 450</div>
-      </div>
-
-      <div style="margin-top:6px">
-        <label>خبرتان (اختياري) — لكل وظيفة عنوان وشركة ونقطتان</label>
-        <div class="row two">
-          <div><input id="job1_role" type="text" placeholder="المسمّى #1"></div>
-          <div><input id="job1_meta" type="text" placeholder="الشركة | المدينة | المدة"></div>
-          <div><input id="job1_b1" type="text" placeholder="إنجاز 1"></div>
-          <div><input id="job1_b2" type="text" placeholder="إنجاز 2"></div>
-        </div>
-        <div class="row two" style="margin-top:8px">
-          <div><input id="job2_role" type="text" placeholder="المسمّى #2"></div>
-          <div><input id="job2_meta" type="text" placeholder="الشركة | المدينة | المدة"></div>
-          <div><input id="job2_b1" type="text" placeholder="إنجاز 1"></div>
-          <div><input id="job2_b2" type="text" placeholder="إنجاز 2"></div>
-        </div>
-      </div>
-
-      <div style="margin-top:6px">
-        <label>المهارات (اكتب نسبة لكل مهارة 0–100)</label>
-        <div class="row two">
-          <div><input id="sk1" type="text" placeholder="Photoshop: 90"></div>
-          <div><input id="sk2" type="text" placeholder="Illustrator: 80"></div>
-          <div><input id="sk3" type="text" placeholder="Web Design: 70"></div>
-        </div>
-      </div>
-
-      <div style="margin-top:6px">
-        <label>اهتمامات (سطور قصيرة)</label>
-        <textarea id="interests" placeholder="فن بسيط\nتصوير حضري\nتركيبات فنية"></textarea>
-      </div>
-
-      <div style="margin-top:6px">
-        <label>رابط صورة (اختياري)</label>
-        <input id="photoUrl" type="url" placeholder="https://example.com/me.jpg">
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== PREVIEW (Template) ===== -->
-  <section class="card">
-    <div class="card-b">
-      <article id="cv" class="cv">
-        <!-- Sidebar -->
-        <aside class="side">
-          <div class="avatar" id="v_avatar"><img alt="" src="" onerror="this.style.display='none'"></div>
-          <div class="name">
-            <h1 id="v_name">الاسم الكامل</h1>
-            <p id="v_title">المسمّى المستهدف</p>
-          </div>
-
-          <div class="sec contact">
-            <div class="tag">التواصل</div><hr>
-            <p id="v_email">email@example.com</p>
-            <p id="v_phone">+973 3xxxxxxx</p>
-            <p id="v_site">website.com</p>
-            <p id="v_loc">المنامة، البحرين</p>
-          </div>
-
-          <div class="sec">
-            <div class="tag">المهارات</div><hr id="skills_hr">
-            <div id="v_skills">
-              <!-- skill rows -->
-            </div>
-          </div>
-
-          <div class="sec">
-            <div class="tag">الاهتمامات</div><hr>
-            <ul id="v_interests"></ul>
-          </div>
-        </aside>
-
-        <!-- Main -->
-        <section class="main">
-          <div class="block" id="b_profile">
-            <h2>الملف الشخصي</h2>
-            <div class="underline"></div>
-            <p id="v_summary">اكتب نبذة مختصرة هنا…</p>
-          </div>
-
-          <div class="block" id="b_exp">
-            <h2>الخبرة</h2>
-            <div class="underline"></div>
-            <div id="v_exp"></div>
-          </div>
-
-          <div class="block" id="b_edu">
-            <h2>التعليم</h2>
-            <div class="underline"></div>
-            <div id="v_edu"></div>
-          </div>
-
-          <div class="block" id="b_port">
-            <h2>أعمال / Portfolio</h2>
-            <div class="underline"></div>
-            <ul id="v_langs"></ul>
-          </div>
-        </section>
-      </article>
-    </div>
-  </section>
-
-  <!-- Bottom download bar -->
-  <div class="bottom no-print">
-    <span id="readyMsg" class="hint">أكمل الحقول الأساسية…</span>
-    <button class="btn" id="btnPdf" disabled>🖨️ PDF</button>
-    <button class="btn ghost" id="btnDoc" disabled>⬇️ Word</button>
+  <div class="wrap">
+    <div class="card">
+      <div class="header">
+        <span class="badge">✦ صفحة عاشورائية — تقويم هجري عبر API (أم القرى)</span>
+        <h1>العدّ التنازلي لبداية شهر مُحَرَّم</h1>
+        <div class="sub">بالشهور • الأيام • الساعات • الدقائق • الثواني — مصدر التاريخ: <b>Umm al‑Qura</b></div>
+      </div><div class="lions" aria-hidden="true">
+    <!-- أسد أيقوني باللون الأسود (SVG) -->
+    <svg class="lion" viewBox="0 0 64 64" fill="#000" xmlns="http://www.w3.org/2000/svg">
+      <path d="M20 24c-2-6 2-12 8-14 6-2 12 2 14 8 6 0 10 6 8 12-2 6-8 10-14 10H24c-6 0-10-4-12-10-2-6 2-12 8-12z" opacity=".9"/>
+      <path d="M14 40c0 8 6 14 14 14h8c8 0 14-6 14-14v-2c-4 4-10 6-16 6h-8c-6 0-12-2-16-6v2z"/>
+      <circle cx="26" cy="26" r="2.2" fill="#111"/>
+      <circle cx="38" cy="26" r="2.2" fill="#111"/>
+    </svg>
+    <svg class="lion" viewBox="0 0 64 64" fill="#000" xmlns="http://www.w3.org/2000/svg">
+      <path d="M20 24c-2-6 2-12 8-14 6-2 12 2 14 8 6 0 10 6 8 12-2 6-8 10-14 10H24c-6 0-10-4-12-10-2-6 2-12 8-12z" opacity=".9"/>
+      <path d="M14 40c0 8 6 14 14 14h8c8 0 14-6 14-14v-2c-4 4-10 6-16 6h-8c-6 0-12-2-16-6v2z"/>
+      <circle cx="26" cy="26" r="2.2" fill="#111"/>
+      <circle cx="38" cy="26" r="2.2" fill="#111"/>
+    </svg>
   </div>
 
+  <div class="grid">
+    <div class="unit"><div class="label">الشهور</div><div class="value" id="months">—</div></div>
+    <div class="unit"><div class="label">الأيام</div><div class="value" id="days">—</div></div>
+    <div class="unit"><div class="label">الساعات</div><div class="value" id="hours">—</div></div>
+    <div class="unit"><div class="label">الدقائق</div><div class="value" id="minutes">—</div></div>
+    <div class="unit"><div class="label">الثواني</div><div class="value" id="seconds">—</div></div>
+  </div>
+
+  <div class="controls">
+    <button class="btn" id="refresh">تحديث من الـ API</button>
+  </div>
+
+  <div class="meta" id="meta">التاريخ المستهدف: — (هجري) • — (ميلادي)</div>
+  <div class="api-note">يتم تحديد <b>١ محرم</b> القادم عبر <b>Aladhan API</b> (تقويم أم القرى). في حال تعذّر الاتصال، ستُستخدم خوارزمية بديلة داخلية مؤقتًا.</div>
 </div>
 
-<script>
-(()=>{
-  const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>Array.from(r.querySelectorAll(s));
-  const F={
-    name:$('#fullName'), title:$('#title'), email:$('#email'),
-    phone:$('#phoneDigits'), loc:$('#location'), site:$('#website'),
-    sum:$('#summary'), sumCount:$('#sumCount'),
-    eduLevel:$('#eduLevel'), nationality:$('#nationality'),
-    hasLic:$('#hasLicense'), hasTrans:$('#hasTransport'),
-    majorList:$('#majorList'), majorCustom:$('#majorCustom'), majorBox:$('#majorCustomBox'),
-    bhInst:$('#bhInstitution'), gradDate:$('#gradDate'),
-    abroadBox:$('#abroadBox'), country:$('#country'), uniName:$('#uniName'), uniMajor:$('#uniMajor'),
-    job1:{role:$('#job1_role'), meta:$('#job1_meta'), b1:$('#job1_b1'), b2:$('#job1_b2')},
-    job2:{role:$('#job2_role'), meta:$('#job2_meta'), b1:$('#job2_b1'), b2:$('#job2_b2')},
-    sk1:$('#sk1'), sk2:$('#sk2'), sk3:$('#sk3'),
-    interests:$('#interests'), photo:$('#photoUrl'),
-  };
+  </div>  <script>
+    // ===== إعدادات API =====
+    // سنستخدم Aladhan (مجاني) لتحويل التاريخ الميلادي إلى هجري حسب أم القرى:
+    // مثال: https://api.aladhan.com/v1/gToH?date=21-09-2025
+    const API_BASE = 'https://api.aladhan.com/v1/gToH?date='; // يوم-شهر-سنة
 
-  function sanitize(s){return (s||'').toString().replace(/\s+/g,' ').trim();}
-  function bhPhone(){ const d=(F.phone.value||'').replace(/\D/g,'').slice(0,8); F.phone.value=d; return d?`+973 ${d.slice(0,3)}${d.slice(3,6)}${d.slice(6)}`:''; }
+    const fmtGregAR = new Intl.DateTimeFormat('ar', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
+    const fmtHijriAR = new Intl.DateTimeFormat('ar-u-ca-islamic', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
 
-  // Toggles for selects
-  F.majorList.addEventListener('change',()=>{ F.majorBox.classList.toggle('hide', F.majorList.value!=='other'); renderEdu(); });
-  F.bhInst.addEventListener('change',()=>{ F.abroadBox.classList.toggle('hide', F.bhInst.value!=='abroad'); renderEdu(); });
-
-  // Update preview header/sidebar
-  function updateAll(){
-    // avatar
-    const url=sanitize(F.photo.value);
-    const img=$('#v_avatar img');
-    if(url){ img.src=url; img.style.display='block'; } else { img.removeAttribute('src'); img.style.display='none'; }
-
-    $('#v_name').textContent = sanitize(F.name.value) || 'الاسم الكامل';
-    $('#v_title').textContent = sanitize(F.title.value) || 'المسمّى المستهدف';
-    $('#v_email').textContent = sanitize(F.email.value) || 'email@example.com';
-    $('#v_phone').textContent = bhPhone() || '+973 3xxxxxxx';
-    $('#v_site').textContent = sanitize(F.site.value || '');
-    $('#v_loc').textContent = sanitize(F.loc.value || 'المنامة، البحرين');
-
-    // summary
-    F.sumCount.textContent = F.sum.value.length;
-    $('#v_summary').textContent = sanitize(F.sum.value) || 'اكتب نبذة مختصرة هنا…';
-
-    // skills
-    renderSkills();
-
-    // interests
-    const ul=$('#v_interests'); ul.innerHTML='';
-    (F.interests.value||'').split(/\n+/).map(s=>sanitize(s)).filter(Boolean).forEach(t=>{
-      const li=document.createElement('li'); li.textContent=t; ul.appendChild(li);
-    });
-
-    // experience
-    renderExp();
-
-    // edu
-    renderEdu();
-
-    // languages -> show in Portfolio block as نقاط (أو يمكن تعديل العنوان لاحقًا)
-    renderLangs();
-
-    checkReady();
-  }
-
-  // Languages from checkboxes
-  function renderLangs(){
-    const list=$('#v_langs'); list.innerHTML='';
-    $$('#langChecks input:checked').forEach(cb=>{
-      const li=document.createElement('li'); li.textContent=cb.value; list.appendChild(li);
-    });
-  }
-
-  // Skills parsing "Name: percent"
-  function parseSkill(line){
-    const m=String(line).split(':'); if(m.length<2) return null;
-    const name=sanitize(m[0]); const p=Math.max(0,Math.min(100, parseInt(m[1],10)||0));
-    return {name, p};
-  }
-  function renderSkills(){
-    const box=$('#v_skills'); box.innerHTML='';
-    const items=[F.sk1.value,F.sk2.value,F.sk3.value].map(parseSkill).filter(Boolean);
-    if(items.length===0){ $('#skills_hr').style.display='none'; return; }
-    $('#skills_hr').style.display='block';
-    items.forEach(it=>{
-      const row=document.createElement('div'); row.className='skill';
-      row.innerHTML=`<span>${it.name}</span><div class="bar"><i style="width:${it.p}%"></i></div>`;
-      box.appendChild(row);
-    });
-  }
-
-  function renderExp(){
-    const box=$('#v_exp'); box.innerHTML='';
-    [F.job1,F.job2].forEach(J=>{
-      const role=sanitize(J.role.value), meta=sanitize(J.meta.value), b1=sanitize(J.b1.value), b2=sanitize(J.b2.value);
-      if(!(role||meta||b1||b2)) return;
-      const w=document.createElement('div'); w.className='job';
-      w.innerHTML=`<h3>${role||''}</h3><div class="meta">${meta||''}</div>`;
-      const ul=document.createElement('ul'); [b1,b2].filter(Boolean).forEach(t=>{const li=document.createElement('li'); li.textContent=t; ul.appendChild(li);});
-      w.appendChild(ul); box.appendChild(w);
-    });
-    $('#b_exp').style.display = box.children.length? 'block':'none';
-  }
-
-  function currentMajor(){ return F.majorList.value==='other'? sanitize(F.majorCustom.value) : F.majorList.value; }
-
-  function renderEdu(){
-    const box=$('#v_edu'); box.innerHTML='';
-    let title='', meta='';
-    if(F.bhInst.value && F.bhInst.value!=='abroad'){
-      title = `${F.eduLevel.value||''} — ${currentMajor()||''}`;
-      meta  = `${F.bhInst.value}${F.gradDate.value?(' · '+F.gradDate.value):''}`;
-    } else if(F.bhInst.value==='abroad'){
-      title = `${F.eduLevel.value||''} — ${sanitize(F.uniMajor.value)||currentMajor()||''}`;
-      const uni = sanitize(F.uniName.value);
-      const cnt = F.country.value||'';
-      meta = [uni,cnt,F.gradDate.value].filter(Boolean).join(' · ');
+    function ddmmyyyy(d){
+      const dd = String(d.getDate()).padStart(2,'0');
+      const mm = String(d.getMonth()+1).padStart(2,'0');
+      const yyyy = d.getFullYear();
+      return `${dd}-${mm}-${yyyy}`;
     }
-    if(title||meta){
-      const d=document.createElement('div');
-      d.innerHTML=`<h3>${title}</h3><div class="meta">${meta}</div>`;
-      box.appendChild(d);
-      $('#b_edu').style.display='block';
-    }else{
-      $('#b_edu').style.display='none';
+
+    async function gregorianToHijri(date){
+      const url = API_BASE + encodeURIComponent(ddmmyyyy(date));
+      const res = await fetch(url);
+      if(!res.ok) throw new Error('API error');
+      const json = await res.json();
+      const h = json?.data?.hijri;
+      if(!h) throw new Error('No hijri data');
+      return {
+        day: Number(h.day),
+        month: Number(h.month?.number),
+        year: Number(h.year),
+        formatted: `${h.weekday?.ar}، ${h.day} ${h.month?.ar} ${h.year} هـ`
+      };
     }
-  }
 
-  // Ready check
-  const btnPdf=$('#btnPdf'), btnDoc=$('#btnDoc'), readyMsg=$('#readyMsg');
-  function isReady(){
-    const ok = sanitize(F.name.value) && sanitize(F.title.value) && sanitize(F.email.value) &&
-               (F.phone.value||'').replace(/\D/g,'').length===8 && sanitize(F.loc.value) &&
-               F.eduLevel.value && F.nationality.value && F.hasLic.value && F.hasTrans.value &&
-               (F.majorList.value && (F.majorList.value!=='other' || sanitize(F.majorCustom.value)));
-    return !!ok;
-  }
-  function checkReady(){
-    const r=isReady(); [btnPdf,btnDoc].forEach(b=>b.disabled=!r);
-    readyMsg.textContent = r ? 'جاهز للتنزيل بالقالب النهائي.' : 'أكمل الحقول الأساسية…';
-  }
+    // ابحث عن أقرب 1 محرم (اليوم/الشهر 1/1) ابتداءً من اليوم
+    async function findNextMuharramStart(){
+      const start = new Date();
+      start.setHours(0,0,0,0);
+      let probe = new Date(start);
+      for(let i=0;i<420;i++){
+        const hij = await gregorianToHijri(probe);
+        if(hij.day === 1 && hij.month === 1){
+          return new Date(probe); // هذا هو يوم 1 محرم (بداية اليوم الميلادي المحلي)
+        }
+        probe.setDate(probe.getDate()+1);
+      }
+      throw new Error('Muharram 1 not found within range');
+    }
 
-  // Events
-  ['input','change'].forEach(ev=>{
-    [
-      F.name,F.title,F.email,F.phone,F.loc,F.site,F.sum,F.eduLevel,F.nationality,
-      F.hasLic,F.hasTrans,F.majorList,F.majorCustom,F.bhInst,F.gradDate,F.country,F.uniName,F.uniMajor,
-      F.job1.role,F.job1.meta,F.job1.b1,F.job1.b2,
-      F.job2.role,F.job2.meta,F.job2.b1,F.job2.b2,
-      F.sk1,F.sk2,F.sk3,F.interests,F.photo
-    ].forEach(el=>el.addEventListener(ev, updateAll));
-  });
-  $$('#langChecks input').forEach(cb=>cb.addEventListener('change', updateAll));
+    function updateDiff(target){
+      const now = new Date();
+      let diff = target - now;
+      if(diff < 0) diff = 0;
+      // تقدير بالأشهر القمرية
+      const lunarMonth = 29.530588 * 24*60*60*1000;
+      const months = Math.floor(diff / lunarMonth);
+      const remAfterMonths = diff - months*lunarMonth;
+      const days = Math.floor(remAfterMonths / (24*60*60*1000));
+      const remAfterDays = remAfterMonths - days*24*60*60*1000;
+      const hours = Math.floor(remAfterDays / (60*60*1000));
+      const remAfterHours = remAfterDays - hours*60*60*1000;
+      const minutes = Math.floor(remAfterHours / (60*1000));
+      const remAfterMinutes = remAfterHours - minutes*60*1000;
+      const seconds = Math.floor(remAfterMinutes / 1000);
 
-  // Bottom actions
-  btnPdf.addEventListener('click', ()=>{ if(isReady()) window.print(); });
-  btnDoc.addEventListener('click', ()=>{
-    if(!isReady()) return;
-    const cv=$('#cv').cloneNode(true);
-    const styles=`<style>
-      body{font-family:"Cairo","Noto Naskh Arabic",Arial;direction:rtl}
-      .cv{display:grid;grid-template-columns:320px 1fr}
-      .cv .side{background:#111827;color:#e5e7eb;padding:24px}
-      .cv .main{padding:26px}
-      .bar i{display:block;height:8px;background:linear-gradient(90deg,#C7A046,#d9b96b)}
-      .underline{height:3px;background:#EAD9A2;width:80px;margin:8px 0 10px;border-radius:99px}
-      .meta{color:#64748b;font-size:13px}
-      ul{margin:6px 0 0 18px} li{margin:4px 0}
-    </style>`;
-    const html=`<!DOCTYPE html><html><head><meta charset="utf-8"><title>CV</title>${styles}</head><body>${cv.outerHTML}</body></html>`;
-    const blob=new Blob([html],{type:'application/msword'});
-    const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download='CV-Template.doc'; a.click();
-    setTimeout(()=>URL.revokeObjectURL(url),200);
-  });
+      monthsEl.textContent = String(months);
+      daysEl.textContent = String(days);
+      hoursEl.textContent = String(hours).padStart(2,'0');
+      minutesEl.textContent = String(minutes).padStart(2,'0');
+      secondsEl.textContent = String(seconds).padStart(2,'0');
+    }
 
-  // Initial
-  updateAll();
-})();
-</script>
-</body>
+    const monthsEl = document.getElementById('months');
+    const daysEl   = document.getElementById('days');
+    const hoursEl  = document.getElementById('hours');
+    const minutesEl= document.getElementById('minutes');
+    const secondsEl= document.getElementById('seconds');
+    const metaEl   = document.getElementById('meta');
+
+    let targetDate = null;
+    let timer = null;
+
+    async function initFromAPI(){
+      document.getElementById('refresh').disabled = true;
+      try{
+        targetDate = await findNextMuharramStart();
+        // اعرض التاريخين
+        const hij = await gregorianToHijri(targetDate);
+        metaEl.textContent = `التاريخ المستهدف: ${hij.formatted} (هجري) • ${fmtGregAR.format(targetDate)} (ميلادي)`;
+        if(timer) clearInterval(timer);
+        updateDiff(targetDate);
+        timer = setInterval(()=>updateDiff(targetDate), 1000);
+      }catch(err){
+        console.error(err);
+        // بديل احتياطي باستخدام Intl (قد يختلف عن أم القرى)
+        const fallback = findNextViaIntl();
+        targetDate = fallback;
+        metaEl.textContent = `التاريخ المستهدف (احتياطي): ${fmtHijriAR.format(targetDate)} (هجري) • ${fmtGregAR.format(targetDate)} (ميلادي)`;
+        if(timer) clearInterval(timer);
+        updateDiff(targetDate);
+        timer = setInterval(()=>updateDiff(targetDate), 1000);
+      }finally{
+        document.getElementById('refresh').disabled = false;
+      }
+    }
+
+    function findNextViaIntl(){
+      const fmtHijriParts = new Intl.DateTimeFormat('en-u-ca-islamic', { year:'numeric', month:'numeric', day:'numeric' });
+      let d = new Date(); d.setHours(0,0,0,0);
+      for(let i=0;i<420;i++){
+        const parts = fmtHijriParts.formatToParts(d);
+        const map = Object.fromEntries(parts.map(p => [p.type, p.value]));
+        const m = Number(map.month), day = Number(map.day);
+        if(m === 1 && day === 1) return new Date(d);
+        d.setDate(d.getDate()+1);
+      }
+      return new Date();
+    }
+
+    document.getElementById('refresh').addEventListener('click', initFromAPI);
+    // ابدأ مباشرة
+    initFromAPI();
+  </script></body>
 </html>
