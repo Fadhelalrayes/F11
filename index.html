@@ -1,391 +1,681 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-  <title>أدوات PDF عربية | تحويل (مع OCR)، ضغط، دمج، تقسيم — تعمل داخل المتصفح</title>
-  <meta name="description" content="حوّل PDF إلى Word مع OCR العربي/الإنجليزي، واضغط وادمج وقسّم ملفات PDF — مباشرة داخل المتصفح بدون رفع ملفات. خصوصية كاملة وسرعة عالية." />
-  <meta name="keywords" content="PDF, تحويل PDF, OCR عربي, OCR انجليزي, ضغط PDF, دمج PDF, تقسيم PDF, PDF إلى Word, أدوات PDF عربية" />
-  <link rel="canonical" href="https://example.com/pdf-tools-ocr" />
-  <meta name="robots" content="index,follow,max-image-preview:large" />
-  <!-- Open Graph / Twitter -->
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="أدوات PDF عربية — تحويل مع OCR ودمج/تقسيم/ضغط" />
-  <meta property="og:description" content="أدوات PDF مجانية تعمل داخل المتصفح مع OCR عربي/إنجليزي." />
-  <meta property="og:locale" content="ar_AR" />
-  <meta property="og:url" content="https://example.com/pdf-tools-ocr" />
-  <meta property="og:site_name" content="أدوات PDF" />
-  <meta name="twitter:card" content="summary" />
+<title>فاحص أعراض القلب — توعية، مستشفيات وأرقام موثّقة</title>
+<meta name="description" content="أداة عربية لتثقيف أعراض أمراض القلب والأوعية مع تقدير أولي لمستوى الخطورة، نصائح عملية، وإرشادات تواصل مباشرة مع مستشفيات قلب محلية وعالمية بأرقام موثّقة. ليست بديلاً عن الطبيب.">
+<meta name="keywords" content="أمراض القلب, أعراض القلب, ألم الصدر, ضيق التنفس, خفقان, قصور القلب, مستشفيات القلب, فحص القلب, تقييم الخطورة, وراثة, البحرين, الخليج">
+<link rel="canonical" href="https://example.com/heart-checker-ar"/>
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
 
-  <!-- JSON-LD (WebApp + FAQ) -->
-  <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"WebApplication","name":"أدوات PDF عربية (OCR)","operatingSystem":"Any","applicationCategory":"UtilitiesApplication","description":"تحويل/ضغط/دمج/تقسيم PDF داخل المتصفح مع OCR عربي/إنجليزي.","inLanguage":"ar","url":"https://example.com/pdf-tools-ocr","featureList":["تحويل PDF إلى Word (نصوص+OCR)","ضغط مبسّط","دمج PDF","تقسيم صفحات"],"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
-  </script>
-  <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
-    {"@type":"Question","name":"هل تُرفع ملفاتي للإنترنت؟","acceptedAnswer":{"@type":"Answer","text":"لا. تتم كل المعالجة محلياً داخل المتصفح."}},
-    {"@type":"Question","name":"هل يدعم التحويل نصوص PDF المصوّرة؟","acceptedAnswer":{"@type":"Answer","text":"نعم. إذا لم يجد نصاً رقمياً سيستخدم OCR تلقائياً (عربي/إنجليزي حسب اختيارك)."}},
-    {"@type":"Question","name":"هل يحافظ على التنسيق والجداول؟","acceptedAnswer":{"@type":"Answer","text":"التحويل يركّز على النصوص. التنسيقات/الجداول/الصور لا تُعاد بنسقها الأصلي."}}
-  ]}
-  </script>
+<!-- Open Graph -->
+<meta property="og:locale" content="ar_AR">
+<meta property="og:type" content="website">
+<meta property="og:title" content="فاحص أعراض القلب — توعية، مستشفيات وأرقام موثّقة">
+<meta property="og:description" content="فاحص عربي لأعراض القلب مع نصائح وإحالات سريعة وأرقام مستشفيات موثّقة.">
+<meta property="og:url" content="https://example.com/heart-checker-ar">
+<meta property="og:site_name" content="Heart Checker AR">
+<meta property="og:image" content="https://example.com/assets/heart-checker-cover.png">
+<meta property="og:image:alt" content="واجهة فاحص أعراض القلب العربي">
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="فاحص أعراض القلب — توعية، مستشفيات وأرقام موثّقة">
+<meta name="twitter:description" content="أداة عربية لتثقيف أعراض القلب مع مستشفيات واتصالات موثّقة.">
+<meta name="twitter:image" content="https://example.com/assets/heart-checker-cover.png">
 
-  <!-- مكتبات (CDN) -->
-  <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js" defer></script>
-  <script src="https://unpkg.com/pdfjs-dist@4.10.38/build/pdf.min.js" defer></script>
-  <script>window.__PDFJS_WORKER_SRC__="https://unpkg.com/pdfjs-dist@4.10.38/build/pdf.worker.min.js";</script>
-  <script src="https://unpkg.com/docx@8.5.0/build/index.umd.js" defer></script>
-  <!-- Tesseract.js (OCR) + تحميل لغات عند الطلب -->
-  <script src="https://unpkg.com/tesseract.js@5.1.0/dist/tesseract.min.js" defer></script>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;700&display=swap" rel="stylesheet">
 
-  <style>
-    :root{--gold:#b8860b;--gold2:#d4af37;--text:#222;--muted:#666;--border:#e9e9e9;--bg:#fff;--card:#fafafa;--radius:14px}
-    *{box-sizing:border-box}
-    body{margin:0;font-family:Tahoma,Arial,sans-serif;color:var(--text);background:var(--bg);line-height:1.8}
-    header{padding:28px 14px;text-align:center;border-bottom:2px solid #f0f0f0}
-    header h1{margin:.2rem 0;color:var(--gold);font-size:2rem}
-    header p{margin:0;color:var(--muted)}
-    main{max-width:980px;margin:28px auto;padding:0 14px}
-    .panel{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:16px}
-    h2{color:var(--gold);margin-top:0;font-size:1.25rem}
-    .grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
-    .tool-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:12px}
-    label{font-weight:700}
-    input[type=file],select,input[type=text],button{width:100%;padding:12px;border:1px solid #ccc;border-radius:10px;background:#fff;font-size:1rem}
-    button{background:var(--gold);color:#fff;border:none;cursor:pointer;transition:.25s}
-    button:hover{background:var(--gold2)}
-    .row{display:flex;gap:10px;flex-wrap:wrap}
-    .row>*{flex:1 1 220px}
-    .muted{color:var(--muted)}
-    .status{font-size:.95rem;margin-top:8px}
-    .ok{color:#0a8f3c}.err{color:#c62828}
-    .file-multi{border:1px dashed #ccc;padding:14px;border-radius:10px;background:#fff}
-    progress{width:100%}
-    footer{text-align:center;padding:16px;border-top:2px solid #f0f0f0;color:var(--muted)}
-    .visually-hidden{position:absolute !important;height:1px;width:1px;overflow:hidden;clip:rect(1px,1px,1px,1px);white-space:nowrap;border:0;padding:0;margin:-1px}
-  </style>
+<style>
+  :root{
+    --bg:#f5f6f8; --ink:#111827; --muted:#6b7280;
+    --card:#ffffff; --line:#e5e7eb;
+    --gold:#b58900; --gold-soft:#f5d574;
+    --ok:#10b981; --ok-bg:#ecfdf5; --ok-br:#a7f3d0;
+    --warn:#f59e0b; --warn-bg:#fffbeb; --warn-br:#fde68a;
+    --danger:#ef4444; --danger-bg:#fef2f2; --danger-br:#fecaca;
+  }
+  *{box-sizing:border-box}
+  body{margin:0; font-family:"Cairo",sans-serif; background:var(--bg); color:var(--ink)}
+  header{text-align:center; padding:24px 12px}
+  .brand{font-family:"Amiri",serif; font-size:clamp(26px,4.5vw,42px); color:var(--gold)}
+  .tag{margin-top:6px; font-size:14px; color:#6b7280; line-height:1.9}
+  .shell{max-width:1040px; margin:0 auto; padding:0 16px}
+  .hero{background:var(--card); border:1px solid var(--line); border-radius:20px; padding:20px; box-shadow:0 4px 12px rgba(0,0,0,.05)}
+  .row{display:grid; gap:16px}
+  @media(min-width:980px){ .row{grid-template-columns:1.2fr .8fr} }
+
+  .field{display:flex; flex-direction:column; gap:6px; margin-bottom:12px}
+  .hint{font-size:12px; color:#6b7280}
+  .center{text-align:center}
+
+  .seg{display:flex; gap:6px; justify-content:center; flex-wrap:wrap}
+  .seg button{
+    flex:1; padding:10px 14px; border-radius:10px; border:1px solid var(--line);
+    background:#f9fafb; cursor:pointer; max-width:220px; font-weight:700; user-select:none
+  }
+  .seg button.on{background:var(--gold); color:#111; border-color:var(--gold); outline:none}
+
+  .select{ position:relative; display:inline-block; width:100% }
+  .select select{
+    width:100%; appearance:none; background:#fff; border:1px solid var(--gold); border-radius:10px;
+    padding:12px 42px 12px 12px; font-size:1rem; cursor:pointer; color:#111; text-align:right;
+  }
+  .select::after{
+    content:""; position:absolute; top:50%; transform:translateY(-50%); right:12px; width:18px; height:18px;
+    background:linear-gradient(135deg,var(--gold),var(--gold-soft));
+    -webkit-mask:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path fill="black" d="M5.23 7.21a.75.75 0 011.06.02L10 11.06l3.71-3.83a.75.75 0 111.08 1.04l-4.24 4.38a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z"/></svg>') center/contain no-repeat;
+    mask:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path fill="black" d="M5.23 7.21a.75.75 0 011.06.02L10 11.06l3.71-3.83a.75.75 0 111.08 1.04l-4.24 4.38a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z"/></svg>') center/contain no-repeat;
+    pointer-events:none; opacity:.95;
+  }
+
+  .btn{padding:12px 20px; border-radius:10px; border:none; cursor:pointer; background:linear-gradient(90deg,var(--gold),var(--gold-soft)); color:#111; font-weight:700; display:block; margin:0 auto}
+
+  .resultbox{display:none; border-radius:14px; padding:14px; border:1px solid; font-weight:700; text-align:center}
+  .rb-ok{ background:var(--ok-bg); border-color:var(--ok-br); color:#064e3b }
+  .rb-warn{ background:var(--warn-bg); border-color:var(--warn-br); color:#7c2d12 }
+  .rb-danger{ background:var(--danger-bg); border-color:var(--danger-br); color:#7f1d1d }
+
+  .deck{display:grid; gap:12px; grid-template-columns:1fr; margin-top:16px}
+  @media(min-width:860px){ .deck{grid-template-columns:repeat(2,1fr)} }
+  .card{background:#fdfdfd; border:1px solid var(--line); border-radius:12px; padding:14px; box-shadow:0 2px 6px rgba(0,0,0,.04)}
+  .card h3{margin:0 0 6px; font-family:"Amiri",serif; color:var(--gold)}
+  .card p, .card ul{margin:0; font-size:14px; color:#374151; line-height:1.9}
+  .card ul{margin-top:8px; padding-inline-start:20px}
+
+  .iconbtn{width:34px; height:34px; border-radius:8px; display:flex; align-items:center; justify-content:center; border:1px solid var(--line); background:#fff; cursor:pointer}
+
+  .pdfwrap{margin-top:12px; text-align:center; display:none}
+  .pdfbtn{padding:10px 16px; border-radius:10px; border:1px solid var(--gold); background:#fff; cursor:pointer; font-weight:700}
+
+  .msg-backdrop{
+    position:fixed; inset:0; background:rgba(17,24,39,.35);
+    display:none; align-items:center; justify-content:center; z-index:99999;
+  }
+  .msg-backdrop.show{ display:flex; }
+  .msg-box{
+    width:min(92vw,520px); background:#fff; border:1px solid var(--gold);
+    border-radius:16px; box-shadow:0 20px 50px rgba(0,0,0,.18);
+    padding:18px; text-align:center;
+  }
+  .msg-title{
+    font-family:"Amiri",serif; font-size:20px; color:var(--gold); margin:6px 0 2px;
+  }
+  .msg-text{ color:#374151; line-height:1.8; margin:8px 0 14px }
+  .msg-actions{ display:flex; justify-content:center }
+  .msg-btn{
+    padding:10px 18px; border-radius:10px; border:1px solid var(--gold);
+    background:linear-gradient(90deg,var(--gold),var(--gold-soft)); color:#111; font-weight:700; cursor:pointer;
+  }
+  .msg-box.error{ border-color:#fecaca; }
+  .msg-box.error .msg-title{ color:#ef4444 }
+
+  /* SEO لمكوّن الأسئلة الشائعة */
+  details.faq{border:1px solid var(--line); border-radius:12px; padding:10px 14px; background:#fff}
+  details.faq summary{cursor:pointer; font-weight:700}
+  details.faq + details.faq{margin-top:8px}
+</style>
+
+<!-- Structured Data: تطبيق + أسئلة شائعة + بعض المستشفيات العالمية -->
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"WebApplication",
+  "name":"فاحص أعراض القلب",
+  "url":"https://example.com/heart-checker-ar",
+  "inLanguage":"ar",
+  "applicationCategory":"HealthApplication",
+  "operatingSystem":"Any",
+  "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},
+  "description":"أداة عربية لتثقيف أعراض أمراض القلب مع تقدير أولي للخطورة وروابط لمستشفيات موثّقة."
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"FAQPage",
+  "mainEntity":[
+    {"@type":"Question","name":"هل هذه الأداة تشخّص أمراض القلب؟","acceptedAnswer":{"@type":"Answer","text":"لا. الأداة للتثقيف وفرز أولي. أي ألم صدري جديد أو ضيق نفس شديد يستلزم تقييماً طبياً عاجلاً."}},
+    {"@type":"Question","name":"متى أذهب للطوارئ فوراً؟","acceptedAnswer":{"@type":"Answer","text":"عند ألم صدري ضاغط مع تعرّق أو غثيان أو ضيق نفس شديد أو إغماء. اتصل بالإسعاف فوراً."}},
+    {"@type":"Question","name":"هل تدعم الوراثة الدقيقة؟","acceptedAnswer":{"@type":"Answer","text":"نعم. تشير الأداة إلى حالات وراثية مثل فرط كولسترول عائلي واعتلال عضلة القلب التضخمي ومتلازمة QT الطويلة وتوصي بالإحالة."}}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"ItemList",
+  "name":"مستشفيات قلب عالمية",
+  "itemListElement":[
+    {"@type":"Hospital","name":"Cleveland Clinic — Miller Family Heart, Vascular & Thoracic Institute","telephone":"+1-216-444-2200","url":"https://my.clevelandclinic.org/departments/heart"},
+    {"@type":"Hospital","name":"Mayo Clinic — Cardiovascular Medicine (Rochester)","telephone":"+1-507-284-2511","url":"https://www.mayoclinic.org/departments-centers/cardiovascular-medicine/home/orc-20121930"},
+    {"@type":"Hospital","name":"Houston Methodist DeBakey Heart & Vascular Center","telephone":"+1-713-332-2539","url":"https://www.houstonmethodist.org/heart-vascular/"},
+    {"@type":"Hospital","name":"Royal Brompton Hospital (UK)","telephone":"+44-20-7352-8121","url":"https://www.rbht.nhs.uk/contact"},
+    {"@type":"Hospital","name":"Deutsches Herzzentrum der Charité (Berlin)","telephone":"+49-30-450-50","url":"https://www.charite.de/en/deutsches_herzzentrum_der_charite_dhzc"},
+    {"@type":"Hospital","name":"National Heart Centre Singapore","telephone":"+65-6704-2000","url":"https://www.nhcs.com.sg/appointments"},
+    {"@type":"Hospital","name":"Bumrungrad International — Heart Institute","telephone":"+66-2066-8888","url":"https://www.bumrungrad.com/en/contact-us/contact-details"},
+    {"@type":"Hospital","name":"Cleveland Clinic Abu Dhabi — Heart, Vascular & Thoracic Institute","telephone":"+971-800-82223","url":"https://www.clevelandclinicabudhabi.ae/en/institutes-and-specialties/heart-vascular-and-thoracic-institute"}
+  ]
+}
+</script>
 </head>
 <body>
-  <a class="visually-hidden" href="#tools">تخطي إلى المحتوى</a>
-  <header>
-    <h1>أدوات PDF عربية — تعمل داخل المتصفح (مع OCR)</h1>
-    <p>تحويل (نصوص + OCR)، ضغط مبسّط، دمج، تقسيم — خصوصيتك أولاً</p>
-  </header>
+<header>
+  <h1 class="brand">فاحص أعراض القلب</h1>
+  <p class="tag">
+    أداة تثقيفية بالعربية للتنبيه إلى الأعراض القلبية التحذيرية وعوامل الخطورة، مع روابط مباشرة لمستشفيات موثوقة محليًا وعالميًا (بأرقام اتصال مُحقَّقة). لا تُغني عن الاستشارة الطبية.
+  </p>
+</header>
 
-  <main id="tools">
-    <section class="panel">
-      <h2>اختر الخدمة</h2>
-      <div class="grid" role="list">
-        <div class="tool-card" role="listitem">
-          <label><input type="radio" name="tool" value="toWord" checked> تحويل PDF إلى Word (نصوص + OCR)</label>
-          <div class="muted">يستخرج نصاً رقمياً أولاً؛ وإن لم يجد يستخدم OCR تلقائياً.</div>
-          <div class="row" style="margin-top:8px">
-            <div>
-              <label for="ocrLang">لغة OCR</label>
-              <select id="ocrLang">
-                <option value="ara+eng">عربي + إنجليزي (افتراضي)</option>
-                <option value="ara">عربي فقط</option>
-                <option value="eng">إنجليزي فقط</option>
-              </select>
-            </div>
-            <div>
-              <label for="ocrHint">تلميح الجودة (اختياري)</label>
-              <select id="ocrHint">
-                <option value="">افتراضي</option>
-                <option value="fast">سريع</option>
-                <option value="accurate">دقة أعلى</option>
-              </select>
+<main class="shell">
+  <section class="hero" aria-labelledby="app-title">
+    <h2 id="app-title" class="visually-hidden" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden">مكون التقييم التفاعلي</h2>
+    <div class="row">
+      <div>
+        <!-- الدولة -->
+        <div class="field">
+          <label><strong>اختر دولتك</strong></label>
+          <div class="select">
+            <select id="countrySelect" aria-label="اختر الدولة">
+              <option value="BHR" selected>البحرين</option>
+              <option value="KSA">السعودية</option>
+              <option value="ARE">الإمارات</option>
+              <option value="QAT">قطر</option>
+              <option value="KWT">الكويت</option>
+              <option value="OMN">عُمان</option>
+              <!-- يمكن التوسّع لاحقًا لبقية الدول -->
+            </select>
+          </div>
+          <div class="hint">لعرض مستشفى قلب محلي موصى به للتواصل السريع.</div>
+        </div>
+
+        <!-- النوع -->
+        <div class="field center">
+          <label><strong>النوع</strong></label>
+          <div class="seg" id="sexSeg">
+            <button type="button" class="on" data-sex="male">رجل</button>
+            <button type="button" data-sex="female">امرأة</button>
+          </div>
+        </div>
+
+        <!-- العمر -->
+        <div class="field center">
+          <label><strong>العمر</strong></label>
+          <input id="age" type="number" inputmode="numeric" min="0" max="120" placeholder="مثال: 45" style="width:180px; padding:12px; border:1px solid var(--line); border-radius:10px; text-align:center; margin:0 auto" aria-label="العمر">
+        </div>
+
+        <!-- عوامل -->
+        <div class="field center">
+          <label><strong>عوامل مؤثرة</strong></label>
+          <div class="seg" id="smokeSeg">
+            <button type="button" class="on" data-smoke="no">غير مدخّن</button>
+            <button type="button" data-smoke="yes">مدخّن</button>
+          </div>
+          <div style="margin-top:8px" class="seg" id="familySeg">
+            <button type="button" class="on" data-fh="no">لا تاريخ عائلي قلبي مبكر</button>
+            <button type="button" data-fh="yes">تاريخ عائلي قلبي مبكر</button>
+          </div>
+          <div style="margin-top:8px" class="seg" id="genSeg">
+            <button type="button" class="on" data-gen="no">لا وراثة دقيقة معروفة</button>
+            <button type="button" data-gen="yes">وراثة دقيقة (FH/HCM/LQTS..)</button>
+          </div>
+          <div class="hint">الوراثة الدقيقة: فرط كولسترول عائلي، اعتلال عضلة القلب التضخمي، متلازمة QT الطويلة، بروغادا…</div>
+        </div>
+
+        <!-- أسئلة الأعراض القلبية -->
+        <div id="symptoms" class="card" aria-live="polite">
+          <h3>أسئلة الأعراض القلبية (اختر نعم/لا)</h3>
+          <div class="hint">أي عرض جديد يستمر &gt; 3 أسابيع أو ألم صدري حاد يستلزم تقييمًا عاجلًا.</div>
+
+          <div class="field"><div><strong>ألم/ضغط صدري مع الجهد أو الراحة</strong></div>
+            <div class="seg" data-q="chestpain">
+              <button type="button" class="on" data-a="no">لا</button><button type="button" data-a="yes">نعم</button>
             </div>
           </div>
-          <div class="muted">ملاحظة: تحميل حزم OCR يتم من CDN عند أول استخدام وقد يستغرق لحظات.</div>
+          <div class="field"><div><strong>ضيق نفس بالجهد أو عند الاستلقاء (Orthopnea)</strong></div>
+            <div class="seg" data-q="sob">
+              <button type="button" class="on" data-a="no">لا</button><button type="button" data-a="yes">نعم</button>
+            </div>
+          </div>
+          <div class="field"><div><strong>خفقان سريع/غير منتظم أو إغماء</strong></div>
+            <div class="seg" data-q="palp">
+              <button type="button" class="on" data-a="no">لا</button><button type="button" data-a="yes">نعم</button>
+            </div>
+          </div>
+          <div class="field"><div><strong>تورّم الساقين/الكاحلين أو زيادة مفاجئة بالوزن</strong></div>
+            <div class="seg" data-q="edema">
+              <button type="button" class="on" data-a="no">لا</button><button type="button" data-a="yes">نعم</button>
+            </div>
+          </div>
+          <div class="field"><div><strong>ألم صدري مع تعرّق شديد/غثيان/قيء</strong></div>
+            <div class="seg" data-q="acs">
+              <button type="button" class="on" data-a="no">لا</button><button type="button" data-a="yes">نعم</button>
+            </div>
+          </div>
+          <div class="field"><div><strong>ألم ينتشر للذراع/الظهر/الفك أو ضيق نفس مفاجئ ليلي</strong></div>
+            <div class="seg" data-q="rad">
+              <button type="button" class="on" data-a="no">لا</button><button type="button" data-a="yes">نعم</button>
+            </div>
+          </div>
+          <div class="field"><div><strong>ارتفاع ضغط غير مضبوط/سكري/كولسترول عالِ</strong></div>
+            <div class="seg" data-q="rf">
+              <button type="button" class="on" data-a="no">لا</button><button type="button" data-a="yes">نعم</button>
+            </div>
+          </div>
+          <div class="field"><div><strong>ألم صدري بعد كوفيد/مجهود متدنٍ حديثًا</strong></div>
+            <div class="seg" data-q="postcovid">
+              <button type="button" class="on" data-a="no">لا</button><button type="button" data-a="yes">نعم</button>
+            </div>
+          </div>
         </div>
-        <div class="tool-card" role="listitem">
-          <label><input type="radio" name="tool" value="compress"> ضغط PDF (مبسّط)</label>
-          <div class="muted">إعادة حفظ وتنظيف بيانات التعريف — تقليل الحجم محدود.</div>
-        </div>
-        <div class="tool-card" role="listitem">
-          <label><input type="radio" name="tool" value="merge"> دمج ملفات PDF</label>
-          <div class="muted">اختر عدة ملفات وسيتم دمجها بالترتيب.</div>
-        </div>
-        <div class="tool-card" role="listitem">
-          <label><input type="radio" name="tool" value="split"> تقسيم PDF بنطاقات صفحات</label>
-          <div class="muted">مثال: 1-3,5,8-10</div>
+
+        <button class="btn" id="calc">اعرض النتيجة</button>
+        <div class="pdfwrap" id="pdfwrap">
+          <button class="pdfbtn" id="pdfBtn" aria-label="تنزيل النتائج PDF">تنزيل النتائج PDF</button>
         </div>
       </div>
-    </section>
 
-    <section class="panel">
-      <h2>الملفات والإعدادات</h2>
+      <div>
+        <!-- نتيجة -->
+        <div id="resultBox" class="resultbox rb-ok" role="status" aria-live="polite">
+          مستوى الخطورة: <span id="riskText">منخفضة</span> — <span id="actionText">راقب الأعراض والتزم بنمط حياة قلبي صحي.</span>
+        </div>
 
-      <div id="singleWrap">
-        <label for="single">اختر ملف PDF</label>
-        <input id="single" type="file" accept="application/pdf" />
+        <div class="deck" id="adviceDeck" style="display:none"></div>
+
+        <!-- مستشفى محلي -->
+        <div id="localBox" class="card" style="margin-top:12px; display:none">
+          <h3>مستشفى قلب موصى به في بلدك</h3>
+          <div class="hint">زر الاتصال يعمل مباشرة، مع رابط الموقع الرسمي.</div>
+          <div id="localContact" style="margin-top:6px; font-size:14px; color:#374151"></div>
+        </div>
+
+        <!-- مستشفيات عالمية -->
+        <div class="card" style="margin-top:12px">
+          <h3>مستشفيات قلب عالمية موثوقة</h3>
+          <div class="hint">اختر مستشفى لمعرفة رقم التواصل والاتصال مباشرة.</div>
+          <div class="select">
+            <select id="intlSelect" aria-label="اختر مستشفى عالمي">
+              <option value="">— اختر مستشفى عالميًا —</option>
+              <option data-phone="+1-216-444-2200" value="https://my.clevelandclinic.org/departments/heart">Cleveland Clinic — الولايات المتحدة</option>
+              <option data-phone="+1-507-284-2511" value="https://www.mayoclinic.org/departments-centers/cardiovascular-medicine/home/orc-20121930">Mayo Clinic Cardiovascular — الولايات المتحدة</option>
+              <option data-phone="+1-713-332-2539" value="https://www.houstonmethodist.org/heart-vascular/">Houston Methodist DeBakey — الولايات المتحدة</option>
+              <option data-phone="+44-20-7352-8121" value="https://www.rbht.nhs.uk/contact">Royal Brompton — المملكة المتحدة</option>
+              <option data-phone="+49-30-450-50" value="https://www.charite.de/en/deutsches_herzzentrum_der_charite_dhzc">Deutsches Herzzentrum — ألمانيا</option>
+              <option data-phone="+65-6704-2000" value="https://www.nhcs.com.sg/appointments">National Heart Centre Singapore — سنغافورة</option>
+              <option data-phone="+66-2066-8888" value="https://www.bumrungrad.com/en/contact-us/contact-details">Bumrungrad Heart Institute — تايلند</option>
+              <option data-phone="+971-800-82223" data-intl="+971-2-659-0200" value="https://www.clevelandclinicabudhabi.ae/en/institutes-and-specialties/heart-vascular-and-thoracic-institute">Cleveland Clinic أبوظبي — الإمارات</option>
+            </select>
+          </div>
+          <div id="intlContact" style="margin-top:8px; font-size:14px; color:#374151; display:none"></div>
+        </div>
+
+        <!-- مراجع موثوقة -->
+        <div class="card" style="margin-top:12px">
+          <h3>مراجع موثوقة</h3>
+          <div class="hint">روابط تعليمية تُفتح مباشرة.</div>
+          <div class="select">
+            <select id="refSelect" aria-label="اختر مرجعًا">
+              <option value="">— اختر مرجعًا —</option>
+              <option value="https://www.who.int/health-topics/cardiovascular-diseases">WHO — أمراض القلب والأوعية</option>
+              <option value="https://www.heart.org/">AHA — الجمعية الأمريكية للقلب</option>
+              <option value="https://www.escardio.org/">ESC — الجمعية الأوروبية لأمراض القلب</option>
+              <option value="https://www.nhs.uk/conditions/heart-disease/">NHS — أمراض القلب</option>
+              <option value="https://www.cdc.gov/heartdisease/">CDC — أمراض القلب</option>
+              <option value="https://www.nice.org.uk/guidance">NICE — إرشادات</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- أسئلة شائعة مرئية (تساعد SEO) -->
+        <div class="card" style="margin-top:12px">
+          <h3>أسئلة شائعة</h3>
+          <details class="faq">
+            <summary>هل الألم الصدري دائمًا من القلب؟</summary>
+            <p>ليس بالضرورة، لكنه علامة إنذار. الألم الضاغط المنتشر للذراع/الفك مع تعرّق أو غثيان يستلزم الطوارئ.</p>
+          </details>
+          <details class="faq">
+            <summary>متى أحتاج إلى تخطيط قلب/إيكو؟</summary>
+            <p>عند الشك باضطراب النظم، الإغماء، أو أعراض قصور القلب، يقرر الطبيب تخطيط القلب والإيكو وربما اختبار الجهد.</p>
+          </details>
+          <details class="faq">
+            <summary>ماذا عن الوراثة الدقيقة؟</summary>
+            <p>إذا كان هناك تاريخ عائلي مبكر لاحتشاء/موت قلبي مفاجئ، ناقش الإحالة للوراثة وفحوص أقارب الدرجة الأولى.</p>
+          </details>
+        </div>
+
+        <!-- مشاركة -->
+        <div class="card" style="margin-top:12px; text-align:center">
+          <h3>شارك الصفحة</h3>
+          <div class="sharebar" style="display:flex; justify-content:center; gap:8px; flex-wrap:wrap">
+            <a class="iconbtn" id="shareWA" title="واتساب" aria-label="WhatsApp">
+              <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 0a12 12 0 00-10 18.3L1 23l4.9-1A12 12 0 1012 0zm6.5 17.2c-.3.8-1.7 1.6-2.4 1.6-.6 0-1.4.1-3.8-1-3.2-1.4-5.3-4.6-5.5-4.8-.1-.2-1.3-1.7-1.3-3.2 0-1.6.8-2.4 1.1-2.7.3-.3.7-.4 1-.4h.8c.2 0 .6 0 .9.7.3.8 1.1 2.7 1.2 2.9.1.2.2.5 0 .8-.2.3-.3.5-.6.8-.3.3-.6.6-.2 1.2.4.6 1.7 2.8 4 3.8 2.9 1.2 3 .8 3.5.8.5 0 1.8-.8 2.1-1.5.2-.7 1-1.6 1.3-1.8.2-.1.3-.2.5-.1l1 .5c.3.1.5.3.5.5-.1.4-.7 2-1 2.7z"/></svg>
+            </a>
+            <a class="iconbtn" id="shareTG" title="تيليغرام" aria-label="Telegram">
+              <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M9 18.2l-.3 4.1c.4 0 .6-.2.8-.4l2-1.8 4.1 3c.7.4 1.3.2 1.5-.7L22 6.2c.2-1.1-.4-1.5-1.1-1.2L2.3 11.1c-1.1.4-1 1.3 0 1.6l4.1 1.2 9.4-5.9c.4-.3.9-.1.5.2L9 18.2z"/></svg>
+            </a>
+            <a class="iconbtn" id="shareX" title="X" aria-label="X">
+              <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M3 2h4.7l5 6.8L18.7 2H22l-7.8 9.1L22 22h-4.8l-5.4-7.2L6 22H2.1l8.3-9.8L3 2z"/></svg>
+            </a>
+            <a class="iconbtn" id="shareFB" title="Facebook" aria-label="Facebook">
+              <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M22 12a10 10 0 10-11.6 9.9v-7H7.7V12h2.7V9.8c0-2.7 1.6-4.2 4-4.2 1.2 0 2.5.2 2.5.2v2.7h-1.4c-1.4 0-1.9.9-1.9 1.8V12h3.2l-.5 2.9h-2.7v7A10 10 0 0022 12z"/></svg>
+            </a>
+            <button class="iconbtn" id="copyLink" title="نسخ الرابط" aria-label="Copy Link">
+              <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M16 1H8C6.3 1 5 2.3 5 4v12c0 1.7 1.3 3 3 3h8c1.7 0 3-1.3 3-3V4c0-1.7-1.3-3-3-3zm1 15c0 .6-.4 1-1 1H8c-.6 0-1-.4-1-1V4c0-.6.4-1 1-1h8c.6 0 1 .4 1 1v12zM7 20c0 .6.4 1 1 1h8v2H8c-1.7 0-3-1.3-3-3v-2h2v2z"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <footer style="text-align:center; margin:10px 0 0; font-size:12px; color:#6b7280">
+          <span>برمجة وتطوير: فاضل الريس</span>
+        </footer>
       </div>
+    </div>
+  </section>
+</main>
 
-      <div id="multiWrap" style="display:none">
-        <label for="multi">اختر ملفات PDF للدمج</label>
-        <input id="multi" class="file-multi" type="file" accept="application/pdf" multiple />
-        <div id="order" class="muted" aria-live="polite"></div>
-      </div>
+<!-- نافذة رسائل -->
+<div id="msgBackdrop" class="msg-backdrop" role="dialog" aria-modal="true" aria-labelledby="msgTitle">
+  <div id="msgBox" class="msg-box">
+    <div id="msgTitle" class="msg-title">تنبيه</div>
+    <div id="msgText" class="msg-text">—</div>
+    <div class="msg-actions">
+      <button id="msgOk" class="msg-btn">حسنًا</button>
+    </div>
+  </div>
+</div>
 
-      <div id="rangesWrap" style="display:none">
-        <label for="ranges">نطاقات الصفحات</label>
-        <input id="ranges" type="text" placeholder="مثال: 1-3,5,8-10" />
-      </div>
+<!-- PDF & مشاركة -->
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js" defer></script>
+<script>
+/* نافذة الرسائل */
+const $mb = document.getElementById('msgBackdrop');
+const $box = document.getElementById('msgBox');
+const $txt = document.getElementById('msgText');
+const $ttl = document.getElementById('msgTitle');
+document.getElementById('msgOk').onclick = () => $mb.classList.remove('show');
+function openMsg(message, type='info', title){
+  $txt.innerHTML = message;
+  $ttl.textContent = title || (type==='error' ? 'تنبيه' : 'معلومة');
+  $box.classList.toggle('error', type==='error');
+  $mb.classList.add('show');
+}
 
-      <div class="row" style="margin-top:8px">
-        <button id="run">تنفيذ الآن</button>
-        <button id="reset" type="button" style="background:#999">تفريغ</button>
-      </div>
-      <div class="status muted" id="status" aria-live="polite">جاهز.</div>
-      <progress id="prog" max="100" value="0" style="display:none" aria-label="تقدم المعالجة"></progress>
-    </section>
+/* أزرار التبديل العامة */
+function makeToggle(segId, dataKey){
+  const seg=document.getElementById(segId);
+  seg.addEventListener('click', e=>{
+    const b=e.target.closest('button'); if(!b) return;
+    seg.querySelectorAll('button').forEach(x=>x.classList.remove('on'));
+    b.classList.add('on');
+    seg.dataset[dataKey]=Object.values(b.dataset)[0];
+  });
+}
+makeToggle('sexSeg','sex'); makeToggle('smokeSeg','smoke'); makeToggle('familySeg','fh'); makeToggle('genSeg','gen');
 
-    <section class="panel">
-      <h2>لماذا هذا الحل؟</h2>
-      <p>كل شيء يتم محلياً داخل متصفحك لضمان الخصوصية والسرعة. يدعم التحويل باستخدام OCR للملفات المصوّرة، إلى جانب أدوات دمج وتقسيم وضغط مبسّط.</p>
-    </section>
-  </main>
+/* نعم/لا للأسئلة */
+document.getElementById('symptoms').addEventListener('click', e=>{
+  const btn=e.target.closest('button'); if(!btn) return;
+  const seg=btn.parentElement;
+  seg.querySelectorAll('button').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+});
 
-  <footer>© 2025 جميع الحقوق محفوظة — أدوات PDF عربية تعمل داخل المتصفح</footer>
-  <noscript>الرجاء تفعيل JavaScript لاستخدام أدوات PDF.</noscript>
+/* فتح الروابط للقوائم */
+['refSelect'].forEach(id=>{
+  const el=document.getElementById(id);
+  el.addEventListener('change', e=>{ const url=e.target.value; if(url){ window.open(url,'_blank','noopener'); e.target.value=''; }});
+});
 
-  <script>
-    // تهيئة pdf.js
-    document.addEventListener('DOMContentLoaded', () => {
-      if (window.pdfjsLib) {
-        pdfjsLib.GlobalWorkerOptions.workerSrc = window.__PDFJS_WORKER_SRC__;
-      }
-    });
+/* مستشفيات عالمية */
+const intlSelect=document.getElementById('intlSelect');
+const intlContact=document.getElementById('intlContact');
+intlSelect.addEventListener('change', ()=>{
+  const opt = intlSelect.selectedOptions[0];
+  if(!opt || !opt.value){ intlContact.style.display='none'; intlContact.innerHTML=''; return; }
+  const phone = (opt.dataset.phone||'').replace(/\s+/g,'');
+  const intl = (opt.dataset.intl||'').replace(/\s+/g,'');
+  const telLocal = phone ? `tel:${phone}` : '';
+  const telIntl  = intl ? `tel:${intl}`  : '';
+  const url = opt.value;
+  const name = opt.textContent.split('—')[0].trim();
+  intlContact.innerHTML = `
+    ${phone?`📞 <strong>محلي:</strong> <a href="${telLocal}"><strong>${opt.dataset.phone}</strong></a>`:'📞 —'}
+    ${intl?` &nbsp;—&nbsp; <strong>دولي:</strong> <a href="${telIntl}"><strong>${opt.dataset.intl}</strong></a>`:''}
+    &nbsp;—&nbsp; <a href="${url}" target="_blank" rel="noopener">زيارة موقع ${name}</a>`;
+  intlContact.style.display='block';
+});
 
-    // عناصر الواجهة
-    const radios = document.querySelectorAll('input[name="tool"]');
-    const singleWrap = document.getElementById('singleWrap');
-    const multiWrap  = document.getElementById('multiWrap');
-    const rangesWrap = document.getElementById('rangesWrap');
+/* مستشفيات محلية (أرقام موثّقة حيث توفّر المصدر) */
+const COUNTRY_HOSPITALS={
+  // البحرين
+  BHR:{n:"مجمع السلمانية الطبي (قسم القلب)", phone:"+973-17288888", url:"https://www.moh.gov.bh/Contact/SMC?lang=ar"},
+  // السعودية (رقم مركز طبي حكومي رئيسي)
+  KSA:{n:"مدينة الملك فهد الطبية — الرياض (مركز قلبي)", phone:"+966-11-288-9999", url:"https://www.kfmc.med.sa"},
+  // الإمارات
+  ARE:{n:"كليفلاند كلينك أبوظبي — معهد القلب والأوعية", phone:"+971-800-82223", url:"https://www.clevelandclinicabudhabi.ae/en/institutes-and-specialties/heart-vascular-and-thoracic-institute"},
+  // قطر
+  QAT:{n:"مستشفى القلب — مؤسسة حمد الطبية", phone:"+974-4439-5838", url:"https://hamad.qa/EN/Hospitals-and-services/Heart%20Hospital/Contact/Pages/default.aspx"},
+  // الكويت (يمكن تحديثه لاحقًا عند توافر مصدر رسمي مباشر)
+  KWT:{n:"مستشفى دار الشفاء — القلب والأوعية (مثال خاص)", phone:"+965-180-5555", url:"https://www.daralshifa.com"},
+  // عُمان (تحديث لاحق بمصدر رسمي)
+  OMN:{n:"المركز الوطني للقلب — المستشفى السلطاني (استعلامات)", phone:"+968-2459-9000", url:"https://www.royalhospital.om/"}
+};
 
-    const single = document.getElementById('single');
-    const multi  = document.getElementById('multi');
-    const ranges = document.getElementById('ranges');
+/* حساب الخطورة */
+const QUESTIONS_IDS = ["chestpain","sob","palp","edema","acs","rad","rf","postcovid"];
+function isYes(id){ return document.querySelector(`.seg[data-q="${id}"] .on`)?.dataset.a==='yes'; }
+function computeRisk(){
+  let score=0;
+  const heavy=['acs','chestpain'];
+  QUESTIONS_IDS.forEach(id=>{
+    const seg=document.querySelector(`.seg[data-q="${id}"]`);
+    const a=seg.querySelector('button.on')?.dataset.a||'no';
+    if(a==='yes'){ score+=1; if(heavy.includes(id)) score+=2; }
+  });
+  if((document.getElementById('smokeSeg').dataset.smoke||'no')==='yes') score+=1;
+  if((document.getElementById('familySeg').dataset.fh||'no')==='yes') score+=1;
+  if((document.getElementById('genSeg').dataset.gen||'no')==='yes') score+=1;
+  if(score>10) score=10;
 
-    const ocrLangSel = document.getElementById('ocrLang');
-    const ocrHintSel = document.getElementById('ocrHint');
+  let levelText='منخفضة', cls='rb-ok', action='راقب الأعراض والتزم بنمط حياة قلبي صحي.';
+  // سيناريوهات حرجة
+  if(isYes('acs') || (isYes('chestpain') && isYes('sob'))){ levelText='عالية'; cls='rb-danger'; action='اتصل بالإسعاف أو راجع أقرب طوارئ فورًا (خلال 24 ساعة).'; }
+  else if(isYes('palp') || isYes('edema') || isYes('rad')){ levelText='متوسطة'; cls='rb-warn'; action='احجز موعدًا لدى طبيب القلب/الأسرة خلال 1–3 أيام للتقييم والاختبارات.'; }
+  // ضبط إضافي حسب الدرجة الإجمالية
+  if(score>=6){ levelText='عالية'; cls='rb-danger'; action='تقييم عاجل خلال 24–72 ساعة أو الطوارئ إذا ساءت الحالة.'; }
+  return {levelText, cls, action, score};
+}
 
-    const runBtn = document.getElementById('run');
-    const resetBtn = document.getElementById('reset');
-    const statusEl = document.getElementById('status');
-    const prog = document.getElementById('prog');
-    const orderEl = document.getElementById('order');
+/* فحوص ونصائح */
+function screening(age, sex, smoker, fh, gen){
+  const list=[];
+  list.push("قياس ضغط الدم سنويًا (أو وفق نصيحة الطبيب).");
+  list.push("تحليل الدهون والسكر الصائم/التراكمي كل 1–3 سنوات حسب الخطورة.");
+  if(smoker==='yes') list.push("الإقلاع عن التبغ + برنامج دعم/بدائل نيكوتين.");
+  if(fh==='yes') list.push("تاريخ عائلي مبكر: ناقش فحص الشحوم المبكر وفحوص أقارب الدرجة الأولى.");
+  if(gen==='yes') list.push("وراثة دقيقة: إحالة لطب وراثي/قلب وراثي (FH/HCM/LQTS/بروغادا).");
+  if(age>=40) list.push("تقييم خطر التصلّب (ASCVD) ومناقشة العلاج بالستاتين/الأسبرين حسب الإرشادات.");
+  return list;
+}
+function buildAdvice(age, sex, smoke, fh, gen){
+  const deck=document.getElementById('adviceDeck'); deck.innerHTML='';
+  const mk=(t,html)=>{ const e=document.createElement('div'); e.className='card'; e.innerHTML=`<h3>${t}</h3>${html}`; return e; };
+  const list=screening(age, sex, smoke, fh, gen);
+  deck.append(
+    mk('نصائح سريعة','<ul><li>أي ألم صدري ضاغط أو ضيق نفس شديد = طوارئ.</li><li>امتنع عن التبغ، ونم 7–8 ساعات، وتحرك 150–300 دقيقة أسبوعيًا.</li><li>نظام متوسطي: خضار، فواكه، حبوب كاملة، أسماك، زيت زيتون.</li><li>حافظ على وزن صحي، وسكّر تراكمي &lt; 7% لمرضى السكري.</li></ul>'),
+    mk('فحوص مقترحة', list.length? '<ul>'+list.map(x=>`<li>${x}</li>`).join('')+'</ul>' : '<div>لا فحوص خاصة الآن — اتبع نصيحة طبيبك.</div>')
+  );
+  deck.style.display='grid';
+}
 
-    function currentTool(){ return [...radios].find(r=>r.checked)?.value || 'toWord'; }
-    function setStatus(msg, cls='muted'){ statusEl.className='status '+cls; statusEl.textContent=msg; }
-    function updateUI(){
-      const t=currentTool();
-      singleWrap.style.display = (t==='toWord'||t==='compress'||t==='split') ? '' : 'none';
-      multiWrap.style.display  = (t==='merge') ? '' : 'none';
-      rangesWrap.style.display = (t==='split') ? '' : 'none';
-      setStatus('جاهز.','muted'); prog.style.display='none'; prog.value=0;
+/* نتيجة + PDF */
+let lastResult=null;
+document.getElementById('calc').addEventListener('click', ()=>{
+  const age=parseFloat(document.getElementById('age').value);
+  if(!(age>=0 && age<=120)){ openMsg('أدخل عمرًا صحيحًا بين 0 و 120.', 'error'); return; }
+  const sex = document.getElementById('sexSeg').dataset.sex || 'male';
+  const smoke = document.getElementById('smokeSeg').dataset.smoke || 'no';
+  const fh = document.getElementById('familySeg').dataset.fh || 'no';
+  const gen = document.getElementById('genSeg').dataset.gen || 'no';
+
+  const {levelText, cls, action, score}=computeRisk();
+
+  const box=document.getElementById('resultBox');
+  box.className='resultbox '+cls;
+  document.getElementById('riskText').textContent=levelText;
+  document.getElementById('actionText').textContent=action;
+  box.style.display='block';
+
+  buildAdvice(age, sex, smoke, fh, gen);
+
+  const ccode=document.getElementById('countrySelect').value;
+  const loc=COUNTRY_HOSPITALS[ccode];
+  const localBox=document.getElementById('localBox');
+  const localContact=document.getElementById('localContact');
+  if(loc){
+    const telHref = loc.phone ? `tel:${loc.phone.replace(/\s+/g,'')}` : '';
+    localContact.innerHTML = `
+      🏥 <strong>${loc.n}</strong><br>
+      ${loc.phone ? `📞 <a href="${telHref}"><strong>${loc.phone}</strong></a>` : '📞 —'}
+      &nbsp;—&nbsp; ${loc.url ? `<a href="${loc.url}" target="_blank" rel="noopener">الموقع الرسمي</a>` : ''}
+    `;
+    localBox.style.display='block';
+  }else{
+    localBox.style.display='none';
+    localContact.innerHTML='';
+  }
+
+  const sel=document.getElementById('intlSelect');
+  if(sel.value){
+    const opt=sel.selectedOptions[0];
+    const phone=opt.dataset.phone||'';
+    const intl=opt.dataset.intl||'';
+    const tel=phone?`tel:${phone.replace(/\s+/g,'')}`:'';
+    const url=sel.value;
+    const name=opt.textContent.split('—')[0].trim();
+    intlContact.innerHTML=`${phone?`📞 <strong>محلي:</strong> <a href="${tel}"><strong>${phone}</strong></a>`:'📞 —'} ${intl?`&nbsp;—&nbsp;<strong>دولي:</strong> <a href="tel:${intl.replace(/\s+/g,'')}"><strong>${intl}</strong></a>`:''} &nbsp;—&nbsp; <a href="${url}" target="_blank" rel="noopener">زيارة موقع ${name}</a>`;
+    intlContact.style.display='block';
+  }
+
+  lastResult = {
+    country: document.querySelector('#countrySelect option:checked').textContent,
+    age, sex:(sex==='male'?'رجل':'امرأة'),
+    smoke:(smoke==='yes'?'مدخّن':'غير مدخّن'),
+    fh:(fh==='yes'?'تاريخ عائلي مبكر':'لا'),
+    gen:(gen==='yes'?'وراثة دقيقة':'لا'),
+    level:levelText, action, score,
+    local: loc ? {n:loc.n, phone:loc.phone||'', url:loc.url||''} : null,
+    intl: sel.value ? {n: sel.selectedOptions[0].textContent, phone: sel.selectedOptions[0].dataset.phone||'', intl: sel.selectedOptions[0].dataset.intl||'', url: sel.value} : null,
+    answers: ["chestpain","sob","palp","edema","acs","rad","rf","postcovid"].map(id=>{
+      const label=document.querySelector(`.seg[data-q="${id}"]`).previousElementSibling.textContent.trim();
+      const a=document.querySelector(`.seg[data-q="${id}"] .on`)?.dataset.a||'no';
+      return {q:label, a:(a==='yes'?'نعم':'لا')};
+    })
+  };
+  document.getElementById('pdfwrap').style.display='block';
+});
+
+/* PDF */
+document.getElementById('pdfBtn').addEventListener('click', async ()=>{
+  if(!lastResult){ openMsg('أجب عن الاستبيان أولًا لعرض النتائج ثم تنزيلها PDF.', 'error'); return; }
+  const box=document.createElement('div');
+  box.setAttribute('dir','rtl');
+  box.style.width='780px'; box.style.background='#fff'; box.style.border='1px solid #e5e7eb'; box.style.borderRadius='16px'; box.style.padding='20px'; box.style.fontFamily='"Cairo",sans-serif'; box.style.color='#111827';
+
+  function row(k,v){ return `<tr><td style="padding:8px 10px;border-bottom:1px solid #f3f4f6"><strong>${k}</strong></td><td style="padding:8px 10px;border-bottom:1px solid #f3f4f6">${v}</td></tr>`; }
+  const rowsAns = lastResult.answers.map(x=>`<tr><td style="padding:8px 10px;border-bottom:1px solid #f3f4f6">${x.q}</td><td style="padding:8px 10px;border-bottom:1px solid #f3f4f6">${x.a}</td></tr>`).join('');
+
+  const localRows = lastResult.local ? `
+    ${row('مستشفى بلدك', lastResult.local.n)}
+    ${row('هاتف المستشفى', lastResult.local.phone || '—')}
+    ${row('الموقع', lastResult.local.url ? `<a href='${lastResult.local.url}' target='_blank' rel='noopener'>رابط الموقع</a>` : '—')}
+  ` : '';
+
+  const intlRows = lastResult.intl ? `
+    ${row('مستشفى عالمي مختار', lastResult.intl.n)}
+    ${row('هاتف محلي', lastResult.intl.phone || '—')}
+    ${row('هاتف دولي', lastResult.intl.intl || '—')}
+    ${row('الموقع', lastResult.intl.url ? `<a href='${lastResult.intl.url}' target='_blank' rel='noopener'>رابط الموقع</a>` : '—')}
+  ` : '';
+
+  box.innerHTML=`
+    <div style="text-align:center; margin-bottom:10px">
+      <div style="font-family:'Amiri',serif; font-size:26px; color:${getComputedStyle(document.documentElement).getPropertyValue('--gold')}">تقرير استبيان أعراض القلب</div>
+      <div style="font-size:12px; color:#6b7280">${new Date().toLocaleString('ar')}</div>
+    </div>
+
+    <table style="width:100%; border-collapse:separate; border-spacing:0; overflow:hidden; border-radius:12px; border:1px solid #eee; margin-bottom:10px">
+      <thead><tr style="background:linear-gradient(90deg,#fff7e6,#fff)"><th style="padding:10px 12px; text-align:right">البند</th><th style="padding:10px 12px; text-align:right">القيمة</th></tr></thead>
+      <tbody>
+        ${row('الدولة', lastResult.country)}
+        ${row('العمر', lastResult.age)}
+        ${row('النوع', lastResult.sex)}
+        ${row('التدخين', lastResult.smoke)}
+        ${row('تاريخ عائلي', lastResult.fh)}
+        ${row('وراثة دقيقة', lastResult.gen)}
+        ${row('مستوى الخطورة', lastResult.level + ` (الدرجة: ${lastResult.score}/10)`)}
+        ${row('التوصية الآن', lastResult.action)}
+        ${localRows}
+        ${intlRows}
+      </tbody>
+    </table>
+
+    <div style="font-weight:700; margin-bottom:6px">إجابات الأعراض</div>
+    <table style="width:100%; border:1px solid #eee; border-radius:12px; border-collapse:separate; border-spacing:0">
+      <thead><tr style="background:#f9fafb"><th style="padding:8px 10px; text-align:right">العَرَض</th><th style="padding:8px 10px; text-align:right">الإجابة</th></tr></thead>
+      <tbody>${rowsAns}</tbody>
+    </table>
+
+    <div style="margin-top:10px; font-size:12px; color:#6b7280">هذه نتيجة تثقيفية عامة وليست تشخيصًا طبيًا. اتصل بالإسعاف عند أعراض طارئة.</div>
+  `;
+
+  document.body.appendChild(box);
+  await new Promise(r=>setTimeout(r, 120));
+  const canvas = await html2canvas(box, {scale:2, useCORS:true});
+  document.body.removeChild(box);
+
+  const imgData = canvas.toDataURL('image/png');
+  const { jsPDF } = window.jspdf;
+  const pdf = new jsPDF({orientation:'p', unit:'pt', format:'a4'});
+  const pageW = pdf.internal.pageSize.getWidth();
+  const pageH = pdf.internal.pageSize.getHeight();
+  const margin = 28;
+  const imgW = pageW - margin*2;
+  const imgH = canvas.height * (imgW / canvas.width);
+
+  if(imgH <= pageH - margin*2){
+    pdf.addImage(imgData, 'PNG', margin, margin, imgW, imgH);
+  }else{
+    let sH = pageH - margin*2, ratio = canvas.width / imgW, slice = sH * ratio, pos = 0;
+    while(pos < canvas.height){
+      const sliceCanvas = document.createElement('canvas');
+      sliceCanvas.width = canvas.width;
+      sliceCanvas.height = Math.min(slice, canvas.height - pos);
+      sliceCanvas.getContext('2d').drawImage(canvas, 0, pos, canvas.width, sliceCanvas.height, 0, 0, sliceCanvas.width, sliceCanvas.height);
+      const sliceData = sliceCanvas.toDataURL('image/png');
+      if(pos>0) pdf.addPage();
+      pdf.addImage(sliceData,'PNG', margin, margin, imgW, (sliceCanvas.height / ratio));
+      pos += slice;
     }
-    radios.forEach(r=>r.addEventListener('change',updateUI)); updateUI();
+  }
+  pdf.save('نتيجة-استبيان-القلب.pdf');
+});
 
-    multi.addEventListener('change',()=>{
-      if(!multi.files?.length){orderEl.textContent='';return;}
-      orderEl.textContent='الترتيب:\n'+[...multi.files].map((f,i)=>`${i+1}. ${f.name}`).join('\n');
-    });
+/* مشاركة وروابط بسيطة */
+document.getElementById('shareWA').onclick=(e)=>{e.preventDefault(); window.open(`https://wa.me/?text=${encodeURIComponent(location.href)}`,'_blank','noopener');};
+document.getElementById('shareTG').onclick=(e)=>{e.preventDefault(); window.open(`https://t.me/share/url?url=${encodeURIComponent(location.href)}`,'_blank','noopener');};
+document.getElementById('shareX').onclick=(e)=>{e.preventDefault(); window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(location.href)}`,'_blank','noopener');};
+document.getElementById('shareFB').onclick=(e)=>{e.preventDefault(); window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(location.href)}`,'_blank','noopener');};
 
-    function downloadBlob(blob, filename){
-      const url = URL.createObjectURL(blob); const a = document.createElement('a');
-      a.href = url; a.download = filename; document.body.appendChild(a); a.click(); a.remove();
-      URL.revokeObjectURL(url);
-    }
-
-    function parseRanges(spec){
-      const out=new Set();
-      (spec||'').split(',').map(s=>s.trim()).filter(Boolean).forEach(p=>{
-        if(/^\d+$/.test(p)) out.add(+p);
-        else{
-          const m=p.match(/^(\d+)\s*-\s*(\d+)$/);
-          if(m){ let a=+m[1], b=+m[2]; if(a>b)[a,b]=[b,a]; for(let i=a;i<=b;i++) out.add(i); }
-        }
-      });
-      return [...out].sort((a,b)=>a-b);
-    }
-
-    async function extractTextPdfJs(arrayBuf){
-      // استخراج نص رقمي (إن وجد) عبر pdf.js
-      const pdf = await pdfjsLib.getDocument({ data: arrayBuf }).promise;
-      const parts=[];
-      for(let i=1;i<=pdf.numPages;i++){
-        const page = await pdf.getPage(i);
-        const content = await page.getTextContent();
-        const text = content.items.map(it => it.str).join(' ').trim();
-        parts.push({page:i,text});
-      }
-      return parts;
-    }
-
-    async function renderPageToImage(page){
-      // تحويل صفحة PDF إلى صورة (Canvas → PNG Blob) لاستخدامها مع OCR
-      const viewport = page.getViewport({ scale: 2 }); // جودة أعلى لـ OCR
-      const canvas = document.createElement('canvas');
-      const ctx = canvas.getContext('2d');
-      canvas.width = viewport.width; canvas.height = viewport.height;
-      await page.render({ canvasContext: ctx, viewport }).promise;
-      return new Promise(resolve => canvas.toBlob(b => resolve(b), 'image/png'));
-    }
-
-    async function extractTextOCR(arrayBuf, langs, hint, progressCb){
-      // OCR كامل للملف: يرسم كل صفحة كصورة ويعالجها بـ Tesseract
-      const pdf = await pdfjsLib.getDocument({ data: arrayBuf }).promise;
-      const results = [];
-      const worker = await Tesseract.createWorker(langs, 1, {
-        logger: m => { if(progressCb && m.status) progressCb(m); }
-      });
-      if(hint==='fast'){ await worker.setParameters({ tessedit_pageseg_mode: 6 }); }
-      if(hint==='accurate'){ await worker.setParameters({ tessedit_char_blacklist: '', preserve_interword_spaces: '1' }); }
-
-      for(let i=1;i<=pdf.numPages;i++){
-        const page = await pdf.getPage(i);
-        const imgBlob = await renderPageToImage(page);
-        const { data: { text } } = await worker.recognize(imgBlob);
-        results.push({page:i,text:(text||'').trim()});
-      }
-      await worker.terminate();
-      return results;
-    }
-
-    async function toDocx(paragraphs, originalName){
-      const { Document, Packer, Paragraph, HeadingLevel, TextRun } = docx;
-      const doc = new Document({
-        sections:[{
-          properties:{},
-          children:[
-            new Paragraph({ text:`تحويل PDF إلى Word — ${originalName}`, heading: HeadingLevel.HEADING_1 }),
-            new Paragraph(''),
-            ...paragraphs.flatMap(p => [
-              new Paragraph({ children:[ new TextRun({ text:`صفحة ${p.page}:`, bold:true }) ] }),
-              new Paragraph({ children:[ new TextRun({ text: p.text || '' }) ] }),
-              new Paragraph('')
-            ])
-          ]
-        }]
-      });
-      return await Packer.toBlob(doc);
-    }
-
-    runBtn.addEventListener('click', async ()=>{
-      try{
-        const tool = currentTool();
-
-        // دمج
-        if(tool==='merge'){
-          if(!multi.files?.length) return setStatus('اختر ملفات للدمج.','err');
-          setStatus('جاري الدمج...','muted');
-          const { PDFDocument } = PDFLib;
-          const outPdf = await PDFDocument.create();
-          for(const f of multi.files){
-            const buf = await f.arrayBuffer();
-            const src = await PDFDocument.load(buf);
-            const pages = await outPdf.copyPages(src, src.getPageIndices());
-            pages.forEach(p=>outPdf.addPage(p));
-          }
-          const bytes = await outPdf.save({ useObjectStreams:true });
-          downloadBlob(new Blob([bytes],{type:'application/pdf'}),'merged.pdf');
-          setStatus('تم الدمج ✅','ok');
-          return;
-        }
-
-        // بقية الأدوات تحتاج ملف واحد
-        const file = single.files?.[0];
-        if(!file) return setStatus('اختر ملف PDF.','err');
-        const arrayBuf = await file.arrayBuffer();
-
-        // ضغط مبسّط
-        if(tool==='compress'){
-          setStatus('جاري الضغط المبسّط...','muted');
-          const { PDFDocument } = PDFLib;
-          const doc = await PDFDocument.load(arrayBuf,{ updateMetadata:false });
-          doc.setTitle(''); doc.setAuthor(''); doc.setSubject('');
-          doc.setKeywords([]); doc.setProducer(''); doc.setCreator('');
-          doc.setCreationDate(undefined); doc.setModificationDate(undefined);
-          const bytes = await doc.save({ useObjectStreams:true });
-          downloadBlob(new Blob([bytes],{type:'application/pdf'}), `compressed_${file.name}`);
-          setStatus('تم الضغط (مبسّط) ✅','ok');
-          return;
-        }
-
-        // تقسيم
-        if(tool==='split'){
-          const spec = ranges.value.trim();
-          if(!spec) return setStatus('أدخل نطاقات صفحات.','err');
-          setStatus('جاري التقسيم...','muted');
-          const wanted = (function(spec){
-            const out=new Set();
-            (spec||'').split(',').map(s=>s.trim()).filter(Boolean).forEach(p=>{
-              if(/^\d+$/.test(p)) out.add(+p);
-              else{ const m=p.match(/^(\d+)\s*-\s*(\d+)$/);
-                if(m){ let a=+m[1], b=+m[2]; if(a>b)[a,b]=[b,a]; for(let i=a;i<=b;i++) out.add(i); }
-              }
-            });
-            return [...out].sort((a,b)=>a-b);
-          })(spec);
-
-          const { PDFDocument } = PDFLib;
-          const src = await PDFDocument.load(arrayBuf);
-          const total = src.getPageCount();
-          const zeroIdx = wanted.filter(p=>p>=1 && p<=total).map(p=>p-1);
-          if(!zeroIdx.length) return setStatus(`النطاقات خارج مدى الملف (عدد الصفحات: ${total}).`,'err');
-          const outPdf = await PDFDocument.create();
-          const pages = await outPdf.copyPages(src, zeroIdx);
-          pages.forEach(p=>outPdf.addPage(p));
-          const bytes = await outPdf.save({ useObjectStreams:true });
-          downloadBlob(new Blob([bytes],{type:'application/pdf'}), `split_${file.name}`);
-          setStatus(`تم استخراج ${pages.length} صفحة ✅`,'ok');
-          return;
-        }
-
-        // تحويل إلى Word (نصوص + OCR)
-        if(tool==='toWord'){
-          setStatus('جاري التحويل إلى Word... (محاولة استخراج نص مباشر)', 'muted');
-          // 1) استخراج النص الرقمي
-          const digitalText = await extractTextPdfJs(arrayBuf);
-          const hasDigital = digitalText.some(p => (p.text||'').length > 10);
-
-          let paragraphs = digitalText;
-          // 2) إن لم يوجد نص كافٍ → OCR تلقائي
-          if(!hasDigital){
-            setStatus('لا يوجد نص رقمي واضح، تشغيل OCR... (قد يستغرق قليلاً عند تحميل حزم اللغة)', 'muted');
-            prog.style.display='block'; prog.value=5;
-
-            const langs = ocrLangSel.value || 'ara+eng';
-            const hint  = ocrHintSel.value || '';
-            const ocrRes = await extractTextOCR(arrayBuf, langs, hint, (m)=>{
-              if(m.status==='recognizing text' && m.progress!=null){
-                prog.value = Math.min(100, Math.round(m.progress*100));
-              }
-            });
-            paragraphs = ocrRes;
-          }
-
-          setStatus('إنشاء ملف DOCX...', 'muted');
-          const blob = await toDocx(paragraphs, file.name);
-          downloadBlob(blob, file.name.replace(/\.pdf$/i,'') + '.docx');
-          setStatus('تم التحويل ✅', 'ok'); prog.style.display='none'; prog.value=0;
-          return;
-        }
-
-      }catch(err){
-        console.error(err);
-        setStatus('حدث خطأ أثناء المعالجة. إن كان الملف كبيراً جداً فجرّب تقليصه أو تقسيمه أولاً.', 'err');
-        prog.style.display='none'; prog.value=0;
-      }
-    });
-
-    resetBtn.addEventListener('click', ()=>{
-      single.value=''; multi.value=''; ranges.value='';
-      orderEl.textContent=''; setStatus('تمت إعادة الضبط.','muted');
-      prog.style.display='none'; prog.value=0;
-    });
-  </script>
+/* نسخ الرابط (SEO: يحسّن المشاركة العضوية) */
+document.getElementById('copyLink').onclick=async (e)=>{
+  e.preventDefault();
+  try{ await navigator.clipboard.writeText(location.href); openMsg('تم نسخ الرابط!'); }
+  catch{ openMsg('لم يتم نسخ الرابط تلقائيًا — انسخ يدويًا.', 'error'); }
+};
+</script>
 </body>
 </html>
