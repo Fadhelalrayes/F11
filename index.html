@@ -29,10 +29,8 @@
       background: linear-gradient(180deg, #1a1a1a, #000 40%);
       -webkit-background-clip:text; background-clip:text; color:transparent;
     }
-    .grid{ display:grid; grid-template-columns:repeat(5, minmax(140px,1fr)); gap:16px; margin:18px 0 8px; }
-    @media (max-width: 960px){ .grid{ grid-template-columns:repeat(3, minmax(140px,1fr)); } }
-    @media (max-width: 560px){ .grid{ grid-template-columns:repeat(2, minmax(140px,1fr)); } }
-    .unit{ padding:18px 16px; border-radius:18px; text-align:center;
+    .grid{ display:flex; flex-wrap:wrap; justify-content:center; gap:16px; margin:18px 0 8px; }
+    .unit{ flex:1 1 140px; max-width:180px; padding:18px 16px; border-radius:18px; text-align:center;
       background: linear-gradient(180deg, rgba(223,197,109,.16), rgba(223,197,109,.08));
       border:1px solid rgba(212,175,55,.45);
     }
@@ -40,6 +38,7 @@
     .unit .value{ font-size:clamp(2rem, 2vw + 1.4rem, 3.2rem); font-weight:900;
       background: linear-gradient(180deg, var(--gold-5), #000); -webkit-background-clip:text; background-clip:text; color:transparent;
     }
+    .meta{ text-align:center; margin-top:14px; font-size:1.1rem; color:#333; font-weight:600 }
   </style>
 </head>
 <body>
@@ -49,10 +48,11 @@
       <div class="grid">
         <div class="unit"><div class="label">الشهور</div><div class="value" id="months">—</div></div>
         <div class="unit"><div class="label">الأيام</div><div class="value" id="days">—</div></div>
+        <div class="unit"><div class="label">الثواني</div><div class="value" id="seconds">—</div></div>
         <div class="unit"><div class="label">الساعات</div><div class="value" id="hours">—</div></div>
         <div class="unit"><div class="label">الدقائق</div><div class="value" id="minutes">—</div></div>
-        <div class="unit"><div class="label">الثواني</div><div class="value" id="seconds">—</div></div>
       </div>
+      <div class="meta" id="targetDate">—</div>
     </div>
   </div>
   <script>
@@ -60,7 +60,8 @@
     const daysEl=document.getElementById('days');
     const hoursEl=document.getElementById('hours');
     const minutesEl=document.getElementById('minutes');
-    const secondsEl=document.getElementById('seconds');function findNextViaIntl(){
+    const secondsEl=document.getElementById('seconds');
+    const targetDateEl=document.getElementById('targetDate');function findNextViaIntl(){
   const fmtHijriParts=new Intl.DateTimeFormat('en-u-ca-islamic',{year:'numeric',month:'numeric',day:'numeric'});
   let d=new Date();d.setHours(0,0,0,0);
   for(let i=0;i<420;i++){
@@ -73,6 +74,7 @@
 }
 
 const targetDate=findNextViaIntl();
+const fmtGreg=new Intl.DateTimeFormat('ar',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
 
 function update(){
   const now=new Date();
@@ -94,6 +96,8 @@ function update(){
   hoursEl.textContent=String(hours).padStart(2,'0');
   minutesEl.textContent=String(minutes).padStart(2,'0');
   secondsEl.textContent=String(seconds).padStart(2,'0');
+
+  targetDateEl.textContent = `سيصادف ١ محرم يوم ${fmtGreg.format(targetDate)}`;
 }
 
 update();
