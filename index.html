@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TravelEasy - حجز الفنادق والتذاكر</title>
+    <title>TravelEasy - أفضل موقع لحجز الفنادق والطيران</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -23,12 +25,11 @@
             background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=2073&auto=format&fit=crop');
             background-size: cover;
             background-position: center;
-            padding: 100px 20px;
-            text-align: center;
+            padding: 120px 20px;
         }
 
         header h1 {
-            font-size: 3rem;
+            font-size: 3.5rem;
             color: #FFD700;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
@@ -36,7 +37,35 @@
         header p {
             font-size: 1.5rem;
             margin-top: 10px;
-            color: #FFFFFF;
+        }
+
+        .search-bar {
+            margin: 20px auto;
+            max-width: 600px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .search-bar input {
+            padding: 10px;
+            width: 70%;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .search-bar button {
+            padding: 10px 20px;
+            background-color: #FFD700;
+            color: #1A1A1A;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .search-bar button:hover {
+            background-color: #FFFFFF;
         }
 
         .container {
@@ -92,6 +121,23 @@
             text-decoration: underline;
         }
 
+        .offers {
+            background-color: #FFD700;
+            color: #1A1A1A;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .offers h2 {
+            color: #1A1A1A;
+        }
+
+        .offer-item {
+            margin: 10px 0;
+            font-size: 1.2rem;
+        }
+
         footer {
             background-color: #FFD700;
             color: #1A1A1A;
@@ -101,6 +147,32 @@
 
         footer p {
             font-size: 1rem;
+        }
+
+        .dark-mode-toggle {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: #FFD700;
+            color: #1A1A1A;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .dark-mode {
+            background-color: #FFFFFF;
+            color: #1A1A1A;
+        }
+
+        .dark-mode .link-card {
+            background-color: #1A1A1A;
+            color: #FFFFFF;
+        }
+
+        .dark-mode .link-card a {
+            color: #FFD700;
         }
 
         @media (max-width: 768px) {
@@ -115,17 +187,32 @@
             .link-card {
                 width: 100%;
             }
+
+            .search-bar input {
+                width: 60%;
+            }
         }
     </style>
 </head>
 <body>
+    <button class="dark-mode-toggle" onclick="toggleDarkMode()"><i class="fas fa-moon"></i> الوضع الليلي</button>
     <header>
         <h1>TravelEasy</h1>
-        <p>ابحث عن أفضل مواقع حجز الفنادق وتذاكر الطيران بسهولة وأناقة</p>
+        <p>اكتشف أفضل مواقع حجز الفنادق وتذاكر الطيران بسهولة وثقة</p>
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="ابحث عن فندق أو وجهة...">
+            <button onclick="search()">ابحث الآن</button>
+        </div>
     </header>
 
     <div class="container">
-        <div class="section">
+        <div class="section offers" data-aos="fade-up">
+            <h2>عروض حصرية</h2>
+            <div class="offer-item">خصم 30% على تذاكر الطيران إلى دبي عبر Emirates</div>
+            <div class="offer-item">إقامة مجانية لليلة في فنادق 5 نجوم عبر Booking.com</div>
+        </div>
+
+        <div class="section" data-aos="fade-up">
             <h2>حجز الفنادق</h2>
             <div class="links">
                 <div class="link-card">
@@ -143,10 +230,15 @@
                     <p>عروض رائعة على الفنادق في آسيا وخارجها.</p>
                     <a href="https://www.agoda.com" target="_blank">زيارة الموقع</a>
                 </div>
+                <div class="link-card">
+                    <h3>Airbnb</h3>
+                    <p>استأجر منازل أو شقق لتجربة سفر فريدة.</p>
+                    <a href="https://www.airbnb.com" target="_blank">زيارة الموقع</a>
+                </div>
             </div>
         </div>
 
-        <div class="section">
+        <div class="section" data-aos="fade-up">
             <h2>حجز تذاكر الطيران</h2>
             <div class="links">
                 <div class="link-card">
@@ -164,12 +256,39 @@
                     <p>قارن أسعار التذاكر من مئات شركات الطيران.</p>
                     <a href="https://www.skyscanner.com" target="_blank">زيارة الموقع</a>
                 </div>
+                <div class="link-card">
+                    <h3>Almosafer</h3>
+                    <p>حجز تذاكر وفنادق في الخليج بسهولة.</p>
+                    <a href="https://www.almosafer.com" target="_blank">زيارة الموقع</a>
+                </div>
             </div>
         </div>
     </div>
 
     <footer>
-        <p>© 2025 TravelEasy. كل الحقوق محفوظة.</p>
+        <p>© 2025 TravelEasy. كل الحقوق محفوظة. بالتعاون مع <a href="https://www.iata.org">IATA</a>.</p>
     </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        // تهيئة AOS
+        AOS.init();
+
+        // وظيفة البحث (مثال مبسط)
+        function search() {
+            const query = document.getElementById('searchInput').value;
+            if (query) {
+                alert('جاري البحث عن: ' + query);
+                // يمكنك هنا إضافة منطق للبحث باستخدام API
+            } else {
+                alert('يرجى إدخال وجهة أو اسم فندق');
+            }
+        }
+
+        // الوضع الليلي
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+        }
+    </script>
 </body>
 </html>
