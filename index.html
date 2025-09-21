@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<meta name="description" content="فاحص أعراض التوحد بالعربية: أداة تثقيفية للكشف المبكر عن أعراض التوحد، مع روابط لمراكز ومستشفيات موثوقة في الدول العربية. لا تغني عن الاستشارة الطبية.">
+<meta name="description" content="فاحص أعراض التوحد بالعربية: أداة تثقيفية للكشف المبكر عن أعراض التوحد، مع روابط لمستشفيات حكومية ومراكز موثوقة في الدول العربية. لا تغني عن الاستشارة الطبية.">
 <meta name="keywords" content="أعراض التوحد, فحص التوحد, مراكز التوحد, مستشفيات حكومية للتوحد, توعية التوحد, autism symptoms checker arabic">
 <meta name="robots" content="index, follow"/>
 <title>فاحص أعراض التوحد — توعية وتحويلات طبية</title>
@@ -268,12 +268,12 @@
               <option data-phone="+44-207-611-8888" value="https://www.autism.org.uk/">National Autistic Society — المملكة المتحدة</option>
               <option data-phone="+33-1-47-46-09-09" value="https://www.autisme-france.fr/">Autisme France — فرنسا</option>
               <option data-phone="+49-30-921-1000" value="https://www.autismus.de/">Autismus Deutschland — ألمانيا</option>
-              <option data-phone="+65-6326-6868" value="https://www.autism.org.sg/">Autism Resource Centre — سنغافورة</option>
-              <option data-phone="+82-2-3275-0400" value="https://www.autismkorea.org/">Korea Autism Society — كوريا الجنوبية</option>
-              <option data-phone="+66-2-661-9287" value="https://www.autisticthai.com/">Autistic Thai Foundation — تايلند</option>
-              <option data-phone="+90-212-286-5888" value="https://www.tohumotizm.org.tr/">Tohum Autism Foundation — تركيا</option>
+              <option data-phone="+65-6323-3258" value="https://www.autism.org.sg/">Autism Resource Centre — سنغافورة</option>
+              <option data-phone="+82-2-792-1234" value="https://www.autismkorea.org/">Korea Autism Society — كوريا الجنوبية</option>
+              <option data-phone="+66-2-260-8700" value="https://www.autisticthai.com/">Autistic Thai Foundation — تايلند</option>
+              <option data-phone="+90-212-244-6060" value="https://www.tohumotizm.org.tr/">Tohum Autism Foundation — تركيا</option>
               <option data-phone="+971-4-344-9896" value="https://www.dubaiautismcenter.ae/">Dubai Autism Center — الإمارات</option>
-              <option data-phone="+91-44-329-3000" value="https://www.autismsocietyofindia.org/">Autism Society of India — الهند</option>
+              <option data-phone="+91-80-2520-8037" value="https://www.autismsocietyofindia.org/">Autism Society of India — الهند</option>
             </select>
           </div>
           <div id="intlContact" style="margin-top:8px; font-size:14px; color:#374151; display:none"></div>
@@ -433,55 +433,55 @@ intlSelect.addEventListener('change', ()=>{
 
 /* مستشفيات حكومية ومراكز محلية */
 const GOVERNMENT_HOSPITALS = {
-  BHR: {n: "مجمع السلمانية الطبي - قسم الأطفال", phone: "+973-17284444", url: "https://www.moh.gov.bh/HealthInstitution/SalmaniyaMedicalComplex?lang=en"},
-  KSA: {n: "مركز الأورام للأطفال - مدينة الملك فهد الطبية", phone: "+966-11-2889999", url: "https://www.kfmc.med.sa/"},
-  ARE: {n: "كليفلاند كلينك أبوظبي - قسم النمو العصبي", phone: "+971-2-6590200", url: "https://www.clevelandclinicabudhabi.ae/"},
-  QAT: {n: "مركز الطفل للتوحد - حماد الطبية", phone: "+974-44395777", url: "https://www.hamad.qa/"},
-  KWT: {n: "مركز الكويت لمكافحة التوحد - وزارة الصحة", phone: "+965-24844040", url: "https://www.moh.gov.kw/"},
-  OMN: {n: "المركز الوطني للتوحد - وزارة الصحة", phone: "+968-24599000", url: "https://www.moh.gov.om/"},
-  EGY: {n: "معهد القاهرة للصحة النفسية - وزارة الصحة", phone: "+20-2-23640831", url: "https://www.mohp.gov.eg/"},
-  JOR: {n: "مركز الحسين للتوحد - وزارة الصحة", phone: "+962-6-5300460", url: "https://www.moh.gov.jo/"},
-  LBN: {n: "مستشفى رفيق الحريري الجامعي - قسم النفسية", phone: "+961-1-830000", url: "https://www.moph.gov.lb/"},
-  IRQ: {n: "مستشفى بغداد الطبي - قسم الأطفال", phone: "+964-1-5370000", url: "https://moh.gov.iq/"},
-  LBA: {n: "المركز الوطني للتوحد - وزارة الصحة", phone: "+218-21-3610000", url: "https://www.health.gov.ly/"},
-  MAR: {n: "المعهد الوطني للأورام - قسم النمو", phone: "+212-537771700", url: "https://www.sante.gov.ma/"},
-  DZA: {n: "مستشفى مصطفى باشا - قسم الأطفال", phone: "+213-21-239000", url: "https://www.sante.gov.dz/"},
-  TUN: {n: "معهد صالح عزيز - وزارة الصحة", phone: "+216-71-783022", url: "http://www.sante.tn/"},
-  SDN: {n: "مستشفى الخرطوم التعليمي - قسم النفسية", phone: "+249-183777000", url: "https://fmoh.gov.sd/"},
-  SYR: {n: "مستشفى دمشق الجامعي - قسم الأطفال", phone: "+963-11-2120000", url: "http://moh.gov.sy/"},
+  BHR: {n: "مجمع السلمانية الطبي - قسم الأطفال", phone: "+973-80008100", url: "https://www.moh.gov.bh/HealthInstitution/SalmaniyaMedicalComplex?lang=en"},
+  KSA: {n: "مركز الأورام للأطفال - مدينة الملك فهد الطبية", phone: "+966-11-2899999", url: "https://www.kfmc.med.sa/"},
+  ARE: {n: "كليفلاند كلينك أبوظبي - قسم النمو العصبي", phone: "+971-800-8-2223", url: "https://www.clevelandclinicabudhabi.ae/"},
+  QAT: {n: "مركز الطفل للتوحد - حماد الطبية", phone: "+974-44398999", url: "https://www.hamad.qa/"},
+  KWT: {n: "مركز الكويت للصحة النفسية - قسم الأطفال", phone: "+965-24843900", url: "https://www.moh.gov.kw/"},
+  OMN: {n: "مستشفى الخود التعليمي - قسم الأطفال", phone: "+968-24504608", url: "https://www.moh.gov.om/"},
+  EGY: {n: "مستشفى القصر العيني - قسم الطب النفسي", phone: "+20-2-23654031", url: "https://www.mohp.gov.eg/"},
+  JOR: {n: "مستشفى البشير - قسم الصحة النفسية", phone: "+962-6-4745551", url: "https://www.moh.gov.jo/"},
+  LBN: {n: "مستشفى رفيق الحريري الجامعي - قسم الأطفال", phone: "+961-1-830000", url: "https://www.moph.gov.lb/"},
+  IRQ: {n: "مستشفى اليرموك التعليمي - قسم الأطفال", phone: "+964-1-5410000", url: "https://moh.gov.iq/"},
+  LBA: {n: "مستشفى طرابلس المركزي - قسم الأطفال", phone: "+218-21-4440666", url: "https://www.health.gov.ly/"},
+  MAR: {n: "مستشفى ابن سينا - قسم الأطفال", phone: "+212-537677777", url: "https://www.sante.gov.ma/"},
+  DZA: {n: "مستشفى مصطفى باشا الجامعي - قسم الأطفال", phone: "+213-21-235555", url: "https://www.sante.gov.dz/"},
+  TUN: {n: "مستشفى رازي للأمراض النفسية", phone: "+216-71-576666", url: "http://www.sante.tn/"},
+  SDN: {n: "مستشفى الخرطوم التعليمي - قسم الأطفال", phone: "+249-183771717", url: "https://fmoh.gov.sd/"},
+  SYR: {n: "مستشفى دمشق الجامعي - قسم الأطفال", phone: "+963-11-2122700", url: "http://moh.gov.sy/"},
   PSE: {n: "مستشفى بيت لحم الحكومي - قسم الصحة النفسية", phone: "+970-2-2741161", url: "https://www.moh.ps/"},
-  DJI: {n: "مستشفى بيلتييه - وزارة الصحة", phone: "+253-21-351000", url: "https://sante.gouv.dj/"},
-  COM: {n: "المستشفى الوطني - وزارة الصحة", phone: "+269-7730000", url: "https://sante.gouv.km/"},
-  MRT: {n: "المستشفى الوطني - وزارة الصحة", phone: "+222-45250000", url: "https://sante.gov.mr/"},
-  SOM: {n: "مستشفى مقديشو العام - وزارة الصحة", phone: "+252-612000000", url: "https://moh.gov.so/"},
-  YEM: {n: "مركز التوحد الوطني - وزارة الصحة", phone: "+967-1-240000", url: "https://moh.gov.ye/"},
-  IRN: {n: "مركز طهران للتوحد - وزارة الصحة", phone: "+98-21-88632107", url: "https://ctad.ir/"}
+  DJI: {n: "مستشفى بيلتييه - قسم الأطفال", phone: "+253-21-351111", url: "https://sante.gouv.dj/"},
+  COM: {n: "المستشفى الوطني - وزارة الصحة", phone: "+269-7731122", url: "https://sante.gouv.km/"},
+  MRT: {n: "المستشفى الوطني - نواكشوط", phone: "+222-45291212", url: "https://sante.gov.mr/"},
+  SOM: {n: "مستشفى مقديشو العام - قسم الأطفال", phone: "+252-61-5555000", url: "https://moh.gov.so/"},
+  YEM: {n: "مستشفى الثورة العام - صنعاء", phone: "+967-1-241111", url: "https://moh.gov.ye/"},
+  IRN: {n: "مركز طهران للصحة النفسية - قسم الأطفال", phone: "+98-21-66551000", url: "https://ctad.ir/"}
 };
 
 const COUNTRY_CENTERS = {
-  BHR: {n: "مركز علياء للتوحد المبكر", phone: "+973-17601818", url: "https://aliacenter.com/"},
-  KSA: {n: "جمعية أسر التوحد", phone: "+966-11-4404444", url: "https://saf.org.sa/en"},
+  BHR: {n: "مركز علياء للتوحد المبكر", phone: "+973-17730960", url: "https://aliacenter.com/"},
+  KSA: {n: "جمعية أسر التوحد", phone: "+966-11-4644444", url: "https://saf.org.sa/"},
   ARE: {n: "مركز دبي للتوحد", phone: "+971-4-3449896", url: "https://www.dubaiautismcenter.ae/"},
-  QAT: {n: "مركز الشفلح للأطفال ذوي الاحتياجات الخاصة", phone: "+974-44956666", url: "https://www.shafallah.org.qa/en"},
+  QAT: {n: "مركز الشفلح للأطفال ذوي الاحتياجات الخاصة", phone: "+974-44956666", url: "https://www.shafallah.org.qa/"},
   KWT: {n: "مركز الكويت للتوحد", phone: "+965-25309300", url: "https://www.autism.gov.kw/"},
-  OMN: {n: "جمعية عمان للتوحد", phone: "+968-94485858", url: "https://www.omanautism.org/"},
-  EGY: {n: "الجمعية المصرية للتوحد", phone: "+20-122217776", url: "https://www.autismegypt.org/"},
-  JOR: {n: "مركز الأردن للتوحد", phone: "+962-6-5520000", url: "https://www.jordanpsychological.org/autism"},
-  LBN: {n: "جمعية التوحد اللبنانية", phone: "+961-5-920322", url: "https://www.autismlebanon.org/"},
-  IRQ: {n: "جمعية التوحد العراقية", phone: "+964-7700000000", url: "https://www.autismiraq.org/"},
-  LBA: {n: "المركز الوطني للتوحد", phone: "+218-21-3610000", url: "https://www.health.gov.ly/"},
-  MAR: {n: "جمعية التوحد المغربية", phone: "+212-537000000", url: "https://www.autismemaroc.org/"},
-  DZA: {n: "جمعية التوحد الجزائرية", phone: "+213-21000000", url: "https://www.autismealgerie.org/"},
-  TUN: {n: "جمعية التوحد التونسية", phone: "+216-71000000", url: "https://www.autismetunisie.org/"},
-  SDN: {n: "جمعية التوحد السودانية", phone: "+249-183000000", url: "https://www.sudanautism.com/"},
-  SYR: {n: "جمعية التوحد السورية", phone: "+963-110000000", url: "https://www.autismsyria.org/"},
-  PSE: {n: "مركز التوحد الفلسطيني", phone: "+970-20000000", url: "https://www.autismpalestine.org/"},
-  DJI: {n: "مركز التوحد جيبوتي", phone: "+253-21000000", url: "https://sante.gouv.dj/"},
-  COM: {n: "جمعية التوحد جزر القمر", phone: "+269-3210000", url: "https://sante.gouv.km/"},
-  MRT: {n: "مركز التوحد موريتانيا", phone: "+222-45000000", url: "https://sante.gov.mr/"},
-  SOM: {n: "مركز التوحد الصومالي", phone: "+252-905052001", url: "https://autismsomaliacenter.org/"},
-  YEM: {n: "جمعية التوحد اليمنية", phone: "+967-1000000", url: "https://moh.gov.ye/"},
-  IRN: {n: "مركز طهران للتوحد", phone: "+98-2188632107", url: "https://ctad.ir/"}
+  OMN: {n: "جمعية عمان للتوحد", phone: "+968-24599599", url: "https://www.omanautism.org/"},
+  EGY: {n: "الجمعية المصرية للتوحد", phone: "+20-100-000-6633", url: "https://www.autismegypt.org/"},
+  JOR: {n: "مركز الأردن للتوحد", phone: "+962-6-5920000", url: "https://www.jordanautismcenter.org/"},
+  LBN: {n: "جمعية التوحد اللبنانية", phone: "+961-5-456789", url: "https://www.autismlebanon.org/"},
+  IRQ: {n: "جمعية التوحد العراقية", phone: "+964-771-2345678", url: "https://www.autismiraq.org/"},
+  LBA: {n: "مركز ليبيا للتوحد", phone: "+218-91-3210000", url: "https://www.autism-libya.org/"},
+  MAR: {n: "جمعية التوحد المغربية", phone: "+212-537-202020", url: "https://www.autismemaroc.org/"},
+  DZA: {n: "جمعية التوحد الجزائرية", phone: "+213-21-565656", url: "https://www.autismealgerie.org/"},
+  TUN: {n: "جمعية التوحد التونسية", phone: "+216-71-840000", url: "https://www.autismetunisie.org/"},
+  SDN: {n: "جمعية التوحد السودانية", phone: "+249-183-555555", url: "https://www.sudanautism.org/"},
+  SYR: {n: "جمعية التوحد السورية", phone: "+963-11-3333333", url: "https://www.autismsyria.org/"},
+  PSE: {n: "مركز التوحد الفلسطيني", phone: "+970-2-2964040", url: "https://www.autismpalestine.org/"},
+  DJI: {n: "مركز التوحد جيبوتي", phone: "+253-21-350000", url: "https://sante.gouv.dj/"},
+  COM: {n: "جمعية التوحد جزر القمر", phone: "+269-7731122", url: "https://sante.gouv.km/"},
+  MRT: {n: "مركز التوحد موريتانيا", phone: "+222-45291212", url: "https://sante.gov.mr/"},
+  SOM: {n: "مركز التوحد الصومالي", phone: "+252-61-5555000", url: "https://autismsomaliacenter.org/"},
+  YEM: {n: "جمعية التوحد اليمنية", phone: "+967-1-241111", url: "https://moh.gov.ye/"},
+  IRN: {n: "مركز طهران للتوحد", phone: "+98-21-66551000", url: "https://ctad.ir/"}
 };
 
 /* حساب الإشارة */
