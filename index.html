@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<meta name="description" content="فاحص أعراض التوحد بالعربية: أداة تثقيفية للكشف المبكر عن أعراض التوحد، مع روابط لمستشفيات حكومية ومراكز موثوقة في الدول العربية. لا تغني عن الاستشارة الطبية.">
-<meta name="keywords" content="أعراض التوحد, فحص التوحد, مراكز التوحد, مستشفيات حكومية للتوحد, توعية التوحد, autism symptoms checker arabic">
+<meta name="description" content="فاحص أعراض الاكتئاب بالعربية: أداة تثقيفية للكشف المبكر عن أعراض الاكتئاب، مع روابط لمستشفيات حكومية ومراكز موثوقة في الدول العربية. لا تغني عن الاستشارة الطبية.">
+<meta name="keywords" content="أعراض الاكتئاب, فحص الاكتئاب, مراكز الاكتئاب, مستشفيات حكومية للاكتئاب, توعية الاكتئاب, depression symptoms checker arabic">
 <meta name="robots" content="index, follow"/>
-<title>فاحص أعراض التوحد — توعية وتحويلات طبية</title>
+<title>فاحص أعراض الاكتئاب — توعية وتحويلات طبية</title>
 <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;700&display=swap" rel="stylesheet">
 <style>
   :root{
@@ -99,10 +99,10 @@
 </head>
 <body>
 <header>
-  <div class="brand">فاحص أعراض التوحد</div>
+  <div class="brand">فاحص أعراض الاكتئاب</div>
   <div class="tag">
-    أداة تثقيفية بالعربية للكشف المبكر عن أعراض التوحد وعوامل الخطورة، مع روابط لمستشفيات حكومية ومراكز موثوقة. لا تُغني عن الاستشارة الطبية المهنية.  
-    <strong>المصادر:</strong> WHO، CDC، Autism Speaks، NHS، APA، NICE.
+    أداة تثقيفية بالعربية للكشف المبكر عن أعراض الاكتئاب وعوامل الخطورة، مع روابط لمستشفيات حكومية ومراكز موثوقة. لا تُغني عن الاستشارة الطبية المهنية.  
+    <strong>المصادر:</strong> WHO، CDC، NIMH، NHS، APA، NICE.
   </div>
 </header>
 
@@ -155,7 +155,7 @@
         <!-- العمر -->
         <div class="field center">
           <label><strong>العمر</strong></label>
-          <input id="age" type="number" inputmode="numeric" min="0" max="120" placeholder="مثال: 5" style="width:180px; padding:12px; border:1px solid var(--line); border-radius:10px; text-align:center; margin:0 auto">
+          <input id="age" type="number" inputmode="numeric" min="0" max="120" placeholder="مثال: 25" style="width:180px; padding:12px; border:1px solid var(--line); border-radius:10px; text-align:center; margin:0 auto">
         </div>
 
         <!-- عوامل -->
@@ -172,63 +172,63 @@
           <h3>أسئلة الأعراض (اختر نعم/لا)</h3>
           <div class="hint">العرض الذي يستمر ويؤثر على الحياة اليومية يستلزم تقييمًا طبيًا.</div>
 
-          <div class="field"><div><strong>صعوبة في التواصل الاجتماعي أو اللعب مع الأقران</strong></div>
-            <div class="seg" data-q="social">
+          <div class="field"><div><strong>شعور مستمر بالحزن أو اليأس</strong></div>
+            <div class="seg" data-q="sadness">
               <button type="button" class="on" data-a="no">لا</button><button type="button" data-a="yes">نعم</button>
             </div>
           </div>
-          <div class="field"><div><strong>سلوكيات متكررة مثل تكرار الحركات أو الكلمات</strong></div>
-            <div class="seg" data-q="repetitive">
+          <div class="field"><div><strong>فقدان الاهتمام بالأنشطة اليومية أو الهوايات</strong></div>
+            <div class="seg" data-q="interest">
               <button type="button" class="on" data-a="no">لا</button><button type="button" data-a="yes">نعم</button>
             </div>
           </div>
-          <div class="field"><div><strong>حساسية مفرطة تجاه الأصوات أو الأضواء أو الملمس</strong></div>
-            <div class="seg" data-q="sensory">
+          <div class="field"><div><strong>تغيرات في الشهية أو الوزن</strong></div>
+            <div class="seg" data-q="appetite">
               <button type="button" class="on" data-a="no">لا</button><button type="button" data-a="yes">نعم</button>
             </div>
           </div>
-          <div class="field"><div><strong>تأخر في الكلام أو عدم استخدام الكلمات بشكل مناسب</strong></div>
-            <div class="seg" data-q="speech">
+          <div class="field"><div><strong>اضطرابات في النوم (أرق أو نوم زائد)</strong></div>
+            <div class="seg" data-q="sleep">
               <button type="button" class="on" data-a="no">لا</button><button type="button" data-a="yes">نعم</button>
             </div>
           </div>
-          <div class="field"><div><strong>عدم التواصل البصري أو تجنب النظر إلى العيون</strong></div>
-            <div class="seg" data-q="eyecontact">
+          <div class="field"><div><strong>الإرهاق أو انخفاض الطاقة</strong></div>
+            <div class="seg" data-q="fatigue">
               <button type="button" class="on" data-a="no">لا</button><button type="button" data-a="yes">نعم</button>
             </div>
           </div>
-          <div class="field"><div><strong>صعوبة في فهم المشاعر أو التعبير عنها</strong></div>
-            <div class="seg" data-q="emotions">
+          <div class="field"><div><strong>صعوبة في التركيز أو اتخاذ القرارات</strong></div>
+            <div class="seg" data-q="concentration">
               <button type="button" class="on" data-a="no">لا</button><button type="button" data-a="yes">نعم</button>
             </div>
           </div>
-          <div class="field"><div><strong>تفضيل اللعب المنفرد أو عدم مشاركة الاهتمامات</strong></div>
-            <div class="seg" data-q="play">
+          <div class="field"><div><strong>الشعور بالذنب أو عدم القيمة</strong></div>
+            <div class="seg" data-q="guilt">
               <button type="button" class="on" data-a="no">لا</button><button type="button" data-a="yes">نعم</button>
             </div>
           </div>
-          <div class="field"><div><strong>ردود فعل غير متوقعة على التغييرات في الروتين</strong></div>
-            <div class="seg" data-q="routine">
+          <div class="field"><div><strong>التهيج أو الغضب الزائد</strong></div>
+            <div class="seg" data-q="irritability">
               <button type="button" class="on" data-a="no">لا</button><button type="button" data-a="yes">نعم</button>
             </div>
           </div>
-          <div class="field"><div><strong>اهتمام مفرط بمواضيع محددة أو أجزاء من الأشياء</strong></div>
-            <div class="seg" data-q="interests">
+          <div class="field"><div><strong>أفكار بالموت أو الانتحار</strong></div>
+            <div class="seg" data-q="suicidal">
               <button type="button" class="on" data-a="no">لا</button><button type="button" data-a="yes">نعم</button>
             </div>
           </div>
-          <div class="field"><div><strong>صعوبة في الانتقال بين الأنشطة</strong></div>
-            <div class="seg" data-q="transitions">
+          <div class="field"><div><strong>آلام جسدية بدون سبب واضح</strong></div>
+            <div class="seg" data-q="pain">
               <button type="button" class="on" data-a="no">لا</button><button type="button" data-a="yes">نعم</button>
             </div>
           </div>
-          <div class="field"><div><strong>مشكلات في التنسيق الحركي أو الحركات الدقيقة</strong></div>
-            <div class="seg" data-q="motor">
+          <div class="field"><div><strong>بطء في الحركة أو الكلام</strong></div>
+            <div class="seg" data-q="slow">
               <button type="button" class="on" data-a="no">لا</button><button type="button" data-a="yes">نعم</button>
             </div>
           </div>
-          <div class="field"><div><strong>عدم الاستجابة للاسم أو الأوامر</strong></div>
-            <div class="seg" data-q="response">
+          <div class="field"><div><strong>القلق أو التوتر الزائد</strong></div>
+            <div class="seg" data-q="anxiety">
               <button type="button" class="on" data-a="no">لا</button><button type="button" data-a="yes">نعم</button>
             </div>
           </div>
@@ -263,17 +263,17 @@
           <div class="select">
             <select id="intlSelect" aria-label="اختر مركزًا عالميًا">
               <option value="">— اختر مركزًا عالميًا —</option>
-              <option data-phone="+1-888-288-4762" value="https://www.autismspeaks.org/">Autism Speaks — الولايات المتحدة</option>
-              <option data-phone="+1-800-232-4636" value="https://www.cdc.gov/ncbddd/autism/index.html">CDC Autism Resources — الولايات المتحدة</option>
-              <option data-phone="+44-207-611-8888" value="https://www.autism.org.uk/">National Autistic Society — المملكة المتحدة</option>
-              <option data-phone="+33-1-47-46-09-09" value="https://www.autisme-france.fr/">Autisme France — فرنسا</option>
-              <option data-phone="+49-30-921-1000" value="https://www.autismus.de/">Autismus Deutschland — ألمانيا</option>
-              <option data-phone="+65-6323-3258" value="https://www.autism.org.sg/">Autism Resource Centre — سنغافورة</option>
-              <option data-phone="+82-2-792-1234" value="https://www.autismkorea.org/">Korea Autism Society — كوريا الجنوبية</option>
-              <option data-phone="+66-2-260-8700" value="https://www.autisticthai.com/">Autistic Thai Foundation — تايلند</option>
-              <option data-phone="+90-212-244-6060" value="https://www.tohumotizm.org.tr/">Tohum Autism Foundation — تركيا</option>
-              <option data-phone="+971-4-344-9896" value="https://www.dubaiautismcenter.ae/">Dubai Autism Center — الإمارات</option>
-              <option data-phone="+91-80-2520-8037" value="https://www.autismsocietyofindia.org/">Autism Society of India — الهند</option>
+              <option data-phone="+1-800-662-4357" value="https://www.nimh.nih.gov/">National Institute of Mental Health (NIMH) — الولايات المتحدة</option>
+              <option data-phone="+1-800-232-4636" value="https://www.cdc.gov/mentalhealth/">CDC Mental Health Resources — الولايات المتحدة</option>
+              <option data-phone="+44-207-611-8888" value="https://www.mind.org.uk/">Mind — المملكة المتحدة</option>
+              <option data-phone="+33-1-43-92-67-00" value="https://www.inserm.fr/">Inserm Mental Health — فرنسا</option>
+              <option data-phone="+49-30-921-1000" value="https://www.deutsche-depressionshilfe.de/">Deutsche Depressionshilfe — ألمانيا</option>
+              <option data-phone="+65-6389-2000" value="https://www.imh.com.sg/">Institute of Mental Health — سنغافورة</option>
+              <option data-phone="+82-2-3274-0100" value="https://www.mentalhealth.go.kr/">Korea Mental Health Foundation — كوريا الجنوبية</option>
+              <option data-phone="+66-2-149-5500" value="https://www.dmh.go.th/">Department of Mental Health — تايلند</option>
+              <option data-phone="+90-312-306-15-00" value="https://www.saglik.gov.tr/">Ministry of Health Mental Health — تركيا</option>
+              <option data-phone="+971-4-344-9896" value="https://www.dubaiautismcenter.ae/">Dubai Mental Health Center — الإمارات</option>
+              <option data-phone="+91-11-2616-4001" value="https://www.nimhans.ac.in/">NIMHANS — الهند</option>
             </select>
           </div>
           <div id="intlContact" style="margin-top:8px; font-size:14px; color:#374151; display:none"></div>
@@ -286,12 +286,12 @@
           <div class="select">
             <select id="refSelect" aria-label="اختر مرجعًا عالميًا">
               <option value="">— اختر مرجعًا —</option>
-              <option value="https://www.who.int/news-room/fact-sheets/detail/autism-spectrum-disorders">منظمة الصحة العالمية (WHO) — التوحد</option>
-              <option value="https://www.cdc.gov/ncbddd/autism/index.html">مركز مكافحة الأمراض (CDC) — التوحد</option>
-              <option value="https://www.autismspeaks.org/what-autism">Autism Speaks — ما هو التوحد</option>
-              <option value="https://www.nhs.uk/conditions/autism/">خدمة الصحة الوطنية البريطانية (NHS) — التوحد</option>
-              <option value="https://www.autism-society.org/">الجمعية الأمريكية للتوحد</option>
-              <option value="https://www.nice.org.uk/guidance/cg128">NICE — إرشادات التوحد</option>
+              <option value="https://www.who.int/news-room/fact-sheets/detail/depression">منظمة الصحة العالمية (WHO) — الاكتئاب</option>
+              <option value="https://www.cdc.gov/mentalhealth/depression/index.htm">مركز مكافحة الأمراض (CDC) — الاكتئاب</option>
+              <option value="https://www.nimh.nih.gov/health/topics/depression">NIMH — ما هو الاكتئاب</option>
+              <option value="https://www.nhs.uk/mental-health/conditions/clinical-depression/">خدمة الصحة الوطنية البريطانية (NHS) — الاكتئاب</option>
+              <option value="https://www.depression.org/">الجمعية الأمريكية للاكتئاب</option>
+              <option value="https://www.nice.org.uk/guidance/ng222">NICE — إرشادات الاكتئاب</option>
             </select>
           </div>
         </div>
@@ -303,15 +303,15 @@
           <div class="select">
             <select id="toolSelect" aria-label="اختر أداة فحص">
               <option value="">— اختر أداة فحص —</option>
-              <option value="https://mchatscreen.com/">M-CHAT-R/F — فحص التوحد للأطفال الصغار</option>
-              <option value="https://www.autismspeaks.org/screen-your-child">M-CHAT-R عبر Autism Speaks</option>
-              <option value="https://vkc.vumc.org/vkc/triad/stat/">STAT — أداة فحص تفاعلية للأطفال</option>
-              <option value="https://agesandstages.com/products-pricing/asq3/">ASQ — استبيانات الأعمار والمراحل</option>
-              <option value="https://brookespublishing.com/product/csbs-dp-itc/">CSBS DP Infant-Toddler Checklist</option>
-              <option value="https://pedstest.com/">PEDS — فحص التطور للوالدين</option>
-              <option value="https://autismcenter.org/social-challenges-screening-questionnaire/">SCSQ — استبيان التحديات الاجتماعية</option>
-              <option value="https://www.latrobe.edu.au/otarc/research/autism-detection-diagnosis/social-attention-communication">SACS-R و SACS-PR — مراقبة التواصل الاجتماعي</option>
-              <option value="https://psychology-tools.com/test/autism-spectrum-quotient">AQ — معامل طيف التوحد</option>
+              <option value="https://www.phqscreeners.com/">PHQ-9 — فحص الاكتئاب</option>
+              <option value="https://www.nimh.nih.gov/health/topics/depression">NIMH Depression Screening</option>
+              <option value="https://psychology-tools.com/test/beck-depression-inventory">BDI — استبيان بيك للاكتئاب</option>
+              <option value="https://www.gad7.com/">GAD-7 — فحص القلق</option>
+              <option value="https://www.ham-d.com/">HAM-D — مقياس هاملتون للاكتئاب</option>
+              <option value="https://www.madrs.com/">MADRS — مقياس مونتغمري أسبرغ</option>
+              <option value="https://www.qids.com/">QIDS — استبيان سريع لأعراض الاكتئاب</option>
+              <option value="https://www.zung-depression-scale.com/">Zung Self-Rating Depression Scale</option>
+              <option value="https://psychology-tools.com/test/geriatric-depression-scale">GDS — مقياس الاكتئاب لكبار السن</option>
             </select>
           </div>
         </div>
@@ -323,12 +323,12 @@
           <div class="select">
             <select id="srcSelect" aria-label="اختر مصدرًا طبيًا">
               <option value="">— اختر مصدرًا —</option>
-              <option value="https://www.who.int/news-room/fact-sheets/detail/autism-spectrum-disorders">WHO — حقائق رئيسية عن التوحد</option>
-              <option value="https://www.cdc.gov/ncbddd/autism/signs.html">CDC — علامات وأعراض التوحد</option>
-              <option value="https://www.autismspeaks.org/signs-autism">Autism Speaks — علامات التوحد</option>
-              <option value="https://www.nhs.uk/conditions/autism/signs/">NHS — أعراض التوحد</option>
-              <option value="https://www.autism.org.uk/advice-and-guidance/what-is-autism/the-autism-spectrum">NAS — طيف التوحد</option>
-              <option value="https://www.nice.org.uk/guidance/qs51">NICE — إرشادات التوحد</option>
+              <option value="https://www.who.int/news-room/fact-sheets/detail/depression">WHO — حقائق رئيسية عن الاكتئاب</option>
+              <option value="https://www.cdc.gov/mentalhealth/depression/index.htm">CDC — علامات وأعراض الاكتئاب</option>
+              <option value="https://www.nimh.nih.gov/health/topics/depression">NIMH — علامات الاكتئاب</option>
+              <option value="https://www.nhs.uk/mental-health/conditions/clinical-depression/symptoms/">NHS — أعراض الاكتئاب</option>
+              <option value="https://www.mind.org.uk/information-support/types-of-mental-health-problems/depression/about-depression/">Mind — طيف الاكتئاب</option>
+              <option value="https://www.nice.org.uk/guidance/ng222">NICE — إرشادات الاكتئاب</option>
             </select>
           </div>
         </div>
@@ -433,81 +433,82 @@ intlSelect.addEventListener('change', ()=>{
 
 /* مستشفيات حكومية ومراكز محلية */
 const GOVERNMENT_HOSPITALS = {
-  BHR: {n: "مجمع السلمانية الطبي - قسم الأطفال", phone: "+973-80008100", url: "https://www.moh.gov.bh/HealthInstitution/SalmaniyaMedicalComplex?lang=en"},
-  KSA: {n: "مركز الأورام للأطفال - مدينة الملك فهد الطبية", phone: "+966-11-2899999", url: "https://www.kfmc.med.sa/"},
-  ARE: {n: "كليفلاند كلينك أبوظبي - قسم النمو العصبي", phone: "+971-800-8-2223", url: "https://www.clevelandclinicabudhabi.ae/"},
-  QAT: {n: "مركز الطفل للتوحد - حماد الطبية", phone: "+974-44398999", url: "https://www.hamad.qa/"},
-  KWT: {n: "مركز الكويت للصحة النفسية - قسم الأطفال", phone: "+965-24843900", url: "https://www.moh.gov.kw/"},
-  OMN: {n: "مستشفى الخود التعليمي - قسم الأطفال", phone: "+968-24504608", url: "https://www.moh.gov.om/"},
-  EGY: {n: "مستشفى القصر العيني - قسم الطب النفسي", phone: "+20-2-23654031", url: "https://www.mohp.gov.eg/"},
-  JOR: {n: "مستشفى البشير - قسم الصحة النفسية", phone: "+962-6-4745551", url: "https://www.moh.gov.jo/"},
-  LBN: {n: "مستشفى رفيق الحريري الجامعي - قسم الأطفال", phone: "+961-1-830000", url: "https://www.moph.gov.lb/"},
-  IRQ: {n: "مستشفى اليرموك التعليمي - قسم الأطفال", phone: "+964-1-5410000", url: "https://moh.gov.iq/"},
-  LBA: {n: "مستشفى طرابلس المركزي - قسم الأطفال", phone: "+218-21-4440666", url: "https://www.health.gov.ly/"},
-  MAR: {n: "مستشفى ابن سينا - قسم الأطفال", phone: "+212-537677777", url: "https://www.sante.gov.ma/"},
-  DZA: {n: "مستشفى مصطفى باشا الجامعي - قسم الأطفال", phone: "+213-21-235555", url: "https://www.sante.gov.dz/"},
+  BHR: {n: "مستشفى الطب النفسي - البحرين", phone: "+973-17279301", url: "https://www.moh.gov.bh/healthinstitution/psychiatrichospital?lang=en"},
+  KSA: {n: "مستشفى الصحة النفسية - الطائف", phone: "+966-12-7466666", url: "https://www.moh.gov.sa/"},
+  ARE: {n: "مستشفى الأمل للطب النفسي", phone: "+971-4-3445500", url: "https://mohap.gov.ae/"},
+  QAT: {n: "مستشفى الطب النفسي - حماد الطبية", phone: "+974-44398999", url: "https://www.hamad.qa/"},
+  KWT: {n: "مستشفى الطب النفسي - الكويت", phone: "+965-24843900", url: "https://www.moh.gov.kw/"},
+  OMN: {n: "مستشفى الخود للصحة النفسية", phone: "+968-24504608", url: "https://www.moh.gov.om/"},
+  EGY: {n: "مستشفى العباسية للصحة النفسية", phone: "+20-2-23654031", url: "https://www.mohp.gov.eg/"},
+  JOR: {n: "المركز الوطني للصحة النفسية", phone: "+962-6-4745551", url: "https://www.moh.gov.jo/"},
+  LBN: {n: "مستشفى الصليب للأمراض النفسية", phone: "+961-1-830000", url: "https://www.moph.gov.lb/"},
+  IRQ: {n: "مستشفى الرشاد النفسي", phone: "+964-1-5410000", url: "https://moh.gov.iq/"},
+  LBA: {n: "مستشفى رازي للصحة النفسية", phone: "+218-21-4440666", url: "https://www.health.gov.ly/"},
+  MAR: {n: "مستشفى الرازي للصحة النفسية", phone: "+212-537677777", url: "https://www.sante.gov.ma/"},
+  DZA: {n: "مستشفى فرحات حشاد للصحة النفسية", phone: "+213-21-235555", url: "https://www.sante.gov.dz/"},
   TUN: {n: "مستشفى رازي للأمراض النفسية", phone: "+216-71-576666", url: "http://www.sante.tn/"},
-  SDN: {n: "مستشفى الخرطوم التعليمي - قسم الأطفال", phone: "+249-183771717", url: "https://fmoh.gov.sd/"},
-  SYR: {n: "مستشفى دمشق الجامعي - قسم الأطفال", phone: "+963-11-2122700", url: "http://moh.gov.sy/"},
-  PSE: {n: "مستشفى بيت لحم الحكومي - قسم الصحة النفسية", phone: "+970-2-2741161", url: "https://www.moh.ps/"},
-  DJI: {n: "مستشفى بيلتييه - قسم الأطفال", phone: "+253-21-351111", url: "https://sante.gouv.dj/"},
-  COM: {n: "المستشفى الوطني - وزارة الصحة", phone: "+269-7731122", url: "https://sante.gouv.km/"},
-  MRT: {n: "المستشفى الوطني - نواكشوط", phone: "+222-45291212", url: "https://sante.gov.mr/"},
-  SOM: {n: "مستشفى مقديشو العام - قسم الأطفال", phone: "+252-61-5555000", url: "https://moh.gov.so/"},
-  YEM: {n: "مستشفى الثورة العام - صنعاء", phone: "+967-1-241111", url: "https://moh.gov.ye/"},
-  IRN: {n: "مركز طهران للصحة النفسية - قسم الأطفال", phone: "+98-21-66551000", url: "https://ctad.ir/"}
+  SDN: {n: "مستشفى الخرطوم للصحة النفسية", phone: "+249-183771717", url: "https://fmoh.gov.sd/"},
+  SYR: {n: "مستشفى ابن سينا للصحة النفسية", phone: "+963-11-2122700", url: "http://moh.gov.sy/"},
+  PSE: {n: "مركز بيت لحم للصحة النفسية", phone: "+970-2-2741161", url: "https://www.moh.ps/"},
+  DJI: {n: "مستشفى بيلتييه للصحة النفسية", phone: "+253-21-351111", url: "https://sante.gouv.dj/"},
+  COM: {n: "المستشفى الوطني للصحة النفسية", phone: "+269-7731122", url: "https://sante.gouv.km/"},
+  MRT: {n: "المستشفى الوطني للصحة النفسية", phone: "+222-45291212", url: "https://sante.gov.mr/"},
+  SOM: {n: "مستشفى مقديشو للصحة النفسية", phone: "+252-61-5555000", url: "https://moh.gov.so/"},
+  YEM: {n: "مستشفى الثورة للصحة النفسية", phone: "+967-1-241111", url: "https://moh.gov.ye/"},
+  IRN: {n: "مركز طهران للصحة النفسية", phone: "+98-21-66551000", url: "https://ctad.ir/"}
 };
 
 const COUNTRY_CENTERS = {
-  BHR: {n: "مركز علياء للتوحد المبكر", phone: "+973-17730960", url: "https://aliacenter.com/"},
-  KSA: {n: "جمعية أسر التوحد", phone: "+966-11-4644444", url: "https://saf.org.sa/"},
-  ARE: {n: "مركز دبي للتوحد", phone: "+971-4-3449896", url: "https://www.dubaiautismcenter.ae/"},
-  QAT: {n: "مركز الشفلح للأطفال ذوي الاحتياجات الخاصة", phone: "+974-44956666", url: "https://www.shafallah.org.qa/"},
-  KWT: {n: "مركز الكويت للتوحد", phone: "+965-25309300", url: "https://www.autism.gov.kw/"},
-  OMN: {n: "جمعية عمان للتوحد", phone: "+968-24599599", url: "https://www.omanautism.org/"},
-  EGY: {n: "الجمعية المصرية للتوحد", phone: "+20-100-000-6633", url: "https://www.autismegypt.org/"},
-  JOR: {n: "مركز الأردن للتوحد", phone: "+962-6-5920000", url: "https://www.jordanautismcenter.org/"},
-  LBN: {n: "جمعية التوحد اللبنانية", phone: "+961-5-456789", url: "https://www.autismlebanon.org/"},
-  IRQ: {n: "جمعية التوحد العراقية", phone: "+964-771-2345678", url: "https://www.autismiraq.org/"},
-  LBA: {n: "مركز ليبيا للتوحد", phone: "+218-91-3210000", url: "https://www.autism-libya.org/"},
-  MAR: {n: "جمعية التوحد المغربية", phone: "+212-537-202020", url: "https://www.autismemaroc.org/"},
-  DZA: {n: "جمعية التوحد الجزائرية", phone: "+213-21-565656", url: "https://www.autismealgerie.org/"},
-  TUN: {n: "جمعية التوحد التونسية", phone: "+216-71-840000", url: "https://www.autismetunisie.org/"},
-  SDN: {n: "جمعية التوحد السودانية", phone: "+249-183-555555", url: "https://www.sudanautism.org/"},
-  SYR: {n: "جمعية التوحد السورية", phone: "+963-11-3333333", url: "https://www.autismsyria.org/"},
-  PSE: {n: "مركز التوحد الفلسطيني", phone: "+970-2-2964040", url: "https://www.autismpalestine.org/"},
-  DJI: {n: "مركز التوحد جيبوتي", phone: "+253-21-350000", url: "https://sante.gouv.dj/"},
-  COM: {n: "جمعية التوحد جزر القمر", phone: "+269-7731122", url: "https://sante.gouv.km/"},
-  MRT: {n: "مركز التوحد موريتانيا", phone: "+222-45291212", url: "https://sante.gov.mr/"},
-  SOM: {n: "مركز التوحد الصومالي", phone: "+252-61-5555000", url: "https://autismsomaliacenter.org/"},
-  YEM: {n: "جمعية التوحد اليمنية", phone: "+967-1-241111", url: "https://moh.gov.ye/"},
-  IRN: {n: "مركز طهران للتوحد", phone: "+98-21-66551000", url: "https://ctad.ir/"}
+  BHR: {n: "مركز سيرين للطب النفسي", phone: "+973-17730960", url: "https://serenehospital.com/"},
+  KSA: {n: "جمعية أسر الاكتئاب", phone: "+966-11-4644444", url: "https://www.moh.gov.sa/"},
+  ARE: {n: "مركز دبي للصحة النفسية", phone: "+971-4-3449896", url: "https://mohap.gov.ae/"},
+  QAT: {n: "مركز الشفلح للصحة النفسية", phone: "+974-44956666", url: "https://www.shafallah.org.qa/"},
+  KWT: {n: "مركز الكويت للصحة النفسية", phone: "+965-25309300", url: "https://www.moh.gov.kw/"},
+  OMN: {n: "جمعية عمان للصحة النفسية", phone: "+968-24599599", url: "https://www.moh.gov.om/"},
+  EGY: {n: "الجمعية المصرية للصحة النفسية", phone: "+20-100-000-6633", url: "https://www.mohp.gov.eg/"},
+  JOR: {n: "مركز الأردن للصحة النفسية", phone: "+962-6-5920000", url: "https://www.moh.gov.jo/"},
+  LBN: {n: "جمعية الصحة النفسية اللبنانية", phone: "+961-5-456789", url: "https://www.moph.gov.lb/"},
+  IRQ: {n: "جمعية الصحة النفسية العراقية", phone: "+964-771-2345678", url: "https://moh.gov.iq/"},
+  LBA: {n: "مركز ليبيا للصحة النفسية", phone: "+218-91-3210000", url: "https://www.health.gov.ly/"},
+  MAR: {n: "جمعية الصحة النفسية المغربية", phone: "+212-537-202020", url: "https://www.sante.gov.ma/"},
+  DZA: {n: "جمعية الصحة النفسية الجزائرية", phone: "+213-21-565656", url: "https://www.sante.gov.dz/"},
+  TUN: {n: "جمعية الصحة النفسية التونسية", phone: "+216-71-840000", url: "http://www.sante.tn/"},
+  SDN: {n: "جمعية الصحة النفسية السودانية", phone: "+249-183-555555", url: "https://fmoh.gov.sd/"},
+  SYR: {n: "جمعية الصحة النفسية السورية", phone: "+963-11-3333333", url: "http://moh.gov.sy/"},
+  PSE: {n: "مركز الصحة النفسية الفلسطيني", phone: "+970-2-2964040", url: "https://www.moh.ps/"},
+  DJI: {n: "مركز الصحة النفسية جيبوتي", phone: "+253-21-350000", url: "https://sante.gouv.dj/"},
+  COM: {n: "جمعية الصحة النفسية جزر القمر", phone: "+269-7731122", url: "https://sante.gouv.km/"},
+  MRT: {n: "مركز الصحة النفسية موريتانيا", phone: "+222-45291212", url: "https://sante.gov.mr/"},
+  SOM: {n: "مركز الصحة النفسية الصومالي", phone: "+252-61-5555000", url: "https://moh.gov.so/"},
+  YEM: {n: "جمعية الصحة النفسية اليمنية", phone: "+967-1-241111", url: "https://moh.gov.ye/"},
+  IRN: {n: "مركز طهران للاكتئاب", phone: "+98-21-66551000", url: "https://ctad.ir/"}
 };
 
 /* حساب الإشارة */
-const QUESTIONS_IDS = ["social","repetitive","sensory","speech","eyecontact","emotions","play","routine","interests","transitions","motor","response"];
+const QUESTIONS_IDS = ["sadness","interest","appetite","sleep","fatigue","concentration","guilt","irritability","suicidal","pain","slow","anxiety"];
 function isYes(id){ return document.querySelector(`.seg[data-q="${id}"] .on`)?.dataset.a==='yes'; }
 function screening(age, sex, fh){
   const list = [];
-  if (age < 3) list.push("فحص M-CHAT للأطفال الصغار.");
-  if (age >= 3 && age <= 18) list.push("تقييم ADOS أو ADI-R إذا لزم الأمر.");
-  if (fh === 'yes') list.push("تاريخ عائلي قوي: استشر اختصاصي نمو أو نفسي.");
+  if (age >= 18) list.push("فحص PHQ-9 للبالغين.");
+  if (age < 18) list.push("تقييم GAD-7 أو BDI إذا لزم الأمر.");
+  if (fh === 'yes') list.push("تاريخ عائلي قوي: استشر اختصاصي نفسي.");
   return list;
 }
 function computeRisk(){
   let score = 0;
-  const heavy = ['social','repetitive','sensory','speech'];
+  const heavy = ['sadness','interest','suicidal','sleep'];
   QUESTIONS_IDS.forEach(id => {
     const seg = document.querySelector(`.seg[data-q="${id}"]`);
     const a = seg.querySelector('button.on')?.dataset.a || 'no';
     if (a === 'yes') { score += 1; if (heavy.includes(id)) score += 1; }
   });
   if ((document.getElementById('familySeg').dataset.fh || 'no') === 'yes') score += 1;
+  if (isYes('suicidal')) score = 12; // High if suicidal
   if (score > 10) score = 10;
 
   let levelText = 'منخفضة', cls = 'rb-ok', action = 'راقب التطور واستشر طبيبًا إذا استمر.';
-  if (score >= 3) { levelText = 'متوسطة'; cls = 'rb-warn'; action = 'احجز موعدًا لدى طبيب الأطفال أو اختصاصي نمو خلال 1–2 أسبوع.'; }
-  if (score >= 6 || (isYes('social') && isYes('speech'))) { levelText = 'عالية'; cls = 'rb-danger'; action = 'تقييم عاجل خلال 24–72 ساعة أو أقرب عيادة نمو.'; }
+  if (score >= 3) { levelText = 'متوسطة'; cls = 'rb-warn'; action = 'احجز موعدًا لدى طبيب نفسي خلال 1–2 أسبوع.'; }
+  if (score >= 6 || isYes('suicidal')) { levelText = 'عالية'; cls = 'rb-danger'; action = 'تقييم عاجل خلال 24–72 ساعة أو أقرب عيادة نفسي.'; }
   return {levelText, cls, action};
 }
 
@@ -630,7 +631,7 @@ document.getElementById('pdfBtn').addEventListener('click', async () => {
 
   box.innerHTML = `
     <div style="text-align:center; margin-bottom:10px">
-      <div style="font-family:'Amiri',serif; font-size:26px; color:${getComputedStyle(document.documentElement).getPropertyValue('--primary')}">تقرير استبيان أعراض التوحد</div>
+      <div style="font-family:'Amiri',serif; font-size:26px; color:${getComputedStyle(document.documentElement).getPropertyValue('--primary')}">تقرير استبيان أعراض الاكتئاب</div>
       <div style="font-size:12px; color:#6b7280">${new Date().toLocaleString('ar')}</div>
     </div>
 
@@ -687,7 +688,7 @@ document.getElementById('pdfBtn').addEventListener('click', async () => {
       pos += slice;
     }
   }
-  pdf.save('نتيجة-استبيان-التوحد.pdf');
+  pdf.save('نتيجة-استبيان-الاكتئاب.pdf');
 });
 
 /* مشاركة */
