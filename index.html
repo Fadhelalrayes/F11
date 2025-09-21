@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TravelEasy - أفضل موقع لحجز الفنادق والطيران</title>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+    <title>TravelGuide - الدليل العالمي للسفر</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
     <style>
@@ -44,6 +44,7 @@
             max-width: 600px;
             display: flex;
             gap: 10px;
+            position: relative;
         }
 
         .search-bar input {
@@ -68,6 +69,28 @@
             background-color: #FFFFFF;
         }
 
+        .suggestions {
+            position: absolute;
+            top: 50px;
+            left: 0;
+            width: 70%;
+            background-color: #FFFFFF;
+            color: #1A1A1A;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            display: none;
+            z-index: 1000;
+        }
+
+        .suggestions div {
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .suggestions div:hover {
+            background-color: #FFD700;
+        }
+
         .container {
             max-width: 1200px;
             margin: 40px auto;
@@ -84,14 +107,14 @@
             margin-bottom: 20px;
         }
 
-        .links, #search-results {
+        .info-cards, #search-results {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
             gap: 20px;
         }
 
-        .link-card {
+        .info-card {
             background-color: #FFFFFF;
             color: #1A1A1A;
             width: 300px;
@@ -101,27 +124,32 @@
             transition: transform 0.3s;
         }
 
-        .link-card:hover {
+        .info-card:hover {
             transform: scale(1.05);
         }
 
-        .link-card h3 {
+        .info-card h3 {
             font-size: 1.5rem;
             margin-bottom: 10px;
         }
 
-        .link-card a {
+        .info-card p {
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+
+        .info-card a {
             text-decoration: none;
             color: #FFD700;
             font-weight: bold;
             font-size: 1.2rem;
         }
 
-        .link-card a:hover {
+        .info-card a:hover {
             text-decoration: underline;
         }
 
-        .offers {
+        .tips, .warnings {
             background-color: #FFD700;
             color: #1A1A1A;
             padding: 20px;
@@ -129,11 +157,11 @@
             margin: 20px 0;
         }
 
-        .offers h2 {
+        .tips h2, .warnings h2 {
             color: #1A1A1A;
         }
 
-        .offer-item {
+        .tip-item, .warning-item {
             margin: 10px 0;
             font-size: 1.2rem;
         }
@@ -166,12 +194,12 @@
             color: #1A1A1A;
         }
 
-        .dark-mode .link-card {
+        .dark-mode .info-card {
             background-color: #1A1A1A;
             color: #FFFFFF;
         }
 
-        .dark-mode .link-card a {
+        .dark-mode .info-card a {
             color: #FFD700;
         }
 
@@ -184,7 +212,7 @@
                 font-size: 1.2rem;
             }
 
-            .link-card {
+            .info-card {
                 width: 100%;
             }
 
@@ -197,11 +225,12 @@
 <body>
     <button class="dark-mode-toggle" onclick="toggleDarkMode()"><i class="fas fa-moon"></i> الوضع الليلي</button>
     <header>
-        <h1>TravelEasy</h1>
-        <p>اكتشف أفضل مواقع حجز الفنادق وتذاكر الطيران بسهولة وثقة</p>
+        <h1>TravelGuide</h1>
+        <p>دليلك الشامل للسفر: وجهات، مطارات، نصائح، وتحذيرات</p>
         <div class="search-bar">
-            <input type="text" id="searchInput" placeholder="ابحث عن وجهة أو فندق...">
+            <input type="text" id="searchInput" placeholder="ابحث عن وجهة، مطار، نصيحة، أو تحذير..." oninput="showSuggestions()">
             <button onclick="search()">ابحث الآن</button>
+            <div class="suggestions" id="suggestions"></div>
         </div>
     </header>
 
@@ -211,67 +240,101 @@
             <!-- النتائج ستظهر هنا ديناميكيًا -->
         </div>
 
-        <div class="section offers" data-aos="fade-up">
-            <h2>عروض حصرية</h2>
-            <div class="offer-item">خصم 30% على تذاكر الطيران إلى دبي عبر Emirates</div>
-            <div class="offer-item">إقامة مجانية لليلة في فنادق 5 نجوم عبر Booking.com</div>
+        <div class="section tips" data-aos="fade-up">
+            <h2>نصائح السفر</h2>
+            <div class="tip-item">احجز تذكرتك مبكرًا للحصول على أفضل الأسعار.</div>
+            <div class="tip-item">تحقق من متطلبات التأشيرة قبل السفر.</div>
+            <div class="tip-item">احمل نسخة رقمية وورقية من وثائق السفر (جواز السفر، التأشيرة).</div>
+            <div class="tip-item">استخدم حقيبة خفيفة لتجنب رسوم الأمتعة الزائدة.</div>
+            <div class="tip-item">تعلم عبارات أساسية باللغة المحلية للوجهة.</div>
+            <div class="tip-item">اختر فنادق قريبة من وسائل النقل العام.</div>
+            <div class="tip-item">احجز جولات سياحية مسبقًا لتجنب الازدحام.</div>
+            <div class="tip-item">استخدم تطبيقات الخرائط دون اتصال مثل Google Maps Offline.</div>
+            <div class="tip-item">تجنب السفر في مواسم الذروة لتوفير التكاليف.</div>
+            <div class="tip-item">اشترِ تأمين سفر لتغطية الحوادث أو الإلغاءات.</div>
+        </div>
+
+        <div class="section warnings" data-aos="fade-up">
+            <h2>تحذيرات السفر</h2>
+            <div class="warning-item">تحقق من تحذيرات السفر الحكومية قبل زيارة الوجهة.</div>
+            <div class="warning-item">تجنب حمل مبالغ نقدية كبيرة لتقليل مخاطر السرقة.</div>
+            <div class="warning-item">احذر من عمليات الاحتيال السياحي في الأسواق الشعبية.</div>
+            <div class="warning-item">تأكد من تطعيمات السفر المطلوبة (مثل الحمى الصفراء).</div>
+            <div class="warning-item">تجنب السفر إلى مناطق التوترات السياسية أو الكوارث الطبيعية.</div>
+            <div class="warning-item">احذر من استخدام شبكات Wi-Fi عامة دون VPN.</div>
+            <div class="warning-item">تحقق من تواريخ صلاحية جواز السفر (يجب أن تكون 6 أشهر على الأقل).</div>
         </div>
 
         <div class="section" data-aos="fade-up">
-            <h2>حجز الفنادق</h2>
-            <div class="links">
-                <div class="link-card" data-keywords="فندق دبي باريس">
-                    <h3>Booking.com</h3>
-                    <p>ابحث عن فنادق في جميع أنحاء العالم بأسعار تنافسية.</p>
-                    <a href="https://www.booking.com" target="_blank">زيارة الموقع</a>
+            <h2>وجهات سياحية مميزة</h2>
+            <div class="info-cards">
+                <div class="info-card" data-keywords="دبي الإمارات برج خليفة">
+                    <h3>دبي، الإمارات</h3>
+                    <p>مدينة الأحلام مع برج خليفة، دبي مول، والجزر الاصطناعية. مثالية لمحبي التسوق والرفاهية. متوسط تكلفة الإقامة: 100-300 دولار/الليلة.</p>
+                    <a href="https://www.visitdubai.com" target="_blank">اكتشف المزيد</a>
                 </div>
-                <div class="link-card" data-keywords="فندق لندن">
-                    <h3>Expedia</h3>
-                    <p>حجز فنادق وتذاكر مع عروض مميزة.</p>
-                    <a href="https://www.expedia.com" target="_blank">زيارة الموقع</a>
+                <div class="info-card" data-keywords="باريس فرنسا برج إيفل">
+                    <h3>باريس، فرنسا</h3>
+                    <p>مدينة النور، موطن برج إيفل، متحف اللوفر، والمقاهي الرومانسية. أفضل وقت للزيارة: الربيع.</p>
+                    <a href="https://www.parisinfo.com" target="_blank">اكتشف المزيد</a>
                 </div>
-                <div class="link-card" data-keywords="فندق آسيا">
-                    <h3>Agoda</h3>
-                    <p>عروض رائعة على الفنادق في آسيا وخارجها.</p>
-                    <a href="https://www.agoda.com" target="_blank">زيارة الموقع</a>
+                <div class="info-card" data-keywords="طوكيو اليابان معابد">
+                    <h3>طوكيو، اليابان</h3>
+                    <p>مزيج من الحداثة والتقاليد مع معبد سينسوجي وشارع شيبويا. تشتهر بالطعام الياباني.</p>
+                    <a href="https://www.gotokyo.org" target="_blank">اكتشف المزيد</a>
                 </div>
-                <div class="link-card" data-keywords="شقة دبي">
-                    <h3>Airbnb</h3>
-                    <p>استأجر منازل أو شقق لتجربة سفر فريدة.</p>
-                    <a href="https://www.airbnb.com" target="_blank">زيارة الموقع</a>
+                <div class="info-card" data-keywords="نيويورك أمريكا تمثال الحرية">
+                    <h3>نيويورك، الولايات المتحدة</h3>
+                    <p>مدينة الأضواء مع تمثال الحرية، تايمز سكوير، والمتنزهات. مثالية لعشاق الفن والثقافة.</p>
+                    <a href="https://www.nycgo.com" target="_blank">اكتشف المزيد</a>
+                </div>
+                <div class="info-card" data-keywords="سنغافورة مارينا باي">
+                    <h3>سنغافورة</h3>
+                    <p>مدينة حديثة مع مارينا باي ساندز وحدائق الخليج. نظيفة وآمنة للسفر العائلي.</p>
+                    <a href="https://www.visitsingapore.com" target="_blank">اكتشف المزيد</a>
+                </div>
+                <div class="info-card" data-keywords="القاهرة مصر الأهرامات">
+                    <h3>القاهرة، مصر</h3>
+                    <p>مهد الحضارة مع أهرامات الجيزة ومتحف القاهرة. مثالية لمحبي التاريخ.</p>
+                    <a href="https://www.egypt.travel" target="_blank">اكتشف المزيد</a>
                 </div>
             </div>
         </div>
 
         <div class="section" data-aos="fade-up">
-            <h2>حجز تذاكر الطيران</h2>
-            <div class="links">
-                <div class="link-card" data-keywords="طيران دبي">
-                    <h3>Qatar Airways</h3>
-                    <p>سافر بأناقة مع واحدة من أفضل شركات الطيران.</p>
-                    <a href="https://www.qatarairways.com" target="_blank">زيارة الموقع</a>
+            <h2>معلومات المطارات</h2>
+            <div class="info-cards">
+                <div class="info-card" data-keywords="مطار حمد الدوحة قطر">
+                    <h3>مطار حمد الدولي، الدوحة</h3>
+                    <p>أحد أفضل المطارات عالميًا، يوفر صالات VIP، تسوق فاخر، وخدمات نقل سريعة.</p>
+                    <a href="https://www.dohahamadairport.com" target="_blank">اكتشف المزيد</a>
                 </div>
-                <div class="link-card" data-keywords="طيران باريس">
-                    <h3>Emirates</h3>
-                    <p>رحلات فاخرة إلى وجهات عالمية.</p>
-                    <a href="https://www.emirates.com" target="_blank">زيارة الموقع</a>
+                <div class="info-card" data-keywords="مطار دبي الإمارات">
+                    <h3>مطار دبي الدولي</h3>
+                    <p>مركز سفر عالمي مع تسوق معفى من الضرائب وصالات فاخرة. النقل: تاكسي، مترو.</p>
+                    <a href="https://www.dubaiairports.ae" target="_blank">اكتشف المزيد</a>
                 </div>
-                <div class="link-card" data-keywords="طيران رخيص">
-                    <h3>Skyscanner</h3>
-                    <p>قارن أسعار التذاكر من مئات شركات الطيران.</p>
-                    <a href="https://www.skyscanner.com" target="_blank">زيارة الموقع</a>
+                <div class="info-card" data-keywords="مطار هيثرو لندن بريطانيا">
+                    <h3>مطار هيثرو، لندن</h3>
+                    <p>أكبر مطار في أوروبا، يوفر خدمات شاملة واتصال ممتاز بوسط لندن.</p>
+                    <a href="https://www.heathrow.com" target="_blank">اكتشف المزيد</a>
                 </div>
-                <div class="link-card" data-keywords="طيران الخليج">
-                    <h3>Almosafer</h3>
-                    <p>حجز تذاكر وفنادق في الخليج بسهولة.</p>
-                    <a href="https://www.almosafer.com" target="_blank">زيارة الموقع</a>
+                <div class="info-card" data-keywords="مطار البحرين المنامة">
+                    <h3>مطار البحرين الدولي</h3>
+                    <p>مطار حديث يخدم الخليج، يوفر خدمات سريعة وصالات مريحة. النقل: تاكسي، حافلات.</p>
+                    <a href="https://www.bahrainairport.bh" target="_blank">اكتشف المزيد</a>
+                </div>
+                <div class="info-card" data-keywords="مطار سنغافورة شانغي">
+                    <h3>مطار شانغي، سنغافورة</h3>
+                    <p>مطار حائز على جوائز، يضم حدائق داخلية، سينما، وتسوق فاخر.</p>
+                    <a href="https://www.changiairport.com" target="_blank">اكتشف المزيد</a>
                 </div>
             </div>
         </div>
     </div>
 
     <footer>
-        <p>© 2025 TravelEasy. كل الحقوق محفوظة. بالتعاون مع <a href="https://www.iata.org">IATA</a>.</p>
+        <p>© 2025 TravelGuide. كل الحقوق محفوظة. مصدر موثوق بالتعاون مع <a href="https://www.unwto.org">UNWTO</a> و <a href="https://www.iata.org">IATA</a>.</p>
     </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
@@ -279,16 +342,40 @@
         // تهيئة AOS
         AOS.init();
 
-        // بيانات للبحث (مثال)
+        // بيانات للبحث
         const data = [
-            { name: "Booking.com", keywords: ["فندق", "دبي", "باريس"], url: "https://www.booking.com", description: "ابحث عن فنادق في جميع أنحاء العالم بأسعار تنافسية." },
-            { name: "Expedia", keywords: ["فندق", "لندن"], url: "https://www.expedia.com", description: "حجز فنادق وتذاكر مع عروض مميزة." },
-            { name: "Agoda", keywords: ["فندق", "آسيا"], url: "https://www.agoda.com", description: "عروض رائعة على الفنادق في آسيا وخارجها." },
-            { name: "Airbnb", keywords: ["شقة", "دبي"], url: "https://www.airbnb.com", description: "استأجر منازل أو شقق لتجربة سفر فريدة." },
-            { name: "Qatar Airways", keywords: ["طيران", "دبي"], url: "https://www.qatarairways.com", description: "سافر بأناقة مع واحدة من أفضل شركات الطيران." },
-            { name: "Emirates", keywords: ["طيران", "باريس"], url: "https://www.emirates.com", description: "رحلات فاخرة إلى وجهات عالمية." },
-            { name: "Skyscanner", keywords: ["طيران", "رخيص"], url: "https://www.skyscanner.com", description: "قارن أسعار التذاكر من مئات شركات الطيران." },
-            { name: "Almosafer", keywords: ["طيران", "الخليج"], url: "https://www.almosafer.com", description: "حجز تذاكر وفنادق في الخليج بسهولة." }
+            // الوجهات
+            { name: "دبي، الإمارات", category: "وجهة", keywords: ["دبي", "الإمارات", "برج خليفة", "تسوق"], description: "مدينة الأحلام مع برج خليفة، دبي مول، والجزر الاصطناعية. مثالية لمحبي التسوق والرفاهية. متوسط تكلفة الإقامة: 100-300 دولار/الليلة.", url: "https://www.visitdubai.com" },
+            { name: "باريس، فرنسا", category: "وجهة", keywords: ["باريس", "فرنسا", "برج إيفل", "رومانسية"], description: "مدينة النور، موطن برج إيفل، متحف اللوفر، والمقاهي الرومانسية. أفضل وقت للزيارة: الربيع.", url: "https://www.parisinfo.com" },
+            { name: "طوكيو، اليابان", category: "وجهة", keywords: ["طوكيو", "اليابان", "معابد", "شيبويا"], description: "مزيج من الحداثة والتقاليد مع معبد سينسوجي وشارع شيبويا. تشتهر بالطعام الياباني.", url: "https://www.gotokyo.org" },
+            { name: "نيويورك، الولايات المتحدة", category: "وجهة", keywords: ["نيويورك", "أمريكا", "تمثال الحرية", "تايمز سكوير"], description: "مدينة الأضواء مع تمثال الحرية، تايمز سكوير، والمتنزهات. مثالية لعشاق الفن والثقافة.", url: "https://www.nycgo.com" },
+            { name: "سنغافورة", category: "وجهة", keywords: ["سنغافورة", "مارينا باي", "حدائق"], description: "مدينة حديثة مع مارينا باي ساندز وحدائق الخليج. نظيفة وآمنة للسفر العائلي.", url: "https://www.visitsingapore.com" },
+            { name: "القاهرة، مصر", category: "وجهة", keywords: ["القاهرة", "مصر", "الأهرامات", "تاريخ"], description: "مهد الحضارة مع أهرامات الجيزة ومتحف القاهرة. مثالية لمحبي التاريخ.", url: "https://www.egypt.travel" },
+            // المطارات
+            { name: "مطار حمد الدولي، الدوحة", category: "مطار", keywords: ["مطار", "حمد", "الدوحة", "قطر"], description: "أحد أفضل المطارات عالميًا، يوفر صالات VIP، تسوق فاخر، وخدمات نقل سريعة.", url: "https://www.dohahamadairport.com" },
+            { name: "مطار دبي الدولي", category: "مطار", keywords: ["مطار", "دبي", "الإمارات"], description: "مركز سفر عالمي مع تسوق معفى من الضرائب وصالات فاخرة. النقل: تاكسي، مترو.", url: "https://www.dubaiairports.ae" },
+            { name: "مطار هيثرو، لندن", category: "مطار", keywords: ["مطار", "هيثرو", "لندن", "بريطانيا"], description: "أكبر مطار في أوروبا، يوفر خدمات شاملة واتصال ممتاز بوسط لندن.", url: "https://www.heathrow.com" },
+            { name: "مطار البحرين الدولي", category: "مطار", keywords: ["مطار", "البحرين", "المنامة"], description: "مطار حديث يخدم الخليج، يوفر خدمات سريعة وصالات مريحة. النقل: تاكسي، حافلات.", url: "https://www.bahrainairport.bh" },
+            { name: "مطار شانغي، سنغافورة", category: "مطار", keywords: ["مطار", "شانغي", "سنغافورة"], description: "مطار حائز على جوائز، يضم حدائق داخلية، سينما، وتسوق فاخر.", url: "https://www.changiairport.com" },
+            // النصائح
+            { name: "الحجز المبكر", category: "نصيحة", keywords: ["نصيحة", "حجز", "توفير"], description: "احجز تذكرتك مبكرًا للحصول على أفضل الأسعار.", url: "#" },
+            { name: "التأشيرة", category: "نصيحة", keywords: ["نصيحة", "تأشيرة", "سفر"], description: "تحقق من متطلبات التأشيرة قبل السفر.", url: "#" },
+            { name: "وثائق السفر", category: "نصيحة", keywords: ["نصيحة", "جواز", "وثائق"], description: "احمل نسخة رقمية وورقية من وثائق السفر (جواز السفر، التأشيرة).", url: "#" },
+            { name: "الأمتعة الخفيفة", category: "نصيحة", keywords: ["نصيحة", "أمتعة", "حقيبة"], description: "استخدم حقيبة خفيفة لتجنب رسوم الأمتعة الزائدة.", url: "#" },
+            { name: "تعلم اللغة", category: "نصيحة", keywords: ["نصيحة", "لغة", "تواصل"], description: "تعلم عبارات أساسية باللغة المحلية للوجهة.", url: "#" },
+            { name: "اختيار الفندق", category: "نصيحة", keywords: ["نصيحة", "فندق", "نقل"], description: "اختر فنادق قريبة من وسائل النقل العام.", url: "#" },
+            { name: "الحجز المسبق", category: "نصيحة", keywords: ["نصيحة", "جولات", "حجز"], description: "احجز جولات سياحية مسبقًا لتجنب الازدحام.", url: "#" },
+            { name: "خرائط دون اتصال", category: "نصيحة", keywords: ["نصيحة", "خرائط", "تطبيقات"], description: "استخدم تطبيقات الخرائط دون اتصال مثل Google Maps Offline.", url: "#" },
+            { name: "تجنب الذروة", category: "نصيحة", keywords: ["نصيحة", "ذروة", "توفير"], description: "تجنب السفر في مواسم الذروة لتوفير التكاليف.", url: "#" },
+            { name: "تأمين السفر", category: "نصيحة", keywords: ["نصيحة", "تأمين", "أمان"], description: "اشترِ تأمين سفر لتغطية الحوادث أو الإلغاءات.", url: "#" },
+            // التحذيرات
+            { name: "تحذيرات السفر", category: "تحذير", keywords: ["تحذير", "أمان", "حكومة"], description: "تحقق من تحذيرات السفر الحكومية قبل زيارة الوجهة.", url: "#" },
+            { name: "النقود", category: "تحذير", keywords: ["تحذير", "نقود", "سرقة"], description: "تجنب حمل مبالغ نقدية كبيرة لتقليل مخاطر السرقة.", url: "#" },
+            { name: "الاحتيال السياحي", category: "تحذير", keywords: ["تحذير", "احتيال", "أسواق"], description: "احذر من عمليات الاحتيال السياحي في الأسواق الشعبية.", url: "#" },
+            { name: "التطعيمات", category: "تحذير", keywords: ["تحذير", "تطعيمات", "صحة"], description: "تأكد من تطعيمات السفر المطلوبة (مثل الحمى الصفراء).", url: "#" },
+            { name: "التوترات السياسية", category: "تحذير", keywords: ["تحذير", "سياسة", "أمان"], description: "تجنب السفر إلى مناطق التوترات السياسية أو الكوارث الطبيعية.", url: "#" },
+            { name: "شبكات Wi-Fi", category: "تحذير", keywords: ["تحذير", "واي فاي", "أمان"], description: "احذر من استخدام شبكات Wi-Fi عامة دون VPN.", url: "#" },
+            { name: "جواز السفر", category: "تحذير", keywords: ["تحذير", "جواز", "صلاحية"], description: "تحقق من تواريخ صلاحية جواز السفر (يجب أن تكون 6 أشهر على الأقل).", url: "#" }
         ];
 
         // وظيفة البحث
@@ -298,7 +385,7 @@
             resultsContainer.innerHTML = '<h2>نتائج البحث</h2>';
 
             if (!query) {
-                resultsContainer.innerHTML += '<p>يرجى إدخال وجهة أو اسم فندق</p>';
+                resultsContainer.innerHTML += '<p>يرجى إدخال وجهة، مطار، نصيحة، أو تحذير</p>';
                 return;
             }
 
@@ -314,13 +401,39 @@
 
             results.forEach(result => {
                 const card = document.createElement('div');
-                card.className = 'link-card';
+                card.className = 'info-card';
                 card.innerHTML = `
-                    <h3>${result.name}</h3>
+                    <h3>${result.name} (${result.category})</h3>
                     <p>${result.description}</p>
-                    <a href="${result.url}" target="_blank">زيارة الموقع</a>
+                    <a href="${result.url}" target="_blank">اكتشف المزيد</a>
                 `;
                 resultsContainer.appendChild(card);
+            });
+        }
+
+        // اقتراحات البحث
+        function showSuggestions() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const suggestionsContainer = document.getElementById('suggestions');
+            suggestionsContainer.innerHTML = '';
+            suggestionsContainer.style.display = query ? 'block' : 'none';
+
+            if (!query) return;
+
+            const suggestions = data.filter(item => 
+                item.name.toLowerCase().includes(query) || 
+                item.keywords.some(keyword => keyword.includes(query))
+            ).slice(0, 5); // عرض 5 اقتراحات فقط
+
+            suggestions.forEach(suggestion => {
+                const div = document.createElement('div');
+                div.textContent = suggestion.name;
+                div.onclick = () => {
+                    document.getElementById('searchInput').value = suggestion.name;
+                    suggestionsContainer.style.display = 'none';
+                    search();
+                };
+                suggestionsContainer.appendChild(div);
             });
         }
 
