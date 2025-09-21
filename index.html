@@ -84,7 +84,7 @@
             margin-bottom: 20px;
         }
 
-        .links {
+        .links, #search-results {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
@@ -200,12 +200,17 @@
         <h1>TravelEasy</h1>
         <p>اكتشف أفضل مواقع حجز الفنادق وتذاكر الطيران بسهولة وثقة</p>
         <div class="search-bar">
-            <input type="text" id="searchInput" placeholder="ابحث عن فندق أو وجهة...">
+            <input type="text" id="searchInput" placeholder="ابحث عن وجهة أو فندق...">
             <button onclick="search()">ابحث الآن</button>
         </div>
     </header>
 
     <div class="container">
+        <div class="section" id="search-results">
+            <h2>نتائج البحث</h2>
+            <!-- النتائج ستظهر هنا ديناميكيًا -->
+        </div>
+
         <div class="section offers" data-aos="fade-up">
             <h2>عروض حصرية</h2>
             <div class="offer-item">خصم 30% على تذاكر الطيران إلى دبي عبر Emirates</div>
@@ -215,22 +220,22 @@
         <div class="section" data-aos="fade-up">
             <h2>حجز الفنادق</h2>
             <div class="links">
-                <div class="link-card">
+                <div class="link-card" data-keywords="فندق دبي باريس">
                     <h3>Booking.com</h3>
                     <p>ابحث عن فنادق في جميع أنحاء العالم بأسعار تنافسية.</p>
                     <a href="https://www.booking.com" target="_blank">زيارة الموقع</a>
                 </div>
-                <div class="link-card">
+                <div class="link-card" data-keywords="فندق لندن">
                     <h3>Expedia</h3>
                     <p>حجز فنادق وتذاكر مع عروض مميزة.</p>
                     <a href="https://www.expedia.com" target="_blank">زيارة الموقع</a>
                 </div>
-                <div class="link-card">
+                <div class="link-card" data-keywords="فندق آسيا">
                     <h3>Agoda</h3>
                     <p>عروض رائعة على الفنادق في آسيا وخارجها.</p>
                     <a href="https://www.agoda.com" target="_blank">زيارة الموقع</a>
                 </div>
-                <div class="link-card">
+                <div class="link-card" data-keywords="شقة دبي">
                     <h3>Airbnb</h3>
                     <p>استأجر منازل أو شقق لتجربة سفر فريدة.</p>
                     <a href="https://www.airbnb.com" target="_blank">زيارة الموقع</a>
@@ -241,22 +246,22 @@
         <div class="section" data-aos="fade-up">
             <h2>حجز تذاكر الطيران</h2>
             <div class="links">
-                <div class="link-card">
+                <div class="link-card" data-keywords="طيران دبي">
                     <h3>Qatar Airways</h3>
                     <p>سافر بأناقة مع واحدة من أفضل شركات الطيران.</p>
                     <a href="https://www.qatarairways.com" target="_blank">زيارة الموقع</a>
                 </div>
-                <div class="link-card">
+                <div class="link-card" data-keywords="طيران باريس">
                     <h3>Emirates</h3>
                     <p>رحلات فاخرة إلى وجهات عالمية.</p>
                     <a href="https://www.emirates.com" target="_blank">زيارة الموقع</a>
                 </div>
-                <div class="link-card">
+                <div class="link-card" data-keywords="طيران رخيص">
                     <h3>Skyscanner</h3>
                     <p>قارن أسعار التذاكر من مئات شركات الطيران.</p>
                     <a href="https://www.skyscanner.com" target="_blank">زيارة الموقع</a>
                 </div>
-                <div class="link-card">
+                <div class="link-card" data-keywords="طيران الخليج">
                     <h3>Almosafer</h3>
                     <p>حجز تذاكر وفنادق في الخليج بسهولة.</p>
                     <a href="https://www.almosafer.com" target="_blank">زيارة الموقع</a>
@@ -274,15 +279,49 @@
         // تهيئة AOS
         AOS.init();
 
-        // وظيفة البحث (مثال مبسط)
+        // بيانات للبحث (مثال)
+        const data = [
+            { name: "Booking.com", keywords: ["فندق", "دبي", "باريس"], url: "https://www.booking.com", description: "ابحث عن فنادق في جميع أنحاء العالم بأسعار تنافسية." },
+            { name: "Expedia", keywords: ["فندق", "لندن"], url: "https://www.expedia.com", description: "حجز فنادق وتذاكر مع عروض مميزة." },
+            { name: "Agoda", keywords: ["فندق", "آسيا"], url: "https://www.agoda.com", description: "عروض رائعة على الفنادق في آسيا وخارجها." },
+            { name: "Airbnb", keywords: ["شقة", "دبي"], url: "https://www.airbnb.com", description: "استأجر منازل أو شقق لتجربة سفر فريدة." },
+            { name: "Qatar Airways", keywords: ["طيران", "دبي"], url: "https://www.qatarairways.com", description: "سافر بأناقة مع واحدة من أفضل شركات الطيران." },
+            { name: "Emirates", keywords: ["طيران", "باريس"], url: "https://www.emirates.com", description: "رحلات فاخرة إلى وجهات عالمية." },
+            { name: "Skyscanner", keywords: ["طيران", "رخيص"], url: "https://www.skyscanner.com", description: "قارن أسعار التذاكر من مئات شركات الطيران." },
+            { name: "Almosafer", keywords: ["طيران", "الخليج"], url: "https://www.almosafer.com", description: "حجز تذاكر وفنادق في الخليج بسهولة." }
+        ];
+
+        // وظيفة البحث
         function search() {
-            const query = document.getElementById('searchInput').value;
-            if (query) {
-                alert('جاري البحث عن: ' + query);
-                // يمكنك هنا إضافة منطق للبحث باستخدام API
-            } else {
-                alert('يرجى إدخال وجهة أو اسم فندق');
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const resultsContainer = document.getElementById('search-results');
+            resultsContainer.innerHTML = '<h2>نتائج البحث</h2>';
+
+            if (!query) {
+                resultsContainer.innerHTML += '<p>يرجى إدخال وجهة أو اسم فندق</p>';
+                return;
             }
+
+            const results = data.filter(item => 
+                item.name.toLowerCase().includes(query) || 
+                item.keywords.some(keyword => keyword.includes(query))
+            );
+
+            if (results.length === 0) {
+                resultsContainer.innerHTML += '<p>لم يتم العثور على نتائج</p>';
+                return;
+            }
+
+            results.forEach(result => {
+                const card = document.createElement('div');
+                card.className = 'link-card';
+                card.innerHTML = `
+                    <h3>${result.name}</h3>
+                    <p>${result.description}</p>
+                    <a href="${result.url}" target="_blank">زيارة الموقع</a>
+                `;
+                resultsContainer.appendChild(card);
+            });
         }
 
         // الوضع الليلي
