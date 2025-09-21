@@ -1,446 +1,648 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TravelGuide - الدليل العالمي للسفر</title>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Tajawal', sans-serif;
-        }
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>فاحص أعراض التوحد — توعية وتحويلات</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f5f6f8; --ink:#111827; --muted:#6b7280;
+    --card:#ffffff; --line:#e5e7eb;
+    --primary:#007bff; --primary-soft:#cce5ff;
+    --ok:#10b981; --ok-bg:#ecfdf5; --ok-br:#a7f3d0;
+    --warn:#f59e0b; --warn-bg:#fffbeb; --warn-br:#fde68a;
+    --danger:#ef4444; --danger-bg:#fef2f2; --danger-br:#fecaca;
+  }
+  *{box-sizing:border-box}
+  body{margin:0; font-family:"Cairo",sans-serif; background:var(--bg); color:var(--ink)}
+  header{text-align:center; padding:24px 12px}
+  .brand{font-family:"Amiri",serif; font-size:clamp(26px,4.5vw,42px); color:var(--primary)}
+  .tag{margin-top:6px; font-size:14px; color:#6b7280; line-height:1.7}
+  .shell{max-width:980px; margin:0 auto; padding:0 16px}
+  .hero{background:var(--card); border:1px solid var(--line); border-radius:20px; padding:20px; box-shadow:0 4px 12px rgba(0,0,0,.05)}
+  .row{display:grid; gap:16px}
+  @media(min-width:920px){ .row{grid-template-columns:1.2fr .8fr} }
 
-        body {
-            background-color: #1A1A1A;
-            color: #FFFFFF;
-            text-align: center;
-        }
+  .field{display:flex; flex-direction:column; gap:6px; margin-bottom:12px}
+  .hint{font-size:12px; color:#6b7280}
+  .center{text-align:center}
 
-        header {
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=2073&auto=format&fit=crop');
-            background-size: cover;
-            background-position: center;
-            padding: 120px 20px;
-        }
+  .seg{display:flex; gap:6px; justify-content:center; flex-wrap:wrap}
+  .seg button{
+    flex:1; padding:10px 14px; border-radius:10px; border:1px solid var(--line);
+    background:#f9fafb; cursor:pointer; max-width:200px; font-weight:700; user-select:none
+  }
+  .seg button.on{background:var(--primary); color:#fff; border-color:var(--primary); outline:none}
 
-        header h1 {
-            font-size: 3.5rem;
-            color: #FFD700;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-        }
+  .select{ position:relative; display:inline-block; width:100% }
+  .select select{
+    width:100%; appearance:none; background:#fff; border:1px solid var(--primary); border-radius:10px;
+    padding:12px 42px 12px 12px; font-size:1rem; cursor:pointer; color:#111; text-align:right;
+  }
+  .select::after{
+    content:""; position:absolute; top:50%; transform:translateY(-50%); right:12px; width:18px; height:18px;
+    background:linear-gradient(135deg,var(--primary),var(--primary-soft));
+    -webkit-mask:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path fill="black" d="M5.23 7.21a.75.75 0 011.06.02L10 11.06l3.71-3.83a.75.75 0 111.08 1.04l-4.24 4.38a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z"/></svg>') center/contain no-repeat;
+    mask:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path fill="black" d="M5.23 7.21a.75.75 0 011.06.02L10 11.06l3.71-3.83a.75.75 0 111.08 1.04l-4.24 4.38a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z"/></svg>') center/contain no-repeat;
+    pointer-events:none; opacity:.95;
+  }
 
-        header p {
-            font-size: 1.5rem;
-            margin-top: 10px;
-        }
+  .btn{padding:12px 20px; border-radius:10px; border:none; cursor:pointer; background:linear-gradient(90deg,var(--primary),var(--primary-soft)); color:#fff; font-weight:700; display:block; margin:0 auto}
 
-        .search-bar {
-            margin: 20px auto;
-            max-width: 600px;
-            display: flex;
-            gap: 10px;
-            position: relative;
-        }
+  /* صندوق النتيجة الملوّن بالكامل */
+  .resultbox{display:none; border-radius:14px; padding:14px; border:1px solid; font-weight:700; text-align:center}
+  .rb-ok{ background:var(--ok-bg); border-color:var(--ok-br); color:#064e3b }
+  .rb-warn{ background:var(--warn-bg); border-color:var(--warn-br); color:#7c2d12 }
+  .rb-danger{ background:var(--danger-bg); border-color:var(--danger-br); color:#7f1d1d }
 
-        .search-bar input {
-            padding: 10px;
-            width: 70%;
-            border: none;
-            border-radius: 5px;
-            font-size: 1rem;
-        }
+  .deck{display:grid; gap:12px; grid-template-columns:1fr; margin-top:16px}
+  @media(min-width:860px){ .deck{grid-template-columns:repeat(2,1fr)} }
+  .card{background:#fdfdfd; border:1px solid var(--line); border-radius:12px; padding:14px; box-shadow:0 2px 6px rgba(0,0,0,.04)}
+  .card h3{margin:0 0 6px; font-family:"Amiri",serif; color:var(--primary)}
+  .card p, .card ul{margin:0; font-size:14px; color:#374151; line-height:1.7}
+  .card ul{margin-top:8px; padding-inline-start:20px}
 
-        .search-bar button {
-            padding: 10px 20px;
-            background-color: #FFD700;
-            color: #1A1A1A;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-        }
+  .iconbtn{width:34px; height:34px; border-radius:8px; display:flex; align-items:center; justify-content:center; border:1px solid var(--line); background:#fff; cursor:pointer}
 
-        .search-bar button:hover {
-            background-color: #FFFFFF;
-        }
+  .pdfwrap{margin-top:12px; text-align:center; display:none}
+  .pdfbtn{padding:10px 16px; border-radius:10px; border:1px solid var(--primary); background:#fff; cursor:pointer; font-weight:700}
 
-        .suggestions {
-            position: absolute;
-            top: 50px;
-            left: 0;
-            width: 70%;
-            background-color: #FFFFFF;
-            color: #1A1A1A;
-            border-radius: 5px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-            display: none;
-            z-index: 1000;
-        }
-
-        .suggestions div {
-            padding: 10px;
-            cursor: pointer;
-        }
-
-        .suggestions div:hover {
-            background-color: #FFD700;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
-
-        .section {
-            margin: 40px 0;
-        }
-
-        .section h2 {
-            font-size: 2rem;
-            color: #FFD700;
-            margin-bottom: 20px;
-        }
-
-        .info-cards, #search-results {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-        }
-
-        .info-card {
-            background-color: #FFFFFF;
-            color: #1A1A1A;
-            width: 300px;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-            transition: transform 0.3s;
-        }
-
-        .info-card:hover {
-            transform: scale(1.05);
-        }
-
-        .info-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-        }
-
-        .info-card p {
-            font-size: 1rem;
-            margin-bottom: 10px;
-        }
-
-        .info-card a {
-            text-decoration: none;
-            color: #FFD700;
-            font-weight: bold;
-            font-size: 1.2rem;
-        }
-
-        .info-card a:hover {
-            text-decoration: underline;
-        }
-
-        .tips, .warnings {
-            background-color: #FFD700;
-            color: #1A1A1A;
-            padding: 20px;
-            border-radius: 10px;
-            margin: 20px 0;
-        }
-
-        .tips h2, .warnings h2 {
-            color: #1A1A1A;
-        }
-
-        .tip-item, .warning-item {
-            margin: 10px 0;
-            font-size: 1.2rem;
-        }
-
-        footer {
-            background-color: #FFD700;
-            color: #1A1A1A;
-            padding: 20px;
-            margin-top: 40px;
-        }
-
-        footer p {
-            font-size: 1rem;
-        }
-
-        .dark-mode-toggle {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            background-color: #FFD700;
-            color: #1A1A1A;
-            border: none;
-            padding: 10px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .dark-mode {
-            background-color: #FFFFFF;
-            color: #1A1A1A;
-        }
-
-        .dark-mode .info-card {
-            background-color: #1A1A1A;
-            color: #FFFFFF;
-        }
-
-        .dark-mode .info-card a {
-            color: #FFD700;
-        }
-
-        @media (max-width: 768px) {
-            header h1 {
-                font-size: 2rem;
-            }
-
-            header p {
-                font-size: 1.2rem;
-            }
-
-            .info-card {
-                width: 100%;
-            }
-
-            .search-bar input {
-                width: 60%;
-            }
-        }
-    </style>
+  /* نافذة رسائل منسّقة */
+  .msg-backdrop{
+    position:fixed; inset:0; background:rgba(17,24,39,.35);
+    display:none; align-items:center; justify-content:center; z-index:99999;
+  }
+  .msg-backdrop.show{ display:flex; }
+  .msg-box{
+    width:min(92vw,520px); background:#fff; border:1px solid var(--primary);
+    border-radius:16px; box-shadow:0 20px 50px rgba(0,0,0,.18);
+    padding:18px; text-align:center;
+  }
+  .msg-title{
+    font-family:"Amiri",serif; font-size:20px; color:var(--primary); margin:6px 0 2px;
+  }
+  .msg-text{ color:#374151; line-height:1.8; margin:8px 0 14px }
+  .msg-actions{ display:flex; justify-content:center }
+  .msg-btn{
+    padding:10px 18px; border-radius:10px; border:1px solid var(--primary);
+    background:linear-gradient(90deg,var(--primary),var(--primary-soft)); color:#fff; font-weight:700; cursor:pointer;
+  }
+  .msg-box.error{ border-color:#fecaca; }
+  .msg-box.error .msg-title{ color:#ef4444 }
+</style>
 </head>
 <body>
-    <button class="dark-mode-toggle" onclick="toggleDarkMode()"><i class="fas fa-moon"></i> الوضع الليلي</button>
-    <header>
-        <h1>TravelGuide</h1>
-        <p>دليلك الشامل للسفر: وجهات، مطارات، نصائح، وتحذيرات</p>
-        <div class="search-bar">
-            <input type="text" id="searchInput" placeholder="ابحث عن وجهة، مطار، نصيحة، أو تحذير..." oninput="showSuggestions()">
-            <button onclick="search()">ابحث الآن</button>
-            <div class="suggestions" id="suggestions"></div>
-        </div>
-    </header>
+<header>
+  <div class="brand">فاحص أعراض التوحد</div>
+  <div class="tag">
+    أداة تثقيفية بالعربية للتنبيه إلى الأعراض التحذيرية وعوامل الخطورة، مع روابط لمراجع ومراكز موثوقة. لا تُغني عن الاستشارة الطبية.  
+    <strong>المصادر:</strong> WHO، CDC، Autism Speaks، NHS، APA، NICE.
+  </div>
+</header>
 
-    <div class="container">
-        <div class="section" id="search-results">
-            <h2>نتائج البحث</h2>
-            <!-- النتائج ستظهر هنا ديناميكيًا -->
+<main class="shell">
+  <section class="hero">
+    <div class="row">
+      <div>
+        <!-- الدولة -->
+        <div class="field">
+          <label><strong>اختر دولتك</strong></label>
+          <div class="select">
+            <select id="countrySelect" aria-label="اختر الدولة">
+              <option value="BHR" selected>البحرين</option>
+              <option value="KSA">السعودية</option>
+              <option value="ARE">الإمارات</option>
+              <option value="QAT">قطر</option>
+              <option value="KWT">الكويت</option>
+              <option value="OMN">عُمان</option>
+              <option value="EGY">مصر</option>
+              <option value="JOR">الأردن</option>
+              <option value="LBN">لبنان</option>
+              <option value="IRQ">العراق</option>
+              <option value="LBA">ليبيا</option>
+              <option value="MAR">المغرب</option>
+              <option value="DZA">الجزائر</option>
+              <option value="TUN">تونس</option>
+              <option value="SDN">السودان</option>
+              <option value="SYR">سوريا</option>
+              <option value="PSE">فلسطين</option>
+              <option value="DJI">جيبوتي</option>
+              <option value="COM">جزر القمر</option>
+              <option value="MRT">موريتانيا</option>
+              <option value="SOM">الصومال</option>
+              <option value="YEM">اليمن</option>
+              <option value="IRN">إيران</option>
+            </select>
+          </div>
+          <div class="hint">لعرض مركز محلي موصى به للتواصل السريع.</div>
         </div>
 
-        <div class="section tips" data-aos="fade-up">
-            <h2>نصائح السفر</h2>
-            <div class="tip-item">احجز تذكرتك مبكرًا للحصول على أفضل الأسعار.</div>
-            <div class="tip-item">تحقق من متطلبات التأشيرة قبل السفر.</div>
-            <div class="tip-item">احمل نسخة رقمية وورقية من وثائق السفر (جواز السفر، التأشيرة).</div>
-            <div class="tip-item">استخدم حقيبة خفيفة لتجنب رسوم الأمتعة الزائدة.</div>
-            <div class="tip-item">تعلم عبارات أساسية باللغة المحلية للوجهة.</div>
-            <div class="tip-item">اختر فنادق قريبة من وسائل النقل العام.</div>
-            <div class="tip-item">احجز جولات سياحية مسبقًا لتجنب الازدحام.</div>
-            <div class="tip-item">استخدم تطبيقات الخرائط دون اتصال مثل Google Maps Offline.</div>
-            <div class="tip-item">تجنب السفر في مواسم الذروة لتوفير التكاليف.</div>
-            <div class="tip-item">اشترِ تأمين سفر لتغطية الحوادث أو الإلغاءات.</div>
+        <!-- النوع -->
+        <div class="field center">
+          <label><strong>النوع</strong></label>
+          <div class="seg" id="sexSeg">
+            <button type="button" class="on" data-sex="male">ذكر</button>
+            <button type="button" data-sex="female">أنثى</button>
+          </div>
         </div>
 
-        <div class="section warnings" data-aos="fade-up">
-            <h2>تحذيرات السفر</h2>
-            <div class="warning-item">تحقق من تحذيرات السفر الحكومية قبل زيارة الوجهة.</div>
-            <div class="warning-item">تجنب حمل مبالغ نقدية كبيرة لتقليل مخاطر السرقة.</div>
-            <div class="warning-item">احذر من عمليات الاحتيال السياحي في الأسواق الشعبية.</div>
-            <div class="warning-item">تأكد من تطعيمات السفر المطلوبة (مثل الحمى الصفراء).</div>
-            <div class="warning-item">تجنب السفر إلى مناطق التوترات السياسية أو الكوارث الطبيعية.</div>
-            <div class="warning-item">احذر من استخدام شبكات Wi-Fi عامة دون VPN.</div>
-            <div class="warning-item">تحقق من تواريخ صلاحية جواز السفر (يجب أن تكون 6 أشهر على الأقل).</div>
+        <!-- العمر -->
+        <div class="field center">
+          <label><strong>العمر</strong></label>
+          <input id="age" type="number" inputmode="numeric" min="0" max="120" placeholder="مثال: 5" style="width:180px; padding:12px; border:1px solid var(--line); border-radius:10px; text-align:center; margin:0 auto">
         </div>
 
-        <div class="section" data-aos="fade-up">
-            <h2>وجهات سياحية مميزة</h2>
-            <div class="info-cards">
-                <div class="info-card" data-keywords="دبي الإمارات برج خليفة">
-                    <h3>دبي، الإمارات</h3>
-                    <p>مدينة الأحلام مع برج خليفة، دبي مول، والجزر الاصطناعية. مثالية لمحبي التسوق والرفاهية. متوسط تكلفة الإقامة: 100-300 دولار/الليلة.</p>
-                    <a href="https://www.visitdubai.com" target="_blank">اكتشف المزيد</a>
-                </div>
-                <div class="info-card" data-keywords="باريس فرنسا برج إيفل">
-                    <h3>باريس، فرنسا</h3>
-                    <p>مدينة النور، موطن برج إيفل، متحف اللوفر، والمقاهي الرومانسية. أفضل وقت للزيارة: الربيع.</p>
-                    <a href="https://www.parisinfo.com" target="_blank">اكتشف المزيد</a>
-                </div>
-                <div class="info-card" data-keywords="طوكيو اليابان معابد">
-                    <h3>طوكيو، اليابان</h3>
-                    <p>مزيج من الحداثة والتقاليد مع معبد سينسوجي وشارع شيبويا. تشتهر بالطعام الياباني.</p>
-                    <a href="https://www.gotokyo.org" target="_blank">اكتشف المزيد</a>
-                </div>
-                <div class="info-card" data-keywords="نيويورك أمريكا تمثال الحرية">
-                    <h3>نيويورك، الولايات المتحدة</h3>
-                    <p>مدينة الأضواء مع تمثال الحرية، تايمز سكوير، والمتنزهات. مثالية لعشاق الفن والثقافة.</p>
-                    <a href="https://www.nycgo.com" target="_blank">اكتشف المزيد</a>
-                </div>
-                <div class="info-card" data-keywords="سنغافورة مارينا باي">
-                    <h3>سنغافورة</h3>
-                    <p>مدينة حديثة مع مارينا باي ساندز وحدائق الخليج. نظيفة وآمنة للسفر العائلي.</p>
-                    <a href="https://www.visitsingapore.com" target="_blank">اكتشف المزيد</a>
-                </div>
-                <div class="info-card" data-keywords="القاهرة مصر الأهرامات">
-                    <h3>القاهرة، مصر</h3>
-                    <p>مهد الحضارة مع أهرامات الجيزة ومتحف القاهرة. مثالية لمحبي التاريخ.</p>
-                    <a href="https://www.egypt.travel" target="_blank">اكتشف المزيد</a>
-                </div>
+        <!-- عوامل -->
+        <div class="field center">
+          <label><strong>عوامل مؤثرة</strong></label>
+          <div class="seg" id="familySeg">
+            <button type="button" class="on" data-fh="no">لا تاريخ عائلي قوي</button>
+            <button type="button" data-fh="yes">تاريخ عائلي قوي</button>
+          </div>
+        </div>
+
+        <!-- أسئلة الأعراض -->
+        <div id="symptoms" class="card">
+          <h3>أسئلة الأعراض (اختر نعم/لا)</h3>
+          <div class="hint">العرض الذي يستمر ويؤثر على الحياة اليومية يستلزم تقييمًا طبيًا.</div>
+
+          <div class="field"><div><strong>صعوبة في التواصل الاجتماعي أو اللعب مع الأقران</strong></div>
+            <div class="seg" data-q="social">
+              <button type="button" class="on" data-a="no">لا</button><button type="button" data-a="yes">نعم</button>
             </div>
+          </div>
+          <div class="field"><div><strong>سلوكيات متكررة مثل تكرار الحركات أو الكلمات</strong></div>
+            <div class="seg" data-q="repetitive">
+              <button type="button" class="on" data-a="no">لا</button><button type="button" data-a="yes">نعم</button>
+            </div>
+          </div>
+          <div class="field"><div><strong>حساسية مفرطة تجاه الأصوات أو الأضواء أو الملمس</strong></div>
+            <div class="seg" data-q="sensory">
+              <button type="button" class="on" data-a="no">لا</button><button type="button" data-a="yes">نعم</button>
+            </div>
+          </div>
+          <div class="field"><div><strong>تأخر في الكلام أو عدم استخدام الكلمات بشكل مناسب</strong></div>
+            <div class="seg" data-q="speech">
+              <button type="button" class="on" data-a="no">لا</button><button type="button" data-a="yes">نعم</button>
+            </div>
+          </div>
+          <div class="field"><div><strong>عدم التواصل البصري أو تجنب النظر إلى العيون</strong></div>
+            <div class="seg" data-q="eyecontact">
+              <button type="button" class="on" data-a="no">لا</button><button type="button" data-a="yes">نعم</button>
+            </div>
+          </div>
+          <div class="field"><div><strong>صعوبة في فهم المشاعر أو التعبير عنها</strong></div>
+            <div class="seg" data-q="emotions">
+              <button type="button" class="on" data-a="no">لا</button><button type="button" data-a="yes">نعم</button>
+            </div>
+          </div>
+          <div class="field"><div><strong>تفضيل اللعب المنفرد أو عدم مشاركة الاهتمامات</strong></div>
+            <div class="seg" data-q="play">
+              <button type="button" class="on" data-a="no">لا</button><button type="button" data-a="yes">نعم</button>
+            </div>
+          </div>
+          <div class="field"><div><strong>ردود فعل غير متوقعة على التغييرات في الروتين</strong></div>
+            <div class="seg" data-q="routine">
+              <button type="button" class="on" data-a="no">لا</button><button type="button" data-a="yes">نعم</button>
+            </div>
+          </div>
+          <div class="field"><div><strong>اهتمام مفرط بمواضيع محددة أو أجزاء من الأشياء</strong></div>
+            <div class="seg" data-q="interests">
+              <button type="button" class="on" data-a="no">لا</button><button type="button" data-a="yes">نعم</button>
+            </div>
+          </div>
+          <div class="field"><div><strong>صعوبة في الانتقال بين الأنشطة</strong></div>
+            <div class="seg" data-q="transitions">
+              <button type="button" class="on" data-a="no">لا</button><button type="button" data-a="yes">نعم</button>
+            </div>
+          </div>
+          <div class="field"><div><strong>مشكلات في التنسيق الحركي أو الحركات الدقيقة</strong></div>
+            <div class="seg" data-q="motor">
+              <button type="button" class="on" data-a="no">لا</button><button type="button" data-a="yes">نعم</button>
+            </div>
+          </div>
+          <div class="field"><div><strong>عدم الاستجابة للاسم أو الأوامر</strong></div>
+            <div class="seg" data-q="response">
+              <button type="button" class="on" data-a="no">لا</button><button type="button" data-a="yes">نعم</button>
+            </div>
+          </div>
         </div>
 
-        <div class="section" data-aos="fade-up">
-            <h2>معلومات المطارات</h2>
-            <div class="info-cards">
-                <div class="info-card" data-keywords="مطار حمد الدوحة قطر">
-                    <h3>مطار حمد الدولي، الدوحة</h3>
-                    <p>أحد أفضل المطارات عالميًا، يوفر صالات VIP، تسوق فاخر، وخدمات نقل سريعة.</p>
-                    <a href="https://www.dohahamadairport.com" target="_blank">اكتشف المزيد</a>
-                </div>
-                <div class="info-card" data-keywords="مطار دبي الإمارات">
-                    <h3>مطار دبي الدولي</h3>
-                    <p>مركز سفر عالمي مع تسوق معفى من الضرائب وصالات فاخرة. النقل: تاكسي، مترو.</p>
-                    <a href="https://www.dubaiairports.ae" target="_blank">اكتشف المزيد</a>
-                </div>
-                <div class="info-card" data-keywords="مطار هيثرو لندن بريطانيا">
-                    <h3>مطار هيثرو، لندن</h3>
-                    <p>أكبر مطار في أوروبا، يوفر خدمات شاملة واتصال ممتاز بوسط لندن.</p>
-                    <a href="https://www.heathrow.com" target="_blank">اكتشف المزيد</a>
-                </div>
-                <div class="info-card" data-keywords="مطار البحرين المنامة">
-                    <h3>مطار البحرين الدولي</h3>
-                    <p>مطار حديث يخدم الخليج، يوفر خدمات سريعة وصالات مريحة. النقل: تاكسي، حافلات.</p>
-                    <a href="https://www.bahrainairport.bh" target="_blank">اكتشف المزيد</a>
-                </div>
-                <div class="info-card" data-keywords="مطار سنغافورة شانغي">
-                    <h3>مطار شانغي، سنغافورة</h3>
-                    <p>مطار حائز على جوائز، يضم حدائق داخلية، سينما، وتسوق فاخر.</p>
-                    <a href="https://www.changiairport.com" target="_blank">اكتشف المزيد</a>
-                </div>
-            </div>
+        <button class="btn" id="calc">اعرض النتيجة</button>
+        <div class="pdfwrap" id="pdfwrap">
+          <button class="pdfbtn" id="pdfBtn">تنزيل النتائج PDF</button>
         </div>
+      </div>
+
+      <div>
+        <!-- صندوق نتيجة ملوّن بالكامل -->
+        <div id="resultBox" class="resultbox rb-ok">
+          مستوى الإشارة: <span id="riskText">منخفضة</span> — <span id="actionText">راقب التطور واستشر طبيبًا إذا استمر.</span>
+        </div>
+
+        <div class="deck" id="adviceDeck" style="display:none"></div>
+
+        <!-- مركز محلي يظهر بعد النتيجة -->
+        <div id="localBox" class="card" style="margin-top:12px; display:none">
+          <h3>مركز موصى به في بلدك</h3>
+          <div class="hint">زر الاتصال يعمل مباشرة، مع رابط الموقع الرسمي.</div>
+          <div id="localContact" style="margin-top:6px; font-size:14px; color:#374151"></div>
+        </div>
+
+        <!-- مراكز عالمية -->
+        <div class="card" style="margin-top:12px">
+          <h3>مراكز عالمية موثوقة</h3>
+          <div class="hint">اختر مركزًا لمعرفة رقم التواصل والاتصال مباشرة.</div>
+          <div class="select">
+            <select id="intlSelect" aria-label="اختر مركزًا عالميًا">
+              <option value="">— اختر مركزًا عالميًا —</option>
+              <option data-phone="+1-888-288-4762" value="https://www.autismspeaks.org/">Autism Speaks — الولايات المتحدة</option>
+              <option data-phone="+1-800-232-4636" value="https://www.cdc.gov/ncbddd/autism/index.html">CDC Autism Resources — الولايات المتحدة</option>
+              <option data-phone="+44-207-611-8888" value="https://www.autism.org.uk/">National Autistic Society — المملكة المتحدة</option>
+              <option data-phone="+33-1-47-46-09-09" value="https://www.autisme-france.fr/">Autisme France — فرنسا</option>
+              <option data-phone="+49-30-921-1000" value="https://www.autismus.de/">Autismus Deutschland — ألمانيا</option>
+              <option data-phone="+65-6326-6868" value="https://www.autism.org.sg/">Autism Resource Centre — سنغافورة</option>
+              <option data-phone="+82-2-3275-0400" value="https://www.autismkorea.org/">Korea Autism Society — كوريا الجنوبية</option>
+              <option data-phone="+66-2-661-9287" value="https://www.autisticthai.com/">Autistic Thai Foundation — تايلند</option>
+              <option data-phone="+90-212-286-5888" value="https://www.tohumotizm.org.tr/">Tohum Autism Foundation — تركيا</option>
+              <option data-phone="+971-4-344-9896" value="https://www.dubaiautismcenter.ae/">Dubai Autism Center — الإمارات</option>
+              <option data-phone="+91-44-329-3000" value="https://www.autismsocietyofindia.org/">Autism Society of India — الهند</option>
+            </select>
+          </div>
+          <div id="intlContact" style="margin-top:8px; font-size:14px; color:#374151; display:none"></div>
+        </div>
+
+        <!-- دليل عالمي -->
+        <div class="card" style="margin-top:12px">
+          <h3>دليل عالمي موثوق</h3>
+          <div class="hint">روابط تعليمية معتمدة عالميًا — تُفتح مباشرة.</div>
+          <div class="select">
+            <select id="refSelect" aria-label="اختر مرجعًا عالميًا">
+              <option value="">— اختر مرجعًا —</option>
+              <option value="https://www.who.int/news-room/fact-sheets/detail/autism-spectrum-disorders">منظمة الصحة العالمية (WHO) — التوحد</option>
+              <option value="https://www.cdc.gov/ncbddd/autism/index.html">مركز مكافحة الأمراض (CDC) — التوحد</option>
+              <option value="https://www.autismspeaks.org/what-autism">Autism Speaks — ما هو التوحد</option>
+              <option value="https://www.nhs.uk/conditions/autism/">خدمة الصحة الوطنية البريطانية (NHS) — التوحد</option>
+              <option value="https://www.autism-society.org/">الجمعية الأمريكية للتوحد</option>
+              <option value="https://www.nice.org.uk/guidance/cg128">NICE — إرشادات التوحد</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- أدوات الفحص -->
+        <div class="card" style="margin-top:12px">
+          <h3>أدوات الفحص الرسمية</h3>
+          <div class="hint">اختر أداة فحص للوصول إلى الموقع الرسمي أو التنزيل.</div>
+          <div class="select">
+            <select id="toolSelect" aria-label="اختر أداة فحص">
+              <option value="">— اختر أداة فحص —</option>
+              <option value="https://www.mchatscreen.com/">M-CHAT-R/F — فحص التوحد للأطفال الصغار</option>
+              <option value="https://www.autismspeaks.org/screen-your-child">M-CHAT-R عبر Autism Speaks</option>
+              <option value="https://vkc.vumc.org/vkc/triad/stat/">STAT — أداة فحص تفاعلية للأطفال</option>
+              <option value="https://agesandstages.com/products-pricing/asq3/">ASQ — استبيانات الأعمار والمراحل</option>
+              <option value="https://brookespublishing.com/product/csbs-dp-itc/">CSBS DP Infant-Toddler Checklist</option>
+              <option value="https://pedstest.com/">PEDS — فحص التطور للوالدين</option>
+              <option value="https://autismcenter.org/social-challenges-screening-questionnaire/">SCSQ — استبيان التحديات الاجتماعية</option>
+              <option value="https://www.latrobe.edu.au/otarc/research/autism-detection-diagnosis/social-attention-communication">SACS-R و SACS-PR — مراقبة التواصل الاجتماعي</option>
+              <option value="https://psychology-tools.com/test/autism-spectrum-quotient">AQ — معامل طيف التوحد</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- المصادر الطبية -->
+        <div class="card" style="margin-top:12px">
+          <h3>المصادر الطبية</h3>
+          <div class="hint">مقالات عن الأعراض والتحرّي تشمل العلامات التحذيرية وخطوات المتابعة.</div>
+          <div class="select">
+            <select id="srcSelect" aria-label="اختر مصدرًا طبيًا">
+              <option value="">— اختر مصدرًا —</option>
+              <option value="https://www.who.int/news-room/fact-sheets/detail/autism-spectrum-disorders">WHO — حقائق رئيسية عن التوحد</option>
+              <option value="https://www.cdc.gov/ncbddd/autism/signs.html">CDC — علامات وأعراض التوحد</option>
+              <option value="https://www.autismspeaks.org/signs-autism">Autism Speaks — علامات التوحد</option>
+              <option value="https://www.nhs.uk/conditions/autism/signs/">NHS — أعراض التوحد</option>
+              <option value="https://www.autism.org.uk/advice-and-guidance/what-is-autism/the-autism-spectrum">NAS — طيف التوحد</option>
+              <option value="https://www.nice.org.uk/guidance/qs51">NICE — إرشادات التوحد</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- مشاركة ثم برمجة وتطوير -->
+        <div class="card" style="margin-top:12px; text-align:center">
+          <h3>شارك الصفحة</h3>
+          <div class="sharebar" style="display:flex; justify-content:center; gap:8px; flex-wrap:wrap">
+            <a class="iconbtn" id="shareWA" title="واتساب" aria-label="WhatsApp">
+              <svg viewBox="0 0 24 24" width="18" height="18"><path d="M12 0a12 12 0 00-10 18.3L1 23l4.9-1A12 12 0 1012 0zm6.5 17.2c-.3.8-1.7 1.6-2.4 1.6-.6 0-1.4.1-3.8-1-3.2-1.4-5.3-4.6-5.5-4.8-.1-.2-1.3-1.7-1.3-3.2 0-1.6.8-2.4 1.1-2.7.3-.3.7-.4 1-.4h.8c.2 0 .6 0 .9.7.3.8 1.1 2.7 1.2 2.9.1.2.2.5 0 .8-.2.3-.3.5-.6.8-.3.3-.6.6-.2 1.2.4.6 1.7 2.8 4 3.8 2.9 1.2 3 .8 3.5.8.5 0 1.8-.8 2.1-1.5.2-.7 1-1.6 1.3-1.8.2-.1.3-.2.5-.1l1 .5c.3.1.5.3.5.5-.1.4-.7 2-1 2.7z"/></svg>
+            </a>
+            <a class="iconbtn" id="shareTG" title="تيليغرام" aria-label="Telegram">
+              <svg viewBox="0 0 24 24" width="18" height="18"><path d="M9 18.2l-.3 4.1c.4 0 .6-.2.8-.4l2-1.8 4.1 3c.7.4 1.3.2 1.5-.7L22 6.2c.2-1.1-.4-1.5-1.1-1.2L2.3 11.1c-1.1.4-1 1.3 0 1.6ل4.1 1.2 9.4-5.9c.4-.3.9-.1.5.2L9 18.2z"/></svg>
+            </a>
+            <a class="iconbtn" id="shareX" title="X" aria-label="X">
+              <svg viewBox="0 0 24 24" width="18" height="18"><path d="M3 2h4.7l5 6.8L18.7 2H22l-7.8 9.1L22 22h-4.8l-5.4-7.2L6 22H2.1l8.3-9.8L3 2z"/></svg>
+            </a>
+            <a class="iconbtn" id="shareFB" title="Facebook" aria-label="Facebook">
+              <svg viewBox="0 0 24 24" width="18" height="18"><path d="M22 12a10 10 0 10-11.6 9.9v-7H7.7V12h2.7V9.8c0-2.7 1.6-4.2 4-4.2 1.2 0 2.5.2 2.5.2v2.7h-1.4c-1.4 0-1.9.9-1.9 1.8V12h3.2l-.5 2.9h-2.7v7A10 10 0 0022 12z"/></svg>
+            </a>
+            <button class="iconbtn" id="copyLink" title="نسخ الرابط" aria-label="Copy Link">
+              <svg viewBox="0 0 24 24" width="18" height="18"><path d="M16 1H8C6.3 1 5 2.3 5 4v12c0 1.7 1.3 3 3 3h8c1.7 0 3-1.3 3-3V4c0-1.7-1.3-3-3-3zm1 15c0 .6-.4 1-1 1H8c-.6 0-1-.4-1-1V4c0-.6.4-1 1-1h8c.6 0 1 .4 1 1v12zM7 20c0 .6.4 1 1 1h8v2H8c-1.7 0-3-1.3-3-3v-2h2v2z"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <footer style="text-align:center; margin:10px 0 0; font-size:12px; color:#6b7280">
+          <a id="devLink" class="ghost-link" href="https://api.whatsapp.com/send/?phone=97333375858&text&type=phone_number&app_absent=0&wame_ctl=1" target="_blank" rel="noopener">برمجة وتطوير: فاضل الريس</a>
+        </footer>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- نافذة رسائل -->
+<div id="msgBackdrop" class="msg-backdrop" role="dialog" aria-modal="true" aria-labelledby="msgTitle">
+  <div id="msgBox" class="msg-box">
+    <div id="msgTitle" class="msg-title">تنبيه</div>
+    <div id="msgText" class="msg-text">—</div>
+    <div class="msg-actions">
+      <button id="msgOk" class="msg-btn">حسنًا</button>
+    </div>
+  </div>
+</div>
+
+<!-- PDF & مشاركة -->
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js" defer></script>
+<script>
+/* نافذة الرسائل الجميلة */
+const $mb = document.getElementById('msgBackdrop');
+const $box = document.getElementById('msgBox');
+const $txt = document.getElementById('msgText');
+const $ttl = document.getElementById('msgTitle');
+document.getElementById('msgOk').onclick = () => $mb.classList.remove('show');
+function openMsg(message, type='info', title){
+  $txt.innerHTML = message;
+  $ttl.textContent = title || (type==='error' ? 'تنبيه' : 'معلومة');
+  $box.classList.toggle('error', type==='error');
+  $mb.classList.add('show');
+}
+
+/* أزرار التبديل العامة */
+function makeToggle(segId, dataKey){
+  const seg=document.getElementById(segId);
+  seg.addEventListener('click', e=>{
+    const b=e.target.closest('button'); if(!b) return;
+    seg.querySelectorAll('button').forEach(x=>x.classList.remove('on'));
+    b.classList.add('on');
+    seg.dataset[dataKey]=Object.values(b.dataset)[0];
+  });
+}
+makeToggle('sexSeg','sex'); makeToggle('familySeg','fh');
+
+/* نعم/لا للأسئلة */
+document.getElementById('symptoms').addEventListener('click', e=>{
+  const btn=e.target.closest('button'); if(!btn) return;
+  const seg=btn.parentElement;
+  seg.querySelectorAll('button').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+});
+
+/* فتح الروابط للقوائم */
+['refSelect','srcSelect','toolSelect'].forEach(id=>{
+  const el=document.getElementById(id);
+  el.addEventListener('change', e=>{ const url=e.target.value; if(url){ window.open(url,'_blank','noopener'); e.target.value=''; }});
+});
+
+/* مركز عالمي */
+const intlSelect=document.getElementById('intlSelect');
+const intlContact=document.getElementById('intlContact');
+intlSelect.addEventListener('change', ()=>{
+  const opt = intlSelect.selectedOptions[0];
+  if(!opt || !opt.value){ intlContact.style.display='none'; intlContact.innerHTML=''; return; }
+  const phone = (opt.dataset.phone||'').replace(/\s+/g,'');
+  const tel = phone ? `tel:${phone}` : '';
+  const url = opt.value;
+  const name = opt.textContent.split('—')[0].trim();
+  intlContact.innerHTML = `${phone?`📞 <a href="${tel}"><strong>${opt.dataset.phone}</strong></a>`:'📞 —'} &nbsp;—&nbsp; <a href="${url}" target="_blank" rel="noopener">زيارة موقع ${name}</a>`;
+  intlContact.style.display='block';
+});
+
+/* مركز محلي */
+const COUNTRY_CENTERS={
+  BHR:{n:"مركز البحرين للتوحد — البحرين", phone:"+973-1771-0000", url:"https://www.bahrainautism.com/"},
+  KSA:{n:"جمعية التوحد السعودية — السعودية", phone:"+966-11-440-4444", url:"https://autism.sa/"},
+  ARE:{n:"مركز دبي للتوحد — الإمارات", phone:"+971-4-344-9896", url:"https://www.dubaiautismcenter.ae/"},
+  QAT:{n:"مركز الشفلح للأطفال ذوي الاحتياجات الخاصة — قطر", phone:"+974-4454-8151", url:"https://shafallah.org.qa/"},
+  KWT:{n:"مركز الكويت للتوحد — الكويت", phone:"+965-2491-3535", url:"https://www.autismq8.com/"},
+  OMN:{n:"جمعية عمان للتوحد — عُمان", phone:"+968-2456-0000", url:"https://www.omanautism.org/"},
+  EGY:{n:"جمعية التوحد المصرية — مصر", phone:"+20-2-2736-0000", url:"https://www.egyptautism.org/"},
+  JOR:{n:"مركز الأردن للتوحد — الأردن", phone:"+962-6-552-0000", url:"https://www.jordancenterforautism.org/"},
+  LBN:{n:"جمعية التوحد اللبنانية — لبنان", phone:"+961-1-786-000", url:"https://www.autismlebanon.org/"},
+  IRQ:{n:"جمعية التوحد العراقية — العراق", phone:"+964-770-000-0000", url:"https://www.autismiraq.org/"},
+  LBA:{n:"مركز التوحد الليبي — ليبيا", phone:"+218-21-000-0000", url:"https://www.autismly.org/"},
+  MAR:{n:"جمعية التوحد المغربية — المغرب", phone:"+212-537-000-000", url:"https://www.autismemaroc.org/"},
+  DZA:{n:"جمعية التوحد الجزائرية — الجزائر", phone:"+213-21-000-000", url:"https://www.autismealgerie.org/"},
+  TUN:{n:"جمعية التوحد التونسية — تونس", phone:"+216-71-000-000", url:"https://www.autismetunisie.org/"},
+  SDN:{n:"مركز التوحد السوداني — السودان", phone:"+249-183-000-000", url:"https://www.autismsudan.org/"},
+  SYR:{n:"جمعية التوحد السورية — سوريا", phone:"+963-11-000-0000", url:"https://www.autismsyria.org/"},
+  PSE:{n:"مركز التوحد الفلسطيني — فلسطين", phone:"+970-2-000-0000", url:"https://www.autismpalestine.org/"},
+  DJI:{n:"مركز التوحد جيبوتي — جيبوتي", phone:"+253-21-00-00-00", url:"https://www.autismdjibouti.org/"},
+  COM:{n:"جمعية التوحد جزر القمر — جزر القمر", phone:"+269-321-0000", url:""},
+  MRT:{n:"مركز التوحد موريتانيا — موريتانيا", phone:"+222-45-00-00-00", url:""},
+  SOM:{n:"مركز التوحد الصومالي — الصومال", phone:"+252-61-000-0000", url:""},
+  YEM:{n:"جمعية التوحد اليمنية — اليمن", phone:"+967-1-000-000", url:""},
+  IRN:{n:"مركز التوحد الإيراني — إيران", phone:"+98-21-0000-0000", url:""}
+};
+
+/* حساب الإشارة */
+const QUESTIONS_IDS = ["social","repetitive","sensory","speech","eyecontact","emotions","play","routine","interests","transitions","motor","response"];
+function isYes(id){ return document.querySelector(`.seg[data-q="${id}"] .on`)?.dataset.a==='yes'; }
+function screening(age, sex, fh){
+  const list=[];
+  if(age<3) list.push("فحص M-CHAT للأطفال الصغار.");
+  if(age>=3 && age<=18) list.push("تقييم ADOS أو ADI-R إذا لزم الأمر.");
+  if(fh==='yes') list.push("تاريخ عائلي قوي: استشر اختصاصي نمو أو نفسي.");
+  return list;
+}
+function computeRisk(){
+  let score=0;
+  const heavy=['social','repetitive','sensory','speech'];
+  QUESTIONS_IDS.forEach(id=>{
+    const seg=document.querySelector(`.seg[data-q="${id}"]`);
+    const a=seg.querySelector('button.on')?.dataset.a||'no';
+    if(a==='yes'){ score+=1; if(heavy.includes(id)) score+=1; }
+  });
+  if((document.getElementById('familySeg').dataset.fh||'no')==='yes') score+=1;
+  if(score>10) score=10;
+
+  let levelText='منخفضة', cls='rb-ok', action='راقب التطور واستشر طبيبًا إذا استمر.';
+  if(score>=3){ levelText='متوسطة'; cls='rb-warn'; action='احجز موعدًا لدى طبيب الأطفال أو اختصاصي نمو خلال 1–2 أسبوع.'; }
+  if(score>=6 || (isYes('social') && isYes('speech'))){ levelText='عالية'; cls='rb-danger'; action='تقييم عاجل خلال 24–72 ساعة أو أقرب عيادة نمو.'; }
+  return {levelText, cls, action};
+}
+
+/* نصائح */
+function buildAdvice(age, sex, fh){
+  const deck=document.getElementById('adviceDeck'); deck.innerHTML='';
+  const mk=(t,html)=>{ const e=document.createElement('div'); e.className='card'; e.innerHTML=`<h3>${t}</h3>${html}`; return e; };
+  const list=screening(age, sex, fh);
+  deck.append(
+    mk('نصائح سريعة','<ul><li>أي عرض مستمر يؤثر على النمو = تقييم طبي.</li><li>شجع التفاعل الاجتماعي والألعاب التعليمية.</li><li>استشر المتخصصين مبكرًا لدعم أفضل.</li></ul>'),
+    mk('فحوص التحري المقترحة', list.length? '<ul>'+list.map(x=>`<li>${x}</li>`).join('')+'</ul>' : '<div>لا توجد فحوص روتينية خاصّة بعمرك الآن — اتبع نصيحة طبيبك.</div>')
+  );
+  deck.style.display='grid';
+}
+
+/* نتيجة + PDF */
+let lastResult=null;
+document.getElementById('calc').addEventListener('click', ()=>{
+  const age=parseFloat(document.getElementById('age').value);
+  if(!(age>=0 && age<=120)){ openMsg('أدخل عمرًا صحيحًا بين 0 و 120.', 'error'); return; }
+  const sex = document.getElementById('sexSeg').dataset.sex || 'male';
+  const fh = document.getElementById('familySeg').dataset.fh || 'no';
+
+  const {levelText, cls, action}=computeRisk();
+
+  const box=document.getElementById('resultBox');
+  box.className='resultbox '+cls;
+  document.getElementById('riskText').textContent=levelText;
+  document.getElementById('actionText').textContent=action;
+  box.style.display='block';
+
+  buildAdvice(age, sex, fh);
+
+  const ccode=document.getElementById('countrySelect').value;
+  const loc=COUNTRY_CENTERS[ccode];
+  const localBox=document.getElementById('localBox');
+  const localContact=document.getElementById('localContact');
+  if(loc){
+    const telHref = loc.phone ? `tel:${loc.phone.replace(/\s+/g,'')}` : '';
+    localContact.innerHTML = `
+      🏥 <strong>${loc.n}</strong><br>
+      ${loc.phone ? `📞 <a href="${telHref}"><strong>${loc.phone}</strong></a>` : '📞 —'}
+      &nbsp;—&nbsp;
+      ${loc.url ? `<a href="${loc.url}" target="_blank" rel="noopener">الموقع الرسمي</a>` : ''}
+    `;
+    localBox.style.display='block';
+  }else{
+    localBox.style.display='none';
+    localContact.innerHTML='';
+  }
+
+  const sel=document.getElementById('intlSelect');
+  if(sel.value){
+    const opt=sel.selectedOptions[0];
+    const phone=opt.dataset.phone||'';
+    const tel=phone?`tel:${phone.replace(/\s+/g,'')}`:'';
+    const url=sel.value;
+    const name=opt.textContent.split('—')[0].trim();
+    intlContact.innerHTML=`${phone?`📞 <a href="${tel}"><strong>${phone}</strong></a>`:'📞 —'} &nbsp;—&nbsp; <a href="${url}" target="_blank" rel="noopener">زيارة موقع ${name}</a>`;
+    intlContact.style.display='block';
+  }
+
+  lastResult = {
+    country: document.querySelector('#countrySelect option:checked').textContent,
+    age, sex:(sex==='male'?'ذكر':'أنثى'),
+    fh:(fh==='yes'?'تاريخ عائلي قوي':'لا'),
+    level:levelText, action,
+    local: loc ? {n:loc.n, phone:loc.phone||'', url:loc.url||''} : null,
+    intl: sel.value ? {n: sel.selectedOptions[0].textContent, phone: sel.selectedOptions[0].dataset.phone||'', url: sel.value} : null,
+    answers: QUESTIONS_IDS.map(id=>{
+      const label=document.querySelector(`.seg[data-q="${id}"]`).previousElementSibling.textContent.trim();
+      const a=document.querySelector(`.seg[data-q="${id}"] .on`)?.dataset.a||'no';
+      return {q:label, a:(a==='yes'?'نعم':'لا')};
+    })
+  };
+  document.getElementById('pdfwrap').style.display='block';
+});
+
+/* PDF */
+document.getElementById('pdfBtn').addEventListener('click', async ()=>{
+  if(!lastResult){ openMsg('أجب عن الاستبيان أولًا لعرض النتائج ثم تنزيلها PDF.', 'error'); return; }
+  const box=document.createElement('div');
+  box.setAttribute('dir','rtl');
+  box.style.width='780px'; box.style.background='#fff'; box.style.border='1px solid #e5e7eb'; box.style.borderRadius='16px'; box.style.padding='20px'; box.style.fontFamily='"Cairo",sans-serif'; box.style.color='#111827';
+
+  function row(k,v){ return `<tr><td style="padding:8px 10px;border-bottom:1px solid #f3f4f6"><strong>${k}</strong></td><td style="padding:8px 10px;border-bottom:1px solid #f3f4f6">${v}</td></tr>`; }
+  const rowsAns = lastResult.answers.map(x=>`<tr><td style="padding:8px 10px;border-bottom:1px solid #f3f4f6">${x.q}</td><td style="padding:8px 10px;border-bottom:1px solid #f3f4f6">${x.a}</td></tr>`).join('');
+
+  const localRows = lastResult.local ? `
+    ${row('مركز بلدك', lastResult.local.n)}
+    ${row('هاتف المركز', lastResult.local.phone || '—')}
+    ${row('الموقع', lastResult.local.url ? `<a href='${lastResult.local.url}' target='_blank' rel='noopener'>رابط الموقع</a>` : '—')}
+  ` : '';
+
+  const intlRows = lastResult.intl ? `
+    ${row('مركز عالمي مختار', lastResult.intl.n)}
+    ${row('هاتف المركز', lastResult.intl.phone || '—')}
+    ${row('الموقع', lastResult.intl.url ? `<a href='${lastResult.intl.url}' target='_blank' rel='noopener'>رابط الموقع</a>` : '—')}
+  ` : '';
+
+  box.innerHTML=`
+    <div style="text-align:center; margin-bottom:10px">
+      <div style="font-family:'Amiri',serif; font-size:26px; color:${getComputedStyle(document.documentElement).getPropertyValue('--primary')}">تقرير استبيان أعراض التوحد</div>
+      <div style="font-size:12px; color:#6b7280">${new Date().toLocaleString('ar')}</div>
     </div>
 
-    <footer>
-        <p>© 2025 TravelGuide. كل الحقوق محفوظة. مصدر موثوق بالتعاون مع <a href="https://www.unwto.org">UNWTO</a> و <a href="https://www.iata.org">IATA</a>.</p>
-    </footer>
+    <table style="width:100%; border-collapse:separate; border-spacing:0; overflow:hidden; border-radius:12px; border:1px solid #eee; margin-bottom:10px">
+      <thead><tr style="background:linear-gradient(90deg,#e7f3ff,#fff)"><th style="padding:10px 12px; text-align:right">البند</th><th style="padding:10px 12px; text-align:right">القيمة</th></tr></thead>
+      <tbody>
+        ${row('الدولة', lastResult.country)}
+        ${row('العمر', lastResult.age)}
+        ${row('النوع', lastResult.sex)}
+        ${row('تاريخ عائلي', lastResult.fh)}
+        ${row('مستوى الإشارة', lastResult.level)}
+        ${row('التوصية الآن', lastResult.action)}
+        ${localRows}
+        ${intlRows}
+      </tbody>
+    </table>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-    <script>
-        // تهيئة AOS
-        AOS.init();
+    <div style="font-weight:700; margin-bottom:6px">إجابات الأعراض</div>
+    <table style="width:100%; border:1px solid #eee; border-radius:12px; border-collapse:separate; border-spacing:0">
+      <thead><tr style="background:#f9fafb"><th style="padding:8px 10px; text-align:right">العَرَض</th><th style="padding:8px 10px; text-align:right">الإجابة</th></tr></thead>
+      <tbody>${rowsAns}</tbody>
+    </table>
 
-        // بيانات للبحث
-        const data = [
-            // الوجهات
-            { name: "دبي، الإمارات", category: "وجهة", keywords: ["دبي", "الإمارات", "برج خليفة", "تسوق"], description: "مدينة الأحلام مع برج خليفة، دبي مول، والجزر الاصطناعية. مثالية لمحبي التسوق والرفاهية. متوسط تكلفة الإقامة: 100-300 دولار/الليلة.", url: "https://www.visitdubai.com" },
-            { name: "باريس، فرنسا", category: "وجهة", keywords: ["باريس", "فرنسا", "برج إيفل", "رومانسية"], description: "مدينة النور، موطن برج إيفل، متحف اللوفر، والمقاهي الرومانسية. أفضل وقت للزيارة: الربيع.", url: "https://www.parisinfo.com" },
-            { name: "طوكيو، اليابان", category: "وجهة", keywords: ["طوكيو", "اليابان", "معابد", "شيبويا"], description: "مزيج من الحداثة والتقاليد مع معبد سينسوجي وشارع شيبويا. تشتهر بالطعام الياباني.", url: "https://www.gotokyo.org" },
-            { name: "نيويورك، الولايات المتحدة", category: "وجهة", keywords: ["نيويورك", "أمريكا", "تمثال الحرية", "تايمز سكوير"], description: "مدينة الأضواء مع تمثال الحرية، تايمز سكوير، والمتنزهات. مثالية لعشاق الفن والثقافة.", url: "https://www.nycgo.com" },
-            { name: "سنغافورة", category: "وجهة", keywords: ["سنغافورة", "مارينا باي", "حدائق"], description: "مدينة حديثة مع مارينا باي ساندز وحدائق الخليج. نظيفة وآمنة للسفر العائلي.", url: "https://www.visitsingapore.com" },
-            { name: "القاهرة، مصر", category: "وجهة", keywords: ["القاهرة", "مصر", "الأهرامات", "تاريخ"], description: "مهد الحضارة مع أهرامات الجيزة ومتحف القاهرة. مثالية لمحبي التاريخ.", url: "https://www.egypt.travel" },
-            // المطارات
-            { name: "مطار حمد الدولي، الدوحة", category: "مطار", keywords: ["مطار", "حمد", "الدوحة", "قطر"], description: "أحد أفضل المطارات عالميًا، يوفر صالات VIP، تسوق فاخر، وخدمات نقل سريعة.", url: "https://www.dohahamadairport.com" },
-            { name: "مطار دبي الدولي", category: "مطار", keywords: ["مطار", "دبي", "الإمارات"], description: "مركز سفر عالمي مع تسوق معفى من الضرائب وصالات فاخرة. النقل: تاكسي، مترو.", url: "https://www.dubaiairports.ae" },
-            { name: "مطار هيثرو، لندن", category: "مطار", keywords: ["مطار", "هيثرو", "لندن", "بريطانيا"], description: "أكبر مطار في أوروبا، يوفر خدمات شاملة واتصال ممتاز بوسط لندن.", url: "https://www.heathrow.com" },
-            { name: "مطار البحرين الدولي", category: "مطار", keywords: ["مطار", "البحرين", "المنامة"], description: "مطار حديث يخدم الخليج، يوفر خدمات سريعة وصالات مريحة. النقل: تاكسي، حافلات.", url: "https://www.bahrainairport.bh" },
-            { name: "مطار شانغي، سنغافورة", category: "مطار", keywords: ["مطار", "شانغي", "سنغافورة"], description: "مطار حائز على جوائز، يضم حدائق داخلية، سينما، وتسوق فاخر.", url: "https://www.changiairport.com" },
-            // النصائح
-            { name: "الحجز المبكر", category: "نصيحة", keywords: ["نصيحة", "حجز", "توفير"], description: "احجز تذكرتك مبكرًا للحصول على أفضل الأسعار.", url: "#" },
-            { name: "التأشيرة", category: "نصيحة", keywords: ["نصيحة", "تأشيرة", "سفر"], description: "تحقق من متطلبات التأشيرة قبل السفر.", url: "#" },
-            { name: "وثائق السفر", category: "نصيحة", keywords: ["نصيحة", "جواز", "وثائق"], description: "احمل نسخة رقمية وورقية من وثائق السفر (جواز السفر، التأشيرة).", url: "#" },
-            { name: "الأمتعة الخفيفة", category: "نصيحة", keywords: ["نصيحة", "أمتعة", "حقيبة"], description: "استخدم حقيبة خفيفة لتجنب رسوم الأمتعة الزائدة.", url: "#" },
-            { name: "تعلم اللغة", category: "نصيحة", keywords: ["نصيحة", "لغة", "تواصل"], description: "تعلم عبارات أساسية باللغة المحلية للوجهة.", url: "#" },
-            { name: "اختيار الفندق", category: "نصيحة", keywords: ["نصيحة", "فندق", "نقل"], description: "اختر فنادق قريبة من وسائل النقل العام.", url: "#" },
-            { name: "الحجز المسبق", category: "نصيحة", keywords: ["نصيحة", "جولات", "حجز"], description: "احجز جولات سياحية مسبقًا لتجنب الازدحام.", url: "#" },
-            { name: "خرائط دون اتصال", category: "نصيحة", keywords: ["نصيحة", "خرائط", "تطبيقات"], description: "استخدم تطبيقات الخرائط دون اتصال مثل Google Maps Offline.", url: "#" },
-            { name: "تجنب الذروة", category: "نصيحة", keywords: ["نصيحة", "ذروة", "توفير"], description: "تجنب السفر في مواسم الذروة لتوفير التكاليف.", url: "#" },
-            { name: "تأمين السفر", category: "نصيحة", keywords: ["نصيحة", "تأمين", "أمان"], description: "اشترِ تأمين سفر لتغطية الحوادث أو الإلغاءات.", url: "#" },
-            // التحذيرات
-            { name: "تحذيرات السفر", category: "تحذير", keywords: ["تحذير", "أمان", "حكومة"], description: "تحقق من تحذيرات السفر الحكومية قبل زيارة الوجهة.", url: "#" },
-            { name: "النقود", category: "تحذير", keywords: ["تحذير", "نقود", "سرقة"], description: "تجنب حمل مبالغ نقدية كبيرة لتقليل مخاطر السرقة.", url: "#" },
-            { name: "الاحتيال السياحي", category: "تحذير", keywords: ["تحذير", "احتيال", "أسواق"], description: "احذر من عمليات الاحتيال السياحي في الأسواق الشعبية.", url: "#" },
-            { name: "التطعيمات", category: "تحذير", keywords: ["تحذير", "تطعيمات", "صحة"], description: "تأكد من تطعيمات السفر المطلوبة (مثل الحمى الصفراء).", url: "#" },
-            { name: "التوترات السياسية", category: "تحذير", keywords: ["تحذير", "سياسة", "أمان"], description: "تجنب السفر إلى مناطق التوترات السياسية أو الكوارث الطبيعية.", url: "#" },
-            { name: "شبكات Wi-Fi", category: "تحذير", keywords: ["تحذير", "واي فاي", "أمان"], description: "احذر من استخدام شبكات Wi-Fi عامة دون VPN.", url: "#" },
-            { name: "جواز السفر", category: "تحذير", keywords: ["تحذير", "جواز", "صلاحية"], description: "تحقق من تواريخ صلاحية جواز السفر (يجب أن تكون 6 أشهر على الأقل).", url: "#" }
-        ];
+    <div style="margin-top:10px; font-size:12px; color:#6b7280">نتيجة تثقيفية عامة وليست تشخيصًا. الأرقام قد تتغيّر — يُفضّل التأكيد من الموقع الرسمي.</div>
+  `;
 
-        // وظيفة البحث
-        function search() {
-            const query = document.getElementById('searchInput').value.toLowerCase();
-            const resultsContainer = document.getElementById('search-results');
-            resultsContainer.innerHTML = '<h2>نتائج البحث</h2>';
+  document.body.appendChild(box);
+  await new Promise(r=>setTimeout(r, 120));
+  const canvas = await html2canvas(box, {scale:2, useCORS:true});
+  document.body.removeChild(box);
 
-            if (!query) {
-                resultsContainer.innerHTML += '<p>يرجى إدخال وجهة، مطار، نصيحة، أو تحذير</p>';
-                return;
-            }
+  const imgData = canvas.toDataURL('image/png');
+  const { jsPDF } = window.jspdf;
+  const pdf = new jsPDF({orientation:'p', unit:'pt', format:'a4'});
+  const pageW = pdf.internal.pageSize.getWidth();
+  const pageH = pdf.internal.pageSize.getHeight();
+  const margin = 28;
+  const imgW = pageW - margin*2;
+  const imgH = canvas.height * (imgW / canvas.width);
 
-            const results = data.filter(item => 
-                item.name.toLowerCase().includes(query) || 
-                item.keywords.some(keyword => keyword.includes(query))
-            );
+  if(imgH <= pageH - margin*2){
+    pdf.addImage(imgData, 'PNG', margin, margin, imgW, imgH);
+  }else{
+    let sH = pageH - margin*2, ratio = canvas.width / imgW, slice = sH * ratio, pos = 0;
+    while(pos < canvas.height){
+      const sliceCanvas = document.createElement('canvas');
+      sliceCanvas.width = canvas.width;
+      sliceCanvas.height = Math.min(slice, canvas.height - pos);
+      sliceCanvas.getContext('2d').drawImage(canvas, 0, pos, canvas.width, sliceCanvas.height, 0, 0, sliceCanvas.width, sliceCanvas.height);
+      const sliceData = sliceCanvas.toDataURL('image/png');
+      if(pos>0) pdf.addPage();
+      pdf.addImage(sliceData,'PNG', margin, margin, imgW, (sliceCanvas.height / ratio));
+      pos += slice;
+    }
+  }
+  pdf.save('نتيجة-استبيان-التوحد.pdf');
+});
 
-            if (results.length === 0) {
-                resultsContainer.innerHTML += '<p>لم يتم العثور على نتائج</p>';
-                return;
-            }
-
-            results.forEach(result => {
-                const card = document.createElement('div');
-                card.className = 'info-card';
-                card.innerHTML = `
-                    <h3>${result.name} (${result.category})</h3>
-                    <p>${result.description}</p>
-                    <a href="${result.url}" target="_blank">اكتشف المزيد</a>
-                `;
-                resultsContainer.appendChild(card);
-            });
-        }
-
-        // اقتراحات البحث
-        function showSuggestions() {
-            const query = document.getElementById('searchInput').value.toLowerCase();
-            const suggestionsContainer = document.getElementById('suggestions');
-            suggestionsContainer.innerHTML = '';
-            suggestionsContainer.style.display = query ? 'block' : 'none';
-
-            if (!query) return;
-
-            const suggestions = data.filter(item => 
-                item.name.toLowerCase().includes(query) || 
-                item.keywords.some(keyword => keyword.includes(query))
-            ).slice(0, 5); // عرض 5 اقتراحات فقط
-
-            suggestions.forEach(suggestion => {
-                const div = document.createElement('div');
-                div.textContent = suggestion.name;
-                div.onclick = () => {
-                    document.getElementById('searchInput').value = suggestion.name;
-                    suggestionsContainer.style.display = 'none';
-                    search();
-                };
-                suggestionsContainer.appendChild(div);
-            });
-        }
-
-        // الوضع الليلي
-        function toggleDarkMode() {
-            document.body.classList.toggle('dark-mode');
-        }
-    </script>
+/* مشاركة وروابط بسيطة */
+document.getElementById('shareWA').onclick=(e)=>{e.preventDefault(); window.open(`https://wa.me/?text=${encodeURIComponent(location.href)}`,'_blank','noopener');};
+document.getElementById('shareTG').onclick=(e)=>{e.preventDefault(); window.open(`https://t.me/share/url?url=${encodeURIComponent(location.href)}`,'_blank','noopener');};
+document.getElementById('shareX').onclick=(e)=>{e.preventDefault(); window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(location.href)}`,'_blank','noopener');};
+document.getElementById('shareFB').onclick=(e)=>{e.preventDefault(); window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(location.href)}`,'_blank','noopener');};
+document.getElementById('devLink').addEventListener('click', function(){ setTimeout(()=>{ if(!document.hasFocus()) return; location.href=this.href; }, 120); });
+</script>
 </body>
 </html>
