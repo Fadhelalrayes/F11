@@ -1,245 +1,190 @@
 <!doctype html>
-<html lang="ar" dir="rtl">
+<html lang="en">
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-<title>دليل التأمين في الإمارات 2025 — مرجع موثوق</title>
-<meta name="description" content="دليل شامل للتأمين في الإمارات (2025): التأمين الصحي الإلزامي، تأمين المركبات (TPL)، تأمين السفر والحياة والممتلكات. روابط رسمية للتحقق من الترخيص وتقديم الشكاوى.">
+<title>Buy a Car from the USA — Complete Guide 2025</title>
+<meta name="description" content="Step-by-step guide to buying cars from the USA: marketplaces, inspection, payment, shipping, customs, and trusted resources (2025).">
 <meta name="robots" content="index,follow"/>
 
-<!-- Google Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
 
 <style>
   :root{
-    --bg:#f6f8fb; --ink:#0f172a; --muted:#475569; --line:#e2e8f0; --card:#fff;
-    --primary:#2563eb; --primary-weak:#dbeafe;
+    --bg:#f8fafc; --ink:#0f172a; --muted:#475569; --line:#e2e8f0; --card:#fff;
+    --primary:#2563eb; --primary-soft:#dbeafe;
   }
   *{box-sizing:border-box}
-  html{scroll-behavior:smooth}
-  body{margin:0; font-family:"Cairo",system-ui,-apple-system,Segoe UI,Roboto,sans-serif; background:var(--bg); color:var(--ink)}
-  a{color:#2563eb; text-decoration:none} a:hover{text-decoration:underline}
+  body{margin:0; font-family:"Inter",system-ui,sans-serif; background:var(--bg); color:var(--ink); line-height:1.7}
+  h1,h2,h3{font-family:"Playfair Display",serif; margin:0 0 10px}
+  a{color:var(--primary); text-decoration:none}
+  a:hover{text-decoration:underline}
 
-  header{background:linear-gradient(180deg,#2563eb,#3b82f6); color:#fff; padding:28px 14px 34px; text-align:center; border-radius:0 0 20px 20px}
-  .brand{font-family:"Amiri",serif; font-size:clamp(28px,5vw,46px); margin:0 0 6px}
-  .tag{opacity:.95; line-height:1.9}
+  header{background:linear-gradient(180deg,#2563eb,#3b82f6); color:#fff; padding:36px 18px; text-align:center; border-radius:0 0 20px 20px}
+  .brand{font-size:clamp(28px,5vw,48px); margin-bottom:10px}
+  .tag{opacity:.95; max-width:800px; margin:0 auto; font-size:16px}
 
   .shell{max-width:1100px; margin:0 auto; padding:0 18px}
   .layout{display:grid; gap:18px; grid-template-columns:1fr}
-  @media(min-width:1080px){ .layout{grid-template-columns:300px 1fr} }
+  @media(min-width:1080px){ .layout{grid-template-columns:280px 1fr} }
 
-  .box{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:14px; box-shadow:0 3px 10px rgba(0,0,0,.04)}
-  .box h3{margin:0 0 8px; font-family:"Amiri",serif; color:var(--primary)}
-  .small{font-size:13px; color:var(--muted)}
+  /* Sidebar */
+  aside{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:16px; box-shadow:0 3px 10px rgba(0,0,0,.05)}
+  aside h3{color:var(--primary); font-size:18px; margin-bottom:10px}
+  .toc a{display:block; padding:8px 10px; border-radius:8px; color:var(--ink); font-weight:600}
+  .toc a:hover{background:var(--primary-soft)}
 
-  /* TOC */
-  .toc details{border:1px solid var(--line); border-radius:12px; background:#fff; padding:8px 10px}
-  .toc summary{font-weight:800; cursor:pointer}
-  .toc a{display:block; padding:10px 12px; border-radius:10px; color:var(--ink); font-weight:700}
-  .toc a:hover{background:var(--primary-weak)}
-
-  /* محتوى */
-  .content{display:flex; flex-direction:column; gap:16px}
-  .card{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:16px; box-shadow:0 3px 10px rgba(0,0,0,.04)}
-  .card h2{margin:0 0 6px; font-family:"Amiri",serif; color:var(--primary)}
-  .lead{font-size:15px; color:var(--muted)}
+  /* Content */
+  .content{display:flex; flex-direction:column; gap:20px}
+  .card{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:22px; box-shadow:0 3px 10px rgba(0,0,0,.04)}
+  .card h2{color:var(--primary); font-size:22px}
 
   /* Accordions */
-  details.acc{border:1px solid var(--line); border-radius:12px; background:#fff; padding:10px 12px; margin:10px 0}
-  details.acc[open]{background:linear-gradient(180deg,#fff,#f8fbff)}
-  details.acc summary{list-style:none; cursor:pointer; font-weight:800}
-  details.acc summary::-webkit-details-marker{display:none}
+  details{border:1px solid var(--line); border-radius:12px; background:#fff; padding:12px 14px; margin:12px 0}
+  details[open]{background:linear-gradient(180deg,#fff,#f9fbff)}
+  summary{cursor:pointer; font-weight:700}
+  summary::-webkit-details-marker{display:none}
 
-  /* جداول الشركات */
-  .list{display:grid; gap:10px}
-  @media(min-width:800px){ .list{grid-template-columns:repeat(2,1fr)} }
-  .ins-item{border:1px solid var(--line); border-radius:12px; padding:10px}
-  .ins-item b{display:block; margin-bottom:4px}
-  .ins-item .k{font-size:13px; color:var(--muted)}
+  /* List grid */
+  .list{display:grid; gap:12px}
+  @media(min-width:780px){ .list{grid-template-columns:repeat(2,1fr)} }
+  .item{border:1px solid var(--line); border-radius:12px; padding:12px}
+  .item b{display:block; margin-bottom:4px}
+  .muted{color:var(--muted); font-size:14px}
 </style>
 </head>
 <body>
 <header>
-  <div class="brand">دليل التأمين في الإمارات 2025</div>
-  <div class="tag">دليل شامل: تأمين صحي، مركبات، سفر، حياة، ممتلكات. شركات مرخّصة وروابط رسمية للترخيص والشكاوى.</div>
+  <div class="brand">Buy a Car from the USA — 2025 Guide</div>
+  <div class="tag">A practical step-by-step guide: searching, inspection, payment, shipping, customs clearance, and trusted marketplaces for safe car imports.</div>
 </header>
 
 <main class="shell">
   <div class="layout">
-    <!-- العمود الأيسر -->
-    <aside class="box">
-      <h3>التنقل</h3>
-      <nav class="toc" aria-label="قائمة">
-        <details open>
-          <summary>افتح القائمة</summary>
-          <a href="#health">التأمين الصحي</a>
-          <a href="#motor">تأمين المركبات (TPL)</a>
-          <a href="#travel">تأمين السفر</a>
-          <a href="#life">تأمين الحياة</a>
-          <a href="#property">الممتلكات والمسؤولية</a>
-          <a href="#licensed">التحقق من الترخيص</a>
-          <a href="#complaints">الشكاوى</a>
-          <a href="#sources">المصادر الرسمية</a>
-        </details>
+    <!-- Sidebar -->
+    <aside>
+      <h3>Quick Navigation</h3>
+      <nav class="toc">
+        <a href="#intro">Introduction</a>
+        <a href="#steps">Buying Steps</a>
+        <a href="#markets">Trusted Marketplaces</a>
+        <a href="#shipping">Shipping & Costs</a>
+        <a href="#tips">Tips & Risks</a>
+        <a href="#resources">Official Resources</a>
       </nav>
-      <p class="small">جميع الشركات أدناه مرخّصة من الجهات التنظيمية الرسمية في الإمارات.</p>
     </aside>
 
-    <!-- المحتوى الرئيسي -->
+    <!-- Content -->
     <section class="content">
 
-      <!-- صحي -->
-      <article id="health" class="card">
-        <h2>التأمين الصحي</h2>
-        <p class="lead">إلزامي اعتبارًا من 2025. في دبي: خطة EBP عبر DHA. في أبوظبي: برنامج ثيقا عبر DOH.</p>
+      <!-- Intro -->
+      <article id="intro" class="card">
+        <h2>Why Buy from the USA?</h2>
+        <p>The US market offers a huge selection of vehicles at competitive prices, including auction cars, dealer stock, and rare models. Buyers worldwide often save money even after adding shipping and customs fees.</p>
+      </article>
 
-        <details class="acc" open>
-          <summary>شركات موصى بها</summary>
-          <div class="list">
-            <div class="ins-item">
-              <b>ضمان الصحي (Daman)</b>
-              <a href="https://www.damanhealth.ae/" target="_blank">الموقع الرسمي</a>
-              <div class="k">هاتف: 600 532626</div>
-            </div>
-            <div class="ins-item">
-              <b>ADNIC</b>
-              <a href="https://adnic.ae/" target="_blank">الموقع الرسمي</a>
-              <div class="k">هاتف: 800 8040</div>
-            </div>
-            <div class="ins-item">
-              <b>Sukoon (Oman Insurance)</b>
-              <a href="https://www.sukoon.com/" target="_blank">الموقع الرسمي</a>
-              <div class="k">هاتف: 800 SUKOON (785666)</div>
-            </div>
-            <div class="ins-item">
-              <b>GIG Gulf (AXA)</b>
-              <a href="https://www.giggulf.ae/" target="_blank">الموقع الرسمي</a>
-              <div class="k">هاتف: 800 292</div>
-            </div>
-          </div>
+      <!-- Steps -->
+      <article id="steps" class="card">
+        <h2>Step-by-Step Process</h2>
+        <details open><summary>1. Search & Select</summary>
+          <p>Choose your vehicle through trusted marketplaces. Check VIN history using <a href="https://www.carfax.com/" target="_blank">Carfax</a> or <a href="https://www.autocheck.com/" target="_blank">AutoCheck</a>.</p>
+        </details>
+        <details><summary>2. Inspection</summary>
+          <p>Use third-party inspection services to confirm the car’s condition before bidding or buying.</p>
+        </details>
+        <details><summary>3. Payment</summary>
+          <p>Prefer secure methods: bank wire or escrow services. Avoid direct cash/wallet transfers.</p>
+        </details>
+        <details><summary>4. Shipping</summary>
+          <p>Choose <b>RoRo</b> (cheaper, for running cars) or <b>Container</b> (safer, for high-value or non-running cars).</p>
+        </details>
+        <details><summary>5. Customs Clearance</summary>
+          <p>Hire a local customs broker in your country to handle import duties, VAT, and registration paperwork.</p>
         </details>
       </article>
 
-      <!-- مركبات -->
-      <article id="motor" class="card">
-        <h2>تأمين المركبات (TPL إلزامي)</h2>
-        <p class="lead">الحد الأدنى هو التأمين ضد الغير (TPL) وفق وثيقة CBUAE. التأمين الشامل اختياري.</p>
-        <details class="acc" open>
-          <summary>شركات موصى بها</summary>
-          <div class="list">
-            <div class="ins-item">
-              <b>Liva Insurance (سابقًا RSA)</b>
-              <a href="https://www.livainsurance.ae/" target="_blank">الموقع الرسمي</a>
-              <div class="k">خدمة العملاء: 800 772</div>
-            </div>
-            <div class="ins-item">
-              <b>Sukoon</b>
-              <a href="https://www.sukoon.com/" target="_blank">الموقع الرسمي</a>
-              <div class="k">هاتف: 800 SUKOON (785666)</div>
-            </div>
-            <div class="ins-item">
-              <b>ADNIC</b>
-              <a href="https://adnic.ae/" target="_blank">الموقع الرسمي</a>
-              <div class="k">هاتف: 800 8040</div>
-            </div>
+      <!-- Marketplaces -->
+      <article id="markets" class="card">
+        <h2>Trusted Marketplaces</h2>
+        <div class="list">
+          <div class="item">
+            <b>Copart</b>
+            <a href="https://www.copart.com/" target="_blank">copart.com</a>
+            <div class="muted">Leading salvage & auction cars</div>
           </div>
+          <div class="item">
+            <b>IAAI</b>
+            <a href="https://www.iaai.com/" target="_blank">iaai.com</a>
+            <div class="muted">Insurance auto auctions</div>
+          </div>
+          <div class="item">
+            <b>Cars.com</b>
+            <a href="https://www.cars.com/" target="_blank">cars.com</a>
+            <div class="muted">New & used car marketplace</div>
+          </div>
+          <div class="item">
+            <b>Autotrader</b>
+            <a href="https://www.autotrader.com/" target="_blank">autotrader.com</a>
+            <div class="muted">Dealer and private listings</div>
+          </div>
+          <div class="item">
+            <b>eBay Motors</b>
+            <a href="https://www.ebay.com/motors" target="_blank">ebay.com/motors</a>
+            <div class="muted">Wide variety of vehicles & parts</div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Shipping -->
+      <article id="shipping" class="card">
+        <h2>Shipping & Costs</h2>
+        <p>Average shipping costs range from <b>$900 to $2,500</b> depending on port, method, and vehicle size.</p>
+        <details><summary>Common Ports</summary>
+          <ul>
+            <li>East Coast: New York, Baltimore, Miami</li>
+            <li>West Coast: Los Angeles, Oakland</li>
+            <li>Gulf: Houston</li>
+          </ul>
+        </details>
+        <details><summary>Methods</summary>
+          <ul>
+            <li><b>RoRo (Roll-on/Roll-off):</b> Cheaper, for running cars</li>
+            <li><b>Container:</b> More secure, can ship multiple cars or with spare parts</li>
+          </ul>
+        </details>
+        <details><summary>Extra Costs</summary>
+          <ul>
+            <li>Export documentation: $100–$300</li>
+            <li>Insurance during shipping: ~1–2% of car value</li>
+            <li>Destination port & customs clearance fees</li>
+          </ul>
         </details>
       </article>
 
-      <!-- سفر -->
-      <article id="travel" class="card">
-        <h2>تأمين السفر</h2>
-        <details class="acc" open>
-          <summary>شركات موصى بها</summary>
-          <div class="list">
-            <div class="ins-item">
-              <b>GIG Gulf (AXA)</b>
-              <a href="https://www.giggulf.ae/" target="_blank">الموقع الرسمي</a>
-              <div class="k">هاتف: 800 292</div>
-            </div>
-            <div class="ins-item">
-              <b>Sukoon</b>
-              <a href="https://www.sukoon.com/" target="_blank">الموقع الرسمي</a>
-              <div class="k">هاتف: 800 SUKOON (785666)</div>
-            </div>
-          </div>
-        </details>
-      </article>
-
-      <!-- حياة -->
-      <article id="life" class="card">
-        <h2>تأمين الحياة</h2>
-        <details class="acc" open>
-          <summary>شركات موصى بها</summary>
-          <div class="list">
-            <div class="ins-item">
-              <b>ADNIC</b>
-              <a href="https://adnic.ae/" target="_blank">الموقع الرسمي</a>
-              <div class="k">هاتف: 800 8040</div>
-            </div>
-            <div class="ins-item">
-              <b>Sukoon</b>
-              <a href="https://www.sukoon.com/" target="_blank">الموقع الرسمي</a>
-              <div class="k">هاتف: 800 SUKOON</div>
-            </div>
-          </div>
-        </details>
-      </article>
-
-      <!-- ممتلكات -->
-      <article id="property" class="card">
-        <h2>تأمين الممتلكات والمسؤولية</h2>
-        <details class="acc" open>
-          <summary>شركات موصى بها</summary>
-          <div class="list">
-            <div class="ins-item">
-              <b>ADNIC</b>
-              <a href="https://adnic.ae/" target="_blank">الموقع الرسمي</a>
-              <div class="k">هاتف: 800 8040</div>
-            </div>
-            <div class="ins-item">
-              <b>Liva Insurance</b>
-              <a href="https://www.livainsurance.ae/" target="_blank">الموقع الرسمي</a>
-              <div class="k">هاتف: 800 772</div>
-            </div>
-          </div>
-        </details>
-      </article>
-
-      <!-- الترخيص -->
-      <article id="licensed" class="card">
-        <h2>التحقق من الترخيص</h2>
+      <!-- Tips -->
+      <article id="tips" class="card">
+        <h2>Tips & Risks</h2>
         <ul>
-          <li><a href="https://www.centralbank.ae/en/licensing/" target="_blank">مصرف الإمارات المركزي — الترخيص</a></li>
-          <li><a href="https://rulebook.centralbank.ae/en/rulebook/insurance-companies-branches-foreign-insurance-companies" target="_blank">قائمة شركات التأمين</a></li>
-          <li><a href="https://u.ae/ar-ae/information-and-services/finance-and-investment/insurance" target="_blank">بوابة الحكومة — التأمين</a></li>
+          <li>Always check VIN history before purchase.</li>
+          <li>Use escrow services to avoid scams.</li>
+          <li>Avoid unrealistically low prices.</li>
+          <li>Work with licensed shipping and customs brokers only.</li>
         </ul>
       </article>
 
-      <!-- الشكاوى -->
-      <article id="complaints" class="card">
-        <h2>الشكاوى وحماية المستهلك</h2>
-        <ol>
-          <li>قدّم الشكوى لدى الشركة أولًا.</li>
-          <li>إذا لم تُحل: تواصل مع <a href="https://u.ae/ar-ae/information-and-services/finance-and-investment/raising-complaints-against-financial-institutions-and-insurance-companies" target="_blank">Sanadak</a> (مكتب أمين المظالم).</li>
-          <li><a href="https://www.centralbank.ae/en/consumer/" target="_blank">CBUAE — حماية المستهلك</a></li>
-        </ol>
-      </article>
-
-      <!-- المصادر -->
-      <article id="sources" class="card">
-        <h2>مصادر رسمية</h2>
+      <!-- Resources -->
+      <article id="resources" class="card">
+        <h2>Official Resources</h2>
         <ul>
-          <li>DHA — ISAHD/EBP</li>
-          <li>DOH — Thiqa</li>
-          <li>CBUAE Rulebook — وثيقة TPL</li>
+          <li><a href="https://www.nhtsa.gov/" target="_blank">NHTSA — Vehicle Safety & Recalls</a></li>
+          <li><a href="https://www.cbp.gov/trade/basic-import-export" target="_blank">US Customs and Border Protection (CBP)</a></li>
+          <li><a href="https://www.transportation.gov/" target="_blank">US Department of Transportation (DOT)</a></li>
         </ul>
       </article>
 
     </section>
   </div>
 </main>
-
 </body>
 </html>
