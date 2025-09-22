@@ -4,296 +4,144 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-<title>دليل التأمين في الإمارات 2025 — مصادر رسمية وتنظيمية</title>
-<meta name="description" content="دليل احترافي للتأمين في الإمارات (2025): التأمين الصحي الإلزامي، خطة المنافع الأساسية EBP بدبي، برنامج ثيقا بأبوظبي، تأمين المركبات (TPL)، التحقق من الشركات المرخصة عبر المصرف المركزي CBUAE وتقديم الشكاوى عبر Sanadak.">
-<meta name="robots" content="index, follow"/>
+<title>دليل التأمين في الإمارات 2025 — مرجع موثوق</title>
+<meta name="description" content="دليل شامل للتأمين في الإمارات (2025): التأمين الصحي الإلزامي، تأمين المركبات (TPL)، تأمين السفر والحياة والممتلكات. روابط رسمية للتحقق من الترخيص وتقديم الشكاوى.">
+<meta name="robots" content="index,follow"/>
 
 <!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;700&display=swap" rel="stylesheet">
 
-<!-- Google AdSense (ضَعّه مرة واحدة فقط في <head>) -->
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1934188535842979" crossorigin="anonymous"></script>
-
-<!-- FAQ Structured Data -->
-<script type="application/ld+json">
-{
-  "@context":"https://schema.org",
-  "@type":"FAQPage",
-  "mainEntity":[
-    {"@type":"Question","name":"هل التأمين الصحي إلزامي في الإمارات؟","acceptedAnswer":{"@type":"Answer","text":"نعم. اعتبارًا من 1 يناير 2025 أصبح التأمين الصحي إلزاميًا على مستوى الدولة. في دبي تطبَّق خطة المنافع الأساسية (EBP) كحد أدنى، وفي أبوظبي برنامج ثيقا للمواطنين."}},
-    {"@type":"Question","name":"كيف أتحقق من أن شركة التأمين مرخَّصة؟","acceptedAnswer":{"@type":"Answer","text":"تحقق من الترخيص عبر المصرف المركزي (CBUAE) في قسم شركات التأمين أو القوائم الرسمية."}},
-    {"@type":"Question","name":"ما هو تأمين السيارات الإلزامي؟","acceptedAnswer":{"@type":"Answer","text":"التغطية الإلزامية هي وثيقة المسؤولية تجاه الغير (TPL) وفق الوثيقة الموحدة الصادرة عن CBUAE."}},
-    {"@type":"Question","name":"كيف أقدّم شكوى على شركة تأمين؟","acceptedAnswer":{"@type":"Answer","text":"ارفع الشكوى أولاً لشركتك. إن لم تُحل، قدّمها عبر منصة سندك Sanadak (مكتب أمين المظالم لدى المصرف المركزي)."}}
-  ]
-}
-</script>
-
 <style>
   :root{
-    /* لوحة ألوان احترافية */
-    --bg:#f6f8fb;      /* خلفية ناعمة */
-    --ink:#0f172a;     /* نص أساسي */
-    --muted:#475569;   /* نص ثانوي */
-    --line:#e2e8f0;    /* حدود خفيفة */
-    --card:#ffffff;    /* بطاقات */
-    --primary:#2563eb; /* أزرق مؤسسي */
-    --primary-weak:#dbeafe;
-    --accent:#10b981;  /* أخضر للاشعارات */
-    --accent-weak:#ecfdf5;
-    --warn:#b45309;
-    --warn-weak:#fffbeb;
+    --bg:#f6f8fb; --ink:#0f172a; --muted:#475569; --line:#e2e8f0; --card:#fff;
+    --primary:#2563eb; --primary-weak:#dbeafe;
   }
-
   *{box-sizing:border-box}
   html{scroll-behavior:smooth}
   body{margin:0; font-family:"Cairo",system-ui,-apple-system,Segoe UI,Roboto,sans-serif; background:var(--bg); color:var(--ink)}
+  a{color:#2563eb; text-decoration:none} a:hover{text-decoration:underline}
 
-  /* رأس الصفحة */
-  header{
-    background:linear-gradient(180deg, var(--primary), #3b82f6);
-    color:#fff; padding:28px 14px 34px; text-align:center;
-    border-radius:0 0 20px 20px;
-  }
+  header{background:linear-gradient(180deg,#2563eb,#3b82f6); color:#fff; padding:28px 14px 34px; text-align:center; border-radius:0 0 20px 20px}
   .brand{font-family:"Amiri",serif; font-size:clamp(28px,5vw,46px); margin:0 0 6px}
   .tag{opacity:.95; line-height:1.9}
 
-  /* الوعاء العام */
-  .shell{max-width:1200px; margin:0 auto; padding:0 18px}
+  .shell{max-width:1100px; margin:0 auto; padding:0 18px}
   .layout{display:grid; gap:18px; grid-template-columns:1fr}
-  @media(min-width:1080px){ .layout{grid-template-columns:280px 1fr} }
+  @media(min-width:1080px){ .layout{grid-template-columns:300px 1fr} }
 
-  /* فهرس جانبي ثابت على الشاشات الواسعة */
-  .sidebar{ position:relative; }
-  @media(min-width:1080px){ .sidebar .box{position:sticky; top:18px} }
-  .box{
-    background:var(--card); border:1px solid var(--line); border-radius:14px; padding:14px;
-    box-shadow:0 3px 10px rgba(0,0,0,.04)
-  }
+  .box{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:14px; box-shadow:0 3px 10px rgba(0,0,0,.04)}
   .box h3{margin:0 0 8px; font-family:"Amiri",serif; color:var(--primary)}
-  .toc a{ display:block; padding:10px 12px; border-radius:10px; color:var(--ink); text-decoration:none; font-weight:700; }
-  .toc a:hover{background:var(--primary-weak)}
   .small{font-size:13px; color:var(--muted)}
 
-  /* فهرس منسدل للجوال */
-  .toc-mobile{display:block; margin:16px 0 0}
-  @media(min-width:1080px){ .toc-mobile{display:none} }
-  .select{position:relative}
-  .select select{
-    width:100%; appearance:none; background:#fff; border:1px solid var(--line); border-radius:12px;
-    padding:14px 44px 14px 14px; font-size:1rem; cursor:pointer; color:var(--ink)
-  }
-  .select::after{
-    content:""; position:absolute; top:50%; transform:translateY(-50%); right:14px; width:20px; height:20px;
-    background:linear-gradient(135deg,var(--primary),#93c5fd);
-    -webkit-mask:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path fill="black" d="M5.23 7.21a.75.75 0 011.06.02L10 11.06l3.71-3.83a.75.75 0 111.08 1.04l-4.24 4.38a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z"/></svg>') center/contain no-repeat;
-    mask:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path fill="black" d="M5.23 7.21a.75.75 0 011.06.02L10 11.06l3.71-3.83a.75.75 0 111.08 1.04l-4.24 4.38a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z"/></svg>') center/contain no-repeat;
-    pointer-events:none;
-  }
+  /* TOC */
+  .toc details{border:1px solid var(--line); border-radius:12px; background:#fff; padding:8px 10px}
+  .toc summary{font-weight:800; cursor:pointer}
+  .toc a{display:block; padding:10px 12px; border-radius:10px; color:var(--ink); font-weight:700}
+  .toc a:hover{background:var(--primary-weak)}
 
   /* محتوى */
   .content{display:flex; flex-direction:column; gap:16px}
-  .card{
-    background:var(--card); border:1px solid var(--line); border-radius:14px; padding:16px;
-    box-shadow:0 3px 10px rgba(0,0,0,.04)
-  }
-  .card h2,.card h3{margin:0 0 10px; font-family:"Amiri",serif; color:var(--primary)}
+  .card{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:16px; box-shadow:0 3px 10px rgba(0,0,0,.04)}
+  .card h2{margin:0 0 6px; font-family:"Amiri",serif; color:var(--primary)}
   .lead{font-size:15px; color:var(--muted)}
-  .cta{display:inline-block; padding:12px 16px; border-radius:12px; border:1px solid var(--primary);
-       background:linear-gradient(90deg,var(--primary),#60a5fa); color:#fff; font-weight:700; margin-top:8px; text-decoration:none}
-  .cta:hover{filter:brightness(1.02)}
-  .row{display:grid; gap:14px}
-  @media(min-width:860px){ .row.two{grid-template-columns:repeat(2,1fr)} }
 
   /* Accordions */
-  details{
-    border:1px solid var(--line); border-radius:12px; background:#fff; padding:10px 12px; margin:10px 0
-  }
-  details[open]{background:linear-gradient(180deg,#fff, #f8fbff)}
-  summary{
-    list-style:none; cursor:pointer; font-weight:800; color:var(--ink); display:flex; align-items:center; gap:8px;
-  }
-  summary::-webkit-details-marker{display:none}
-  summary .chev{
-    width:18px; height:18px; border-radius:6px; border:1px solid var(--line); display:inline-flex; align-items:center; justify-content:center;
-  }
-  details[open] summary .chev{transform:rotate(90deg)}
-  .note{font-size:13px; color:var(--muted)}
-  .source{font-size:13px; color:#334155; background:#f1f5f9; border-radius:10px; padding:10px; margin-top:10px}
-  .source a{word-break:break-word}
+  details.acc{border:1px solid var(--line); border-radius:12px; background:#fff; padding:10px 12px; margin:10px 0}
+  details.acc[open]{background:linear-gradient(180deg,#fff,#f8fbff)}
+  details.acc summary{list-style:none; cursor:pointer; font-weight:800}
+  details.acc summary::-webkit-details-marker{display:none}
 
-  footer{ text-align:center; margin:20px 0 28px; font-size:13px; color:var(--muted)}
-
-  /* مسافات قبل/بعد الإعلانات لراحة الاستخدام */
-  .ad-wrap{margin:12px 0; display:block}
-  .ad-card{ background:var(--card); border:1px solid var(--line); border-radius:12px; padding:8px 10px; }
-  .ad-label{font-size:12px; color:var(--muted); margin:0 0 6px}
+  /* جداول الشركات */
+  .list{display:grid; gap:10px}
+  @media(min-width:800px){ .list{grid-template-columns:repeat(2,1fr)} }
+  .ins-item{border:1px solid var(--line); border-radius:12px; padding:10px}
+  .ins-item b{display:block; margin-bottom:4px}
+  .ins-item .k{font-size:13px; color:var(--muted)}
 </style>
 </head>
 <body>
 <header>
   <div class="brand">دليل التأمين في الإمارات 2025</div>
-  <div class="tag">مرجع عملي ومنسّق للتأمين الصحي، تأمين المركبات، السفر، الحياة والممتلكات — مع روابط حكومية وتنظيمية للتحقق وتقديم الشكاوى.</div>
+  <div class="tag">دليل شامل: تأمين صحي، مركبات، سفر، حياة، ممتلكات. شركات مرخّصة وروابط رسمية للترخيص والشكاوى.</div>
 </header>
 
-<main class="shell" id="top">
-
-  <!-- إعلان 1: بانر علوي مرن بعد الهيدر مباشرة -->
-  <div class="ad-wrap">
-    <div class="ad-card">
-      <div class="ad-label">إعلان</div>
-      <ins class="adsbygoogle"
-           style="display:block"
-           data-ad-client="ca-pub-1934188535842979"
-           data-ad-slot="1111111111"  <!-- استبدل برقم وحدتك -->
-           data-ad-format="auto"
-           data-full-width-responsive="true"></ins>
-      <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
-    </div>
-  </div>
-
+<main class="shell">
   <div class="layout">
-
-    <!-- فهرس جانبي -->
-    <aside class="sidebar">
-      <div class="box">
-        <h3>فهرس سريع</h3>
-        <nav class="toc" aria-label="فهرس">
+    <!-- العمود الأيسر -->
+    <aside class="box">
+      <h3>التنقل</h3>
+      <nav class="toc" aria-label="قائمة">
+        <details open>
+          <summary>افتح القائمة</summary>
           <a href="#health">التأمين الصحي</a>
           <a href="#motor">تأمين المركبات (TPL)</a>
           <a href="#travel">تأمين السفر</a>
           <a href="#life">تأمين الحياة</a>
           <a href="#property">الممتلكات والمسؤولية</a>
           <a href="#licensed">التحقق من الترخيص</a>
-          <a href="#complaints">الشكاوى وحماية المستهلك</a>
-          <a href="#faq">الأسئلة الشائعة</a>
+          <a href="#complaints">الشكاوى</a>
           <a href="#sources">المصادر الرسمية</a>
-        </nav>
-        <p class="small">اختر قسمًا للانتقال مباشرة.</p>
-      </div>
-
-      <!-- وحدة إعلان في الشريط الجانبي -->
-      <div class="box" style="margin-top:14px">
-        <h3>إعلان</h3>
-        <div class="ad-wrap">
-          <ins class="adsbygoogle"
-               style="display:block"
-               data-ad-client="ca-pub-1934188535842979"
-               data-ad-slot="2222222222"  <!-- استبدل برقم وحدتك -->
-               data-ad-format="rectangle"
-               data-full-width-responsive="true"></ins>
-          <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
-        </div>
-      </div>
-
-      <!-- فهرس منسدل للجوال -->
-      <div class="toc-mobile">
-        <div class="box" style="margin-top:14px">
-          <h3>انتقال سريع</h3>
-          <div class="select">
-            <select id="jumpSelect" aria-label="انتقل إلى قسم">
-              <option value="">— اختر قسمًا —</option>
-              <option value="#health">التأمين الصحي</option>
-              <option value="#motor">تأمين المركبات</option>
-              <option value="#travel">تأمين السفر</option>
-              <option value="#life">تأمين الحياة</option>
-              <option value="#property">الممتلكات والمسؤولية</option>
-              <option value="#licensed">التحقق من الترخيص</option>
-              <option value="#complaints">الشكاوى</option>
-              <option value="#faq">الأسئلة الشائعة</option>
-              <option value="#sources">المصادر</option>
-            </select>
-          </div>
-        </div>
-      </div>
+        </details>
+      </nav>
+      <p class="small">جميع الشركات أدناه مرخّصة من الجهات التنظيمية الرسمية في الإمارات.</p>
     </aside>
 
-    <!-- المحتوى -->
+    <!-- المحتوى الرئيسي -->
     <section class="content">
 
       <!-- صحي -->
       <article id="health" class="card">
-        <h2>التأمين الصحي في الإمارات</h2>
-        <p class="lead"><strong>إلزامي على مستوى الدولة (من 1 يناير 2025)</strong>. في دبي نظام <strong>ISAHD</strong> مع <strong>خطة المنافع الأساسية (EBP)</strong> كحد أدنى، وفي أبوظبي برنامج <strong>ثيقا</strong> بإشراف دائرة الصحة.</p>
+        <h2>التأمين الصحي</h2>
+        <p class="lead">إلزامي اعتبارًا من 2025. في دبي: خطة EBP عبر DHA. في أبوظبي: برنامج ثيقا عبر DOH.</p>
 
-        <details open>
-          <summary><span class="chev">›</span> الأساسيات والخطوات العملية</summary>
-          <div style="margin-top:10px">
-            <ul>
-              <li>تأمين ساري شرط لتجديد الإقامة/التأشيرة.</li>
-              <li>تحقق أن شركة التأمين <strong>مرخّصة من CBUAE</strong> قبل الشراء.</li>
-              <li>قارن بين <strong>EBP</strong> والخطط المعززة حسب احتياجك (شبكات/حدود أعلى).</li>
-            </ul>
-            <a class="cta" href="#licensed">تحقق من الترخيص الآن</a>
-          </div>
-        </details>
-
-        <details>
-          <summary><span class="chev">›</span> دبي (DHA): ISAHD و EBP</summary>
-          <div style="margin-top:10px">
-            <p>الحد الأدنى للتغطية عبر <strong>EBP</strong> مع حدود منافع ومشاركات دفع محددة، ويشمل حالات مزمنة ضمن الشروط.</p>
-            <ul>
-              <li>الأسئلة الشائعة: <a href="https://www.isahd.ae/Home/FAQ" target="_blank" rel="noopener">ISAHD FAQ</a></li>
-              <li>نص وثيقة EBP (PDF): <a href="https://www.isahd.ae/content/docs/PD%2001-2021%20Updated%20TOB%20for%20Essential%20Benefit%20Plan.pdf" target="_blank" rel="noopener">تحميل</a></li>
-            </ul>
-          </div>
-        </details>
-
-        <details>
-          <summary><span class="chev">›</span> أبوظبي (DOH): برنامج ثيقا والمقيمون</summary>
-          <div style="margin-top:10px">
-            <ul>
-              <li>تحديثات/تعاميم: <a href="https://www.doh.gov.ae/en/resources/Circulars" target="_blank" rel="noopener">DOH Circulars</a></li>
-              <li>ثيقا للمواطنين: <a href="https://www.thiqa.ae/" target="_blank" rel="noopener">Thiqa</a></li>
-            </ul>
-          </div>
-        </details>
-
-        <details>
-          <summary><span class="chev">›</span> روابط حكومية عامة</summary>
-          <div style="margin-top:10px">
-            <ul>
-              <li>بوابة الحكومة — الحصول على تأمين صحي: <a href="https://u.ae/en/information-and-services/health-and-fitness/getting-a-health-insurance" target="_blank" rel="noopener">u.ae</a></li>
-            </ul>
+        <details class="acc" open>
+          <summary>شركات موصى بها</summary>
+          <div class="list">
+            <div class="ins-item">
+              <b>ضمان الصحي (Daman)</b>
+              <a href="https://www.damanhealth.ae/" target="_blank">الموقع الرسمي</a>
+              <div class="k">هاتف: 600 532626</div>
+            </div>
+            <div class="ins-item">
+              <b>ADNIC</b>
+              <a href="https://adnic.ae/" target="_blank">الموقع الرسمي</a>
+              <div class="k">هاتف: 800 8040</div>
+            </div>
+            <div class="ins-item">
+              <b>Sukoon (Oman Insurance)</b>
+              <a href="https://www.sukoon.com/" target="_blank">الموقع الرسمي</a>
+              <div class="k">هاتف: 800 SUKOON (785666)</div>
+            </div>
+            <div class="ins-item">
+              <b>GIG Gulf (AXA)</b>
+              <a href="https://www.giggulf.ae/" target="_blank">الموقع الرسمي</a>
+              <div class="k">هاتف: 800 292</div>
+            </div>
           </div>
         </details>
       </article>
 
-      <!-- إعلان 2: داخل المحتوى بعد أول مقال -->
-      <div class="ad-wrap">
-        <div class="ad-card">
-          <div class="ad-label">إعلان</div>
-          <ins class="adsbygoogle"
-               style="display:block"
-               data-ad-client="ca-pub-1934188535842979"
-               data-ad-slot="3333333333"  <!-- استبدل برقم وحدتك -->
-               data-ad-format="auto"
-               data-full-width-responsive="true"></ins>
-          <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
-        </div>
-      </div>
-
       <!-- مركبات -->
       <article id="motor" class="card">
         <h2>تأمين المركبات (TPL إلزامي)</h2>
-        <p class="lead">الحد الأدنى الإلزامي هو <strong>وثيقة المسؤولية تجاه الغير (TPL)</strong> وفق الوثيقة الموحدة الصادرة عن المصرف المركزي. الشامل خيار إضافي يغطي مركبتك.</p>
-
-        <details open>
-          <summary><span class="chev">›</span> ما يجب معرفته سريعًا</summary>
-          <div style="margin-top:10px">
-            <ul>
-              <li>لا يمكن تسجيل/تجديد المركبة دون TPL ساري.</li>
-              <li>اقرأ الاستثناءات وحدود السائق/الحوادث.</li>
-              <li>قارن بين TPL و"الشامل" حسب قيمة المركبة وتحمّل المخاطر.</li>
-            </ul>
-          </div>
-        </details>
-
-        <details>
-          <summary><span class="chev">›</span> مرجع رسمي</summary>
-          <div style="margin-top:10px">
-            <div class="source">
-              الوثيقة الموحدة (CBUAE): 
-              <a href="https://rulebook.centralbank.ae/en/rulebook/unified-motor-vehicle-insurance-policy-against-third-party-liability-issued-pursuant" target="_blank" rel="noopener">Unified TPL</a>
+        <p class="lead">الحد الأدنى هو التأمين ضد الغير (TPL) وفق وثيقة CBUAE. التأمين الشامل اختياري.</p>
+        <details class="acc" open>
+          <summary>شركات موصى بها</summary>
+          <div class="list">
+            <div class="ins-item">
+              <b>Liva Insurance (سابقًا RSA)</b>
+              <a href="https://www.livainsurance.ae/" target="_blank">الموقع الرسمي</a>
+              <div class="k">خدمة العملاء: 800 772</div>
+            </div>
+            <div class="ins-item">
+              <b>Sukoon</b>
+              <a href="https://www.sukoon.com/" target="_blank">الموقع الرسمي</a>
+              <div class="k">هاتف: 800 SUKOON (785666)</div>
+            </div>
+            <div class="ins-item">
+              <b>ADNIC</b>
+              <a href="https://adnic.ae/" target="_blank">الموقع الرسمي</a>
+              <div class="k">هاتف: 800 8040</div>
             </div>
           </div>
         </details>
@@ -302,25 +150,39 @@
       <!-- سفر -->
       <article id="travel" class="card">
         <h2>تأمين السفر</h2>
-        <details open>
-          <summary><span class="chev">›</span> نقاط مهمة قبل الشراء</summary>
-          <div style="margin-top:10px">
-            <ul>
-              <li>حدود تغطية العلاج بالخارج وحالات الطوارئ.</li>
-              <li>إلغاء الرحلات والأمتعة — تأكد من متطلبات دولة المقصد.</li>
-              <li>تحقق من الاستثناءات (الأمراض السابقة/الأنشطة الخطرة).</li>
-            </ul>
+        <details class="acc" open>
+          <summary>شركات موصى بها</summary>
+          <div class="list">
+            <div class="ins-item">
+              <b>GIG Gulf (AXA)</b>
+              <a href="https://www.giggulf.ae/" target="_blank">الموقع الرسمي</a>
+              <div class="k">هاتف: 800 292</div>
+            </div>
+            <div class="ins-item">
+              <b>Sukoon</b>
+              <a href="https://www.sukoon.com/" target="_blank">الموقع الرسمي</a>
+              <div class="k">هاتف: 800 SUKOON (785666)</div>
+            </div>
           </div>
         </details>
       </article>
 
       <!-- حياة -->
       <article id="life" class="card">
-        <h2>تأمين الحياة والادخار</h2>
-        <details open>
-          <summary><span class="chev">›</span> نظرة سريعة</summary>
-          <div style="margin-top:10px">
-            <p>منتجات الحياة/الادخار طويلة الأجل تحت إشراف CBUAE. راجع الرسوم وشروط الاسترداد المبكر.</p>
+        <h2>تأمين الحياة</h2>
+        <details class="acc" open>
+          <summary>شركات موصى بها</summary>
+          <div class="list">
+            <div class="ins-item">
+              <b>ADNIC</b>
+              <a href="https://adnic.ae/" target="_blank">الموقع الرسمي</a>
+              <div class="k">هاتف: 800 8040</div>
+            </div>
+            <div class="ins-item">
+              <b>Sukoon</b>
+              <a href="https://www.sukoon.com/" target="_blank">الموقع الرسمي</a>
+              <div class="k">هاتف: 800 SUKOON</div>
+            </div>
           </div>
         </details>
       </article>
@@ -328,136 +190,56 @@
       <!-- ممتلكات -->
       <article id="property" class="card">
         <h2>تأمين الممتلكات والمسؤولية</h2>
-        <details open>
-          <summary><span class="chev">›</span> إرشادات مختصرة</summary>
-          <div style="margin-top:10px">
-            <ul>
-              <li>تأمين الشقق/الفلل/المحال والمحتويات.</li>
-              <li>انتبِه لشرط القيمة التأمينية الصحيحة وحدود المسؤولية تجاه الغير.</li>
-            </ul>
+        <details class="acc" open>
+          <summary>شركات موصى بها</summary>
+          <div class="list">
+            <div class="ins-item">
+              <b>ADNIC</b>
+              <a href="https://adnic.ae/" target="_blank">الموقع الرسمي</a>
+              <div class="k">هاتف: 800 8040</div>
+            </div>
+            <div class="ins-item">
+              <b>Liva Insurance</b>
+              <a href="https://www.livainsurance.ae/" target="_blank">الموقع الرسمي</a>
+              <div class="k">هاتف: 800 772</div>
+            </div>
           </div>
         </details>
       </article>
 
-      <!-- التحقق من الترخيص -->
+      <!-- الترخيص -->
       <article id="licensed" class="card">
-        <h2>الترخيص والتحقق من الشركات</h2>
-        <p class="lead">الجهة المنظِّمة للتأمين في الإمارات: <strong>مصرف الإمارات العربية المتحدة المركزي (CBUAE)</strong>.</p>
-
-        <details open>
-          <summary><span class="chev">›</span> خطوات التحقق</summary>
-          <div style="margin-top:10px">
-            <ol>
-              <li>افتح دليل <strong>شركات التأمين المرخَّصة</strong> لدى CBUAE.</li>
-              <li>ابحث باسم الشركة/الفرع/التكافل وتحقق من الحالة.</li>
-              <li>تجنّب التعامل مع جهات غير مدرجة رسميًا.</li>
-            </ol>
-          </div>
-        </details>
-
-        <details>
-          <summary><span class="chev">›</span> روابط رسمية مباشرة</summary>
-          <div style="margin-top:10px">
-            <ul>
-              <li>CBUAE — Licensing: <a href="https://www.centralbank.ae/en/licensing/" target="_blank" rel="noopener">الترخيص</a></li>
-              <li>CBUAE — Insurance Companies: <a href="https://rulebook.centralbank.ae/en/rulebook/insurance-companies-branches-foreign-insurance-companies" target="_blank" rel="noopener">قائمة الشركات</a></li>
-              <li>u.ae — التأمين: <a href="https://u.ae/en/information-and-services/finance-and-investment/insurance" target="_blank" rel="noopener">مرجع حكومي</a></li>
-              <li>DHA (ISAHD/EBP): <a href="https://www.isahd.ae/Home/FAQ" target="_blank" rel="noopener">FAQ</a> — <a href="https://www.isahd.ae/content/docs/PD%2001-2021%20Updated%20TOB%20for%20Essential%20Benefit%20Plan.pdf" target="_blank" rel="noopener">EBP (PDF)</a></li>
-              <li>DOH — Circulars: <a href="https://www.doh.gov.ae/en/resources/Circulars" target="_blank" rel="noopener">تعاميم</a> — <a href="https://www.thiqa.ae/" target="_blank" rel="noopener">Thiqa</a></li>
-            </ul>
-          </div>
-        </details>
+        <h2>التحقق من الترخيص</h2>
+        <ul>
+          <li><a href="https://www.centralbank.ae/en/licensing/" target="_blank">مصرف الإمارات المركزي — الترخيص</a></li>
+          <li><a href="https://rulebook.centralbank.ae/en/rulebook/insurance-companies-branches-foreign-insurance-companies" target="_blank">قائمة شركات التأمين</a></li>
+          <li><a href="https://u.ae/ar-ae/information-and-services/finance-and-investment/insurance" target="_blank">بوابة الحكومة — التأمين</a></li>
+        </ul>
       </article>
 
       <!-- الشكاوى -->
       <article id="complaints" class="card">
         <h2>الشكاوى وحماية المستهلك</h2>
-        <details open>
-          <summary><span class="chev">›</span> آلية الشكوى</summary>
-          <div style="margin-top:10px">
-            <ol>
-              <li><strong>اشتكِ لدى شركة التأمين أولًا</strong> واطلب رقم مرجعي مكتوب.</li>
-              <li>إن لم تُحل: قدّمها عبر منصة <strong>Sanadak</strong> (مكتب أمين المظالم لدى المصرف المركزي).</li>
-            </ol>
-          </div>
-        </details>
-        <details>
-          <summary><span class="chev">›</span> قنوات رسمية</summary>
-          <div style="margin-top:10px">
-            <ul>
-              <li>u.ae — رفع الشكاوى: <a href="https://u.ae/en/information-and-services/finance-and-investment/raising-complaints-against-financial-institutions-and-insurance-companies" target="_blank" rel="noopener">Sanadak</a></li>
-            <li>CBUAE — Consumer Protection: <a href="https://www.centralbank.ae/en/consumer/" target="_blank" rel="noopener">حماية المستهلك</a></li>
-              <li>هاتف CBUAE: 800-CBUAE (22823) — البريد: consumerhappiness@cbuae.gov.ae</li>
-            </ul>
-          </div>
-        </details>
+        <ol>
+          <li>قدّم الشكوى لدى الشركة أولًا.</li>
+          <li>إذا لم تُحل: تواصل مع <a href="https://u.ae/ar-ae/information-and-services/finance-and-investment/raising-complaints-against-financial-institutions-and-insurance-companies" target="_blank">Sanadak</a> (مكتب أمين المظالم).</li>
+          <li><a href="https://www.centralbank.ae/en/consumer/" target="_blank">CBUAE — حماية المستهلك</a></li>
+        </ol>
       </article>
 
-      <!-- FAQ -->
-      <article id="faq" class="card">
-        <h2>أسئلة شائعة</h2>
-        <details open>
-          <summary><span class="chev">›</span> هل التأمين الصحي إلزامي للجميع؟</summary>
-          <div style="margin-top:10px">نعم، وهو شرط للإقامة. تختلف التفاصيل بين دبي (EBP/ISAHD) وأبوظبي (ثيقا/DOH).</div>
-        </details>
-        <details>
-          <summary><span class="chev">›</span> كيف أعرف أن الشركة مرخّصة؟</summary>
-          <div style="margin-top:10px">ابحث في قاعدة CBUAE الرسمية لشركات التأمين.</div>
-        </details>
-        <details>
-          <summary><span class="chev">›</span> ما الفرق بين TPL والشامل؟</summary>
-          <div style="margin-top:10px">TPL إلزامي ويغطي الغير فقط؛ الشامل يضيف تغطية مركبتك وفق الشروط.</div>
-        </details>
-      </article>
-
-      <!-- مصادر -->
+      <!-- المصادر -->
       <article id="sources" class="card">
-        <h2>مصادر رسمية ومعتمدة</h2>
-        <div class="source">
-          • CBUAE — Licensing & Rulebook:
-          <a href="https://www.centralbank.ae/en/licensing/" target="_blank" rel="noopener">الترخيص</a> —
-          <a href="https://rulebook.centralbank.ae/en/rulebook/insurance-companies-branches-foreign-insurance-companies" target="_blank" rel="noopener">شركات التأمين</a> —
-          <a href="https://rulebook.centralbank.ae/en/rulebook/unified-motor-vehicle-insurance-policy-against-third-party-liability-issued-pursuant" target="_blank" rel="noopener">وثيقة TPL الموحدة</a><br>
-          • u.ae — التأمين/الصحة:
-          <a href="https://u.ae/en/information-and-services/finance-and-investment/insurance" target="_blank" rel="noopener">التأمين</a> —
-          <a href="https://u.ae/en/information-and-services/health-and-fitness/getting-a-health-insurance" target="_blank" rel="noopener">الحصول على تأمين صحي</a><br>
-          • Dubai Health Insurance (ISAHD/EBP):
-          <a href="https://www.isahd.ae/Home/FAQ" target="_blank" rel="noopener">FAQ</a> —
-          <a href="https://www.isahd.ae/content/docs/PD%2001-2021%20Updated%20TOB%20for%20Essential%20Benefit%20Plan.pdf" target="_blank" rel="noopener">EBP (PDF)</a><br>
-          • DOH — أبوظبي:
-          <a href="https://www.doh.gov.ae/en/resources/Circulars" target="_blank" rel="noopener">تعاميم</a> —
-          <a href="https://www.thiqa.ae/" target="_blank" rel="noopener">Thiqa</a>
-        </div>
+        <h2>مصادر رسمية</h2>
+        <ul>
+          <li>DHA — ISAHD/EBP</li>
+          <li>DOH — Thiqa</li>
+          <li>CBUAE Rulebook — وثيقة TPL</li>
+        </ul>
       </article>
 
-      <footer>
-        <a class="ghost-link" href="https://api.whatsapp.com/send/?phone=97333375858&text&type=phone_number&app_absent=0&wame_ctl=1" target="_blank" rel="noopener">برمجة وتطوير: فاضل الريس</a>
-      </footer>
     </section>
   </div>
 </main>
 
-<script>
-  // فهرس منسدل للجوال
-  const jumpSelect = document.getElementById('jumpSelect');
-  if (jumpSelect){
-    jumpSelect.addEventListener('change', e=>{
-      const v = e.target.value;
-      if(v){ location.hash = v; e.target.value = ''; }
-    });
-  }
-
-  // توسيع قسم واحد فقط داخل كل مقال
-  document.querySelectorAll('article').forEach(article=>{
-    const panels = article.querySelectorAll('details');
-    panels.forEach(d=>{
-      d.addEventListener('toggle', ()=>{
-        if(d.open){
-          panels.forEach(o=>{ if(o!==d) o.open=false; });
-        }
-      });
-    });
-  });
-</script>
 </body>
 </html>
