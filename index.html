@@ -140,7 +140,7 @@
               <option value="IRN">إيران</option>
             </select>
           </div>
-          <div class="hint">لعرض جهة حكومية وروابط موثوقة للسكري (بدون أرقام هاتف افتراضية).</div>
+          <div class="hint">لعرض جهة حكومية وروابط موثوقة للسكري.</div>
         </div>
 
         <!-- النوع -->
@@ -231,6 +231,27 @@
       </div>
 
       <div>
+        <!-- مربع تعريف علمي -->
+        <div class="card" id="defBox" aria-label="تعريف علمي مختصر" style="margin-top:0">
+          <h3>تعريف علمي مختصر</h3>
+          <p>
+            السكري (<em>Diabetes mellitus</em>) مجموعةُ اضطراباتٍ استقلابية تتسم بارتفاعٍ مزمن في سكر الدم
+            نتيجةَ عوز الإنسولين، أو مقاومةٍ لفعله، أو كليهما؛ ما يسبب اضطرابًا في استقلاب
+            الكربوهيدرات والدهون والبروتينات. يرتبط على المدى البعيد بضرر/اختلال في أعضاءٍ متعددة
+            أهمها العينان والكِلى والأعصاب والقلب والأوعية.
+          </p>
+          <details>
+            <summary style="cursor:pointer; margin-top:6px"><strong>تفاصيل سريعة (أنواع وتشخيص)</strong></summary>
+            <ul>
+              <li><strong>أنواع شائعة:</strong> النوع 1 (مناعي ذاتي/نقص مطلق للإنسولين)، النوع 2 (مقاومة إنسولين مع قصور إفراز تدريجي)، سكري الحمل، وأنواع أخرى (دوائية/جينية).</li>
+              <li><strong>دلائل تشخيصية مختصرة (مختبر):</strong> A1C ≥ 6.5%، أو سكر صائم FPG ≥ 126 mg/dL (7.0 mmol/L)،
+                  أو سكر بعد ساعتين OGTT ≥ 200 mg/dL (11.1 mmol/L)، أو سكر عشوائي ≥ 200 mg/dL مع أعراض كلاسيكية.
+                  يجب التأكيد مخبريًا وبإشراف طبي.</li>
+            </ul>
+          </details>
+          <div class="hint">المحتوى تثقيفي ولا يغني عن مراجعة الطبيب.</div>
+        </div>
+
         <!-- صندوق النتيجة -->
         <div id="resultBox" class="resultbox rb-ok">
           مستوى الإشارة: <span id="riskText">منخفضة</span> — <span id="actionText">التزم بنمط حياة صحي وافحص دوريًا.</span>
@@ -246,25 +267,25 @@
           <div id="localContact" style="margin-top:10px; font-size:14px; color:#374151;"></div>
         </div>
 
-        <!-- مراكز/مراجع عالمية -->
+        <!-- مراجع عالمية -->
         <div class="card" style="margin-top:12px">
           <h3>جهات عالمية موثوقة</h3>
-          <div class="hint">اختر لزيارة الموقع. (لا نعرض أرقام هاتف افتراضية.)</div>
+          <div class="hint">اختر لزيارة الموقع.</div>
           <div class="select">
             <select id="intlSelect" aria-label="اختر جهة عالمية">
               <option value="">— اختر جهة —</option>
-              <option data-phone="" value="https://www.who.int/news-room/fact-sheets/detail/diabetes">WHO — حقائق السكري</option>
-              <option data-phone="" value="https://www.cdc.gov/diabetes/">CDC — السكري</option>
-              <option data-phone="" value="https://www.diabetes.org/">ADA — جمعية السكري الأمريكية</option>
-              <option data-phone="" value="https://www.niddk.nih.gov/health-information/diabetes">NIDDK — نظرة عامة</option>
-              <option data-phone="" value="https://www.diabetes.org.uk/">Diabetes UK</option>
-              <option data-phone="" value="https://idf.org/">الاتحاد الدولي للسكري (IDF)</option>
+              <option value="https://www.who.int/news-room/fact-sheets/detail/diabetes">WHO — حقائق السكري</option>
+              <option value="https://www.cdc.gov/diabetes/">CDC — السكري</option>
+              <option value="https://www.diabetes.org/">ADA — جمعية السكري الأمريكية</option>
+              <option value="https://www.niddk.nih.gov/health-information/diabetes">NIDDK — نظرة عامة</option>
+              <option value="https://www.diabetes.org.uk/">Diabetes UK</option>
+              <option value="https://idf.org/">الاتحاد الدولي للسكري (IDF)</option>
             </select>
           </div>
           <div id="intlContact" style="margin-top:8px; font-size:14px; color:#374151; display:none"></div>
         </div>
 
-        <!-- دليل/مقالات تعليمية -->
+        <!-- مقالات تعليمية -->
         <div class="card" style="margin-top:12px">
           <h3>مقالات تعليمية معتمدة</h3>
           <div class="select">
@@ -273,17 +294,17 @@
               <option value="https://www.who.int/news-room/fact-sheets/detail/diabetes">منظمة الصحة العالمية — السكري</option>
               <option value="https://www.cdc.gov/diabetes/basics/diabetes.html">CDC — أساسيات السكري</option>
               <option value="https://www.nhs.uk/conditions/diabetes/">NHS — السكري</option>
-              <option value="https://www.nice.org.uk/guidance/ng28">NICE — إرشادات السكري من النوع 2</option>
+              <option value="https://www.nice.org.uk/guidance/ng28">NICE — إرشادات النوع 2</option>
               <option value="https://www.diabetes.org/diabetes">ADA — ما هو السكري؟</option>
               <option value="https://www.niddk.nih.gov/health-information/diabetes/overview/what-is-diabetes">NIDDK — ما هو السكري</option>
             </select>
           </div>
         </div>
 
-        <!-- أدوات تقييم/تحري -->
+        <!-- أدوات تقييم -->
         <div class="card" style="margin-top:12px">
           <h3>أدوات تقييم معرّضة (غير تشخيصية)</h3>
-          <div class="hint">اختبارات الدم الحاسمة: A1C، سكر صائم FPG، اختبار تحمل الغلوكوز OGTT — تُجرى في مختبر/عيادة.</div>
+          <div class="hint">الاختبارات الحاسمة: A1C، سكر صائم FPG، اختبار تحمل الغلوكوز OGTT — تُجرى في مختبر/عيادة.</div>
           <div class="select">
             <select id="toolSelect" aria-label="اختر أداة">
               <option value="">— اختر أداة —</option>
@@ -392,7 +413,7 @@ intlSelect.addEventListener('change', ()=>{
   intlContact.style.display='block';
 });
 
-/* جهات محلية (روابط وزارات الصحة) */
+/* روابط وزارات الصحة */
 const MOH_LINKS = {
   BHR: {n: "وزارة الصحة — البحرين (قسم الأمراض غير السارية/السكري)", url: "https://www.moh.gov.bh/"},
   KSA: {n: "وزارة الصحة — السعودية (الأمراض المزمنة)", url: "https://www.moh.gov.sa/"},
@@ -425,11 +446,10 @@ function isYes(id){ return document.querySelector(`.seg[data-q="${id}"] .on`)?.d
 
 function screening(age, sex, fh){
   const list = [];
-  // توصيات عامة مستندة للممارسات الشائعة
   if (age >= 35) list.push("العمر ≥ 35: إجراء اختبار A1C أو سكر صائم FPG للتحري.");
   if (fh === 'yes') list.push("تاريخ عائلي قوي: تحرٍ مبكر (A1C/FPG) والمتابعة الدورية.");
   list.push("إذا كانت الأعراض واضحة: اختبار عشوائي للسكر + إعادة تأكيد بفحص مخبري.");
-  list.push("يمكن استخدام اختبار المخاطر من ADA أو أداة Diabetes UK لمعرفة مستوى الخطورة.");
+  list.push("يمكن استخدام اختبار المخاطر من ADA أو Diabetes UK لمعرفة مستوى الخطورة.");
   return list;
 }
 
@@ -568,7 +588,7 @@ document.getElementById('pdfBtn').addEventListener('click', async () => {
       <tbody>${rowsAns}</tbody>
     </table>
 
-    <div style="margin-top:10px; font-size:12px; color:#6b7280">هذه نتيجة تثقيفية عامة وليست تشخيصًا. للحصول على تشخيص، يلزم فحص سكر الدم في مختبر ومراجعة طبيب مختص.</div>
+    <div style="margin-top:10px; font-size:12px; color:#6b7280">هذه نتيجة تثقيفية عامة وليست تشخيصًا. للحصول على تشخيص، يلزم فحص سكر الدم ومراجعة طبيب مختص.</div>
   `;
 
   document.body.appendChild(box);
@@ -620,4 +640,3 @@ document.getElementById('devLink').addEventListener('click', function() { setTim
 </script>
 </body>
 </html>
-
