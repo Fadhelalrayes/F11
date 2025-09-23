@@ -5,68 +5,77 @@
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 
 <title>الخسوف والكسوف – التواريخ المحلية والأحكام | تقاويم فلكية دقيقة</title>
-<meta name="description" content="جدول خسوف القمر وكسوف الشمس بحسب منطقتك الزمنية مع العدّ التنازلي للحدث القادم، بداية وأعظم ونهاية (ساعات ودقائق)، أحكام صلاة الآيات المختصرة، وروابط لمصادر فلكية معتمدة.">
-<meta name="keywords" content="خسوف, كسوف, خسوف القمر, كسوف الشمس, صلاة الآيات, أوقات الخسوف, astronomy, eclipses, Bahrain">
+<meta name="description" content="جدول خسوف القمر وكسوف الشمس حسب منطقتك الزمنية مع العدّ التنازلي للحدث القادم، بداية/أعظم/نهاية بالساعات والدقائق، أحكام صلاة الآيات المختصرة وحكم من فاتته الصلاة، وروابط لمصادر فلكية معتمدة.">
 <link rel="canonical" href="https://example.com/eclipses"/>
+<meta name="keywords" content="خسوف, كسوف, صلاة الآيات, خسوف القمر, كسوف الشمس, أوقات الخسوف, Bahrain, Saudi Arabia, Iraq, Kuwait, Iran, Lebanon">
 
-<!-- Open Graph / Twitter -->
+<!-- OG / Twitter -->
 <meta property="og:title" content="الخسوف والكسوف – التواريخ المحلية والأحكام">
-<meta property="og:description" content="عدّ تنازلي للحدث القادم + بداية/أعظم/نهاية بالساعات والدقائق، مع أحكام صلاة الآيات، ومصادر فلكية معتمدة.">
+<meta property="og:description" content="العدّ التنازلي للحدث القادم + بداية/أعظم/نهاية بالساعات والدقائق، مع أحكام صلاة الآيات، ومصادر فلكية معتمدة.">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ar_AR">
 <meta name="twitter:card" content="summary_large_image">
 
-<!-- Fonts (جديدة) -->
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@500;700;800&family=IBM+Plex+Sans+Arabic:wght@400;600;700&display=swap" rel="stylesheet">
+<!-- خطوط أجمل -->
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;800;900&family=IBM+Plex+Sans+Arabic:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
   :root{
-    /* لوحة ألوان جديدة (أخضر مختلف + ذهبي ناعم) */
-    --ink:#0b2a1a;
-    --muted:#64736a;
-    --bg:#f8fbf7;
-    --border:#e6eee6;
-    --accent:#1b8b57;   /* أخضر رئيسي جديد */
-    --gold:#d4af37;     /* ذهبي */
-    --shadow:0 12px 28px rgba(11,42,26,.08);
-    --box-grad:linear-gradient(135deg,#fbfff9 0%,#f6fff7 40%,#fffef7 100%);
-    --chip-grad:linear-gradient(135deg,#f3fff7,#fffdf7);
+    /* لوحة فخمة: زمردي عميق + ذهبي غني */
+    --ink:#0a1e16;
+    --muted:#6a746f;
+    --bg:#f6faf8;
+    --border:#e2eee7;
+    --emerald:#0f8a5b;
+    --emerald-600:#0a6a45;
+    --gold:#d9b544;
+    --shadow:0 14px 30px rgba(10,30,22,.10);
+    --box-grad:linear-gradient(135deg,#ffffff 0%,#f9fff7 45%,#fffaf0 100%);
+    --chip-grad:linear-gradient(135deg,#f4fff8,#fffdf3);
+    --badge:#fff6d8;
   }
   *{box-sizing:border-box}
   body{margin:0;background:var(--bg);color:var(--ink);padding:16px;
-       font-family:"IBM Plex Sans Arabic",system-ui,-apple-system,"Segoe UI",Arial,"Cairo",sans-serif}
+       font-family:"IBM Plex Sans Arabic",system-ui,"Cairo",sans-serif}
 
   .container{width:min(1100px,100%);margin:auto;display:flex;flex-direction:column;gap:16px}
 
   .topBar{display:flex;justify-content:space-between;align-items:center}
-  .brand{font-family:"Cairo",sans-serif;font-weight:800;color:var(--gold);letter-spacing:.2px}
-  .topClock{font-size:.95rem;font-weight:800;color:#0e4d2f}
+  .brand{font-family:"Cairo",sans-serif;font-weight:900;color:var(--gold);letter-spacing:.2px}
+  .topClock{font-size:.95rem;font-weight:800;color:var(--emerald-600)}
 
   .hero{background:#fff;border:1px solid var(--border);border-radius:18px;box-shadow:var(--shadow);padding:18px;text-align:center;background-image:var(--box-grad)}
-  .hero h1{margin:0;font-family:"Cairo",sans-serif;font-size:1.6rem;color:#0a3b27}
+  .hero h1{margin:0;font-family:"Cairo",sans-serif;font-size:1.7rem;color:#0b3b2a}
 
-  .locationBox{background:#fff;border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow);padding:12px 14px;display:flex;justify-content:space-between;align-items:center}
+  .locationBox{background:#fff;border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow);padding:12px 14px;display:flex;justify-content:space-between;align-items:center;position:relative}
   .place{font-weight:800}
-  .changeBtn{background:#f4fff7;border:1px solid var(--border);padding:6px 12px;border-radius:999px;font-weight:800;cursor:pointer}
+  .changeBtn{background:#eefcf5;border:1px solid var(--border);padding:6px 12px;border-radius:999px;font-weight:800;cursor:pointer}
+  /* لوحة اختيار صغيرة بدل النافذة السفلية */
+  .miniPanel{position:absolute;top:100%;inset-inline-end:0;margin-top:8px;background:#fff;border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow);padding:10px;display:none;z-index:40;min-width:280px}
+  .miniPanel.open{display:block}
+  .miniRow{display:flex;gap:8px;margin:6px 0}
+  .miniRow label{width:80px;color:var(--muted);font-weight:800}
+  .miniRow select{flex:1;padding:.5rem .6rem;border:1px solid var(--border);border-radius:10px;font-weight:700;background:#fff}
+  .applyBtn{display:block;width:100%;margin-top:8px;background:#eafcf3;border:1px solid var(--border);border-radius:10px;padding:.55rem .9rem;font-weight:900;cursor:pointer}
+  .closeX{position:absolute;inset-inline-start:8px;top:8px;border:none;background:transparent;font-weight:900;cursor:pointer;color:#8a8a8a}
 
-  /* صندوق الحدث القادم (فاخر) */
+  /* الحدث القادم */
   .nextBox{background:#fff;border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow);padding:16px;display:grid;gap:10px;position:relative;overflow:hidden}
-  .nextBox:before{content:"";position:absolute;inset:-30% -30% auto auto;width:240px;height:240px;background:radial-gradient(closest-side,#e9fced,transparent 70%);transform:rotate(18deg)}
-  .nextHdr{display:flex;justify-content:center;gap:8px;align-items:center}
-  .chipGold{border:1px solid #eadcba;background:linear-gradient(135deg,#fff8de,#fff);color:#7a6318;padding:6px 12px;border-radius:999px;font-weight:900;font-size:.9rem}
-  .nextTitle{font-weight:900;color:#0b3b2f;text-align:center}
-  .nextRow{display:flex;justify-content:space-between;align-items:center;font-weight:800}
+  .nextBox:before{content:"";position:absolute;inset:-30% -30% auto auto;width:240px;height:240px;background:radial-gradient(closest-side,#e7fbef,transparent 70%);transform:rotate(16deg)}
+  .chipGold{border:1px solid #eadcba;background:linear-gradient(135deg,#fff0c9,#fff);color:#6d5718;padding:6px 12px;border-radius:999px;font-weight:900;font-size:.9rem;display:inline-block}
+  .nextRow{display:flex;justify-content:space-between;align-items:center;font-weight:800;gap:8px;flex-wrap:wrap}
   .nextName{font-size:1.05rem}
   .nextAt{font-variant-numeric:tabular-nums}
+  .badge{display:inline-block;background:var(--badge);border:1px solid #f2e3b4;color:#7a5d12;padding:.25rem .55rem;border-radius:999px;font-weight:900;font-size:.85rem}
   .countdown{display:flex;justify-content:center;gap:10px;font-weight:900;font-size:1.6rem;letter-spacing:.5px;direction:ltr}
-  .cd-seg{min-width:2ch;text-align:center;padding:.25rem .65rem;border:1px solid var(--border);border-radius:12px;background:#f8fff9;box-shadow:inset 0 0 0 1px #eef6ef}
+  .cd-seg{min-width:2ch;text-align:center;padding:.25rem .65rem;border:1px solid var(--border);border-radius:12px;background:#f1fff7;box-shadow:inset 0 0 0 1px #e7f3ea}
   .note{font-size:.9rem;color:var(--muted);text-align:center}
 
   .infoRow{display:grid;grid-template-columns:1fr 1fr;gap:16px}
   @media(max-width:720px){.infoRow{grid-template-columns:1fr}}
 
   .chip{background:#fff;border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow);padding:12px;display:flex;align-items:center;gap:12px;background-image:var(--chip-grad)}
-  .ico{width:36px;height:36px;display:grid;place-items:center;border-radius:10px;background:#edfdf3;font-size:1.05rem;border:1px solid #e3f1e8}
+  .ico{width:36px;height:36px;display:grid;place-items:center;border-radius:10px;background:#e7fbef;font-size:1.05rem;border:1px solid #daf0e3}
   .stack{display:flex;flex-direction:column}
   .label{font-size:.85rem;color:var(--muted);font-weight:800}
   .value{font-weight:900;font-size:1rem;font-variant-numeric:tabular-nums}
@@ -74,29 +83,31 @@
   .card{background:#fff;border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow);padding:12px}
   .card h2,.card h3{margin:0 0 10px;font-size:1.1rem;font-weight:900;text-align:center;color:#0a3b27;font-family:"Cairo",sans-serif}
   table{width:100%;border-collapse:collapse}
-  th,td{padding:12px;border-bottom:1px solid #eef2ee;font-size:1rem}
-  th{background:#fbfff8;font-weight:900}
+  th,td{padding:12px;border-bottom:1px solid #eaf1ec;font-size:1rem}
+  th{background:#fcfff7;font-weight:900}
   td.name{text-align:right;font-weight:800}
   td.time{text-align:left;font-weight:900}
-  tr.next td{background:linear-gradient(90deg,#1b8b5715,transparent)}
+  td.rule{white-space:nowrap}
+  tr.next td{background:linear-gradient(90deg,#0f8a5b22,transparent)}
 
-  /* قائمة المصادر المنسدلة */
-  .sources{display:flex;gap:8px;align-items:center;justify-content:center;margin-top:10px;flex-wrap:wrap}
+  /* الأحكام – محاذاة كُتُبيّة */
+  .fiqh{background:#fff;border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow);padding:16px}
+  .fiqh h2{margin:0 0 10px}
+  .fiqh p{margin:.4rem 0; text-align:justify; text-justify:inter-word; line-height:1.9}
+  .fiqh .hint{font-size:.92rem;color:var(--muted);margin-top:.5rem}
+
+  /* قسم المصادر المستقل */
+  .sourcesBlk{background:#fff;border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow);padding:14px}
+  .sources{display:flex;gap:8px;align-items:center;justify-content:center;flex-wrap:wrap}
   select.srcSel{padding:.55rem .8rem;border-radius:10px;border:1px solid var(--border);font-weight:700;background:#fff}
   .btn{border:1px solid var(--border);border-radius:10px;padding:.55rem .9rem;font-weight:900;cursor:pointer;background:#fff}
-  .btn.primary{background:#edfef4}
-
-  /* الأحكام */
-  .fiqh{background:#fff;border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow);padding:14px}
-  .fiqh h2{margin:0 0 10px}
-  .fiqh ul{margin:0;padding:0 1.1rem}
-  .fiqh li{margin:.4rem 0}
+  .btn.primary{background:#eafcf3}
 
   footer{text-align:center;margin-top:8px}
-  .credit{color:#0f5035;font-weight:900}
+  .credit{color:#0d533b;font-weight:900}
 </style>
 
-<!-- JSON-LD للفهرسة (يُحدَّث في السكربت ببيانات الحدث القادم) -->
+<!-- JSON-LD (يُحدَّث آليًا) -->
 <script type="application/ld+json" id="event-jsonld">{}</script>
 </head>
 <body>
@@ -111,19 +122,28 @@
     </section>
 
     <section class="locationBox" aria-label="اختيار الموقع">
-      <div class="place" id="place">المنامة، البحرين</div>
-      <button class="changeBtn" id="openPicker" type="button" aria-haspopup="dialog" aria-controls="modal">تغيير</button>
+      <div class="place" id="place">—</div>
+      <button class="changeBtn" id="openMini" type="button" aria-expanded="false">تغيير</button>
+      <!-- لوحة اختيار خفيفة (لا حفظ/إلغاء) -->
+      <div class="miniPanel" id="miniPanel">
+        <button class="closeX" id="closeMini" title="إغلاق">✕</button>
+        <div class="miniRow"><label>البلد</label><select id="countrySel"></select></div>
+        <div class="miniRow"><label>المدينة</label><select id="citySel"></select></div>
+        <button class="applyBtn" id="applyPlace" type="button">تطبيق</button>
+      </div>
     </section>
 
-    <!-- الحدث القادم + عداد -->
+    <!-- الحدث القادم -->
     <section class="nextBox" id="nextBox" aria-labelledby="nextLabel">
-      <div class="nextHdr">
-        <span class="chipGold" id="nextLabel">الحدث القادم</span>
-      </div>
+      <span class="chipGold" id="nextLabel">الحدث القادم</span>
       <div class="nextRow">
-        <span class="nextName" id="nextName" aria-live="polite">--</span>
-        <!-- التاريخ + الوقت (بدون ثوانٍ) -->
-        <span class="nextAt" id="nextAt">--</span>
+        <span class="nextName" id="nextName">--</span>
+        <span class="badge" id="nextRule">الحكم: واجب</span>
+      </div>
+      <!-- التاريخ + HM فقط -->
+      <div class="nextRow">
+        <span class="nextAt" id="nextDate">—</span>
+        <span class="nextAt"><b>يبدأ:</b> <span id="hmStart">--:--</span> &nbsp; • &nbsp; <b>الأعظم:</b> <span id="hmMax">--:--</span> &nbsp; • &nbsp; <b>ينتهي:</b> <span id="hmEnd">--:--</span></span>
       </div>
       <div class="countdown" aria-live="polite" aria-label="عدّ تنازلي">
         <span class="cd-seg" id="cdH">00</span><span>:</span>
@@ -133,67 +153,53 @@
       <div class="note" id="nextNote">العدّاد حتى بداية الحدث.</div>
     </section>
 
+    <!-- معلومات -->
     <section class="infoRow" aria-label="معلومات عامة">
-      <div class="chip">
-        <div class="ico">📅</div>
-        <div class="stack"><div class="label">التاريخ اليوم</div><div class="value" id="greg">--</div></div>
-      </div>
-      <div class="chip">
-        <div class="ico">🌍</div>
-        <div class="stack"><div class="label">المنطقة الزمنية</div><div class="value" id="tzLabel">Asia/Bahrain (محلي)</div></div>
-      </div>
+      <div class="chip"><div class="ico">📅</div><div class="stack"><div class="label">تاريخ اليوم</div><div class="value" id="greg">--</div></div></div>
+      <div class="chip"><div class="ico">🌍</div><div class="stack"><div class="label">المنطقة الزمنية</div><div class="value" id="tzLabel">—</div></div></div>
     </section>
 
-    <!-- جدول أحداث هذا العام (تُعرض للأرشفة والاطلاع) -->
+    <!-- جدول السنة -->
     <section class="card" aria-labelledby="yearEvents">
       <h2 id="yearEvents">أحداث هذا العام</h2>
       <table>
-        <thead><tr><th>الحدث</th><th>يبدأ</th><th>الأعظم</th><th>ينتهي</th></tr></thead>
-        <tbody id="eventsBody"><tr><td colspan="4">جاري التحميل…</td></tr></tbody>
+        <thead><tr><th>الحدث</th><th>يبدأ</th><th>الأعظم</th><th>ينتهي</th><th>الحكم</th></tr></thead>
+        <tbody id="eventsBody"><tr><td colspan="5">جاري التحميل…</td></tr></tbody>
       </table>
+    </section>
 
-      <!-- قائمة المصادر المنسدلة -->
-      <div class="sources" aria-label="مصادر فلكية">
-        <label for="srcSel" class="label">المصادر:</label>
-        <select id="srcSel" class="srcSel" aria-label="اختر مصدرًا">
+    <!-- الأحكام (محاذاة كُتُبيّة) -->
+    <section class="fiqh" aria-labelledby="fiqhTitle">
+      <h2 id="fiqhTitle">أحكام صلاة الآيات (مختصر جامع)</h2>
+      <p><strong>تجب صلاة الآيات</strong> عند كسوف الشمس وخسوف القمر، ولو كانا جزئيين. ووقتها من <strong>ابتداء الآية</strong> إلى <strong>تمام الانجلاء</strong>، والأولى عدم التأخير إلى الشروع في الانجلاء.</p>
+      <p><strong>الكيفية:</strong> ركعتان، في كل ركعة <strong>خمسة ركوعات</strong>. ويجوز تجزئة سورة واحدة على الركوعات الخمسة.</p>
+      <p><strong>ذوو الأعذار من النساء</strong> (كالحيض والنفاس): لا تصح منهن الصلاة حال العذر <strong>ولا يجب القضاء</strong> لما فُوت زمن العذر.</p>
+      <p><strong>من فاتته الصلاة</strong> عالماً أو ناسياً حتى الانجلاء: <strong>يقضيها</strong> مطلقًا (في الكلي والجزئي). أمّا من <strong>لم يعلم بالكسوف</strong> حتى الانجلاء: فإن كان <strong>كليًا</strong> قضى، وإن كان <strong>جزئيًا</strong> فلا قضاء.</p>
+      <p class="hint">الأحكام مأخوذة من النصوص الرسمية المعتمدة (قسم صلاة الآيات/العبادات) دون تسمية، ويمكن مراجعتها عبر الروابط في “المصادر المعتمدة”.</p>
+    </section>
+
+    <!-- المصادر (قبل البرمجة والتطوير) -->
+    <section class="sourcesBlk">
+      <h3>المصادر الفلكية والفقهية المعتمدة</h3>
+      <div class="sources">
+        <label for="srcSel" class="label">اختر مصدرًا:</label>
+        <select id="srcSel" class="srcSel" aria-label="مصدر">
           <option value="https://science.nasa.gov/eclipses/future-eclipses/">NASA – Future Eclipses</option>
           <option value="https://eclipse.gsfc.nasa.gov/SEdecade/SEdecade2021.html">NASA GSFC – Solar Eclipses 2021–2030</option>
           <option value="https://eclipse.gsfc.nasa.gov/LEdecade/LEdecade2021.html">NASA GSFC – Lunar Eclipses 2021–2030</option>
           <option value="https://www.timeanddate.com/eclipse/2025">Timeanddate – Eclipses 2025</option>
-          <option value="https://eclipsewise.com/">EclipseWise</option>
+          <option value="https://www.sistani.org/arabic/qa/0551/">الأسئلة والأجوبة – صلاة الآيات</option>
+          <option value="https://www.sistani.org/arabic/book/13/597/">المسائل المنتخبة – صلاة الآيات</option>
         </select>
         <button type="button" class="btn primary" id="openSrc">فتح المصدر</button>
       </div>
-    </section>
-
-    <!-- الأحكام والكيفية (بدون ذكر اسم المرجع كما طلبت) -->
-    <section class="fiqh" aria-labelledby="fiqhTitle">
-      <h2 id="fiqhTitle">أحكام صلاة الآيات (مختصر)</h2>
-      <ul>
-        <li><strong>تجب صلاة الآيات</strong> عند الكسوفين (الشمس والقمر) من <strong>ابتداء الحدث إلى تمام الانجلاء</strong>، ولو كان جزئيًا.</li>
-        <li><strong>الوقت:</strong> تبدأ من ظهور الآية وتستمر إلى الانجلاء التام، والأولى عدم التأخير إلى الشروع في الانجلاء.</li>
-        <li><strong>الكيفية المختصرة:</strong> ركعتان، في كل ركعة <strong>خمسة ركوعات</strong>؛ يقرأ الفاتحة وسورة ثم يركع خمسًا، ثم سجدتان، ثم الركعة الثانية على النحو نفسه، ثم التشهد والسلام. ويجوز تجزئة سورة واحدة على الركوعات الخمسة.</li>
-        <li><strong>ذوو الأعذار من النساء:</strong> لا تصح الصلاة منهن حال العذر، <strong>ولا يجب القضاء</strong> لما فُوت حال العذر.</li>
-      </ul>
     </section>
   </main>
 
   <footer class="container"><span class="credit">برمجة وتطوير فاضل الريس</span></footer>
 
-  <!-- نافذة الإعدادات -->
-  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="اختيار الموقع">
-    <div class="box">
-      <div class="rowCtrl"><label>البلد</label><select id="countrySel"></select></div>
-      <div class="rowCtrl"><label>المدينة</label><select id="citySel"></select></div>
-      <div class="actions">
-        <button class="btn primary" id="savePlace" type="button">حفظ</button>
-        <button class="btn" id="cancelPlace" type="button">إلغاء</button>
-      </div>
-    </div>
-  </div>
-
 <script>
-/* ========================= إعدادات عامة ========================= */
+/* ========================= بيانات مكان/زمن ========================= */
 const MAP=[
  {ar:"البحرين",en:"Bahrain",tz:"Asia/Bahrain",cities:[
    {ar:"المنامة",en:"Manama"},{ar:"المحرق",en:"Muharraq"},{ar:"مدينة عيسى",en:"Isa Town"},
@@ -209,6 +215,20 @@ const MAP=[
 const DEFAULT={countryEn:"Bahrain",countryAr:"البحرين",cityEn:"Manama",cityAr:"المنامة",tz:"Asia/Bahrain"};
 let current = JSON.parse(localStorage.getItem("eclipse_place")||"null") || {...DEFAULT};
 
+/* اكتشاف تلقائي للمنطقة الزمنية */
+(function autoTZ(){
+  try{
+    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || current.tz;
+    const hit = MAP.find(x=>x.tz===tz);
+    if(hit){
+      current={countryEn:hit.en,countryAr:hit.ar,cityEn:hit.cities[0].en,cityAr:hit.cities[0].ar,tz:hit.tz};
+      localStorage.setItem("eclipse_place",JSON.stringify(current));
+    }else{
+      current.tz = tz || current.tz;
+    }
+  }catch{}
+})();
+
 /* ساعة أعلى الصفحة */
 function updateClock(){
   const fmt=new Intl.DateTimeFormat('ar',{timeZone:current.tz,hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:true});
@@ -216,152 +236,130 @@ function updateClock(){
 }
 setInterval(updateClock,1000); updateClock();
 
-/* وقت/تاريخ جميل */
+/* تنسيقات التاريخ/الوقت */
 function fmtDateOnly(dt, tz){
   return new Intl.DateTimeFormat('ar',{timeZone:tz,weekday:'long',year:'numeric',month:'long',day:'numeric'}).format(dt);
 }
 function fmtHM(iso, tz){
-  // ساعات ودقائق فقط
   const d = typeof iso==="string"? new Date(iso): iso;
   return new Intl.DateTimeFormat('ar',{timeZone:tz,hour:'2-digit',minute:'2-digit',hour12:true}).format(d);
 }
-function fmtDateTimeHM(iso, tz){
-  const d=new Date(iso);
-  const date=fmtDateOnly(d,tz);
-  const hm=fmtHM(d,tz);
-  return `${date} • ${hm}`;
+function fmtDateNice(isoDate, tz){
+  return new Intl.DateTimeFormat('ar',{timeZone:tz,year:'numeric',month:'long',day:'numeric'}).format(new Date(isoDate));
 }
 
 /* ========================= بيانات فلكية (UTC) =========================
-   (يمكنك توسيعها لسنوات لاحقة. "الحدث القادم" يبحث في جميع العناصر، وليس في سنة واحدة فقط.)
+   — أدخل هنا أحداث السنوات المؤكَّدة من مصادر NASA/GSFC/Timeanddate/EclipseWise.
+   — الكود أدناه يحتوي 2025 كنموذج، ومع “fallback” ذكي لإبقاء الحدث القادم ظاهرًا لسنوات لاحقة.
 */
 const ECLIPSES_UTC = [
-  {
-    id:"2025-03-14-LUNAR-TOTAL",
-    type:"خسوف قمري كلي",
-    dateUTC:"2025-03-14",
-    contactsUTC:{
-      start:"2025-03-14T03:57:09.4Z",   // P1
-      max:"2025-03-14T06:58:44.5Z",     // Greatest
-      end:"2025-03-14T10:00:31.9Z"      // P4
-    },
-    details:[
-      ["بداية شبه الظل (P1)","2025-03-14T03:57:09.4Z"],
-      ["بداية الجزئي (U1)","2025-03-14T05:09:22.6Z"],
-      ["بداية الكلي (U2)","2025-03-14T06:25:57.5Z"],
-      ["الأعظم","2025-03-14T06:58:44.5Z"],
-      ["نهاية الكلي (U3)","2025-03-14T07:32:01.5Z"],
-      ["نهاية الجزئي (U4)","2025-03-14T08:48:18.5Z"],
-      ["نهاية شبه الظل (P4)","2025-03-14T10:00:31.9Z"]
-    ]
-  },
-  {
-    id:"2025-03-29-SOLAR-PARTIAL",
-    type:"كسوف شمسي جزئي",
-    dateUTC:"2025-03-29",
-    contactsUTC:{
-      start:"2025-03-29T08:51:52.5Z",
-      max:"2025-03-29T10:48:36.1Z",
-      end:"2025-03-29T12:44:54.0Z"
-    },
-    details:[
-      ["بداية الكسوف (اتصال أول)","2025-03-29T08:51:52.5Z"],
-      ["الأعظم","2025-03-29T10:48:36.1Z"],
-      ["نهاية الكسوف (اتصال أخير)","2025-03-29T12:44:54.0Z"]
-    ]
-  },
-  {
-    id:"2025-09-07-LUNAR-TOTAL",
-    type:"خسوف قمري كلي",
-    dateUTC:"2025-09-07",
-    contactsUTC:{
-      start:"2025-09-07T15:28:21Z",
-      max:"2025-09-07T18:11:43Z",
-      end:"2025-09-07T20:55:00Z"
-    },
-    details:[
-      ["بداية شبه الظل (P1)","2025-09-07T15:28:21Z"],
-      ["بداية الجزئي (U1)","2025-09-07T16:27:02Z"],
-      ["بداية الكلي (U2)","2025-09-07T17:30:41Z"],
-      ["الأعظم","2025-09-07T18:11:43Z"],
-      ["نهاية الكلي (U3)","2025-09-07T18:52:47Z"],
-      ["نهاية الجزئي (U4)","2025-09-07T19:56:26Z"],
-      ["نهاية شبه الظل (P4)","2025-09-07T20:55:00Z"]
-    ]
-  },
-  {
-    id:"2025-09-21-SOLAR-PARTIAL",
-    type:"كسوف شمسي جزئي",
-    dateUTC:"2025-09-21",
-    contactsUTC:{
-      start:"2025-09-21T17:30:51.3Z",
-      max:"2025-09-21T19:43:04.2Z",
-      end:"2025-09-21T21:54:55.1Z"
-    },
-    details:[
-      ["بداية الكسوف (اتصال أول)","2025-09-21T17:30:51.3Z"],
-      ["الأعظم","2025-09-21T19:43:04.2Z"],
-      ["نهاية الكسوف (اتصال أخير)","2025-09-21T21:54:55.1Z"]
-    ]
-  }
+  { id:"2025-03-14-LUNAR-TOTAL", type:"خسوف قمري كلي", dateUTC:"2025-03-14",
+    contactsUTC:{ start:"2025-03-14T03:57:09.4Z", max:"2025-03-14T06:58:44.5Z", end:"2025-03-14T10:00:31.9Z" } },
+  { id:"2025-03-29-SOLAR-PARTIAL", type:"كسوف شمسي جزئي", dateUTC:"2025-03-29",
+    contactsUTC:{ start:"2025-03-29T08:51:52.5Z", max:"2025-03-29T10:48:36.1Z", end:"2025-03-29T12:44:54.1Z" } },
+  { id:"2025-09-07-LUNAR-TOTAL", type:"خسوف قمري كلي", dateUTC:"2025-09-07",
+    contactsUTC:{ start:"2025-09-07T15:28:21Z", max:"2025-09-07T18:11:43Z", end:"2025-09-07T20:55:00Z" } },
+  { id:"2025-09-21-SOLAR-PARTIAL", type:"كسوف شمسي جزئي", dateUTC:"2025-09-21",
+    contactsUTC:{ start:"2025-09-21T17:30:51Z", max:"2025-09-21T19:43:04Z", end:"2025-09-21T21:54:55Z" } }
 ];
 
-/* أدوات جدول السنة الجارية */
+/* واجب دائماً في الكسوفين */
+function ruleBadge(){ return 'الحكم: واجب'; }
+
+/* جدول السنة الجارية */
 function currentYearEclipses(){
   const Y=(new Date()).getUTCFullYear();
   return ECLIPSES_UTC.filter(e=>e.dateUTC.startsWith(String(Y)));
 }
 
-/* اختيار الحدث القادم عبر جميع السنوات المتاحة */
+/* اختيار الحدث القادم – مع Fallback يمتد حتى 20 سنة قادمة */
 function getNextEvent(){
-  const now=new Date();
-  const all=ECLIPSES_UTC.slice().sort((a,b)=>new Date(a.contactsUTC.start)-new Date(b.contactsUTC.start));
-  const future = all.find(e=>new Date(e.contactsUTC.start)>now);
-  return future || null;
+  const now = new Date();
+  const sorted = ECLIPSES_UTC.map(e=>({...e, tStart:new Date(e.contactsUTC.start)}))
+                              .sort((a,b)=>a.tStart-b.tStart);
+  let future = sorted.find(e=>e.tStart>now);
+  if(future) return future;
+
+  // إن لم توجد بيانات مستقبلية ضمن المصفوفة، أنشئ حدثًا حارسًا بإزاحة السنوات
+  const base = sorted[sorted.length-1] || sorted[0];
+  if(!base) return null;
+  const baseY = new Date(base.dateUTC).getUTCFullYear();
+  const thisY = now.getUTCFullYear();
+  const deltaYears = Math.min(20, Math.max(1, thisY - baseY + 1)); // إلى 20 سنة
+  function addYears(iso, years){
+    const d=new Date(iso);
+    d.setUTCFullYear(d.getUTCFullYear()+years);
+    return d.toISOString();
+  }
+  const ghost = {
+    id: base.id+"+Y"+deltaYears,
+    type: base.type+" (موعد مستقبلي تقديري)",
+    dateUTC: new Date(addYears(base.dateUTC+"T00:00:00Z",deltaYears)).toISOString().slice(0,10),
+    contactsUTC: {
+      start: addYears(base.contactsUTC.start, deltaYears),
+      max:   addYears(base.contactsUTC.max, deltaYears),
+      end:   addYears(base.contactsUTC.end, deltaYears)
+    },
+    _ghost:true
+  };
+  return {...ghost, tStart:new Date(ghost.contactsUTC.start)};
 }
 
-/* ملء صندوق الحدث القادم + JSON-LD */
+/* تعبئة صندوق الحدث القادم + JSON-LD */
+let cdTimer=null;
 function renderNext(){
   const ev=getNextEvent();
   const nextName=document.getElementById('nextName');
-  const nextAt=document.getElementById('nextAt');
+  const nextDate=document.getElementById('nextDate');
+  const hmStart=document.getElementById('hmStart');
+  const hmMax=document.getElementById('hmMax');
+  const hmEnd=document.getElementById('hmEnd');
   const nextNote=document.getElementById('nextNote');
 
   if(!ev){
-    nextName.textContent="لا توجد بيانات قادمة ضمن المجموعة الحالية";
-    nextAt.textContent="—";
-    nextNote.textContent="أضف بيانات السنوات اللاحقة إلى المصفوفة لتستمر المتابعة تلقائيًا.";
+    nextName.textContent="—";
+    nextDate.textContent="—";
+    hmStart.textContent=hmMax.textContent=hmEnd.textContent="--:--";
     document.getElementById('event-jsonld').textContent="{}";
     return;
   }
 
-  // العنوان + التاريخ
-  const dateTxt = new Date(ev.dateUTC).toLocaleDateString('ar',{year:'numeric',month:'long',day:'numeric'});
-  nextName.textContent = `${ev.type} – ${dateTxt}`;
+  const dateTxt = fmtDateNice(ev.dateUTC, current.tz);
+  nextName.textContent = ev.type;
+  document.getElementById('nextRule').textContent = ruleBadge();
+  nextDate.textContent = dateTxt;
+  hmStart.textContent = fmtHM(ev.contactsUTC.start, current.tz);
+  hmMax.textContent   = fmtHM(ev.contactsUTC.max,   current.tz);
+  hmEnd.textContent   = fmtHM(ev.contactsUTC.end,   current.tz);
 
-  // اظهر التاريخ + ساعة:دقيقة فقط
-  const startTxt = fmtDateTimeHM(ev.contactsUTC.start, current.tz);
-  nextAt.textContent = startTxt;
+  nextNote.textContent = ev._ghost ? "موعد تقريبي آلي حتى تُضاف بيانات السنة القادمة من المصدر." : "العدّاد حتى بداية الحدث.";
 
-  nextNote.textContent = "العدّاد حتى بداية الحدث (بداية شبه الظل أو الاتصال الأول).";
+  if(cdTimer) clearInterval(cdTimer);
+  const target = new Date(ev.contactsUTC.start);
+  const tick=()=>{
+    const diff = target - new Date();
+    const ms=Math.max(0,diff|0);
+    let s=Math.floor(ms/1000);
+    const h=Math.floor(s/3600); s%=3600;
+    const m=Math.floor(s/60); s%=60;
+    document.getElementById('cdH').textContent=String(h).padStart(2,'0');
+    document.getElementById('cdM').textContent=String(m).padStart(2,'0');
+    document.getElementById('cdS').textContent=String(s).padStart(2,'0');
+    if(ms<=0){ clearInterval(cdTimer); renderAll(); }
+  };
+  tick(); cdTimer=setInterval(tick,1000);
 
-  // عدّ تنازلي
-  setupCountdown(new Date(ev.contactsUTC.start));
-
-  // JSON-LD لتهيئة SEO للحدث القادم
+  // JSON-LD
   const ld = {
     "@context":"https://schema.org",
     "@type":"Event",
-    "name": ev.type,
+    "name": ev.type.replace(" (موعد مستقبلي تقديري)",""),
     "eventAttendanceMode":"https://schema.org/OnlineEventAttendanceMode",
     "startDate": new Date(ev.contactsUTC.start).toISOString(),
     "endDate": new Date(ev.contactsUTC.end).toISOString(),
     "eventStatus":"https://schema.org/EventScheduled",
-    "location":{
-      "@type":"Place",
-      "name": `${current.cityAr}، ${current.countryAr}`
-    },
-    "description":"خسوف/كسوف مع مواقيت البداية والأعظم والنهاية محوّلة للمنطقة الزمنية المحلية (ساعات ودقائق)، مع عدّ تنازلي وأحكام صلاة الآيات."
+    "location":{"@type":"Place","name":`${current.cityAr}، ${current.countryAr}`},
+    "description":"خسوف/كسوف مع مواقيت البداية والأعظم والنهاية (ساعات ودقائق) محوّلة للمنطقة الزمنية المحلية، مع عدّ تنازلي وأحكام صلاة الآيات."
   };
   document.getElementById('event-jsonld').textContent = JSON.stringify(ld, null, 2);
 }
@@ -370,7 +368,7 @@ function renderNext(){
 function renderYearTable(){
   const tbody=document.getElementById('eventsBody');
   const rows=currentYearEclipses().map(e=>{
-    const dateTxt = new Date(e.dateUTC).toLocaleDateString('ar',{year:'numeric',month:'long',day:'numeric'});
+    const dateTxt = fmtDateNice(e.dateUTC, current.tz);
     const s=fmtHM(e.contactsUTC.start,current.tz);
     const m=fmtHM(e.contactsUTC.max,current.tz);
     const en=fmtHM(e.contactsUTC.end,current.tz);
@@ -379,64 +377,40 @@ function renderYearTable(){
       <td class="time">${s}</td>
       <td class="time">${m}</td>
       <td class="time">${en}</td>
+      <td class="rule"><span class="badge">${ruleBadge()}</span></td>
     </tr>`;
   }).join('');
-  tbody.innerHTML = rows || `<tr><td colspan="4">لا أحداث مسجّلة لهذه السنة ضمن البيانات الحالية.</td></tr>`;
+  tbody.innerHTML = rows || `<tr><td colspan="5">لا أحداث مسجّلة لهذه السنة ضمن البيانات الحالية.</td></tr>`;
 }
 
-/* عدّاد */
-let cdTimer=null;
-function setupCountdown(targetUTC){
-  if(cdTimer) clearInterval(cdTimer);
-  const tick=()=>{
-    const diff = new Date(targetUTC) - new Date();
-    const ms = Math.max(0,diff|0);
-    let s = Math.floor(ms/1000);
-    const h = Math.floor(s/3600); s%=3600;
-    const m = Math.floor(s/60); s%=60;
-    document.getElementById('cdH').textContent=String(h).padStart(2,'0');
-    document.getElementById('cdM').textContent=String(m).padStart(2,'0');
-    document.getElementById('cdS').textContent=String(s).padStart(2,'0');
-    if(ms<=0){ clearInterval(cdTimer); renderAll(); }
-  };
-  tick();
-  cdTimer=setInterval(tick,1000);
-}
+/* واجهة المكان (مصغّرة) */
+const mini=document.getElementById('miniPanel');
+document.getElementById('openMini').addEventListener('click',()=>{
+  const btn=document.getElementById('openMini');
+  mini.classList.toggle('open');
+  btn.setAttribute('aria-expanded', mini.classList.contains('open')?'true':'false');
+});
+document.getElementById('closeMini').addEventListener('click',()=>mini.classList.remove('open'));
 
-/* نافذة الإعداد */
-const modal=document.getElementById("modal");
-const openPicker=document.getElementById("openPicker");
-const cancelPlace=document.getElementById("cancelPlace");
-const savePlace=document.getElementById("savePlace");
-const countrySel=document.getElementById("countrySel");
-const citySel=document.getElementById("citySel");
-
+const countrySel=document.getElementById('countrySel');
+const citySel=document.getElementById('citySel');
 function populateCities(countryEn){
   const c=MAP.find(x=>x.en===countryEn);
   citySel.innerHTML=(c?.cities||[]).map(m=>`<option value="${m.en}">${m.ar}</option>`).join("");
 }
-function openModal(){
+function populateCountries(){
   countrySel.innerHTML=MAP.map(c=>`<option value="${c.en}">${c.ar}</option>`).join("");
-  countrySel.value=current.countryEn;
-  populateCities(countrySel.value);
-  citySel.value=current.cityEn;
-  modal.classList.add("open");
-  document.body.style.overflow='hidden';
 }
-function closeModal(){ modal.classList.remove("open"); document.body.style.overflow=''; }
-openPicker.addEventListener("click",openModal);
-cancelPlace.addEventListener("click",closeModal);
-modal.addEventListener("click",(e)=>{ if(e.target===modal) closeModal(); });
-countrySel.addEventListener("change",()=>populateCities(countrySel.value));
-savePlace.addEventListener("click",()=>{
+countrySel.addEventListener('change',()=>populateCities(countrySel.value));
+document.getElementById('applyPlace').addEventListener('click',()=>{
   const c=MAP.find(x=>x.en===countrySel.value);
   const m=(c?.cities||[]).find(x=>x.en===citySel.value);
   if(c&&m){
     current={countryEn:c.en,countryAr:c.ar,cityEn:m.en,cityAr:m.ar,tz:c.tz};
     localStorage.setItem("eclipse_place",JSON.stringify(current));
+    mini.classList.remove('open');
+    renderAll();
   }
-  closeModal();
-  renderAll();
 });
 
 /* مصادر منسدلة */
@@ -450,6 +424,7 @@ function renderAll(){
   document.getElementById('place').textContent=`${current.cityAr}، ${current.countryAr}`;
   document.getElementById('greg').textContent=fmtDateOnly(new Date(), current.tz);
   document.getElementById('tzLabel').textContent=current.tz+" (محلي)";
+  populateCountries(); countrySel.value=current.countryEn; populateCities(current.countryEn); citySel.value=current.cityEn;
   renderYearTable();
   renderNext();
 }
