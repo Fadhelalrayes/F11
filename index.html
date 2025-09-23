@@ -4,10 +4,10 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>تقويم الخسوف والكسوف صلاة الآيات</title>
-<meta name="description" content="تقويم دقيق للخسوف والكسوف مع عرض الحدث القادم، جدول مراحل الحدث (أوقات محليّة وUTC)، خمسة أحداث قادمة، وأحكام صلاة الآيات باختصار.">
+<meta name="description" content="تقويم دقيق للخسوف والكسوف مع عرض الحدث القادم، خمسة أحداث قادمة، وأحكام صلاة الآيات باختصار.">
 <meta name="keywords" content="الخسوف,الكسوف,صلاة الآيات,تقويم,مواعيد الكسوف,مواعيد الخسوف,ناسا,السيد السيستاني,أوقات فلكية">
 <meta property="og:title" content="تقويم الخسوف والكسوف صلاة الآيات">
-<meta property="og:description" content="الحدث القادم، المراحل، والأحداث الخمسة القادمة مع أحكام صلاة الآيات المختصرة.">
+<meta property="og:description" content="الحدث القادم والأحداث الخمسة القادمة مع أحكام صلاة الآيات المختصرة.">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ar_AR">
 <script id="ld-json" type="application/ld+json">{}</script>
@@ -52,16 +52,6 @@
   .label{font-size:.86rem;color:var(--muted);font-weight:700}
   .value{font-weight:900}
 
-  /* جدول المراحل (بدون عنوان) */
-  .card{background:var(--card);border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow);padding:12px}
-  table{width:100%;border-collapse:collapse}
-  th,td{padding:10px;border-bottom:1px solid #efeade;font-size:.98rem}
-  th{background:#fbfaf7;font-weight:900}
-  td.name{font-weight:800}
-  td.time{font-variant-numeric:tabular-nums;font-weight:800}
-  tr.highlight td{background:#fcfbf6}
-  .small{font-size:.9rem;color:var(--muted);margin-top:6px;text-align:center}
-
   /* أحكام */
   .ahkam{background:var(--card);border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow);padding:14px}
   .ahkam h3{margin:0 0 6px;text-align:center;font-weight:900;font-size:1.05rem}
@@ -71,7 +61,7 @@
   .defsGrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
   @media(max-width:760px){.defsGrid{grid-template-columns:1fr}}
   .defCard{background:var(--card);border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow);padding:14px}
-  .defCard h4{margin:0 0 8px;font-weight:900;color:var(--green)}
+  .defCard h4{margin:0 0 8px;font-weight:900;color:var(--green);text-align:center} /* ← توسيط العناوين */
   .defCard p{margin:.35rem 0;text-align:justify}
   .bul{margin:.35rem 0 .2rem 1rem}
   .bul li{margin:.25rem 0}
@@ -155,33 +145,15 @@
       </div>
     </section>
 
-    <!-- جدول المراحل (بدون عنوان) -->
-    <section class="card">
-      <table>
-        <thead><tr><th>المسمّى</th><th>محلي</th><th>UTC</th></tr></thead>
-        <tbody id="phases"><tr><td colspan="3">—</td></tr></tbody>
-      </table>
-      <div class="small" id="windowNote">—</div>
-    </section>
-
-    <!-- الأحكام المختصرة -->
-    <section class="ahkam">
-      <h3>الأحكام المختصرة لصلاة الآيات</h3>
-      <p><strong>تجب</strong> صلاة الآيات عند الكسوف الشمسي والخسوف القمري، ولو كانا جزئيين، ووقتها من <strong>ابتداء الظاهرة</strong> إلى <strong>تمام الانجلاء</strong>.</p>
-      <p><strong>القضاء:</strong> من كان عالمًا بالظاهرة ولم يُصلِّ حتى انجلت، <strong>يقضي</strong> مطلقًا (في الكلّي والجزئي). ومن لم يعلم بها حتى انجلت: إن كان <strong>كليًا</strong> قضى، وإلاّ فلا قضاء.</p>
-      <p><strong>ذوات الأعذار (الحيض والنفاس):</strong> لا تصحّ منهن الصلاة حال العذر، ولا يجب القضاء لما فُوت زمن العذر.</p>
-      <p><strong>الكيفية بإيجاز:</strong> ركعتان، في كل ركعة خمسة ركوعات، ثم سجدتان؛ وتُفعل الثانية مثل الأولى، ثم التشهّد والسلام.</p>
-    </section>
-
     <!-- مربّع تعريف عام + مربعا التعريف للشمس والقمر -->
     <section class="defsGrid" aria-label="تعريف الكسوف والخسوف">
       <article class="defCard defWide">
-        <h4>الكسوف والخسوف</h4>
+        <h4>الكسوف والخسوف</h4> <!-- ← في الوسط -->
         <p><strong>الكسوف والخسوف</strong> ظاهرتان فلكيتان مختلفتان تماماً. الكسوف يكون <strong>للشمس</strong>، بينما الخسوف يكون <strong>للقمر</strong>.</p>
       </article>
 
       <article class="defCard">
-        <h4>الكسوف ☀️</h4>
+        <h4>الكسوف</h4> <!-- ← أزلت الأيقونة ومركّز -->
         <p>هو حجب <strong>الشمس</strong> عن الأرض. يحدث عندما يمرّ القمر بين الشمس والأرض فيحجب ضوء الشمس جزئيًا أو كليًا.</p>
         <ul class="bul">
           <li><strong>الجرم المحجوب:</strong> الشمس.</li>
@@ -190,7 +162,7 @@
       </article>
 
       <article class="defCard">
-        <h4>الخسوف 🌕</h4>
+        <h4>الخسوف</h4> <!-- ← أزلت الأيقونة ومركّز -->
         <p>هو حجب <strong>القمر</strong> عن الشمس عندما تمرّ الأرض بين الشمس والقمر؛ فيقع القمر في ظلّ الأرض ويبدو مُظلّمًا أو مُحمَرًّا.</p>
         <ul class="bul">
           <li><strong>الجرم المحجوب:</strong> القمر.</li>
@@ -202,7 +174,7 @@
     <!-- أحداث قادمة -->
     <section class="upcoming" id="upcoming">
       <h3>الخسوف والكسوف القادمة</h3>
-      <div class="uDesc">فيما يلي أقرب خمسة أحداث قادمة عالميًا (تُحوَّل تلقائيًا لمنطقتك). يُذكر وقت <strong>أعظم الظاهرة</strong> بالتوقيت المحلي وUTC.</div>
+      <div class="uDesc">هذه البطاقة تعرض أقرب خمسة أحداث قادمة عالميًا، مع اليوم والتاريخ بالتنسيق العربي ووقت <strong>أعظم الظاهرة</strong> بالتوقيت المحلي وUTC. تتكيّف تلقائيًا مع منطقتك.</div>
       <div class="uList" id="uList"><div class="uItem"><div class="uName">—</div><div class="uWhen"><span class="l">—</span><span class="z">—</span></div></div></div>
     </section>
 
@@ -261,7 +233,6 @@ function toTZ(iso, zone){
 }
 
 /* ========== بيانات الأحداث (UTC) دقيقة من مصادر معتمدة ========== */
-/* ملاحظة: الأزمنة أدناه تتضمن P1/P4 أو «الأعظم» على الأقل. */
 const EVENTS = [
   /* 2025 (بعضها مضى بالنسبة لتاريخ اليوم) */
   { id:"LE-2025-09-07", kind:"خسوف قمري كلي",
@@ -301,7 +272,7 @@ function nextOrCurrent(){
   return {ev:sorted[sorted.length-1],state:'past'};
 }
 
-/* ========== عرض الحدث والجدول ========== */
+/* ========== عرض الحدث ========== */
 function renderEvent(){
   const {ev} = nextOrCurrent();
 
@@ -322,30 +293,6 @@ function renderEvent(){
 
   // الحكم
   nextRuling.textContent = 'الحكم الشرعي للصلاة : واجبة';
-
-  // جدول المراحل — محلي/UTC (12h مع ثوانٍ)
-  const map=[];
-  if(ev.p1) map.push({n:"بداية شبه الظل (P1)", u:ev.p1});
-  if(ev.u1) map.push({n:"دخول الظل (U1)", u:ev.u1});
-  if(ev.u2) map.push({n:"بدء الكلّية/الحلقيّة (U2)", u:ev.u2});
-  if(ev.greatest) map.push({n:"أعظم الظاهرة", u:ev.greatest});
-  if(ev.u3) map.push({n:"نهاية الكلّية/الحلقيّة (U3)", u:ev.u3});
-  if(ev.u4) map.push({n:"خروج الظل (U4)", u:ev.u4});
-  if(ev.p4) map.push({n:"نهاية شبه الظل (P4)", u:ev.p4});
-
-  phases.innerHTML = map.map(r=>{
-    const local = fmtHMS12(toTZ(r.u, tz), tz);
-    const utc   = fmtHMS12UTC(r.u);
-    return `<tr class="${(r.u===ev.greatest)?'highlight':''}">
-      <td class="name">${r.n}</td>
-      <td class="time">${local}</td>
-      <td class="time">${utc}</td>
-    </tr>`;
-  }).join('');
-
-  // نافذة الأداء الشرعي (محلي/وقت فقط)
-  const startText = s, endText = e;
-  windowNote.textContent = `الوقت الشرعي لصلاة الآيات: من بدء الظاهرة (${startText}) حتى تمام الانجلاء (${endText}).`;
 
   // JSON-LD للحدث الحالي
   const startISO = ev.p1 || ev.greatest;
