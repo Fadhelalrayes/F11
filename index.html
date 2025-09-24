@@ -7,34 +7,8 @@
 <title>الأبراج والاستبصار – قراءة الطالع العميقة</title>
 <meta name="description" content="قراءات فلكية تنبؤية موجزة" />
 <meta name="robots" content="index, follow" />
-<link rel="canonical" href="https://YOUR-DOMAIN.example/" />
 <meta name="theme-color" content="#0b0d12" />
 
-<!-- Structured Data -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebPage",
-  "name": "الأبراج والاستبصار – قراءة الطالع العميقة",
-  "description": "قراءات فلكية تنبؤية موجزة",
-  "inLanguage": "ar",
-  "isPartOf": { "@type": "WebSite", "name": "الابراج والاستبصار", "url": "https://YOUR-DOMAIN.example/" }
-}
-</script>
-
-<!-- OG / Twitter -->
-<meta property="og:locale" content="ar_AR" />
-<meta property="og:type" content="website" />
-<meta property="og:title" content="الأبراج والاستبصار – قراءة الطالع العميقة" />
-<meta property="og:description" content="قراءات فلكية تنبؤية موجزة" />
-<meta property="og:url" content="https://YOUR-DOMAIN.example/" />
-<meta property="og:image" content="https://YOUR-DOMAIN.example/og-image.jpg" />
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="الأبراج والاستبصار – قراءة الطالع العميقة" />
-<meta name="twitter:description" content="قراءات فلكية تنبؤية موجزة" />
-<meta name="twitter:image" content="https://YOUR-DOMAIN.example/og-image.jpg" />
-
-<!-- خط -->
 <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
@@ -53,7 +27,6 @@
     line-height:1.85; overflow-x:hidden;
   }
 
-  /* خلفية */
   body::before, body::after{ content:""; position:fixed; inset:0; pointer-events:none; z-index:-2; }
   body::before{
     background:
@@ -119,7 +92,6 @@
   .ring:after{content:""; position:absolute; inset:16px; border-radius:50%; border:4px dashed rgba(255,255,255,.12)}
   @keyframes spin{to{transform:rotate(360deg)}}
 
-  /* طباعة PDF */
   #printDoc{ display:none; }
   #printDoc .paper{ background:#0b0d12; color:#f7f7f7; border:1px solid #2a3550; border-radius:16px; padding:18px; }
   #printDoc h1{ color:#ffd54a; margin:0 0 6px; text-align:center; font-size:26px; }
@@ -196,10 +168,6 @@
         <input id="birthdate" type="date" required>
         <div class="notice hidden" id="e_birthdate">الرجاء إدخال تاريخ الميلاد.</div>
       </div>
-      <div style="grid-column:1/-1; display:flex; align-items:center; gap:10px; margin-top:6px">
-        <input id="useApi" type="checkbox" style="width:auto; accent-color:#ffd54a">
-        <label for="useApi" style="margin:0">تفعيل التنبؤ الخارجي (API مجاني) – إن تعذّر الاتصال سنعرض قراءة محلية تلقائيًا.</label>
-      </div>
     </div>
     <div style="margin-top:16px;">
       <button class="btn" id="startBtn" style="min-width:220px">ابدأ القراءة</button>
@@ -242,7 +210,7 @@
       <button class="btn" id="printBtn" title="تحميل PDF">تحميل PDF</button>
     </div>
     <div class="quota" id="quotaInfoResult" style="margin-top:10px"></div>
-    <p id="printHint" class="muted" style="text-align:center;margin-top:6px;">يتم إنشاء PDF رسمي منظم للهيدر والبيانات والنص فقط.</p>
+    <p class="muted" style="text-align:center;margin-top:6px;">يتم إنشاء PDF رسمي منظم للهيدر والبيانات والنص فقط.</p>
   </section>
 
   <noscript>
@@ -273,7 +241,6 @@
   <div>© <span id="year"></span> الأبراج والاستبصار</div>
 </footer>
 
-<!-- مودال الحد اليومي -->
 <div class="overlay" id="overlayLimit" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,.7); justify-content:center; align-items:center; z-index:20">
   <div class="modal" style="background:var(--card); border:1px solid var(--stroke); border-radius:14px; padding:18px; max-width:520px; margin:16px; text-align:center">
     <h3 style="color:var(--brand); margin-top:0">وصلت إلى الحد اليومي</h3>
@@ -285,7 +252,6 @@
   </div>
 </div>
 
-<!-- قالب PDF -->
 <div id="printDoc" aria-hidden="true">
   <div class="paper">
     <h1>الأبراج والاستبصار</h1>
@@ -315,39 +281,39 @@
 
   /* نطاقات الأبراج */
   const ZODIAC = [
-    {name:"الحمل",   en:"aries",   emoji:"♈︎", from:[3,21],  to:[4,19]},
-    {name:"الثور",   en:"taurus",  emoji:"♉︎", from:[4,20],  to:[5,20]},
-    {name:"الجوزاء", en:"gemini",  emoji:"♊︎", from:[5,21],  to:[6,20]},
-    {name:"السرطان", en:"cancer",  emoji:"♋︎", from:[6,21],  to:[7,22]},
-    {name:"الأسد",   en:"leo",     emoji:"♌︎", from:[7,23],  to:[8,22]},
-    {name:"العذراء", en:"virgo",   emoji:"♍︎", from:[8,23],  to:[9,22]},
-    {name:"الميزان", en:"libra",   emoji:"♎︎", from:[9,23],  to:[10,22]},
-    {name:"العقرب",  en:"scorpio", emoji:"♏︎", from:[10,23], to:[11,21]},
-    {name:"القوس",   en:"sagittarius", emoji:"♐︎", from:[11,22], to:[12,21]},
-    {name:"الجدي",   en:"capricorn",   emoji:"♑︎", from:[12,22], to:[1,19]},
-    {name:"الدلو",   en:"aquarius",    emoji:"♒︎", from:[1,20],  to:[2,18]},
-    {name:"الحوت",   en:"pisces",      emoji:"♓︎", from:[2,19],  to:[3,20]}
+    {name:"الحمل",   emoji:"♈︎", from:[3,21],  to:[4,19]},
+    {name:"الثور",   emoji:"♉︎", from:[4,20],  to:[5,20]},
+    {name:"الجوزاء", emoji:"♊︎", from:[5,21],  to:[6,20]},
+    {name:"السرطان", emoji:"♋︎", from:[6,21],  to:[7,22]},
+    {name:"الأسد",   emoji:"♌︎", from:[7,23],  to:[8,22]},
+    {name:"العذراء", emoji:"♍︎", from:[8,23],  to:[9,22]},
+    {name:"الميزان", emoji:"♎︎", from:[9,23],  to:[10,22]},
+    {name:"العقرب",  emoji:"♏︎", from:[10,23], to:[11,21]},
+    {name:"القوس",   emoji:"♐︎", from:[11,22], to:[12,21]},
+    {name:"الجدي",   emoji:"♑︎", from:[12,22], to:[1,19]},
+    {name:"الدلو",   emoji:"♒︎", from:[1,20],  to:[2,18]},
+    {name:"الحوت",   emoji:"♓︎", from:[2,19],  to:[3,20]}
   ];
   function getZodiac(dt){
-    if(!dt) return {name:"—",emoji:"☆",en:""};
-    const d=new Date(dt); if(isNaN(d)) return {name:"—",emoji:"☆",en:""};
+    if(!dt) return {name:"—", emoji:"☆"};
+    const d=new Date(dt); if(isNaN(d)) return {name:"—", emoji:"☆"};
     const m=d.getMonth()+1, day=d.getDate();
     for(const z of ZODIAC){
       const [fm,fd]=z.from,[tm,td]=z.to;
       const inSame=(m===fm && day>=fd)||(m===tm && day<=td);
       const inWrap=(fm>tm)&&((m===fm && day>=fd)||(m===tm && day<=td)||(m>fm || m<tm));
       if((fm<tm && inSame)||(fm>tm && inWrap)) return z;
-    } return {name:"—",emoji:"☆",en:""};
+    } return {name:"—", emoji:"☆"};
   }
 
-  /* أوصاف عامة */
+  /* أوصاف */
   const DESCRIPTORS = [
     "صريح لكنه يخلط الود بالمصلحة", "هادئ في البداية ثم حادّ عند القرار",
     "يتأخر عن المواعيد ويطلب أعذارًا طويلة", "يعد كثيرًا وينفذ قليلًا",
-    "منطقي لكنه بارد"، "كثير الكلام قليل الفعل", "عملي يدعمك بالأفعال"
+    "منطقي لكنه بارد", "كثير الكلام قليل الفعل", "عملي يدعمك بالأفعال"
   ];
 
-  /* قوالب أساسية لكل موضوع (حاسمة) */
+  /* قوالب أساسية (حاسمة) */
   const TEMPLATES = {
     love: [
       "مؤشر عاطفي واضح: الفعل المتكرر أهم من الكلام—راقب الثبات خلال 72 ساعة.",
@@ -407,29 +373,28 @@
   const quotaInfo=$("#quotaInfo"), quotaInfoTopics=$("#quotaInfoTopics"), quotaInfoResult=$("#quotaInfoResult");
   document.getElementById("closeLimit").addEventListener("click", ()=> overlayLimit.style.display="none");
 
-  /* حفظ/تحميل النموذج */
+  /* حفظ/تحميل */
   function saveForm(){ localStorage.setItem("istibsar_form", JSON.stringify({
-    gender: $("#gender").value||"", status: $("#status").value||"", work: $("#work").value||"", birthdate: $("#birthdate").value||"", useApi: $("#useApi").checked
+    gender: $("#gender").value||"", status: $("#status").value||"", work: $("#work").value||"", birthdate: $("#birthdate").value||""
   })); }
   function loadForm(){ try{ const d=JSON.parse(localStorage.getItem("istibsar_form")||"{}");
     if(d.gender) $("#gender").value=d.gender; if(d.status) $("#status").value=d.status;
     if(d.work) $("#work").value=d.work; if(d.birthdate) $("#birthdate").value=d.birthdate;
-    if(typeof d.useApi==="boolean") $("#useApi").checked = d.useApi;
   }catch(e){} }
 
-  let currentSign={name:"—",emoji:"☆",en:""};
+  let currentSign={name:"—",emoji:"☆"};
   function updateZodiacUI(){
     const bd=$("#birthdate").value; currentSign=getZodiac(bd);
-    zEmojiEl.textContent=currentSign.emoji; zNameEl.textContent=currentSign.name;
-    zodiacBadge.innerHTML=`<div class="tag"><span class="z-emoji">${currentSign.emoji}</span> برجك: ${currentSign.name}</div>`;
+    const badge = `<div class="tag"><span class="z-emoji">${currentSign.emoji}</span> برجك: ${currentSign.name}</div>`;
+    if(zodiacBadge) zodiacBadge.innerHTML=badge;
   }
-  ["gender","status","work","birthdate","useApi"].forEach(id=>{
+  ["gender","status","work","birthdate"].forEach(id=>{
     const el=$("#"+id);
     el.addEventListener("input", ()=>{ saveForm(); if(id==="birthdate") updateZodiacUI(); });
     el.addEventListener("change", ()=>{ saveForm(); if(id==="birthdate") updateZodiacUI(); });
   });
 
-  /* حد 15 قراءة/24 ساعة */
+  /* كوتا */
   const MAX_READS=15;
   function getQuota(){ const raw=localStorage.getItem("istibsar_quota"), now=Date.now(); if(!raw) return {count:0, resetAt:null};
     try{ const q=JSON.parse(raw); if(q.resetAt && now>q.resetAt) return {count:0, resetAt:null}; return q; }catch(e){ return {count:0, resetAt:null}; } }
@@ -455,7 +420,7 @@
     return ok;
   }
 
-  /* مفاتيح المستخدم ومنع التكرار */
+  /* منع التكرار */
   function userKey(){
     const form = JSON.stringify({g:$("#gender").value||"", s:$("#status").value||"", w:$("#work").value||"", b:$("#birthdate").value||""});
     let h=2166136261>>>0; for(let i=0;i<form.length;i++){ h^=form.charCodeAt(i); h=Math.imul(h,16777619); }
@@ -482,34 +447,7 @@
     return pool[Math.floor(Math.random()*pool.length)];
   }
 
-  /* ===== API خارجي (اختياري) – Aztro ===== */
-  async function fetchExternalHoroscope(signEn){
-    const url = `https://aztro.sameerkumar.work/?sign=${encodeURIComponent(signEn)}&day=today`;
-    try{
-      const res = await fetch(url, {method:"POST"}); // Aztro يتطلب POST
-      if(!res.ok) throw new Error("http_error");
-      const data = await res.json();
-      // ترجمة مبسطة + تلخيص عربي
-      const desc = (data.description || "").trim();
-      const mood = (data.mood || "").trim();
-      const color = (data.color || "").trim();
-      const lucky_time = (data.lucky_time || "").trim();
-      const comp = (data.compatibility || "").trim();
-
-      const ar = [];
-      if(desc) ar.push(`قراءة اليوم: ${desc}`);
-      if(mood) ar.push(`مزاج اليوم: ${mood}.`);
-      if(color) ar.push(`لون جالب للحظ: ${color}.`);
-      if(lucky_time) ar.push(`نافذة توقيت موفّق: ${lucky_time}.`);
-      if(comp) ar.push(`توافق لافت: ${comp}.`);
-      return ar.join(" ");
-    }catch(e){
-      console.warn("Horoscope API fallback:", e);
-      return null; // سيُستخدم المحتوى المحلي
-    }
-  }
-
-  /* إنشاء القراءة حسب الموضوع فقط (مع دمج API عند تفعيله) */
+  /* تفريعات حسب الحالة */
   function buildLoveBranch(status){
     const map = {
       "متزوج/متزوجة": [
@@ -559,7 +497,7 @@
 
   function randFrom(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
 
-  function composeLocal(topic){
+  function composeReading(topic){
     const main = pickUniqueVariant(topic);
     addUsed(topic, main.id);
     const blocks = [`<p>${main.text}</p>`];
@@ -600,57 +538,33 @@
     return blocks.join("");
   }
 
-  async function composeReading(topic){
-    // إن لم يفعّل المستخدم الـ API أو لا يوجد برج، نرجع المحلي
-    const useApi = $("#useApi").checked;
-    if(!useApi || !currentSign.en) return composeLocal(topic);
-
-    // محاولة جلب توقع خارجي ثم إدخاله كسطر أول إضافي
-    const external = await fetchExternalHoroscope(currentSign.en);
-    const local = composeLocal(topic);
-
-    if(!external) return local;
-
-    const lead = `<p><strong>توقع خارجي (${currentSign.name}):</strong> ${external}</p>`;
-    return lead + local;
-  }
-
-  /* تدفّق الواجهات */
+  /* واجهة */
   function echoUser(){
     const g=$("#gender").value||"—", s=$("#status").value||"—", w=$("#work").value||"—", b=$("#birthdate").value||"—";
-    $("#userEcho").innerHTML=`<span class="z-emoji">${currentSign.emoji}</span> ${currentSign.name} • ${g} • ${s} • ${w} • ${b}`;
+    const sign = getZodiac(b);
+    document.getElementById("userEcho").innerHTML=`<span class="z-emoji">${sign.emoji}</span> ${sign.name} • ${g} • ${s} • ${w} • ${b}`;
   }
-
   function stepShow(el){ el.classList.remove("hidden"); }
   function stepHide(el){ el.classList.add("hidden"); }
 
   function startFlow(){
     if(!validateForm()) return;
     stepHide(step1); stepShow(stepLoading);
-    setTimeout(()=>{ stepHide(stepLoading); stepShow(stepTopics); updateZodiacUI(); updateQuotaUI(); }, 900);
+    setTimeout(()=>{ stepHide(stepLoading); stepShow(stepTopics); updateZodiacUI(); updateQuotaUI(); }, 700);
   }
 
-  async function runTopic(topic){
+  function runTopic(topic){
     if(remainingQuota()<=0){ updateQuotaUI(); showLimitOverlay(); return; }
     stepHide(stepTopics); stepShow(stepLoading);
-
-    const titleMap = {love:"قراءة الحب", health:"قراءة الصحة", career:"قراءة المهنة والمال", general:"قراءة عامة/دراسية"};
-
-    try{
-      const html = await composeReading(topic);
-      setTimeout(()=>{ // لإبقاء الرسوم الظاهرة لحظة
-        stepHide(stepLoading); stepShow(stepResult);
-        incQuota(); updateQuotaUI(); echoUser();
-        document.getElementById("resultTitle").textContent = titleMap[topic] || "الإشارات الظاهرة";
-        document.getElementById("resultText").innerHTML = html;
-        document.getElementById("omen").textContent =
-          ["تحذير: تأجيل اليوم يضاعف الكلفة غدًا.","إشارة إيجابية: خطوة صغيرة الآن تُسرّع خبرًا منتظرًا.","تذكير: وضوحك يحسم نصف الطريق."][Math.floor(Math.random()*3)];
-      }, 600);
-    }catch(e){
-      console.error(e);
-      showGlobal("تعذر إنشاء القراءة. حاول مجددًا.", false);
-      stepHide(stepLoading); stepShow(stepTopics);
-    }
+    setTimeout(()=>{
+      stepHide(stepLoading); stepShow(stepResult);
+      incQuota(); updateQuotaUI(); echoUser();
+      const titleMap = {love:"قراءة الحب", health:"قراءة الصحة", career:"قراءة المهنة والمال", general:"قراءة عامة/دراسية"};
+      document.getElementById("resultTitle").textContent = titleMap[topic] || "الإشارات الظاهرة";
+      document.getElementById("resultText").innerHTML = composeReading(topic);
+      document.getElementById("omen").textContent =
+        ["تحذير: تأجيل اليوم يضاعف الكلفة غدًا.","إشارة إيجابية: خطوة صغيرة الآن تُسرّع خبرًا منتظرًا.","تذكير: وضوحك يحسم نصف الطريق."][Math.floor(Math.random()*3)];
+    }, 700);
   }
 
   document.getElementById("startBtn").addEventListener("click", startFlow);
@@ -663,8 +577,9 @@
     const meta=document.getElementById("printMeta"), reading=document.getElementById("printReading");
     const g=$("#gender").value||"—", s=$("#status").value||"—", w=$("#work").value||"—", b=$("#birthdate").value||"—";
     const now=new Date(); const when=now.toLocaleString('ar', {hour12:false});
+    const sign=getZodiac(b);
     meta.innerHTML = `
-      <div>البرج: ${currentSign.emoji} ${currentSign.name}</div>
+      <div>البرج: ${sign.emoji} ${sign.name}</div>
       <div>الجنس: ${g}</div>
       <div>الحالة الاجتماعية: ${s}</div>
       <div>الوضع المهني: ${w}</div>
@@ -678,8 +593,12 @@
     buildPrintDoc(); window.print();
   });
 
-  /* تهيئة */
-  (function init(){ updateZodiacUI(); loadForm(); updateQuotaUI(); })();
+  /* تهيئة — مهم: حمّل البيانات أولًا ثم اعرض البرج */
+  (function init(){
+    loadForm();
+    updateZodiacUI();
+    updateQuotaUI();
+  })();
 </script>
 </body>
 </html>
