@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<title>الابراج والاستبصار – قراءة الطالع العميقة</title>
+<title>الأبراج والاستبصار – قراءة الطالع العميقة</title>
 <meta name="description" content="قراءات فلكية تنبؤية موجزة" />
 <meta name="robots" content="index, follow" />
 <link rel="canonical" href="https://YOUR-DOMAIN.example/" />
@@ -15,7 +15,7 @@
 {
   "@context": "https://schema.org",
   "@type": "WebPage",
-  "name": "الابراج والاستبصار – قراءة الطالع العميقة",
+  "name": "الأبراج والاستبصار – قراءة الطالع العميقة",
   "description": "قراءات فلكية تنبؤية موجزة",
   "inLanguage": "ar",
   "isPartOf": { "@type": "WebSite", "name": "الابراج والاستبصار", "url": "https://YOUR-DOMAIN.example/" }
@@ -25,12 +25,12 @@
 <!-- OG / Twitter -->
 <meta property="og:locale" content="ar_AR" />
 <meta property="og:type" content="website" />
-<meta property="og:title" content="الابراج والاستبصار – قراءة الطالع العميقة" />
+<meta property="og:title" content="الأبراج والاستبصار – قراءة الطالع العميقة" />
 <meta property="og:description" content="قراءات فلكية تنبؤية موجزة" />
 <meta property="og:url" content="https://YOUR-DOMAIN.example/" />
 <meta property="og:image" content="https://YOUR-DOMAIN.example/og-image.jpg" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="الابراج والاستبصار – قراءة الطالع العميقة" />
+<meta name="twitter:title" content="الأبراج والاستبصار – قراءة الطالع العميقة" />
 <meta name="twitter:description" content="قراءات فلكية تنبؤية موجزة" />
 <meta name="twitter:image" content="https://YOUR-DOMAIN.example/og-image.jpg" />
 
@@ -50,10 +50,10 @@
     margin:0; background:var(--bg); color:var(--fg);
     font-family:"Cairo",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
     -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
-    letter-spacing:0; word-spacing:.2px; line-height:1.85; overflow-x:hidden;
+    line-height:1.85; overflow-x:hidden;
   }
 
-  /* خلفية نجوم خفيفة */
+  /* خلفية */
   body::before, body::after{ content:""; position:fixed; inset:0; pointer-events:none; z-index:-2; }
   body::before{
     background:
@@ -67,7 +67,6 @@
   }
   @keyframes twinkle { 0%,100%{opacity:.20} 50%{opacity:.36} }
 
-  /* الهيدر */
   header{ text-align:center; padding:18px 16px 10px; background:rgba(11,13,18,.75); backdrop-filter:saturate(140%) blur(6px); border-bottom:1px solid var(--stroke); }
   .title{ margin:0; font-weight:700; line-height:1.2; font-size: clamp(28px,5vw,46px); color:var(--brand);}
   .subtitle{ color:var(--muted); font-size:14px; margin-top:6px }
@@ -87,7 +86,7 @@
   .grid{display:grid; grid-template-columns:1fr 1fr; gap:12px}
   @media (max-width:640px){ .grid{grid-template-columns:1fr} }
 
-  .btn{ border:0; background:linear-gradient(135deg, var(--brand), #ffb300); color:#221; font-weight:700; cursor:pointer; transition:transform .08s ease, filter .2s ease; }
+  .btn{ border:0; background:linear-gradient(135deg, var(--brand), #ffb300); color:#221; font-weight:700; cursor:pointer; transition:transform .08s ease }
   .btn:active{transform:scale(.99)}
   .ghost{background:transparent; border:1px solid var(--brand); color:var(--brand)}
   .center{display:grid; place-items:center; text-align:center}
@@ -99,12 +98,11 @@
   .topic:hover{background:#12172a}
   .topic span{display:block; color:#cfd8dc; font-size:14px; margin-top:4px}
 
-  .result{ font-size:18px; text-align:justify; text-justify:inter-word; }
-  .result p{ margin:10px 0; text-align:justify; }
+  .result{ font-size:18px; text-align:justify; }
+  .result p{ margin:10px 0; }
 
   .tag{display:inline-flex; align-items:center; gap:8px; padding:6px 12px; border-radius:999px; border:1px solid var(--stroke); color:#fff; font-size:14px; background:#0f1320}
   .z-emoji{font-size:20px}
-  .stars{position:relative; overflow:hidden; border-radius:16px}
   .quota{margin-top:8px; font-size:13px; color:#cfd8dc; text-align:center}
   .muted{color:#bdbdbd}
 
@@ -113,8 +111,7 @@
 
   footer{ padding:24px 16px; text-align:center; color:#cfd8dc; border-top:1px solid var(--stroke); display:flex; flex-direction:column; gap:10px; align-items:center }
   .socials{display:flex; gap:12px; flex-wrap:wrap; justify-content:center}
-  .socials button{ width:36px; height:36px; display:inline-grid; place-items:center; border-radius:10px; border:1px solid var(--stroke); background:#0f1320; transition:transform .1s ease, border-color .2s ease; cursor:pointer }
-  .socials button:hover{transform:translateY(-1px); border-color:#5ad1ff}
+  .socials button{ width:36px; height:36px; display:inline-grid; place-items:center; border-radius:10px; border:1px solid var(--stroke); background:#0f1320; cursor:pointer }
   .socials svg{width:18px;height:18px; fill:#cfd8dc}
 
   .ring-wrap{height:240px; display:grid; place-items:center}
@@ -122,18 +119,17 @@
   .ring:after{content:""; position:absolute; inset:16px; border-radius:50%; border:4px dashed rgba(255,255,255,.12)}
   @keyframes spin{to{transform:rotate(360deg)}}
 
-  /* ===== قالب PDF الرسمي (Print-Only) ===== */
+  /* طباعة PDF */
   #printDoc{ display:none; }
   #printDoc .paper{ background:#0b0d12; color:#f7f7f7; border:1px solid #2a3550; border-radius:16px; padding:18px; }
   #printDoc h1{ color:#ffd54a; margin:0 0 6px; text-align:center; font-size:26px; }
   #printDoc h2{ color:#ffd54a; font-size:20px; text-align:center; margin:6px 0 10px; }
   #printDoc .meta{ display:grid; grid-template-columns:repeat(2,1fr); gap:8px; margin:10px 0 12px; }
   #printDoc .meta div{ background:#0f1320; border:1px solid #2a3550; border-radius:10px; padding:10px; font-size:14px; }
-  #printDoc .reading{ font-size:18px; line-height:1.9; text-align:justify; text-justify:inter-word; }
+  #printDoc .reading{ font-size:18px; line-height:1.9; text-align:justify; }
   #printDoc .brandline{ text-align:center; color:#bdbdbd; font-size:12px; margin-top:12px }
   @media print {
     @page{ size:A4; margin:14mm; }
-    html, body { background:#0b0d12; }
     * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
     header, main > *, footer, .overlay { display:none !important; }
     #printDoc{ display:block !important; }
@@ -143,7 +139,7 @@
 <body>
 
 <header>
-  <h1 class="title">الابراج والاستبصار</h1>
+  <h1 class="title">الأبراج والاستبصار</h1>
   <p class="subtitle">قراءات فلكية تنبؤية موجزة</p>
   <div class="seer-wrap" aria-hidden="true">
     <svg class="seer" viewBox="0 0 800 260" xmlns="http://www.w3.org/2000/svg">
@@ -200,6 +196,10 @@
         <input id="birthdate" type="date" required>
         <div class="notice hidden" id="e_birthdate">الرجاء إدخال تاريخ الميلاد.</div>
       </div>
+      <div style="grid-column:1/-1; display:flex; align-items:center; gap:10px; margin-top:6px">
+        <input id="useApi" type="checkbox" style="width:auto; accent-color:#ffd54a">
+        <label for="useApi" style="margin:0">تفعيل التنبؤ الخارجي (API مجاني) – إن تعذّر الاتصال سنعرض قراءة محلية تلقائيًا.</label>
+      </div>
     </div>
     <div style="margin-top:16px;">
       <button class="btn" id="startBtn" style="min-width:220px">ابدأ القراءة</button>
@@ -230,7 +230,7 @@
   <!-- النتيجة -->
   <section id="stepResult" class="card hidden stars">
     <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap">
-      <h2 style="margin:0">الإشارات الظاهرة</h2>
+      <h2 id="resultTitle" style="margin:0">الإشارات الظاهرة</h2>
       <div class="tag" id="userEcho"><span class="z-emoji" id="zEmoji">☆</span><span id="zName">—</span></div>
     </div>
     <article id="resultText" class="result" style="margin-top:10px"></article>
@@ -270,7 +270,7 @@
       <svg viewBox="0 0 24 24" role="img" aria-label="Facebook"><path d="M13 22v-8h3l1-4h-4V7.5A1.5 1.5 0 0 1 14.5 6H17V2h-3.5A4.5 4.5 0 0 0 9 6.5V10H6v4h3v8h4Z"/></svg>
     </button>
   </div>
-  <div>© <span id="year"></span> الابراج والاستبصار</div>
+  <div>© <span id="year"></span> الأبراج والاستبصار</div>
 </footer>
 
 <!-- مودال الحد اليومي -->
@@ -285,10 +285,10 @@
   </div>
 </div>
 
-<!-- قالب PDF الرسمي -->
+<!-- قالب PDF -->
 <div id="printDoc" aria-hidden="true">
   <div class="paper">
-    <h1>الابراج والاستبصار</h1>
+    <h1>الأبراج والاستبصار</h1>
     <h2>قراءة الطالع العميقة</h2>
     <div class="meta" id="printMeta"></div>
     <div class="reading" id="printReading"></div>
@@ -302,7 +302,7 @@
 
   /* مشاركة */
   function shareData(){
-    const data = { title:"الابراج والاستبصار", text:"قراءات فلكية تنبؤية موجزة", url: location.href };
+    const data = { title:"الأبراج والاستبصار", text:"قراءات فلكية تنبؤية موجزة", url: location.href };
     if(navigator.share){ navigator.share(data).catch(()=>{}); }
     else { window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(location.href)}`,'_blank'); }
   }
@@ -315,159 +315,118 @@
 
   /* نطاقات الأبراج */
   const ZODIAC = [
-    {name:"الحمل",   emoji:"♈︎", from:[3,21],  to:[4,19]},
-    {name:"الثور",   emoji:"♉︎", from:[4,20],  to:[5,20]},
-    {name:"الجوزاء", emoji:"♊︎", from:[5,21],  to:[6,20]},
-    {name:"السرطان", emoji:"♋︎", from:[6,21],  to:[7,22]},
-    {name:"الأسد",   emoji:"♌︎", from:[7,23],  to:[8,22]},
-    {name:"العذراء", emoji:"♍︎", from:[8,23],  to:[9,22]},
-    {name:"الميزان", emoji:"♎︎", from:[9,23],  to:[10,22]},
-    {name:"العقرب",  emoji:"♏︎", from:[10,23], to:[11,21]},
-    {name:"القوس",   emoji:"♐︎", from:[11,22], to:[12,21]},
-    {name:"الجدي",   emoji:"♑︎", from:[12,22], to:[1,19]},
-    {name:"الدلو",   emoji:"♒︎", from:[1,20],  to:[2,18]},
-    {name:"الحوت",   emoji:"♓︎", from:[2,19],  to:[3,20]}
+    {name:"الحمل",   en:"aries",   emoji:"♈︎", from:[3,21],  to:[4,19]},
+    {name:"الثور",   en:"taurus",  emoji:"♉︎", from:[4,20],  to:[5,20]},
+    {name:"الجوزاء", en:"gemini",  emoji:"♊︎", from:[5,21],  to:[6,20]},
+    {name:"السرطان", en:"cancer",  emoji:"♋︎", from:[6,21],  to:[7,22]},
+    {name:"الأسد",   en:"leo",     emoji:"♌︎", from:[7,23],  to:[8,22]},
+    {name:"العذراء", en:"virgo",   emoji:"♍︎", from:[8,23],  to:[9,22]},
+    {name:"الميزان", en:"libra",   emoji:"♎︎", from:[9,23],  to:[10,22]},
+    {name:"العقرب",  en:"scorpio", emoji:"♏︎", from:[10,23], to:[11,21]},
+    {name:"القوس",   en:"sagittarius", emoji:"♐︎", from:[11,22], to:[12,21]},
+    {name:"الجدي",   en:"capricorn",   emoji:"♑︎", from:[12,22], to:[1,19]},
+    {name:"الدلو",   en:"aquarius",    emoji:"♒︎", from:[1,20],  to:[2,18]},
+    {name:"الحوت",   en:"pisces",      emoji:"♓︎", from:[2,19],  to:[3,20]}
   ];
   function getZodiac(dt){
-    if(!dt) return {name:"—", emoji:"☆"};
-    const d=new Date(dt); if(isNaN(d)) return {name:"—", emoji:"☆"};
+    if(!dt) return {name:"—",emoji:"☆",en:""};
+    const d=new Date(dt); if(isNaN(d)) return {name:"—",emoji:"☆",en:""};
     const m=d.getMonth()+1, day=d.getDate();
     for(const z of ZODIAC){
       const [fm,fd]=z.from,[tm,td]=z.to;
       const inSame=(m===fm && day>=fd)||(m===tm && day<=td);
       const inWrap=(fm>tm)&&((m===fm && day>=fd)||(m===tm && day<=td)||(m>fm || m<tm));
       if((fm<tm && inSame)||(fm>tm && inWrap)) return z;
-    } return {name:"—", emoji:"☆"};
+    } return {name:"—",emoji:"☆",en:""};
   }
 
-  /* أوصاف بشرية واسعة (بدون حروف أولى) */
+  /* أوصاف عامة */
   const DESCRIPTORS = [
-    "قصير سريع الحركة", "طويل ذو حضور قوي", "صديق قديم يعود بلا مقدمات", "جار متطفّل يكثر من الأسئلة",
-    "قريب حسود يتظاهر بالنصح", "زميل حقود يلمّح ولا يصرّح", "مدرّس أناني يطلب الكثير",
-    "شخص هادئ في البداية ثم شديد الصراحة", "مبالغ في الوعود قليل في التنفيذ", "عملي لا يحب التفاصيل الطويلة",
-    "غامض في سيرته واضح في فعله", "قريب عبوس يغيّر رأيه بسرعة", "زميل متملّق ينتظر مكسبًا سهلًا",
-    "جار طيب لكنه كثير الكلام", "شخص يظهر بقوة ثم يختفي أيامًا", "زميل منافس يتصنّع الود",
-    "قريب منطقي لكنه بارد", "شريك محتمل يحب السيطرة", "مدرّس متطلب يفاجئك باختبار",
-    "طالب كسول يحاول الاتكاء عليك", "صاحب مبادرات صغيرة وثابتة", "شخص متسرّع يُربك المواعيد",
-    "هادئ الطباع يكره الدراما", "صديق عملي يدعمك بالأفعال", "قريب حاقد يهوّل الأحداث",
-    "زميل مرتبك ينقل كلامًا ناقصًا", "جار ودود يحترم الخصوصية", "شخص متأرجح بين الود والصد",
-    "مدرّس يعطي تلميحات بدل الحلول", "زميل يغار من إنجازك الأخير"
+    "صريح لكنه يخلط الود بالمصلحة", "هادئ في البداية ثم حادّ عند القرار",
+    "يتأخر عن المواعيد ويطلب أعذارًا طويلة", "يعد كثيرًا وينفذ قليلًا",
+    "منطقي لكنه بارد"، "كثير الكلام قليل الفعل", "عملي يدعمك بالأفعال"
   ];
 
-  /* قوالب نصية عميقة (سيجري توليد ≥25/موضوع = 100+) */
+  /* قوالب أساسية لكل موضوع (حاسمة) */
   const TEMPLATES = {
     love: [
-      "تتقاطع اليوم إشارات عاطفية ناضجة؛ الفعل الصادق يتكرّر دون طلب، والكلام الزائد يتساقط من تلقاء نفسه.",
-      "مصالحة ممكنة بعد توتّر قصير؛ جملة دقيقة تُغلق باب التأويل وتعيد حرارة الحوار.",
-      "باب تعارف يخرج من طريقٍ مهني/دراسي؛ لا تمنحه وعدًا كبيرًا مبكّرًا، دع الوقت يثبت جدّيته.",
-      "غيرة خفيفة عند الأطراف تُطفَأ بابتسامة وشفافية؛ لا مجال للهمس حين تكون اللغة واضحة.",
-      "رسالة تُؤجَّل ثم تصل في التوقيت المناسب؛ قوّتها في توقيتها لا في طولها.",
-      "توقّع دعمًا فعليًا من صديق عملي؛ يقدّم فعلًا صغيرًا يغيّر يومًا كاملًا.",
-      "تحذير: وجود شخص {desc} قد يخلط الود بالمصلحة؛ لا توقّعًا بلا اختبار.",
-      "العاطفة تنضج عندما تُحترم الحدود؛ من لا يحترمها اليوم سيكسرها غدًا.",
-      "لقاء خاطف يعيد إحياء فكرة قديمة؛ لا تستعجل التسمية، راقب الثبات.",
-      "اعتذارٌ صريح يردّ لك يقينك؛ العبرة بما بعد الاعتذار لا به وحده."
+      "مؤشر عاطفي واضح: الفعل المتكرر أهم من الكلام—راقب الثبات خلال 72 ساعة.",
+      "مصالحة قصيرة ممكنة بجملة دقيقة تُغلق باب التأويل.",
+      "تحذير حاسم: وجود شخص {desc} يقترب؛ احفظ حدود الخصوصية وإلا تتسع القصة.",
+      "لقاء خاطف يعيد فكرة قديمة؛ لا تستعجل التسمية—اختبر الفعل."
     ],
     career: [
-      "مهمة متوسطة بموعدٍ ضيق تُظهرك في المكان الصحيح؛ الإنجاز هنا يفتح توصية غير متوقعة.",
-      "بند صغير في ورقة كبيرة يحتاج قراءة مرتين؛ يمنع تأخيرًا مزعجًا.",
-      "تذبذبٌ قصير في سوق/راتب؛ السيولة القصيرة تحمي من انعطافة مفاجئة.",
-      "نافذة تعلّم سريعة ترفع ثقتك خلال أسبوع؛ ساعة يوميًا تكفي للفرق.",
-      "اجتماع محدد الهدف: إجابتان واضحتان وسؤال ذكي واحد يصنعان الثقة.",
-      "فرصة جانبية بوقع كبير؛ ابدأ صغيرًا وثبّت الجودة ثم وسّع.",
-      "تحذير: شريك {desc} يلمّع العرض ويخفي التفصيل؛ أخرج البنود إلى الضوء.",
-      "زيادة دخل من مسار ثانوي؛ الاستمرارية تهزم القفزات.",
-      "خلاف مهني قصير يهدأ بالأرقام لا بالانفعال.",
-      "أثر عمل قديم يعود بتوصية جديدة؛ الانطباع لا يموت سريعًا."
+      "مهمة بموعد ضيق تكشف اسمك في المكان الصحيح؛ أنجز النسخة الأولى اليوم.",
+      "بند صغير في ورقة كبيرة يحتاج قراءة مرتين—يمنع تأخيرًا مزعجًا.",
+      "فرصة جانبية بوقع واضح؛ ابدأ صغيرًا وثبّت الجودة ثم وسّع.",
+      "تحذير: شريك {desc} يلمّع العرض ويخفي التفصيل؛ أخرج البنود إلى الضوء."
     ],
     health: [
-      "صفاء داخلي يعيد نومًا أعمق حين يخف الضوء مساءً.",
-      "ألم كتفين/أسفل ظهر إشارة مبكرة؛ دقيقة تمدد بين كل مهمتين تكفي.",
-      "ماء وحركة خفيفة صباحًا تصنع طاقة واضحة خلال ٤٨ ساعة.",
-      "توتر عابر يهدأ باستراحات قصيرة متكررة.",
-      "المشي الهادئ خارج الشاشة يعيد تركيزك لنقطة الصفر.",
-      "تقليل المنبّهات ليلًا يمنع تذبذب النوم.",
-      "تحذير: محيط فيه شخص {desc} يزيد التشتت؛ اضبط حدودك.",
-      "الاستمرارية الصغيرة تهزم الحماس المتقطّع.",
-      "قول المخاوف بصوت مسموع يقلّل حدتها للنصف.",
-      "وجبة أولى أخفّ تُحسّن صفاء الذهن بقية اليوم."
+      "إعادة ضبط النوم بتقليل الضوء قبل ساعة—يتحسن المزاج خلال 48 ساعة.",
+      "ألم كتف/أسفل الظهر إشارة مبكرة؛ دقيقة تمدد بين كل مهمتين تكفي.",
+      "ماء + مشي 20 دقيقة يغيّر صفاء الذهن بقية الأسبوع.",
+      "تحذير: محيط مشتّت مع شخص {desc}؛ اضبط الحدود."
     ],
     general: [
-      "خبر سار يقترب خطوة بخطوة كأنه يعوّض انتظارًا طويلًا.",
-      "مصادفة دقيقة تجمع فكرة كبيرة بلقاءٍ قصير.",
-      "نقاشٌ عائلي حادّ وقصير يهدأ بالإنصات لا بالاتهام.",
-      "مبلغ صغير/متوسط يظهر بلا موعد ويخفف عبئًا قديمًا.",
-      "رسالة مقتضبة تغيّر اتجاه الأسبوع بالكامل.",
-      "تحذير: شخص {desc} يختبر حدودك؛ الصرامة اللطيفة تحميك.",
-      "الحدس يسبق الكلام؛ التوقيت نصف اليقين.",
-      "حين تُكتب الأهداف بسطرين تنتهي المتاهة وتبدأ الحركة.",
-      "بابان سيُطرقان: الأول امتحان، والثاني فرج.",
-      "في الدراسة: زميل {desc} يحاول التشتيت؛ خطتك المنتظمة أقوى من كلامه."
+      "خبر سار يقترب خطوة بخطوة كأنه يعوّض انتظارًا طويلًا—تابع حتى النهاية.",
+      "رسالة قصيرة تغيّر اتجاه الأسبوع؛ ردّك السريع يصنع النتيجة.",
+      "مبلغ صغير يظهر بلا موعد ويطفئ عبئًا قديمًا؛ لا تُسرِف بعده بيومين.",
+      "تحذير: شخص {desc} يختبر حدودك؛ الصرامة اللطيفة تحميك."
     ]
   };
 
-  /* بناء ≥25 تنويعًا/موضوع = 100+ إجمالي (مع مزج الأوصاف) */
-  function buildTopicVariants(topic){
-    const base = TEMPLATES[topic] || TEMPLATES.general;
-    const variants = [];
-    let id = 1;
+  function buildVariants(topic){
+    const base=TEMPLATES[topic]||TEMPLATES.general, variants=[];
+    let id=1;
     for(const t of base){
-      // نمزج كل قالب مع مجموعة أوصاف لتكثير التنوع
-      for(let i=0;i<DESCRIPTORS.length;i+=Math.max(1, Math.ceil(DESCRIPTORS.length/3))){
-        const desc = DESCRIPTORS[i];
-        const txt = t.replace("{desc}", desc);
-        variants.push({id:`${topic}-${id++}`, text:txt});
-      }
+      const d=DESCRIPTORS[Math.floor(Math.random()*DESCRIPTORS.length)];
+      variants.push({id:`${topic}-${id++}`,text:t.replace("{desc}",d)});
+      variants.push({id:`${topic}-${id++}`,text:t.replace("{desc}",DESCRIPTORS[(Math.floor(Math.random()*DESCRIPTORS.length))])});
     }
-    // ضمان ≥ 25
     while(variants.length<25){
-      const desc = DESCRIPTORS[Math.floor(Math.random()*DESCRIPTORS.length)];
-      const t = base[Math.floor(Math.random()*base.length)].replace("{desc}", desc);
-      variants.push({id:`${topic}-${id++}`, text:t});
+      const t=base[Math.floor(Math.random()*base.length)];
+      variants.push({id:`${topic}-${id++}`,text:t.replace("{desc}",DESCRIPTORS[Math.floor(Math.random()*DESCRIPTORS.length)])});
     }
-    // خلط واختيار 25
     variants.sort(()=>Math.random()-0.5);
     return variants.slice(0,25);
   }
 
-  // بنك كامل (100+) يُنشأ عند التشغيل
   const BANK = {
-    love:   buildTopicVariants('love'),
-    career: buildTopicVariants('career'),
-    health: buildTopicVariants('health'),
-    general:buildTopicVariants('general')
+    love:   buildVariants('love'),
+    career: buildVariants('career'),
+    health: buildVariants('health'),
+    general:buildVariants('general')
   };
 
   /* عناصر الواجهة */
   const step1=$("#step1"), stepLoading=$("#stepLoading"), stepTopics=$("#stepTopics"), stepResult=$("#stepResult");
   const globalNotice=$("#globalNotice");
   const zodiacBadge=$("#zodiacBadge"), zEmojiEl=$("#zEmoji"), zNameEl=$("#zName");
-  const resultText=$("#resultText"), omenEl=$("#omen"), userEcho=$("#userEcho");
+  const resultText=$("#resultText"), omenEl=$("#omen");
   const overlayLimit=$("#overlayLimit"), countdownEl=$("#countdown");
   const quotaInfo=$("#quotaInfo"), quotaInfoTopics=$("#quotaInfoTopics"), quotaInfoResult=$("#quotaInfoResult");
   document.getElementById("closeLimit").addEventListener("click", ()=> overlayLimit.style.display="none");
 
   /* حفظ/تحميل النموذج */
   function saveForm(){ localStorage.setItem("istibsar_form", JSON.stringify({
-    gender: $("#gender").value||"", status: $("#status").value||"", work: $("#work").value||"", birthdate: $("#birthdate").value||""
+    gender: $("#gender").value||"", status: $("#status").value||"", work: $("#work").value||"", birthdate: $("#birthdate").value||"", useApi: $("#useApi").checked
   })); }
   function loadForm(){ try{ const d=JSON.parse(localStorage.getItem("istibsar_form")||"{}");
     if(d.gender) $("#gender").value=d.gender; if(d.status) $("#status").value=d.status;
     if(d.work) $("#work").value=d.work; if(d.birthdate) $("#birthdate").value=d.birthdate;
+    if(typeof d.useApi==="boolean") $("#useApi").checked = d.useApi;
   }catch(e){} }
 
-  let currentSign={name:"—",emoji:"☆"};
+  let currentSign={name:"—",emoji:"☆",en:""};
   function updateZodiacUI(){
     const bd=$("#birthdate").value; currentSign=getZodiac(bd);
     zEmojiEl.textContent=currentSign.emoji; zNameEl.textContent=currentSign.name;
     zodiacBadge.innerHTML=`<div class="tag"><span class="z-emoji">${currentSign.emoji}</span> برجك: ${currentSign.name}</div>`;
   }
-  ["gender","status","work","birthdate"].forEach(id=>{
+  ["gender","status","work","birthdate","useApi"].forEach(id=>{
     const el=$("#"+id);
-    el.addEventListener("input", ()=>{ saveForm(); updateZodiacUI(); });
-    el.addEventListener("change", ()=>{ saveForm(); updateZodiacUI(); });
-    el.addEventListener("blur",  ()=>{ saveForm(); updateZodiacUI(); });
-    if(id==="birthdate"){ el.addEventListener("keyup", updateZodiacUI); el.addEventListener("click", ()=>setTimeout(updateZodiacUI,0)); }
+    el.addEventListener("input", ()=>{ saveForm(); if(id==="birthdate") updateZodiacUI(); });
+    el.addEventListener("change", ()=>{ saveForm(); if(id==="birthdate") updateZodiacUI(); });
   });
 
   /* حد 15 قراءة/24 ساعة */
@@ -496,7 +455,7 @@
     return ok;
   }
 
-  /* مفتاح المستخدم لمنع التكرار */
+  /* مفاتيح المستخدم ومنع التكرار */
   function userKey(){
     const form = JSON.stringify({g:$("#gender").value||"", s:$("#status").value||"", w:$("#work").value||"", b:$("#birthdate").value||""});
     let h=2166136261>>>0; for(let i=0;i<form.length;i++){ h^=form.charCodeAt(i); h=Math.imul(h,16777619); }
@@ -511,81 +470,197 @@
     const s = getUsed(topic); s.add(id);
     localStorage.setItem(key, JSON.stringify([...s]));
   }
-
-  /* اختيار تنويع غير مكرر */
   function pickUniqueVariant(topic){
     const list = BANK[topic] || BANK.general;
     const used = getUsed(topic);
     const pool = list.filter(v=> !used.has(v.id));
     if(pool.length===0){
-      showGlobal("تم استهلاك كل التنويعات المتاحة لهذا الموضوع. سيُعاد التوليف من جديد.", true);
+      showGlobal("تم استهلاك التنويعات؛ أعِدنا توليد بنك جديد.", true);
       localStorage.removeItem(`istibsar_used_${userKey()}_${topic}`);
       return list[Math.floor(Math.random()*list.length)];
     }
     return pool[Math.floor(Math.random()*pool.length)];
   }
 
-  /* توليف قراءة كاملة (بلا افتتاحية ثابتة) */
-  function composeReading(topic){
+  /* ===== API خارجي (اختياري) – Aztro ===== */
+  async function fetchExternalHoroscope(signEn){
+    const url = `https://aztro.sameerkumar.work/?sign=${encodeURIComponent(signEn)}&day=today`;
+    try{
+      const res = await fetch(url, {method:"POST"}); // Aztro يتطلب POST
+      if(!res.ok) throw new Error("http_error");
+      const data = await res.json();
+      // ترجمة مبسطة + تلخيص عربي
+      const desc = (data.description || "").trim();
+      const mood = (data.mood || "").trim();
+      const color = (data.color || "").trim();
+      const lucky_time = (data.lucky_time || "").trim();
+      const comp = (data.compatibility || "").trim();
+
+      const ar = [];
+      if(desc) ar.push(`قراءة اليوم: ${desc}`);
+      if(mood) ar.push(`مزاج اليوم: ${mood}.`);
+      if(color) ar.push(`لون جالب للحظ: ${color}.`);
+      if(lucky_time) ar.push(`نافذة توقيت موفّق: ${lucky_time}.`);
+      if(comp) ar.push(`توافق لافت: ${comp}.`);
+      return ar.join(" ");
+    }catch(e){
+      console.warn("Horoscope API fallback:", e);
+      return null; // سيُستخدم المحتوى المحلي
+    }
+  }
+
+  /* إنشاء القراءة حسب الموضوع فقط (مع دمج API عند تفعيله) */
+  function buildLoveBranch(status){
+    const map = {
+      "متزوج/متزوجة": [
+        "قرار واضح ينهي تذبذبًا قصيرًا: حدّد شرطًا واحدًا والتزم به، وستظهر استجابة خلال 72 ساعة.",
+        "تحذير حاسم: شخص ثالث يقترب بلباقة؛ أغلق ثغرات الخصوصية فورًا وإلا تتسع القصة.",
+        "جلسة مصارحة بوقت محدد وبدون مقاطعات تنهي 80% من سوء الفهم الحالي."
+      ],
+      "مخطوب/مخطوبة": [
+        "اتفاق عملي على بندين (المال/الوقت) يحسم التردد ويُسرّع خطوة رسمية.",
+        "إشارة غيرة خفيفة من طرف قريب؛ لا تمنح تفاصيل إضافية هذه الأيام.",
+        "موعد محسوب يحسم رأيًا مترددًا—اختبر الفعل لا الوعود."
+      ],
+      "أعزب/عزباء": [
+        "نافذة تعارف قصيرة من باب العمل/الدراسة؛ لا تمنح وعودًا سريعة، راقب الثبات أسبوعًا.",
+        "تحذير: انجذاب سريع مع شخص {desc}؛ جرّب سؤالين محددين قبل التقدم.",
+        "رسالة مقتضبة ستفتح حديثًا جديدًا؛ الرد في نفس اليوم يصنع فرقًا واضحًا."
+      ],
+      "منفصل/منفصلة": [
+        "فرصة إغلاق نظيف لمرحلة قديمة؛ لا تعُد لأسئلة بلا جواب—أغلق الباب بوضوح.",
+        "شخص هادئ يدخل المشهد من توصية صديق؛ امنح الحوار مساحة تجربة قصيرة فقط.",
+        "تحذير: ذاكرة انتقائية تعيد قراءة قديمة بشكل وردي؛ التزم بالوقائع لا بالحنين."
+      ]
+    };
+    return map[status] || map["أعزب/عزباء"];
+  }
+
+  function buildCareerBranch(work){
+    const map = {
+      "أعمل": [
+        "مهمة بموعد ضيق تكشف اسمك في المكان الصحيح؛ أنجز النسخة الأولى اليوم.",
+        "احذر بندًا صغيرًا في عقد/رسالة؛ مراجعته تمنع تأخيرًا ومشاكل لاحقة.",
+        "أثر عمل قديم يعود كتوصية واضحة—لا تُفوّت المتابعة في نفس اليوم."
+      ],
+      "عاطل": [
+        "مساران قصيران اليوم: مهارة خفيفة + سيرة مضغوطة؛ إرسال 3 طلبات مستهدفة أفضل من 20 عشوائية.",
+        "شبكة علاقات قريبة تقدّم توصية واحدة فعّالة؛ تواصل محدّد يسبق السيرة.",
+        "تحذير: انتظار بلا حركة يُمدّد الفترة؛ كبّر نتائج صغيرة يومية."
+      ],
+      "طالب": [
+        "تركيز 50 دقيقة + مراجعة 10 دقائق مباشرة يرفع العلامة في الامتحان التالي.",
+        "مشروع صغير يسبق الامتحان يعوّض تذبذبًا سابقًا ويُظهر جِدّيتك.",
+        "تحذير: زميل {desc} يشوّش الخطة؛ التزم بجدولك المكتوب."
+      ]
+    };
+    return map[work] || map["أعمل"];
+  }
+
+  function randFrom(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+
+  function composeLocal(topic){
     const main = pickUniqueVariant(topic);
     addUsed(topic, main.id);
+    const blocks = [`<p>${main.text}</p>`];
 
-    const family = [
-      "خلافٌ عائلي قصير لكنه حادّ يهدأ سريعًا إذا تُرك مجال للإنصات لا للاتهام.",
-      "جلسة هادئة تكشف لبسًا قديمًا وتُنهي سوء فهم متراكم دون خسائر."
-    ];
-    const money = [
-      "وارد مالي غير متوقّع (استرداد/هبة/ربح جانبي) يخفّف عبئًا سابقًا؛ تجنّب الإنفاق المتعجّل ليومين.",
-      "فرصة توفير ذكية تظهر كاشتراك يمكن إعادة التفاوض عليه لتقليل الكلفة."
-    ];
-    const person = [
-      `وجود شخص ${DESCRIPTORS[Math.floor(Math.random()*DESCRIPTORS.length)]} يختبر حدودك؛ الصرامة اللطيفة تحميك.`,
-      `تأثير شخص ${DESCRIPTORS[Math.floor(Math.random()*DESCRIPTORS.length)]} يظهر سريعًا؛ اجعل المعيار فعلًا لا وعدًا.`
-    ];
+    const status = ($("#status").value || "").trim();
+    const work   = ($("#work").value   || "").trim();
 
-    const parts = [
-      `<p>${main.text}</p>`,
-      `<p><strong>العائلة:</strong> ${family[Math.floor(Math.random()*family.length)]}</p>`,
-      `<p><strong>المال/العمل:</strong> ${money[Math.floor(Math.random()*money.length)]}</p>`,
-      `<p><strong>شخص في المدار:</strong> ${person[Math.floor(Math.random()*person.length)]}</p>`,
-      `<p><em>ومضة:</em> الباب الأول امتحان، والثاني فرج. توقيت الرد نصف اليقين.</p>`
-    ];
-    return parts.join("");
+    if(topic==="love"){
+      const br = buildLoveBranch(status);
+      const a = randFrom(br).replace("{desc}", randFrom(DESCRIPTORS));
+      let b; do{ b = randFrom(br); }while(b===a);
+      blocks.push(`<p>${a}</p>`, `<p>${b.replace("{desc}", randFrom(DESCRIPTORS))}</p>`);
+    }
+    if(topic==="career"){
+      const br = buildCareerBranch(work);
+      const a = randFrom(br).replace("{desc}", randFrom(DESCRIPTORS));
+      let b; do{ b = randFrom(br); }while(b===a);
+      blocks.push(`<p>${a}</p>`, `<p>${b.replace("{desc}", randFrom(DESCRIPTORS))}</p>`);
+    }
+    if(topic==="health"){
+      const pack = [
+        "إعادة ضبط النوم بتقليل الضوء قبل ساعة—يتحسن المزاج خلال 48 ساعة.",
+        "ألم كتف/أسفل الظهر إشارة مبكرة؛ دقيقة تمدد بين كل مهمتين تكفي.",
+        "ماء + مشي 20 دقيقة يغيّر صفاء الذهن بقية الأسبوع.",
+        "تحذير: محيط مشتّت مع شخص {desc}؛ اضبط الحدود."
+      ];
+      const a = randFrom(pack).replace("{desc}", randFrom(DESCRIPTORS));
+      let b; do{ b = randFrom(pack); }while(b===a);
+      blocks.push(`<p>${a}</p>`, `<p>${b.replace("{desc}", randFrom(DESCRIPTORS))}</p>`);
+    }
+    if(topic==="general"){
+      const pack = TEMPLATES.general.map(t=>t.replace("{desc}", randFrom(DESCRIPTORS)));
+      const a = randFrom(pack); let b; do{ b = randFrom(pack); }while(b===a);
+      blocks.push(`<p>${a}</p>`, `<p>${b}</p>`);
+    }
+
+    blocks.push(`<p><em>ومضة:</em> توقيت الرد نصف اليقين—اتخذ خطوة اليوم.</p>`);
+    return blocks.join("");
+  }
+
+  async function composeReading(topic){
+    // إن لم يفعّل المستخدم الـ API أو لا يوجد برج، نرجع المحلي
+    const useApi = $("#useApi").checked;
+    if(!useApi || !currentSign.en) return composeLocal(topic);
+
+    // محاولة جلب توقع خارجي ثم إدخاله كسطر أول إضافي
+    const external = await fetchExternalHoroscope(currentSign.en);
+    const local = composeLocal(topic);
+
+    if(!external) return local;
+
+    const lead = `<p><strong>توقع خارجي (${currentSign.name}):</strong> ${external}</p>`;
+    return lead + local;
   }
 
   /* تدفّق الواجهات */
-  const stepSequence = { show: el=>el.classList.remove("hidden"), hide: el=>el.classList.add("hidden") };
-
   function echoUser(){
     const g=$("#gender").value||"—", s=$("#status").value||"—", w=$("#work").value||"—", b=$("#birthdate").value||"—";
     $("#userEcho").innerHTML=`<span class="z-emoji">${currentSign.emoji}</span> ${currentSign.name} • ${g} • ${s} • ${w} • ${b}`;
   }
 
+  function stepShow(el){ el.classList.remove("hidden"); }
+  function stepHide(el){ el.classList.add("hidden"); }
+
   function startFlow(){
     if(!validateForm()) return;
-    stepSequence.hide(step1); stepSequence.show(stepLoading);
-    setTimeout(()=>{ stepSequence.hide(stepLoading); stepSequence.show(stepTopics); updateZodiacUI(); updateQuotaUI(); }, 1100);
+    stepHide(step1); stepShow(stepLoading);
+    setTimeout(()=>{ stepHide(stepLoading); stepShow(stepTopics); updateZodiacUI(); updateQuotaUI(); }, 900);
   }
 
-  function runTopic(topic){
+  async function runTopic(topic){
     if(remainingQuota()<=0){ updateQuotaUI(); showLimitOverlay(); return; }
-    stepSequence.hide(stepTopics); stepSequence.show(stepLoading);
-    setTimeout(()=>{
-      stepSequence.hide(stepLoading); stepSequence.show(stepResult);
-      incQuota(); updateQuotaUI(); echoUser();
-      $("#resultText").innerHTML = composeReading(topic);
-      $("#omen").textContent = ["ومضة: رسالة مقتضبة تغيّر اتجاه الأسبوع.","ومضة: لقاء عابر يترك أثرًا أطول من زمنه.","ومضة: باب يُفتح مرتين؛ الأولى امتحان، والثانية فرج."][Math.floor(Math.random()*3)];
-    }, 1100);
+    stepHide(stepTopics); stepShow(stepLoading);
+
+    const titleMap = {love:"قراءة الحب", health:"قراءة الصحة", career:"قراءة المهنة والمال", general:"قراءة عامة/دراسية"};
+
+    try{
+      const html = await composeReading(topic);
+      setTimeout(()=>{ // لإبقاء الرسوم الظاهرة لحظة
+        stepHide(stepLoading); stepShow(stepResult);
+        incQuota(); updateQuotaUI(); echoUser();
+        document.getElementById("resultTitle").textContent = titleMap[topic] || "الإشارات الظاهرة";
+        document.getElementById("resultText").innerHTML = html;
+        document.getElementById("omen").textContent =
+          ["تحذير: تأجيل اليوم يضاعف الكلفة غدًا.","إشارة إيجابية: خطوة صغيرة الآن تُسرّع خبرًا منتظرًا.","تذكير: وضوحك يحسم نصف الطريق."][Math.floor(Math.random()*3)];
+      }, 600);
+    }catch(e){
+      console.error(e);
+      showGlobal("تعذر إنشاء القراءة. حاول مجددًا.", false);
+      stepHide(stepLoading); stepShow(stepTopics);
+    }
   }
 
-  $("#startBtn").addEventListener("click", startFlow);
+  document.getElementById("startBtn").addEventListener("click", startFlow);
   document.querySelectorAll(".topic").forEach(btn=> btn.addEventListener("click", ()=> runTopic(btn.dataset.topic)));
-  $("#topicsBtn").addEventListener("click", ()=>{ stepSequence.hide(stepResult); stepSequence.show(stepTopics); updateQuotaUI(); });
-  $("#restartBtn").addEventListener("click", ()=>{ stepSequence.hide(stepResult); stepSequence.hide(stepTopics); stepSequence.show(step1); window.scrollTo({top:0, behavior:"smooth"}); updateQuotaUI(); });
+  document.getElementById("topicsBtn").addEventListener("click", ()=>{ stepHide(stepResult); stepShow(stepTopics); updateQuotaUI(); });
+  document.getElementById("restartBtn").addEventListener("click", ()=>{ stepHide(stepResult); stepHide(stepTopics); stepShow(step1); window.scrollTo({top:0, behavior:"smooth"}); updateQuotaUI(); });
 
-  /* PDF رسمي */
+  /* PDF */
   function buildPrintDoc(){
-    const meta=$("#printMeta"), reading=$("#printReading");
+    const meta=document.getElementById("printMeta"), reading=document.getElementById("printReading");
     const g=$("#gender").value||"—", s=$("#status").value||"—", w=$("#work").value||"—", b=$("#birthdate").value||"—";
     const now=new Date(); const when=now.toLocaleString('ar', {hour12:false});
     meta.innerHTML = `
@@ -596,15 +671,15 @@
       <div>تاريخ الميلاد: ${b}</div>
       <div>تاريخ الإصدار: ${when}</div>
     `;
-    reading.innerHTML = $("#resultText").innerHTML;
+    reading.innerHTML = document.getElementById("resultText").innerHTML;
   }
-  $("#printBtn").addEventListener("click", ()=>{
-    if($("#stepResult").classList.contains("hidden")){ showGlobal("أكمل القراءة أولًا ثم حمّل PDF."); return; }
+  document.getElementById("printBtn").addEventListener("click", ()=>{
+    if(document.getElementById("stepResult").classList.contains("hidden")){ showGlobal("أكمل القراءة أولًا ثم حمّل PDF."); return; }
     buildPrintDoc(); window.print();
   });
 
   /* تهيئة */
-  (function init(){ updateZodiacUI(); updateQuotaUI(); loadForm(); })();
+  (function init(){ updateZodiacUI(); loadForm(); updateQuotaUI(); })();
 </script>
 </body>
 </html>
