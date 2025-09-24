@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>مواقيت الصلاة — جعفري</title>
+<title>مواقيت الصلاة — جعفري (عالمي)</title>
 
-<!-- خطوط حديثة -->
+<!-- خطوط -->
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Noto+Naskh+Arabic:wght@500;700&family=Reem+Kufi:wght@600&display=swap" rel="stylesheet">
 
 <!-- jsPDF + AutoTable لتصدير PDF -->
@@ -27,13 +27,12 @@
   }
   .container{width:min(1100px,100%); margin:auto; display:flex; flex-direction:column; gap:16px}
 
-  /* وصولية عامة */
   :focus{outline:3px solid var(--focus); outline-offset:2px}
   [role="tablist"]{display:flex; gap:8px; flex-wrap:wrap}
   [role="tab"]{padding:.55rem .9rem; border-radius:999px; border:1px solid var(--border); background:#fff; cursor:pointer; font-weight:800}
   [role="tab"][aria-selected="true"]{background:#e9fbfb; border-color:#c9f1f1}
 
-  .topBar{display:flex; justify-content:space-between; align-items:center}
+  .topBar{display:flex; gap:8px; justify-content:space-between; align-items:center; flex-wrap:wrap}
   .topClock{display:flex; gap:10px; font-size:.95rem; font-weight:700; color:#0b4a49}
   .pill{display:inline-block; padding:.2rem .6rem; border-radius:999px; background:#eef7ff; border:1px solid #e3eefc; font-weight:800; font-size:.82rem}
 
@@ -45,9 +44,9 @@
 
   .locationBox{
     background:var(--card); border:1px solid var(--border); border-radius:14px;
-    box-shadow:var(--shadow); padding:12px 14px; display:flex; justify-content:space-between; align-items:center
+    box-shadow:var(--shadow); padding:12px 14px; display:flex; justify-content:space-between; align-items:center; gap:12px
   }
-  .place{font-weight:800; font-size:1.05rem}
+  .place{font-weight:800; font-size:1.05rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
   .btn{
     background:linear-gradient(180deg,#ffffff,#f7fbff);
     border:1px solid var(--border); padding:.6rem 1rem; border-radius:12px;
@@ -100,12 +99,11 @@
   .evtText{font-weight:700}
 
   .hadith{background:#fff; border:1px solid var(--border); border-radius:12px; box-shadow:var(--shadow); padding:16px; text-align:center}
-  .htext{margin:0; font-size:1.08rem; color:var(--hadith-color); line-height:1.95; font-family:"Noto Naskh Arabic","Cairo",serif}
+  .htext{margin:0; font-size:1.08rem; color:#0d2a58; line-height:1.95; font-family:"Noto Naskh Arabic","Cairo",serif}
   .hsrc{display:inline-block; margin-top:12px; padding:6px 14px; border-radius:10px; background:#f5f7fa; border:1px solid var(--border); font-weight:800; color:#3b4656}
   footer{text-align:center; margin-top:8px}
-  .credit{color:var(--hadith-color); font-weight:800}
+  .credit{color:#0d2a58; font-weight:800}
 
-  /* نافذة الإعدادات */
   .modal{position:fixed; inset:0; display:none; place-items:center; background:rgba(15,23,42,.28); z-index:60}
   .modal.open{display:grid}
   .box{width:min(680px,96%); background:#fff; border:1px solid var(--border); border-radius:16px; box-shadow:var(--shadow); padding:16px}
@@ -122,7 +120,6 @@
   .resItem{padding:.65rem .8rem; border-bottom:1px dashed #eef2f6; cursor:pointer}
   .resItem:hover{background:#f7fbff}
 
-  /* شهر/أسبوع */
   .monthHead{display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:10px}
   .gridMonth{display:grid; grid-template-columns:repeat(7,1fr); gap:6px}
   .dayBox{border:1px solid #eef2f6; border-radius:10px; background:#fff; padding:6px; min-height:86px}
@@ -138,8 +135,11 @@
 <body>
   <div class="container">
     <div class="topBar" aria-label="شريط علوي">
-      <div class="pill" id="tzPill">—</div>
-      <div class="topClock" aria-live="polite"><span id="topClock">--:-- --</span></div>
+      <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap">
+        <div class="pill" id="tzPill">—</div>
+        <div class="topClock" aria-live="polite"><span id="topClock">--:-- --</span></div>
+      </div>
+      <span class="pill" id="netStatus" style="background:#fff3cd;border-color:#ffeeba;color:#7a5a00">بدء التشغيل…</span>
     </div>
 
     <section class="hero" aria-labelledby="title">
@@ -154,7 +154,6 @@
       </div>
     </div>
 
-    <!-- الحدث القادم + عداد -->
     <section class="nextBox" id="nextBox" aria-labelledby="nextTitle">
       <div id="nextTitle" class="nextTitle">الحدث القادم</div>
       <div class="nextRow">
@@ -180,7 +179,6 @@
       </div>
     </section>
 
-    <!-- Tabs: اليوم | الأسبوع | الشهر -->
     <section class="tabsCard" aria-label="العرض">
       <div role="tablist" aria-label="التبويبات">
         <button role="tab" id="tab-day" aria-selected="true" aria-controls="panel-day" class="btn">اليوم</button>
@@ -229,7 +227,6 @@
       </div>
     </section>
 
-    <!-- يظهر فقط عند وجود مناسبات -->
     <section class="events" id="eventsBox" aria-label="مناسبات اليوم">
       <h3>مناسبات اليوم</h3>
       <div class="evtGrid">
@@ -243,7 +240,7 @@
       <div class="hsrc" id="hadithSource"></div>
     </section>
 
-    <footer><span class="credit">برمجة وتطوير فاضل الريس</span></footer>
+    <footer><span class="credit">البيانات: Aladhan & OpenStreetMap — برمجة وتطوير فاضل الريس</span></footer>
   </div>
 
   <!-- نافذة الإعدادات -->
@@ -260,7 +257,7 @@
         <label for="placeSearch">ابحث عن المكان</label>
         <div>
           <input id="placeSearch" type="text" placeholder="مثال: الدوحة، قطر | Berlin, Germany" aria-describedby="placeHint">
-          <div id="placeHint" class="hint">بحث عالمي عبر OpenStreetMap، بدون قوائم ثابتة.</div>
+          <div id="placeHint" class="hint">بحث عالمي عبر OpenStreetMap/Nominatim.</div>
           <div id="searchResults" class="results" role="listbox" aria-label="نتائج البحث"></div>
         </div>
       </div>
@@ -288,7 +285,7 @@
           <input id="fajrAngle" type="number" step="0.1" placeholder="زاوية الفجر (°)" aria-label="زاوية الفجر" disabled>
           <input id="ishaAngle" type="number" step="0.1" placeholder="زاوية العشاء (°)" aria-label="زاوية العشاء" disabled>
         </div>
-        <div class="hint">عند التفعيل يتم استخدام method=99 مع الزوايا التي تدخلها.</div>
+        <div class="hint">عند التفعيل نستخدم method=99 مع الزوايا المخصّصة.</div>
       </div>
 
       <div class="rowCtrl">
@@ -312,7 +309,7 @@
   </div>
 
 <script>
-/* ========================= حالة عامة + مفاتيح ========================= */
+/* ========================= الحالة العامة ========================= */
 let HIJRI_OFFSET_DAYS = Number(localStorage.getItem("jaq_hijri_offset_days")||"0");
 let AUTO_DETECT = JSON.parse(localStorage.getItem("jaq_auto_detect")||"true");
 let coords = JSON.parse(localStorage.getItem("jaq_coords")||"null"); // {lat, lon}
@@ -322,6 +319,16 @@ let TIMEZONE = localStorage.getItem("jaq_timezone") || Intl.DateTimeFormat().res
 let CUSTOM_ANGLES = JSON.parse(localStorage.getItem("jaq_custom_angles_on")||"false");
 let FAJR_ANGLE = Number(localStorage.getItem("jaq_fajr_angle")||"0");
 let ISHA_ANGLE = Number(localStorage.getItem("jaq_isha_angle")||"0");
+
+/* أدوات الحالة (مؤشّر أعلى الصفحة) */
+function setStatus(msg, ok=false){
+  const el=document.getElementById('netStatus');
+  if(!el) return;
+  el.textContent = msg;
+  el.style.background = ok ? '#e6fffa' : '#fff3cd';
+  el.style.borderColor = ok ? '#b2f5ea' : '#ffeeba';
+  el.style.color = ok ? '#0b534e' : '#7a5a00';
+}
 
 /* تسميات */
 const NAMES = {Imsak:"الإمساك",Fajr:"أذان الفجر",Sunrise:"الشروق",Dhuhr:"أذان الظهر",Asr:"أذان العصر",Sunset:"الغروب",Maghrib:"أذان المغرب",Isha:"أذان العشاء",Midnight:"منتصف الليل"};
@@ -338,14 +345,14 @@ const HADITHS=[
 ];
 function setHadith(){ const h=HADITHS[Math.floor(Math.random()*HADITHS.length)]; hadithText.textContent=h.t; hadithSource.textContent=h.s; }
 
-/* وصولية + ساعة */
+/* ساعة */
 function updateClock(){
   topClock.textContent=new Intl.DateTimeFormat('ar-EG',{timeZone:TIMEZONE,hour:'2-digit',minute:'2-digit',hour12:true}).format(new Date());
   tzPill.textContent = TIMEZONE;
 }
 setInterval(updateClock,1000); updateClock();
 
-/* أدوات وقت/تنسيق */
+/* تنسيقات وقت */
 function to12h(raw){
   if(!raw) return "--:-- --";
   const pure=String(raw).replace(/\s*\(.*?\)\s*/g,"").trim();
@@ -404,7 +411,7 @@ function localHijriFallback(refDate, civilWeekday){
   }catch{ return "التاريخ الهجري (غير متاح)"; }
 }
 
-/* مواقيت + القادم */
+/* مواقيت + الحدث القادم */
 let lastTimings=null;
 function ensureImsak(t){
   if(!t.Imsak && t.Fajr){
@@ -438,7 +445,7 @@ function dateForKeyToday(timings, key){
   return new Date(+Y,+M-1,+D,H||0,Min||0,0);
 }
 
-/* API URLs (ثابتة وصحيحة) */
+/* API URLs */
 function timingsURL(lat, lon, dateObj){
   const ref = dateObj
     ? new Date(dateObj)
@@ -467,7 +474,7 @@ function calendarURL(lat, lon, month, year){
   return `https://api.aladhan.com/v1/calendar?${params.toString()}`;
 }
 
-/* جلب — مع كاش محلي + Fallback */
+/* جلب مع كاش */
 const CACHE_TTL_MS = 6*60*60*1000; // 6 ساعات
 function cacheGet(key){
   try{
@@ -488,7 +495,6 @@ async function fetchJSON(url){
     throw e;
   }
 }
-
 async function getTodayTimings(lat, lon){
   const k=`pt_day_${TIMEZONE}_${Math.round(lat*10000)}_${Math.round(lon*10000)}_${METHOD_ID}_${CUSTOM_ANGLES?'C':''}_${FAJR_ANGLE}_${ISHA_ANGLE}`;
   const c=cacheGet(k); if(c) return c;
@@ -516,7 +522,7 @@ async function getMonthCalendar(lat, lon, m, y){
   }
 }
 
-/* مناسبات (مختصرة) */
+/* مناسبات مختصرة */
 const EVENTS={
   "1-1":[{t:"رأس السنة الهجرية"}],
   "1-2":[{t:"دخول الإمام الحسين ع كربلاء"}],
@@ -645,7 +651,7 @@ function tickCountdown(target,key){
   if(diff<=0){ clearInterval(cdTimer); loadAll(); }
 }
 
-/* تحديد الموقع والاسم والمنطقة */
+/* تحديد المنطقة */
 async function fetchTimezone(lat, lon){
   try{
     const u=`https://api.aladhan.com/v1/timeZone?latitude=${encodeURIComponent(lat)}&longitude=${encodeURIComponent(lon)}`;
@@ -670,36 +676,38 @@ function showPlaceText(){
   }else{ place.textContent = 'الموقع غير محدد'; place.title=''; }
 }
 
-/* اليوم + أسبوع + شهر + تواريخ */
+/* عرض شامل + الحالة */
 async function renderCore(lat,lon){
-  // اليوم
+  setStatus('جلب مواقيت اليوم…');
   let t=null;
-  try{ t=await getTodayTimings(lat,lon); }catch{}
-  if(!t){ times.innerHTML=`<tr><td colspan="2" style="color:#b91c1c">تعذّر جلب مواقيت اليوم. تأكد من الاتصال أو غيّر الإعدادات.</td></tr>`; }
-  else{ lastTimings=ensureImsak(t); fillDayTable(lastTimings); updateNextBox(); }
+  try{ t=await getTodayTimings(lat,lon); }catch(e){ console.error(e); }
+  if(!t){
+    times.innerHTML=`<tr><td colspan="2" style="color:#b91c1c">تعذّر جلب مواقيت اليوم.</td></tr>`;
+    setStatus('تعذّر جلب مواقيت اليوم', false);
+  }else{
+    lastTimings=ensureImsak(t); fillDayTable(lastTimings); updateNextBox();
+    setStatus('تم جلب مواقيت اليوم', true);
+  }
 
-  // التاريخين
   const nowTZ = new Date(new Date().toLocaleString('en-US',{timeZone:TIMEZONE}));
   greg.textContent = new Intl.DateTimeFormat('ar',{timeZone:TIMEZONE,weekday:'long',year:'numeric',month:'long',day:'numeric'}).format(nowTZ);
   const civilWeekday = new Intl.DateTimeFormat('ar',{timeZone:TIMEZONE,weekday:'long'}).format(nowTZ);
+
   try{
     const hijriObj = await fetchHijriFromAladhan(nowTZ);
     hijri.textContent = formatHijriFromObj(hijriObj, civilWeekday);
-    // مناسبات اليوم والليلة
     const tomorrow = new Date(nowTZ.getTime()+86400000);
-    let hijriTomorrow=null;
-    try{ hijriTomorrow = await fetchHijriFromAladhan(tomorrow); }catch{}
+    let hijriTomorrow=null; try{ hijriTomorrow = await fetchHijriFromAladhan(tomorrow); }catch{}
     const todayM = Number(hijriObj?.month?.number||0), todayD=Number(hijriObj?.day||0);
     const nightM = Number(hijriTomorrow?.month?.number||0), nightD=Number(hijriTomorrow?.day||0);
     drawEvents(todayM,todayD,nightM,nightD);
   }catch{
-    // Fallback محلي للهجري
     let todayM,todayD,nightM,nightD;
     if(hasIntlIslamic()){
       const p1=new Intl.DateTimeFormat('en-TN-u-ca-islamic',{timeZone:TIMEZONE,year:'numeric',month:'numeric',day:'numeric'}).formatToParts(nowTZ);
       todayM=+p1.find(x=>x.type==='month').value; todayD=+p1.find(x=>x.type==='day').value;
       const ref2=new Date(nowTZ.getTime()+86400000);
-      const p2=new Intl.DateTimeFormat('en-TN-u-ca-islamic',{timeZone:TIMEZONE,year:'numeric',month:'numeric',day:'numeric'}).formatToParts(ref2);
+      const p2=new Intl.DateTimeFormat('en-TN-u-ca-islamic'){timeZone:TIMEZONE,year:'numeric',month:'numeric',day:'numeric'}.formatToParts(ref2);
       nightM=+p2.find(x=>x.type==='month').value; nightD=+p2.find(x=>x.type==='day').value;
     }else{
       const {Y,M,D}=ymdInTZ(nowTZ,TIMEZONE);
@@ -711,14 +719,12 @@ async function renderCore(lat,lon){
     hijri.textContent = localHijriFallback(nowTZ, civilWeekday);
   }
 
-  // أسبوع
-  fillWeekTable(lat,lon).catch(()=>{ weekBody.innerHTML=`<tr><td colspan="7" style="color:#b91c1c">تعذّر جلب مواقيت الأسبوع.</td></tr>`; });
+  setStatus('جلب مواقيت الأسبوع…');
+  await fillWeekTable(lat,lon).then(()=>setStatus('الأسبوع جاهز', true)).catch(()=>setStatus('فشل جلب الأسبوع', false));
 
-  // شهر
+  setStatus('جلب تقويم الشهر…');
   const off = Number(gridMonth.dataset.offset||"0");
-  fillMonthGrid(lat,lon, off).catch(()=>{
-    gridMonth.innerHTML = `<div style="grid-column:1/-1;color:#b91c1c;padding:8px">تعذّر جلب التقويم الشهري.</div>`;
-  });
+  await fillMonthGrid(lat,lon, off).then(()=>setStatus('الشهر جاهز', true)).catch(()=>setStatus('فشل جلب الشهر', false));
 }
 
 /* تنزيل PDF للشهر */
@@ -730,6 +736,7 @@ async function downloadMonthPDF(){
   const y=first.getFullYear(), m=first.getMonth()+1;
   let cal=null;
   try{ cal=await getMonthCalendar(coords.lat, coords.lon, m, y); }catch{ alert('تعذّر تحميل تقويم الشهر.'); return; }
+
   const rows = cal.map(d=>{
     const t=ensureImsak(d.timings||{});
     const gr = d.date.readable; // DD MMM YYYY
@@ -739,11 +746,9 @@ async function downloadMonthPDF(){
 
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF({orientation:'portrait', unit:'pt', format:'a4'});
-
   doc.setFont('helvetica','bold'); doc.setFontSize(16);
   const title = `مواقيت الصلاة — ${place.textContent} — ${monthNameAr(first)}`;
   doc.text(title, 40, 40, {align:'left'});
-
   doc.setFont('helvetica','normal'); doc.setFontSize(10);
   doc.autoTable({
     startY: 60,
@@ -752,7 +757,6 @@ async function downloadMonthPDF(){
     head: [['التاريخ الميلادي','التاريخ الهجري','الفجر','الشروق','الظهر','العصر','المغرب','العشاء']],
     body: rows
   });
-
   doc.setFontSize(9);
   doc.text('المصدر: Aladhan API — طُبِع بواسطة تطبيق المواقيت', 40, doc.internal.pageSize.getHeight()-20);
   doc.save(`مواقيت-${place.textContent.replace(/\s+/g,'_')}-${y}-${String(m).padStart(2,'0')}.pdf`);
@@ -770,7 +774,7 @@ nextMonth.addEventListener('click', async ()=>{
 });
 downloadPDF.addEventListener('click', downloadMonthPDF);
 
-/* بحث عالمي (OSM/Nominatim) */
+/* بحث عالمي */
 let searchDebounce=null;
 function attachSearch(){
   const box=document.getElementById('searchResults');
@@ -788,7 +792,7 @@ function attachSearch(){
       }catch{
         box.innerHTML='<div class="resItem">تعذّر البحث</div>'; box.style.display='block';
       }
-    }, 500); // مهلة أطول قليلاً لحماية المزود
+    }, 500);
   });
   box.addEventListener('click', async (e)=>{
     const item=e.target.closest('.resItem'); if(!item) return;
@@ -805,7 +809,7 @@ function attachSearch(){
   document.addEventListener('click',(e)=>{ if(!box.contains(e.target) && e.target!==placeSearch){ box.style.display='none'; }});
 }
 
-/* طرق الحساب ديناميكيًا + زوايا مخصّصة */
+/* طرق الحساب + زوايا */
 async function loadMethods(){
   try{
     const j=await fetchJSON('https://api.aladhan.com/v1/methods');
@@ -823,7 +827,7 @@ async function loadMethods(){
   }
 }
 
-/* فتح/إغلاق الإعدادات + وصولية */
+/* فتح/إغلاق الإعدادات */
 function openModal(){ 
   autoDetectChk.checked = !!AUTO_DETECT;
   hijriOffsetSel.value = String(HIJRI_OFFSET_DAYS);
@@ -845,7 +849,7 @@ cancelPlace.addEventListener("click",closeModal);
 modal.addEventListener("click",(e)=>{ if(e.target===modal) closeModal(); });
 document.addEventListener('keydown',(e)=>{ if(e.key==='Escape' && modal.classList.contains('open')) closeModal(); });
 
-/* تفاعل إعدادات */
+/* عناصر DOM */
 const autoDetectChk=document.getElementById("autoDetectChk");
 const placeSearch=document.getElementById("placeSearch");
 const latInp=document.getElementById("latInp");
@@ -860,11 +864,11 @@ const customAnglesChk=document.getElementById("customAnglesChk");
 const fajrAngle=document.getElementById("fajrAngle");
 const ishaAngle=document.getElementById("ishaAngle");
 
+/* تفاعلات */
 customAnglesChk.addEventListener('change',()=>{
   const on = customAnglesChk.checked;
   fajrAngle.disabled = ishaAngle.disabled = !on;
 });
-
 useMyLocation.addEventListener("click", async ()=>{
   AUTO_DETECT = true; localStorage.setItem("jaq_auto_detect","true");
   autoDetectChk.checked = true;
@@ -879,7 +883,6 @@ useCoords.addEventListener("click", async ()=>{
   AUTO_DETECT=false; localStorage.setItem("jaq_auto_detect","false");
   showPlaceText(); await loadAll();
 });
-
 savePlace.addEventListener("click", async ()=>{
   AUTO_DETECT = !!autoDetectChk.checked;
   localStorage.setItem("jaq_auto_detect", JSON.stringify(AUTO_DETECT));
@@ -901,7 +904,6 @@ savePlace.addEventListener("click", async ()=>{
   }
   closeModal();
 });
-
 resetAll.addEventListener("click", ()=>{
   localStorage.removeItem("jaq_hijri_offset_days");
   localStorage.removeItem("jaq_auto_detect");
@@ -921,7 +923,7 @@ resetAll.addEventListener("click", ()=>{
 attachSearch();
 loadMethods();
 
-/* تحديد الموقع */
+/* GPS */
 async function tryAutoLocate(alertErrors=false){
   if(!navigator.geolocation){
     if(alertErrors) alert('المتصفح لا يدعم تحديد الموقع.');
@@ -937,7 +939,7 @@ async function tryAutoLocate(alertErrors=false){
       localStorage.setItem("jaq_resolved_name", JSON.stringify(resolvedName));
       TIMEZONE = await fetchTimezone(latitude, longitude);
       localStorage.setItem("jaq_timezone", TIMEZONE);
-      showPlaceText(); await loadAll(); resolve(true);
+      showPlaceText(); await loadAll(); setStatus('تم تحديد الموقع عبر GPS', true); resolve(true);
     }, (err)=>{
       if(alertErrors) alert('تعذّر الوصول للموقع. اسمح بالإذن أو ابحث يدويًا.');
       resolve(false);
@@ -945,7 +947,31 @@ async function tryAutoLocate(alertErrors=false){
   });
 }
 
-/* تحميل شامل (يوم/أسبوع/شهر) */
+/* تحديد الموقع عبر IP */
+async function locateByIP(){
+  try{
+    setStatus('تحديد الموقع عبر IP…');
+    let r = await fetch('https://ipapi.co/json/', {cache:'no-store'});
+    if(r.ok){
+      const j = await r.json();
+      if(j && j.latitude && j.longitude){
+        return { lat:+j.latitude, lon:+j.longitude, city: j.city||'', country: j.country_name||'' };
+      }
+    }
+  }catch{}
+  try{
+    let r2 = await fetch('https://ipwho.is/', {cache:'no-store'});
+    if(r2.ok){
+      const j2 = await r2.json();
+      if(j2 && j2.success && j2.latitude && j2.longitude){
+        return { lat:+j2.latitude, lon:+j2.longitude, city: j2.city||'', country: j2.country||'' };
+      }
+    }
+  }catch{}
+  return null;
+}
+
+/* تحميل شامل */
 async function loadAll(){
   if(!coords){
     times.innerHTML=`<tr><td colspan="2">الموقع غير محدد.</td></tr>`;
@@ -956,13 +982,54 @@ async function loadAll(){
   await renderCore(coords.lat, coords.lon);
 }
 
-/* بدء التشغيل */
+/* init مع Fallback IP + افتراضي المنامة */
 (async function init(){
-  if (AUTO_DETECT){
-    const ok = await tryAutoLocate(false);
-    if(!ok){ showPlaceText(); await loadAll(); }
-  }else{
-    showPlaceText(); await loadAll();
+  try{
+    setStatus('تهيئة…');
+
+    if (AUTO_DETECT){
+      const ok = await tryAutoLocate(false);
+      if(ok) return;
+
+      const ip = await locateByIP();
+      if(ip){
+        coords = {lat:ip.lat, lon:ip.lon};
+        localStorage.setItem("jaq_coords", JSON.stringify(coords));
+        resolvedName = {cityAr: ip.city||'موقعي', countryAr: ip.country||'', display: (ip.city? `${ip.city}, ${ip.country}` : '')};
+        localStorage.setItem("jaq_resolved_name", JSON.stringify(resolvedName));
+        TIMEZONE = await fetchTimezone(ip.lat, ip.lon);
+        localStorage.setItem("jaq_timezone", TIMEZONE);
+        showPlaceText();
+        await loadAll();
+        setStatus('تم تحديد الموقع عبر IP', true);
+        return;
+      }
+
+      // افتراضي آمن: المنامة
+      coords = {lat:26.2235, lon:50.5876};
+      localStorage.setItem("jaq_coords", JSON.stringify(coords));
+      resolvedName = {cityAr:'المنامة', countryAr:'البحرين', display:'المنامة، البحرين'};
+      localStorage.setItem("jaq_resolved_name", JSON.stringify(resolvedName));
+      TIMEZONE = 'Asia/Bahrain';
+      localStorage.setItem("jaq_timezone", TIMEZONE);
+      showPlaceText();
+      await loadAll();
+      setStatus('استخدمنا موقعًا افتراضيًا (المنامة)', true);
+    }else{
+      showPlaceText();
+      await loadAll();
+      setStatus('جاهز', true);
+    }
+  }catch(e){
+    console.error(e);
+    setStatus('فشل التهيئة — تفقد الشبكة/الكونسول');
+    if(!coords){
+      coords = {lat:26.2235, lon:50.5876};
+      resolvedName = {cityAr:'المنامة', countryAr:'البحرين', display:'المنامة، البحرين'};
+      TIMEZONE = 'Asia/Bahrain';
+      showPlaceText();
+      await loadAll();
+    }
   }
 })();
 </script>
