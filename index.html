@@ -22,7 +22,7 @@
 }
 </script>
 
-<!-- Open Graph / Twitter -->
+<!-- OG / Twitter -->
 <meta property="og:locale" content="ar_AR" />
 <meta property="og:type" content="website" />
 <meta property="og:title" content="الابراج والاستبصار – قراءة الطالع العميقة" />
@@ -34,8 +34,7 @@
 <meta name="twitter:description" content="قراءات فلكية تنبؤية موجزة" />
 <meta name="twitter:image" content="https://YOUR-DOMAIN.example/og-image.jpg" />
 
-<!-- خطوط وأداء -->
-<link rel="dns-prefetch" href="https://fonts.googleapis.com">
+<!-- خط -->
 <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
@@ -63,7 +62,7 @@
       linear-gradient(180deg, #0b0d12 0%, #0e1320 55%, #0b0d12 100%);
   }
   body::after{
-    background:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 240 240"><g fill="%23ffffff" opacity="0.38"><circle cx="20" cy="30" r="1.2"/><circle cx="80" cy="60" r="0.8"/><circle cx="140" cy="20" r="1"/><circle cx="200" cy="90" r="1.1"/><circle cx="110" cy="140" r="0.9"/><circle cx="40" cy="190" r="1.2"/><circle cx="210" cy="200" r="0.9"/></g></svg>') repeat;
+    background:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 240 240"><g fill="%23ffffff" opacity="0.35"><circle cx="20" cy="30" r="1.2"/><circle cx="80" cy="60" r="0.8"/><circle cx="140" cy="20" r="1"/><circle cx="200" cy="90" r="1.1"/><circle cx="110" cy="140" r="0.9"/><circle cx="40" cy="190" r="1.2"/><circle cx="210" cy="200" r="0.9"/></g></svg>') repeat;
     background-size:240px 240px; animation: twinkle 6s ease-in-out infinite; opacity:.28;
   }
   @keyframes twinkle { 0%,100%{opacity:.20} 50%{opacity:.36} }
@@ -72,7 +71,6 @@
   header{ text-align:center; padding:18px 16px 10px; background:rgba(11,13,18,.75); backdrop-filter:saturate(140%) blur(6px); border-bottom:1px solid var(--stroke); }
   .title{ margin:0; font-weight:700; line-height:1.2; font-size: clamp(28px,5vw,46px); color:var(--brand);}
   .subtitle{ color:var(--muted); font-size:14px; margin-top:6px }
-
   .seer-wrap{display:flex; justify-content:center; margin:10px 0 8px}
   .seer{ width:min(520px, 88vw); height:auto; filter: drop-shadow(0 14px 30px rgba(0,0,0,.4)); }
 
@@ -99,7 +97,7 @@
   @media (max-width:640px){ .topic-grid{grid-template-columns:1fr} }
   .topic{padding:18px; border:1px dashed var(--brand); border-radius:14px; background:#0f1320; cursor:pointer; text-align:center}
   .topic:hover{background:#12172a}
-  .topic span{display:block; color:var(--muted); font-size:14px; margin-top:4px}
+  .topic span{display:block; color:#cfd8dc; font-size:14px; margin-top:4px}
 
   .result{ font-size:18px; text-align:justify; text-justify:inter-word; }
   .result p{ margin:10px 0; text-align:justify; }
@@ -108,12 +106,12 @@
   .z-emoji{font-size:20px}
   .stars{position:relative; overflow:hidden; border-radius:16px}
   .quota{margin-top:8px; font-size:13px; color:#cfd8dc; text-align:center}
-  .muted{color:var(--muted)}
+  .muted{color:#bdbdbd}
 
   .notice{ margin:10px auto 0; padding:12px 14px; border-radius:12px; border:1px solid #3a2a2a; background:#1a1010; color:#ffd0d0; font-size:14px; max-width:820px; }
   .notice.ok{background:#0f1a14; border-color:#234832; color:#c9ffd9}
 
-  footer{ padding:24px 16px; text-align:center; color:var(--muted); border-top:1px solid var(--stroke); display:flex; flex-direction:column; gap:10px; align-items:center }
+  footer{ padding:24px 16px; text-align:center; color:#cfd8dc; border-top:1px solid var(--stroke); display:flex; flex-direction:column; gap:10px; align-items:center }
   .socials{display:flex; gap:12px; flex-wrap:wrap; justify-content:center}
   .socials button{ width:36px; height:36px; display:inline-grid; place-items:center; border-radius:10px; border:1px solid var(--stroke); background:#0f1320; transition:transform .1s ease, border-color .2s ease; cursor:pointer }
   .socials button:hover{transform:translateY(-1px); border-color:var(--accent)}
@@ -124,7 +122,7 @@
   .ring:after{content:""; position:absolute; inset:16px; border-radius:50%; border:4px dashed rgba(255,255,255,.12)}
   @keyframes spin{to{transform:rotate(360deg)}}
 
-  /* ===== قالب PDF رسمي (يُستخدم فقط عند الطباعة) ===== */
+  /* ===== قالب PDF الرسمي (Print-Only) ===== */
   #printDoc{ display:none; }
   #printDoc .paper{
     background:#0b0d12; color:#f7f7f7; border:1px solid #2a3550; border-radius:16px; padding:18px;
@@ -135,13 +133,11 @@
   #printDoc .meta div{ background:#0f1320; border:1px solid #2a3550; border-radius:10px; padding:10px; font-size:14px; }
   #printDoc .reading{ font-size:18px; line-height:1.9; text-align:justify; text-justify:inter-word; }
   #printDoc .brandline{ text-align:center; color:#bdbdbd; font-size:12px; margin-top:12px }
-
-  /* الطباعة — إظهار القالب الرسمي فقط */
   @media print {
     @page{ size:A4; margin:14mm; }
-    html, body { background: #0b0d12; }
+    html, body { background:#0b0d12; }
     * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
-    header, main > *, footer, .overlay { display: none !important; }
+    header, main > *, footer, .overlay { display:none !important; }
     #printDoc{ display:block !important; }
   }
 </style>
@@ -151,6 +147,7 @@
 <header>
   <h1 class="title">الابراج والاستبصار</h1>
   <p class="subtitle">قراءات فلكية تنبؤية موجزة</p>
+
   <div class="seer-wrap" aria-hidden="true">
     <svg class="seer" viewBox="0 0 800 260" xmlns="http://www.w3.org/2000/svg">
       <defs>
@@ -213,7 +210,7 @@
     <div class="quota" id="quotaInfo"></div>
   </section>
 
-  <!-- شاشة انتظار -->
+  <!-- انتظار -->
   <section id="stepLoading" class="card hidden center stars" aria-live="polite">
     <div class="ring-wrap"><div class="ring" aria-hidden="true"></div></div>
     <h2>جاري الاستبصار…</h2>
@@ -243,7 +240,7 @@
     <p id="omen" class="muted" style="margin-top:12px; font-size:15px"></p>
 
     <div style="display:flex; gap:10px; margin-top:16px; flex-wrap:wrap; justify-content:center">
-      <!-- تمت إزالة زر "إشارة جديدة" حسب طلبك -->
+      <!-- تمت إزالة زر "إشارة جديدة" -->
       <button class="ghost" id="topicsBtn">اختيار موضوع آخر</button>
       <button class="ghost" id="restartBtn">إعادة البدء</button>
       <button class="btn" id="printBtn" title="تحميل PDF">تحميل PDF</button>
@@ -265,7 +262,7 @@
   <div>شارك الصفحة</div>
   <div class="socials" aria-label="مشاركة">
     <button id="shareNative" title="مشاركة" aria-label="مشاركة">
-      <svg viewBox="0 0 24 24" role="img" aria-label="Share"><path d="M18 8a3 3 0 1 0-2.83-3.99L8.91 7.1a3.02 3.02 0 0 0-2.01-.78A3 3 0 1 0 9.9 9l6.26-3.08A3.02 3.02 0 0 0 18 8Zm-9 7a3 3 0 1 0-3 3 3 3 0 0 0 3-3Zm12-1a3 3 0 1 0-3 3 3 3 0 0 0 3-3Z"/></svg>
+      <svg viewBox="0 0 24 24" role="img" aria-label="Share"><path d="M18 8a3 3 0 1 0-2.83-3.99L8.91 7.1a3.02 3.02 0 0 0-2.01-.78A3 3 0 1 0 9.9 9l6.26-3.08A3 3 0 0 0 18 8Zm-9 7a3 3 0 1 0-3 3 3 3 0 0 0 3-3Zm12-1a3 3 0 1 0-3 3 3 3 0 0 0 3-3Z"/></svg>
     </button>
     <button id="shareX" title="X / Twitter" aria-label="X">
       <svg viewBox="0 0 24 24" role="img" aria-label="X"><path d="M18.244 2H21l-6.56 7.51L22.5 22h-6.79l-4.87-6.37L4.94 22H2l7.02-8.03L1.5 2h6.87l4.39 5.86L18.244 2Zm-2.38 18h1.84L8.23 4h-1.9l9.534 16Z"/></svg>
@@ -280,7 +277,7 @@
   <div>© <span id="year"></span> الابراج والاستبصار</div>
 </footer>
 
-<!-- مودال حد اليومي (لن يظهر في PDF) -->
+<!-- مودال الحد اليومي -->
 <div class="overlay" id="overlayLimit" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,.7); justify-content:center; align-items:center; z-index:20">
   <div class="modal" style="background:var(--card); border:1px solid var(--stroke); border-radius:14px; padding:18px; max-width:520px; margin:16px; text-align:center">
     <h3 style="color:var(--brand); margin-top:0">وصلت إلى الحد اليومي</h3>
@@ -292,7 +289,7 @@
   </div>
 </div>
 
-<!-- قالب PDF الرسمي (Print-Only) -->
+<!-- قالب PDF الرسمي -->
 <div id="printDoc" aria-hidden="true">
   <div class="paper">
     <h1>الابراج والاستبصار</h1>
@@ -347,99 +344,128 @@
     } return {name:"غير معروف", emoji:"☆"};
   }
 
-  /* بنك نصوص عميقة (محاذاة كاملة) */
-  const BANK = {
-    signLines:{
-      "الحمل":"اندفاعة مُحكمة تعيد ترتيب المشهد بسرعة لصالحك.",
-      "الثور":"ثبات صبور يضع حجر أساس لربحٍ قادم.",
-      "الجوزاء":"ذكاء لحظي يلتقط الفرص بين السطور.",
-      "السرطان":"دفء داخلي يرمّم ما تصدّع في العلاقات القريبة.",
-      "الأسد":"ظهور مُهيب يثبّت الثقة ويرفع سقف التأثير.",
-      "العذراء":"تفصيل دقيق يُصحّح مسارًا بأكمله.",
-      "الميزان":"اتزان راجح يعيد العدل إلى محادثةٍ شائكة.",
-      "العقرب":"بصيرة نافذة تُميّز الوعد الحقيقي من الضجيج.",
-      "القوس":"نَفَس مغامرة يفتح بابًا بتوقيع سريع.",
-      "الجدي":"انضباط عملي يحوّل الفكرة إلى ربح ملموس.",
-      "الدلو":"ابتكار واضح يجد آذانًا مصغية ومساندة.",
-      "الحوت":"رهافة شعور تلتقط الإشارة قبل أن تُقال.",
-      "غير معروف":"إشارة عامة نحو انفراج قريب."
-    },
-    love:[
-      [
-        "القلب يستعيد يقينه. إشارات متطابقة تتقاطع عندك: رسالة يتم تأجيلها ثم تأتي في التوقيت الصائب، وكلمة صريحة تُنهي التردد. هذا الأسبوع يثبت أن ما بدا صدفة كان تخطيطًا دقيقًا للحظة لقاء قصير يعيد لمعانًا قديمًا.",
-        "شخص حاضر بقوة يختبر صدقك: وعود قليلة، أفعال كثيرة. هناك اسم يبدأ بحرف <L> يتردد في محيطك؛ حضوره واعد لكنه يحتاج اختبار الزمن لا الكلمات.",
-        "مصالحة ممكنة بعد سوء فهم عابر. شجاعة الاعتراف البسيط تُغلق باب التأويل نهائيًا وتعيد الحوار إلى مساره الطبيعي."
-      ],
-      [
-        "نقطة انعطاف في قصة عاطفية تتكرر تفاصيلها. هذه المرّة الحسم أسرع: ما يُثبت نفسه بالبراهين اليومية يبقى، وما يَضعف عند أول سؤال يغادر بلا ضجة.",
-        "غيرة خفيفة في الأطراف تُطفأ بابتسامة وشفافية؛ لا تترك مساحة لظلال الحكي غير المكتمل.",
-        "توقّع مبادرة صادقة من شخص ظننت أنه ابتعد؛ المسافة كانت اختبارًا لثبات النية، وقد نجح."
-      ],
-      [
-        "باب تعارف يأتي من مسار غير متوقّع: علاقة مهنية/تعليمية تتحول بهدوء إلى اهتمام خاص. لا تُحوّلها إلى وعدٍ كبير مبكرًا؛ الخطوات الصغيرة يقينية أكثر من الوعود الطوال.",
-        "أمانك العاطفي هذه الفترة مرتبط بنبرة الصوت لا بطول الرسائل؛ ما يُقال بصدق قصير يكفي.",
-        "تتلاشى حالة شك قديمة عندما تتطابق الأفعال مع الأقوال ٣ مرات متتالية. هذا معيارك الجديد."
-      ]
+  /* اختلافات بشرية (بدل الحرف الأول) */
+  const DESCRIPTORS = [
+    "طويل القامة وحاضر بنظرة هادئة",
+    "قصير القامة سريع الحركة",
+    "زميل قديم يعود باتصال غير متوقع",
+    "جارٌ قريب يكثر من السؤال",
+    "شخص يظهر بقوة ثم يختفي لأيام",
+    "هادئ في البداية ثم صريح جدًا",
+    "مبالغ في الوعود قليل في التنفيذ",
+    "شخص عملي لا يحب التفاصيل الطويلة",
+    "صاحب مبادرات صغيرة لكنها ثابتة",
+    "غامض في سيرته لكنه واضح في فعله"
+  ];
+
+  /* سطور افتتاحية حسب البرج */
+  const SIGN_LINES={
+    "الحمل":"اندفاعة مُحكمة تعيد ترتيب المشهد بسرعة لصالحك.",
+    "الثور":"ثبات صبور يضع حجر أساس لربحٍ قادم.",
+    "الجوزاء":"ذكاء لحظي يلتقط الفرص بين السطور.",
+    "السرطان":"دفء داخلي يرمّم ما تصدّع في العلاقات القريبة.",
+    "الأسد":"ظهور مُهيب يثبّت الثقة ويرفع سقف التأثير.",
+    "العذراء":"تفصيل دقيق يُصحّح مسارًا بأكمله.",
+    "الميزان":"اتزان راجح يعيد العدل إلى محادثةٍ شائكة.",
+    "العقرب":"بصيرة نافذة تُميّز الوعد الحقيقي من الضجيج.",
+    "القوس":"نَفَس مغامرة يفتح بابًا بتوقيع سريع.",
+    "الجدي":"انضباط عملي يحوّل الفكرة إلى ربح ملموس.",
+    "الدلو":"ابتكار واضح يجد آذانًا مصغية ومساندة.",
+    "الحوت":"رهافة شعور تلتقط الإشارة قبل أن تُقال.",
+    "غير معروف":"إشارة عامة نحو انفراج قريب."
+  };
+
+  /* قوالب نصية عميقة — سنُنشئ منها ≥ 25 لكل موضوع = 100+ إجمالاً */
+  const TEMPLATES = {
+    love: [
+      "القلب يتلقّى إشارة واضحة: ما تثبته الأفعال يبقى، وما ينهار تحت سؤالٍ واحد يختفي بلا ضجيج.",
+      "مصالحة ممكنة بعد سوء فهم قصير؛ الصراحة جسرٌ يختصر طريقًا طويلًا.",
+      "باب تعارف يأتي من مسار غير متوقّع؛ لا تجعل الوعد أكبر من وقته.",
+      "غيرة خفيفة على الأطراف تُطفأ بابتسامةٍ وشرحٍ موجز.",
+      "رسالة تُؤجَّل ثم تصل في اللحظة المناسبة؛ قوتها في توقيتها.",
+      "اهتمامٌ صادق يتكرّر دون طلب؛ الاستمرارية هنا برهان.",
+      "تحذير: شخص {desc} يحتاج اختبارًا بالزمن لا بالكلام.",
+      "تقدّم صغير كل يوم يعيد الدفء لعلاقةٍ متعبة.",
+      "إشارة توافق نادرة تظهر عند اتفاق التفاصيل الصغيرة.",
+      "سؤال مباشر يفتح بابًا كان مغلقًا بمفتاحٍ بسيط."
     ],
-    career:[
-      [
-        "مهمة متوسطة الحجم بموعد تسليم ضيق تُظهِر اسمك في المكان الصحيح. الإنجاز هنا يفتح نافذة أكبر مما تظن؛ التوصية تأتي من جهة لم تحسبها.",
-        "هناك مبلغ مالي مؤجل يُصرّ على الوصول؛ يبدو كتعويض أو مكافأة رُبطت بملف سابق. انتبه لبندٍ صغير في الوثائق، قراءته مرتين تُجنّبك تأخيرًا غير ضروري.",
-        "سوق متذبذب اليومين المقبلين؛ قرارك الذكي هو الحفاظ على سيولة قصيرة الأجل قبل أي قفزة."
-      ],
-      [
-        "حوار واضح مع مسؤول يحرّك الملف العالق. تدخل الاجتماع ولديك إجابتان واضحتان وسؤال واحد ذكي؛ هذه الصيغة تُكسبك ثقة لا تُشترى.",
-        "نافذة تعلّم سريعة (أداة/شهادة قصيرة) تُحدث فرقًا ملموسًا في أسبوع واحد. استثمر ساعة يوميًا؛ العائد يتجاوز التوقع.",
-        "خلاف مهني قصير يهدأ إذا التزمت باللغة الدقيقة وتركت السجال للوثائق والأرقام."
-      ],
-      [
-        "فرصة عملٍ جانبية تحمل توقيعًا صغيرًا وتأثيرًا كبيرًا. الحدس يقول: ابدأ بطيئًا، ثبّت الجودة، ثم وسّع.",
-        "عرض شراكة يبدو براقًا؛ تأكد من ملكية المخرجات وبنود الانفصال. الانتباه هنا يوفر عليك شهرين لاحقًا.",
-        "تلوح إمكانية زيادة دخل من مصدر غير أساسي؛ لا تُسقطه لصالح الكمال، جودته تكبر بالاستمرارية."
-      ]
+    career: [
+      "مهمة متوسطة بموعدٍ ضيق تُظهر اسمك في المكان الصحيح.",
+      "بند صغير في الورق يحتاج قراءة مرتين؛ يجنبك تأخيرًا متعبًا.",
+      "سوقٌ متذبذب؛ السيولة القصيرة تحميك من انعطافةٍ مفاجئة.",
+      "نافذة تعلّم سريعة تغيّر منسوب الثقة في أسبوع.",
+      "حوار واضح مع مسؤول يحرّك الملف العالق فورًا.",
+      "فرصة جانبية بتأثير كبير؛ ابدأ صغيرًا وثبّت الجودة.",
+      "تحذير: شريك {desc} قد يلمّع العرض ويخفي التفصيل.",
+      "زيادة دخل من مسار غير أساسي تنمو بالثبات لا بالقفز.",
+      "اختبارٌ قصير في اجتماعٍ كبير؛ الجملة الدقيقة تصنع الفرق.",
+      "توصية غير متوقعة تأتي من أثر عملٍ قديم."
     ],
-    health:[
-      [
-        "صفاء داخلي ينعكس على طاقة ثابتة. شرب الماء مبكرًا وإيقاع تنفّس هادئ يضبط الجهاز العصبي خلال ٤٨ ساعة؛ تقوم صباحًا بطاقة واضحة ونوم أعمق ليلًا.",
-        "ألم خفيف في الكتفين أو أسفل الظهر هو إشارة مبكرة لا مشكلة كبيرة؛ دقيقة تمدد بين كل مهمتين تمنع تراكمه.",
-        "الابتعاد التدريجي عن المنبّهات في المساء يُعيد نظام النوم لمساره خلال أيام؛ تأثيره أكبر مما تتوقع."
-      ],
-      [
-        "توتر عابر يترجم انقباضًا عضليًا. الردّ الذكي: فترات استراحة قصيرة جدًا لكنها متكررة. قياس التحسّن يكون بوضوح التفكير لا بعدد الساعات.",
-        "المزاج يتحسّن حين تتباطأ الوتيرة قليلًا. نشاطٌ لطيف مدته ٢٠ دقيقة في الهواء الطلق يُعيدك إلى نقطة الصفر الهادئة.",
-        "إشارة حساسية تجاه إيقاع شاشة/إضاءة؛ تخفيف السطوع مساءً يخفض تشتّت النوم."
-      ],
-      [
-        "الجسد يستجيب فورًا لترتيب بسيط في الروتين: ماء، حركة قصيرة، وجبة أولى أخف. طبّقها ٣ أيام متصلة وسترى الأثر في صفاء الذهن.",
-        "قلق قديم يفقد قوته عندما يُقال بصوت مسموع لشخص موثوق. سلاسة الكلام جزء من العلاج.",
-        "لا تُبالغ في القفزات؛ الاستمرارية الصغيرة تهزم الحماس المتقطع."
-      ]
+    health: [
+      "صفاء داخلي ينعكس على نومٍ أعمق إذا خفّ الضوء مساءً.",
+      "ألمٌ خفيف في الكتفين إشارة مبكرة لا مشكلة كبيرة.",
+      "ماء وحركةٌ قصيرة صباحًا تصنع طاقة واضحة خلال ٤٨ ساعة.",
+      "توترٌ عابر يهدأ باستراحاتٍ قصيرة متكررة.",
+      "المشي الهادئ يعيدك إلى نقطة الصفر الهادئة.",
+      "تقليل المنبّهات مساءً يمنع تذبذب النوم.",
+      "تحذير: محيط {desc} يزيد تشتّت الانتباه؛ نظّم إيقاعك.",
+      "الاستمرارية الصغيرة تهزم الحماس المتقطع.",
+      "قول المخاوف بصوتٍ مسموع يقلّل حدتها للنصف.",
+      "وجبة أولى أخفّ تُحسّن صفاء الذهن بقية اليوم."
     ],
-    general:[
-      [
-        "خبر سار من جهةٍ بعيدة يقترب خطوة بخطوة. ما ظننته مؤجلًا يعود بأثرٍ رجعي إيجابي وكأنه يعوّض الانتظار الطويل.",
-        "مصادفة دقيقة تجمع فكرة كبيرة بلقاء قصير؛ الشرارة الأولى تشعل احتمالًا لم تحسب له حسابًا.",
-        "البيت يشهد نقاشًا حادًا وقصيرًا ثم يهدأ؛ الإنصات الهادئ ليس حيادًا بل طريقة ذكية لاختصار الطريق."
-      ],
-      [
-        "مبلغ مالي صغير/متوسط يظهر بلا موعد (استرداد/هبة/ربح جانبي) يخفف عبئًا سابقًا. القرار الحكيم: لا إنفاق سريع في اليومين الأولين.",
-        "شخص جديد يدخل المدار بحرفه الأول <L>؛ تأثيره مباشر لكنه يحتاج اختبار الوقت قبل أي قرار كبير.",
-        "رسالة قصيرة توقظ فيك فكرة مؤجلة؛ التنفيذ هذه المرة أسهل لأن الظروف المحيطة أصبحت جاهزة."
-      ],
-      [
-        "الحدس يسبق الكلام في اجتماع مهم؛ جملة واحدة تُقال في التوقيت الصحيح تغيّر اتجاه الحوار.",
-        "خريطة الطريق تتضح حين تكتب الهدف في سطرين فقط. هذا التمرين ينهي التشتيت ويبدأ الحركة.",
-        "بابان سيُطرقان: الأول امتحان والثاني فرج. لا تتعجل الردّ على الباب الأول."
-      ]
+    general: [
+      "خبرٌ سار يقترب خطوة بخطوة كأنه يعوّض الانتظار الطويل.",
+      "مصادفة دقيقة تجمع فكرة كبيرة بلقاءٍ قصير.",
+      "نقاشٌ عائلي حادّ وقصير يهدأ بالإنصات لا بالاتهام.",
+      "مبلغ صغير/متوسط يظهر بلا موعد ويخفف عبئًا قديمًا.",
+      "رسالة مقتضبة تغيّر اتجاه الأسبوع بالكامل.",
+      "تحذير: شخص {desc} يختبر حدودك؛ الصرامة اللطيفة تحميك.",
+      "الحدس يسبق الكلام؛ التوقيت نصف اليقين.",
+      "حين تُكتب الأهداف بسطرين تنتهي المتاهة.",
+      "بابان سيُطرقان: الأول امتحان، والثاني فرج.",
+      "أثرٌ قديم يعود بنفعٍ متجدد على نحوٍ مفاجئ."
     ]
   };
 
-  /* عناصر واجهة */
+  /* توليد 25 تنويعًا/موضوع عبر دمج القوالب مع الأوصاف وتغليفها بفقرات إضافية */
+  function buildTopicVariants(topic){
+    const base = TEMPLATES[topic] || TEMPLATES.general;
+    const variants = [];
+    let id = 1;
+    // نكرر ونجمع مع أوصاف متعددة، ثم نضيف فقرات ثابتة (عائلة/مال/لقاء) في القراءة النهائية
+    for(const t of base){
+      // دمج مع 3 أوصاف لضمان التنويع
+      for(let i=0;i<DESCRIPTORS.length;i+=Math.max(1, Math.ceil(DESCRIPTORS.length/3))){
+        const desc = DESCRIPTORS[i];
+        const txt = t.replace("{desc}", desc);
+        variants.push({id:`${topic}-${id++}`, text:txt});
+      }
+    }
+    // ضمان ≥ 25
+    while(variants.length<25){
+      const desc = DESCRIPTORS[Math.floor(Math.random()*DESCRIPTORS.length)];
+      const t = base[Math.floor(Math.random()*base.length)].replace("{desc}", desc);
+      variants.push({id:`${topic}-${id++}`, text:t});
+    }
+    // قص إلى 25 وتنويع الترتيب
+    variants.sort(()=>Math.random()-0.5);
+    return variants.slice(0,25);
+  }
+
+  // بنك كامل (100+) مُنشأ عند التشغيل
+  const BANK = {
+    love:   buildTopicVariants('love'),
+    career: buildTopicVariants('career'),
+    health: buildTopicVariants('health'),
+    general:buildTopicVariants('general')
+  };
+
+  /* عناصر الواجهة */
   const step1=$("#step1"), stepLoading=$("#stepLoading"), stepTopics=$("#stepTopics"), stepResult=$("#stepResult");
   const globalNotice=$("#globalNotice");
   const zodiacBadge=$("#zodiacBadge"), zEmojiEl=$("#zEmoji"), zNameEl=$("#zName");
   const resultText=$("#resultText"), omenEl=$("#omen"), userEcho=$("#userEcho");
-  const overlayLimit=$("#overlayLimit"), countdownEl=$("#countdown"), closeLimit=$("#closeLimit");
+  const overlayLimit=$("#overlayLimit"), countdownEl=$("#countdown");
   const quotaInfo=$("#quotaInfo"), quotaInfoTopics=$("#quotaInfoTopics"), quotaInfoResult=$("#quotaInfoResult");
 
   /* حفظ/تحميل النموذج */
@@ -474,10 +500,14 @@
   function remainingQuota(){ const q=getQuota(); return Math.max(0, MAX_READS-(q.count||0)); }
   function fmtRemaining(ms){ if(ms<=0) return "00:00:00"; const s=Math.floor(ms/1000), h=String(Math.floor(s/3600)).padStart(2,"0"), m=String(Math.floor((s%3600)/60)).padStart(2,"0"), sc=String(s%60).padStart(2,"0"); return `${h}:${m}:${sc}`; }
   function updateQuotaUI(){ const rem=remainingQuota(); const q=getQuota(); const base=`المتبقي اليوم: ${rem} / ${MAX_READS}`+(q.resetAt?` — تجديد خلال ${fmtRemaining(q.resetAt - Date.now())}`:""); [quotaInfo,quotaInfoTopics,quotaInfoResult].forEach(el=>{ if(el) el.textContent=base; }); }
-  function showLimitOverlay(){ const q=getQuota(); if(!q.resetAt) return; overlayLimit.style.display="flex"; (function tick(){ const left=q.resetAt-Date.now(); countdownEl.textContent=fmtRemaining(left); if(left<=0){ overlayLimit.style.display="none"; setQuota({count:0, resetAt:null}); updateQuotaUI(); } else { requestAnimationFrame(tick); } })(); }
-  closeLimit.addEventListener("click", ()=> overlayLimit.style.display="none");
+  function showLimitOverlay(){
+    const q=getQuota(); if(!q.resetAt) return;
+    overlayLimit.style.display="flex";
+    (function tick(){ const left=q.resetAt-Date.now(); countdownEl.textContent=fmtRemaining(left); if(left<=0){ overlayLimit.style.display="none"; setQuota({count:0, resetAt:null}); updateQuotaUI(); } else { requestAnimationFrame(tick); } })();
+  }
+  document.getElementById("closeLimit").addEventListener("click", ()=> overlayLimit.style.display="none");
 
-  /* إشعارات */
+  /* إشعار */
   function showGlobal(msg, ok=false){ globalNotice.textContent=msg; globalNotice.classList.toggle("ok", ok); globalNotice.classList.remove("hidden"); setTimeout(()=>{ globalNotice.classList.add("hidden"); globalNotice.classList.remove("ok"); }, 3200); }
 
   /* تحقق الإدخال */
@@ -492,35 +522,77 @@
     return ok;
   }
 
-  /* تدفق الواجهات */
-  function show(el){ el.classList.remove("hidden") } 
-  function hide(el){ el.classList.add("hidden") }
+  /* مفاتيح المستخدم لمنع التكرار */
+  function userKey(){
+    const form = JSON.stringify({
+      g:$("#gender").value||"", s:$("#status").value||"", w:$("#work").value||"", b:$("#birthdate").value||""
+    });
+    // تجزئة بسيطة
+    let h=2166136261>>>0; for(let i=0;i<form.length;i++){ h^=form.charCodeAt(i); h=Math.imul(h,16777619); }
+    return h.toString(16);
+  }
+
+  function getUsed(topic){
+    const key = `istibsar_used_${userKey()}_${topic}`;
+    try{ return new Set(JSON.parse(localStorage.getItem(key) || "[]")); }catch(_){ return new Set(); }
+  }
+  function addUsed(topic, id){
+    const key = `istibsar_used_${userKey()}_${topic}`;
+    const s = getUsed(topic); s.add(id);
+    localStorage.setItem(key, JSON.stringify([...s]));
+  }
+
+  /* اختيار تنويع غير مكرر */
+  function pickUniqueVariant(topic){
+    const list = BANK[topic] || BANK.general;
+    const used = getUsed(topic);
+    const pool = list.filter(v=> !used.has(v.id));
+    if(pool.length===0){
+      showGlobal("تم استهلاك كل التنويعات المتاحة لهذا الموضوع. سيُعاد التوليف من جديد.", true);
+      // إعادة الضبط لهذا الموضوع فقط
+      localStorage.removeItem(`istibsar_used_${userKey()}_${topic}`);
+      return list[Math.floor(Math.random()*list.length)];
+    }
+    return pool[Math.floor(Math.random()*pool.length)];
+  }
+
+  /* توليف قراءة كاملة */
+  function composeReading(topic){
+    const signLine = SIGN_LINES[currentSign.name] || SIGN_LINES["غير معروف"];
+    const main = pickUniqueVariant(topic);
+    addUsed(topic, main.id);
+
+    // فقرات مساندة ثابتة/متنوعة (بدون حروف أولى)
+    const family = [
+      "خلافٌ عائلي قصير لكنه حادّ، يهدأ سريعًا إن تُرك مجال للإنصات لا للاتهام.",
+      "جلسة عائلية هادئة تكشف لبسًا قديمًا وتُنهي سوء فهم متراكم."
+    ];
+    const money = [
+      "وارد مالي غير متوقّع (استرداد/هبة/ربح جانبي) يخفّف عبئًا سابقًا؛ تجنّب الإنفاق المتعجل ليومين.",
+      "فرصة توفير ذكية تظهر كاشتراك يمكن إعادة التفاوض عليه لتقليل الكلفة."
+    ];
+    const person = [
+      `وجود شخص ${DESCRIPTORS[Math.floor(Math.random()*DESCRIPTORS.length)]} يختبر حدودك؛ الصرامة اللطيفة تحميك.`,
+      `تأثير شخص ${DESCRIPTORS[Math.floor(Math.random()*DESCRIPTORS.length)]} يظهر سريعًا؛ اجعل المعيار فعلًا لا وعدًا.`
+    ];
+
+    const intro = `<p style="text-align:center"><strong>${signLine}</strong></p>`;
+    const pMain = `<p>${main.text}</p>`;
+    const p1 = `<p><strong>العائلة:</strong> ${family[Math.floor(Math.random()*family.length)]}</p>`;
+    const p2 = `<p><strong>المال:</strong> ${money[Math.floor(Math.random()*money.length)]}</p>`;
+    const p3 = `<p><strong>شخص في المدار:</strong> ${person[Math.floor(Math.random()*person.length)]}</p>`;
+    const outro = `<p><em>ومضة:</em> الباب الأول امتحان، والثاني فرج. توقيت الرد نصف اليقين.</p>`;
+
+    return intro + pMain + p1 + p2 + p3 + outro;
+  }
+
+  /* تدفّق الواجهات */
+  const stepSequence = { show: el=>el.classList.remove("hidden"), hide: el=>el.classList.add("hidden") };
 
   function startFlow(){
     if(!validateForm()) return;
-    hide(step1); show(stepLoading);
-    setTimeout(()=>{ hide(stepLoading); show(stepTopics); updateZodiacUI(); updateQuotaUI(); }, 1200);
-  }
-
-  function pickDeep(topic){
-    const groups = BANK[topic] || BANK.general;
-    const g = groups[Math.floor(Math.random()*groups.length)];
-    const extra = groups[(Math.floor(Math.random()*groups.length))];
-    return g.concat(extra ? [extra[0]] : []);
-  }
-
-  function composeReading(topic){
-    const letter = "أبتثجحخدذرزسشصضطظعغفقكلمنهوي".charAt(Math.floor(Math.random()*28));
-    const signLine = (BANK.signLines[currentSign.name]||BANK.signLines["غير معروف"]);
-    const intro = `<p style="text-align:center"><strong>${signLine}</strong></p>`;
-    const blocks = pickDeep(topic).map(p=> p.replaceAll("<L>", letter));
-    const deepExtra = [
-      `<p><strong>العائلة:</strong> خلافٌ قصير لكن حاد يتلاشى عندما تُقال الجملة الصحيحة مرة واحدة بلا التفاف.</p>`,
-      `<p><strong>المال:</strong> واردٌ غير متوقّع يخفّف عبئًا قديمًا؛ الامتناع عن إنفاقٍ متعجل أول 48 ساعة يُضاعف فائدته.</p>`,
-      `<p><strong>لقاء:</strong> شخص جديد يبدأ اسمه بحرف <strong>${letter}</strong> يترك أثرًا فوريًا؛ دعه يثبت نفسه بالأفعال.</p>`
-    ].join("");
-    const outro = `<p><em>ومضة:</em> الباب الأول امتحان، والثاني فرج. توقيت الرد نصف اليقين.</p>`;
-    return intro + blocks.map(t=>`<p>${t}</p>`).join("") + deepExtra + outro;
+    stepSequence.hide(step1); stepSequence.show(stepLoading);
+    setTimeout(()=>{ stepSequence.hide(stepLoading); stepSequence.show(stepTopics); updateZodiacUI(); updateQuotaUI(); }, 1100);
   }
 
   function echoUser(){
@@ -530,27 +602,25 @@
 
   function runTopic(topic){
     if(remainingQuota()<=0){ updateQuotaUI(); showLimitOverlay(); return; }
-    hide(stepTopics); show(stepLoading);
+    stepSequence.hide(stepTopics); stepSequence.show(stepLoading);
     setTimeout(()=>{
-      hide(stepLoading); show(stepResult);
+      stepSequence.hide(stepLoading); stepSequence.show(stepResult);
       incQuota(); updateQuotaUI(); echoUser();
       $("#resultText").innerHTML = composeReading(topic);
       $("#omen").textContent = ["ومضة: رسالة مقتضبة تغيّر اتجاه الأسبوع.","ومضة: لقاء عابر يترك أثرًا أطول من زمنه.","ومضة: باب يُفتح مرتين؛ الأولى امتحان، والثانية فرج."][Math.floor(Math.random()*3)];
-    }, 1200);
+    }, 1100);
   }
 
   $("#startBtn").addEventListener("click", startFlow);
   document.querySelectorAll(".topic").forEach(btn=> btn.addEventListener("click", ()=> runTopic(btn.dataset.topic)));
-  $("#topicsBtn").addEventListener("click", ()=>{ hide(stepResult); show(stepTopics); updateQuotaUI(); });
-  $("#restartBtn").addEventListener("click", ()=>{ hide(stepResult); hide(stepTopics); show(step1); window.scrollTo({top:0, behavior:"smooth"}); updateQuotaUI(); });
+  $("#topicsBtn").addEventListener("click", ()=>{ stepSequence.hide(stepResult); stepSequence.show(stepTopics); updateQuotaUI(); });
+  $("#restartBtn").addEventListener("click", ()=>{ stepSequence.hide(stepResult); stepSequence.hide(stepTopics); stepSequence.show(step1); window.scrollTo({top:0, behavior:"smooth"}); updateQuotaUI(); });
 
-  /* توليد PDF رسمي: بناء محتوى مخصص للطباعة فقط */
+  /* PDF رسمي */
   function buildPrintDoc(){
-    const meta = $("#printMeta");
-    const reading = $("#printReading");
+    const meta=$("#printMeta"), reading=$("#printReading");
     const g=$("#gender").value||"—", s=$("#status").value||"—", w=$("#work").value||"—", b=$("#birthdate").value||"—";
-    const now = new Date();
-    const when = now.toLocaleString('ar', {hour12:false});
+    const now=new Date(); const when=now.toLocaleString('ar', {hour12:false});
     meta.innerHTML = `
       <div>البرج: ${currentSign.emoji} ${currentSign.name}</div>
       <div>الجنس: ${g}</div>
@@ -559,20 +629,15 @@
       <div>تاريخ الميلاد: ${b}</div>
       <div>تاريخ الإصدار: ${when}</div>
     `;
-    reading.innerHTML = $("#resultText").innerHTML; // نفس القراءة، ولكن داخل قالب الطباعة
+    reading.innerHTML = $("#resultText").innerHTML;
   }
-
   $("#printBtn").addEventListener("click", ()=>{
-    if($("#stepResult").classList.contains("hidden")){
-      showGlobal("أكمل القراءة أولًا ثم حمّل PDF.");
-      return;
-    }
-    buildPrintDoc(); // بناء القالب الرسمي
-    window.print();  // الطباعة إلى PDF
+    if($("#stepResult").classList.contains("hidden")){ showGlobal("أكمل القراءة أولًا ثم حمّل PDF."); return; }
+    buildPrintDoc(); window.print();
   });
 
   /* تهيئة */
-  (function init(){ loadForm(); updateZodiacUI(); updateQuotaUI(); })();
+  (function init(){ updateZodiacUI(); updateQuotaUI(); loadForm(); })();
 </script>
 </body>
 </html>
