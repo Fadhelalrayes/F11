@@ -1,1037 +1,329 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>مواقيت الصلاة — جعفري (عالمي)</title>
-
-<!-- خطوط -->
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Noto+Naskh+Arabic:wght@500;700&family=Reem+Kufi:wght@600&display=swap" rel="stylesheet">
-
-<!-- jsPDF + AutoTable لتصدير PDF -->
-<script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/jspdf-autotable@3.8.2/dist/jspdf.plugin.autotable.min.js"></script>
-
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>الاستبصار — قراءات مجانية</title>
 <style>
   :root{
-    --ink:#0f172a; --muted:#6b7280; --bg:#f6f8fb; --border:#e5e7eb; --accent:#0ea5a6; --accent-2:#0bb5b7;
-    --shadow:0 10px 30px rgba(2,6,23,.08); --hadith-color:#0d2a58; --chip:#ffffff; --card:#ffffff;
-    --focus:#145ea8;
+    --bg:#0e0f12; --fg:#f7f7f7; --muted:#bdbdbd;
+    --brand:#ffd54a; --card:#16181f; --stroke:#2a2e38; --ok:#2bd67b;
   }
   *{box-sizing:border-box}
-  html,body{height:100%}
   body{
-    margin:0; background:linear-gradient(180deg,#f7fafc 0%,#f3f7fb 100%);
-    font-family:"Cairo", system-ui, -apple-system, "Segoe UI", sans-serif;
-    color:var(--ink); padding:16px; line-height:1.7;
+    margin:0; font-family: system-ui, -apple-system, "Cairo", "Noto Naskh Arabic", Segoe UI, Roboto, sans-serif;
+    background:var(--bg); color:var(--fg); -webkit-font-smoothing:antialiased
   }
-  .container{width:min(1100px,100%); margin:auto; display:flex; flex-direction:column; gap:16px}
-
-  :focus{outline:3px solid var(--focus); outline-offset:2px}
-  [role="tablist"]{display:flex; gap:8px; flex-wrap:wrap}
-  [role="tab"]{padding:.55rem .9rem; border-radius:999px; border:1px solid var(--border); background:#fff; cursor:pointer; font-weight:800}
-  [role="tab"][aria-selected="true"]{background:#e9fbfb; border-color:#c9f1f1}
-
-  .topBar{display:flex; gap:8px; justify-content:space-between; align-items:center; flex-wrap:wrap}
-  .topClock{display:flex; gap:10px; font-size:.95rem; font-weight:700; color:#0b4a49}
-  .pill{display:inline-block; padding:.2rem .6rem; border-radius:999px; background:#eef7ff; border:1px solid #e3eefc; font-weight:800; font-size:.82rem}
-
-  .hero{
-    background:radial-gradient(1200px 300px at 50% -80px,#e7fbfb,transparent), #fff;
-    border:1px solid var(--border); border-radius:18px; box-shadow:var(--shadow); padding:20px; text-align:center
+  header{display:flex; align-items:center; justify-content:space-between; padding:18px 16px; border-bottom:1px solid var(--stroke)}
+  .brand{display:flex; gap:10px; align-items:center}
+  .logo{width:32px; height:32px; border-radius:50%; border:2px solid var(--brand); display:grid; place-items:center}
+  .logo span{width:10px; height:10px; border-radius:50%; border:2px solid var(--brand)}
+  .title{font-weight:800; letter-spacing:.2px}
+  .container{max-width:840px; margin:0 auto; padding:20px 16px}
+  .card{
+    background:var(--card); border:1px solid var(--stroke); border-radius:18px; padding:18px; margin:14px 0;
+    box-shadow:0 10px 30px rgba(0,0,0,.2)
   }
-  .heroTitle{margin:0; font-family:"Reem Kufi",sans-serif; font-size:1.6rem; color:var(--ink); letter-spacing:.2px}
-
-  .locationBox{
-    background:var(--card); border:1px solid var(--border); border-radius:14px;
-    box-shadow:var(--shadow); padding:12px 14px; display:flex; justify-content:space-between; align-items:center; gap:12px
+  h1,h2{color:var(--brand); margin:10px 0 8px}
+  p.muted{color:var(--muted); margin:6px 0 0}
+  label{display:block; margin:10px 0 6px; color:#eaeaea; font-size:14px}
+  input,select,button{
+    width:100%; padding:12px 14px; border-radius:12px; border:1px solid var(--stroke);
+    background:#0f1117; color:var(--fg); font-size:16px; outline:none
   }
-  .place{font-weight:800; font-size:1.05rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+  input:focus, select:focus{border-color:var(--brand); box-shadow:0 0 0 3px rgba(255,213,74,.15)}
+  .grid{display:grid; grid-template-columns:1fr 1fr; gap:12px}
+  @media (max-width:640px){ .grid{grid-template-columns:1fr} }
   .btn{
-    background:linear-gradient(180deg,#ffffff,#f7fbff);
-    border:1px solid var(--border); padding:.6rem 1rem; border-radius:12px;
-    font-weight:800; cursor:pointer; transition:transform .1s ease, box-shadow .2s ease
+    border:0; background:linear-gradient(135deg, var(--brand), #ffb300);
+    color:#221; font-weight:800; cursor:pointer; transition:transform .08s ease, filter .2s ease;
+    letter-spacing:.2px
   }
-  .btn:hover{box-shadow:0 6px 18px rgba(2,6,23,.08)}
-  .btn:active{transform:translateY(1px)}
-  .btn.primary{background:linear-gradient(180deg,#d9fbfb,#cfefff); border-color:#cbe3ff}
-  .btn.warn{background:linear-gradient(180deg,#fff2f2,#ffe1e1)}
-
-  .nextBox{background:#fff; border:1px solid var(--border); border-radius:14px; box-shadow:var(--shadow); padding:16px; display:grid; gap:10px}
-  .nextTitle{font-weight:800; color:#0b3b3a; text-align:center; letter-spacing:.3px}
-  .nextRow{display:flex; justify-content:space-between; align-items:center; font-weight:800}
-  .nextName{font-size:1.06rem}
-  .nextAt{font-variant-numeric:tabular-nums}
-  .countdown{display:flex; justify-content:center; gap:10px; font-weight:900; font-size:1.6rem; letter-spacing:.5px; direction:ltr}
-  .cd-seg{min-width:2.2ch; text-align:center; padding:.25rem .6rem; border:1px solid var(--border); border-radius:10px; background:#f8fafc}
-  .cd-colon{opacity:.6}
-  .note{font-size:.86rem; color:var(--muted); text-align:center}
-
-  .infoRow{display:grid; grid-template-columns:1fr 1fr; gap:16px}
-  @media(max-width:720px){.infoRow{grid-template-columns:1fr}}
-
-  .chip{background:var(--chip); border:1px solid var(--border); border-radius:12px; box-shadow:var(--shadow); padding:12px; display:flex; align-items:center; gap:12px}
-  .ico{width:36px; height:36px; display:grid; place-items:center; border-radius:10px; background:#eaf3ff; font-size:1.2rem}
-  .stack{display:flex; flex-direction:column}
-  .label{font-size:.85rem; color:var(--muted); font-weight:700}
-  .value{font-weight:800; font-size:1.02rem; font-variant-numeric:tabular-nums}
-
-  .card{background:#fff; border:1px solid var(--border); border-radius:12px; box-shadow:var(--shadow); padding:12px}
-  .card h3{margin:0 0 10px; font-size:1rem; font-weight:800; text-align:center;}
-  table{width:100%; border-collapse:collapse}
-  th,td{padding:10px 8px; border-bottom:1px solid #f0f0f0; font-size:.98rem}
-  th{background:#fafafa; font-weight:800}
-  td.name{text-align:right; font-weight:700}
-  td.time{text-align:left; font-weight:800}
-  tr.next td{background:linear-gradient(90deg,#0ea5a61a,transparent)}
-
-  .tabsCard{background:#fff; border:1px solid var(--border); border-radius:12px; box-shadow:var(--shadow); padding:12px}
-  .tabPanel{margin-top:10px}
-
-  .events{display:none; background:#fff; border:1px solid var(--border); border-radius:12px; box-shadow:var(--shadow); padding:14px}
-  .events h3{margin:0 0 8px; font-size:1rem; font-weight:800; text-align:center;}
-  .evtGrid{display:grid; grid-template-columns:1fr 1fr; gap:12px}
-  @media(max-width:720px){.evtGrid{grid-template-columns:1fr}}
-  .evtCol{border:1px dashed #e3e8f0; border-radius:10px; padding:10px}
-  .evtCol h4{margin:0 0 6px; font-size:.9rem; color:var(--ink)}
-  .evtItem{padding:6px 0; border-bottom:1px solid #f0f0f0}
-  .evtItem:last-child{border-bottom:none}
-  .evtText{font-weight:700}
-
-  .hadith{background:#fff; border:1px solid var(--border); border-radius:12px; box-shadow:var(--shadow); padding:16px; text-align:center}
-  .htext{margin:0; font-size:1.08rem; color:#0d2a58; line-height:1.95; font-family:"Noto Naskh Arabic","Cairo",serif}
-  .hsrc{display:inline-block; margin-top:12px; padding:6px 14px; border-radius:10px; background:#f5f7fa; border:1px solid var(--border); font-weight:800; color:#3b4656}
-  footer{text-align:center; margin-top:8px}
-  .credit{color:#0d2a58; font-weight:800}
-
-  .modal{position:fixed; inset:0; display:none; place-items:center; background:rgba(15,23,42,.28); z-index:60}
-  .modal.open{display:grid}
-  .box{width:min(680px,96%); background:#fff; border:1px solid var(--border); border-radius:16px; box-shadow:var(--shadow); padding:16px}
-  .rowCtrl{display:grid; grid-template-columns:160px 1fr; gap:10px; align-items:center; margin:10px 0}
-  .rowCtrl label{color:var(--muted); font-weight:700}
-  input[type="text"], input[type="number"], select{
-    width:100%; padding:12px; border-radius:12px; border:1px solid var(--border); font-weight:700; background:#fff
+  .btn:active{transform:scale(.99)}
+  .ghost{background:transparent; border:1px solid var(--brand); color:var(--brand)}
+  .center{display:grid; place-items:center}
+  .hidden{display:none !important}
+  .topic-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:14px}
+  .topic{padding:18px; border:1px dashed var(--brand); border-radius:14px; background:#0f1117; cursor:pointer}
+  .topic:hover{background:#121520}
+  .topic span{display:block; color:var(--muted); font-size:14px; margin-top:4px}
+  .result{line-height:1.9}
+  .tag{display:inline-block; padding:4px 10px; border-radius:999px; border:1px solid var(--stroke); color:var(--muted); font-size:13px}
+  footer{padding:28px 16px; text-align:center; color:var(--muted); border-top:1px solid var(--stroke)}
+  /* Loading ring */
+  .ring-wrap{height:260px; display:grid; place-items:center}
+  .ring{
+    width:140px; height:140px; border-radius:50%;
+    border:6px solid rgba(255,255,255,.08); border-top-color:var(--brand);
+    animation:spin 1.2s linear infinite; position:relative
   }
-  .switchLine{display:flex; align-items:center; gap:10px}
-  .switchLine input{transform:scale(1.2)}
-  .hint{font-size:.85rem; color:var(--muted); margin-top:2px}
-  .actions{display:flex; gap:10px; margin-top:12px; flex-wrap:wrap}
-  .results{width:100%; max-height:220px; overflow:auto; border:1px solid #eef2f6; border-radius:12px; display:none}
-  .resItem{padding:.65rem .8rem; border-bottom:1px dashed #eef2f6; cursor:pointer}
-  .resItem:hover{background:#f7fbff}
-
-  .monthHead{display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:10px}
-  .gridMonth{display:grid; grid-template-columns:repeat(7,1fr); gap:6px}
-  .dayBox{border:1px solid #eef2f6; border-radius:10px; background:#fff; padding:6px; min-height:86px}
-  .dayHead{display:flex; justify-content:space-between; align-items:center; font-weight:800; font-size:.9rem}
-  .badge{font-size:.72rem; background:#f0f9ff; border:1px solid #e0f2fe; border-radius:999px; padding:.05rem .4rem}
-  .miniTimes{margin-top:6px; font-size:.82rem; line-height:1.5}
-  .is-today{outline:2px dashed #0ea5a6; outline-offset:2px}
-  .is-event{background:linear-gradient(180deg,#fff,#f7fbff)}
-  .monthToolbar{display:flex; gap:8px; flex-wrap:wrap}
-  .weekTable th,.weekTable td{font-size:.95rem}
+  .ring:after{
+    content:""; position:absolute; inset:18px; border-radius:50%;
+    border:4px dashed rgba(255,255,255,.12)
+  }
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .sub{color:var(--muted); margin-top:10px}
+  .pill{display:inline-flex; align-items:center; gap:8px; background:#10131a; border:1px solid var(--stroke); padding:8px 12px; border-radius:999px; font-size:13px}
+  .ok{color:var(--ok); font-weight:700}
 </style>
 </head>
 <body>
-  <div class="container">
-    <div class="topBar" aria-label="شريط علوي">
-      <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap">
-        <div class="pill" id="tzPill">—</div>
-        <div class="topClock" aria-live="polite"><span id="topClock">--:-- --</span></div>
-      </div>
-      <span class="pill" id="netStatus" style="background:#fff3cd;border-color:#ffeeba;color:#7a5a00">بدء التشغيل…</span>
+
+<header>
+  <div class="brand">
+    <div class="logo" aria-hidden="true"><span></span></div>
+    <div>
+      <div class="title">الاستبصار</div>
+      <div style="font-size:12px; color:var(--muted)">قراءات فلكية مجانية — صفحة واحدة</div>
     </div>
-
-    <section class="hero" aria-labelledby="title">
-      <h1 id="title" class="heroTitle">مواقيت الصلاة وفق المذهب الجعفري</h1>
-    </section>
-
-    <div class="locationBox" aria-label="الموقع الحالي">
-      <div class="place" id="place">جاري تحديد الموقع…</div>
-      <div class="monthToolbar">
-        <button class="btn" id="downloadPDF" type="button" aria-label="تنزيل ملف PDF للشهر">تنزيل PDF للشهر</button>
-        <button class="btn" id="openPicker" type="button" aria-haspopup="dialog" aria-controls="modal">الإعدادات</button>
-      </div>
-    </div>
-
-    <section class="nextBox" id="nextBox" aria-labelledby="nextTitle">
-      <div id="nextTitle" class="nextTitle">الحدث القادم</div>
-      <div class="nextRow">
-        <span class="nextName" id="nextName">--</span>
-        <span class="nextAt" id="nextAt" aria-live="polite">--:-- --</span>
-      </div>
-      <div class="countdown" aria-live="polite" aria-atomic="true">
-        <span class="cd-seg" id="cdH">00</span><span class="cd-colon">:</span>
-        <span class="cd-seg" id="cdM">00</span><span class="cd-colon">:</span>
-        <span class="cd-seg" id="cdS">00</span>
-      </div>
-      <div class="note" id="nextNote">الوقت المتبقي</div>
-    </section>
-
-    <section class="infoRow" aria-label="التواريخ">
-      <div class="chip" role="group" aria-label="التاريخ الهجري">
-        <div class="ico" aria-hidden="true">🗓</div>
-        <div class="stack"><div class="label">التاريخ الهجري</div><div class="value" id="hijri">--</div></div>
-      </div>
-      <div class="chip" role="group" aria-label="التاريخ الميلادي">
-        <div class="ico" aria-hidden="true">📅</div>
-        <div class="stack"><div class="label">التاريخ الميلادي</div><div class="value" id="greg">--</div></div>
-      </div>
-    </section>
-
-    <section class="tabsCard" aria-label="العرض">
-      <div role="tablist" aria-label="التبويبات">
-        <button role="tab" id="tab-day" aria-selected="true" aria-controls="panel-day" class="btn">اليوم</button>
-        <button role="tab" id="tab-week" aria-selected="false" aria-controls="panel-week" class="btn">الأسبوع</button>
-        <button role="tab" id="tab-month" aria-selected="false" aria-controls="panel-month" class="btn">الشهر</button>
-      </div>
-
-      <div id="panel-day" role="tabpanel" aria-labelledby="tab-day" class="tabPanel" tabindex="0">
-        <section class="card">
-          <h3>الجدول اليومي</h3>
-          <table aria-label="مواقيت اليوم">
-            <thead><tr><th>الحدث</th><th>الوقت</th></tr></thead>
-            <tbody id="times"><tr><td colspan="2">جاري التحميل…</td></tr></tbody>
-          </table>
-        </section>
-      </div>
-
-      <div id="panel-week" role="tabpanel" aria-labelledby="tab-week" class="tabPanel" hidden tabindex="0">
-        <section class="card">
-          <h3>مواقيت هذا الأسبوع</h3>
-          <div style="overflow:auto">
-            <table class="weekTable" id="weekTable" aria-label="مواقيت الأسبوع">
-              <thead>
-                <tr>
-                  <th>اليوم</th>
-                  <th>الفجر</th><th>الشروق</th><th>الظهر</th><th>العصر</th><th>المغرب</th><th>العشاء</th>
-                </tr>
-              </thead>
-              <tbody id="weekBody"><tr><td colspan="7">…</td></tr></tbody>
-            </table>
-          </div>
-        </section>
-      </div>
-
-      <div id="panel-month" role="tabpanel" aria-labelledby="tab-month" class="tabPanel" hidden tabindex="0">
-        <section class="card">
-          <div class="monthHead">
-            <h3 id="monthTitle" style="margin:0">مواقيت الشهر</h3>
-            <div>
-              <button class="btn" id="prevMonth" aria-label="الشهر السابق">‹</button>
-              <button class="btn" id="nextMonth" aria-label="الشهر التالي">›</button>
-            </div>
-          </div>
-          <div class="gridMonth" id="gridMonth" aria-label="تقويم شهري" data-offset="0"></div>
-        </section>
-      </div>
-    </section>
-
-    <section class="events" id="eventsBox" aria-label="مناسبات اليوم">
-      <h3>مناسبات اليوم</h3>
-      <div class="evtGrid">
-        <div class="evtCol" id="colToday"><h4>اليوم</h4><div id="eventsToday"></div></div>
-        <div class="evtCol" id="colNight"><h4>الليلة</h4><div id="eventsTonight"></div></div>
-      </div>
-    </section>
-
-    <section class="hadith" aria-label="حديث اليوم">
-      <p class="htext" id="hadithText"></p>
-      <div class="hsrc" id="hadithSource"></div>
-    </section>
-
-    <footer><span class="credit">البيانات: Aladhan & OpenStreetMap — برمجة وتطوير فاضل الريس</span></footer>
   </div>
+  <div class="pill"><span>مجاني 100%</span> <span class="ok">✔</span></div>
+</header>
 
-  <!-- نافذة الإعدادات -->
-  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-    <div class="box">
-      <h3 id="modalTitle" style="margin:0 0 10px; text-align:center;">الإعدادات</h3>
+<main class="container">
 
-      <div class="rowCtrl">
-        <label class="switchLine"><input type="checkbox" id="autoDetectChk"> <span>تحديد الموقع تلقائيًا</span></label>
-        <div class="hint">عند التفعيل سيتم استخدام إحداثيات جهازك مباشرة.</div>
+  <!-- الخطوة 1: إدخال البيانات -->
+  <section id="step1" class="card">
+    <h1>ابدأ قراءتك</h1>
+    <p class="muted">أدخل بياناتك الأساسية ثم اضغط “ابدأ”. لن نحتفظ بأي معلومات.</p>
+    <div class="grid">
+      <div>
+        <label>العمر</label>
+        <input id="age" type="number" min="5" max="120" placeholder="مثال: 43">
       </div>
-
-      <div class="rowCtrl">
-        <label for="placeSearch">ابحث عن المكان</label>
-        <div>
-          <input id="placeSearch" type="text" placeholder="مثال: الدوحة، قطر | Berlin, Germany" aria-describedby="placeHint">
-          <div id="placeHint" class="hint">بحث عالمي عبر OpenStreetMap/Nominatim.</div>
-          <div id="searchResults" class="results" role="listbox" aria-label="نتائج البحث"></div>
-        </div>
-      </div>
-
-      <div class="rowCtrl">
-        <label>إدخال إحداثيات</label>
-        <div style="display:flex; gap:8px; flex-wrap:wrap">
-          <input id="latInp" type="number" step="any" placeholder="Latitude" aria-label="Latitude">
-          <input id="lonInp" type="number" step="any" placeholder="Longitude" aria-label="Longitude">
-          <button class="btn" id="useCoords" type="button">تعيين</button>
-        </div>
-      </div>
-
-      <div class="rowCtrl">
-        <label for="methodSel">طريقة الحساب</label>
-        <div>
-          <select id="methodSel" aria-describedby="methodHint"></select>
-          <div id="methodHint" class="hint">الافتراضي: Shia Ithna-Ashari (Jafari).</div>
-        </div>
-      </div>
-
-      <div class="rowCtrl">
-        <label class="switchLine"><input type="checkbox" id="customAnglesChk"> <span>زوايا مخصّصة</span></label>
-        <div style="display:flex; gap:8px; flex-wrap:wrap">
-          <input id="fajrAngle" type="number" step="0.1" placeholder="زاوية الفجر (°)" aria-label="زاوية الفجر" disabled>
-          <input id="ishaAngle" type="number" step="0.1" placeholder="زاوية العشاء (°)" aria-label="زاوية العشاء" disabled>
-        </div>
-        <div class="hint">عند التفعيل نستخدم method=99 مع الزوايا المخصّصة.</div>
-      </div>
-
-      <div class="rowCtrl">
-        <label for="hijriOffsetSel">تعويض الهجري</label>
-        <select id="hijriOffsetSel">
-          <option value="-2">-2 يوم</option>
-          <option value="-1">-1 يوم</option>
-          <option value="0" selected>بدون تعويض</option>
-          <option value="1">+1 يوم</option>
-          <option value="2">+2 يوم</option>
+      <div>
+        <label>الجنس</label>
+        <select id="gender">
+          <option value="">اختر</option>
+          <option>ذكر</option>
+          <option>أنثى</option>
+          <option>غير ذلك</option>
         </select>
       </div>
-
-      <div class="actions">
-        <button class="btn" id="useMyLocation" type="button">استخدم موقعي الآن</button>
-        <button class="btn primary" id="savePlace" type="button">حفظ</button>
-        <button class="btn" id="cancelPlace" type="button">إلغاء</button>
-        <button class="btn warn" id="resetAll" type="button">إعادة ضبط</button>
+      <div>
+        <label>الحالة الاجتماعية</label>
+        <select id="status">
+          <option value="">اختر</option>
+          <option>أعزب/عزباء</option>
+          <option>متزوج/متزوجة</option>
+          <option>منفصل/منفصلة</option>
+          <option>مخطوب/مخطوبة</option>
+        </select>
+      </div>
+      <div>
+        <label>تاريخ الميلاد</label>
+        <input id="birthdate" type="date">
       </div>
     </div>
-  </div>
+    <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap">
+      <button class="btn" id="startBtn">ابدأ القراءة</button>
+      <button class="ghost" id="shuffleDemo">قراءة فورية تجريبية</button>
+    </div>
+  </section>
+
+  <!-- الخطوة 2: شاشة انتظار -->
+  <section id="stepLoading" class="card hidden center">
+    <div>
+      <div class="ring-wrap">
+        <div class="ring" aria-hidden="true"></div>
+      </div>
+      <h2>جاري الاستبصار…</h2>
+      <p class="sub">نقوم بمزج أنماط فلكية عامة مع خوارزمية توليد نصوص قصيرة — انتظر لحظات.</p>
+    </div>
+  </section>
+
+  <!-- الخطوة 3: اختيار الموضوع -->
+  <section id="stepTopics" class="card hidden">
+    <h2>اختر موضوع قراءتك</h2>
+    <div class="topic-grid">
+      <button class="topic" data-topic="love">الحب ❤️<span>العلاقات، الانجذاب، المصالحات</span></button>
+      <button class="topic" data-topic="health">الصحة 💊<span>الطاقة، العادات، التوازن</span></button>
+      <button class="topic" data-topic="career">المهنة/الثروة 💼<span>الفرص، القرارات، الاستثمارات</span></button>
+      <button class="topic" data-topic="general">عام ✨<span>رؤية شاملة للأيام المقبلة</span></button>
+    </div>
+  </section>
+
+  <!-- الخطوة 4: النتيجة -->
+  <section id="stepResult" class="card hidden">
+    <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap">
+      <h2 style="margin:0">نتيجتك</h2>
+      <div class="tag" id="userEcho"></div>
+    </div>
+    <div class="result" id="resultText" style="margin-top:12px"></div>
+    <div id="globalSnippet" class="muted" style="margin-top:12px; font-size:15px"></div>
+    <div style="display:flex; gap:10px; margin-top:16px; flex-wrap:wrap">
+      <button class="btn" id="againBtn">قراءة جديدة (نفس الموضوع)</button>
+      <button class="ghost" id="topicsBtn">اختيار موضوع آخر</button>
+      <button class="ghost" id="restartBtn">إعادة البدء</button>
+    </div>
+    <p class="muted" style="margin-top:12px">تنبيه: هذه القراءات لأغراض ترفيهية وتأملية فقط، وليست نصيحة طبية/قانونية/مالية.</p>
+  </section>
+
+</main>
+
+<footer>
+  © <span id="year"></span> الاستبصار — صفحة مجانية. جميع النصوص مصاغة بأسلوب عام مستوحى من مناهج فلكية وتقاليد عرافة معروفة عالميًا.
+</footer>
 
 <script>
-/* ========================= الحالة العامة ========================= */
-let HIJRI_OFFSET_DAYS = Number(localStorage.getItem("jaq_hijri_offset_days")||"0");
-let AUTO_DETECT = JSON.parse(localStorage.getItem("jaq_auto_detect")||"true");
-let coords = JSON.parse(localStorage.getItem("jaq_coords")||"null"); // {lat, lon}
-let resolvedName = JSON.parse(localStorage.getItem("jaq_resolved_name")||"null"); // {cityAr,countryAr,display}
-let METHOD_ID = Number(localStorage.getItem("jaq_method_id")||"0"); // 0: Jafari
-let TIMEZONE = localStorage.getItem("jaq_timezone") || Intl.DateTimeFormat().resolvedOptions().timeZone;
-let CUSTOM_ANGLES = JSON.parse(localStorage.getItem("jaq_custom_angles_on")||"false");
-let FAJR_ANGLE = Number(localStorage.getItem("jaq_fajr_angle")||"0");
-let ISHA_ANGLE = Number(localStorage.getItem("jaq_isha_angle")||"0");
+  // ====== بيانات نصوص متعددة لضمان تغيّر الطالع في كل مرة ======
+  const LOVE = [
+    "تلوح فرصة تقارب بعد سوء فهم قديم؛ كلمة صادقة تُصلح الكثير وتكشف نوايا حسنة.",
+    "انجذاب مفاجئ يطرق بابك؛ لا تتعجّل الحكم — امنح اللقاء مساحة للنمو.",
+    "يوم عاطفي متقلّب، لكن مبادرتك اللطيفة تعيد التوازن وتخفف الحدة.",
+    "تتبدّل أولوياتك: الاستقرار يتقدم على المغامرة، فتختار ما يطمئن قلبك.",
+    "رسالة غير متوقعة تُحيي شعورًا جميلاً؛ تعامل معها بواقعية دون اندفاع.",
+    "ميول رومانسية تُزهر من صداقة قديمة؛ الحوار الصريح يمهّد الطريق.",
+    "قد يُختبر ولاؤك؛ تمسّك بالوضوح ولا تسمح للشكوك أن تُعكّر صفوك.",
+    "تصالح داخلي ينعكس جاذبية؛ فتجذب من يفهم عمقك لا مظهرك فقط.",
+    "لقاء قصير الأثر، طويل المعنى؛ تعلّم منه ما يقوّي معاييرك العاطفية.",
+    "ظرف عائلي يجمع القلوب ويعيد الدفء إلى علاقة توقفت."
+  ];
+  const HEALTH = [
+    "طاقتك تتحسّن مع روتين نوم منتظم؛ جرّب إطفاء الشاشات أبكر من المعتاد.",
+    "توتر خفيف يتبدّد بمشيٍ يومي؛ عشرون دقيقة تصنع فرقًا ملحوظًا.",
+    "جسدك يطلب ماء أكثر؛ الترطيب يعالج الإرهاق ويصفّي الذهن.",
+    "انتبِه لوقفتك أثناء العمل؛ تعديلات صغيرة تريح ظهرك ورقبتك.",
+    "فترة مناسبة لتخفيف السكريات؛ مزاجك سيستقر تدريجيًا.",
+    "التنفس العميق ثلاث مرات قبل أي حوار صعب يغيّر النتيجة الصحية والنفسية.",
+    "امنح جهازك الهضمي استراحة؛ وجبة خفيفة تكفي اليوم.",
+    "إشارات تعبك نفسية المنشأ؛ الحديث مع صديق موثوق يُبهت ثِقَلها.",
+    "قوة هادئة تسري في جسدك بعد رياضة خفيفة؛ استمر بلا مبالغة.",
+    "اعتنِ بمفاصلك؛ تمدّد صباحي لخمسة دقائق يقلّل الشدّ طوال اليوم."
+  ];
+  const CAREER = [
+    "يمرّ المشروع بمنعطف؛ قرارك المبني على أرقام لا انطباعات يضمن مكسبًا.",
+    "فرصة تعاون مغرية؛ اختبر التزام الطرف الآخر قبل التوقيع.",
+    "خبرة سابقة تصبح ورقتك الرابحة في تفاوضٍ قادم.",
+    "صبرك المالي اليوم يحميك من ندمٍ غدًا؛ أجّل الإنفاق الكبير.",
+    "عرض وظيفي قد يتطلّب تنقّلًا؛ احسب كلفة الوقت قبل المال.",
+    "أفكارك المتناثرة تحتاج جدولًا أسبوعيًا؛ التنظيم يضاعف الإنتاج.",
+    "تواصل قصير مع شخص قديم يفتح بابًا لم تكن تتوقعه.",
+    "سوء فهم إداري يتضح لصالحك؛ الوثائق تحفظ حقك.",
+    "نتائج مستقرة رغم الضوضاء؛ حافظ على وتيرة العمل الحالية.",
+    "مؤشر مالي صغير يلمح لاتجاه إيجابي؛ راقب لا تندفع."
+  ];
+  const GENERAL = [
+    "تظهر بدايات جديدة خلف نهاية هادئة؛ اقبل التحوّل وسترى السعة.",
+    "رحلة قصيرة تغيّر مزاجك وتعيد الإلهام إلى خططك.",
+    "نيّة طيبة تُقابل بمساعدة غير متوقعة؛ الامتنان يزيدها.",
+    "حلمٌ قديم يعود بفرصة عملية؛ اقترب منه بخطوات صغيرة متتابعة.",
+    "تصفية علاقاتك من التكلف تمنحك راحةً ونقاءً في الأيام القادمة.",
+    "خبر سار يتسلّل من نافذة جانبية لا من الباب المتوقع.",
+    "أثر جميل لعملٍ خيري قمت به سابقًا يعود بثماره.",
+    "تعلمٌ جديد خلال أسبوعين يفتح أفقًا شخصيًا واسعًا.",
+    "رسالة من الماضي تُغلق صفحة معلّقة بشكل ناضج.",
+    "توافق كوني هادئ يُسهل اتخاذ قرار كنت تؤجله."
+  ];
 
-/* أدوات الحالة (مؤشّر أعلى الصفحة) */
-function setStatus(msg, ok=false){
-  const el=document.getElementById('netStatus');
-  if(!el) return;
-  el.textContent = msg;
-  el.style.background = ok ? '#e6fffa' : '#fff3cd';
-  el.style.borderColor = ok ? '#b2f5ea' : '#ffeeba';
-  el.style.color = ok ? '#0b534e' : '#7a5a00';
-}
+  // مقتطفات عالمية مُعادة الصياغة (إلهام من مدارس/أسماء معروفة دون اقتباس حرفي)
+  const GLOBAL_SNIPPETS = [
+    "مستوحى من مدارس التنجيم الحديثة: المزاج الفلكي العام يوحي بفرصة لإعادة ترتيب الأولويات قبل قرارات كبيرة.",
+    "إلهام من قراءات أعمدة الصحف العالمية: التواصل الصريح اليوم يسبق أي انفراج عاطفي.",
+    "تقاليد قديمة في قراءة الكفّ تشير إلى أن ضبط العادات الصغيرة يصنع تحولات ملموسة.",
+    "روح توقعات كلاسيكية من رباعيات تاريخية: الأحداث تتصاعد ثم تنكسر لمصلحة المتروّي.",
+    "منهجية قارئي التاروت المعاصرين: البطء الواعي في تقييم العروض يحميك من مبالغة قصيرة الأجل.",
+    "مراجع فلكية تعليمية تشير إلى أن جودة النوم ترتبط مباشرة بصفاء القرار.",
+    "خبرات من كتّاب الأبراج العالميين: رسالة مختصرة قد تغيّر اتجاه أسبوعك."
+  ];
 
-/* تسميات */
-const NAMES = {Imsak:"الإمساك",Fajr:"أذان الفجر",Sunrise:"الشروق",Dhuhr:"أذان الظهر",Asr:"أذان العصر",Sunset:"الغروب",Maghrib:"أذان المغرب",Isha:"أذان العشاء",Midnight:"منتصف الليل"};
+  // ====== أدوات مساعدة ======
+  const $ = sel => document.querySelector(sel);
+  const step1 = $("#step1"), stepLoading = $("#stepLoading"), stepTopics = $("#stepTopics"), stepResult = $("#stepResult");
+  const userEcho = $("#userEcho"), resultText = $("#resultText"), globalSnippet = $("#globalSnippet");
+  const startBtn = $("#startBtn"), shuffleDemo = $("#shuffleDemo");
+  const againBtn = $("#againBtn"), topicsBtn = $("#topicsBtn"), restartBtn = $("#restartBtn");
+  const yearEl = $("#year"); yearEl.textContent = new Date().getFullYear();
 
-/* أحاديث */
-const HADITHS=[
-  {t:"قال الإمام الباقر (عليه السلام): إذا استقبل المصلي القبلة استقبل الرحمن بوجهه لا إله غيره.",s:"المصدر: ميزان الحكمة"},
-  {t:"قال الإمام علي (عليه السلام): إذا قام الرجل إلى الصلاة أقبل إبليس ينظر إليه حسداً لما يرى من رحمة الله التي تغشاه.",s:"المصدر: ميزان الحكمة"},
-  {t:"قال الإمام الرضا (عليه السلام): الصلاة لها أربعة آلاف باب.",s:"المصدر: ميزان الحكمة"},
-  {t:"قال الإمام علي (عليه السلام): يا كميل! ليس الشأن أن تصلي وتصوم وتتصدق، إنما الشأن أن تكون الصلاة فعلت بقلب نقي، وعمل عند الله مرضي، وخشوع سوي.",s:"المصدر: ميزان الحكمة"},
-  {t:"عن سعد بن أبي وقاص: سألت النبي صلى الله عليه وآله عن قوله: الذين هم عن صلاتهم ساهون. قال: هم الذين يؤخرون الصلاة عن وقتها.",s:"المصدر: السنن الكبرى"},
-  {t:"قال رسول الله صلى الله عليه وآله: من ترك صلاته متعمداً فقد هدم دينه، ومن ترك أوقاتها يدخل الويل، والويل وادٍ في جهنم كما قال تعالى: فويل للمصلين الذين هم عن صلاتهم ساهون.",s:"المصدر: جامع الأخبار"},
-  {t:"قال عبد الله بن مسعود: سألت رسول الله صلى الله عليه وآله: أيّ الأعمال أحب إلى الله جل جلاله؟ قال: الصلاة لوقتها.",s:"المصدر: الخصال"}
-];
-function setHadith(){ const h=HADITHS[Math.floor(Math.random()*HADITHS.length)]; hadithText.textContent=h.t; hadithSource.textContent=h.s; }
-
-/* ساعة */
-function updateClock(){
-  topClock.textContent=new Intl.DateTimeFormat('ar-EG',{timeZone:TIMEZONE,hour:'2-digit',minute:'2-digit',hour12:true}).format(new Date());
-  tzPill.textContent = TIMEZONE;
-}
-setInterval(updateClock,1000); updateClock();
-
-/* تنسيقات وقت */
-function to12h(raw){
-  if(!raw) return "--:-- --";
-  const pure=String(raw).replace(/\s*\(.*?\)\s*/g,"").trim();
-  if(!/^\d{1,2}:\d{2}$/.test(pure)) return raw;
-  let [H,M]=pure.split(":").map(Number); H=(H===24)?0:H;
-  const h=H%12||12; return `${h}:${String(M).padStart(2,"0")} ${H<12?"AM":"PM"}`;
-}
-function ymdInTZ(date, tz){
-  const p=new Intl.DateTimeFormat('en-CA',{timeZone:tz,year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(date);
-  return {Y:p.find(x=>x.type==='year').value, M:p.find(x=>x.type==='month').value, D:p.find(x=>x.type==='day').value};
-}
-
-/* الهجري */
-const HIJRI_MONTHS_AR=["","محرم","صفر","ربيع الأول","ربيع الآخر","جمادى الأولى","جمادى الآخرة","رجب","شعبان","رمضان","شوال","ذو القعدة","ذو الحجة"];
-function hasIntlIslamic(){ try{ new Intl.DateTimeFormat('ar-SA-u-ca-islamic',{day:'numeric'}).format(new Date()); return true; }catch{ return false; } }
-function g2jd(y,m,d){ const a=Math.floor((14-m)/12); y=y+4800-a; m=m+12*a-3; return d + Math.floor((153*m+2)/5) + 365*y + Math.floor(y/4) - Math.floor(y/100) + Math.floor(y/400) - 32045; }
-function jd2islamic(jd){
-  const l = jd - 1948440 + 10632;
-  const n = Math.floor((l - 1) / 10631);
-  let l2 = l - 10631*n + 354;
-  const j = (Math.floor((10985 - l2)/5316)) * (Math.floor((50*l2)/17719)) + (Math.floor(l2/5670)) * (Math.floor((43*l2)/15238));
-  l2 = l2 - (Math.floor((30 - j)/15)) * (Math.floor((17719*j)/50)) - (Math.floor(j/16)) * (Math.floor((15238*j)/43)) + 29;
-  const m = Math.floor((24*l2)/709);
-  const d = l2 - Math.floor((709*m)/24);
-  const y = 30*n + j - 30;
-  return {y,m,d};
-}
-async function fetchHijriFromAladhan(refDate){
-  const {Y,M,D}=ymdInTZ(refDate, TIMEZONE);
-  const url=`https://api.aladhan.com/v1/gToH?date=${encodeURIComponent(`${D}-${M}-${Y}`)}&adjustment=${encodeURIComponent(HIJRI_OFFSET_DAYS||0)}`;
-  const r=await fetch(url,{cache:"no-store"});
-  if(!r.ok) throw new Error("Hijri API HTTP "+r.status);
-  const j=await r.json();
-  const hj=j?.data?.hijri; if(!hj) throw new Error("Hijri API malformed");
-  return hj;
-}
-function formatHijriFromObj(h, civilWeekday){
-  const day = Number(h.day||h.date?.split('-')[0]);
-  const monthName = h?.month?.ar || HIJRI_MONTHS_AR[h?.month?.number||0] || '';
-  const year = h.year || (h.date? h.date.split('-')[2] : '');
-  return `${civilWeekday}، ${day} ${monthName} ${year} هـ`;
-}
-function localHijriFallback(refDate, civilWeekday){
-  try{
-    if(hasIntlIslamic()){
-      const parts=new Intl.DateTimeFormat('en-TN-u-ca-islamic',{timeZone:TIMEZONE,year:'numeric',month:'numeric',day:'numeric'}).formatToParts(refDate);
-      const y=+parts.find(p=>p.type==='year').value;
-      const m=+parts.find(p=>p.type==='month').value;
-      const d=+parts.find(p=>p.type==='day').value;
-      return `${civilWeekday}، ${d} ${HIJRI_MONTHS_AR[m]} ${y} هـ`;
-    }else{
-      const p=ymdInTZ(refDate,TIMEZONE);
-      const jd=g2jd(+p.Y,+p.M,+p.D), h=jd2islamic(jd);
-      return `${civilWeekday}، ${h.d} ${HIJRI_MONTHS_AR[h.m]} ${h.y} هـ`;
-    }
-  }catch{ return "التاريخ الهجري (غير متاح)"; }
-}
-
-/* مواقيت + الحدث القادم */
-let lastTimings=null;
-function ensureImsak(t){
-  if(!t.Imsak && t.Fajr){
-    const pure=String(t.Fajr).replace(/\s*\(.*?\)\s*/g,"").trim();
-    let [H,M]=pure.split(":").map(Number);
-    const d=new Date(); d.setHours((H||0), (M||0)-10, 0, 0);
-    t.Imsak = `${String(d.getHours()).padStart(2,"0")}:${String(d.getMinutes()).padStart(2,"0")}`;
-  }
-  return t;
-}
-function nextKey(t){
-  const order=["Imsak","Fajr","Sunrise","Dhuhr","Asr","Sunset","Maghrib","Isha","Midnight"];
-  const nowTZ=new Date(new Date().toLocaleString('en-US',{timeZone:TIMEZONE}));
-  const {Y,M,D}=ymdInTZ(nowTZ, TIMEZONE);
-  const cand=order.map(k=>{
-    const raw=(t[k]||"").replace(/\s*\(.*?\)\s*/g,"").trim();
-    if(!/^\d{1,2}:\d{2}$/.test(raw)) return {k,diff:Infinity};
-    let [HH,MM]=raw.split(':').map(Number); HH=(HH===24)?0:HH;
-    return {k,diff:new Date(+Y,+M-1,+D,HH||0,MM||0,0)-nowTZ};
-  });
-  let n=cand.filter(x=>x.diff>=0).sort((a,b)=>a.diff-b.diff)[0];
-  if(!n) n=cand.sort((a,b)=>Math.abs(a.diff)-Math.abs(b.diff))[0];
-  return n?.k||null;
-}
-function dateForKeyToday(timings, key){
-  const nowTZ=new Date(new Date().toLocaleString('en-US',{timeZone:TIMEZONE}));
-  const {Y,M,D}=ymdInTZ(nowTZ, TIMEZONE);
-  const raw=(timings[key]||"").replace(/\s*\(.*?\)\s*/g,"").trim();
-  if(!/^\d{1,2}:\d{2}$/.test(raw)) return null;
-  let [H,Min]=raw.split(':').map(Number); H=(H===24)?0:H;
-  return new Date(+Y,+M-1,+D,H||0,Min||0,0);
-}
-
-/* API URLs */
-function timingsURL(lat, lon, dateObj){
-  const ref = dateObj
-    ? new Date(dateObj)
-    : new Date(new Date().toLocaleString('en-US',{timeZone:TIMEZONE}));
-  const {Y,M,D} = ymdInTZ(ref, TIMEZONE);
-  const base = `https://api.aladhan.com/v1/timings/${D}-${M}-${Y}`;
-  const params = new URLSearchParams({
-    latitude: lat, longitude: lon,
-    method: (CUSTOM_ANGLES && FAJR_ANGLE && ISHA_ANGLE) ? 99 : METHOD_ID
-  });
-  if (CUSTOM_ANGLES && FAJR_ANGLE && ISHA_ANGLE){
-    params.set('fajr', String(FAJR_ANGLE));
-    params.set('isha', String(ISHA_ANGLE));
-  }
-  return `${base}?${params.toString()}`;
-}
-function calendarURL(lat, lon, month, year){
-  const params = new URLSearchParams({
-    latitude: lat, longitude: lon, month, year,
-    method: (CUSTOM_ANGLES && FAJR_ANGLE && ISHA_ANGLE) ? 99 : METHOD_ID
-  });
-  if (CUSTOM_ANGLES && FAJR_ANGLE && ISHA_ANGLE){
-    params.set('fajr', String(FAJR_ANGLE));
-    params.set('isha', String(ISHA_ANGLE));
-  }
-  return `https://api.aladhan.com/v1/calendar?${params.toString()}`;
-}
-
-/* جلب مع كاش */
-const CACHE_TTL_MS = 6*60*60*1000; // 6 ساعات
-function cacheGet(key){
-  try{
-    const j=JSON.parse(localStorage.getItem(key)||'null'); if(!j) return null;
-    if (Date.now()-j.ts > CACHE_TTL_MS) return null;
-    return j.data;
-  }catch{return null;}
-}
-function cacheSet(key,data){ try{ localStorage.setItem(key, JSON.stringify({ts:Date.now(), data})); }catch{} }
-
-async function fetchJSON(url){
-  try{
-    const r=await fetch(url,{cache:'no-store'});
-    if(!r.ok) throw new Error(`HTTP ${r.status} for ${url}`);
-    return await r.json();
-  }catch(e){
-    console.error('[API ERROR]', e);
-    throw e;
-  }
-}
-async function getTodayTimings(lat, lon){
-  const k=`pt_day_${TIMEZONE}_${Math.round(lat*10000)}_${Math.round(lon*10000)}_${METHOD_ID}_${CUSTOM_ANGLES?'C':''}_${FAJR_ANGLE}_${ISHA_ANGLE}`;
-  const c=cacheGet(k); if(c) return c;
-  try{
-    const j=await fetchJSON(timingsURL(lat,lon));
-    const data=j?.data?.timings; if(!data) throw new Error('No timings');
-    cacheSet(k,data);
-    return data;
-  }catch(e){
-    if(c) return c;
-    throw e;
-  }
-}
-async function getMonthCalendar(lat, lon, m, y){
-  const k=`pt_mon_${y}_${m}_${TIMEZONE}_${Math.round(lat*10000)}_${Math.round(lon*10000)}_${METHOD_ID}_${CUSTOM_ANGLES?'C':''}_${FAJR_ANGLE}_${ISHA_ANGLE}`;
-  const c=cacheGet(k); if(c) return c;
-  try{
-    const j=await fetchJSON(calendarURL(lat,lon,m,y));
-    const data=j?.data; if(!data) throw new Error('No calendar');
-    cacheSet(k,data);
-    return data;
-  }catch(e){
-    if(c) return c;
-    throw e;
-  }
-}
-
-/* مناسبات مختصرة */
-const EVENTS={
-  "1-1":[{t:"رأس السنة الهجرية"}],
-  "1-2":[{t:"دخول الإمام الحسين ع كربلاء"}],
-  "1-10":[{t:"عاشوراء – شهادة الإمام الحسين ع"}],
-  "2-20":[{t:"الأربعين – زيارة الإمام الحسين ع"}],
-  "3-17":[{t:"المولد النبوي الشريف"}],
-  "7-27":[{t:"المبعث النبوي"}],
-  "10-1":[{t:"عيد الفطر المبارك"}],
-  "12-10":[{t:"عيد الأضحى المبارك"}],
-  "12-18":[{t:"عيد الغدير الأغر"}]
-};
-function drawEvents(todayM,todayD,nightM,nightD){
-  const box=document.getElementById('eventsBox');
-  const colToday=document.getElementById('colToday');
-  const colNight=document.getElementById('colNight');
-  const todayEl=document.getElementById('eventsToday');
-  const nightEl=document.getElementById('eventsTonight');
-
-  const todayList = EVENTS[`${todayM}-${todayD}`] || [];
-  const nightList = EVENTS[`${nightM}-${nightD}`] || [];
-  if(todayList.length===0 && nightList.length===0){
-    box.style.display='none'; todayEl.innerHTML=""; nightEl.innerHTML=""; return;
-  }
-  box.style.display='block';
-  if(todayList.length){ colToday.style.display='block'; todayEl.innerHTML = todayList.map(e=>`<div class="evtItem"><span class="evtText">${e.t}</span></div>`).join(""); } else { colToday.style.display='none'; todayEl.innerHTML=""; }
-  if(nightList.length){ colNight.style.display='block'; nightEl.innerHTML = nightList.map(e=>`<div class="evtItem"><span class="evtText">${e.t}</span></div>`).join(""); } else { colNight.style.display='none'; nightEl.innerHTML=""; }
-}
-
-/* عرض اليوم/الأسبوع/الشهر */
-function fillDayTable(t){
-  const rows=[["الإمساك","Imsak"],["أذان الفجر","Fajr"],["الشروق","Sunrise"],["أذان الظهر","Dhuhr"],["أذان العصر","Asr"],["الغروب","Sunset"],["أذان المغرب","Maghrib"],["أذان العشاء","Isha"],["منتصف الليل","Midnight"]];
-  const k=nextKey(t);
-  times.innerHTML = rows.map(([n,kx])=>`<tr class="${kx===k?'next':''}"><td class="name">${n}</td><td class="time">${to12h(t[kx])}</td></tr>`).join("");
-}
-function getWeekRange(date){
-  const d=new Date(date);
-  const day=(d.getDay()+6)%7; // الاثنين=0
-  const mon=new Date(d); mon.setDate(d.getDate()-day);
-  const days=[...Array(7)].map((_,i)=>{ const x=new Date(mon); x.setDate(mon.getDate()+i); return x; });
-  return days;
-}
-async function fillWeekTable(lat,lon){
-  const today=new Date(new Date().toLocaleString('en-US',{timeZone:TIMEZONE}));
-  const week=getWeekRange(today);
-  const rows=[];
-  for(const d of week){
-    let j=null;
-    try{ j=await fetchJSON(timingsURL(lat,lon,d)); }catch(e){ j=null; }
-    const t=ensureImsak(j?.data?.timings||{});
-    const wd=new Intl.DateTimeFormat('ar',{timeZone:TIMEZONE,weekday:'long'}).format(d);
-    rows.push(`<tr>
-      <td>${wd}</td>
-      <td>${to12h(t.Fajr)||'—'}</td><td>${to12h(t.Sunrise)||'—'}</td><td>${to12h(t.Dhuhr)||'—'}</td>
-      <td>${to12h(t.Asr)||'—'}</td><td>${to12h(t.Maghrib)||'—'}</td><td>${to12h(t.Isha)||'—'}</td>
-    </tr>`);
-  }
-  weekBody.innerHTML = rows.join('');
-}
-function monthNameAr(date){
-  return new Intl.DateTimeFormat('ar',{timeZone:TIMEZONE,month:'long',year:'numeric'}).format(date);
-}
-async function fillMonthGrid(lat,lon,monthOffset=0){
-  const base=new Date(new Date().toLocaleString('en-US',{timeZone:TIMEZONE}));
-  const first=new Date(base.getFullYear(), base.getMonth()+monthOffset, 1);
-  const y=first.getFullYear(), m=first.getMonth()+1;
-  monthTitle.textContent = `مواقيت ${monthNameAr(first)}`;
-  const cal = await getMonthCalendar(lat,lon,m,y);
-  const grid = [];
-  const startW=(new Date(y, m-1, 1).getDay()+6)%7; // الاثنين=0
-  for(let i=0;i<startW;i++) grid.push('<div></div>');
-  const todayYMD = ymdInTZ(new Date(new Date().toLocaleString('en-US',{timeZone:TIMEZONE})), TIMEZONE);
-  for(let i=0;i<cal.length;i++){
-    const d=cal[i];
-    const dd = d.date.readable.split(' ')[0]; // DD
-    const hj = d.date.hijri;
-    const t = ensureImsak(d.timings||{});
-    const isToday = (+todayYMD.D===+dd && +todayYMD.M===m && +todayYMD.Y===y);
-    const evts = EVENTS[`${hj.month.number}-${+hj.day}`];
-    grid.push(`<div class="dayBox ${isToday?'is-today':''} ${evts?'is-event':''}">
-      <div class="dayHead"><span>${+dd}</span><span class="badge">${hj.day} ${hj.month.ar}</span></div>
-      <div class="miniTimes">
-        فجر: ${to12h(t.Fajr)||'—'}<br>
-        ظهر: ${to12h(t.Dhuhr)||'—'}<br>
-        مغرب: ${to12h(t.Maghrib)||'—'}<br>
-        عشاء: ${to12h(t.Isha)||'—'}
-      </div>
-    </div>`);
-  }
-  gridMonth.innerHTML = grid.join('');
-  gridMonth.dataset.offset = String(monthOffset);
-}
-
-/* تبويبات */
-function selectTab(id){
-  const tabs=[tab-day,tab-week,tab-month];
-  const panels=[panel-day,panel-week,panel-month];
-  tabs.forEach((t,i)=>{ const sel=(t.id===id); t.setAttribute('aria-selected', sel?'true':'false'); panels[i].hidden = tabs[i].id!==id; if(sel) panels[i].focus(); });
-}
-
-/* صندوق الحدث القادم + العداد */
-let cdTimer=null;
-function updateNextBox(){
-  if(!lastTimings) return;
-  const key = nextKey(lastTimings);
-  const target = dateForKeyToday(lastTimings, key);
-  if(!key || !target){ nextName.textContent="--"; nextAt.textContent="--:-- --"; setCD(0); return; }
-  nextName.textContent = NAMES[key] || key;
-  nextAt.textContent = to12h(lastTimings[key]);
-  nextNote.textContent = (key==="Sunrise" ? "زمن الشروق" : key==="Sunset" ? "وقت الغروب" : "الوقت المتبقي");
-  if(cdTimer) clearInterval(cdTimer);
-  cdTimer = setInterval(()=>tickCountdown(target,key),1000);
-  tickCountdown(target,key);
-}
-function setCD(ms){
-  ms = Math.max(0, ms|0);
-  let s = Math.floor(ms/1000);
-  const h = Math.floor(s/3600); s%=3600;
-  const m = Math.floor(s/60); s%=60;
-  cdH.textContent = String(h).padStart(2,'0');
-  cdM.textContent = String(m).padStart(2,'0');
-  cdS.textContent = String(s).padStart(2,'0');
-}
-function tickCountdown(target,key){
-  const now=new Date(new Date().toLocaleString('en-US',{timeZone:TIMEZONE}));
-  const diff = target - now; setCD(diff);
-  if(diff<=0){ clearInterval(cdTimer); loadAll(); }
-}
-
-/* تحديد المنطقة */
-async function fetchTimezone(lat, lon){
-  try{
-    const u=`https://api.aladhan.com/v1/timeZone?latitude=${encodeURIComponent(lat)}&longitude=${encodeURIComponent(lon)}`;
-    const j=await fetchJSON(u);
-    return j?.data?.timezone || Intl.DateTimeFormat().resolvedOptions().timeZone;
-  }catch{ return Intl.DateTimeFormat().resolvedOptions().timeZone; }
-}
-async function reverseGeocode(lat, lon){
-  const url = `https://nominatim.openstreetmap.org/reverse?lat=${encodeURIComponent(lat)}&lon=${encodeURIComponent(lon)}&format=jsonv2&accept-language=ar`;
-  const r = await fetch(url, {cache:'no-store'});
-  const j = await r.json();
-  const addr = j.address || {};
-  const city = addr.city || addr.town || addr.village || addr.suburb || j.name || '';
-  const country = addr.country || '';
-  const display = j.display_name || '';
-  return {cityAr: city || 'غير معروف', countryAr: country || 'غير معروف', display};
-}
-function showPlaceText(){
-  if (resolvedName){
-    place.textContent = `${resolvedName.cityAr}، ${resolvedName.countryAr}`;
-    place.title = resolvedName.display || '';
-  }else{ place.textContent = 'الموقع غير محدد'; place.title=''; }
-}
-
-/* عرض شامل + الحالة */
-async function renderCore(lat,lon){
-  setStatus('جلب مواقيت اليوم…');
-  let t=null;
-  try{ t=await getTodayTimings(lat,lon); }catch(e){ console.error(e); }
-  if(!t){
-    times.innerHTML=`<tr><td colspan="2" style="color:#b91c1c">تعذّر جلب مواقيت اليوم.</td></tr>`;
-    setStatus('تعذّر جلب مواقيت اليوم', false);
-  }else{
-    lastTimings=ensureImsak(t); fillDayTable(lastTimings); updateNextBox();
-    setStatus('تم جلب مواقيت اليوم', true);
-  }
-
-  const nowTZ = new Date(new Date().toLocaleString('en-US',{timeZone:TIMEZONE}));
-  greg.textContent = new Intl.DateTimeFormat('ar',{timeZone:TIMEZONE,weekday:'long',year:'numeric',month:'long',day:'numeric'}).format(nowTZ);
-  const civilWeekday = new Intl.DateTimeFormat('ar',{timeZone:TIMEZONE,weekday:'long'}).format(nowTZ);
-
-  try{
-    const hijriObj = await fetchHijriFromAladhan(nowTZ);
-    hijri.textContent = formatHijriFromObj(hijriObj, civilWeekday);
-    const tomorrow = new Date(nowTZ.getTime()+86400000);
-    let hijriTomorrow=null; try{ hijriTomorrow = await fetchHijriFromAladhan(tomorrow); }catch{}
-    const todayM = Number(hijriObj?.month?.number||0), todayD=Number(hijriObj?.day||0);
-    const nightM = Number(hijriTomorrow?.month?.number||0), nightD=Number(hijriTomorrow?.day||0);
-    drawEvents(todayM,todayD,nightM,nightD);
-  }catch{
-    let todayM,todayD,nightM,nightD;
-    if(hasIntlIslamic()){
-      const p1=new Intl.DateTimeFormat('en-TN-u-ca-islamic',{timeZone:TIMEZONE,year:'numeric',month:'numeric',day:'numeric'}).formatToParts(nowTZ);
-      todayM=+p1.find(x=>x.type==='month').value; todayD=+p1.find(x=>x.type==='day').value;
-      const ref2=new Date(nowTZ.getTime()+86400000);
-      const p2=new Intl.DateTimeFormat('en-TN-u-ca-islamic'){timeZone:TIMEZONE,year:'numeric',month:'numeric',day:'numeric'}.formatToParts(ref2);
-      nightM=+p2.find(x=>x.type==='month').value; nightD=+p2.find(x=>x.type==='day').value;
-    }else{
-      const {Y,M,D}=ymdInTZ(nowTZ,TIMEZONE);
-      const h1=jd2islamic(g2jd(+Y,+M,+D));
-      const h2=jd2islamic(g2jd(+Y,+M,+D+1));
-      todayM=h1.m; todayD=h1.d; nightM=h2.m; nightD=h2.d;
-    }
-    drawEvents(todayM,todayD,nightM,nightD);
-    hijri.textContent = localHijriFallback(nowTZ, civilWeekday);
-  }
-
-  setStatus('جلب مواقيت الأسبوع…');
-  await fillWeekTable(lat,lon).then(()=>setStatus('الأسبوع جاهز', true)).catch(()=>setStatus('فشل جلب الأسبوع', false));
-
-  setStatus('جلب تقويم الشهر…');
-  const off = Number(gridMonth.dataset.offset||"0");
-  await fillMonthGrid(lat,lon, off).then(()=>setStatus('الشهر جاهز', true)).catch(()=>setStatus('فشل جلب الشهر', false));
-}
-
-/* تنزيل PDF للشهر */
-async function downloadMonthPDF(){
-  if(!coords){ alert('حدد الموقع أولاً.'); return; }
-  const base=new Date(new Date().toLocaleString('en-US',{timeZone:TIMEZONE}));
-  const monthOffset = Number(gridMonth.dataset.offset||"0");
-  const first=new Date(base.getFullYear(), base.getMonth()+monthOffset, 1);
-  const y=first.getFullYear(), m=first.getMonth()+1;
-  let cal=null;
-  try{ cal=await getMonthCalendar(coords.lat, coords.lon, m, y); }catch{ alert('تعذّر تحميل تقويم الشهر.'); return; }
-
-  const rows = cal.map(d=>{
-    const t=ensureImsak(d.timings||{});
-    const gr = d.date.readable; // DD MMM YYYY
-    const hj = `${d.date.hijri.day} ${d.date.hijri.month.ar}`;
-    return [gr, hj, to12h(t.Fajr), to12h(t.Sunrise), to12h(t.Dhuhr), to12h(t.Asr), to12h(t.Maghrib), to12h(t.Isha)];
-  });
-
-  const { jsPDF } = window.jspdf;
-  const doc = new jsPDF({orientation:'portrait', unit:'pt', format:'a4'});
-  doc.setFont('helvetica','bold'); doc.setFontSize(16);
-  const title = `مواقيت الصلاة — ${place.textContent} — ${monthNameAr(first)}`;
-  doc.text(title, 40, 40, {align:'left'});
-  doc.setFont('helvetica','normal'); doc.setFontSize(10);
-  doc.autoTable({
-    startY: 60,
-    styles: { halign: 'center', fontSize: 10, cellPadding: 6 },
-    headStyles: { fillColor: [14,165,166] },
-    head: [['التاريخ الميلادي','التاريخ الهجري','الفجر','الشروق','الظهر','العصر','المغرب','العشاء']],
-    body: rows
-  });
-  doc.setFontSize(9);
-  doc.text('المصدر: Aladhan API — طُبِع بواسطة تطبيق المواقيت', 40, doc.internal.pageSize.getHeight()-20);
-  doc.save(`مواقيت-${place.textContent.replace(/\s+/g,'_')}-${y}-${String(m).padStart(2,'0')}.pdf`);
-}
-
-/* تبويب/تنقل */
-tab-day.addEventListener('click', ()=>selectTab('tab-day'));
-tab-week.addEventListener('click', ()=>selectTab('tab-week'));
-tab-month.addEventListener('click', ()=>selectTab('tab-month'));
-prevMonth.addEventListener('click', async ()=>{
-  const off = Number(gridMonth.dataset.offset||"0")-1; gridMonth.dataset.offset=off; if(coords) await fillMonthGrid(coords.lat, coords.lon, off);
-});
-nextMonth.addEventListener('click', async ()=>{
-  const off = Number(gridMonth.dataset.offset||"0")+1; gridMonth.dataset.offset=off; if(coords) await fillMonthGrid(coords.lat, coords.lon, off);
-});
-downloadPDF.addEventListener('click', downloadMonthPDF);
-
-/* بحث عالمي */
-let searchDebounce=null;
-function attachSearch(){
-  const box=document.getElementById('searchResults');
-  placeSearch.addEventListener('input', ()=>{
-    const q=placeSearch.value.trim();
-    if(searchDebounce) clearTimeout(searchDebounce);
-    if(!q){ box.style.display='none'; box.innerHTML=''; return; }
-    searchDebounce=setTimeout(async ()=>{
-      try{
-        const url = `https://nominatim.openstreetmap.org/search?format=jsonv2&limit=8&accept-language=ar&q=${encodeURIComponent(q)}`;
-        const r = await fetch(url, {cache:'no-store'});
-        const list = await r.json();
-        box.innerHTML = (list||[]).map(it=>`<div class="resItem" role="option" data-lat="${it.lat}" data-lon="${it.lon}" data-name="${(it.display_name||'').replace(/"/g,'&quot;')}">${it.display_name}</div>`).join('') || '<div class="resItem">لا نتائج</div>';
-        box.style.display='block';
-      }catch{
-        box.innerHTML='<div class="resItem">تعذّر البحث</div>'; box.style.display='block';
-      }
-    }, 500);
-  });
-  box.addEventListener('click', async (e)=>{
-    const item=e.target.closest('.resItem'); if(!item) return;
-    const lat=Number(item.dataset.lat), lon=Number(item.dataset.lon);
-    coords={lat,lon}; localStorage.setItem("jaq_coords", JSON.stringify(coords));
-    resolvedName = await reverseGeocode(lat, lon);
-    localStorage.setItem("jaq_resolved_name", JSON.stringify(resolvedName));
-    TIMEZONE = await fetchTimezone(lat, lon);
-    localStorage.setItem("jaq_timezone", TIMEZONE);
-    AUTO_DETECT=false; localStorage.setItem("jaq_auto_detect","false");
-    showPlaceText(); await loadAll();
-    box.style.display='none';
-  });
-  document.addEventListener('click',(e)=>{ if(!box.contains(e.target) && e.target!==placeSearch){ box.style.display='none'; }});
-}
-
-/* طرق الحساب + زوايا */
-async function loadMethods(){
-  try{
-    const j=await fetchJSON('https://api.aladhan.com/v1/methods');
-    const data=j.data||{};
-    const entries=Object.entries(data).filter(([k])=>!isNaN(+k));
-    methodSel.innerHTML = entries.map(([id,v])=>{
-      const name = (v.name||'').replace(' - ', ' — ');
-      const sel = (+id===METHOD_ID)?'selected':'';
-      return `<option value="${id}" ${sel}>${name}</option>`;
-    }).join('');
-    if (!entries.some(([id])=>+id===METHOD_ID)) METHOD_ID=0;
-  }catch{
-    methodSel.innerHTML = `<option value="0" selected>Shia Ithna-Ashari (Jafari)</option><option value="3">Muslim World League</option>`;
-    METHOD_ID=0;
-  }
-}
-
-/* فتح/إغلاق الإعدادات */
-function openModal(){ 
-  autoDetectChk.checked = !!AUTO_DETECT;
-  hijriOffsetSel.value = String(HIJRI_OFFSET_DAYS);
-  customAnglesChk.checked = !!CUSTOM_ANGLES;
-  fajrAngle.value = FAJR_ANGLE || '';
-  ishaAngle.value = ISHA_ANGLE || '';
-  fajrAngle.disabled = ishaAngle.disabled = !CUSTOM_ANGLES;
-
-  placeSearch.value = '';
-  latInp.value = coords?.lat ?? '';
-  lonInp.value = coords?.lon ?? '';
-  document.getElementById('searchResults').style.display='none';
-  modal.classList.add("open"); document.body.style.overflow='hidden';
-  modal.querySelector('.box').focus();
-}
-function closeModal(){ modal.classList.remove("open"); document.body.style.overflow=''; }
-openPicker.addEventListener("click",openModal);
-cancelPlace.addEventListener("click",closeModal);
-modal.addEventListener("click",(e)=>{ if(e.target===modal) closeModal(); });
-document.addEventListener('keydown',(e)=>{ if(e.key==='Escape' && modal.classList.contains('open')) closeModal(); });
-
-/* عناصر DOM */
-const autoDetectChk=document.getElementById("autoDetectChk");
-const placeSearch=document.getElementById("placeSearch");
-const latInp=document.getElementById("latInp");
-const lonInp=document.getElementById("lonInp");
-const useCoords=document.getElementById("useCoords");
-const hijriOffsetSel=document.getElementById("hijriOffsetSel");
-const savePlace=document.getElementById("savePlace");
-const useMyLocation=document.getElementById("useMyLocation");
-const resetAll=document.getElementById("resetAll");
-const methodSel=document.getElementById("methodSel");
-const customAnglesChk=document.getElementById("customAnglesChk");
-const fajrAngle=document.getElementById("fajrAngle");
-const ishaAngle=document.getElementById("ishaAngle");
-
-/* تفاعلات */
-customAnglesChk.addEventListener('change',()=>{
-  const on = customAnglesChk.checked;
-  fajrAngle.disabled = ishaAngle.disabled = !on;
-});
-useMyLocation.addEventListener("click", async ()=>{
-  AUTO_DETECT = true; localStorage.setItem("jaq_auto_detect","true");
-  autoDetectChk.checked = true;
-  await tryAutoLocate(true);
-});
-useCoords.addEventListener("click", async ()=>{
-  const la = Number(latInp.value), lo = Number(lonInp.value);
-  if(isNaN(la)||isNaN(lo)){ alert('أدخل إحداثيات صحيحة'); return; }
-  coords={lat:la, lon:lo}; localStorage.setItem("jaq_coords", JSON.stringify(coords));
-  resolvedName = await reverseGeocode(la, lo); localStorage.setItem("jaq_resolved_name", JSON.stringify(resolvedName));
-  TIMEZONE = await fetchTimezone(la, lo); localStorage.setItem("jaq_timezone", TIMEZONE);
-  AUTO_DETECT=false; localStorage.setItem("jaq_auto_detect","false");
-  showPlaceText(); await loadAll();
-});
-savePlace.addEventListener("click", async ()=>{
-  AUTO_DETECT = !!autoDetectChk.checked;
-  localStorage.setItem("jaq_auto_detect", JSON.stringify(AUTO_DETECT));
-  HIJRI_OFFSET_DAYS = Number(hijriOffsetSel.value||"0");
-  localStorage.setItem("jaq_hijri_offset_days", String(HIJRI_OFFSET_DAYS));
-  METHOD_ID = Number(methodSel.value||"0");
-  localStorage.setItem("jaq_method_id", String(METHOD_ID));
-  CUSTOM_ANGLES = !!customAnglesChk.checked;
-  localStorage.setItem("jaq_custom_angles_on", JSON.stringify(CUSTOM_ANGLES));
-  FAJR_ANGLE = Number(fajrAngle.value||"0");
-  ISHA_ANGLE = Number(ishaAngle.value||"0");
-  localStorage.setItem("jaq_fajr_angle", String(FAJR_ANGLE));
-  localStorage.setItem("jaq_isha_angle", String(ISHA_ANGLE));
-
-  if (AUTO_DETECT && !coords){
-    await tryAutoLocate(true);
-  }else{
-    await loadAll();
-  }
-  closeModal();
-});
-resetAll.addEventListener("click", ()=>{
-  localStorage.removeItem("jaq_hijri_offset_days");
-  localStorage.removeItem("jaq_auto_detect");
-  localStorage.removeItem("jaq_coords");
-  localStorage.removeItem("jaq_resolved_name");
-  localStorage.removeItem("jaq_method_id");
-  localStorage.removeItem("jaq_timezone");
-  localStorage.removeItem("jaq_custom_angles_on");
-  localStorage.removeItem("jaq_fajr_angle");
-  localStorage.removeItem("jaq_isha_angle");
-  HIJRI_OFFSET_DAYS=0; AUTO_DETECT=true; coords=null; resolvedName=null; METHOD_ID=0; TIMEZONE=Intl.DateTimeFormat().resolvedOptions().timeZone;
-  CUSTOM_ANGLES=false; FAJR_ANGLE=0; ISHA_ANGLE=0;
-  showPlaceText(); loadAll(); alert('تمت إعادة الضبط.');
-});
-
-/* بحث + طرق الحساب */
-attachSearch();
-loadMethods();
-
-/* GPS */
-async function tryAutoLocate(alertErrors=false){
-  if(!navigator.geolocation){
-    if(alertErrors) alert('المتصفح لا يدعم تحديد الموقع.');
-    return false;
-  }
-  return new Promise((resolve)=>{
-    navigator.geolocation.getCurrentPosition(async (pos)=>{
-      const {latitude, longitude}=pos.coords;
-      coords={lat:+latitude, lon:+longitude};
-      localStorage.setItem("jaq_coords", JSON.stringify(coords));
-      try{ resolvedName = await reverseGeocode(latitude, longitude); }
-      catch{ resolvedName = {cityAr:'موقعي', countryAr:'', display:''}; }
-      localStorage.setItem("jaq_resolved_name", JSON.stringify(resolvedName));
-      TIMEZONE = await fetchTimezone(latitude, longitude);
-      localStorage.setItem("jaq_timezone", TIMEZONE);
-      showPlaceText(); await loadAll(); setStatus('تم تحديد الموقع عبر GPS', true); resolve(true);
-    }, (err)=>{
-      if(alertErrors) alert('تعذّر الوصول للموقع. اسمح بالإذن أو ابحث يدويًا.');
-      resolve(false);
-    }, {enableHighAccuracy:false, timeout:8000, maximumAge:300000});
-  });
-}
-
-/* تحديد الموقع عبر IP */
-async function locateByIP(){
-  try{
-    setStatus('تحديد الموقع عبر IP…');
-    let r = await fetch('https://ipapi.co/json/', {cache:'no-store'});
-    if(r.ok){
-      const j = await r.json();
-      if(j && j.latitude && j.longitude){
-        return { lat:+j.latitude, lon:+j.longitude, city: j.city||'', country: j.country_name||'' };
-      }
-    }
-  }catch{}
-  try{
-    let r2 = await fetch('https://ipwho.is/', {cache:'no-store'});
-    if(r2.ok){
-      const j2 = await r2.json();
-      if(j2 && j2.success && j2.latitude && j2.longitude){
-        return { lat:+j2.latitude, lon:+j2.longitude, city: j2.city||'', country: j2.country||'' };
-      }
-    }
-  }catch{}
-  return null;
-}
-
-/* تحميل شامل */
-async function loadAll(){
-  if(!coords){
-    times.innerHTML=`<tr><td colspan="2">الموقع غير محدد.</td></tr>`;
-    gridMonth.innerHTML=''; weekBody.innerHTML='';
-    return;
-  }
-  setHadith(); showPlaceText(); updateClock();
-  await renderCore(coords.lat, coords.lon);
-}
-
-/* init مع Fallback IP + افتراضي المنامة */
-(async function init(){
-  try{
-    setStatus('تهيئة…');
-
-    if (AUTO_DETECT){
-      const ok = await tryAutoLocate(false);
-      if(ok) return;
-
-      const ip = await locateByIP();
-      if(ip){
-        coords = {lat:ip.lat, lon:ip.lon};
-        localStorage.setItem("jaq_coords", JSON.stringify(coords));
-        resolvedName = {cityAr: ip.city||'موقعي', countryAr: ip.country||'', display: (ip.city? `${ip.city}, ${ip.country}` : '')};
-        localStorage.setItem("jaq_resolved_name", JSON.stringify(resolvedName));
-        TIMEZONE = await fetchTimezone(ip.lat, ip.lon);
-        localStorage.setItem("jaq_timezone", TIMEZONE);
-        showPlaceText();
-        await loadAll();
-        setStatus('تم تحديد الموقع عبر IP', true);
-        return;
-      }
-
-      // افتراضي آمن: المنامة
-      coords = {lat:26.2235, lon:50.5876};
-      localStorage.setItem("jaq_coords", JSON.stringify(coords));
-      resolvedName = {cityAr:'المنامة', countryAr:'البحرين', display:'المنامة، البحرين'};
-      localStorage.setItem("jaq_resolved_name", JSON.stringify(resolvedName));
-      TIMEZONE = 'Asia/Bahrain';
-      localStorage.setItem("jaq_timezone", TIMEZONE);
-      showPlaceText();
-      await loadAll();
-      setStatus('استخدمنا موقعًا افتراضيًا (المنامة)', true);
-    }else{
-      showPlaceText();
-      await loadAll();
-      setStatus('جاهز', true);
-    }
-  }catch(e){
-    console.error(e);
-    setStatus('فشل التهيئة — تفقد الشبكة/الكونسول');
-    if(!coords){
-      coords = {lat:26.2235, lon:50.5876};
-      resolvedName = {cityAr:'المنامة', countryAr:'البحرين', display:'المنامة، البحرين'};
-      TIMEZONE = 'Asia/Bahrain';
-      showPlaceText();
-      await loadAll();
+  // XorShift بسيط لعشوائية قابلة للتكرار + زمن لضمان اختلاف دائم
+  function seeded(seed){
+    let x = seed ^ Date.now(); // يجعلها مختلفة كل مرة
+    return function(){
+      // xorshift32
+      x ^= x << 13; x ^= x >>> 17; x ^= x << 5;
+      // تحويل إلى [0,1)
+      return ((x >>> 0) / 4294967296);
     }
   }
-})();
+  function strHash(s){
+    let h=2166136261>>>0;
+    for(let i=0;i<s.length;i++){ h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); }
+    return h>>>0;
+  }
+  function pick(rand, arr){ return arr[Math.floor(rand()*arr.length)] }
+
+  // حفظ حالة الموضوع المختار
+  let currentTopic = "general";
+  let currentRand = seeded(123);
+
+  function formSeed(){
+    const age = $("#age").value || "";
+    const gender = $("#gender").value || "";
+    const status = $("#status").value || "";
+    const birth = $("#birthdate").value || "";
+    const key = `${age}|${gender}|${status}|${birth}`;
+    return key ? strHash(key) : Math.floor(Math.random()*1e9);
+  }
+
+  function echoUser(){
+    const a = $("#age").value ? `عمر ${$("#age").value}` : "عمر غير محدد";
+    const g = $("#gender").value || "جنس غير محدد";
+    const s = $("#status").value || "حالة غير محددة";
+    const b = $("#birthdate").value || "ميلاد غير معروف";
+    userEcho.textContent = `${g} • ${s} • ${a} • ${b}`;
+  }
+
+  function show(el){ el.classList.remove("hidden") }
+  function hide(el){ el.classList.add("hidden") }
+
+  function startFlow(){
+    // انتقال: step1 -> loading -> topics
+    hide(step1); show(stepLoading);
+    setTimeout(()=>{
+      hide(stepLoading); show(stepTopics);
+    }, 1400); // انتظار لطيف
+  }
+
+  function genReading(topic){
+    const pool = { love: LOVE, health: HEALTH, career: CAREER, general: GENERAL }[topic] || GENERAL;
+    const txt = pick(currentRand, pool);
+    const global = (Math.random() < 0.75) ? pick(currentRand, GLOBAL_SNIPPETS) : "";
+    resultText.textContent = txt;
+    globalSnippet.textContent = global ? ("مقتطف عالمي: " + global) : "";
+  }
+
+  // ====== الأحداث ======
+  startBtn.addEventListener("click", ()=>{
+    currentRand = seeded(formSeed());
+    startFlow();
+  });
+
+  shuffleDemo.addEventListener("click", ()=>{
+    // تجربة سريعة بدون تعبئة
+    currentRand = seeded(Math.floor(Math.random()*1e9));
+    startFlow();
+  });
+
+  // اختيار الموضوع
+  document.querySelectorAll(".topic").forEach(btn=>{
+    btn.addEventListener("click", ()=>{
+      currentTopic = btn.dataset.topic;
+      hide(stepTopics); show(stepResult);
+      echoUser(); genReading(currentTopic);
+    });
+  });
+
+  againBtn.addEventListener("click", ()=>{
+    currentRand = seeded(formSeed()); // يُعيد توليد جديد
+    genReading(currentTopic);
+  });
+  topicsBtn.addEventListener("click", ()=>{
+    hide(stepResult); show(stepTopics);
+  });
+  restartBtn.addEventListener("click", ()=>{
+    hide(stepResult); hide(stepTopics); show(step1);
+    window.scrollTo({top:0, behavior:"smooth"});
+  });
 </script>
 </body>
 </html>
