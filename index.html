@@ -5,10 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
 <title>الأبراج والاستبصار – قراءة الطالع العميقة</title>
-<meta name="description" content="قراءات فلكية تنبؤية موجزة" />
+<meta name="description" content="قراءات فلكية تنبؤية حاسمة بصياغة عرّاف" />
 <meta name="robots" content="index, follow" />
 <meta name="theme-color" content="#0b0d12" />
-
 <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
@@ -24,9 +23,8 @@
     margin:0; background:var(--bg); color:var(--fg);
     font-family:"Cairo",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
     -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
-    line-height:1.85; overflow-x:hidden;
+    line-height:1.9; overflow-x:hidden;
   }
-
   body::before, body::after{ content:""; position:fixed; inset:0; pointer-events:none; z-index:-2; }
   body::before{
     background:
@@ -36,10 +34,8 @@
   }
   body::after{
     background:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 240 240"><g fill="%23ffffff" opacity="0.30"><circle cx="20" cy="30" r="1.2"/><circle cx="80" cy="60" r="0.8"/><circle cx="140" cy="20" r="1"/><circle cx="200" cy="90" r="1.1"/><circle cx="110" cy="140" r="0.9"/><circle cx="40" cy="190" r="1.2"/><circle cx="210" cy="200" r="0.9"/></g></svg>') repeat;
-    background-size:240px 240px; animation: twinkle 6s ease-in-out infinite; opacity:.28;
+    background-size:240px 240px; animation: twinkle 6s ease-in-out infinite; opacity:.26;
   }
-  @keyframes twinkle { 0%,100%{opacity:.20} 50%{opacity:.36} }
-
   header{ text-align:center; padding:18px 16px 10px; background:rgba(11,13,18,.75); backdrop-filter:saturate(140%) blur(6px); border-bottom:1px solid var(--stroke); }
   .title{ margin:0; font-weight:700; line-height:1.2; font-size: clamp(28px,5vw,46px); color:var(--brand);}
   .subtitle{ color:var(--muted); font-size:14px; margin-top:6px }
@@ -71,10 +67,10 @@
   .topic:hover{background:#12172a}
   .topic span{display:block; color:#cfd8dc; font-size:14px; margin-top:4px}
 
-  .result{ font-size:18px; text-align:justify; }
+  .result{ font-size:19px; text-align:justify; }
   .result p{ margin:10px 0; }
-
-  .tag{display:inline-flex; align-items:center; gap:8px; padding:6px 12px; border-radius:999px; border:1px solid var(--stroke); color:#fff; font-size:14px; background:#0f1320}
+  .result .lead{font-weight:700}
+  .chip{display:inline-flex; align-items:center; gap:8px; padding:6px 12px; border-radius:999px; border:1px solid var(--stroke); background:#0f1320; color:#fff; font-size:14px}
   .z-emoji{font-size:20px}
   .quota{margin-top:8px; font-size:13px; color:#cfd8dc; text-align:center}
   .muted{color:#bdbdbd}
@@ -87,11 +83,11 @@
   .socials button{ width:36px; height:36px; display:inline-grid; place-items:center; border-radius:10px; border:1px solid var(--stroke); background:#0f1320; cursor:pointer }
   .socials svg{width:18px;height:18px; fill:#cfd8dc}
 
-  .ring-wrap{height:240px; display:grid; place-items:center}
-  .ring{width:120px; height:120px; border-radius:50%; border:6px solid rgba(255,255,255,.08); border-top-color:var(--brand); animation:spin 1.0s linear infinite; position:relative}
-  .ring:after{content:""; position:absolute; inset:16px; border-radius:50%; border:4px dashed rgba(255,255,255,.12)}
+  .ring-wrap{height:220px; display:grid; place-items:center}
+  .ring{width:110px; height:110px; border-radius:50%; border:6px solid rgba(255,255,255,.08); border-top-color:var(--brand); animation:spin 1.0s linear infinite}
   @keyframes spin{to{transform:rotate(360deg)}}
 
+  /* للطباعة */
   #printDoc{ display:none; }
   #printDoc .paper{ background:#0b0d12; color:#f7f7f7; border:1px solid #2a3550; border-radius:16px; padding:18px; }
   #printDoc h1{ color:#ffd54a; margin:0 0 6px; text-align:center; font-size:26px; }
@@ -112,24 +108,9 @@
 
 <header>
   <h1 class="title">الأبراج والاستبصار</h1>
-  <p class="subtitle">قراءات فلكية تنبؤية موجزة</p>
+  <p class="subtitle">قراءات فلكية تنبؤية حاسمة بصياغة عرّاف</p>
   <div class="seer-wrap" aria-hidden="true">
-    <svg class="seer" viewBox="0 0 800 260" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <radialGradient id="g1" cx="50%" cy="50%" r="60%">
-          <stop offset="0%" stop-color="#7fd3ff" stop-opacity="0.95"/>
-          <stop offset="60%" stop-color="#5ea8ff" stop-opacity="0.35"/>
-          <stop offset="100%" stop-color="#1f2a48" stop-opacity="0.0"/>
-        </radialGradient>
-      </defs>
-      <circle cx="400" cy="130" r="70" fill="url(#g1)"/>
-      <path d="M320,160 C300,150 280,140 270,130 C260,120 260,110 270,105 C290,95 320,120 340,130" fill="none" stroke="#ffd54a" stroke-width="3" stroke-linecap="round"/>
-      <path d="M480,160 C500,150 520,140 530,130 C540,120 540,110 530,105 C510,95 480,120 460,130" fill="none" stroke="#ffd54a" stroke-width="3" stroke-linecap="round"/>
-      <g fill="#ffd54a" opacity=".8">
-        <circle cx="380" cy="90" r="2"/><circle cx="420" cy="80" r="1.8"/>
-        <circle cx="445" cy="115" r="1.6"/><circle cx="355" cy="120" r="1.6"/>
-      </g>
-    </svg>
+    <svg class="seer" viewBox="0 0 800 260" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="g1" cx="50%" cy="50%" r="60%"><stop offset="0%" stop-color="#7fd3ff" stop-opacity="0.95"/><stop offset="60%" stop-color="#5ea8ff" stop-opacity="0.35"/><stop offset="100%" stop-color="#1f2a48" stop-opacity="0.0"/></radialGradient></defs><circle cx="400" cy="130" r="70" fill="url(#g1)"/></svg>
   </div>
 </header>
 
@@ -138,8 +119,8 @@
   <div id="globalNotice" class="notice hidden" role="alert"></div>
 
   <!-- الخطوة 1 -->
-  <section id="step1" class="card stars center" aria-labelledby="startTitle">
-    <h2 id="startTitle">أدخل بياناتك لبدء القراءة</h2>
+  <section id="step1" class="card center">
+    <h2>أدخل بياناتك لبدء القراءة</h2>
     <div class="grid" style="max-width:760px; margin:10px auto 0;">
       <div>
         <label for="gender">الجنس</label>
@@ -176,30 +157,30 @@
   </section>
 
   <!-- انتظار -->
-  <section id="stepLoading" class="card hidden center stars" aria-live="polite">
+  <section id="stepLoading" class="card hidden center" aria-live="polite">
     <div class="ring-wrap"><div class="ring" aria-hidden="true"></div></div>
     <h2>جاري الاستبصار…</h2>
-    <p class="muted">ثوانٍ قليلة وتظهر الإشارات.</p>
+    <p class="muted">ثوانٍ قليلة وتظهر النبوءة.</p>
   </section>
 
   <!-- اختيار الموضوع -->
-  <section id="stepTopics" class="card hidden stars center">
+  <section id="stepTopics" class="card hidden center">
     <h2>اختر موضوع قراءتك</h2>
     <div id="zodiacBadge" style="margin:8px 0 14px"></div>
     <div class="topic-grid" style="max-width:820px; margin:10px auto 0;">
-      <button class="topic" data-topic="love">الحب ❤️<span>العلاقات، الانجذاب، المصالحات</span></button>
-      <button class="topic" data-topic="health">الصحة 💊<span>الطاقة، العادات، التوازن</span></button>
-      <button class="topic" data-topic="career">المهنة والمال 💼<span>الفرص، القرارات، الاستثمارات</span></button>
-      <button class="topic" data-topic="general">عام / دراسي ✨<span>رؤية شاملة، امتحانات وزملاء</span></button>
+      <button class="topic" data-topic="love">الحب ❤️<span>العلاقة، التلاقي، المصالحة</span></button>
+      <button class="topic" data-topic="health">الصحة 💊<span>النوم، الطاقة، الإيقاع</span></button>
+      <button class="topic" data-topic="career">المهنة والمال 💼<span>الفرص، القرارات، النمو</span></button>
+      <button class="topic" data-topic="general">عام / دراسي ✨<span>بوصلتك لهذا الأسبوع</span></button>
     </div>
     <div class="quota" id="quotaInfoTopics"></div>
   </section>
 
   <!-- النتيجة -->
-  <section id="stepResult" class="card hidden stars">
+  <section id="stepResult" class="card hidden">
     <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap">
       <h2 id="resultTitle" style="margin:0">الإشارات الظاهرة</h2>
-      <div class="tag" id="userEcho"><span class="z-emoji" id="zEmoji">☆</span><span id="zName">—</span></div>
+      <div class="chip" id="userEcho"><span class="z-emoji" id="zEmoji">☆</span><span id="zName">—</span></div>
     </div>
     <article id="resultText" class="result" style="margin-top:10px"></article>
     <p id="omen" class="muted" style="margin-top:12px; font-size:15px"></p>
@@ -210,41 +191,19 @@
       <button class="btn" id="printBtn" title="تحميل PDF">تحميل PDF</button>
     </div>
     <div class="quota" id="quotaInfoResult" style="margin-top:10px"></div>
-    <p class="muted" style="text-align:center;margin-top:6px;">يتم إنشاء PDF رسمي منظم للهيدر والبيانات والنص فقط.</p>
   </section>
-
-  <noscript>
-    <section class="card">
-      <h2>قراءة فلكية موجزة</h2>
-      <p>هذه صفحة قراءات فلكية عربية مجانية. فعّل JavaScript لاستخدام التجربة التفاعلية وتحديد برجك تلقائيًا.</p>
-    </section>
-  </noscript>
 
 </main>
 
 <footer>
-  <div>شارك الصفحة</div>
-  <div class="socials" aria-label="مشاركة">
-    <button id="shareNative" title="مشاركة" aria-label="مشاركة">
-      <svg viewBox="0 0 24 24" role="img" aria-label="Share"><path d="M18 8a3 3 0 1 0-2.83-3.99L8.91 7.1a3.02 3.02 0 0 0-2.01-.78A3 3 0 1 0 9.9 9l6.26-3.08A3 3 0 0 0 18 8Zm-9 7a3 3 0 1 0-3 3 3 3 0 0 0 3-3Zm12-1a3 3 0 1 0-3 3 3 3 0 0 0 3-3Z"/></svg>
-    </button>
-    <button id="shareX" title="X / Twitter" aria-label="X">
-      <svg viewBox="0 0 24 24" role="img" aria-label="X"><path d="M18.244 2H21l-6.56 7.51L22.5 22h-6.79l-4.87-6.37L4.94 22H2l7.02-8.03L1.5 2h6.87l4.39 5.86L18.244 2Zm-2.38 18h1.84L8.23 4h-1.9l9.534 16Z"/></svg>
-    </button>
-    <button id="shareWA" title="WhatsApp" aria-label="WhatsApp">
-      <svg viewBox="0 0 24 24" role="img" aria-label="WhatsApp"><path d="M12.04 2A10 10 0 0 0 2 12.04C2 17.55 6.46 22 11.97 22c1.76 0 3.43-.43 4.9-1.2l3.13.82-.84-3.06A9.93 9.93 0 0 0 22 12.04 10 10 0 0 0 12.04 2Zm5.86 14.57c-.25.71-1.47 1.35-2.03 1.38-.56.03-1.28.18-4.35-1.42-3.69-1.82-6.06-6.4-6.25-6.69-.19-.29-1.5-2-1.5-3.83 0-1.83.96-2.73 1.3-3.11.34-.38.74-.48.99-.48.25 0 .5 0 .72.01.23.01.55-.09.86.66.31.76 1.06 2.6 1.15 2.79.09.19.16.41.03.66-.13.24-.2.39-.4.6-.19.21-.42.47-.6.63-.19.16-.39.34-.17.72.22.38.97 1.6 2.09 2.6 1.44 1.26 2.66 1.65 3.04 1.84.38.19.6.16.83-.1.23-.25.96-1.12 1.22-1.5.25-.38.51-.32.86-.19.34.13 2.16 1.02 2.54 1.21.38.19.63.28.72.44.09.16.09.94-.16 1.65Z"/></svg>
-    </button>
-    <button id="shareFB" title="Facebook" aria-label="Facebook">
-      <svg viewBox="0 0 24 24" role="img" aria-label="Facebook"><path d="M13 22v-8h3l1-4h-4V7.5A1.5 1.5 0 0 1 14.5 6H17V2h-3.5A4.5 4.5 0 0 0 9 6.5V10H6v4h3v8h4Z"/></svg>
-    </button>
-  </div>
   <div>© <span id="year"></span> الأبراج والاستبصار</div>
 </footer>
 
+<!-- نافذة الحد اليومي -->
 <div class="overlay" id="overlayLimit" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,.7); justify-content:center; align-items:center; z-index:20">
   <div class="modal" style="background:var(--card); border:1px solid var(--stroke); border-radius:14px; padding:18px; max-width:520px; margin:16px; text-align:center">
     <h3 style="color:var(--brand); margin-top:0">وصلت إلى الحد اليومي</h3>
-    <p>المتاح: <strong>15 قراءة</strong> كل 24 ساعة. الرجاء الانتظار حتى انتهاء العداد لإتاحة قراءات جديدة.</p>
+    <p>المتاح: <strong>15 قراءة</strong> كل 24 ساعة.</p>
     <p class="quota"><span id="countdown">00:00:00</span> حتى التجديد</p>
     <div class="actions" style="display:flex; gap:10px; justify-content:center; margin-top:10px">
       <button class="ghost" id="closeLimit">حسنًا</button>
@@ -252,6 +211,7 @@
   </div>
 </div>
 
+<!-- قالب PDF -->
 <div id="printDoc" aria-hidden="true">
   <div class="paper">
     <h1>الأبراج والاستبصار</h1>
@@ -265,17 +225,6 @@
 <script>
   /* سنة الفوتر */
   document.getElementById("year").textContent = new Date().getFullYear();
-
-  /* مشاركة */
-  function shareData(){
-    const data = { title:"الأبراج والاستبصار", text:"قراءات فلكية تنبؤية موجزة", url: location.href };
-    if(navigator.share){ navigator.share(data).catch(()=>{}); }
-    else { window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(location.href)}`,'_blank'); }
-  }
-  document.getElementById("shareNative").addEventListener("click", shareData);
-  document.getElementById("shareFB").addEventListener("click", ()=>window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(location.href)}`,'_blank'));
-  document.getElementById("shareX").addEventListener("click", ()=>window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent("قراءات فلكية تنبؤية موجزة")}&url=${encodeURIComponent(location.href)}`,'_blank'));
-  document.getElementById("shareWA").addEventListener("click", ()=>window.open(`https://wa.me/?text=${encodeURIComponent("قراءات فلكية تنبؤية موجزة: "+location.href)}`,'_blank'));
 
   const $ = s=>document.querySelector(s);
 
@@ -306,72 +255,61 @@
     } return {name:"—", emoji:"☆"};
   }
 
-  /* أوصاف */
+  /* خامات نبوئية أنيقة (لا رموز تقنية) */
+  const LUCKY_COLORS = ["الأزرق النيلي","الأخضر الزمردي","العنّابي","الذهبي","الرمادي الدافئ","التركواز"];
+  const LUCKY_SLOTS  = ["بين التاسعة والحادية عشرة صباحًا","عند الغروب","بعد الظهر مباشرة","ليلًا قبل منتصف الليل","في أول ساعة من اليوم"];
+  function pick(a){ return a[Math.floor(Math.random()*a.length)]; }
+
   const DESCRIPTORS = [
-    "صريح لكنه يخلط الود بالمصلحة", "هادئ في البداية ثم حادّ عند القرار",
-    "يتأخر عن المواعيد ويطلب أعذارًا طويلة", "يعد كثيرًا وينفذ قليلًا",
-    "منطقي لكنه بارد", "كثير الكلام قليل الفعل", "عملي يدعمك بالأفعال"
+    "صريح يخلط الود بالمصلحة","هادئ ثم حادّ عند القرار","يؤجّل كثيرًا ويطلب أعذارًا طويلة",
+    "كثير الكلام قليل الفعل","منطقي لكنه بارد","عملي يدعمك بالفعل لا بالوعد"
   ];
 
-  /* قوالب أساسية (حاسمة) */
   const TEMPLATES = {
     love: [
-      "مؤشر عاطفي واضح: الفعل المتكرر أهم من الكلام—راقب الثبات خلال 72 ساعة.",
-      "مصالحة قصيرة ممكنة بجملة دقيقة تُغلق باب التأويل.",
-      "تحذير حاسم: وجود شخص {desc} يقترب؛ احفظ حدود الخصوصية وإلا تتسع القصة.",
-      "لقاء خاطف يعيد فكرة قديمة؛ لا تستعجل التسمية—اختبر الفعل."
+      "القلب يُستدعى اليوم إلى اختبار نضج. الفعل المكرر يثبت ما يعجز عنه الكلام. خلال اثنتين وسبعين ساعة يظهر ثبات شخصٍ واحد بوضوح.",
+      "باب مصالحة قابل للفتح بجملة قصيرة محددة. لا تُطِل الشرح، قل ما يلزم واترك الباب يعمل عمله.",
+      "شبح غيرة يقترب عبر طرفٍ ثالث. أحط حدودك بالهدوء لا بالانفعال، فالحدود الواضحة أمان لا قسوة.",
+      "لقاء عابر يوقظ فكرة قديمة، لكنه يحتاج دليلًا على الاستمرارية قبل أن تنطقه اسمًا."
     ],
     career: [
-      "مهمة بموعد ضيق تكشف اسمك في المكان الصحيح؛ أنجز النسخة الأولى اليوم.",
-      "بند صغير في ورقة كبيرة يحتاج قراءة مرتين—يمنع تأخيرًا مزعجًا.",
-      "فرصة جانبية بوقع واضح؛ ابدأ صغيرًا وثبّت الجودة ثم وسّع.",
-      "تحذير: شريك {desc} يلمّع العرض ويخفي التفصيل؛ أخرج البنود إلى الضوء."
+      "نافذة عمل قصيرة الوهج لكنها حاسمة. أنجز في نفس اليوم خطوة ملموسة، فالأثر الأول يسبق السمعة.",
+      "سطر دقيق في ورقة كبيرة يختبئ من العين. مراجعته الآن تمنع تأخيرًا مزعجًا لاحقًا.",
+      "فرصة جانبية تكبر بلا ضجيج. ابدأ صغيرًا، ثبّت الجودة، ثم وسّع حين يميل الميزان إليك.",
+      "شريك محتمل يبدو لامعًا لكنه يغطي التفاصيل. أخرج البنود إلى الضوء قبل أي توقيع."
     ],
     health: [
-      "إعادة ضبط النوم بتقليل الضوء قبل ساعة—يتحسن المزاج خلال 48 ساعة.",
-      "ألم كتف/أسفل الظهر إشارة مبكرة؛ دقيقة تمدد بين كل مهمتين تكفي.",
-      "ماء + مشي 20 دقيقة يغيّر صفاء الذهن بقية الأسبوع.",
-      "تحذير: محيط مشتّت مع شخص {desc}؛ اضبط الحدود."
+      "النوم يُعاد ضبطه حين يخف الضوء ساعة كاملة قبل الموعد. صفاء الذهن يرتفع تدريجيًا خلال يومين.",
+      "توتّر الظهر والكتفين إنذار مبكر. دقيقة تمدّد بين المهمات تمنع وجعًا متراكمًا.",
+      "الماء يمهّد الطريق، والمشي الهادئ يلمّ شتات التركيز لبقية الأسبوع.",
+      "ابتعد اليوم عن الضجيج الاجتماعي، فثقل الكلام يستهلك طاقتك أكثر مما تتوقع."
     ],
     general: [
-      "خبر سار يقترب خطوة بخطوة كأنه يعوّض انتظارًا طويلًا—تابع حتى النهاية.",
-      "رسالة قصيرة تغيّر اتجاه الأسبوع؛ ردّك السريع يصنع النتيجة.",
-      "مبلغ صغير يظهر بلا موعد ويطفئ عبئًا قديمًا؛ لا تُسرِف بعده بيومين.",
-      "تحذير: شخص {desc} يختبر حدودك؛ الصرامة اللطيفة تحميك."
+      "خبر سار يقترب بخطوات قصيرة كأنه يعوّض طول الانتظار. لا تتراجع عند الباب الأخير.",
+      "رسالة مقتضبة تغيّر اتجاه الأسبوع. حين يأتي الإلهام، اكتب وارسِل في نفس اللحظة.",
+      "مبلغ متوسط يظهر بلا ميعاد فيسدّ ثغرة قديمة. لا تُسرف بعده بيومين.",
+      "شخص يختبر حدودك بهدوء. الصرامة اللطيفة هي درعك اليوم."
     ]
   };
 
-  function buildVariants(topic){
-    const base=TEMPLATES[topic]||TEMPLATES.general, variants=[];
+  function bank(topic){
+    const base=TEMPLATES[topic]||TEMPLATES.general, list=[];
     let id=1;
     for(const t of base){
-      const d=DESCRIPTORS[Math.floor(Math.random()*DESCRIPTORS.length)];
-      variants.push({id:`${topic}-${id++}`,text:t.replace("{desc}",d)});
-      variants.push({id:`${topic}-${id++}`,text:t.replace("{desc}",DESCRIPTORS[(Math.floor(Math.random()*DESCRIPTORS.length))])});
+      const d = t.replace("{desc}", pick(DESCRIPTORS));
+      list.push({id:`${topic}-${id++}`, text:d});
+      list.push({id:`${topic}-${id++}`, text:d}); // زيادة تنويع مع خلط لاحق
     }
-    while(variants.length<25){
-      const t=base[Math.floor(Math.random()*base.length)];
-      variants.push({id:`${topic}-${id++}`,text:t.replace("{desc}",DESCRIPTORS[Math.floor(Math.random()*DESCRIPTORS.length)])});
-    }
-    variants.sort(()=>Math.random()-0.5);
-    return variants.slice(0,25);
+    while(list.length<24){ list.push({id:`${topic}-${id++}`,text:pick(base)}); }
+    return list.sort(()=>Math.random()-0.5).slice(0,24);
   }
 
   const BANK = {
-    love:   buildVariants('love'),
-    career: buildVariants('career'),
-    health: buildVariants('health'),
-    general:buildVariants('general')
+    love: bank("love"),
+    career: bank("career"),
+    health: bank("health"),
+    general: bank("general")
   };
-
-  /* عناصر الواجهة */
-  const step1=$("#step1"), stepLoading=$("#stepLoading"), stepTopics=$("#stepTopics"), stepResult=$("#stepResult");
-  const globalNotice=$("#globalNotice");
-  const zodiacBadge=$("#zodiacBadge"), zEmojiEl=$("#zEmoji"), zNameEl=$("#zName");
-  const resultText=$("#resultText"), omenEl=$("#omen");
-  const overlayLimit=$("#overlayLimit"), countdownEl=$("#countdown");
-  const quotaInfo=$("#quotaInfo"), quotaInfoTopics=$("#quotaInfoTopics"), quotaInfoResult=$("#quotaInfoResult");
-  document.getElementById("closeLimit").addEventListener("click", ()=> overlayLimit.style.display="none");
 
   /* حفظ/تحميل */
   function saveForm(){ localStorage.setItem("istibsar_form", JSON.stringify({
@@ -382,17 +320,18 @@
     if(d.work) $("#work").value=d.work; if(d.birthdate) $("#birthdate").value=d.birthdate;
   }catch(e){} }
 
-  let currentSign={name:"—",emoji:"☆"};
-  function updateZodiacUI(){
-    const bd=$("#birthdate").value; currentSign=getZodiac(bd);
-    const badge = `<div class="tag"><span class="z-emoji">${currentSign.emoji}</span> برجك: ${currentSign.name}</div>`;
-    if(zodiacBadge) zodiacBadge.innerHTML=badge;
-  }
   ["gender","status","work","birthdate"].forEach(id=>{
     const el=$("#"+id);
-    el.addEventListener("input", ()=>{ saveForm(); if(id==="birthdate") updateZodiacUI(); });
+    el.addEventListener("input", saveForm);
     el.addEventListener("change", ()=>{ saveForm(); if(id==="birthdate") updateZodiacUI(); });
   });
+
+  let currentSign={name:"—", emoji:"☆"};
+  function updateZodiacUI(){
+    const bd=$("#birthdate").value; currentSign=getZodiac(bd);
+    $("#zodiacBadge").innerHTML=`<div class="chip"><span class="z-emoji">${currentSign.emoji}</span><span>برجك: ${currentSign.name}</span></div>`;
+    $("#zEmoji").textContent=currentSign.emoji; $("#zName").textContent=currentSign.name;
+  }
 
   /* كوتا */
   const MAX_READS=15;
@@ -402,11 +341,14 @@
   function incQuota(){ const q=getQuota(); const now=Date.now(); const resetAt=q.resetAt||(now+24*60*60*1000); const next={count:(q.count||0)+1, resetAt}; setQuota(next); return next; }
   function remainingQuota(){ const q=getQuota(); return Math.max(0, MAX_READS-(q.count||0)); }
   function fmtRemaining(ms){ if(ms<=0) return "00:00:00"; const s=Math.floor(ms/1000), h=String(Math.floor(s/3600)).padStart(2,"0"), m=String(Math.floor((s%3600)/60)).padStart(2,"0"), sc=String(s%60).padStart(2,"0"); return `${h}:${m}:${sc}`; }
-  function updateQuotaUI(){ const rem=remainingQuota(); const q=getQuota(); const base=`المتبقي اليوم: ${rem} / ${MAX_READS}`+(q.resetAt?` — تجديد خلال ${fmtRemaining(q.resetAt - Date.now())}`:""); [quotaInfo,quotaInfoTopics,quotaInfoResult].forEach(el=>{ if(el) el.textContent=base; }); }
-  function showLimitOverlay(){ const q=getQuota(); if(!q.resetAt) return; overlayLimit.style.display="flex"; (function tick(){ const left=q.resetAt-Date.now(); countdownEl.textContent=fmtRemaining(left); if(left<=0){ overlayLimit.style.display="none"; setQuota({count:0, resetAt:null}); updateQuotaUI(); } else { requestAnimationFrame(tick); } })(); }
+  function updateQuotaUI(){ const rem=remainingQuota(); const q=getQuota(); const base=`المتبقي اليوم: ${rem} / ${MAX_READS}`+(q.resetAt?` — تجديد خلال ${fmtRemaining(q.resetAt - Date.now())}`:""); ["quotaInfo","quotaInfoTopics","quotaInfoResult"].forEach(id=>{ const el=document.getElementById(id); if(el) el.textContent=base; }); }
+  function showLimitOverlay(){ const q=getQuota(); if(!q.resetAt) return; document.getElementById("overlayLimit").style.display="flex"; (function tick(){ const left=q.resetAt-Date.now(); document.getElementById("countdown").textContent=fmtRemaining(left); if(left<=0){ document.getElementById("overlayLimit").style.display="none"; setQuota({count:0, resetAt:null}); updateQuotaUI(); } else { requestAnimationFrame(tick); } })(); }
 
   /* إشعار */
-  function showGlobal(msg, ok=false){ globalNotice.textContent=msg; globalNotice.classList.toggle("ok", ok); globalNotice.classList.remove("hidden"); setTimeout(()=>{ globalNotice.classList.add("hidden"); globalNotice.classList.remove("ok"); }, 3200); }
+  function showGlobal(msg, ok=false){
+    const n=$("#globalNotice"); n.textContent=msg; n.classList.toggle("ok", ok); n.classList.remove("hidden");
+    setTimeout(()=>{ n.classList.add("hidden"); n.classList.remove("ok"); }, 3200);
+  }
 
   /* تحقق الإدخال */
   function validateForm(){
@@ -416,7 +358,7 @@
     if(!s){ $("#e_status").classList.remove("hidden"); ok=false; }
     if(!w){ $("#e_work").classList.remove("hidden"); ok=false; }
     if(!b){ $("#e_birthdate").classList.remove("hidden"); ok=false; }
-    if(!ok){ showGlobal("الرجاء إكمال البيانات المطلوبة للمتابعة."); }
+    if(!ok){ showGlobal("أكمل البيانات للمتابعة."); }
     return ok;
   }
 
@@ -435,151 +377,143 @@
     const s = getUsed(topic); s.add(id);
     localStorage.setItem(key, JSON.stringify([...s]));
   }
-  function pickUniqueVariant(topic){
+  function pickVariant(topic){
     const list = BANK[topic] || BANK.general;
     const used = getUsed(topic);
     const pool = list.filter(v=> !used.has(v.id));
-    if(pool.length===0){
-      showGlobal("تم استهلاك التنويعات؛ أعِدنا توليد بنك جديد.", true);
-      localStorage.removeItem(`istibsar_used_${userKey()}_${topic}`);
-      return list[Math.floor(Math.random()*list.length)];
-    }
+    if(pool.length===0){ localStorage.removeItem(`istibsar_used_${userKey()}_${topic}`); return list[Math.floor(Math.random()*list.length)]; }
     return pool[Math.floor(Math.random()*pool.length)];
   }
 
-  /* تفريعات حسب الحالة */
-  function buildLoveBranch(status){
+  /* تفريعات حسب الحالة (بأسلوب عرّاف) */
+  function loveBranch(status){
     const map = {
       "متزوج/متزوجة": [
-        "قرار واضح ينهي تذبذبًا قصيرًا: حدّد شرطًا واحدًا والتزم به، وستظهر استجابة خلال 72 ساعة.",
-        "تحذير حاسم: شخص ثالث يقترب بلباقة؛ أغلق ثغرات الخصوصية فورًا وإلا تتسع القصة.",
-        "جلسة مصارحة بوقت محدد وبدون مقاطعات تنهي 80% من سوء الفهم الحالي."
+        "قرار واضح يُنهي التذبذب القصير. حدّد شرطًا واحدًا والتزم به، وستظهر الاستجابة قبل مساء اليوم الثالث.",
+        "شخص ثالث يقترب بلباقة. أغلق ثغور الخصوصية، وإلا خرج الحديث من اليد.",
+        "جلسة مصارحة بلا مقاطعات تُنظّف ٨٠٪ من سوء الفهم الحالي."
       ],
       "مخطوب/مخطوبة": [
-        "اتفاق عملي على بندين (المال/الوقت) يحسم التردد ويُسرّع خطوة رسمية.",
-        "إشارة غيرة خفيفة من طرف قريب؛ لا تمنح تفاصيل إضافية هذه الأيام.",
-        "موعد محسوب يحسم رأيًا مترددًا—اختبر الفعل لا الوعود."
+        "اتفاق عملي على المال والوقت يحسم التردد ويُسرّع الخطوة الرسمية.",
+        "غيرة خفيفة من طرف قريب، لا تُسرف في التفاصيل الآن.",
+        "موعد واحد محسوب يكشف جدّية الطرف الآخر فورًا."
       ],
       "أعزب/عزباء": [
-        "نافذة تعارف قصيرة من باب العمل/الدراسة؛ لا تمنح وعودًا سريعة، راقب الثبات أسبوعًا.",
-        "تحذير: انجذاب سريع مع شخص {desc}؛ جرّب سؤالين محددين قبل التقدم.",
-        "رسالة مقتضبة ستفتح حديثًا جديدًا؛ الرد في نفس اليوم يصنع فرقًا واضحًا."
+        "نافذة تعارف قريبة عبر سياق مهني أو دراسي. لا تعِد سريعًا، راقب الثبات أسبوعًا.",
+        "انجذاب سريع لشخص صريح يخلط الود بالمصلحة. اختبره بسؤالين محدّدين ثم قرّر.",
+        "رسالة قصيرة ستفتح باب حديث جديد؛ ردّك السريع يصنع النتيجة."
       ],
       "منفصل/منفصلة": [
-        "فرصة إغلاق نظيف لمرحلة قديمة؛ لا تعُد لأسئلة بلا جواب—أغلق الباب بوضوح.",
-        "شخص هادئ يدخل المشهد من توصية صديق؛ امنح الحوار مساحة تجربة قصيرة فقط.",
-        "تحذير: ذاكرة انتقائية تعيد قراءة قديمة بشكل وردي؛ التزم بالوقائع لا بالحنين."
+        "هذه الأيام تصلح لإغلاق نظيف. لا تعد لأسئلة بلا جواب.",
+        "وجه هادئ يدخل بتوصية صديق. امنح التجربة مساحة قصيرة فقط.",
+        "الحنين يجمّل القديم. الزم الوقائع واترك المزاج للوقت."
       ]
     };
     return map[status] || map["أعزب/عزباء"];
   }
 
-  function buildCareerBranch(work){
+  function careerBranch(work){
     const map = {
       "أعمل": [
-        "مهمة بموعد ضيق تكشف اسمك في المكان الصحيح؛ أنجز النسخة الأولى اليوم.",
-        "احذر بندًا صغيرًا في عقد/رسالة؛ مراجعته تمنع تأخيرًا ومشاكل لاحقة.",
-        "أثر عمل قديم يعود كتوصية واضحة—لا تُفوّت المتابعة في نفس اليوم."
+        "مهمة قصيرة الموعد تُظهر اسمك في المكان الصحيح. أنجز مسودة اليوم، ولا تؤجّل.",
+        "سطر صغير في عقد أو رسالة يحتاج قراءة ثانية. يهديك وقتًا ومالًا لاحقًا.",
+        "أثر عمل قديم يعود بتوصية واضحة. المتابعة السريعة تكمل الدائرة."
       ],
       "عاطل": [
-        "مساران قصيران اليوم: مهارة خفيفة + سيرة مضغوطة؛ إرسال 3 طلبات مستهدفة أفضل من 20 عشوائية.",
-        "شبكة علاقات قريبة تقدّم توصية واحدة فعّالة؛ تواصل محدّد يسبق السيرة.",
-        "تحذير: انتظار بلا حركة يُمدّد الفترة؛ كبّر نتائج صغيرة يومية."
+        "مساران اليوم: مهارة صغيرة تُصنع في ساعة، ورسالة موجّهة إلى جهة محددة.",
+        "شبكة قريبة تقدّم بابًا واحدًا فعّالًا. تحدّث قبل أن تُرسل السيرة.",
+        "الانتظار الصامت يمدّ الفترة. كبّر نتائج صغيرة يومية، وستزحف الحظوظ."
       ],
       "طالب": [
-        "تركيز 50 دقيقة + مراجعة 10 دقائق مباشرة يرفع العلامة في الامتحان التالي.",
-        "مشروع صغير يسبق الامتحان يعوّض تذبذبًا سابقًا ويُظهر جِدّيتك.",
-        "تحذير: زميل {desc} يشوّش الخطة؛ التزم بجدولك المكتوب."
+        "جلسة تركيز خمسون دقيقة تتبعها مراجعة عشر دقائق ترفع الدرجة في الامتحان القادم.",
+        "مشروع قصير يسبق الامتحان يعوّض تذبذبًا سابقًا ويُظهر جديتك.",
+        "زميل كثير الكلام قليل الفعل يحاول تشتيتك. الزم جدولك المكتوب."
       ]
     };
     return map[work] || map["أعمل"];
   }
 
-  function randFrom(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
-
   function composeReading(topic){
-    const main = pickUniqueVariant(topic);
-    addUsed(topic, main.id);
-    const blocks = [`<p>${main.text}</p>`];
+    const main = pickVariant(topic); addUsed(topic, main.id);
+    const blocks = [];
+    const lucky = `لون الحظ: ${pick(LUCKY_COLORS)}. نافذة موفقة: ${pick(LUCKY_SLOTS)}. رقم بارز اليوم: ${Math.floor(3+Math.random()*7)}.`;
+
+    // افتتاحية حاسمة
+    blocks.push(`<p class="lead">${main.text}</p>`);
 
     const status = ($("#status").value || "").trim();
     const work   = ($("#work").value   || "").trim();
 
     if(topic==="love"){
-      const br = buildLoveBranch(status);
-      const a = randFrom(br).replace("{desc}", randFrom(DESCRIPTORS));
-      let b; do{ b = randFrom(br); }while(b===a);
-      blocks.push(`<p>${a}</p>`, `<p>${b.replace("{desc}", randFrom(DESCRIPTORS))}</p>`);
+      const b = loveBranch(status);
+      const a = pick(b); let c; do{ c=pick(b); }while(c===a);
+      blocks.push(`<p>${a}</p>`, `<p>${c}</p>`);
+      blocks.push(`<p><strong>تحذير مباشر:</strong> لا تمنح سرًّا شخصيًّا لمن لا يقدّم فعلًا واضحًا. اختبر ولا تتعلق.</p>`);
     }
     if(topic==="career"){
-      const br = buildCareerBranch(work);
-      const a = randFrom(br).replace("{desc}", randFrom(DESCRIPTORS));
-      let b; do{ b = randFrom(br); }while(b===a);
-      blocks.push(`<p>${a}</p>`, `<p>${b.replace("{desc}", randFrom(DESCRIPTORS))}</p>`);
+      const b = careerBranch(work);
+      const a = pick(b); let c; do{ c=pick(b); }while(c===a);
+      blocks.push(`<p>${a}</p>`, `<p>${c}</p>`);
+      blocks.push(`<p><strong>تحذير مهني:</strong> رقمٌ صغير في مستند كبير يقرّر نتيجة أسبوع كامل. راجعه قبل الخميس.</p>`);
     }
     if(topic==="health"){
-      const pack = [
-        "إعادة ضبط النوم بتقليل الضوء قبل ساعة—يتحسن المزاج خلال 48 ساعة.",
-        "ألم كتف/أسفل الظهر إشارة مبكرة؛ دقيقة تمدد بين كل مهمتين تكفي.",
-        "ماء + مشي 20 دقيقة يغيّر صفاء الذهن بقية الأسبوع.",
-        "تحذير: محيط مشتّت مع شخص {desc}؛ اضبط الحدود."
-      ];
-      const a = randFrom(pack).replace("{desc}", randFrom(DESCRIPTORS));
-      let b; do{ b = randFrom(pack); }while(b===a);
-      blocks.push(`<p>${a}</p>`, `<p>${b.replace("{desc}", randFrom(DESCRIPTORS))}</p>`);
+      const pack = TEMPLATES.health;
+      const a = pick(pack); let c; do{ c=pick(pack); }while(c===a);
+      blocks.push(`<p>${a}</p>`, `<p>${c}</p>`);
+      blocks.push(`<p><strong>تنبيه:</strong> قلّل الحديث الثقيل بعد المغيب، يهبط النوم ويصعد الصداع.</p>`);
     }
     if(topic==="general"){
-      const pack = TEMPLATES.general.map(t=>t.replace("{desc}", randFrom(DESCRIPTORS)));
-      const a = randFrom(pack); let b; do{ b = randFrom(pack); }while(b===a);
-      blocks.push(`<p>${a}</p>`, `<p>${b}</p>`);
+      const pack = TEMPLATES.general;
+      const a = pick(pack); let c; do{ c=pick(pack); }while(c===a);
+      blocks.push(`<p>${a}</p>`, `<p>${c}</p>`);
+      blocks.push(`<p><strong>بوصلة الأسبوع:</strong> اكتب القرار في سطرين وخذ خطوة واحدة الآن.</p>`);
     }
 
-    blocks.push(`<p><em>ومضة:</em> توقيت الرد نصف اليقين—اتخذ خطوة اليوم.</p>`);
+    // سطر حظ أنيق
+    blocks.push(`<p class="muted">${lucky}</p>`);
     return blocks.join("");
   }
 
   /* واجهة */
   function echoUser(){
     const g=$("#gender").value||"—", s=$("#status").value||"—", w=$("#work").value||"—", b=$("#birthdate").value||"—";
-    const sign = getZodiac(b);
-    document.getElementById("userEcho").innerHTML=`<span class="z-emoji">${sign.emoji}</span> ${sign.name} • ${g} • ${s} • ${w} • ${b}`;
+    $("#userEcho").innerHTML=`<span class="z-emoji">${currentSign.emoji}</span> ${currentSign.name} • ${g} • ${s} • ${w} • ${b}`;
   }
-  function stepShow(el){ el.classList.remove("hidden"); }
-  function stepHide(el){ el.classList.add("hidden"); }
+  function show(el){ el.classList.remove("hidden"); }
+  function hide(el){ el.classList.add("hidden"); }
 
   function startFlow(){
     if(!validateForm()) return;
-    stepHide(step1); stepShow(stepLoading);
-    setTimeout(()=>{ stepHide(stepLoading); stepShow(stepTopics); updateZodiacUI(); updateQuotaUI(); }, 700);
+    hide($("#step1")); show($("#stepLoading"));
+    setTimeout(()=>{ hide($("#stepLoading")); show($("#stepTopics")); updateZodiacUI(); updateQuotaUI(); }, 700);
   }
 
   function runTopic(topic){
     if(remainingQuota()<=0){ updateQuotaUI(); showLimitOverlay(); return; }
-    stepHide(stepTopics); stepShow(stepLoading);
+    hide($("#stepTopics")); show($("#stepLoading"));
     setTimeout(()=>{
-      stepHide(stepLoading); stepShow(stepResult);
+      hide($("#stepLoading")); show($("#stepResult"));
       incQuota(); updateQuotaUI(); echoUser();
       const titleMap = {love:"قراءة الحب", health:"قراءة الصحة", career:"قراءة المهنة والمال", general:"قراءة عامة/دراسية"};
       document.getElementById("resultTitle").textContent = titleMap[topic] || "الإشارات الظاهرة";
       document.getElementById("resultText").innerHTML = composeReading(topic);
       document.getElementById("omen").textContent =
-        ["تحذير: تأجيل اليوم يضاعف الكلفة غدًا.","إشارة إيجابية: خطوة صغيرة الآن تُسرّع خبرًا منتظرًا.","تذكير: وضوحك يحسم نصف الطريق."][Math.floor(Math.random()*3)];
-    }, 700);
+        ["توقيت الرد نصف اليقين. لا تؤجل اليوم.","خطوة صغيرة الآن تسرّع خبرًا منتظرًا.","وضوحك يحسم الطريق، والغموض يطيله."][Math.floor(Math.random()*3)];
+    }, 650);
   }
 
   document.getElementById("startBtn").addEventListener("click", startFlow);
   document.querySelectorAll(".topic").forEach(btn=> btn.addEventListener("click", ()=> runTopic(btn.dataset.topic)));
-  document.getElementById("topicsBtn").addEventListener("click", ()=>{ stepHide(stepResult); stepShow(stepTopics); updateQuotaUI(); });
-  document.getElementById("restartBtn").addEventListener("click", ()=>{ stepHide(stepResult); stepHide(stepTopics); stepShow(step1); window.scrollTo({top:0, behavior:"smooth"}); updateQuotaUI(); });
+  document.getElementById("topicsBtn").addEventListener("click", ()=>{ hide($("#stepResult")); show($("#stepTopics")); updateQuotaUI(); });
+  document.getElementById("restartBtn").addEventListener("click", ()=>{ hide($("#stepResult")); hide($("#stepTopics")); show($("#step1")); window.scrollTo({top:0, behavior:"smooth"}); updateQuotaUI(); });
 
   /* PDF */
   function buildPrintDoc(){
     const meta=document.getElementById("printMeta"), reading=document.getElementById("printReading");
     const g=$("#gender").value||"—", s=$("#status").value||"—", w=$("#work").value||"—", b=$("#birthdate").value||"—";
     const now=new Date(); const when=now.toLocaleString('ar', {hour12:false});
-    const sign=getZodiac(b);
     meta.innerHTML = `
-      <div>البرج: ${sign.emoji} ${sign.name}</div>
+      <div>البرج: ${currentSign.emoji} ${currentSign.name}</div>
       <div>الجنس: ${g}</div>
       <div>الحالة الاجتماعية: ${s}</div>
       <div>الوضع المهني: ${w}</div>
@@ -593,11 +527,9 @@
     buildPrintDoc(); window.print();
   });
 
-  /* تهيئة — مهم: حمّل البيانات أولًا ثم اعرض البرج */
+  /* تهيئة */
   (function init(){
-    loadForm();
-    updateZodiacUI();
-    updateQuotaUI();
+    updateZodiacUI(); loadForm(); updateZodiacUI(); updateQuotaUI();
   })();
 </script>
 </body>
