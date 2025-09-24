@@ -11,39 +11,70 @@
 
 <style>
   :root{
-    --bg:#0e0f12; --fg:#f7f7f7; --muted:#bdbdbd;
-    --brand:#ffd54a; --card:#16181f; --stroke:#2a2e38;
+    --bg:#0b0d12; --fg:#f7f7f7; --muted:#bdbdbd;
+    --brand:#ffd54a; --card:#141823; --stroke:#242a36;
+    --accent:#5ad1ff;
   }
   *{box-sizing:border-box}
+  html,body{height:100%}
   body{
     margin:0; background:var(--bg); color:var(--fg);
     font-family:"Tajawal","Cairo",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
     -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+    overflow-x:hidden;
   }
+
+  /* خلفية نجوم */
+  body::before, body::after{
+    content:""; position:fixed; inset:0; pointer-events:none; z-index:-2;
+  }
+  body::before{
+    background:
+      radial-gradient(1200px 600px at 50% -10%, #1b2140 0%, rgba(27,33,64,0) 60%),
+      radial-gradient(800px 500px at 80% 120%, #1a2336 0%, rgba(26,35,54,0) 60%),
+      linear-gradient(180deg, #0b0d12 0%, #0e1320 55%, #0b0d12 100%);
+  }
+  body::after{
+    background:
+      url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 240 240"><g fill="%23ffffff" opacity="0.45"><circle cx="20" cy="30" r="1.2"/><circle cx="80" cy="60" r="0.8"/><circle cx="140" cy="20" r="1"/><circle cx="200" cy="90" r="1.1"/><circle cx="110" cy="140" r="0.9"/><circle cx="40" cy="190" r="1.2"/><circle cx="210" cy="200" r="0.9"/></g></svg>') repeat;
+    background-size:240px 240px;
+    animation: twinkle 6s ease-in-out infinite;
+    opacity:.35;
+  }
+  @keyframes twinkle { 0%,100%{opacity:.28} 50%{opacity:.42} }
+
   header{
-    position:sticky; top:0; z-index:10; background:rgba(14,15,18,.9);
+    position:sticky; top:0; z-index:10; background:rgba(11,13,18,.75);
     backdrop-filter:saturate(140%) blur(6px);
     border-bottom:1px solid var(--stroke); padding:14px 16px;
-    display:flex; align-items:center; justify-content:space-between
+    display:flex; align-items:center; justify-content:center; text-align:center;
   }
-  .brand{display:flex; align-items:center; gap:14px}
+  .brand{display:inline-flex; align-items:center; gap:14px}
   .logo{width:44px;height:44px;border-radius:50%;border:2px solid var(--brand);display:grid;place-items:center}
   .logo span{width:12px;height:12px;border-radius:50%;border:2px solid var(--brand)}
   .title{
     font-weight:800; letter-spacing:.3px; line-height:1;
-    font-size: clamp(30px, 5vw, 46px); color:var(--brand)
+    font-size: clamp(30px, 5vw, 48px); color:var(--brand); text-align:center;
   }
-  .container{max-width:900px;margin:0 auto;padding:18px 16px}
+  .util{
+    position:absolute; inset-inline-end:12px; top:10px; display:flex; gap:8px; align-items:center;
+  }
+  .tiny{
+    padding:6px 10px; font-size:12px; border-radius:10px;
+    background:#1b0f0f; border:1px solid #6a2e2e; color:#ffb9b9; cursor:pointer
+  }
+
+  .container{max-width:980px;margin:0 auto;padding:18px 16px}
   .card{
-    background:var(--card); border:1px solid var(--stroke); border-radius:18px; padding:18px; margin:14px 0;
-    box-shadow:0 10px 30px rgba(0,0,0,.2)
+    background:rgba(20,24,35,.9); border:1px solid var(--stroke); border-radius:18px; padding:22px; margin:16px 0;
+    box-shadow:0 18px 40px rgba(0,0,0,.35)
   }
-  h1,h2{color:var(--brand); margin:10px 0 8px}
+  h1,h2{color:var(--brand); margin:10px 0 8px; text-align:center}
   .muted{color:var(--muted)}
   label{display:block; margin:10px 0 6px; color:#eaeaea; font-size:14px}
   input,select,button{
     width:100%; padding:12px 14px; border-radius:12px; border:1px solid var(--stroke);
-    background:#0f1117; color:var(--fg); font-size:16px; outline:none
+    background:#0f1320; color:var(--fg); font-size:16px; outline:none
   }
   input:focus, select:focus{border-color:var(--brand); box-shadow:0 0 0 3px rgba(255,213,74,.15)}
   .grid{display:grid; grid-template-columns:1fr 1fr; gap:12px}
@@ -54,18 +85,32 @@
   }
   .btn:active{transform:scale(.99)}
   .ghost{background:transparent; border:1px solid var(--brand); color:var(--brand)}
-  .danger{background:#1b0f0f;border:1px solid #6a2e2e;color:#ffb9b9}
-  .center{display:grid; place-items:center}
+  .center{display:grid; place-items:center; text-align:center}
   .hidden{display:none !important}
   .topic-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:14px}
-  .topic{padding:18px; border:1px dashed var(--brand); border-radius:14px; background:#0f1117; cursor:pointer}
-  .topic:hover{background:#121520}
+  @media (max-width:640px){ .topic-grid{grid-template-columns:1fr} }
+  .topic{padding:18px; border:1px dashed var(--brand); border-radius:14px; background:#0f1320; cursor:pointer}
+  .topic:hover{background:#12172a}
   .topic span{display:block; color:var(--muted); font-size:14px; margin-top:4px}
   .result{line-height:1.95}
-  .tag{display:inline-block; padding:4px 10px; border-radius:999px; border:1px solid var(--stroke); color:var(--muted); font-size:13px}
-  footer{padding:26px 16px; text-align:center; color:var(--muted); border-top:1px solid var(--stroke)}
-  /* Loading ring */
-  .ring-wrap{height:240px; display:grid; place-items:center}
+  .tag{display:inline-flex; align-items:center; gap:8px; padding:6px 12px; border-radius:999px; border:1px solid var(--stroke); color:#fff; font-size:14px; background:#0f1320}
+  .z-emoji{font-size:20px}
+  .stars{position:relative; overflow:hidden; border-radius:16px}
+
+  footer{
+    padding:24px 16px; text-align:center; color:var(--muted);
+    border-top:1px solid var(--stroke); display:flex; flex-direction:column; gap:10px; align-items:center
+  }
+  .socials{display:flex; gap:12px}
+  .socials a{
+    width:28px; height:28px; display:inline-grid; place-items:center; border-radius:8px;
+    border:1px solid var(--stroke); background:#0f1320; transition:transform .1s ease, border-color .2s ease
+  }
+  .socials a:hover{transform:translateY(-1px); border-color:var(--accent)}
+  .socials svg{width:16px;height:16px; fill:#cfd8dc}
+
+  /* حلقة الانتظار */
+  .ring-wrap{height:260px; display:grid; place-items:center}
   .ring{
     width:130px; height:130px; border-radius:50%;
     border:6px solid rgba(255,255,255,.08); border-top-color:var(--brand);
@@ -86,20 +131,18 @@
     <div class="logo" aria-hidden="true"><span></span></div>
     <div class="title">الاستبصار</div>
   </div>
-  <button class="danger" id="clearBtn" title="حذف كل البيانات المحلية">حذف بياناتي</button>
+  <div class="util">
+    <button class="tiny" id="clearBtn" title="حذف كل البيانات المحلية">حذف بياناتي</button>
+  </div>
 </header>
 
 <main class="container">
 
   <!-- الخطوة 1: إدخال البيانات -->
-  <section id="step1" class="card">
-    <h1>ابدأ قراءتك</h1>
-    <p class="muted">بياناتك تُحفَظ محليًّا على جهازك فقط.</p>
-    <div class="grid">
-      <div>
-        <label>العمر</label>
-        <input id="age" type="number" min="5" max="120" placeholder="مثال: 43">
-      </div>
+  <section id="step1" class="card stars center">
+    <h1 style="margin-bottom:6px">ابدأ قراءتك</h1>
+
+    <div class="grid" style="max-width:680px; margin:10px auto 0;">
       <div>
         <label>الجنس</label>
         <select id="gender">
@@ -118,48 +161,52 @@
           <option>مخطوب/مخطوبة</option>
         </select>
       </div>
-      <div>
+      <div style="grid-column:1 / -1">
         <label>تاريخ الميلاد</label>
         <input id="birthdate" type="date">
       </div>
     </div>
-    <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap">
-      <button class="btn" id="startBtn">ابدأ القراءة</button>
-      <button class="ghost" id="shuffleDemo">قراءة فورية تجريبية</button>
+
+    <div style="margin-top:16px;">
+      <button class="btn" id="startBtn" style="min-width:220px">ابدأ القراءة</button>
     </div>
   </section>
 
   <!-- الخطوة 2: شاشة انتظار -->
-  <section id="stepLoading" class="card hidden center">
+  <section id="stepLoading" class="card hidden center stars">
     <div>
       <div class="ring-wrap"><div class="ring" aria-hidden="true"></div></div>
       <h2>جاري الاستبصار…</h2>
-      <p class="muted">لحظات قليلة قبل ظهور الإشارات.</p>
+      <p class="muted">ثوانٍ قليلة وتظهر الإشارات.</p>
     </div>
   </section>
 
   <!-- الخطوة 3: اختيار الموضوع -->
-  <section id="stepTopics" class="card hidden">
+  <section id="stepTopics" class="card hidden stars center">
     <h2>اختر موضوع قراءتك</h2>
-    <div class="topic-grid">
+    <div class="topic-grid" style="max-width:700px; margin:10px auto 0;">
       <button class="topic" data-topic="love">الحب ❤️<span>العلاقات، الانجذاب، المصالحات</span></button>
       <button class="topic" data-topic="health">الصحة 💊<span>الطاقة، العادات، التوازن</span></button>
       <button class="topic" data-topic="career">المهنة/الثروة 💼<span>الفرص، القرارات، الاستثمارات</span></button>
       <button class="topic" data-topic="general">عام ✨<span>رؤية شاملة للأيام المقبلة</span></button>
     </div>
+    <div id="zodiacBadge" style="margin-top:14px"></div>
   </section>
 
   <!-- الخطوة 4: النتيجة -->
-  <section id="stepResult" class="card hidden">
+  <section id="stepResult" class="card hidden stars">
     <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap">
       <h2 style="margin:0">الإشارات الظاهرة</h2>
-      <div class="tag" id="userEcho"></div>
+      <div class="tag" id="userEcho">
+        <span class="z-emoji" id="zEmoji">♈︎</span>
+        <span id="zName">الحمل</span>
+      </div>
     </div>
 
     <div id="resultText" class="result" style="margin-top:10px"></div>
     <div id="omen" class="muted" style="margin-top:12px; font-size:15px"></div>
 
-    <div style="display:flex; gap:10px; margin-top:16px; flex-wrap:wrap">
+    <div style="display:flex; gap:10px; margin-top:16px; flex-wrap:wrap; justify-content:center">
       <button class="btn" id="againBtn">إشارة جديدة (نفس الموضوع)</button>
       <button class="ghost" id="topicsBtn">اختيار موضوع آخر</button>
       <button class="ghost" id="restartBtn">إعادة البدء</button>
@@ -169,84 +216,142 @@
 </main>
 
 <footer>
-  © <span id="year"></span> الاستبصار
+  <div class="socials" aria-label="تابعنا">
+    <!-- أيقونات SVG صغيرة -->
+    <a href="#" title="X / Twitter" aria-label="Twitter">
+      <svg viewBox="0 0 24 24"><path d="M18.244 2H21l-6.56 7.51L22.5 22h-6.79l-4.87-6.37L4.94 22H2l7.02-8.03L1.5 2h6.87l4.39 5.86L18.244 2Zm-2.38 18h1.84L8.23 4h-1.9l9.534 16Z"/></svg>
+    </a>
+    <a href="#" title="Instagram" aria-label="Instagram">
+      <svg viewBox="0 0 24 24"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Zm10 2H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3Zm-5 3.5A5.5 5.5 0 1 1 6.5 13 5.5 5.5 0 0 1 12 7.5Zm0 2A3.5 3.5 0 1 0 15.5 13 3.5 3.5 0 0 0 12 9.5Zm5.75-2.25a1 1 0 1 1-1 1 1 1 0 0 1 1-1Z"/></svg>
+    </a>
+    <a href="#" title="Facebook" aria-label="Facebook">
+      <svg viewBox="0 0 24 24"><path d="M13 22v-8h3l1-4h-4V7.5A1.5 1.5 0 0 1 14.5 6H17V2h-3.5A4.5 4.5 0 0 0 9 6.5V10H6v4h3v8h4Z"/></svg>
+    </a>
+  </div>
+  <div>© <span id="year"></span> الاستبصار</div>
 </footer>
 
 <script>
-  // ========= قوائم بأسلوب تنبؤي وتحذيري (مخاطبة مباشرة) =========
-  // ملاحظة: تمت صياغتها بروح توقعات قوية وتحذيرات موجزة.
-  const LOVE_P = [
-    "تلوح عندك مصادفة تغيّر اتجاه القلب. وجهٌ مألوف يعود فجأة، وكلمة واحدة تعيد حرارة قديمة.",
-    "أنت على موعد مع انجذاب غير مخطط، يقترب منك شخص يقرأ صمتك أكثر من كلامك.",
-    "بوابة مصالحة تُفتح من التفاصيل الصغيرة: ابتسامة، اعتذار، أو لقاء قصير يبدد ضبابًا طويلاً.",
-    "علامة توافق قوية تظهر حين تتخلى عن التردد؛ القلب يميل لمن يمنحك راحة لا ضجيجًا."
+  /* ====== كشف البرج من تاريخ الميلاد ====== */
+  const ZODIAC = [
+    {name:"الحمل",   emoji:"♈︎", from:[3,21],  to:[4,19]},
+    {name:"الثور",   emoji:"♉︎", from:[4,20],  to:[5,20]},
+    {name:"الجوزاء", emoji:"♊︎", from:[5,21],  to:[6,20]},
+    {name:"السرطان", emoji:"♋︎", from:[6,21],  to:[7,22]},
+    {name:"الأسد",   emoji:"♌︎", from:[7,23],  to:[8,22]},
+    {name:"العذراء", emoji:"♍︎", from:[8,23],  to:[9,22]},
+    {name:"الميزان", emoji:"♎︎", from:[9,23],  to:[10,22]},
+    {name:"العقرب",  emoji:"♏︎", from:[10,23], to:[11,21]},
+    {name:"القوس",   emoji:"♐︎", from:[11,22], to:[12,21]},
+    {name:"الجدي",   emoji:"♑︎", from:[12,22], to:[1,19]},
+    {name:"الدلو",   emoji:"♒︎", from:[1,20],  to:[2,18]},
+    {name:"الحوت",   emoji:"♓︎", from:[2,19],  to:[3,20]}
   ];
-  const LOVE_W = [
-    "احذر من وعدٍ سريع لا يحمل جذورًا؛ ضوءٌ لامع قد يخبو بعد أيام.",
-    "رسالة غامضة قد تُشعل ظنًّا؛ لا تتبع إشاعات، فبريقها قصير.",
-    "ماضٍ يحاول أن يستعيد مكانه في لحظة ضعف؛ لا تترك الحنين يقودك إلى دورة مُنهِكة.",
-    "غيرة عابرة حولك تتحوّل إلى اختبار ولاء؛ لا تسمح للآخرين بكتابة قصتك."
+  function getZodiac(dt){
+    if(!dt) return {name:"غير معروف", emoji:"☆"};
+    const d = new Date(dt);
+    const m = d.getMonth()+1, day = d.getDate();
+    for(const z of ZODIAC){
+      const [fm,fd]=z.from, [tm,td]=z.to;
+      const inSame = (m===fm && day>=fd) || (m===tm && day<=td);
+      const inWrap = (fm>tm) && ((m===fm && day>=fd) || (m===tm && day<=td) || (m>fm || m<tm));
+      if((fm<tm && inSame) || (fm>tm && inWrap)) return z;
+    }
+    return {name:"غير معروف", emoji:"☆"};
+  }
+
+  /* ====== توقعات عامة (إيجابي/تحذيري) بأسلوب مواقع الأبراج + مقتطفات لكل برج ====== */
+  const BASE_POS = [
+    "مؤشر إيجابي يلمع في محيطك القريب؛ باب صغير يُفتح بتوقيت مفاجئ.",
+    "رسالة موجزة تغيّر إيقاع يومك نحو انفتاح أسرع مما توقعت.",
+    "همس انسجام يعبر علاقاتك؛ التفاؤل يسبق الخطوات هذه المرة.",
+    "خبر سار يأتي من جهة لم تكن في الحسبان، كأنه وعد قديم عاد الآن."
+  ];
+  const BASE_WARN = [
+    "تذبذب قصير قد يربك قراءتك للمشهد؛ لا تنجرف مع أول انفعال.",
+    "تفصيل ناقص في قصة متداولة حولك؛ الجزء الغائب يُبدّل المعنى.",
+    "سطوع مفاجئ في عرضٍ ما قد يخفي ظلالًا لاحقة؛ اللمعان ليس معيارًا.",
+    "نافذة ارتباك عابرة تلوّح؛ إن استسلمت لها، تؤخر وصول الفرج قليلًا."
   ];
 
-  const HEALTH_P = [
-    "طاقة هادئة تتسلل إلى جسدك هذا الأسبوع؛ النوم العميق يعيد ترتيب الداخل.",
-    "يقظة جسدية مفاجئة: تستعيد خفة الحركة، وكأن ثِقَلًا طويلاً تلاشى.",
-    "رياح خفيفة من التوازن تسري فيك؛ تتصالح مع جسدك وتسمع همسه جيدًا.",
-    "تبدّلٌ في الإيقاع يمنحك صفاءً ذهنيًا نادرًا، فتخف وطأة التوتر."
-  ];
-  const HEALTH_W = [
-    "تحذير قصير المدى: إجهاد غير مرئي يتراكم إن تجاهلت إشارات الإرهاق.",
-    "صداع متكرر يهمس بأن الشاشة سرقت من عينيك نورًا زائدًا؛ خفّف حدته.",
-    "إيقاع متسرّع يرهق النفس؛ إن سمعت دقّات قلبك أسرع من العادة، هدّئ السير.",
-    "عيونك تطلب استراحة، وإن أنكرْت. تجاهلُ الهمس اليوم يصير صراخًا غدًا."
-  ];
+  // مقتطفات لكل برج (تضاف عشوائيًا لِتلوين القراءة بطابع البرج)
+  const SIGN_SNIPPETS = {
+    "الحمل":   {pos:["اندفاعة موفقة تعيد الحياة لمشروع غفا لفترة."], warn:["حدة سريعة قد تسحبك لسوء فهم عابر."]},
+    "الثور":   {pos:["ثباتك يثمر اليوم مردودًا ملموسًا."], warn:["عنادٌ بسيط يحجب مرونة مطلوبة الآن."]},
+    "الجوزاء": {pos:["ذكاء لحظي يلتقط فرصة حوارية قبل غيرك."], warn:["تشعّب المواضيع يسرق تركيزك الأساسي."]},
+    "السرطان": {pos:["دفء عائلي يرمم ما تصدّع مؤخرًا."], warn:["حساسية زائدة تقرأ ما ليس مقصودًا."]},
+    "الأسد":   {pos:["ظهور لافت يُعيد مكانةً تستحقها."], warn:["سقف التوقع العالي قد يحمّل لحظة بسيطة أكثر مما تحتمل."]},
+    "العذراء": {pos:["تفصيل صغير تلتقطه يصحّح مسارًا كاملًا."], warn:["مثالية مفرطة تؤخر انطلاقة جيدة."]},
+    "الميزان": {pos:["اتزانك يجذب تفاهمًا سريعًا في علاقة مهمة."], warn:["ميلٌ لإرضاء الجميع يذيب حقًا صغيرًا لك."],
+    },
+    "العقرب":  {pos:["حدسك يصيب الهدف الأول."], warn:["شكّ مبالغ فيه يطفئ بريق إنجاز لطيف."]},
+    "القوس":   {pos:["نفَس مغامرة خفيف يفتح بابًا جديدًا."], warn:["حماس زائد قد يقفز فوق خطوة أساسية."]},
+    "الجدي":   {pos:["انضباطك يضع حجر أساس لربح قادم."], warn:["صرامة لحظية تُفهم على أنها برود."]},
+    "الدلو":   {pos:["فكرة مبتكرة تجد آذانًا مصغية اليوم."], warn:["مزاج متقلب يشتتها إشعارات لا تنتهي."]},
+    "الحوت":   {pos:["رهافة شعورك تقودك لاختيار مُلهِم."], warn:["ضباب عاطفي يختبر وضوح قرارك."]},
+    "غير معروف":{pos:["إشارة عامة نحو انفراج قريب."], warn:["لوحة المشهد غير مكتملة بعد."]}
+  };
 
-  const CAREER_P = [
-    "فرصة تتسلل من هامش بريدك، تحمل توقيعًا صغيرًا وتأثيرًا كبيرًا.",
-    "أنت على عتبة انعطافة مهنية؛ الباب الذي ظننته مغلقًا يتحرك فجأة.",
-    "أثر هادئ لعملك السابق يظهر الآن: إشادة، ترشيح، أو اقتراح مفاجئ.",
-    "بوصلة المال تميل إلى الاستقرار بعد تذبذب، وإشارة ربح خافتة تومض."
-  ];
-  const CAREER_W = [
-    "تحذير من بندٍ مخفيّ في اتفاق مُغرٍ؛ سطر واحد قد يقلب الميزان.",
-    "ضجيج السوق يوهمك بذهبٍ سريع؛ اللمعان ليس دائمًا ثراءً.",
-    "حركة متعجلة قد تفلت منك فرصة كانت تحتاج صبر ساعة إضافية.",
-    "نافذة إنفاق طائش تُفتح لثوانٍ؛ إن مررتَ منها، يتأخر التعافي."
-  ];
+  // موضوعات مفصلة (حب/صحة/مهنة/عام) — لكل منها إيجابي وسلبي
+  const TOPICS = {
+    love: {
+      title:"الحب",
+      pos:[
+        "قلبك يلتقط تردّدًا دافئًا؛ مصادفة قصيرة تعيد بريقًا قديمًا.",
+        "إشارة انجذاب تظهر حين يتقاطع الصدق مع الطمأنينة."
+      ],
+      warn:[
+        "وعدٌ سريع يبهرك ثم يخفت؛ لا تمنح اللمعان وزن الحقيقة.",
+        "غيرة محيطة تتسلّل كاختبار ولاء؛ لا تجعلها تكتب قصتك."
+      ]
+    },
+    health: {
+      title:"الصحة",
+      pos:[
+        "صفاء داخلي يمر كنسمة؛ الجسد يستجيب لإيقاعٍ أهدأ.",
+        "يقظة خفيفة تعيد الانسجام بين المزاج والحركة."
+      ],
+      warn:[
+        "ثِقل خفي يتراكم إن تجاهلت همس الإرهاق.",
+        "نبضٌ أسرع من المعتاد يطلب منك إبطاء الوتيرة قليلًا."
+      ]
+    },
+    career: {
+      title:"المهنة/الثروة",
+      pos:[
+        "نافذة عمل جانبية تحمل توقيعًا صغيرًا وتأثيرًا كبيرًا.",
+        "أثر قديم يعود بإشادة أو ترشيح مفاجئ."
+      ],
+      warn:[
+        "بندٌ مخفي يقلب الميزان إن لم يُقرأ جيدًا.",
+        "ضجيج السوق يصنع سراب ذهب سريع الزوال."
+      ]
+    },
+    general: {
+      title:"عام",
+      pos:[
+        "خبر سار يأتي من جهة بعيدة كهدية مؤجّلة.",
+        "علامات طريق جديدة تومض لبدء مسارٍ غير متوقّع."
+      ],
+      warn:[
+        "قصة ناقصة التفاصيل تغيّر القراءة إن استعجلت الحكم.",
+        "سحابة عابرة تكشف مواضع السقف الواطئ في المكان."
+      ]
+    }
+  };
 
-  const GENERAL_P = [
-    "خبرٌ يُسرُّك يصل من جهة بعيدة، كأنه هدية أُرسلت قبل زمن ووصلت الآن.",
-    "علامات طريق جديدة تظهر في الأفق؛ مسارٌ لم تفكر به يبدأ بإشارة صغيرة.",
-    "البيت يسترد سكينته، وتفاصيل يومك تُصفّى؛ تشعر أن الهواء أخف.",
-    "وجه قديم يزورك في الحلم قبل أن تقابله يقظةً؛ المصادفات تُحسن التوقيت."
-  ];
-  const GENERAL_W = [
-    "تذبذب قصير في محيطك يختبر ثباتك؛ إن انشغلت بالضجيج، ضاعت الإشارة.",
-    "معلومة مبتورة قد تقودك لاتجاه خاطئ؛ جزء مفقود يُغَيّر القراءة.",
-    "ظلال غيرة أو تنافس تظهر في دائرة قريبة؛ لا تمنحها أكثر من حجمها.",
-    "سحابة طارئة تمر سريعًا، لكنها تُعلّمك موضع السقف الواطئ في البيت."
-  ];
-
-  // ومضات مستقبلية (طابع نبوئي عام)
-  const OMENS = [
-    "ومضة مستقبلية: اهتزازات على مسافة قريبة ثم سكون، وبعد السكون تبدّل في الوجوه.",
-    "ومضة مستقبلية: باب يفتح مرتين؛ الأولى للامتحان والثانية للفرج.",
-    "ومضة مستقبلية: رسالة قصيرة تغيّر اتجاه أسبوعك كأنها إشارة من بعيد.",
-    "ومضة مستقبلية: لقاء عابر يحمل أثرًا أطول من زمنه؛ لا تستهِن به."
-  ];
-
-  // ========= أدوات مساعدة وحفظ البيانات =========
+  /* ====== عناصر DOM ====== */
   const $ = sel => document.querySelector(sel);
   const step1 = $("#step1"), stepLoading = $("#stepLoading"), stepTopics = $("#stepTopics"), stepResult = $("#stepResult");
   const userEcho = $("#userEcho"), resultText = $("#resultText"), omenEl = $("#omen");
-  const startBtn = $("#startBtn"), shuffleDemo = $("#shuffleDemo");
-  const againBtn = $("#againBtn"), topicsBtn = $("#topicsBtn"), restartBtn = $("#restartBtn");
+  const startBtn = $("#startBtn"), againBtn = $("#againBtn"), topicsBtn = $("#topicsBtn"), restartBtn = $("#restartBtn");
   const clearBtn = $("#clearBtn");
+  const zBadge = $("#zodiacBadge"), zEmojiEl = $("#zEmoji"), zNameEl = $("#zName");
   const yearEl = $("#year"); yearEl.textContent = new Date().getFullYear();
 
+  /* ====== حفظ البيانات محليًا ====== */
   function saveForm(){
     const data = {
-      age: $("#age").value || "",
       gender: $("#gender").value || "",
       status: $("#status").value || "",
       birthdate: $("#birthdate").value || ""
@@ -256,7 +361,6 @@
   function loadForm(){
     try{
       const data = JSON.parse(localStorage.getItem("istibsar_form")||"{}");
-      if(data.age) $("#age").value = data.age;
       if(data.gender) $("#gender").value = data.gender;
       if(data.status) $("#status").value = data.status;
       if(data.birthdate) $("#birthdate").value = data.birthdate;
@@ -264,37 +368,44 @@
   }
   function clearForm(){
     localStorage.removeItem("istibsar_form");
-    $("#age").value = ""; $("#gender").value=""; $("#status").value=""; $("#birthdate").value="";
+    $("#gender").value=""; $("#status").value=""; $("#birthdate").value="";
   }
-  ["age","gender","status","birthdate"].forEach(id=>{
-    document.getElementById(id).addEventListener("input", saveForm);
-    document.getElementById(id).addEventListener("change", saveForm);
+  ["gender","status","birthdate"].forEach(id=>{
+    const el = document.getElementById(id);
+    el.addEventListener("input", saveForm);
+    el.addEventListener("change", saveForm);
   });
   clearBtn.addEventListener("click", ()=>{ clearForm(); alert("تم حذف بياناتك من هذا المتصفح."); });
 
-  // عشوائية قابلة للتكرار + اختلاف دائم
+  /* ====== عشوائية تتغير كل مرة + حساب البرج ====== */
   function seeded(seed){ let x = seed ^ Date.now(); return function(){ x ^= x<<13; x ^= x>>>17; x ^= x<<5; return ((x>>>0)/4294967296); } }
   function strHash(s){ let h=2166136261>>>0; for(let i=0;i<s.length;i++){ h^=s.charCodeAt(i); h=Math.imul(h,16777619);} return h>>>0; }
   function pick(rand, arr){ return arr[Math.floor(rand()*arr.length)] }
 
   let currentTopic = "general";
   let currentRand = seeded(123);
+  let currentSign = {name:"غير معروف", emoji:"☆"};
 
   function formSeed(){
-    const age = $("#age").value || "";
-    const gender = $("#gender").value || "";
-    const status = $("#status").value || "";
-    const birth = $("#birthdate").value || "";
-    const key = `${age}|${gender}|${status}|${birth}`;
+    const g = $("#gender").value || "";
+    const s = $("#status").value || "";
+    const b = $("#birthdate").value || "";
+    const key = `${g}|${s}|${b}`;
     return key ? strHash(key) : Math.floor(Math.random()*1e9);
   }
 
+  function updateZodiacUI(){
+    currentSign = getZodiac($("#birthdate").value);
+    zEmojiEl.textContent = currentSign.emoji;
+    zNameEl.textContent = currentSign.name;
+    zBadge.innerHTML = `<div class="tag"><span class="z-emoji">${currentSign.emoji}</span> برجك: ${currentSign.name}</div>`;
+  }
+
   function echoUser(){
-    const a = $("#age").value ? `عمر ${$("#age").value}` : "عمر غير محدد";
-    const g = $("#gender").value || "جنس غير محدد";
-    const s = $("#status").value || "حالة غير محددة";
-    const b = $("#birthdate").value || "ميلاد غير معروف";
-    userEcho.textContent = `${g} • ${s} • ${a} • ${b}`;
+    const g = $("#gender").value || "غير محدد";
+    const s = $("#status").value || "غير محددة";
+    const b = $("#birthdate").value || "غير معروف";
+    userEcho.innerHTML = `<span class="z-emoji">${currentSign.emoji}</span> ${currentSign.name} • ${g} • ${s} • ${b}`;
   }
 
   function show(el){ el.classList.remove("hidden") }
@@ -302,29 +413,26 @@
 
   function startFlow(){
     hide(step1); show(stepLoading);
-    setTimeout(()=>{ hide(stepLoading); show(stepTopics); }, 1200);
+    setTimeout(()=>{ hide(stepLoading); show(stepTopics); updateZodiacUI(); }, 2200); /* أطول قليلاً */
   }
 
   function buildBlock(title, items){
-    return `<h3>${title}</h3><ul>${items.map(i=>`<li>${i}</li>`).join("")}</ul>`;
+    return `<h3 style="text-align:center">${title}</h3><ul>${items.map(i=>`<li>${i}</li>`).join("")}</ul>`;
   }
 
   function buildReport(topic){
-    const bank = {
-      love:   {pos:LOVE_P,   warn:LOVE_W,   title:"الحب"},
-      health: {pos:HEALTH_P, warn:HEALTH_W, title:"الصحة"},
-      career: {pos:CAREER_P, warn:CAREER_W, title:"المهنة/الثروة"},
-      general:{pos:GENERAL_P,warn:GENERAL_W,title:"عام"}
-    }[topic];
+    const bank = TOPICS[topic] || TOPICS.general;
 
-    const intro = `<p><strong>${bank.title}:</strong> أنت داخل مسار تتكاثر فيه الإشارات. ما يظهر الآن ليس حكمًا نهائيًا بل ملامح قريبة.</p>`;
-    // اختيار فقرتين توقعات وفقرتين تحذير
+    // تجميع: إيجابي/تحذير أساسي + مقتطف خاص بالبرج
+    const signPack = SIGN_SNIPPETS[currentSign.name] || SIGN_SNIPPETS["غير معروف"];
     const r = seeded(Math.floor(currentRand()*1e9));
-    const ps = [...bank.pos].sort(()=>r()-0.5).slice(0,2);
-    const ws = [...bank.warn].sort(()=>r()-0.5).slice(0,2);
 
-    const positives = buildBlock("توقعات", ps);
-    const warnings  = buildBlock("تحذيرات", ws);
+    const pos = [ pick(r, BASE_POS), pick(r, bank.pos), pick(r, signPack.pos) ];
+    const warn = [ pick(r, BASE_WARN), pick(r, bank.warn), pick(r, signPack.warn) ];
+
+    const intro = `<p style="text-align:center"><strong>${bank.title}:</strong> الإشارات تظهر الآن بوضوح أقرب، وبعضها يلوّح لك باليد.</p>`;
+    const positives = buildBlock("توقعات إيجابية", pos);
+    const warnings  = buildBlock("تحذيرات محتملة", warn);
 
     return `${intro}${positives}${warnings}`;
   }
@@ -332,15 +440,20 @@
   function genReading(topic){
     const html = buildReport(topic);
     resultText.innerHTML = html;
-    omenEl.textContent = pick(currentRand, OMENS);
+    // ومضة قصيرة عامة
+    const omens = [
+      "ومضة: باب يُفتح مرتين؛ الأولى امتحان، والثانية فرج.",
+      "ومضة: رسالة مقتضبة تغيّر اتجاه الأسبوع.",
+      "ومضة: لقاء عابر يترك أثرًا أطول من زمنه."
+    ];
+    omenEl.textContent = pick(currentRand, omens);
   }
 
-  // الأحداث
+  // أحداث
   document.getElementById("startBtn").addEventListener("click", ()=>{
-    currentRand = seeded(formSeed()); saveForm(); startFlow();
-  });
-  document.getElementById("shuffleDemo").addEventListener("click", ()=>{
-    currentRand = seeded(Math.floor(Math.random()*1e9)); startFlow();
+    currentRand = seeded(formSeed());
+    updateZodiacUI();
+    startFlow();
   });
 
   document.querySelectorAll(".topic").forEach(btn=>{
@@ -361,8 +474,9 @@
     hide(stepResult); hide(stepTopics); show(step1); window.scrollTo({top:0, behavior:"smooth"});
   });
 
-  // تحميل بيانات محفوظة
+  // تحميل بيانات محفوظة + تهيئة البرج
   loadForm();
+  updateZodiacUI();
 </script>
 </body>
 </html>
