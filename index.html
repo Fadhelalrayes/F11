@@ -224,7 +224,7 @@
               <button class="btn" id="nextMonth" aria-label="الشهر التالي">›</button>
             </div>
           </div>
-          <div class="gridMonth" id="gridMonth" aria-label="تقويم شهري"></div>
+          <div class="gridMonth" id="gridMonth" aria-label="تقويم شهري" data-offset="0"></div>
         </section>
       </div>
     </section>
@@ -260,7 +260,7 @@
         <label for="placeSearch">ابحث عن المكان</label>
         <div>
           <input id="placeSearch" type="text" placeholder="مثال: الدوحة، قطر | Berlin, Germany" aria-describedby="placeHint">
-          <div id="placeHint" class="hint">لا تعتمد على قوائم ثابتة — بحث عالمي عبر OpenStreetMap.</div>
+          <div id="placeHint" class="hint">بحث عالمي عبر OpenStreetMap، بدون قوائم ثابتة.</div>
           <div id="searchResults" class="results" role="listbox" aria-label="نتائج البحث"></div>
         </div>
       </div>
@@ -288,7 +288,7 @@
           <input id="fajrAngle" type="number" step="0.1" placeholder="زاوية الفجر (°)" aria-label="زاوية الفجر" disabled>
           <input id="ishaAngle" type="number" step="0.1" placeholder="زاوية العشاء (°)" aria-label="زاوية العشاء" disabled>
         </div>
-        <div class="hint">عند التفعيل يتم تجاهل زاويتي الطريقة المختارة، ويُستخدم ما تُدخله هنا.</div>
+        <div class="hint">عند التفعيل يتم استخدام method=99 مع الزوايا التي تدخلها.</div>
       </div>
 
       <div class="rowCtrl">
@@ -438,34 +438,31 @@ function dateForKeyToday(timings, key){
   return new Date(+Y,+M-1,+D,H||0,Min||0,0);
 }
 
-/* API Helpers (مع زوايا مخصّصة) */
-function timingsURL(lat, lon, dateObj){ // dateObj اختياري لليوم المحدد
+/* API URLs (ثابتة وصحيحة) */
+function timingsURL(lat, lon, dateObj){
+  const ref = dateObj
+    ? new Date(dateObj)
+    : new Date(new Date().toLocaleString('en-US',{timeZone:TIMEZONE}));
+  const {Y,M,D} = ymdInTZ(ref, TIMEZONE);
+  const base = `https://api.aladhan.com/v1/timings/${D}-${M}-${Y}`;
   const params = new URLSearchParams({
-    latitude: lat, longitude: lon, method: METHOD_ID
+    latitude: lat, longitude: lon,
+    method: (CUSTOM_ANGLES && FAJR_ANGLE && ISHA_ANGLE) ? 99 : METHOD_ID
   });
   if (CUSTOM_ANGLES && FAJR_ANGLE && ISHA_ANGLE){
-    params.set('adjustment', 0);
-    params.set('tune', ''); // لا نستخدم tune هنا
-    params.set('school', '0');
-    params.set('shafaq', 'general');
-    params.set('midnightMode', '0');
-    params.set('latitudeAdjustmentMethod','3');
-    params.set('fajr', FAJR_ANGLE);
-    params.set('isha', ISHA_ANGLE);
+    params.set('fajr', String(FAJR_ANGLE));
+    params.set('isha', String(ISHA_ANGLE));
   }
-  if (dateObj){
-    const {Y,M,D}=ymdInTZ(dateObj,TIMEZONE);
-    params.set('date', `${D}-${M}-${Y}`);
-  }
-  return `https://api.aladhan.com/v1/timings?${params.toString()}`;
+  return `${base}?${params.toString()}`;
 }
 function calendarURL(lat, lon, month, year){
   const params = new URLSearchParams({
-    latitude: lat, longitude: lon, method: METHOD_ID, month, year
+    latitude: lat, longitude: lon, month, year,
+    method: (CUSTOM_ANGLES && FAJR_ANGLE && ISHA_ANGLE) ? 99 : METHOD_ID
   });
   if (CUSTOM_ANGLES && FAJR_ANGLE && ISHA_ANGLE){
-    params.set('fajr', FAJR_ANGLE);
-    params.set('isha', ISHA_ANGLE);
+    params.set('fajr', String(FAJR_ANGLE));
+    params.set('isha', String(ISHA_ANGLE));
   }
   return `https://api.aladhan.com/v1/calendar?${params.toString()}`;
 }
@@ -482,9 +479,14 @@ function cacheGet(key){
 function cacheSet(key,data){ try{ localStorage.setItem(key, JSON.stringify({ts:Date.now(), data})); }catch{} }
 
 async function fetchJSON(url){
-  const r=await fetch(url,{cache:'no-store'});
-  if(!r.ok) throw new Error('HTTP '+r.status);
-  return await r.json();
+  try{
+    const r=await fetch(url,{cache:'no-store'});
+    if(!r.ok) throw new Error(`HTTP ${r.status} for ${url}`);
+    return await r.json();
+  }catch(e){
+    console.error('[API ERROR]', e);
+    throw e;
+  }
 }
 
 async function getTodayTimings(lat, lon){
@@ -496,7 +498,7 @@ async function getTodayTimings(lat, lon){
     cacheSet(k,data);
     return data;
   }catch(e){
-    if(c) return c; // fallback للكاش القديم لو TTL انتهى (لن يصل هنا لأننا رجعناه فوق)
+    if(c) return c;
     throw e;
   }
 }
@@ -514,7 +516,7 @@ async function getMonthCalendar(lat, lon, m, y){
   }
 }
 
-/* مناسبات الهجرية (مبسطة) */
+/* مناسبات (مختصرة) */
 const EVENTS={
   "1-1":[{t:"رأس السنة الهجرية"}],
   "1-2":[{t:"دخول الإمام الحسين ع كربلاء"}],
@@ -550,8 +552,8 @@ function fillDayTable(t){
   times.innerHTML = rows.map(([n,kx])=>`<tr class="${kx===k?'next':''}"><td class="name">${n}</td><td class="time">${to12h(t[kx])}</td></tr>`).join("");
 }
 function getWeekRange(date){
-  const d=new Date(date); // في المنطقة الحالية
-  const day=(d.getDay()+6)%7; // اجعل الاثنين=0
+  const d=new Date(date);
+  const day=(d.getDay()+6)%7; // الاثنين=0
   const mon=new Date(d); mon.setDate(d.getDate()-day);
   const days=[...Array(7)].map((_,i)=>{ const x=new Date(mon); x.setDate(mon.getDate()+i); return x; });
   return days;
@@ -561,15 +563,14 @@ async function fillWeekTable(lat,lon){
   const week=getWeekRange(today);
   const rows=[];
   for(const d of week){
-    const url=timingsURL(lat,lon,d);
     let j=null;
-    try{ j=await fetchJSON(url); }catch{}
+    try{ j=await fetchJSON(timingsURL(lat,lon,d)); }catch(e){ j=null; }
     const t=ensureImsak(j?.data?.timings||{});
     const wd=new Intl.DateTimeFormat('ar',{timeZone:TIMEZONE,weekday:'long'}).format(d);
     rows.push(`<tr>
       <td>${wd}</td>
-      <td>${to12h(t.Fajr)}</td><td>${to12h(t.Sunrise)}</td><td>${to12h(t.Dhuhr)}</td>
-      <td>${to12h(t.Asr)}</td><td>${to12h(t.Maghrib)}</td><td>${to12h(t.Isha)}</td>
+      <td>${to12h(t.Fajr)||'—'}</td><td>${to12h(t.Sunrise)||'—'}</td><td>${to12h(t.Dhuhr)||'—'}</td>
+      <td>${to12h(t.Asr)||'—'}</td><td>${to12h(t.Maghrib)||'—'}</td><td>${to12h(t.Isha)||'—'}</td>
     </tr>`);
   }
   weekBody.innerHTML = rows.join('');
@@ -582,14 +583,14 @@ async function fillMonthGrid(lat,lon,monthOffset=0){
   const first=new Date(base.getFullYear(), base.getMonth()+monthOffset, 1);
   const y=first.getFullYear(), m=first.getMonth()+1;
   monthTitle.textContent = `مواقيت ${monthNameAr(first)}`;
-  const cal = await getMonthCalendar(lat,lon,m,y); // قائمة الأيام بالترتيب
+  const cal = await getMonthCalendar(lat,lon,m,y);
   const grid = [];
-  const startW=(new Date(y, m-1, 1).getDay()+6)%7; // اجعل الاثنين=0
-  for(let i=0;i<startW;i++) grid.push('<div></div>'); // فراغات البداية
+  const startW=(new Date(y, m-1, 1).getDay()+6)%7; // الاثنين=0
+  for(let i=0;i<startW;i++) grid.push('<div></div>');
   const todayYMD = ymdInTZ(new Date(new Date().toLocaleString('en-US',{timeZone:TIMEZONE})), TIMEZONE);
   for(let i=0;i<cal.length;i++){
     const d=cal[i];
-    const dd = d.date.readable.split(' ')[0]; // مثل 01
+    const dd = d.date.readable.split(' ')[0]; // DD
     const hj = d.date.hijri;
     const t = ensureImsak(d.timings||{});
     const isToday = (+todayYMD.D===+dd && +todayYMD.M===m && +todayYMD.Y===y);
@@ -597,15 +598,14 @@ async function fillMonthGrid(lat,lon,monthOffset=0){
     grid.push(`<div class="dayBox ${isToday?'is-today':''} ${evts?'is-event':''}">
       <div class="dayHead"><span>${+dd}</span><span class="badge">${hj.day} ${hj.month.ar}</span></div>
       <div class="miniTimes">
-        فجر: ${to12h(t.Fajr)}<br>
-        ظهر: ${to12h(t.Dhuhr)}<br>
-        مغرب: ${to12h(t.Maghrib)}<br>
-        عشاء: ${to12h(t.Isha)}
+        فجر: ${to12h(t.Fajr)||'—'}<br>
+        ظهر: ${to12h(t.Dhuhr)||'—'}<br>
+        مغرب: ${to12h(t.Maghrib)||'—'}<br>
+        عشاء: ${to12h(t.Isha)||'—'}
       </div>
     </div>`);
   }
   gridMonth.innerHTML = grid.join('');
-  // خزن مؤشر الشهر الحالي
   gridMonth.dataset.offset = String(monthOffset);
 }
 
@@ -655,7 +655,7 @@ async function fetchTimezone(lat, lon){
 }
 async function reverseGeocode(lat, lon){
   const url = `https://nominatim.openstreetmap.org/reverse?lat=${encodeURIComponent(lat)}&lon=${encodeURIComponent(lon)}&format=jsonv2&accept-language=ar`;
-  const r = await fetch(url, {cache:'no-store', headers:{'User-Agent':'PrayerTimesApp/1.0'}});
+  const r = await fetch(url, {cache:'no-store'});
   const j = await r.json();
   const addr = j.address || {};
   const city = addr.city || addr.town || addr.village || addr.suburb || j.name || '';
@@ -675,7 +675,7 @@ async function renderCore(lat,lon){
   // اليوم
   let t=null;
   try{ t=await getTodayTimings(lat,lon); }catch{}
-  if(!t){ times.innerHTML=`<tr><td colspan="2" style="color:#b91c1c">تعذّر جلب مواقيت اليوم.</td></tr>`; }
+  if(!t){ times.innerHTML=`<tr><td colspan="2" style="color:#b91c1c">تعذّر جلب مواقيت اليوم. تأكد من الاتصال أو غيّر الإعدادات.</td></tr>`; }
   else{ lastTimings=ensureImsak(t); fillDayTable(lastTimings); updateNextBox(); }
 
   // التاريخين
@@ -714,8 +714,9 @@ async function renderCore(lat,lon){
   // أسبوع
   fillWeekTable(lat,lon).catch(()=>{ weekBody.innerHTML=`<tr><td colspan="7" style="color:#b91c1c">تعذّر جلب مواقيت الأسبوع.</td></tr>`; });
 
-  // شهر (الافتراضي: الشهر الحالي)
-  fillMonthGrid(lat,lon, Number(gridMonth.dataset.offset||"0")).catch(()=>{
+  // شهر
+  const off = Number(gridMonth.dataset.offset||"0");
+  fillMonthGrid(lat,lon, off).catch(()=>{
     gridMonth.innerHTML = `<div style="grid-column:1/-1;color:#b91c1c;padding:8px">تعذّر جلب التقويم الشهري.</div>`;
   });
 }
@@ -729,7 +730,6 @@ async function downloadMonthPDF(){
   const y=first.getFullYear(), m=first.getMonth()+1;
   let cal=null;
   try{ cal=await getMonthCalendar(coords.lat, coords.lon, m, y); }catch{ alert('تعذّر تحميل تقويم الشهر.'); return; }
-  // جدولة PDF: يوم، هجري، الفجر، الشروق، الظهر، العصر، المغرب، العشاء
   const rows = cal.map(d=>{
     const t=ensureImsak(d.timings||{});
     const gr = d.date.readable; // DD MMM YYYY
@@ -740,12 +740,10 @@ async function downloadMonthPDF(){
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF({orientation:'portrait', unit:'pt', format:'a4'});
 
-  // عنوان
   doc.setFont('helvetica','bold'); doc.setFontSize(16);
   const title = `مواقيت الصلاة — ${place.textContent} — ${monthNameAr(first)}`;
   doc.text(title, 40, 40, {align:'left'});
 
-  // جدول
   doc.setFont('helvetica','normal'); doc.setFontSize(10);
   doc.autoTable({
     startY: 60,
@@ -755,10 +753,8 @@ async function downloadMonthPDF(){
     body: rows
   });
 
-  // تذييل
   doc.setFontSize(9);
   doc.text('المصدر: Aladhan API — طُبِع بواسطة تطبيق المواقيت', 40, doc.internal.pageSize.getHeight()-20);
-
   doc.save(`مواقيت-${place.textContent.replace(/\s+/g,'_')}-${y}-${String(m).padStart(2,'0')}.pdf`);
 }
 
@@ -767,10 +763,10 @@ tab-day.addEventListener('click', ()=>selectTab('tab-day'));
 tab-week.addEventListener('click', ()=>selectTab('tab-week'));
 tab-month.addEventListener('click', ()=>selectTab('tab-month'));
 prevMonth.addEventListener('click', async ()=>{
-  const off = Number(gridMonth.dataset.offset||"0")-1; gridMonth.dataset.offset=off; await fillMonthGrid(coords.lat, coords.lon, off);
+  const off = Number(gridMonth.dataset.offset||"0")-1; gridMonth.dataset.offset=off; if(coords) await fillMonthGrid(coords.lat, coords.lon, off);
 });
 nextMonth.addEventListener('click', async ()=>{
-  const off = Number(gridMonth.dataset.offset||"0")+1; gridMonth.dataset.offset=off; await fillMonthGrid(coords.lat, coords.lon, off);
+  const off = Number(gridMonth.dataset.offset||"0")+1; gridMonth.dataset.offset=off; if(coords) await fillMonthGrid(coords.lat, coords.lon, off);
 });
 downloadPDF.addEventListener('click', downloadMonthPDF);
 
@@ -785,14 +781,14 @@ function attachSearch(){
     searchDebounce=setTimeout(async ()=>{
       try{
         const url = `https://nominatim.openstreetmap.org/search?format=jsonv2&limit=8&accept-language=ar&q=${encodeURIComponent(q)}`;
-        const r = await fetch(url, {cache:'no-store', headers:{'User-Agent':'PrayerTimesApp/1.0'}});
+        const r = await fetch(url, {cache:'no-store'});
         const list = await r.json();
         box.innerHTML = (list||[]).map(it=>`<div class="resItem" role="option" data-lat="${it.lat}" data-lon="${it.lon}" data-name="${(it.display_name||'').replace(/"/g,'&quot;')}">${it.display_name}</div>`).join('') || '<div class="resItem">لا نتائج</div>';
         box.style.display='block';
       }catch{
         box.innerHTML='<div class="resItem">تعذّر البحث</div>'; box.style.display='block';
       }
-    }, 300);
+    }, 500); // مهلة أطول قليلاً لحماية المزود
   });
   box.addEventListener('click', async (e)=>{
     const item=e.target.closest('.resItem'); if(!item) return;
@@ -921,7 +917,7 @@ resetAll.addEventListener("click", ()=>{
   showPlaceText(); loadAll(); alert('تمت إعادة الضبط.');
 });
 
-/* تحميل طرق الحساب + البحث */
+/* بحث + طرق الحساب */
 attachSearch();
 loadMethods();
 
@@ -951,7 +947,11 @@ async function tryAutoLocate(alertErrors=false){
 
 /* تحميل شامل (يوم/أسبوع/شهر) */
 async function loadAll(){
-  if(!coords){ times.innerHTML=`<tr><td colspan="2">الموقع غير محدد.</td></tr>`; gridMonth.innerHTML=''; weekBody.innerHTML=''; return; }
+  if(!coords){
+    times.innerHTML=`<tr><td colspan="2">الموقع غير محدد.</td></tr>`;
+    gridMonth.innerHTML=''; weekBody.innerHTML='';
+    return;
+  }
   setHadith(); showPlaceText(); updateClock();
   await renderCore(coords.lat, coords.lon);
 }
