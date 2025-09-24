@@ -10,7 +10,7 @@
 <link rel="canonical" href="https://YOUR-DOMAIN.example/" />
 <meta name="theme-color" content="#0b0d12" />
 
-<!-- Structured Data (SEO) -->
+<!-- Structured Data -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -18,11 +18,7 @@
   "name": "الابراج والاستبصار – قراءة الطالع العميقة",
   "description": "قراءات فلكية تنبؤية موجزة",
   "inLanguage": "ar",
-  "isPartOf": {
-    "@type": "WebSite",
-    "name": "الابراج والاستبصار",
-    "url": "https://YOUR-DOMAIN.example/"
-  }
+  "isPartOf": { "@type": "WebSite", "name": "الابراج والاستبصار", "url": "https://YOUR-DOMAIN.example/" }
 }
 </script>
 
@@ -38,7 +34,7 @@
 <meta name="twitter:description" content="قراءات فلكية تنبؤية موجزة" />
 <meta name="twitter:image" content="https://YOUR-DOMAIN.example/og-image.jpg" />
 
-<!-- أداء أسرع وخط عربي واضح -->
+<!-- خطوط وأداء -->
 <link rel="dns-prefetch" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -55,12 +51,11 @@
     margin:0; background:var(--bg); color:var(--fg);
     font-family:"Cairo",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
     -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
-    letter-spacing:0; word-spacing:.2px; line-height:1.8; overflow-x:hidden;
+    letter-spacing:0; word-spacing:.2px; line-height:1.85; overflow-x:hidden;
   }
-  /* نجوم خفيفة */
-  body::before, body::after{
-    content:""; position:fixed; inset:0; pointer-events:none; z-index:-2;
-  }
+
+  /* خلفية نجوم خفيفة */
+  body::before, body::after{ content:""; position:fixed; inset:0; pointer-events:none; z-index:-2; }
   body::before{
     background:
       radial-gradient(1200px 600px at 50% -10%, #1b2140 0%, rgba(27,33,64,0) 60%),
@@ -68,30 +63,21 @@
       linear-gradient(180deg, #0b0d12 0%, #0e1320 55%, #0b0d12 100%);
   }
   body::after{
-    background:
-      url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 240 240" aria-hidden="true"><g fill="%23ffffff" opacity="0.42"><circle cx="20" cy="30" r="1.2"/><circle cx="80" cy="60" r="0.8"/><circle cx="140" cy="20" r="1"/><circle cx="200" cy="90" r="1.1"/><circle cx="110" cy="140" r="0.9"/><circle cx="40" cy="190" r="1.2"/><circle cx="210" cy="200" r="0.9"/></g></svg>') repeat;
-    background-size:240px 240px; animation: twinkle 6s ease-in-out infinite; opacity:.32;
+    background:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 240 240"><g fill="%23ffffff" opacity="0.38"><circle cx="20" cy="30" r="1.2"/><circle cx="80" cy="60" r="0.8"/><circle cx="140" cy="20" r="1"/><circle cx="200" cy="90" r="1.1"/><circle cx="110" cy="140" r="0.9"/><circle cx="40" cy="190" r="1.2"/><circle cx="210" cy="200" r="0.9"/></g></svg>') repeat;
+    background-size:240px 240px; animation: twinkle 6s ease-in-out infinite; opacity:.28;
   }
-  @keyframes twinkle { 0%,100%{opacity:.24} 50%{opacity:.42} }
+  @keyframes twinkle { 0%,100%{opacity:.20} 50%{opacity:.36} }
 
   /* الهيدر */
-  header{
-    text-align:center; padding:18px 16px 10px;
-    background:rgba(11,13,18,.75); backdrop-filter:saturate(140%) blur(6px);
-    border-bottom:1px solid var(--stroke);
-  }
+  header{ text-align:center; padding:18px 16px 10px; background:rgba(11,13,18,.75); backdrop-filter:saturate(140%) blur(6px); border-bottom:1px solid var(--stroke); }
   .title{ margin:0; font-weight:700; line-height:1.2; font-size: clamp(28px,5vw,46px); color:var(--brand);}
   .subtitle{ color:var(--muted); font-size:14px; margin-top:6px }
 
-  /* صورة العرّاف */
   .seer-wrap{display:flex; justify-content:center; margin:10px 0 8px}
   .seer{ width:min(520px, 88vw); height:auto; filter: drop-shadow(0 14px 30px rgba(0,0,0,.4)); }
 
   .container{max-width:1000px;margin:0 auto;padding:18px 16px}
-  .card{
-    background:rgba(20,24,35,.9); border:1px solid var(--stroke); border-radius:18px; padding:22px; margin:16px 0;
-    box-shadow:0 18px 40px rgba(0,0,0,.35)
-  }
+  .card{ background:rgba(20,24,35,.92); border:1px solid var(--stroke); border-radius:18px; padding:22px; margin:16px 0; box-shadow:0 18px 40px rgba(0,0,0,.35) }
   h2{color:var(--brand); margin:10px 0 8px; text-align:center}
   label{display:block; margin:10px 0 6px; color:#eaeaea; font-size:15px}
 
@@ -103,10 +89,7 @@
   .grid{display:grid; grid-template-columns:1fr 1fr; gap:12px}
   @media (max-width:640px){ .grid{grid-template-columns:1fr} }
 
-  .btn{
-    border:0; background:linear-gradient(135deg, var(--brand), #ffb300);
-    color:#221; font-weight:700; cursor:pointer; transition:transform .08s ease, filter .2s ease;
-  }
+  .btn{ border:0; background:linear-gradient(135deg, var(--brand), #ffb300); color:#221; font-weight:700; cursor:pointer; transition:transform .08s ease, filter .2s ease; }
   .btn:active{transform:scale(.99)}
   .ghost{background:transparent; border:1px solid var(--brand); color:var(--brand)}
   .center{display:grid; place-items:center; text-align:center}
@@ -118,29 +101,21 @@
   .topic:hover{background:#12172a}
   .topic span{display:block; color:var(--muted); font-size:14px; margin-top:4px}
 
-  .result{line-height:2; font-size:17px}
-  .result p{margin:10px 0}
+  .result{ font-size:18px; text-align:justify; text-justify:inter-word; }
+  .result p{ margin:10px 0; text-align:justify; }
+
   .tag{display:inline-flex; align-items:center; gap:8px; padding:6px 12px; border-radius:999px; border:1px solid var(--stroke); color:#fff; font-size:14px; background:#0f1320}
   .z-emoji{font-size:20px}
   .stars{position:relative; overflow:hidden; border-radius:16px}
   .quota{margin-top:8px; font-size:13px; color:#cfd8dc; text-align:center}
   .muted{color:var(--muted)}
 
-  .notice{
-    margin:10px auto 0; padding:12px 14px; border-radius:12px;
-    border:1px solid #3a2a2a; background:#1a1010; color:#ffd0d0; font-size:14px; max-width:820px;
-  }
+  .notice{ margin:10px auto 0; padding:12px 14px; border-radius:12px; border:1px solid #3a2a2a; background:#1a1010; color:#ffd0d0; font-size:14px; max-width:820px; }
   .notice.ok{background:#0f1a14; border-color:#234832; color:#c9ffd9}
 
-  footer{
-    padding:24px 16px; text-align:center; color:var(--muted);
-    border-top:1px solid var(--stroke); display:flex; flex-direction:column; gap:10px; align-items:center
-  }
+  footer{ padding:24px 16px; text-align:center; color:var(--muted); border-top:1px solid var(--stroke); display:flex; flex-direction:column; gap:10px; align-items:center }
   .socials{display:flex; gap:12px; flex-wrap:wrap; justify-content:center}
-  .socials button{
-    width:36px; height:36px; display:inline-grid; place-items:center; border-radius:10px;
-    border:1px solid var(--stroke); background:#0f1320; transition:transform .1s ease, border-color .2s ease; cursor:pointer
-  }
+  .socials button{ width:36px; height:36px; display:inline-grid; place-items:center; border-radius:10px; border:1px solid var(--stroke); background:#0f1320; transition:transform .1s ease, border-color .2s ease; cursor:pointer }
   .socials button:hover{transform:translateY(-1px); border-color:var(--accent)}
   .socials svg{width:18px;height:18px; fill:#cfd8dc}
 
@@ -149,14 +124,25 @@
   .ring:after{content:""; position:absolute; inset:16px; border-radius:50%; border:4px dashed rgba(255,255,255,.12)}
   @keyframes spin{to{transform:rotate(360deg)}}
 
-  /* طباعة PDF بنفس القالب */
+  /* ===== قالب PDF رسمي (يُستخدم فقط عند الطباعة) ===== */
+  #printDoc{ display:none; }
+  #printDoc .paper{
+    background:#0b0d12; color:#f7f7f7; border:1px solid #2a3550; border-radius:16px; padding:18px;
+  }
+  #printDoc h1{ color:#ffd54a; margin:0 0 6px; text-align:center; font-size:26px; }
+  #printDoc h2{ color:#ffd54a; font-size:20px; text-align:center; margin:6px 0 10px; }
+  #printDoc .meta{ display:grid; grid-template-columns:repeat(2,1fr); gap:8px; margin:10px 0 12px; }
+  #printDoc .meta div{ background:#0f1320; border:1px solid #2a3550; border-radius:10px; padding:10px; font-size:14px; }
+  #printDoc .reading{ font-size:18px; line-height:1.9; text-align:justify; text-justify:inter-word; }
+  #printDoc .brandline{ text-align:center; color:#bdbdbd; font-size:12px; margin-top:12px }
+
+  /* الطباعة — إظهار القالب الرسمي فقط */
   @media print {
     @page{ size:A4; margin:14mm; }
     html, body { background: #0b0d12; }
-    body::before, body::after{ position: absolute; }
     * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
-    #step1, #stepTopics, #stepLoading, footer, .socials, .quota, .controls, .topic-grid, #againBtn, #topicsBtn, #restartBtn, #printHint { display: none !important; }
-    .card { box-shadow: none !important; border-color: #2a3550 !important; }
+    header, main > *, footer, .overlay { display: none !important; }
+    #printDoc{ display:block !important; }
   }
 </style>
 </head>
@@ -189,16 +175,13 @@
 
   <div id="globalNotice" class="notice hidden" role="alert"></div>
 
-  <!-- بيانات -->
+  <!-- الخطوة 1 -->
   <section id="step1" class="card stars center" aria-labelledby="startTitle">
     <h2 id="startTitle">أدخل بياناتك لبدء القراءة</h2>
-
     <div class="grid" style="max-width:760px; margin:10px auto 0;">
       <div>
         <label for="gender">الجنس</label>
-        <select id="gender" required>
-          <option value="">اختر</option><option>ذكر</option><option>أنثى</option>
-        </select>
+        <select id="gender" required><option value="">اختر</option><option>ذكر</option><option>أنثى</option></select>
         <div class="notice hidden" id="e_gender">الرجاء اختيار الجنس.</div>
       </div>
       <div>
@@ -224,21 +207,20 @@
         <div class="notice hidden" id="e_birthdate">الرجاء إدخال تاريخ الميلاد.</div>
       </div>
     </div>
-
     <div style="margin-top:16px;">
       <button class="btn" id="startBtn" style="min-width:220px">ابدأ القراءة</button>
     </div>
     <div class="quota" id="quotaInfo"></div>
   </section>
 
-  <!-- انتظار -->
+  <!-- شاشة انتظار -->
   <section id="stepLoading" class="card hidden center stars" aria-live="polite">
     <div class="ring-wrap"><div class="ring" aria-hidden="true"></div></div>
     <h2>جاري الاستبصار…</h2>
     <p class="muted">ثوانٍ قليلة وتظهر الإشارات.</p>
   </section>
 
-  <!-- مواضيع -->
+  <!-- اختيار الموضوع -->
   <section id="stepTopics" class="card hidden stars center">
     <h2>اختر موضوع قراءتك</h2>
     <div id="zodiacBadge" style="margin:8px 0 14px"></div>
@@ -251,24 +233,23 @@
     <div class="quota" id="quotaInfoTopics"></div>
   </section>
 
-  <!-- نتيجة -->
+  <!-- النتيجة -->
   <section id="stepResult" class="card hidden stars">
     <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap">
       <h2 style="margin:0">الإشارات الظاهرة</h2>
       <div class="tag" id="userEcho"><span class="z-emoji" id="zEmoji">☆</span><span id="zName">—</span></div>
     </div>
-
     <article id="resultText" class="result" style="margin-top:10px"></article>
     <p id="omen" class="muted" style="margin-top:12px; font-size:15px"></p>
 
     <div style="display:flex; gap:10px; margin-top:16px; flex-wrap:wrap; justify-content:center">
-      <button class="btn" id="againBtn">إشارة جديدة (نفس الموضوع)</button>
+      <!-- تمت إزالة زر "إشارة جديدة" حسب طلبك -->
       <button class="ghost" id="topicsBtn">اختيار موضوع آخر</button>
       <button class="ghost" id="restartBtn">إعادة البدء</button>
       <button class="btn" id="printBtn" title="تحميل PDF">تحميل PDF</button>
     </div>
     <div class="quota" id="quotaInfoResult" style="margin-top:10px"></div>
-    <p id="printHint" class="muted" style="text-align:center;margin-top:6px;">ملاحظة: عند الضغط على “تحميل PDF” اختر “Save as PDF”.</p>
+    <p id="printHint" class="muted" style="text-align:center;margin-top:6px;">عند الضغط على “تحميل PDF” سيُنشأ ملف منسق رسمي للهيدر والقراءة فقط.</p>
   </section>
 
   <noscript>
@@ -299,13 +280,26 @@
   <div>© <span id="year"></span> الابراج والاستبصار</div>
 </footer>
 
-<!-- حد 30 قراءة / مودال -->
-<div class="overlay" id="overlayLimit">
-  <div class="modal">
+<!-- مودال حد اليومي (لن يظهر في PDF) -->
+<div class="overlay" id="overlayLimit" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,.7); justify-content:center; align-items:center; z-index:20">
+  <div class="modal" style="background:var(--card); border:1px solid var(--stroke); border-radius:14px; padding:18px; max-width:520px; margin:16px; text-align:center">
     <h3 style="color:var(--brand); margin-top:0">وصلت إلى الحد اليومي</h3>
-    <p>المتاح: <strong>30 قراءة</strong> كل 24 ساعة. الرجاء الانتظار حتى انتهاء العداد لإتاحة قراءات جديدة.</p>
+    <p>المتاح: <strong>10 قراءات</strong> كل 24 ساعة. الرجاء الانتظار حتى انتهاء العداد لإتاحة قراءات جديدة.</p>
     <p class="quota"><span id="countdown">00:00:00</span> حتى التجديد</p>
-    <div class="actions"><button class="ghost" id="closeLimit">حسنًا</button></div>
+    <div class="actions" style="display:flex; gap:10px; justify-content:center; margin-top:10px">
+      <button class="ghost" id="closeLimit">حسنًا</button>
+    </div>
+  </div>
+</div>
+
+<!-- قالب PDF الرسمي (Print-Only) -->
+<div id="printDoc" aria-hidden="true">
+  <div class="paper">
+    <h1>الابراج والاستبصار</h1>
+    <h2>قراءة الطالع العميقة</h2>
+    <div class="meta" id="printMeta"></div>
+    <div class="reading" id="printReading"></div>
+    <div class="brandline">— مستخرج آلي من صفحة الاستبصار —</div>
   </div>
 </div>
 
@@ -326,7 +320,7 @@
 
   const $ = s=>document.querySelector(s);
 
-  /* نطاقات الأبراج الشائعة (مصادر عامة) */
+  /* نطاقات الأبراج */
   const ZODIAC = [
     {name:"الحمل",   emoji:"♈︎", from:[3,21],  to:[4,19]},
     {name:"الثور",   emoji:"♉︎", from:[4,20],  to:[5,20]},
@@ -353,7 +347,7 @@
     } return {name:"غير معروف", emoji:"☆"};
   }
 
-  /* مستودع قراءات عميقة — أسلوب يقيني ومنسق (مستوحى من أساليب منتشرة لا نسخًا حرفيًا) */
+  /* بنك نصوص عميقة (محاذاة كاملة) */
   const BANK = {
     signLines:{
       "الحمل":"اندفاعة مُحكمة تعيد ترتيب المشهد بسرعة لصالحك.",
@@ -367,7 +361,8 @@
       "القوس":"نَفَس مغامرة يفتح بابًا بتوقيع سريع.",
       "الجدي":"انضباط عملي يحوّل الفكرة إلى ربح ملموس.",
       "الدلو":"ابتكار واضح يجد آذانًا مصغية ومساندة.",
-      "الحوت":"رهافة شعور تلتقط الإشارة قبل أن تُقال."
+      "الحوت":"رهافة شعور تلتقط الإشارة قبل أن تُقال.",
+      "غير معروف":"إشارة عامة نحو انفراج قريب."
     },
     love:[
       [
@@ -447,7 +442,7 @@
   const overlayLimit=$("#overlayLimit"), countdownEl=$("#countdown"), closeLimit=$("#closeLimit");
   const quotaInfo=$("#quotaInfo"), quotaInfoTopics=$("#quotaInfoTopics"), quotaInfoResult=$("#quotaInfoResult");
 
-  /* حفظ النموذج */
+  /* حفظ/تحميل النموذج */
   function saveForm(){ localStorage.setItem("istibsar_form", JSON.stringify({
     gender: $("#gender").value||"", status: $("#status").value||"", work: $("#work").value||"", birthdate: $("#birthdate").value||""
   })); }
@@ -470,8 +465,8 @@
     if(id==="birthdate"){ el.addEventListener("keyup", updateZodiacUI); el.addEventListener("click", ()=>setTimeout(updateZodiacUI,0)); }
   });
 
-  /* حد 30 قراءة/24 ساعة */
-  const MAX_READS=30;
+  /* حد 10 قراءات/24 ساعة */
+  const MAX_READS=10;
   function getQuota(){ const raw=localStorage.getItem("istibsar_quota"), now=Date.now(); if(!raw) return {count:0, resetAt:null};
     try{ const q=JSON.parse(raw); if(q.resetAt && now>q.resetAt) return {count:0, resetAt:null}; return q; }catch(e){ return {count:0, resetAt:null}; } }
   function setQuota(q){ localStorage.setItem("istibsar_quota", JSON.stringify(q)); }
@@ -479,11 +474,13 @@
   function remainingQuota(){ const q=getQuota(); return Math.max(0, MAX_READS-(q.count||0)); }
   function fmtRemaining(ms){ if(ms<=0) return "00:00:00"; const s=Math.floor(ms/1000), h=String(Math.floor(s/3600)).padStart(2,"0"), m=String(Math.floor((s%3600)/60)).padStart(2,"0"), sc=String(s%60).padStart(2,"0"); return `${h}:${m}:${sc}`; }
   function updateQuotaUI(){ const rem=remainingQuota(); const q=getQuota(); const base=`المتبقي اليوم: ${rem} / ${MAX_READS}`+(q.resetAt?` — تجديد خلال ${fmtRemaining(q.resetAt - Date.now())}`:""); [quotaInfo,quotaInfoTopics,quotaInfoResult].forEach(el=>{ if(el) el.textContent=base; }); }
-  function showLimitOverlay(){ const q=getQuota(); if(!q.resetAt) return; overlayLimit.style.display="flex"; (function tick(){ const left=q.resetAt-Date.now(); $("#countdown").textContent=fmtRemaining(left); if(left<=0){ overlayLimit.style.display="none"; setQuota({count:0, resetAt:null}); updateQuotaUI(); } else { requestAnimationFrame(tick); } })(); }
-  $("#closeLimit").addEventListener("click", ()=> overlayLimit.style.display="none");
+  function showLimitOverlay(){ const q=getQuota(); if(!q.resetAt) return; overlayLimit.style.display="flex"; (function tick(){ const left=q.resetAt-Date.now(); countdownEl.textContent=fmtRemaining(left); if(left<=0){ overlayLimit.style.display="none"; setQuota({count:0, resetAt:null}); updateQuotaUI(); } else { requestAnimationFrame(tick); } })(); }
+  closeLimit.addEventListener("click", ()=> overlayLimit.style.display="none");
 
+  /* إشعارات */
   function showGlobal(msg, ok=false){ globalNotice.textContent=msg; globalNotice.classList.toggle("ok", ok); globalNotice.classList.remove("hidden"); setTimeout(()=>{ globalNotice.classList.add("hidden"); globalNotice.classList.remove("ok"); }, 3200); }
 
+  /* تحقق الإدخال */
   function validateForm(){
     let ok=true; const g=$("#gender").value.trim(), s=$("#status").value.trim(), w=$("#work").value.trim(), b=$("#birthdate").value.trim();
     ["e_gender","e_status","e_work","e_birthdate"].forEach(id=>$("#"+id).classList.add("hidden"));
@@ -495,18 +492,18 @@
     return ok;
   }
 
+  /* تدفق الواجهات */
   function show(el){ el.classList.remove("hidden") } 
   function hide(el){ el.classList.add("hidden") }
 
   function startFlow(){
     if(!validateForm()) return;
     hide(step1); show(stepLoading);
-    setTimeout(()=>{ hide(stepLoading); show(stepTopics); updateZodiacUI(); updateQuotaUI(); }, 1200); /* انتظار قصير للحيوية */
+    setTimeout(()=>{ hide(stepLoading); show(stepTopics); updateZodiacUI(); updateQuotaUI(); }, 1200);
   }
 
   function pickDeep(topic){
     const groups = BANK[topic] || BANK.general;
-    // اختر مجموعة عميقة كاملة (3 فقرات) ثم قد نضيف فقرة إضافية لثراء النص
     const g = groups[Math.floor(Math.random()*groups.length)];
     const extra = groups[(Math.floor(Math.random()*groups.length))];
     return g.concat(extra ? [extra[0]] : []);
@@ -514,7 +511,7 @@
 
   function composeReading(topic){
     const letter = "أبتثجحخدذرزسشصضطظعغفقكلمنهوي".charAt(Math.floor(Math.random()*28));
-    const signLine = BANK.signLines[currentSign.name] || "إشارة عامة نحو انفراج قريب.";
+    const signLine = (BANK.signLines[currentSign.name]||BANK.signLines["غير معروف"]);
     const intro = `<p style="text-align:center"><strong>${signLine}</strong></p>`;
     const blocks = pickDeep(topic).map(p=> p.replaceAll("<L>", letter));
     const deepExtra = [
@@ -544,18 +541,37 @@
 
   $("#startBtn").addEventListener("click", startFlow);
   document.querySelectorAll(".topic").forEach(btn=> btn.addEventListener("click", ()=> runTopic(btn.dataset.topic)));
-  $("#againBtn").addEventListener("click", ()=>{
-    if(remainingQuota()<=0){ showLimitOverlay(); return; }
-    incQuota(); updateQuotaUI();
-    $("#resultText").innerHTML = composeReading("general");
-  });
   $("#topicsBtn").addEventListener("click", ()=>{ hide(stepResult); show(stepTopics); updateQuotaUI(); });
   $("#restartBtn").addEventListener("click", ()=>{ hide(stepResult); hide(stepTopics); show(step1); window.scrollTo({top:0, behavior:"smooth"}); updateQuotaUI(); });
+
+  /* توليد PDF رسمي: بناء محتوى مخصص للطباعة فقط */
+  function buildPrintDoc(){
+    const meta = $("#printMeta");
+    const reading = $("#printReading");
+    const g=$("#gender").value||"—", s=$("#status").value||"—", w=$("#work").value||"—", b=$("#birthdate").value||"—";
+    const now = new Date();
+    const when = now.toLocaleString('ar', {hour12:false});
+    meta.innerHTML = `
+      <div>البرج: ${currentSign.emoji} ${currentSign.name}</div>
+      <div>الجنس: ${g}</div>
+      <div>الحالة الاجتماعية: ${s}</div>
+      <div>الوضع المهني: ${w}</div>
+      <div>تاريخ الميلاد: ${b}</div>
+      <div>تاريخ الإصدار: ${when}</div>
+    `;
+    reading.innerHTML = $("#resultText").innerHTML; // نفس القراءة، ولكن داخل قالب الطباعة
+  }
+
   $("#printBtn").addEventListener("click", ()=>{
-    if($("#stepResult").classList.contains("hidden")){ showGlobal("أكمل القراءة أولًا ثم حمّل PDF."); return; }
-    window.print();
+    if($("#stepResult").classList.contains("hidden")){
+      showGlobal("أكمل القراءة أولًا ثم حمّل PDF.");
+      return;
+    }
+    buildPrintDoc(); // بناء القالب الرسمي
+    window.print();  // الطباعة إلى PDF
   });
 
+  /* تهيئة */
   (function init(){ loadForm(); updateZodiacUI(); updateQuotaUI(); })();
 </script>
 </body>
