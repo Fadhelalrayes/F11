@@ -1,14 +1,13 @@
 <!doctype html>
+
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>الطقس — بسيط وعملي</title>
+<title>الطقس — بسيط وعملي (إصدار مُصلَح)</title>
 <meta name="description" content="طقس الآن، الساعات القادمة، و5 أيام.">
-<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;800&display=swap" rel="stylesheet">
-
-<style>
-  :root{ --bg:#fafafa; --card:#fff; --ink:#111; --muted:#6b7280; --border:#ece6cc; --shadow:0 8px 24px rgba(0,0,0,.06); --accent:linear-gradient(90deg,#d4af37,#ffdf7f);}
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;800&display=swap" rel="stylesheet"><style>
+  :root{ --bg:#fafafa; --card:#fff; --ink:#111; --muted:#6b7280; --border:#ece6cc; --shadow:0 8px 24px rgba(0,0,0,.06); --accent:linear-gradient(90deg,#d4af37,#ffdf7f);}  
   *{box-sizing:border-box}
   body{margin:0; background:var(--bg); color:var(--ink); font-family:"Tajawal",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;}
   .wrap{max-width:900px; margin:auto; padding:16px; display:grid; gap:14px}
@@ -34,8 +33,8 @@
   .item{border:1px solid var(--border); border-radius:12px; padding:8px; text-align:center}
   .item img{width:36px; height:36px}
   .muted{color:var(--muted); font-size:.9rem}
-</style>
-</head>
+  .err{color:#b91c1c; font-weight:700}
+</style></head>
 <body>
   <div class="wrap">
     <div class="card">
@@ -43,128 +42,183 @@
         <h1>الطقس — بسيط وعملي</h1>
         <div class="sub" id="dateLbl">—</div>
       </div>
+    </div><div class="card">
+  <div class="row">
+    <div>
+      <div class="loc" id="place">—</div>
+      <div class="sub" id="tzLbl">—</div>
     </div>
+    <div class="sub" id="upd">آخر تحديث —</div>
+  </div>
 
-    <div class="card">
-      <div class="row">
-        <div>
-          <div class="loc" id="place">—</div>
-          <div class="sub" id="tzLbl">—</div>
-        </div>
-        <div class="sub" id="upd">آخر تحديث —</div>
-      </div>
-
-      <div class="grid" style="margin-top:8px">
-        <div class="now">
-          <img id="iconNow" alt="" />
-          <div>
-            <div class="t" id="tNow">—°</div>
-            <div id="condNow" class="muted">—</div>
-          </div>
-        </div>
-        <div class="mini">
-          <div class="chip"><div class="l">أعلى/أدنى</div><div class="v"><span id="hi">—</span>° / <span id="lo">—</span>°</div></div>
-          <div class="chip"><div class="l">الرطوبة</div><div class="v"><span id="hum">—</span>%</div></div>
-          <div class="chip"><div class="l">الرياح</div><div class="v"><span id="wind">—</span> كم/س</div></div>
-          <div class="chip"><div class="l">الإحساس</div><div class="v"><span id="feels">—</span>°</div></div>
-        </div>
+  <div class="grid" style="margin-top:8px">
+    <div class="now">
+      <img id="iconNow" alt="" />
+      <div>
+        <div class="t" id="tNow">—°</div>
+        <div id="condNow" class="muted">—</div>
       </div>
     </div>
-
-    <div class="card">
-      <h3 class="secTitle">الساعات القادمة</h3>
-      <div id="hours" class="hours"></div>
-    </div>
-
-    <div class="card">
-      <h3 class="secTitle">توقع 5 أيام</h3>
-      <div id="days" class="days"></div>
+    <div class="mini">
+      <div class="chip"><div class="l">أعلى/أدنى</div><div class="v"><span id="hi">—</span>° / <span id="lo">—</span>°</div></div>
+      <div class="chip"><div class="l">الرطوبة</div><div class="v"><span id="hum">—</span>%</div></div>
+      <div class="chip"><div class="l">الرياح</div><div class="v"><span id="wind">—</span> كم/س</div></div>
+      <div class="chip"><div class="l">الإحساس</div><div class="v"><span id="feels">—</span>°</div></div>
     </div>
   </div>
 
-<script>
+  <div class="sub err" id="msg" style="display:none"></div>
+</div>
+
+<div class="card">
+  <h3 class="secTitle">الساعات القادمة</h3>
+  <div id="hours" class="hours"></div>
+</div>
+
+<div class="card">
+  <h3 class="secTitle">توقع 5 أيام</h3>
+  <div id="days" class="days"></div>
+</div>
+
+  </div><script>
 /* ===== مفتاح OpenWeather ===== */
-const OWM_KEY = "71679af819486daabc9848ad1dec6c05";
+const OWM_KEY = "71679af819486daabc9848ad1dec6c05"; // تأكد من صحته وخطة الاشتراك
 
 /* ===== عناصر ===== */
 const qs = id=>document.getElementById(id);
 const placeEl=qs('place'), tzEl=qs('tzLbl'), updEl=qs('upd'), iconNow=qs('iconNow');
 const tNow=qs('tNow'), condNow=qs('condNow'), hiEl=qs('hi'), loEl=qs('lo');
 const humEl=qs('hum'), windEl=qs('wind'), feelsEl=qs('feels');
-const hoursEl=qs('hours'), daysEl=qs('days'), dateLbl=qs('dateLbl');
+const hoursEl=qs('hours'), daysEl=qs('days'), dateLbl=qs('dateLbl'), msgEl=qs('msg');
 
 const kmh = ms => Math.round(ms*3.6);
-const fmtDate = (d,tz) => new Intl.DateTimeFormat('ar',{timeZone:tz, weekday:'long', year:'numeric', month:'long', day:'numeric'}).format(d);
-const fmtTime = (ts,tz) => new Intl.DateTimeFormat('ar',{timeZone:tz, hour:'2-digit'}).format(new Date(ts*1000));
+const pad = n => (n<10?"0":"")+n;
+const fmtDate = (d) => d.toLocaleDateString('ar', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
+const fmtHour = (d) => d.toLocaleTimeString('ar', { hour:'2-digit', minute:'2-digit' });
+const fromTZ = (ts, shift) => new Date((ts + shift) * 1000); // OpenWeather shifts in seconds
 
-/* ===== API ===== */
-async function getOneCall(lat,lon){
-  const u=`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${OWM_KEY}&units=metric&lang=ar`;
-  const r=await fetch(u); return r.json();
+/* ===== API (بدائل موثوقة لخطة مجانية) ===== */
+async function getCurrent(lat,lon){
+  const u=`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${OWM_KEY}&units=metric&lang=ar`;
+  const r=await fetch(u); if(!r.ok) throw new Error('weather:'+r.status); return r.json();
+}
+async function getForecast(lat,lon){
+  const u=`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${OWM_KEY}&units=metric&lang=ar`;
+  const r=await fetch(u); if(!r.ok) throw new Error('forecast:'+r.status); return r.json();
 }
 async function reverseName(lat,lon){
   const u=`https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=1&appid=${OWM_KEY}`;
-  const r=await fetch(u); const j=await r.json(); return j?.[0];
+  const r=await fetch(u); if(!r.ok) throw new Error('geo:'+r.status); const j=await r.json(); return j?.[0];
+}
+
+/* ===== بناء أيام من توقع 3 ساعات ===== */
+function buildDays(list, tzShift){
+  const byDay = {};
+  list.forEach(ent=>{
+    const d = fromTZ(ent.dt, tzShift);
+    const dayKey = d.getUTCFullYear()+"-"+pad(d.getUTCMonth()+1)+"-"+pad(d.getUTCDate());
+    if(!byDay[dayKey]) byDay[dayKey] = [];
+    byDay[dayKey].push(ent);
+  });
+  const days = Object.keys(byDay).sort().map(k=>{
+    const arr = byDay[k];
+    let tmax = -1e9, tmin = 1e9, icon = arr[0].weather[0].icon, desc = arr[0].weather[0].description;
+    // خذ منتصف اليوم إن وجد للأيقونة والوصف
+    const mid = arr.find(e=>{ const h = fromTZ(e.dt, tzShift).getUTCHours(); return h>=11 && h<=15; }) || arr[0];
+    arr.forEach(e=>{ tmax = Math.max(tmax, e.main.temp_max); tmin = Math.min(tmin, e.main.temp_min); });
+    icon = mid.weather[0].icon; desc = mid.weather[0].description;
+    return { key:k, tmax:Math.round(tmax), tmin:Math.round(tmin), icon, desc, dt:arr[0].dt };
+  });
+  return days;
 }
 
 /* ===== عرض البيانات ===== */
-function fillNow(data, place){
-  const cur=data.current, d0=data.daily[0];
-  const w=cur.weather[0];
-  placeEl.textContent = place || "موقعك";
-  tzEl.textContent = "المنطقة الزمنية: "+data.timezone;
-  dateLbl.textContent = fmtDate(new Date(), data.timezone);
-  updEl.textContent="آخر تحديث "+new Intl.DateTimeFormat('ar',{timeStyle:'short'}).format(new Date());
-  tNow.textContent=Math.round(cur.temp)+"°";
-  condNow.textContent=w.description;
-  iconNow.src=`https://openweathermap.org/img/wn/${w.icon}@2x.png`;
-  hiEl.textContent=Math.round(d0.temp.max);
-  loEl.textContent=Math.round(d0.temp.min);
-  humEl.textContent=cur.humidity;
-  windEl.textContent=kmh(cur.wind_speed);
-  feelsEl.textContent=Math.round(cur.feels_like);
+function fillNow(current, tzShift, place){
+  const w=current.weather[0];
+  placeEl.textContent = place || (current.name? `${current.name}، ${current.sys.country}` : "موقعك");
+  const offsetH = (tzShift/3600);
+  const sign = offsetH>=0?'+':'';
+  tzEl.textContent = `المنطقة الزمنية: UTC${sign}${offsetH}`;
+  const nowLocal = fromTZ(Math.floor(Date.now()/1000), tzShift);
+  dateLbl.textContent = fmtDate(nowLocal);
+  updEl.textContent = "آخر تحديث " + fmtHour(new Date());
+  tNow.textContent = Math.round(current.main.temp) + "°";
+  condNow.textContent = w.description;
+  iconNow.src = `https://openweathermap.org/img/wn/${w.icon}@2x.png`;
+  hiEl.textContent = Math.round(current.main.temp_max);
+  loEl.textContent = Math.round(current.main.temp_min);
+  humEl.textContent = Math.round(current.main.humidity);
+  windEl.textContent = kmh(current.wind.speed);
+  feelsEl.textContent = Math.round(current.main.feels_like);
 }
-function fillHours(hourly,tz){
-  hoursEl.innerHTML=hourly.slice(0,6).map(h=>{
-    const w=h.weather[0];
+
+function fillHours(list, tzShift){
+  hoursEl.innerHTML = list.slice(0,6).map(ent=>{
+    const d = fromTZ(ent.dt, tzShift);
+    const w = ent.weather[0];
+    const pop = Math.round((ent.pop||0)*100);
     return `<div class="item">
-      <div class="muted">${fmtTime(h.dt,tz)}</div>
+      <div class="muted">${fmtHour(d)}</div>
       <img src="https://openweathermap.org/img/wn/${w.icon}.png" alt="${w.description}">
-      <div><strong>${Math.round(h.temp)}°</strong></div>
-      <div class="muted">${Math.round((h.pop||0)*100)}%</div>
+      <div><strong>${Math.round(ent.main.temp)}°</strong></div>
+      <div class="muted">${pop}%</div>
     </div>`;
   }).join("");
 }
-function fillDays(daily,tz){
-  daysEl.innerHTML=daily.slice(0,5).map(d=>{
-    const w=d.weather[0];
-    const dn=new Intl.DateTimeFormat('ar',{timeZone:tz, weekday:'short'}).format(new Date(d.dt*1000));
+
+function fillDays(days, tzShift){
+  daysEl.innerHTML = days.slice(0,5).map(d=>{
+    const dn = new Date((d.dt+tzShift)*1000).toLocaleDateString('ar', { weekday:'short' });
     return `<div class="item">
       <div class="muted">${dn}</div>
-      <img src="https://openweathermap.org/img/wn/${w.icon}.png" alt="${w.description}">
-      <div><strong>${Math.round(d.temp.max)}°</strong> / <span class="muted">${Math.round(d.temp.min)}°</span></div>
-      <div class="muted">${w.description}</div>
+      <img src="https://openweathermap.org/img/wn/${d.icon}.png" alt="${d.desc}">
+      <div><strong>${d.tmax}°</strong> / <span class="muted">${d.tmin}°</span></div>
+      <div class="muted">${d.desc}</div>
     </div>`;
   }).join("");
+}
+
+function showError(text){
+  msgEl.style.display='block';
+  msgEl.textContent = text;
 }
 
 /* ===== تحميل ===== */
 async function refresh(lat,lon){
   try{
-    const data=await getOneCall(lat,lon);
-    const rev=await reverseName(lat,lon);
-    const place = rev ? `${rev.local_names?.ar||rev.name}، ${rev.country}` : "موقعك";
-    fillNow(data,place);
-    fillHours(data.hourly,data.timezone);
-    fillDays(data.daily,data.timezone);
-  }catch(e){updEl.textContent="تعذّر جلب البيانات";}
+    msgEl.style.display='none';
+    const [cur, f5, rev] = await Promise.all([
+      getCurrent(lat,lon),
+      getForecast(lat,lon),
+      reverseName(lat,lon).catch(()=>null)
+    ]);
+    const tzShift = cur.timezone || 0; // بالثواني
+    const place = rev ? `${(rev.local_names&&rev.local_names.ar)||rev.name}، ${rev.country}` : (cur.name? `${cur.name}، ${cur.sys.country}` : 'موقعك');
+    fillNow(cur, tzShift, place);
+    fillHours(f5.list, tzShift);
+    const days = buildDays(f5.list, tzShift);
+    fillDays(days, tzShift);
+  }catch(e){
+    console.error(e);
+    const reason = (''+e.message).includes('401') ? 'تحقق من مفتاح OpenWeather أو خطة الاشتراك.' : ((''+e.message).includes('429')? 'تم تجاوز حد الطلبات المؤقت.' : 'تعذّر جلب البيانات.');
+    showError(reason);
+    updEl.textContent = 'تعذّر جلب البيانات';
+  }
 }
 
 /* ===== تشغيل ===== */
-navigator.geolocation.getCurrentPosition(
-  pos=>refresh(pos.coords.latitude,pos.coords.longitude),
-  ()=>refresh(26.2235,50.5876) // افتراضي: المنامة
-);
-</script>
-</body>
+(function init(){
+  // ملاحظة: geolocation يتطلّب HTTPS؛ على ملف محلي أو http قد يرفض المتصفح — سنسقط على المنامة.
+  const fallback = ()=>refresh(26.2235,50.5876); // المنامة
+  if('geolocation' in navigator){
+    navigator.geolocation.getCurrentPosition(
+      pos=>refresh(pos.coords.latitude,pos.coords.longitude),
+      ()=>fallback(),
+      { enableHighAccuracy:false, timeout:8000, maximumAge:60000 }
+    );
+  } else {
+    fallback();
+  }
+})();
+</script></body>
 </html>
