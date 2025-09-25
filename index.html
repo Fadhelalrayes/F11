@@ -1,224 +1,159 @@
-<!doctype html>
-
-<html lang="ar" dir="rtl">
+<!DOCTYPE html><html lang="ar" dir="rtl">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>الطقس — بسيط وعملي (إصدار مُصلَح)</title>
-<meta name="description" content="طقس الآن، الساعات القادمة، و5 أيام.">
-<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;800&display=swap" rel="stylesheet"><style>
-  :root{ --bg:#fafafa; --card:#fff; --ink:#111; --muted:#6b7280; --border:#ece6cc; --shadow:0 8px 24px rgba(0,0,0,.06); --accent:linear-gradient(90deg,#d4af37,#ffdf7f);}  
-  *{box-sizing:border-box}
-  body{margin:0; background:var(--bg); color:var(--ink); font-family:"Tajawal",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;}
-  .wrap{max-width:900px; margin:auto; padding:16px; display:grid; gap:14px}
-  .card{background:var(--card); border:1px solid var(--border); border-radius:14px; box-shadow:var(--shadow); padding:14px}
-  h1{margin:0; font-size:1.3rem; font-weight:800; background:var(--accent); -webkit-background-clip:text; background-clip:text; color:transparent}
-  .row{display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap}
-  .loc{font-weight:800}
-  .sub{color:var(--muted); font-size:.92rem}
-  .now{display:flex; align-items:center; gap:12px}
-  .now img{width:60px; height:60px}
-  .now .t{font-size:2rem; font-weight:800}
-  .grid{display:grid; gap:10px}
-  @media(min-width:720px){ .grid{grid-template-columns:1fr 1fr} }
-  .mini{display:grid; grid-template-columns:repeat(4,1fr); gap:8px}
-  @media(max-width:480px){ .mini{grid-template-columns:repeat(2,1fr)} }
-  .chip{border:1px solid var(--border); border-radius:12px; padding:10px; text-align:center}
-  .chip .l{color:var(--muted); font-size:.86rem}
-  .chip .v{font-weight:800}
-  .secTitle{margin:0 0 10px; text-align:center; font-weight:800; background:var(--accent); -webkit-background-clip:text; background-clip:text; color:transparent}
-  .hours, .days{display:grid; gap:8px; grid-template-columns:repeat(6,1fr)}
-  @media(max-width:860px){ .hours{grid-template-columns:repeat(4,1fr)} .days{grid-template-columns:repeat(3,1fr)} }
-  @media(max-width:520px){ .hours{grid-template-columns:repeat(3,1fr)} .days{grid-template-columns:repeat(2,1fr)} }
-  .item{border:1px solid var(--border); border-radius:12px; padding:8px; text-align:center}
-  .item img{width:36px; height:36px}
-  .muted{color:var(--muted); font-size:.9rem}
-  .err{color:#b91c1c; font-weight:700}
-</style></head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>العدّ التنازلي لبداية شهر رمضان | أحاديث عن رمضان</title>
+  <meta name="description" content="عدّ تنازلي لبداية شهر رمضان المبارك + مربّع ثابت أنيق لأحاديث عن رمضان يتبدّل عند كل تصفّح جديد، تصميم أبيض بتدرّج ذهبي." />
+  <meta name="robots" content="index,follow" />
+  <style>
+    :root{ --bg:#ffffff; --ink:#0a0a0a; --gold-1:#fef9e7; --gold-2:#f3e6b2; --gold-3:#e0c56d; --gold-4:#d4af37; --gold-5:#a37c10; }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0; font-family:"Tajawal", system-ui, sans-serif; color:var(--ink); background:var(--bg);}    
+    .wrap{ min-height:100%; display:flex; align-items:center; justify-content:center; padding:28px; }
+    .card{ width:min(1100px,96vw); border-radius:28px; padding:28px; background:linear-gradient(180deg, rgba(250,245,230,.75), rgba(255,255,255,.9)); border:1px solid rgba(212,175,55,.35);}    
+    .header-box{ border:1px solid rgba(212,175,55,.45); background:linear-gradient(180deg, rgba(223,197,109,.16), rgba(223,197,109,.06)); border-radius:16px; padding:16px; margin-bottom:20px; text-align:center; }
+    .header-box h1{ margin:0 0 12px; font-size:clamp(1.6rem,2.2vw + 1rem,3rem); font-weight:900; background:linear-gradient(180deg,#1a1a1a,#000 40%); -webkit-background-clip:text; background-clip:text; color:transparent; }
+    .header-box .meta{ font-size:1.1rem; color:#333; font-weight:700 }
+
+    .grid{ display:flex; flex-wrap:wrap; justify-content:center; gap:16px; margin:18px 0 8px; }
+    .unit{ flex:1 1 160px; max-width:220px; padding:18px 16px; border-radius:18px; text-align:center; background:linear-gradient(180deg, rgba(223,197,109,.16), rgba(223,197,109,.08)); border:1px solid rgba(212,175,55,.45); }
+    .unit .label{ font-size:.95rem; color:#5a4711; font-weight:700 }
+    .unit .value{ font-size:clamp(2rem,2vw + 1.4rem,3.2rem); font-weight:900; color:#000; }
+    @supports (-webkit-background-clip:text) or (background-clip:text) {
+      .unit .value{ background:linear-gradient(180deg,var(--gold-5),#000); -webkit-background-clip:text; background-clip:text; color:transparent; }
+    }
+
+    /* مربّع الأحاديث */
+    .hadith-widget{position:relative; margin-top:18px; width:100%; background:linear-gradient(180deg, rgba(223,197,109,.16), rgba(223,197,109,.06)); border:1px solid rgba(212,175,55,.45); border-radius:16px; padding:14px 16px; box-shadow:0 6px 18px rgba(163,124,16,.12); color:#111; font-weight:600; line-height:2; overflow:hidden; text-align:justify; text-justify:inter-word}
+    .hadith-widget .title{display:block; font-size:.95rem; color:#5a4711; margin-bottom:6px; font-weight:800}
+    .hadith-widget .text{font-size:1rem; opacity:1; transition:opacity .45s ease; white-space:pre-line}
+    .hadith-widget .source{display:block; margin-top:8px; font-size:.9rem; color:#5a4711; font-weight:700}
+    .hadith-widget.fade .text{opacity:0}
+
+    .footer{margin-top:16px}
+    .credit{margin-top:8px; text-align:center; color:#333}
+  </style>
+</head>
 <body>
   <div class="wrap">
     <div class="card">
-      <div class="row">
-        <h1>الطقس — بسيط وعملي</h1>
-        <div class="sub" id="dateLbl">—</div>
+      <div class="header-box">
+        <h1>العدّ التنازلي لبداية شهر رمضان المبارك</h1>
+        <div class="meta" id="targetDate">سيصادف ١ رمضان يوم —</div>
       </div>
-    </div><div class="card">
-  <div class="row">
-    <div>
-      <div class="loc" id="place">—</div>
-      <div class="sub" id="tzLbl">—</div>
+
+      <!-- الترتيب: الأيام ثم الساعات ثم الدقائق ثم الثواني -->
+      <div class="grid">
+        <div class="unit"><div class="label">الأيام</div><div class="value" id="days">—</div></div>
+        <div class="unit"><div class="label">الساعات</div><div class="value" id="hours">—</div></div>
+        <div class="unit"><div class="label">الدقائق</div><div class="value" id="minutes">—</div></div>
+        <div class="unit"><div class="label">الثواني</div><div class="value" id="seconds">—</div></div>
+      </div>
+
+      <!-- مربّع الأحاديث -->
+      <div class="hadith-widget" id="hadithWidget" aria-live="polite">
+        <span class="title">حديث عن شهر رمضان</span>
+        <div class="text" id="hadithText">—</div>
+        <span class="source" id="hadithSource">المصدر: ميزان الحكمة</span>
+      </div>
+
+      <!-- Footer -->
+      <footer class="footer">
+        <div class="credit">برمجة وتطوير : <strong>فاضل الريس</strong></div>
+      </footer>
     </div>
-    <div class="sub" id="upd">آخر تحديث —</div>
   </div>
 
-  <div class="grid" style="margin-top:8px">
-    <div class="now">
-      <img id="iconNow" alt="" />
-      <div>
-        <div class="t" id="tNow">—°</div>
-        <div id="condNow" class="muted">—</div>
-      </div>
-    </div>
-    <div class="mini">
-      <div class="chip"><div class="l">أعلى/أدنى</div><div class="v"><span id="hi">—</span>° / <span id="lo">—</span>°</div></div>
-      <div class="chip"><div class="l">الرطوبة</div><div class="v"><span id="hum">—</span>%</div></div>
-      <div class="chip"><div class="l">الرياح</div><div class="v"><span id="wind">—</span> كم/س</div></div>
-      <div class="chip"><div class="l">الإحساس</div><div class="v"><span id="feels">—</span>°</div></div>
-    </div>
-  </div>
+  <script>
+    // ===== تحديد ١ رمضان القادم باستخدام تقويم "islamic" في Intl =====
+    const daysEl    = document.getElementById('days');
+    const hoursEl   = document.getElementById('hours');
+    const minutesEl = document.getElementById('minutes');
+    const secondsEl = document.getElementById('seconds');
+    const targetDateEl = document.getElementById('targetDate');
 
-  <div class="sub err" id="msg" style="display:none"></div>
-</div>
+    function findNextRamadan(){
+      const fmtHijriParts = new Intl.DateTimeFormat('en-u-ca-islamic',{year:'numeric',month:'numeric',day:'numeric'});
+      let d=new Date(); d.setHours(0,0,0,0);
+      for(let i=0;i<420;i++){
+        const parts=fmtHijriParts.formatToParts(d);
+        const map=Object.fromEntries(parts.map(p=>[p.type,p.value]));
+        // شهر رمضان = 9 في التقويم الهجري
+        if(Number(map.month)===9 && Number(map.day)===1) return new Date(d);
+        d.setDate(d.getDate()+1);
+      }
+      return new Date();
+    }
 
-<div class="card">
-  <h3 class="secTitle">الساعات القادمة</h3>
-  <div id="hours" class="hours"></div>
-</div>
+    const targetDate = findNextRamadan();
+    const fmtGreg = new Intl.DateTimeFormat('ar',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
 
-<div class="card">
-  <h3 class="secTitle">توقع 5 أيام</h3>
-  <div id="days" class="days"></div>
-</div>
+    function update(){
+      const now = new Date();
+      let diff = targetDate - now;
+      if(diff < 0) diff = 0;
 
-  </div><script>
-/* ===== مفتاح OpenWeather ===== */
-const OWM_KEY = "71679af819486daabc9848ad1dec6c05"; // تأكد من صحته وخطة الاشتراك
+      const oneSecond = 1000;
+      const oneMinute = 60 * oneSecond;
+      const oneHour   = 60 * oneMinute;
+      const oneDay    = 24 * oneHour;
 
-/* ===== عناصر ===== */
-const qs = id=>document.getElementById(id);
-const placeEl=qs('place'), tzEl=qs('tzLbl'), updEl=qs('upd'), iconNow=qs('iconNow');
-const tNow=qs('tNow'), condNow=qs('condNow'), hiEl=qs('hi'), loEl=qs('lo');
-const humEl=qs('hum'), windEl=qs('wind'), feelsEl=qs('feels');
-const hoursEl=qs('hours'), daysEl=qs('days'), dateLbl=qs('dateLbl'), msgEl=qs('msg');
+      const days = Math.floor(diff / oneDay);
+      const remAfterDays = diff - days * oneDay;
+      const hours = Math.floor(remAfterDays / oneHour);
+      const remAfterHours = remAfterDays - hours * oneHour;
+      const minutes = Math.floor(remAfterHours / oneMinute);
+      const remAfterMinutes = remAfterHours - minutes * oneMinute;
+      const seconds = Math.floor(remAfterMinutes / oneSecond);
 
-const kmh = ms => Math.round(ms*3.6);
-const pad = n => (n<10?"0":"")+n;
-const fmtDate = (d) => d.toLocaleDateString('ar', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
-const fmtHour = (d) => d.toLocaleTimeString('ar', { hour:'2-digit', minute:'2-digit' });
-const fromTZ = (ts, shift) => new Date((ts + shift) * 1000); // OpenWeather shifts in seconds
+      daysEl.textContent    = String(days);
+      hoursEl.textContent   = String(hours).padStart(2,'0');
+      minutesEl.textContent = String(minutes).padStart(2,'0');
+      secondsEl.textContent = String(seconds).padStart(2,'0');
 
-/* ===== API (بدائل موثوقة لخطة مجانية) ===== */
-async function getCurrent(lat,lon){
-  const u=`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${OWM_KEY}&units=metric&lang=ar`;
-  const r=await fetch(u); if(!r.ok) throw new Error('weather:'+r.status); return r.json();
-}
-async function getForecast(lat,lon){
-  const u=`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${OWM_KEY}&units=metric&lang=ar`;
-  const r=await fetch(u); if(!r.ok) throw new Error('forecast:'+r.status); return r.json();
-}
-async function reverseName(lat,lon){
-  const u=`https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=1&appid=${OWM_KEY}`;
-  const r=await fetch(u); if(!r.ok) throw new Error('geo:'+r.status); const j=await r.json(); return j?.[0];
-}
+      targetDateEl.textContent = `سيصادف ١ رمضان يوم ${fmtGreg.format(targetDate)}`;
+    }
+    update();
+    setInterval(update,1000);
 
-/* ===== بناء أيام من توقع 3 ساعات ===== */
-function buildDays(list, tzShift){
-  const byDay = {};
-  list.forEach(ent=>{
-    const d = fromTZ(ent.dt, tzShift);
-    const dayKey = d.getUTCFullYear()+"-"+pad(d.getUTCMonth()+1)+"-"+pad(d.getUTCDate());
-    if(!byDay[dayKey]) byDay[dayKey] = [];
-    byDay[dayKey].push(ent);
-  });
-  const days = Object.keys(byDay).sort().map(k=>{
-    const arr = byDay[k];
-    let tmax = -1e9, tmin = 1e9, icon = arr[0].weather[0].icon, desc = arr[0].weather[0].description;
-    // خذ منتصف اليوم إن وجد للأيقونة والوصف
-    const mid = arr.find(e=>{ const h = fromTZ(e.dt, tzShift).getUTCHours(); return h>=11 && h<=15; }) || arr[0];
-    arr.forEach(e=>{ tmax = Math.max(tmax, e.main.temp_max); tmin = Math.min(tmin, e.main.temp_min); });
-    icon = mid.weather[0].icon; desc = mid.weather[0].description;
-    return { key:k, tmax:Math.round(tmax), tmin:Math.round(tmin), icon, desc, dt:arr[0].dt };
-  });
-  return days;
-}
+    // ===== أحاديث عن رمضان (حديث واحد في كل تصفّح) =====
+    const hadiths = [
+`رسول الله (صلى الله عليه وآله): إنما سمي الرمضان لأنه يرمض الذنوب (2).`,
+`عنه (صلى الله عليه وآله): لا تقولوا رمضان فإن رمضان اسم من أسماء الله تعالى ولكن قولوا: شهر رمضان (3).`,
+`عنه (صلى الله عليه وآله): إن أبواب السماء تفتح في أول ليلة من شهر رمضان، ولا تغلق إلى آخر ليلة منه (4).`,
+`عنه (صلى الله عليه وآله): لو يعلم العبد ما في رمضان لود أن يكون رمضان السنة (5).`,
+`عنه (صلى الله عليه وآله) - لما حضر شهر رمضان -: سبحان الله! ماذا تستقبلون؟! وماذا يستقبلكم؟! - قالها ثلاث مرات (6).`,
+`الإمام الصادق (عليه السلام) - لما يوصي ولده إذا دخل شهر رمضان -: فاجهدوا أنفسكم فإن فيه تقسم الأرزاق، وتكتب الآجال، وفيه يكتب وفد الله الذين يفدون إليه، وفيه ليلة العمل فيها خير من العمل في ألف شهر (7).`,
+`الإمام زين العابدين (عليه السلام) - من دعائه إذا دخل شهر رمضان -: الحمد لله الذي حبانا بدينه واختصنا بملته وسبلنا في سبل إحسانه لنسلكها بمنه إلى رضوانه، حمداً يتقبله منا، ويرضى به عنا، والحمد لله الذي جعل من تلك السبل شهره رمضان، شهر الصيام، وشهر الإسلام، وشهر الطهور، وشهر التمحيص، وشهر القيام (8).`,
+`الإمام زين العابدين (عليه السلام) - من دعائه في وداع شهر رمضان -: السلام عليك يا شهر الله الأكبر ويا عيد أوليائه، السلام عليك يا أكرمَ مصحوبٍ من الأوقات ويا خيرَ شهرٍ في الأيام والساعات، السلام عليك من شهرٍ قُرِّبت فيه الآمال، ونُشرت فيه الأعمال، السلام عليك من قرينٍ جلَّ قدرُه موجوداً، وأفجع فَقدُه مفقوداً، ومرجوٍّ آلمَ فراقُه... السلام عليك ما كان أطولَك على المجرمين وأهيبَك في صدور المؤمنين (9).`
+    ];
 
-/* ===== عرض البيانات ===== */
-function fillNow(current, tzShift, place){
-  const w=current.weather[0];
-  placeEl.textContent = place || (current.name? `${current.name}، ${current.sys.country}` : "موقعك");
-  const offsetH = (tzShift/3600);
-  const sign = offsetH>=0?'+':'';
-  tzEl.textContent = `المنطقة الزمنية: UTC${sign}${offsetH}`;
-  const nowLocal = fromTZ(Math.floor(Date.now()/1000), tzShift);
-  dateLbl.textContent = fmtDate(nowLocal);
-  updEl.textContent = "آخر تحديث " + fmtHour(new Date());
-  tNow.textContent = Math.round(current.main.temp) + "°";
-  condNow.textContent = w.description;
-  iconNow.src = `https://openweathermap.org/img/wn/${w.icon}@2x.png`;
-  hiEl.textContent = Math.round(current.main.temp_max);
-  loEl.textContent = Math.round(current.main.temp_min);
-  humEl.textContent = Math.round(current.main.humidity);
-  windEl.textContent = kmh(current.wind.speed);
-  feelsEl.textContent = Math.round(current.main.feels_like);
-}
+    const widget = document.getElementById('hadithWidget');
+    const textEl = document.getElementById('hadithText');
+    const sourceEl = document.getElementById('hadithSource');
 
-function fillHours(list, tzShift){
-  hoursEl.innerHTML = list.slice(0,6).map(ent=>{
-    const d = fromTZ(ent.dt, tzShift);
-    const w = ent.weather[0];
-    const pop = Math.round((ent.pop||0)*100);
-    return `<div class="item">
-      <div class="muted">${fmtHour(d)}</div>
-      <img src="https://openweathermap.org/img/wn/${w.icon}.png" alt="${w.description}">
-      <div><strong>${Math.round(ent.main.temp)}°</strong></div>
-      <div class="muted">${pop}%</div>
-    </div>`;
-  }).join("");
-}
+    function getNextIndex(){
+      const KEY='hadith_index_ramadan_30';
+      let i = Number(localStorage.getItem(KEY));
+      if(!Number.isInteger(i) || i<0 || i>=hadiths.length){ i = 0; }
+      else { i = (i + 1) % hadiths.length; }
+      localStorage.setItem(KEY, String(i));
+      return i;
+    }
 
-function fillDays(days, tzShift){
-  daysEl.innerHTML = days.slice(0,5).map(d=>{
-    const dn = new Date((d.dt+tzShift)*1000).toLocaleDateString('ar', { weekday:'short' });
-    return `<div class="item">
-      <div class="muted">${dn}</div>
-      <img src="https://openweathermap.org/img/wn/${d.icon}.png" alt="${d.desc}">
-      <div><strong>${d.tmax}°</strong> / <span class="muted">${d.tmin}°</span></div>
-      <div class="muted">${d.desc}</div>
-    </div>`;
-  }).join("");
-}
+    function showHadith(i){
+      widget.classList.add('fade');
+      setTimeout(()=>{
+        textEl.textContent = hadiths[i];
+        sourceEl.textContent = 'المصدر: ميزان الحكمة';
+        widget.classList.remove('fade');
+      }, 300);
+    }
 
-function showError(text){
-  msgEl.style.display='block';
-  msgEl.textContent = text;
-}
-
-/* ===== تحميل ===== */
-async function refresh(lat,lon){
-  try{
-    msgEl.style.display='none';
-    const [cur, f5, rev] = await Promise.all([
-      getCurrent(lat,lon),
-      getForecast(lat,lon),
-      reverseName(lat,lon).catch(()=>null)
-    ]);
-    const tzShift = cur.timezone || 0; // بالثواني
-    const place = rev ? `${(rev.local_names&&rev.local_names.ar)||rev.name}، ${rev.country}` : (cur.name? `${cur.name}، ${cur.sys.country}` : 'موقعك');
-    fillNow(cur, tzShift, place);
-    fillHours(f5.list, tzShift);
-    const days = buildDays(f5.list, tzShift);
-    fillDays(days, tzShift);
-  }catch(e){
-    console.error(e);
-    const reason = (''+e.message).includes('401') ? 'تحقق من مفتاح OpenWeather أو خطة الاشتراك.' : ((''+e.message).includes('429')? 'تم تجاوز حد الطلبات المؤقت.' : 'تعذّر جلب البيانات.');
-    showError(reason);
-    updEl.textContent = 'تعذّر جلب البيانات';
-  }
-}
-
-/* ===== تشغيل ===== */
-(function init(){
-  // ملاحظة: geolocation يتطلّب HTTPS؛ على ملف محلي أو http قد يرفض المتصفح — سنسقط على المنامة.
-  const fallback = ()=>refresh(26.2235,50.5876); // المنامة
-  if('geolocation' in navigator){
-    navigator.geolocation.getCurrentPosition(
-      pos=>refresh(pos.coords.latitude,pos.coords.longitude),
-      ()=>fallback(),
-      { enableHighAccuracy:false, timeout:8000, maximumAge:60000 }
-    );
-  } else {
-    fallback();
-  }
-})();
-</script></body>
+    // عند أول تحميل: يتغيّر الحديث مرة واحدة في كل تصفّح/تحديث
+    let index = getNextIndex();
+    showHadith(index);
+  </script>
+</body>
 </html>
