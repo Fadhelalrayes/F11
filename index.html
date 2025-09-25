@@ -3,508 +3,168 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-
-<title>طقس عالمي — أبيض–ذهبي–أسود</title>
-<meta name="description" content="حالة الطقس الحالية، الرسم البياني بالساعة، توقع 7 أيام، جودة الهواء، ورادار أمطار/سحب مع تحديد الموقع تلقائيًا.">
-<link rel="canonical" href="">
-<link rel="alternate" hreflang="ar" href="">
-
-<!-- Open Graph -->
-<meta property="og:type" content="website">
-<meta property="og:title" content="طقس عالمي — أبيض–ذهبي–أسود">
-<meta property="og:description" content="طقس الآن + توقع 7 أيام + رادار + جودة الهواء.">
-<meta property="og:locale" content="ar_AR">
-
-<!-- Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Reem+Kufi:wght@600&family=Tajawal:wght@400;700;800&display=swap" rel="stylesheet">
-
-<!-- Leaflet (خريطة الرادار) -->
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
-
-<!-- Chart.js (رسوم بيانية) -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<title>الطقس — بسيط وعملي</title>
+<meta name="description" content="طقس الآن، الساعات القادمة، و5 أيام.">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;800&display=swap" rel="stylesheet">
 
 <style>
-  :root{
-    --bg:#fafafa; --card:#ffffff; --ink:#111; --muted:#6b7280;
-    --gold:#d4af37; --border:#e6e2d2; --glow:0 10px 26px rgba(180,150,40,.12);
-    --chip-grad:linear-gradient(135deg, rgba(212,175,55,.10), rgba(0,0,0,.02));
-    --accent-txt:linear-gradient(90deg, var(--gold), #ffdf7f);
-  }
+  :root{ --bg:#fafafa; --card:#fff; --ink:#111; --muted:#6b7280; --border:#ece6cc; --shadow:0 8px 24px rgba(0,0,0,.06); --accent:linear-gradient(90deg,#d4af37,#ffdf7f);}
   *{box-sizing:border-box}
-  body{margin:0; padding:20px; background:var(--bg); color:var(--ink); font-family:"Tajawal",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;}
-  .container{width:min(1200px,100%); margin:auto; display:flex; flex-direction:column; gap:18px}
-
-  .hero{position:relative; overflow:hidden; background:var(--card); border:1px solid var(--border); border-radius:18px; box-shadow:var(--glow); padding:22px; text-align:center;}
-  .hero::before{content:""; position:absolute; inset:-35% -20% auto auto; height:210px; width:65%; background:radial-gradient(closest-side, rgba(212,175,55,.18), rgba(212,175,55,.08) 60%, transparent); filter:blur(18px)}
-  .heroTitle{margin:0; font-family:"Reem Kufi",sans-serif; font-size:1.9rem; letter-spacing:.2px; background:var(--accent-txt); -webkit-background-clip:text; background-clip:text; color:transparent;}
-
-  .topRow{display:grid; grid-template-columns:1fr auto; gap:10px; align-items:center}
-  .locationBox{display:flex; align-items:center; gap:10px; background:var(--card); border:1px solid var(--border); border-radius:16px; box-shadow:var(--glow); padding:12px}
-  .place{font-weight:900; font-size:1.1rem}
-  .subPlace{font-size:.9rem; color:var(--muted)}
-  .controls{display:flex; gap:8px; align-items:center}
-  .searchWrap{position:relative}
-  .search{padding:10px 12px; border:1px solid var(--border); border-radius:12px; width:250px; background:#fff}
-  .suggest{position:absolute; top:110%; right:0; background:#fff; border:1px solid var(--border); border-radius:12px; box-shadow:var(--glow); width:100%; z-index:20; display:none; max-height:260px; overflow:auto}
-  .suggest div{padding:10px; cursor:pointer}
-  .suggest div:hover{background:#fffaf0}
-  .toggle{padding:8px 10px; border:1px solid var(--border); border-radius:10px; background:#fff; cursor:pointer; font-weight:800}
-
-  .nowBox{background:var(--card); border:1px solid var(--border); border-radius:16px; box-shadow:var(--glow); padding:16px; display:grid; gap:12px}
-  .nowTitle{font-weight:900; text-align:center; background:var(--accent-txt); -webkit-background-clip:text; background-clip:text; color:transparent;}
-  .nowRow{display:flex; justify-content:space-between; align-items:center; gap:14px; flex-wrap:wrap}
-  .nowMain{display:flex; align-items:center; gap:12px}
-  .nowIcon{width:72px; height:72px}
-  .tempNow{font-size:2.4rem; font-weight:900}
-  .condNow{font-weight:800; color:#333}
-  .miniGrid{display:grid; grid-template-columns:repeat(6,1fr); gap:10px; width:100%}
-  @media(max-width:900px){.miniGrid{grid-template-columns:repeat(3,1fr)}}
-  .chip{background:var(--card); border:1px solid var(--border); border-radius:16px; box-shadow:var(--glow); padding:12px; display:flex; align-items:center; gap:10px; background-image:var(--chip-grad)}
-  .label{font-size:.86rem; color:var(--muted); font-weight:800}
-  .value{font-weight:900; font-size:1.02rem; font-variant-numeric:tabular-nums}
-
-  .cards{display:grid; grid-template-columns:1.2fr .8fr; gap:16px}
-  @media(max-width:1000px){.cards{grid-template-columns:1fr}}
-
-  .card{background:var(--card); border:1px solid var(--border); border-radius:16px; box-shadow:var(--glow); padding:12px}
-  .card h3{margin:0 0 10px; font-size:1.05rem; font-weight:900; text-align:center; background:var(--accent-txt); -webkit-background-clip:text; background-clip:text; color:transparent;}
-
-  table{width:100%; border-collapse:collapse}
-  th,td{padding:10px; border-bottom:1px solid #eee7c9; font-size:.98rem}
-  th{background:#fffaf0; font-weight:900; color:#111}
-  .small{font-size:.9rem; color:var(--muted)}
-  .hourRow{display:grid; grid-template-columns:repeat(8,1fr); gap:10px}
-
-  .daysGrid{display:grid; grid-template-columns:repeat(7,1fr); gap:10px}
-  @media(max-width:1200px){.daysGrid{grid-template-columns:repeat(4,1fr)}}
-  @media(max-width:700px){.daysGrid{grid-template-columns:repeat(2,1fr)}}
-  .dayCard{border:1px solid var(--border); border-radius:14px; padding:10px; text-align:center; background:#fff; box-shadow:var(--glow)}
-  .dayName{font-weight:900; margin-bottom:4px}
-
-  #map{height:420px; border-radius:14px; border:1px solid var(--border)}
-  .layerToggles{display:flex; gap:8px; flex-wrap:wrap; margin-top:8px}
-  .layerToggles button{padding:8px 10px; border:1px solid var(--border); border-radius:10px; background:#fff; cursor:pointer; font-weight:800}
-
-  footer{text-align:center; margin-top:8px}
-  .credit{color:#7a5a00; font-weight:800}
+  body{margin:0; background:var(--bg); color:var(--ink); font-family:"Tajawal",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;}
+  .wrap{max-width:900px; margin:auto; padding:16px; display:grid; gap:14px}
+  .card{background:var(--card); border:1px solid var(--border); border-radius:14px; box-shadow:var(--shadow); padding:14px}
+  h1{margin:0; font-size:1.3rem; font-weight:800; background:var(--accent); -webkit-background-clip:text; background-clip:text; color:transparent}
+  .row{display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap}
+  .loc{font-weight:800}
+  .sub{color:var(--muted); font-size:.92rem}
+  .now{display:flex; align-items:center; gap:12px}
+  .now img{width:60px; height:60px}
+  .now .t{font-size:2rem; font-weight:800}
+  .grid{display:grid; gap:10px}
+  @media(min-width:720px){ .grid{grid-template-columns:1fr 1fr} }
+  .mini{display:grid; grid-template-columns:repeat(4,1fr); gap:8px}
+  @media(max-width:480px){ .mini{grid-template-columns:repeat(2,1fr)} }
+  .chip{border:1px solid var(--border); border-radius:12px; padding:10px; text-align:center}
+  .chip .l{color:var(--muted); font-size:.86rem}
+  .chip .v{font-weight:800}
+  .secTitle{margin:0 0 10px; text-align:center; font-weight:800; background:var(--accent); -webkit-background-clip:text; background-clip:text; color:transparent}
+  .hours, .days{display:grid; gap:8px; grid-template-columns:repeat(6,1fr)}
+  @media(max-width:860px){ .hours{grid-template-columns:repeat(4,1fr)} .days{grid-template-columns:repeat(3,1fr)} }
+  @media(max-width:520px){ .hours{grid-template-columns:repeat(3,1fr)} .days{grid-template-columns:repeat(2,1fr)} }
+  .item{border:1px solid var(--border); border-radius:12px; padding:8px; text-align:center}
+  .item img{width:36px; height:36px}
+  .muted{color:var(--muted); font-size:.9rem}
 </style>
 </head>
 <body>
-<div class="container">
-  <section class="hero" aria-labelledby="title">
-    <h1 id="title" class="heroTitle">الطقس — تجربة عالمية</h1>
-  </section>
-
-  <div class="topRow">
-    <div class="locationBox" aria-live="polite">
-      <div>
-        <div class="place" id="place">—</div>
-        <div class="subPlace" id="subPlace"></div>
+  <div class="wrap">
+    <div class="card">
+      <div class="row">
+        <h1>الطقس — بسيط وعملي</h1>
+        <div class="sub" id="dateLbl">—</div>
       </div>
     </div>
-    <div class="controls">
-      <div class="searchWrap">
-        <input id="search" class="search" placeholder="ابحث عن مدينة (مثال: المنامة)" autocomplete="off">
-        <div id="suggest" class="suggest"></div>
-      </div>
-      <button id="unitBtn" class="toggle" title="تبديل °م/°ف">°م</button>
-    </div>
-  </div>
 
-  <section class="nowBox">
-    <div class="nowTitle">الطقس الآن</div>
-    <div class="nowRow">
-      <div class="nowMain">
-        <img id="iconNow" class="nowIcon" alt="أيقونة الطقس" src="">
+    <div class="card">
+      <div class="row">
         <div>
-          <div class="tempNow"><span id="tNow">--</span>°</div>
-          <div class="condNow" id="condNow">—</div>
-          <div class="small" id="updateNote">آخر تحديث —</div>
+          <div class="loc" id="place">—</div>
+          <div class="sub" id="tzLbl">—</div>
+        </div>
+        <div class="sub" id="upd">آخر تحديث —</div>
+      </div>
+
+      <div class="grid" style="margin-top:8px">
+        <div class="now">
+          <img id="iconNow" alt="" />
+          <div>
+            <div class="t" id="tNow">—°</div>
+            <div id="condNow" class="muted">—</div>
+          </div>
+        </div>
+        <div class="mini">
+          <div class="chip"><div class="l">أعلى/أدنى</div><div class="v"><span id="hi">—</span>° / <span id="lo">—</span>°</div></div>
+          <div class="chip"><div class="l">الرطوبة</div><div class="v"><span id="hum">—</span>%</div></div>
+          <div class="chip"><div class="l">الرياح</div><div class="v"><span id="wind">—</span> كم/س</div></div>
+          <div class="chip"><div class="l">الإحساس</div><div class="v"><span id="feels">—</span>°</div></div>
         </div>
       </div>
-      <div class="miniGrid">
-        <div class="chip"><div class="label">أعلى/أدنى</div><div class="value"><span id="hi">--</span>° / <span id="lo">--</span>°</div></div>
-        <div class="chip"><div class="label">الإحساس</div><div class="value"><span id="feels">--</span>°</div></div>
-        <div class="chip"><div class="label">الرطوبة</div><div class="value"><span id="hum">--</span>%</div></div>
-        <div class="chip"><div class="label">الضغط</div><div class="value"><span id="press">--</span> hPa</div></div>
-        <div class="chip"><div class="label">الرياح</div><div class="value"><span id="wind">--</span> كم/س</div></div>
-        <div class="chip"><div class="label">الرؤية</div><div class="value"><span id="vis">--</span> كم</div></div>
-        <div class="chip"><div class="label">ندى</div><div class="value"><span id="dew">--</span>°</div></div>
-        <div class="chip"><div class="label">UV</div><div class="value"><span id="uv">--</span></div></div>
-        <div class="chip"><div class="label">الشروق</div><div class="value"><span id="sunrise">--:--</span></div></div>
-        <div class="chip"><div class="label">الغروب</div><div class="value"><span id="sunset">--:--</span></div></div>
-        <div class="chip"><div class="label">جودة الهواء</div><div class="value"><span id="aqi">--</span></div></div>
-        <div class="chip"><div class="label">المنطقة الزمنية</div><div class="value"><span id="tzLbl">--</span></div></div>
-      </div>
     </div>
-  </section>
 
-  <div class="cards">
-    <section class="card">
-      <h3>الرسم البياني (24 ساعة)</h3>
-      <canvas id="hourChart" height="120"></canvas>
-      <div class="small">الخط: حرارة • الأعمدة: احتمال الأمطار %</div>
-    </section>
+    <div class="card">
+      <h3 class="secTitle">الساعات القادمة</h3>
+      <div id="hours" class="hours"></div>
+    </div>
 
-    <section class="card">
-      <h3>توقع 7 أيام</h3>
-      <div class="daysGrid" id="daysGrid"></div>
-    </section>
+    <div class="card">
+      <h3 class="secTitle">توقع 5 أيام</h3>
+      <div id="days" class="days"></div>
+    </div>
   </div>
 
-  <section class="card">
-    <h3>رادار السحب/الأمطار</h3>
-    <div id="map"></div>
-    <div class="layerToggles">
-      <button data-layer="clouds_new">☁️ السحب</button>
-      <button data-layer="precipitation_new">🌧 الأمطار</button>
-      <button data-layer="pressure_new">🗺 الضغط</button>
-      <button data-layer="wind_new">💨 الرياح</button>
-      <button data-layer="temp_new">🌡 الحرارة</button>
-      <button id="centerBtn">استعادة التركيز</button>
-    </div>
-  </section>
-
-  <footer><span class="credit">برمجة وتطوير فاضل الريس</span></footer>
-</div>
-
 <script>
-/* ===== إعدادات عامة ===== */
-document.querySelector('link[rel="canonical"]').href = location.href.split('#')[0];
-document.querySelector('link[rel="alternate"]').href = location.href.split('#')[0];
+/* ===== مفتاح OpenWeather ===== */
+const OWM_KEY = "71679af819486daabc9848ad1dec6c05";
 
-const OWM_KEY = "YOUR_OPENWEATHER_KEY"; // ← ضع مفتاح OpenWeather
-const DEFAULT = { nameAr:"المنامة، البحرين", nameEn:"Manama, Bahrain", lat:26.2235, lon:50.5876, tz: Intl.DateTimeFormat().resolvedOptions().timeZone };
-let state = JSON.parse(localStorage.getItem("wx_state_pro")||"null") || {...DEFAULT};
-let useMetric = JSON.parse(localStorage.getItem("wx_units_metric")||"true"); // true=metric °م
-let map, baseLayer, owLayers = {}, activeLayerName = null;
-let hourChart = null;
+/* ===== عناصر ===== */
+const qs = id=>document.getElementById(id);
+const placeEl=qs('place'), tzEl=qs('tzLbl'), updEl=qs('upd'), iconNow=qs('iconNow');
+const tNow=qs('tNow'), condNow=qs('condNow'), hiEl=qs('hi'), loEl=qs('lo');
+const humEl=qs('hum'), windEl=qs('wind'), feelsEl=qs('feels');
+const hoursEl=qs('hours'), daysEl=qs('days'), dateLbl=qs('dateLbl');
 
-/* ===== أدوات تنسيق ===== */
 const kmh = ms => Math.round(ms*3.6);
-const toKm = m => (m/1000).toFixed(1);
-const fmtDate = (d,tz) => new Intl.DateTimeFormat('ar',{timeZone:tz,weekday:'long',year:'numeric',month:'long',day:'numeric'}).format(d);
-const fmtTime = (ts,tz) => new Intl.DateTimeFormat('ar',{timeZone:tz,hour:'2-digit',minute:'2-digit'}).format(new Date(ts*1000));
-const fmtNum = n => (n!=null && !isNaN(n)) ? Math.round(n) : "--";
-const cToF = c => (c*9/5)+32;
-const msToMph = ms => ms*2.23694;
+const fmtDate = (d,tz) => new Intl.DateTimeFormat('ar',{timeZone:tz, weekday:'long', year:'numeric', month:'long', day:'numeric'}).format(d);
+const fmtTime = (ts,tz) => new Intl.DateTimeFormat('ar',{timeZone:tz, hour:'2-digit'}).format(new Date(ts*1000));
 
-/* ===== بحث المدن (Autocomplete) ===== */
-const search = document.getElementById('search');
-const suggest = document.getElementById('suggest');
-let suggestTimer = null;
-
-search.addEventListener('input', ()=>{
-  const q = search.value.trim();
-  clearTimeout(suggestTimer);
-  if(!q){ suggest.style.display='none'; return; }
-  suggestTimer = setTimeout(async ()=>{
-    try{
-      const u = `https://api.openweathermap.org/geo/1.0/direct?q=${encodeURIComponent(q)}&limit=5&appid=${OWM_KEY}`;
-      const r = await fetch(u); const j = await r.json();
-      suggest.innerHTML = (j||[]).map(it=>{
-        const nameAr = it.local_names?.ar || it.name;
-        const line = [nameAr||it.name, it.state, it.country].filter(Boolean).join("، ");
-        return `<div data-lat="${it.lat}" data-lon="${it.lon}" data-name="${line}">${line}</div>`;
-      }).join('') || '<div>لا نتائج</div>';
-      suggest.style.display='block';
-    }catch{ suggest.style.display='none'; }
-  }, 300);
-});
-
-suggest.addEventListener('click', (e)=>{
-  const div = e.target.closest('div[data-lat]');
-  if(!div) return;
-  state.lat = +div.dataset.lat; state.lon = +div.dataset.lon; state.nameAr = div.dataset.name; state.nameEn = div.dataset.name;
-  suggest.style.display='none'; search.value='';
-  saveState(); refreshAll();
-});
-
-/* ===== عرض المكان ===== */
-function setPlace(){
-  place.textContent = state.nameAr || state.nameEn || 'موقعك';
-  subPlace.textContent = `المنطقة الزمنية: ${state.tz||Intl.DateTimeFormat().resolvedOptions().timeZone}`;
-  tzLbl.textContent = state.tz || Intl.DateTimeFormat().resolvedOptions().timeZone;
+/* ===== API ===== */
+async function getOneCall(lat,lon){
+  const u=`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${OWM_KEY}&units=metric&lang=ar`;
+  const r=await fetch(u); return r.json();
 }
-
-/* ===== جلب الاسم من الإحداثيات ===== */
 async function reverseName(lat,lon){
-  try{
-    const u = `https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=1&appid=${OWM_KEY}`;
-    const r = await fetch(u); const j = await r.json(); const it = j?.[0];
-    if(it){
-      const city = it.local_names?.ar || it.name || "";
-      const country = it.country || "";
-      return {ar: city && country ? `${city}، ${country}` : (city||country||"موقعك"), en:`${it.name||city}, ${country}`}
-    }
-  }catch{}
-  return {ar:"موقعك", en:"Your location"}
+  const u=`https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=1&appid=${OWM_KEY}`;
+  const r=await fetch(u); const j=await r.json(); return j?.[0];
 }
 
-/* ===== API: One Call + fallback ===== */
-async function getOneCall(lat,lon,units,lang='ar'){
-  const u = `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&appid=${OWM_KEY}&units=${units}&lang=${lang}&exclude=minutely`;
-  const r = await fetch(u, {cache:'no-store'});
-  if(!r.ok) throw new Error('OneCall failed');
-  return r.json();
+/* ===== عرض البيانات ===== */
+function fillNow(data, place){
+  const cur=data.current, d0=data.daily[0];
+  const w=cur.weather[0];
+  placeEl.textContent = place || "موقعك";
+  tzEl.textContent = "المنطقة الزمنية: "+data.timezone;
+  dateLbl.textContent = fmtDate(new Date(), data.timezone);
+  updEl.textContent="آخر تحديث "+new Intl.DateTimeFormat('ar',{timeStyle:'short'}).format(new Date());
+  tNow.textContent=Math.round(cur.temp)+"°";
+  condNow.textContent=w.description;
+  iconNow.src=`https://openweathermap.org/img/wn/${w.icon}@2x.png`;
+  hiEl.textContent=Math.round(d0.temp.max);
+  loEl.textContent=Math.round(d0.temp.min);
+  humEl.textContent=cur.humidity;
+  windEl.textContent=kmh(cur.wind_speed);
+  feelsEl.textContent=Math.round(cur.feels_like);
 }
-async function getForecast3h(lat,lon,units,lang='ar'){
-  const u = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${OWM_KEY}&units=${units}&lang=${lang}`;
-  const r = await fetch(u, {cache:'no-store'});
-  if(!r.ok) throw 0;
-  return r.json();
+function fillHours(hourly,tz){
+  hoursEl.innerHTML=hourly.slice(0,6).map(h=>{
+    const w=h.weather[0];
+    return `<div class="item">
+      <div class="muted">${fmtTime(h.dt,tz)}</div>
+      <img src="https://openweathermap.org/img/wn/${w.icon}.png" alt="${w.description}">
+      <div><strong>${Math.round(h.temp)}°</strong></div>
+      <div class="muted">${Math.round((h.pop||0)*100)}%</div>
+    </div>`;
+  }).join("");
 }
-async function getAir(lat,lon){
-  try{
-    const u = `https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${OWM_KEY}`;
-    const r = await fetch(u); const j = await r.json(); return j?.list?.[0];
-  }catch{ return null; }
-}
-
-/* ===== تعبئة واجهة "الآن" ===== */
-function fillNow(data){
-  const tz = data.timezone || state.tz || Intl.DateTimeFormat().resolvedOptions().timeZone;
-  const current = data.current || {};
-  const daily0 = (data.daily?.[0]) || {};
-  const w = current.weather?.[0] || {};
-  const temp = current.temp, feels = current.feels_like;
-  iconNow.src = w.icon ? `https://openweathermap.org/img/wn/${w.icon}@2x.png` : "";
-  iconNow.alt = w.description || "طقس";
-  condNow.textContent = w.description || "—";
-  tNow.textContent = fmtNum(temp);
-  hi.textContent = fmtNum(daily0.temp?.max ?? temp);
-  lo.textContent = fmtNum(daily0.temp?.min ?? temp);
-  feels.textContent = fmtNum(feels);
-  hum.textContent = current.humidity ?? "--";
-  press.textContent = current.pressure ?? "--";
-  wind.textContent = useMetric ? kmh(current.wind_speed||0) : Math.round(msToMph(current.wind_speed||0));
-  vis.textContent = (current.visibility!=null) ? toKm(current.visibility) : "--";
-  dew.textContent = (current.dew_point!=null) ? fmtNum(current.dew_point) : "--";
-  uv.textContent = (current.uvi!=null) ? current.uvi.toFixed(1) : "--";
-  sunrise.textContent = current.sunrise ? fmtTime(current.sunrise, tz) : "--:--";
-  sunset.textContent = current.sunset ? fmtTime(current.sunset, tz)  : "--:--";
-  updateNote.textContent = "آخر تحديث " + new Intl.DateTimeFormat('ar',{timeStyle:'short'}).format(new Date());
-  greg.textContent = fmtDate(new Date(), tz);
-}
-
-/* ===== الرسم البياني للساعة القادمة ===== */
-function buildHourChart(hourly){
-  const labels = hourly.slice(0,24).map(h=>{
-    const dt = new Date(h.dt*1000);
-    return new Intl.DateTimeFormat('ar',{hour:'2-digit'}).format(dt);
-  });
-  const temps = hourly.slice(0,24).map(h=>Math.round(h.temp));
-  const pops  = hourly.slice(0,24).map(h=>Math.round((h.pop||0)*100));
-
-  const ctx = document.getElementById('hourChart').getContext('2d');
-  if(hourChart){ hourChart.destroy(); }
-  hourChart = new Chart(ctx, {
-    type:'bar',
-    data:{ labels,
-      datasets:[
-        { type:'line', label:'الحرارة', data:temps, borderWidth:2, tension:.3, yAxisID:'y' },
-        { type:'bar',  label:'% أمطار', data:pops, borderWidth:0, yAxisID:'y1' }
-      ]
-    },
-    options:{
-      responsive:true,
-      maintainAspectRatio:false,
-      plugins:{ legend:{ display:true, rtl:true } },
-      scales:{
-        y:{ position:'left', beginAtZero:false },
-        y1:{ position:'right', beginAtZero:true, suggestedMax:100, grid:{ drawOnChartArea:false } }
-      }
-    }
-  });
-}
-
-/* ===== 7 أيام ===== */
-function fillDays(daily){
-  const tz = state.tz || Intl.DateTimeFormat().resolvedOptions().timeZone;
-  daysGrid.innerHTML = (daily||[]).slice(0,7).map(d=>{
-    const dn = new Intl.DateTimeFormat('ar',{timeZone:tz, weekday:'long'}).format(new Date(d.dt*1000));
-    const dt = new Intl.DateTimeFormat('ar',{timeZone:tz, month:'short', day:'2-digit'}).format(new Date(d.dt*1000));
-    const iconUrl = d.weather?.[0]?.icon ? `https://openweathermap.org/img/wn/${d.weather[0].icon}.png` : "";
-    const desc = d.weather?.[0]?.description || '';
-    const max = Math.round(d.temp.max), min = Math.round(d.temp.min);
-    return `<div class="dayCard">
-      <div class="dayName">${dn}</div>
-      <div class="small">${dt}</div>
-      <div style="margin:6px 0">${iconUrl?`<img src="${iconUrl}" alt="${desc}" width="42" height="42">`:''}</div>
-      <div><strong>${max}°</strong> / <span>${min}°</span></div>
-      <div class="small">${desc}</div>
+function fillDays(daily,tz){
+  daysEl.innerHTML=daily.slice(0,5).map(d=>{
+    const w=d.weather[0];
+    const dn=new Intl.DateTimeFormat('ar',{timeZone:tz, weekday:'short'}).format(new Date(d.dt*1000));
+    return `<div class="item">
+      <div class="muted">${dn}</div>
+      <img src="https://openweathermap.org/img/wn/${w.icon}.png" alt="${w.description}">
+      <div><strong>${Math.round(d.temp.max)}°</strong> / <span class="muted">${Math.round(d.temp.min)}°</span></div>
+      <div class="muted">${w.description}</div>
     </div>`;
   }).join("");
 }
 
-/* ===== AQI ===== */
-function aqiLabel(aqi){
-  // 1-5 حسب OpenWeather
-  return {
-    1:"جيّد جدًا", 2:"جيّد", 3:"متوسط", 4:"سيّئ", 5:"سيّئ جدًا"
-  }[aqi] || "--";
-}
-
-/* ===== خريطة الرادار ===== */
-function initMap(){
-  if(map) return;
-  map = L.map('map', { zoomControl:true });
-  baseLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
-    attribution:'© OpenStreetMap'
-  }).addTo(map);
-  centerMap();
-}
-function centerMap(){
-  map.setView([state.lat, state.lon], 7);
-}
-function owmLayer(name){
-  if(owLayers[name]) return owLayers[name];
-  const url = `https://tile.openweathermap.org/map/${name}/{z}/{x}/{y}.png?appid=${OWM_KEY}`;
-  owLayers[name] = L.tileLayer(url, { opacity:0.7 });
-  return owLayers[name];
-}
-function switchLayer(name){
-  if(activeLayerName && owLayers[activeLayerName]) map.removeLayer(owLayers[activeLayerName]);
-  const lyr = owmLayer(name);
-  lyr.addTo(map); activeLayerName = name;
-}
-
-/* ===== تبديل الوحدات ===== */
-const unitBtn = document.getElementById('unitBtn');
-function setUnitBtn(){
-  unitBtn.textContent = useMetric ? '°م' : '°ف';
-  localStorage.setItem('wx_units_metric', JSON.stringify(useMetric));
-}
-unitBtn.addEventListener('click', ()=>{
-  useMetric = !useMetric;
-  setUnitBtn();
-  refreshAll(); // إعادة الجلب بالوحدات الجديدة
-});
-
-/* ===== حفظ الحالة ===== */
-function saveState(){ localStorage.setItem("wx_state_pro", JSON.stringify(state)); setPlace(); centerMap(); }
-
-/* ===== التحديث الشامل ===== */
-async function refreshAll(){
+/* ===== تحميل ===== */
+async function refresh(lat,lon){
   try{
-    setPlace();
-    initMap();
-    centerMap();
-
-    const units = useMetric ? 'metric' : 'imperial';
-    let one = null;
-    try{
-      one = await getOneCall(state.lat, state.lon, units);
-    }catch{}
-
-    if(one){
-      state.tz = one.timezone;
-      fillNow(one);
-      buildHourChart(one.hourly||[]);
-      fillDays(one.daily||[]);
-      // AQI
-      const air = await getAir(state.lat, state.lon);
-      if(air){ aqi.textContent = `${aqiLabel(air.main?.aqi)} (${air.main?.aqi})`; }
-    }else{
-      // Fallback: طقس حالي + توقع 5 أيام (3 ساعات)
-      const curU = `https://api.openweathermap.org/data/2.5/weather?lat=${state.lat}&lon=${state.lon}&appid=${OWM_KEY}&units=${units}&lang=ar`;
-      const curR = await fetch(curU); const current = await curR.json();
-
-      const fore = await getForecast3h(state.lat, state.lon, units);
-      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-      state.tz = tz;
-
-      // بناء بنية شبه OneCall للعرض
-      const oneLike = {
-        timezone: tz,
-        current: {
-          temp: current.main?.temp,
-          feels_like: current.main?.feels_like,
-          humidity: current.main?.humidity,
-          pressure: current.main?.pressure,
-          wind_speed: current.wind?.speed,
-          visibility: current.visibility,
-          dew_point: null,
-          uvi: null,
-          sunrise: current.sys?.sunrise,
-          sunset: current.sys?.sunset,
-          weather: current.weather
-        },
-        hourly: fore.list.map(it=>({
-          dt: it.dt,
-          temp: it.main.temp,
-          pop: (it.pop || 0),
-          weather: it.weather
-        }))
-      };
-
-      // حساب 7 أيام من نقاط 3 ساعات (تبسيط)
-      const byDay = {};
-      for(const it of fore.list){
-        const d = new Date(it.dt*1000);
-        const key = d.getUTCFullYear()+"-"+(d.getUTCMonth()+1)+"-"+d.getUTCDate();
-        byDay[key] = byDay[key] || {temps:[], dt: it.dt, weather: it.weather?.[0]};
-        byDay[key].temps.push(it.main.temp_min ?? it.main.temp, it.main.temp_max ?? it.main.temp);
-      }
-      oneLike.daily = Object.values(byDay).slice(0,7).map(x=>{
-        const min = Math.round(Math.min(...x.temps));
-        const max = Math.round(Math.max(...x.temps));
-        return { dt:x.dt, temp:{min, max}, weather:[x.weather||{}] };
-      });
-
-      fillNow(oneLike);
-      buildHourChart(oneLike.hourly);
-      fillDays(oneLike.daily);
-      const air = await getAir(state.lat, state.lon);
-      if(air){ aqi.textContent = `${aqiLabel(air.main?.aqi)} (${air.main?.aqi})`; }
-    }
-
-    // طبقة افتراضية للرادار
-    switchLayer('clouds_new');
-
-  }catch(e){
-    console.error(e);
-    alert('تعذّر جلب بيانات الطقس. تحقق من مفتاح OpenWeather أو الاتصال.');
-  }
+    const data=await getOneCall(lat,lon);
+    const rev=await reverseName(lat,lon);
+    const place = rev ? `${rev.local_names?.ar||rev.name}، ${rev.country}` : "موقعك";
+    fillNow(data,place);
+    fillHours(data.hourly,data.timezone);
+    fillDays(data.daily,data.timezone);
+  }catch(e){updEl.textContent="تعذّر جلب البيانات";}
 }
 
-/* ===== تحديد الموقع ===== */
-async function init(){
-  try{
-    setPlace(); setUnitBtn();
-    if(navigator.geolocation){
-      navigator.geolocation.getCurrentPosition(async pos=>{
-        state.lat = pos.coords.latitude; state.lon = pos.coords.longitude;
-        const nm = await reverseName(state.lat, state.lon);
-        state.nameAr = nm.ar; state.nameEn = nm.en;
-        saveState(); refreshAll();
-      }, async ()=>{
-        // مرفوض أو خطأ → استخدام الحالة المحفوظة/الافتراضية
-        const nm = await reverseName(state.lat, state.lon);
-        state.nameAr = state.nameAr || nm.ar; state.nameEn = state.nameEn || nm.en;
-        saveState(); refreshAll();
-      }, {enableHighAccuracy:false, timeout:8000, maximumAge:600000});
-    }else{
-      const nm = await reverseName(state.lat, state.lon);
-      state.nameAr = state.nameAr || nm.ar; state.nameEn = state.nameEn || nm.en;
-      saveState(); refreshAll();
-    }
-  }catch(e){
-    console.error(e);
-    refreshAll();
-  }
-}
-
-/* أحداث الرادار */
-document.querySelectorAll('.layerToggles button[data-layer]').forEach(btn=>{
-  btn.addEventListener('click', ()=> switchLayer(btn.dataset.layer));
-});
-document.getElementById('centerBtn').addEventListener('click', centerMap);
-
-/* ابدأ */
-init();
+/* ===== تشغيل ===== */
+navigator.geolocation.getCurrentPosition(
+  pos=>refresh(pos.coords.latitude,pos.coords.longitude),
+  ()=>refresh(26.2235,50.5876) // افتراضي: المنامة
+);
 </script>
 </body>
 </html>
