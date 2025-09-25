@@ -1,262 +1,510 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>الأبراج والاستبصار – قراءة الطالع</title>
-<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+
+<title>طقس عالمي — أبيض–ذهبي–أسود</title>
+<meta name="description" content="حالة الطقس الحالية، الرسم البياني بالساعة، توقع 7 أيام، جودة الهواء، ورادار أمطار/سحب مع تحديد الموقع تلقائيًا.">
+<link rel="canonical" href="">
+<link rel="alternate" hreflang="ar" href="">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="طقس عالمي — أبيض–ذهبي–أسود">
+<meta property="og:description" content="طقس الآن + توقع 7 أيام + رادار + جودة الهواء.">
+<meta property="og:locale" content="ar_AR">
+
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Reem+Kufi:wght@600&family=Tajawal:wght@400;700;800&display=swap" rel="stylesheet">
+
+<!-- Leaflet (خريطة الرادار) -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+
+<!-- Chart.js (رسوم بيانية) -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
 <style>
-  :root{--bg:#0b0d12;--fg:#f7f7f7;--muted:#bdbdbd;--brand:#ffd54a;--card:#141823;--stroke:#242a36}
+  :root{
+    --bg:#fafafa; --card:#ffffff; --ink:#111; --muted:#6b7280;
+    --gold:#d4af37; --border:#e6e2d2; --glow:0 10px 26px rgba(180,150,40,.12);
+    --chip-grad:linear-gradient(135deg, rgba(212,175,55,.10), rgba(0,0,0,.02));
+    --accent-txt:linear-gradient(90deg, var(--gold), #ffdf7f);
+  }
   *{box-sizing:border-box}
-  body{margin:0;background:var(--bg);color:var(--fg);font-family:"Cairo",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.9}
-  header{text-align:center;padding:22px 14px;background:#0f1320;border-bottom:1px solid var(--stroke)}
-  h1{margin:0;color:var(--brand);font-size:clamp(26px,5vw,40px)}
-  .container{max-width:980px;margin:0 auto;padding:16px}
-  .card{background:#141823;border:1px solid var(--stroke);border-radius:16px;padding:18px;margin:14px 0}
-  label{display:block;margin:10px 0 6px}
-  select,input,button{width:100%;padding:12px 14px;border-radius:12px;border:1px solid var(--stroke);background:#0f1320;color:#fff;outline:none}
-  button{cursor:pointer;font-weight:700}
-  .btn{background:linear-gradient(135deg,#ffd54a,#ffb300);color:#221;border:0}
-  .ghost{background:transparent;border:1px solid var(--brand);color:var(--brand)}
-  .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-  @media (max-width:640px){.grid{grid-template-columns:1fr}}
-  .topic-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
-  @media (max-width:640px){.topic-grid{grid-template-columns:1fr}}
-  .topic{padding:14px;border-radius:12px;border:1px dashed var(--brand);background:#0f1320}
-  .hidden{display:none}
-  .result{font-size:18px;text-align:justify}
-  .result p{margin:10px 0}
-  .hint{color:var(--muted);font-size:14px;text-align:center}
+  body{margin:0; padding:20px; background:var(--bg); color:var(--ink); font-family:"Tajawal",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;}
+  .container{width:min(1200px,100%); margin:auto; display:flex; flex-direction:column; gap:18px}
+
+  .hero{position:relative; overflow:hidden; background:var(--card); border:1px solid var(--border); border-radius:18px; box-shadow:var(--glow); padding:22px; text-align:center;}
+  .hero::before{content:""; position:absolute; inset:-35% -20% auto auto; height:210px; width:65%; background:radial-gradient(closest-side, rgba(212,175,55,.18), rgba(212,175,55,.08) 60%, transparent); filter:blur(18px)}
+  .heroTitle{margin:0; font-family:"Reem Kufi",sans-serif; font-size:1.9rem; letter-spacing:.2px; background:var(--accent-txt); -webkit-background-clip:text; background-clip:text; color:transparent;}
+
+  .topRow{display:grid; grid-template-columns:1fr auto; gap:10px; align-items:center}
+  .locationBox{display:flex; align-items:center; gap:10px; background:var(--card); border:1px solid var(--border); border-radius:16px; box-shadow:var(--glow); padding:12px}
+  .place{font-weight:900; font-size:1.1rem}
+  .subPlace{font-size:.9rem; color:var(--muted)}
+  .controls{display:flex; gap:8px; align-items:center}
+  .searchWrap{position:relative}
+  .search{padding:10px 12px; border:1px solid var(--border); border-radius:12px; width:250px; background:#fff}
+  .suggest{position:absolute; top:110%; right:0; background:#fff; border:1px solid var(--border); border-radius:12px; box-shadow:var(--glow); width:100%; z-index:20; display:none; max-height:260px; overflow:auto}
+  .suggest div{padding:10px; cursor:pointer}
+  .suggest div:hover{background:#fffaf0}
+  .toggle{padding:8px 10px; border:1px solid var(--border); border-radius:10px; background:#fff; cursor:pointer; font-weight:800}
+
+  .nowBox{background:var(--card); border:1px solid var(--border); border-radius:16px; box-shadow:var(--glow); padding:16px; display:grid; gap:12px}
+  .nowTitle{font-weight:900; text-align:center; background:var(--accent-txt); -webkit-background-clip:text; background-clip:text; color:transparent;}
+  .nowRow{display:flex; justify-content:space-between; align-items:center; gap:14px; flex-wrap:wrap}
+  .nowMain{display:flex; align-items:center; gap:12px}
+  .nowIcon{width:72px; height:72px}
+  .tempNow{font-size:2.4rem; font-weight:900}
+  .condNow{font-weight:800; color:#333}
+  .miniGrid{display:grid; grid-template-columns:repeat(6,1fr); gap:10px; width:100%}
+  @media(max-width:900px){.miniGrid{grid-template-columns:repeat(3,1fr)}}
+  .chip{background:var(--card); border:1px solid var(--border); border-radius:16px; box-shadow:var(--glow); padding:12px; display:flex; align-items:center; gap:10px; background-image:var(--chip-grad)}
+  .label{font-size:.86rem; color:var(--muted); font-weight:800}
+  .value{font-weight:900; font-size:1.02rem; font-variant-numeric:tabular-nums}
+
+  .cards{display:grid; grid-template-columns:1.2fr .8fr; gap:16px}
+  @media(max-width:1000px){.cards{grid-template-columns:1fr}}
+
+  .card{background:var(--card); border:1px solid var(--border); border-radius:16px; box-shadow:var(--glow); padding:12px}
+  .card h3{margin:0 0 10px; font-size:1.05rem; font-weight:900; text-align:center; background:var(--accent-txt); -webkit-background-clip:text; background-clip:text; color:transparent;}
+
+  table{width:100%; border-collapse:collapse}
+  th,td{padding:10px; border-bottom:1px solid #eee7c9; font-size:.98rem}
+  th{background:#fffaf0; font-weight:900; color:#111}
+  .small{font-size:.9rem; color:var(--muted)}
+  .hourRow{display:grid; grid-template-columns:repeat(8,1fr); gap:10px}
+
+  .daysGrid{display:grid; grid-template-columns:repeat(7,1fr); gap:10px}
+  @media(max-width:1200px){.daysGrid{grid-template-columns:repeat(4,1fr)}}
+  @media(max-width:700px){.daysGrid{grid-template-columns:repeat(2,1fr)}}
+  .dayCard{border:1px solid var(--border); border-radius:14px; padding:10px; text-align:center; background:#fff; box-shadow:var(--glow)}
+  .dayName{font-weight:900; margin-bottom:4px}
+
+  #map{height:420px; border-radius:14px; border:1px solid var(--border)}
+  .layerToggles{display:flex; gap:8px; flex-wrap:wrap; margin-top:8px}
+  .layerToggles button{padding:8px 10px; border:1px solid var(--border); border-radius:10px; background:#fff; cursor:pointer; font-weight:800}
+
+  footer{text-align:center; margin-top:8px}
+  .credit{color:#7a5a00; font-weight:800}
 </style>
 </head>
 <body>
+<div class="container">
+  <section class="hero" aria-labelledby="title">
+    <h1 id="title" class="heroTitle">الطقس — تجربة عالمية</h1>
+  </section>
 
-<header>
-  <h1>الأبراج والاستبصار</h1>
-  <p class="hint">قراءات طويلة بصياغة عرّاف — اختر موضوعك</p>
-</header>
-
-<main class="container">
-
-  <!-- الخطوة 1 -->
-  <section id="step1" class="card">
-    <h2>أدخل بياناتك</h2>
-    <div class="grid">
+  <div class="topRow">
+    <div class="locationBox" aria-live="polite">
       <div>
-        <label for="gender">الجنس</label>
-        <select id="gender"><option value="">اختر</option><option>ذكر</option><option>أنثى</option></select>
-      </div>
-      <div>
-        <label for="status">الحالة الاجتماعية</label>
-        <select id="status"><option value="">اختر</option><option>أعزب/عزباء</option><option>متزوج/متزوجة</option><option>مخطوب/مخطوبة</option><option>منفصل/منفصلة</option></select>
-      </div>
-      <div>
-        <label for="work">الوضع المهني</label>
-        <select id="work"><option value="">اختر</option><option>أعمل</option><option>عاطل</option><option>طالب</option></select>
-      </div>
-      <div>
-        <label for="birthdate">تاريخ الميلاد</label>
-        <input id="birthdate" type="date" />
+        <div class="place" id="place">—</div>
+        <div class="subPlace" id="subPlace"></div>
       </div>
     </div>
-    <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap">
-      <button id="startBtn" class="btn" style="min-width:200px">ابدأ القراءة</button>
-      <span class="hint">املأ الحقول ثم ابدأ</span>
+    <div class="controls">
+      <div class="searchWrap">
+        <input id="search" class="search" placeholder="ابحث عن مدينة (مثال: المنامة)" autocomplete="off">
+        <div id="suggest" class="suggest"></div>
+      </div>
+      <button id="unitBtn" class="toggle" title="تبديل °م/°ف">°م</button>
+    </div>
+  </div>
+
+  <section class="nowBox">
+    <div class="nowTitle">الطقس الآن</div>
+    <div class="nowRow">
+      <div class="nowMain">
+        <img id="iconNow" class="nowIcon" alt="أيقونة الطقس" src="">
+        <div>
+          <div class="tempNow"><span id="tNow">--</span>°</div>
+          <div class="condNow" id="condNow">—</div>
+          <div class="small" id="updateNote">آخر تحديث —</div>
+        </div>
+      </div>
+      <div class="miniGrid">
+        <div class="chip"><div class="label">أعلى/أدنى</div><div class="value"><span id="hi">--</span>° / <span id="lo">--</span>°</div></div>
+        <div class="chip"><div class="label">الإحساس</div><div class="value"><span id="feels">--</span>°</div></div>
+        <div class="chip"><div class="label">الرطوبة</div><div class="value"><span id="hum">--</span>%</div></div>
+        <div class="chip"><div class="label">الضغط</div><div class="value"><span id="press">--</span> hPa</div></div>
+        <div class="chip"><div class="label">الرياح</div><div class="value"><span id="wind">--</span> كم/س</div></div>
+        <div class="chip"><div class="label">الرؤية</div><div class="value"><span id="vis">--</span> كم</div></div>
+        <div class="chip"><div class="label">ندى</div><div class="value"><span id="dew">--</span>°</div></div>
+        <div class="chip"><div class="label">UV</div><div class="value"><span id="uv">--</span></div></div>
+        <div class="chip"><div class="label">الشروق</div><div class="value"><span id="sunrise">--:--</span></div></div>
+        <div class="chip"><div class="label">الغروب</div><div class="value"><span id="sunset">--:--</span></div></div>
+        <div class="chip"><div class="label">جودة الهواء</div><div class="value"><span id="aqi">--</span></div></div>
+        <div class="chip"><div class="label">المنطقة الزمنية</div><div class="value"><span id="tzLbl">--</span></div></div>
+      </div>
     </div>
   </section>
 
-  <!-- اختيار الموضوع -->
-  <section id="stepTopics" class="card hidden">
-    <h2>اختر موضوع القراءة</h2>
-    <div class="topic-grid" style="margin-top:10px">
-      <button class="topic" data-topic="love">❤️ الحب</button>
-      <button class="topic" data-topic="career">💼 المهنة والمال</button>
-      <button class="topic" data-topic="health">💊 الصحة</button>
-      <button class="topic" data-topic="general">✨ عام / دراسي</button>
+  <div class="cards">
+    <section class="card">
+      <h3>الرسم البياني (24 ساعة)</h3>
+      <canvas id="hourChart" height="120"></canvas>
+      <div class="small">الخط: حرارة • الأعمدة: احتمال الأمطار %</div>
+    </section>
+
+    <section class="card">
+      <h3>توقع 7 أيام</h3>
+      <div class="daysGrid" id="daysGrid"></div>
+    </section>
+  </div>
+
+  <section class="card">
+    <h3>رادار السحب/الأمطار</h3>
+    <div id="map"></div>
+    <div class="layerToggles">
+      <button data-layer="clouds_new">☁️ السحب</button>
+      <button data-layer="precipitation_new">🌧 الأمطار</button>
+      <button data-layer="pressure_new">🗺 الضغط</button>
+      <button data-layer="wind_new">💨 الرياح</button>
+      <button data-layer="temp_new">🌡 الحرارة</button>
+      <button id="centerBtn">استعادة التركيز</button>
     </div>
   </section>
 
-  <!-- النتيجة -->
-  <section id="stepResult" class="card hidden">
-    <h2 id="resTitle">قراءتك</h2>
-    <article id="resultText" class="result"></article>
-    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px">
-      <button id="backBtn" class="ghost">اختيار موضوع آخر</button>
-      <button id="restartBtn" class="ghost">إعادة البدء</button>
-      <button id="copyBtn" class="btn">نسخ القراءة</button>
-    </div>
-  </section>
-
-</main>
+  <footer><span class="credit">برمجة وتطوير فاضل الريس</span></footer>
+</div>
 
 <script>
-/* ===================== قائمة القراءات (80 قراءة) ===================== */
-/* كل عنصر 3–5 جمل + سطر لون الحظ/الرقم/الساعة. لا أكواد داخل النص. */
+/* ===== إعدادات عامة ===== */
+document.querySelector('link[rel="canonical"]').href = location.href.split('#')[0];
+document.querySelector('link[rel="alternate"]').href = location.href.split('#')[0];
 
-const TEMPLATES = {
-  love: [
-`اليوم يتحرك الماء الراكد في قلبك كأنه يستجيب لنداء قديم. كلمة صغيرة من الشريك أو من شخص يقترب تحمل معنى أكبر مما يظهر. لا تمنح أسرارك دفعة واحدة؛ دع الأفعال تثبت نفسها خلال أيام. إن وصلتك رسالة من الماضي فزمنها هو الرسالة: إغلاق ناعم أو بداية نظيفة. لون الحظ: العنّابي. الرقم: 3. الساعة المواتية: 7 مساءً.`,
-`مسارك العاطفي يطلب تعريفًا جديدًا للحب. العلاقة تمر بامتحان صامت؛ من يكرر الفعل دون إعلان هو الأقرب لصدق النية. لا تنجذب للكلام المزخرف ولا تسلِّم قرارك لصديق حتى لو قصد الخير. لون الحظ: الأزرق الداكن. الرقم: 9. الساعة الذهبية: 2 ظهرًا.`,
-`وجه جديد يلوح بجاذبية هادئة ويعيد ترتيب أولوياتك. إن كنت أعزبًا فنافذة التعارف مفتوحة بشرط النفس الطويل، وإن كنت مرتبطًا فأثر الصراحة اليوم أطول من أي اعتذار متأخر. لون الحظ: البنفسجي. الرقم: 5. الساعة المناسبة: 8 مساءً.`,
-`سوء فهم قديم يذوب بجلسة قصيرة بلا مقاطعات. الغيرة العابرة تطفئ بابتسامة وثقة، والحقائق هي الدواء. لون الحظ: الرمادي الدافئ. الرقم: 2. ساعة المصالحة: قبل الغروب.`,
-`قرار واحد واضح يعيد ترتيب تفاصيل كثيرة. للمخطوبين: الاتفاق على الوقت والمال يحسم التردد. للمنفصلين: هذه أيام لإغلاق نظيف بلا شروخ. لون الحظ: الأخضر الزمردي. الرقم: 7. الساعة الحاسمة: 11 صباحًا.`,
-`اليوم صافٍ لمن يشربه على مهل. لا تصدق مَن يضاعف الوعود ويقتصد في الوقائع. العازب يجد شخصًا عمليًا لا يخذل عند الطلب. لون الحظ: الذهبي. الرقم: 1. ساعة الاتصال: 9 ليلًا.`,
-`تسقط الأقنعة على مائدة الحوار الهادئ. من يغيب عن المواعيد يفصح أكثر من المتكلم الكثير. أثق بحدسك لكن دع العقل يضع الإطار. لون الحظ: التركواز. الرقم: 8. ساعة الرسالة: 3 عصرًا.`,
-`العلاقة تستعيد قدرها حين تتساوى المسؤولية. اعتذار بلا تغيير تكرار لجرح قديم. امنح الصفحة الجديدة فعلًا لا عنوانًا. لون الحظ: الأحمر القاني. الرقم: 6. وقت إعادة الضبط: منتصف النهار.`,
-`مرآة القدر تسألك: كيف تحب نفسك؟ احمِ حدودك أولًا ليحترمها الآخرون. الاعتذار المكرر بلا تعديل يستهلك القلب. لون الحظ: الفضي. الرقم: 4. ساعة التقييم: 10 صباحًا.`,
-`فرصة لقاء تعيد رسم تفاصيل قلبك، وميزانها الاستمرارية لا الاندفاع. الماضي المتجمل يُسأل: ما الجديد؟ لون الحظ: الأزرق الملكي. الرقم: 10. ساعة البداية الهادئة: 5 مساءً.`,
-`اليوم مناسب لإغلاق الملفات المفتوحة بلا ضجيج. قل ما يلزم واصمت عمّا يجرح بلا فائدة. لا تسمح لطرف ثالث أن يكتب مصيرك. لون الحظ: الياقوتي. الرقم: 11. الساعة المميزة: 9 صباحًا.`,
-`الباب يُفتح ببطء ويغلق بسرعة مع سوء التصرف. شارك حدودك بصدق وأطفئ الشك بالحقائق. لون الحظ: الأزرق الفاتح. الرقم: 12. ساعة الخطوة الصغيرة: بعد الظهر مباشرة.`,
-`الاختبار في التوقيت لا في البلاغة. اطلب وعدًا ومعه خطة صغيرة تثبته. لون الحظ: الأخضر الزيتوني. الرقم: 14. الساعة الملائمة: 8 صباحًا.`,
-`مزاج عاطفي واضح لا يحتمل المواربة. ابتعد عن القصص الملتوية ولو أبهرتك. طريق مستقيم يبدو أطول لكنه أسرع وصولًا. لون الحظ: النيلي. الرقم: 13. ساعة إنهاء ما لا ينفع: قبيل منتصف الليل.`,
-`القرب مسؤولية لا رغبة عابرة. إن لم تكن مستعدًا فتحدث بأدب، ومن كان في قلبه سعة سيقدّر. لون الحظ: الخمري. الرقم: 16. ساعة المصارحة: 4 عصرًا.`,
-`اقرأ الزمن مع الكلمات؛ التوقيت يكشف النية. إن اتسق الفعل مع الموعد فاطمئن، وإلا فاحذر السردية الجميلة فوق واقع هش. لون الحظ: اللؤلؤي. الرقم: 15. ساعة القرار: 11 ليلًا.`,
-`باب المصالحة مفتوح بشرطين: اختصار لا يجرح، والتزام يُترجم إلى عادة. لا تفكك جمل قلب مرهق. لون الحظ: العاجي. الرقم: 18. ساعة اللقاء القصير: 6 مساءً.`,
-`العاطفة اليوم كقطرة عطر تغيّر الجو حولك. أعطِ نفسك لفتة صادقة وأعطِ من تحب فرصة فعل لا وعد. لون الحظ: الكحلي. الرقم: 19. ساعة الرسالة الدافئة: الظهيرة.`,
-`إن كنت على مفترق طريقين فاختر ما يحترم وقتك ولا يستهلك أعصابك. الجمال يحتاج مسؤولية تضمن استمراره. لون الحظ: الأخضر الفسفوري. الرقم: 20. ساعة التقييم: 10 مساءً.`,
-`يلتف حولك هدوء يشبه وعدًا مؤجلًا. راقب الأثر: إن ازددت اتزانًا فاقترب، وإن ازددت قلقًا فابتعد. لون الحظ: الوردي الدافئ. الرقم: 17. ساعة النية الطيبة: الصباح الباكر.`,
-  ],
+const OWM_KEY = "YOUR_OPENWEATHER_KEY"; // ← ضع مفتاح OpenWeather
+const DEFAULT = { nameAr:"المنامة، البحرين", nameEn:"Manama, Bahrain", lat:26.2235, lon:50.5876, tz: Intl.DateTimeFormat().resolvedOptions().timeZone };
+let state = JSON.parse(localStorage.getItem("wx_state_pro")||"null") || {...DEFAULT};
+let useMetric = JSON.parse(localStorage.getItem("wx_units_metric")||"true"); // true=metric °م
+let map, baseLayer, owLayers = {}, activeLayerName = null;
+let hourChart = null;
 
-  career: [
-`باب جانبي صغير يقود إلى ممر واسع. رسالة مختصرة قد تحمل توصية مهمة. لا توقع قبل مراجعة سطر مخفي في الذيل. لون الحظ: الأزرق الداكن. الرقم: 7. الساعة: 2 ظهرًا.`,
-`حركة مالية متذبذبة تختبر تنظيمك. قد يلمّع شريك محتمل عرضًا ويخفي تفصيلًا؛ أخرج البنود للنور. لون الحظ: الأخضر الزمردي. الرقم: 4. الساعة: 11 صباحًا.`,
-`نافذة عمل حر صغير الربح ثابت النمو. خصص ساعة يومية وسترى أثرًا بعد أسابيع. تجنّب شراء مجد سريع. لون الحظ: الذهبي. الرقم: 5. الساعة: 9 مساءً.`,
-`اجتماع قصير يناقش نقطة هامشية ستؤثر شهرًا. ادخل بأرقام واضحة وسؤال ذكي واحد. لون الحظ: الرمادي الدافئ. الرقم: 3. الساعة: 10 صباحًا.`,
-`شخص عملي يجيد الإنجاز أكثر من الترويج يقربك من مشروع متماسك. احذر الملمّعين الذين يغفلون التفاصيل. لون الحظ: النيلي. الرقم: 6. الساعة: بعد الغروب.`,
-`تعديل صغير يمنع خطأ كبير. سلّم نسخة أولى في الوقت ثم حسّن دوريًا. لون الحظ: التركواز. الرقم: 8. الساعة: 5 مساءً.`,
-`علاقة عمل قديمة تعود بثوب جديد؛ افحص الدوافع واطلب خطة واضحة. لون الحظ: الأحمر القاني. الرقم: 9. الساعة: الظهر.`,
-`ملف مالي يحتاج ترتيب دقيقة؛ خانة واحدة تغيّر قرارًا كبيرًا. افصل بين الرغبة والمصلحة. لون الحظ: الفضي. الرقم: 2. الساعة: 3 عصرًا.`,
-`مشروع صغير يصبح علامة فارقة إذا عاملته ككبير. ضع دليل جودة وأرقام متابعة أسبوعية. لون الحظ: الياقوتي. الرقم: 10. الساعة: 8 صباحًا.`,
-`اليوم مناسب لطلب توصية ممن رأى عملك. دع الحقائق تتكلم. لون الحظ: الأخضر الزيتوني. الرقم: 11. الساعة: 9 صباحًا.`,
-`ابتعد عن التزامات بلا سقف زمني. حدّد نهاية لكل مهمة وكافئ نفسك. لون الحظ: العاجي. الرقم: 12. الساعة: 4 عصرًا.`,
-`عقد معروض يحتاج تعديل بندين على الأقل. من يريدك شريكًا سيقدّر دقتك. لون الحظ: الكحلي. الرقم: 13. الساعة: قبل الظهر.`,
-`أرسل رسالة متابعة لمن تجاهل عملك سابقًا؛ التوقيت الآن أفضل. لون الحظ: الوردي الدافئ. الرقم: 14. الساعة: 1 ظهرًا.`,
-`تدريب قصير يضاعف ثقتك خلال أسبوعين. ساعة يومية تغنيك عن أيام عشوائية. لون الحظ: الأخضر الفاتح. الرقم: 15. الساعة: 6 مساءً.`,
-`لا تسابق نفسك. قليل متقن خير من كثير بلا أثر. اكتب مهام الغد الآن. لون الحظ: الرمادي الفاتح. الرقم: 16. الساعة: 9 مساءً.`,
-`اسمك سيُذكر في مجلس لا تحضره بفضل أثر قديم. كن مستعدًا لاتصال مفاجئ. لون الحظ: الأزرق الفاتح. الرقم: 17. الساعة: 3 عصرًا.`,
-`صفقة لامعة تخفي تكلفة خفية؛ اطلب كشفًا كاملًا وفكك البنود. لون الحظ: البنفسجي. الرقم: 18. الساعة: منتصف النهار.`,
-`قسّم يومك إلى إنجاز وتطوير ومتابعة. نصف ساعة تطوير يومية تغيّر الشهر. لون الحظ: الذهبي. الرقم: 19. الساعة: 8 صباحًا.`,
-`اختبار للالتزام بالموعد النهائي. أغلق الحلقة بما لديك ثم حسّن لاحقًا. لون الحظ: النيلي. الرقم: 20. الساعة: قبل الغروب.`,
-`قيمتك لا تختصر في وظيفة واحدة. إن ضاق باب فالأبواب الجانبية تتسع لمن يطرقها بلطف. لون الحظ: اللؤلؤي. الرقم: 21. الساعة: 10 مساءً.`,
-  ],
+/* ===== أدوات تنسيق ===== */
+const kmh = ms => Math.round(ms*3.6);
+const toKm = m => (m/1000).toFixed(1);
+const fmtDate = (d,tz) => new Intl.DateTimeFormat('ar',{timeZone:tz,weekday:'long',year:'numeric',month:'long',day:'numeric'}).format(d);
+const fmtTime = (ts,tz) => new Intl.DateTimeFormat('ar',{timeZone:tz,hour:'2-digit',minute:'2-digit'}).format(new Date(ts*1000));
+const fmtNum = n => (n!=null && !isNaN(n)) ? Math.round(n) : "--";
+const cToF = c => (c*9/5)+32;
+const msToMph = ms => ms*2.23694;
 
-  health: [
-`الجسد اليوم واضح: شد في الرقبة أو عطش بلا سبب. استجب مبكرًا بماء وتمدد ومشي قصير. لون الحظ: البرتقالي. الرقم: 6. ساعة الراحة: 9 مساءً.`,
-`الطاقة تتذبذب؛ أطفئ الضوء الأزرق قبل النوم واشرب ماءً على دفعات. لون الحظ: الفيروزي. الرقم: 2. ساعة النشاط الخفيف: 5 عصرًا.`,
-`أعد ضبط المائدة: وجبة أولى خفيفة تعطي صفاء لباقي اليوم. الحركة الصغيرة اليومية أثبت. لون الحظ: الأخضر الفاتح. الرقم: 5. الساعة: 8 صباحًا.`,
-`توتر اجتماعي يسرّع النفَس؛ اخفض الضجيج لربع ساعة ودع القلب يبطئ. لون الحظ: الأزرق الباهت. الرقم: 3. الساعة: 10 صباحًا.`,
-`عضلاتك تطلب تمددًا بسيطًا بين كل مهمتين؛ دقيقة لكل كتف تمنع ألم الغد. لون الحظ: اللؤلؤي. الرقم: 4. الساعة: 12 ظهرًا.`,
-`قلّل المنبهات بعد الغروب ومشروب دافئ يكفي. اكتب ثلاثة أمور شاكرًا لها لينام الجسد. لون الحظ: الرمادي الهادئ. الرقم: 7. الساعة: 11 ليلًا.`,
-`صداع مفاجئ يعالج بهواء بارد وخمس أنفاس عميقة وكوب ماء. لا تحتقر بساطة الوسائل. لون الحظ: الأخضر الزمردي. الرقم: 8. الساعة: 3 عصرًا.`,
-`لا تقارن صحتك بالآخرين؛ جسدك كتابك الخاص. الخطط الواقعية وحدها تدوم. لون الحظ: الأزرق الداكن. الرقم: 9. الساعة: 7 صباحًا.`,
-`اليوم صالح للخطوة الأولى: موعد فحص، حذاء مشي، أو قنينة ماء قربك. لون الحظ: الذهبي. الرقم: 10. الساعة: 4 عصرًا.`,
-`أدخل ضوء الشمس دقائق يصفُ وجهك قبل عينيك. اكتب ما يثقل ذهنك؛ النوم يحب العقول المرتبة. لون الحظ: الأصفر الدافئ. الرقم: 11. الساعة: 9 صباحًا.`,
-`ابتعد عن الحديث الثقيل قبل النوم؛ اختر سكونًا ناعمًا. لون الحظ: الوردي. الرقم: 12. الساعة: 10 مساءً.`,
-`انخفاض مفاجئ لا يُعالج بالقهوة فقط؛ ماء وقيلولة قصيرة ومشي. لون الحظ: السماوي. الرقم: 13. الساعة: 1 ظهرًا.`,
-`ضع حدودًا لطاقة الآخرين؛ من يستنزفك باسم القرب لا يقترب حقًا. لون الحظ: الزيتوني. الرقم: 14. الساعة: 6 مساءً.`,
-`اشكر جسدك على عمله الصامت؛ لحظة امتنان تعيد الإحساس بالوفرة. لون الحظ: البنفسجي الفاتح. الرقم: 15. الساعة: 8 مساءً.`,
-`عدّل جلستك: ارفع الشاشة لمستوى العين واسند أسفل الظهر. لون الحظ: الفضي. الرقم: 16. الساعة: 11 صباحًا.`,
-`لا تجعل الرياضة عقابًا؛ اجعلها احتفالًا بالحياة. حين يتغير القصد يثبت السلوك. لون الحظ: الأخضر الفاتح. الرقم: 17. الساعة: 7 مساءً.`,
-`هوِّ البيت والمشاعر معًا؛ نظافة صغيرة تغيّر المكان والنفس. لون الحظ: اللؤلؤي. الرقم: 18. الساعة: الصباح الباكر.`,
-`خفف الأخبار الثقيلة؛ القلب يتعب مما يرى ويسمع. اختر مصادر رقيقة للحواس. لون الحظ: التركواز. الرقم: 19. الساعة: 3 عصرًا.`,
-`لا تؤجل موعدًا طبيًا بسبب الخوف؛ المعرفة طمأنينة. لون الحظ: البيج. الرقم: 20. الساعة: الظهر.`,
-`امسك كوب ماء واشرب على مهل؛ شكرًا لجسد يعمل بصمت. لون الحظ: الأزرق الفاتح. الرقم: 21. الساعة: 2 مساءً.`,
-  ],
+/* ===== بحث المدن (Autocomplete) ===== */
+const search = document.getElementById('search');
+const suggest = document.getElementById('suggest');
+let suggestTimer = null;
 
-  general: [
-`خبر سار يقترب بخطوات قصيرة كأنه يعوّض طول انتظارك. جملة واحدة تغيّر اتجاه أسبوعك إذا التقطتها. لا تغفل التفاصيل الصغيرة اليوم. لون الحظ: الفيروزي. الرقم: 8. الساعة: 3 عصرًا.`,
-`مفاجأة من جهة لا تخطر: اتصال أو رسالة أو مصادفة تتحول إلى جوهر. لا ترفض قبل الفهم. لون الحظ: الذهبي. الرقم: 1. الساعة: 10 صباحًا.`,
-`رتّب أوراقك؛ فوضى صغيرة تسرق طاقة كبيرة. قائمة من ثلاث خطوات تكفي. لون الحظ: الرمادي الدافئ. الرقم: 2. الساعة: 9 صباحًا.`,
-`لا تنسخ خطط الآخرين؛ لك نبْعك الخاص. خطوة تناسبك توصلك. لون الحظ: الأزرق. الرقم: 3. الساعة: 5 مساءً.`,
-`شخص من الماضي يلوّح بتعاون؛ اجلس معه ولا تسلم قرارك للحنين. لون الحظ: الأخضر. الرقم: 4. الساعة: الظهر.`,
-`فكرة تلمع في لحظة هدوء؛ اكتبها وامنحها موعد تجربة قصير. لون الحظ: البنفسجي. الرقم: 5. الساعة: 8 مساءً.`,
-`لا تجعل أخبار الآخرين تملي مزاجك؛ اختر ما يدخل لقلبك بعناية. لون الحظ: الأبيض. الرقم: 6. الساعة: 2 ظهرًا.`,
-`اليوم صالح لقول لا مهذبة تنقذك من نعم نادمة. ضع حدودًا لأنفاسك. لون الحظ: الزيتوني. الرقم: 7. الساعة: 4 عصرًا.`,
-`بداية صغيرة اليوم تسبقك لغرض كبير غدًا. لا تحتقر البذرة. لون الحظ: العاجي. الرقم: 9. الساعة: 7 صباحًا.`,
-`الأيام تعيد إليك بعض يقينك؛ استقبل الهدوء كضيف كريم. لون الحظ: الوردي. الرقم: 10. الساعة: 9 مساءً.`,
-`امنح نفسك إذنًا بالراحة دون ذنب؛ الوقود أهم من الطريق. لون الحظ: الفضي. الرقم: 11. الساعة: 11 صباحًا.`,
-`إذا تثاقلت الأمور فجزئ المهمة الكبيرة إلى مهام صغيرة؛ كل خطوة علامة نصر. لون الحظ: الأزرق الفاتح. الرقم: 12. الساعة: 3 عصرًا.`,
-`دع نتائجك تتكلم ولا تناقش لتثبت ما تعرفه. من يحتاج الاقتناع سيلتقط الإشارة حين يرى الأثر. لون الحظ: الكحلي. الرقم: 13. الساعة: 6 مساءً.`,
-`دقيقة امتنان تغيّر زاوية النظر من النقص إلى الوفرة. ما تشكره يبقى. لون الحظ: الأخضر الفاتح. الرقم: 14. الساعة: 9 صباحًا.`,
-`من يختبر حدودك يقيسك؛ ردّ بثبات ولطف. لون الحظ: النيلي. الرقم: 15. الساعة: قبل الظهر.`,
-`لا تؤجل المهمة الأولى؛ إن انتهت انفتح النهار. لون الحظ: الذهبي الباهت. الرقم: 16. الساعة: 8 صباحًا.`,
-`رتّب ركنك الصغير؛ المكان حين يبتسم يبتسم المزاج. لون الحظ: البيج. الرقم: 17. الساعة: 11 ظهرًا.`,
-`خبر جيد ينتظر ردك؛ لا تدعه يبرد. بادر ولو بكلمة. لون الحظ: التركواز. الرقم: 18. الساعة: 2 مساءً.`,
-`الاختيار الصحيح ليس الأصعب دائمًا؛ إنه الأوضح. سر خلف الوضوح. لون الحظ: الفضي المزرق. الرقم: 19. الساعة: 4 عصرًا.`,
-`باب غير مخطط يفتح؛ ادخل بخطوة صغيرة وضع علامة خروج إن لزم. التجربة مرشد كريم. لون الحظ: الياقوتي. الرقم: 20. الساعة: 7 مساءً.`,
-  ]
-};
-
-/* ===================== العرض الآمن للنص ===================== */
-function escapeHTML(str){
-  return String(str)
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#39;");
-}
-function toParagraphs(safeStr){
-  const parts = safeStr.split(/\n+/).map(t=>t.trim()).filter(Boolean);
-  return parts.map(p=>`<p>${p}</p>`).join("");
-}
-function renderReading(text){
-  const fixed = text.replaceAll("لون الخط","لون الحظ"); // تصحيح تلقائي لو ظهر بالخطأ
-  const safe = escapeHTML(fixed);
-  document.getElementById("resultText").innerHTML = toParagraphs(safe);
-}
-
-/* ===================== تدفق الواجهة ===================== */
-const step1 = document.getElementById('step1');
-const stepTopics = document.getElementById('stepTopics');
-const stepResult = document.getElementById('stepResult');
-const resTitle = document.getElementById('resTitle');
-
-document.getElementById('startBtn').addEventListener('click', () => {
-  const gender = document.getElementById('gender').value.trim();
-  const status = document.getElementById('status').value.trim();
-  const work = document.getElementById('work').value.trim();
-  const birth = document.getElementById('birthdate').value.trim();
-  if(!gender || !status || !work || !birth){
-    alert('من فضلك أكمل جميع الحقول أولًا.');
-    return;
-  }
-  step1.classList.add('hidden');
-  stepTopics.classList.remove('hidden');
+search.addEventListener('input', ()=>{
+  const q = search.value.trim();
+  clearTimeout(suggestTimer);
+  if(!q){ suggest.style.display='none'; return; }
+  suggestTimer = setTimeout(async ()=>{
+    try{
+      const u = `https://api.openweathermap.org/geo/1.0/direct?q=${encodeURIComponent(q)}&limit=5&appid=${OWM_KEY}`;
+      const r = await fetch(u); const j = await r.json();
+      suggest.innerHTML = (j||[]).map(it=>{
+        const nameAr = it.local_names?.ar || it.name;
+        const line = [nameAr||it.name, it.state, it.country].filter(Boolean).join("، ");
+        return `<div data-lat="${it.lat}" data-lon="${it.lon}" data-name="${line}">${line}</div>`;
+      }).join('') || '<div>لا نتائج</div>';
+      suggest.style.display='block';
+    }catch{ suggest.style.display='none'; }
+  }, 300);
 });
 
-document.querySelectorAll('.topic').forEach(btn=>{
-  btn.addEventListener('click', ()=>{
-    const topic = btn.dataset.topic;
-    const list = TEMPLATES[topic] || [];
-    const chosen = list[Math.floor(Math.random()*list.length)] || 'لا توجد قراءة الآن.';
-    const titleMap = {love:'قراءة الحب', career:'قراءة المهنة والمال', health:'قراءة الصحة', general:'قراءة عامة/دراسية'};
-    resTitle.textContent = titleMap[topic] || 'قراءتك';
-    renderReading(chosen);
-    stepTopics.classList.add('hidden');
-    stepResult.classList.remove('hidden');
-    window.scrollTo({top:0,behavior:'smooth'});
+suggest.addEventListener('click', (e)=>{
+  const div = e.target.closest('div[data-lat]');
+  if(!div) return;
+  state.lat = +div.dataset.lat; state.lon = +div.dataset.lon; state.nameAr = div.dataset.name; state.nameEn = div.dataset.name;
+  suggest.style.display='none'; search.value='';
+  saveState(); refreshAll();
+});
+
+/* ===== عرض المكان ===== */
+function setPlace(){
+  place.textContent = state.nameAr || state.nameEn || 'موقعك';
+  subPlace.textContent = `المنطقة الزمنية: ${state.tz||Intl.DateTimeFormat().resolvedOptions().timeZone}`;
+  tzLbl.textContent = state.tz || Intl.DateTimeFormat().resolvedOptions().timeZone;
+}
+
+/* ===== جلب الاسم من الإحداثيات ===== */
+async function reverseName(lat,lon){
+  try{
+    const u = `https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=1&appid=${OWM_KEY}`;
+    const r = await fetch(u); const j = await r.json(); const it = j?.[0];
+    if(it){
+      const city = it.local_names?.ar || it.name || "";
+      const country = it.country || "";
+      return {ar: city && country ? `${city}، ${country}` : (city||country||"موقعك"), en:`${it.name||city}, ${country}`}
+    }
+  }catch{}
+  return {ar:"موقعك", en:"Your location"}
+}
+
+/* ===== API: One Call + fallback ===== */
+async function getOneCall(lat,lon,units,lang='ar'){
+  const u = `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&appid=${OWM_KEY}&units=${units}&lang=${lang}&exclude=minutely`;
+  const r = await fetch(u, {cache:'no-store'});
+  if(!r.ok) throw new Error('OneCall failed');
+  return r.json();
+}
+async function getForecast3h(lat,lon,units,lang='ar'){
+  const u = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${OWM_KEY}&units=${units}&lang=${lang}`;
+  const r = await fetch(u, {cache:'no-store'});
+  if(!r.ok) throw 0;
+  return r.json();
+}
+async function getAir(lat,lon){
+  try{
+    const u = `https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${OWM_KEY}`;
+    const r = await fetch(u); const j = await r.json(); return j?.list?.[0];
+  }catch{ return null; }
+}
+
+/* ===== تعبئة واجهة "الآن" ===== */
+function fillNow(data){
+  const tz = data.timezone || state.tz || Intl.DateTimeFormat().resolvedOptions().timeZone;
+  const current = data.current || {};
+  const daily0 = (data.daily?.[0]) || {};
+  const w = current.weather?.[0] || {};
+  const temp = current.temp, feels = current.feels_like;
+  iconNow.src = w.icon ? `https://openweathermap.org/img/wn/${w.icon}@2x.png` : "";
+  iconNow.alt = w.description || "طقس";
+  condNow.textContent = w.description || "—";
+  tNow.textContent = fmtNum(temp);
+  hi.textContent = fmtNum(daily0.temp?.max ?? temp);
+  lo.textContent = fmtNum(daily0.temp?.min ?? temp);
+  feels.textContent = fmtNum(feels);
+  hum.textContent = current.humidity ?? "--";
+  press.textContent = current.pressure ?? "--";
+  wind.textContent = useMetric ? kmh(current.wind_speed||0) : Math.round(msToMph(current.wind_speed||0));
+  vis.textContent = (current.visibility!=null) ? toKm(current.visibility) : "--";
+  dew.textContent = (current.dew_point!=null) ? fmtNum(current.dew_point) : "--";
+  uv.textContent = (current.uvi!=null) ? current.uvi.toFixed(1) : "--";
+  sunrise.textContent = current.sunrise ? fmtTime(current.sunrise, tz) : "--:--";
+  sunset.textContent = current.sunset ? fmtTime(current.sunset, tz)  : "--:--";
+  updateNote.textContent = "آخر تحديث " + new Intl.DateTimeFormat('ar',{timeStyle:'short'}).format(new Date());
+  greg.textContent = fmtDate(new Date(), tz);
+}
+
+/* ===== الرسم البياني للساعة القادمة ===== */
+function buildHourChart(hourly){
+  const labels = hourly.slice(0,24).map(h=>{
+    const dt = new Date(h.dt*1000);
+    return new Intl.DateTimeFormat('ar',{hour:'2-digit'}).format(dt);
   });
+  const temps = hourly.slice(0,24).map(h=>Math.round(h.temp));
+  const pops  = hourly.slice(0,24).map(h=>Math.round((h.pop||0)*100));
+
+  const ctx = document.getElementById('hourChart').getContext('2d');
+  if(hourChart){ hourChart.destroy(); }
+  hourChart = new Chart(ctx, {
+    type:'bar',
+    data:{ labels,
+      datasets:[
+        { type:'line', label:'الحرارة', data:temps, borderWidth:2, tension:.3, yAxisID:'y' },
+        { type:'bar',  label:'% أمطار', data:pops, borderWidth:0, yAxisID:'y1' }
+      ]
+    },
+    options:{
+      responsive:true,
+      maintainAspectRatio:false,
+      plugins:{ legend:{ display:true, rtl:true } },
+      scales:{
+        y:{ position:'left', beginAtZero:false },
+        y1:{ position:'right', beginAtZero:true, suggestedMax:100, grid:{ drawOnChartArea:false } }
+      }
+    }
+  });
+}
+
+/* ===== 7 أيام ===== */
+function fillDays(daily){
+  const tz = state.tz || Intl.DateTimeFormat().resolvedOptions().timeZone;
+  daysGrid.innerHTML = (daily||[]).slice(0,7).map(d=>{
+    const dn = new Intl.DateTimeFormat('ar',{timeZone:tz, weekday:'long'}).format(new Date(d.dt*1000));
+    const dt = new Intl.DateTimeFormat('ar',{timeZone:tz, month:'short', day:'2-digit'}).format(new Date(d.dt*1000));
+    const iconUrl = d.weather?.[0]?.icon ? `https://openweathermap.org/img/wn/${d.weather[0].icon}.png` : "";
+    const desc = d.weather?.[0]?.description || '';
+    const max = Math.round(d.temp.max), min = Math.round(d.temp.min);
+    return `<div class="dayCard">
+      <div class="dayName">${dn}</div>
+      <div class="small">${dt}</div>
+      <div style="margin:6px 0">${iconUrl?`<img src="${iconUrl}" alt="${desc}" width="42" height="42">`:''}</div>
+      <div><strong>${max}°</strong> / <span>${min}°</span></div>
+      <div class="small">${desc}</div>
+    </div>`;
+  }).join("");
+}
+
+/* ===== AQI ===== */
+function aqiLabel(aqi){
+  // 1-5 حسب OpenWeather
+  return {
+    1:"جيّد جدًا", 2:"جيّد", 3:"متوسط", 4:"سيّئ", 5:"سيّئ جدًا"
+  }[aqi] || "--";
+}
+
+/* ===== خريطة الرادار ===== */
+function initMap(){
+  if(map) return;
+  map = L.map('map', { zoomControl:true });
+  baseLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+    attribution:'© OpenStreetMap'
+  }).addTo(map);
+  centerMap();
+}
+function centerMap(){
+  map.setView([state.lat, state.lon], 7);
+}
+function owmLayer(name){
+  if(owLayers[name]) return owLayers[name];
+  const url = `https://tile.openweathermap.org/map/${name}/{z}/{x}/{y}.png?appid=${OWM_KEY}`;
+  owLayers[name] = L.tileLayer(url, { opacity:0.7 });
+  return owLayers[name];
+}
+function switchLayer(name){
+  if(activeLayerName && owLayers[activeLayerName]) map.removeLayer(owLayers[activeLayerName]);
+  const lyr = owmLayer(name);
+  lyr.addTo(map); activeLayerName = name;
+}
+
+/* ===== تبديل الوحدات ===== */
+const unitBtn = document.getElementById('unitBtn');
+function setUnitBtn(){
+  unitBtn.textContent = useMetric ? '°م' : '°ف';
+  localStorage.setItem('wx_units_metric', JSON.stringify(useMetric));
+}
+unitBtn.addEventListener('click', ()=>{
+  useMetric = !useMetric;
+  setUnitBtn();
+  refreshAll(); // إعادة الجلب بالوحدات الجديدة
 });
 
-document.getElementById('backBtn').addEventListener('click', ()=>{
-  stepResult.classList.add('hidden');
-  stepTopics.classList.remove('hidden');
+/* ===== حفظ الحالة ===== */
+function saveState(){ localStorage.setItem("wx_state_pro", JSON.stringify(state)); setPlace(); centerMap(); }
+
+/* ===== التحديث الشامل ===== */
+async function refreshAll(){
+  try{
+    setPlace();
+    initMap();
+    centerMap();
+
+    const units = useMetric ? 'metric' : 'imperial';
+    let one = null;
+    try{
+      one = await getOneCall(state.lat, state.lon, units);
+    }catch{}
+
+    if(one){
+      state.tz = one.timezone;
+      fillNow(one);
+      buildHourChart(one.hourly||[]);
+      fillDays(one.daily||[]);
+      // AQI
+      const air = await getAir(state.lat, state.lon);
+      if(air){ aqi.textContent = `${aqiLabel(air.main?.aqi)} (${air.main?.aqi})`; }
+    }else{
+      // Fallback: طقس حالي + توقع 5 أيام (3 ساعات)
+      const curU = `https://api.openweathermap.org/data/2.5/weather?lat=${state.lat}&lon=${state.lon}&appid=${OWM_KEY}&units=${units}&lang=ar`;
+      const curR = await fetch(curU); const current = await curR.json();
+
+      const fore = await getForecast3h(state.lat, state.lon, units);
+      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      state.tz = tz;
+
+      // بناء بنية شبه OneCall للعرض
+      const oneLike = {
+        timezone: tz,
+        current: {
+          temp: current.main?.temp,
+          feels_like: current.main?.feels_like,
+          humidity: current.main?.humidity,
+          pressure: current.main?.pressure,
+          wind_speed: current.wind?.speed,
+          visibility: current.visibility,
+          dew_point: null,
+          uvi: null,
+          sunrise: current.sys?.sunrise,
+          sunset: current.sys?.sunset,
+          weather: current.weather
+        },
+        hourly: fore.list.map(it=>({
+          dt: it.dt,
+          temp: it.main.temp,
+          pop: (it.pop || 0),
+          weather: it.weather
+        }))
+      };
+
+      // حساب 7 أيام من نقاط 3 ساعات (تبسيط)
+      const byDay = {};
+      for(const it of fore.list){
+        const d = new Date(it.dt*1000);
+        const key = d.getUTCFullYear()+"-"+(d.getUTCMonth()+1)+"-"+d.getUTCDate();
+        byDay[key] = byDay[key] || {temps:[], dt: it.dt, weather: it.weather?.[0]};
+        byDay[key].temps.push(it.main.temp_min ?? it.main.temp, it.main.temp_max ?? it.main.temp);
+      }
+      oneLike.daily = Object.values(byDay).slice(0,7).map(x=>{
+        const min = Math.round(Math.min(...x.temps));
+        const max = Math.round(Math.max(...x.temps));
+        return { dt:x.dt, temp:{min, max}, weather:[x.weather||{}] };
+      });
+
+      fillNow(oneLike);
+      buildHourChart(oneLike.hourly);
+      fillDays(oneLike.daily);
+      const air = await getAir(state.lat, state.lon);
+      if(air){ aqi.textContent = `${aqiLabel(air.main?.aqi)} (${air.main?.aqi})`; }
+    }
+
+    // طبقة افتراضية للرادار
+    switchLayer('clouds_new');
+
+  }catch(e){
+    console.error(e);
+    alert('تعذّر جلب بيانات الطقس. تحقق من مفتاح OpenWeather أو الاتصال.');
+  }
+}
+
+/* ===== تحديد الموقع ===== */
+async function init(){
+  try{
+    setPlace(); setUnitBtn();
+    if(navigator.geolocation){
+      navigator.geolocation.getCurrentPosition(async pos=>{
+        state.lat = pos.coords.latitude; state.lon = pos.coords.longitude;
+        const nm = await reverseName(state.lat, state.lon);
+        state.nameAr = nm.ar; state.nameEn = nm.en;
+        saveState(); refreshAll();
+      }, async ()=>{
+        // مرفوض أو خطأ → استخدام الحالة المحفوظة/الافتراضية
+        const nm = await reverseName(state.lat, state.lon);
+        state.nameAr = state.nameAr || nm.ar; state.nameEn = state.nameEn || nm.en;
+        saveState(); refreshAll();
+      }, {enableHighAccuracy:false, timeout:8000, maximumAge:600000});
+    }else{
+      const nm = await reverseName(state.lat, state.lon);
+      state.nameAr = state.nameAr || nm.ar; state.nameEn = state.nameEn || nm.en;
+      saveState(); refreshAll();
+    }
+  }catch(e){
+    console.error(e);
+    refreshAll();
+  }
+}
+
+/* أحداث الرادار */
+document.querySelectorAll('.layerToggles button[data-layer]').forEach(btn=>{
+  btn.addEventListener('click', ()=> switchLayer(btn.dataset.layer));
 });
-document.getElementById('restartBtn').addEventListener('click', ()=>{
-  stepResult.classList.add('hidden');
-  stepTopics.classList.add('hidden');
-  step1.classList.remove('hidden');
-  window.scrollTo({top:0,behavior:'smooth'});
-});
-document.getElementById('copyBtn').addEventListener('click', ()=>{
-  const div = document.createElement('div');
-  div.innerHTML = document.getElementById('resultText').innerHTML;
-  const txt = div.textContent || div.innerText || '';
-  navigator.clipboard.writeText(txt).then(()=>alert('تم نسخ القراءة.'));
-});
+document.getElementById('centerBtn').addEventListener('click', centerMap);
+
+/* ابدأ */
+init();
 </script>
 </body>
 </html>
