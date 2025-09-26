@@ -6,41 +6,35 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <!-- خطوط احترافية -->
-  <link href="https://fonts.googleapis.com/css2?family=Reem+Kufi+Ink:wght@600;700&family=Markazi+Text:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;600;700&family=Noto+Sans+Arabic:wght@500;600;700&display=swap" rel="stylesheet">
 
   <style>
-    /* إعداد الطباعة */
-    @page { size: A4; margin: 2cm; }
-
+    /* ===================== إعدادات عامة للشاشة ===================== */
     :root{
       --gold1:#b9890f;
       --gold2:#d4af37;
       --gold3:#f2d674;
       --ink:#101010;
-      --muted:#626262;
+      --muted:#606060;
       --paper:#ffffff;
-      --soft:#fffdf7;
     }
 
     html, body { height:100%; }
     body{
       margin:0;
       background:
-        radial-gradient(1200px 800px at 50% -20%, #fff, #f7f7f7 60%, #f1f1f1 100%);
+        radial-gradient(1200px 800px at 50% -20%, #fff, #f8f8f8 60%, #f1f1f1 100%);
       color:var(--ink);
-      font-family:"Markazi Text","Noto Naskh Arabic","Amiri","Scheherazade",serif;
+      font-family:"Noto Naskh Arabic","Amiri","Scheherazade",serif;
       line-height:2.05;
       text-align:justify;
       text-justify:inter-word;
-      text-rendering:optimizeLegibility;
       -webkit-font-smoothing:antialiased;
       -moz-osx-font-smoothing:grayscale;
     }
 
-    /* المسرح العام */
+    /* مسرح العرض على الشاشة */
     .stage{ max-width:23cm; margin:auto; padding:2.2cm 0; }
-
-    /* الورقة */
     .sheet{
       position:relative;
       max-width:21cm;
@@ -52,7 +46,6 @@
       box-shadow:0 18px 40px rgba(0,0,0,.12), 0 2px 8px rgba(0,0,0,.06);
       overflow:hidden;
     }
-    /* إطار داخلي رفيع وزخارف رقيقة */
     .sheet::before{
       content:"";
       position:absolute; inset: 14px;
@@ -63,25 +56,22 @@
         radial-gradient(16% 16% at 95% 6%, #fff7d8 0, transparent 60%),
         radial-gradient(14% 14% at 6% 94%, #fff7d8 0, transparent 60%);
     }
-
-    /* محتوى */
     .content{ padding:2.1cm 1.9cm; position:relative; z-index:1; }
 
-    /* رأس */
-    header{ text-align:center; margin-bottom:1.2em; }
+    header{ text-align:center; margin-bottom:1.1em; }
     h1{
       margin:0 0 .35em;
-      font-family:"Reem Kufi Ink","Cairo",sans-serif;
+      font-family:"Noto Sans Arabic","Cairo",sans-serif;
       font-weight:700;
       font-size:30px;
-      letter-spacing:.2px;
+      letter-spacing:.15px;
       color:var(--ink);
     }
     .subtitle{
       margin:0 0 1.1em;
       color:var(--muted);
-      font-size:17px;
-      font-weight:600;
+      font-family:"Noto Sans Arabic",sans-serif;
+      font-size:16px; font-weight:600;
     }
     .divider{
       height:14px; width:78%; margin:.6em auto 1.4em;
@@ -90,25 +80,21 @@
         radial-gradient(circle, var(--gold3) 0 3px, transparent 4px) center/8px 8px no-repeat;
     }
 
-    /* أدوات شاشة فقط */
     .toolbar{ display:flex; gap:.6rem; justify-content:flex-start; margin-bottom:1rem; }
     .btn{
       background:#000; color:#fff; border:1px solid #000;
       padding:.6rem 1rem; border-radius:12px; font-size:14px; cursor:pointer;
     }
     .btn:hover{ opacity:.92; }
-    .screen-note{ font-size:12px; color:var(--muted); margin:.15rem 0 1rem; }
     .no-print{}
 
-    /* نص المقال */
     article{ font-size:19px; }
     p{ margin:0 0 1em; }
     strong{ font-weight:700; color:inherit; }
 
-    /* Drop Cap راقٍ لأول فقرة */
     .lead:first-letter{
       float:right;
-      font-family:"Reem Kufi Ink","Cairo",sans-serif;
+      font-family:"Noto Sans Arabic",sans-serif;
       font-weight:700;
       font-size:54px;
       line-height:.86;
@@ -120,7 +106,6 @@
       box-shadow:0 1px 0 rgba(0,0,0,.05) inset;
     }
 
-    /* صندوق الآية */
     .ayah{
       text-align:center;
       font-weight:700;
@@ -131,8 +116,6 @@
       font-size:20px;
       page-break-inside:avoid;
     }
-
-    /* فاصل زخرفي */
     .ornament{
       height:12px; margin:1.4em auto 1.2em;
       background:
@@ -141,75 +124,151 @@
       page-break-inside:avoid;
     }
 
-    /* تحسينات منع التقطيع */
-    h1, .subtitle, header, .ayah, .divider{ page-break-inside:avoid; }
-    p{ orphans:3; widows:3; }
+    /* ===================== إعدادات PDF (طباعة) ===================== */
+    @page {
+      size: A4;
+      margin: 2.2cm 2.2cm 2.4cm 2.2cm;  /* هوامش PDF */
+    }
 
-    /* إطار ذهبي لكل صفحة أثناء الطباعة (مستقل لكل صفحة) */
     @media print{
-      .no-print{ display:none !important; }
-      body{ background:#fff; }
+      /* 1) إخفاء كل مؤثرات الشاشة */
+      .no-print, .stage, .sheet::before{ display:none !important; }
+      body{ background:#fff; font-family:"Noto Naskh Arabic",serif; }
 
-      /* إطار ثابت يُطبع على كل صفحة */
-      .print-frame{
-        position:fixed;
-        top:0; left:0; right:0; bottom:0;
+      /* 2) تصميم PDF مختلف كليًا */
+      .pdf-page{
+        /* الحاوية الرئيسية لنسخة PDF */
+        position: relative;
+        /* هامش داخلي مريح */
+        padding: 0;
+      }
+
+      /* شريط ذهبي رأسي رفيع على يسار الصفحة (يعكس تصميم مجلات) */
+      .pdf-left-bar{
+        position: fixed;
+        top: 0; bottom: 0; left: 0;
+        width: 6mm;
+        background: linear-gradient(180deg, var(--gold2), var(--gold1));
+        z-index: -1; /* خلف المحتوى */
+      }
+
+      /* إطار داخلي رشيق لكل صفحة (مستقل) */
+      .pdf-frame::before{
+        content:"";
+        position:fixed; top:0; right:0; bottom:0; left:0;
+        margin: 1.2cm; /* داخل الهوامش */
+        border: 0.8pt solid #222; /* إطار رفيع */
+        opacity: 0.9;
         z-index:-1;
       }
-      .print-frame::before{
-        content:"";
-        position:absolute; top:0; left:0; right:0; bottom:0;
-        margin:2cm; /* يطابق @page margin */
-        border:8px solid transparent;
-        border-image:linear-gradient(135deg,var(--gold1),var(--gold2),var(--gold3),var(--gold2)) 1;
+
+      /* 3) ترويسة وتذييل يتكرران في كل صفحة */
+      .pdf-header,
+      .pdf-footer{
+        position: fixed;
+        left: 2.2cm; right: 2.2cm;
+        color:#333;
+        font-family:"Noto Sans Arabic",sans-serif;
       }
-      .print-frame::after{
-        content:"";
-        position:absolute; top:0; left:0; right:0; bottom:0;
-        margin:calc(2cm + 10px);
-        border:1px solid #000;
+      .pdf-header{
+        top: 1.2cm;
+        display: flex; align-items: center; justify-content: space-between;
+        font-size: 11pt; font-weight:600;
+        border-bottom: 0.6pt solid #ddd;
+        padding-bottom: 6pt;
+      }
+      .pdf-header .title{
+        letter-spacing:.2px;
+      }
+      .pdf-header .brand{
+        font-weight:700;
+        color:#111;
       }
 
-      /* إزالة الظلال والزوايا للنسخة المطبوعة (لأن لدينا إطار مخصص لكل صفحة) */
-      .stage{ padding:0; }
-      .sheet{ border:none; box-shadow:none; border-radius:0; }
-      .sheet::before{ display:none; }
-      .content{ padding:0; margin:0; }
-      header{ margin: 0 0 1.1em; padding: 1.2cm 1.2cm 0 1.2cm; }
-      article{ padding: 0 1.2cm 1.2cm 1.2cm; font-size:18.5px; }
+      .pdf-footer{
+        bottom: 1.2cm;
+        display: flex; align-items: center; justify-content: space-between;
+        font-size: 10pt; color:#555;
+        border-top: 0.6pt solid #ddd;
+        padding-top: 6pt;
+      }
+      .pdf-footer .page-num::after{
+        content: counter(page) " / " counter(pages);
+        font-feature-settings: "tnum";
+      }
 
-      /* لا تقسيم إلى أعمدة إطلاقاً */
-      article{ column-count:1; }
+      /* 4) المحتوى المطبوع */
+      .pdf-content{
+        /* يطابق هوامش @page، مع هامش داخلي بسيط */
+        margin: 2.2cm 2.2cm 2.4cm 2.2cm;
+        font-size: 12.5pt;  /* حجم محتوى PDF */
+        line-height: 2.0;
+        column-count: 1; /* عمود واحد */
+        color:#111;
+      }
 
-      /* عناصر كل صفحة مستقلة (الإطار ثابت يكرر تلقائياً) */
-      /* إذا أردت إجبار فاصل صفحة قبل قسم معين أضف class="page-break" */
-      .page-break{ break-before: page; }
+      .pdf-title{
+        font-family:"Noto Sans Arabic",sans-serif;
+        font-weight:700;
+        font-size: 18pt;
+        text-align:center;
+        margin: 0 0 6pt 0;
+      }
+      .pdf-subtitle{
+        font-family:"Noto Sans Arabic",sans-serif;
+        font-weight:600;
+        font-size: 11pt;
+        color:#666;
+        text-align:center;
+        margin: 0 0 14pt 0;
+      }
+      .pdf-divider{
+        height: 12px; width: 60%; margin: 8pt auto 18pt;
+        background:
+          linear-gradient(to left, transparent, #999, transparent) center/100% 1px no-repeat;
+      }
+
+      .pdf-content p{
+        margin: 0 0 10pt 0;
+        orphans:3; widows:3;
+      }
+      .pdf-content strong{
+        font-weight:700; color:#000;
+      }
+      .pdf-ayah{
+        text-align:center;
+        font-weight:700;
+        border:0.6pt dashed #999;
+        padding:8pt 10pt;
+        margin:14pt 0 12pt;
+        background: #fff;
+        page-break-inside: avoid;
+      }
+
+      /* منع تقطيع العناصر المهمة */
+      .pdf-title, .pdf-subtitle, .pdf-divider, .pdf-ayah{ page-break-inside:avoid; }
+
+      /* إزالة أي حدود/ظلال متبقية */
+      .sheet{ border:none; box-shadow:none; }
     }
   </style>
 </head>
 <body>
 
-  <!-- إطار الطباعة المتكرر لكل صفحة -->
-  <div class="print-frame"></div>
-
+  <!-- ======= نسخة الشاشة (تصميم ذهبي مزخرف) ======= -->
   <div class="stage">
     <div class="sheet">
       <div class="content">
-
-        <!-- أدوات شاشة فقط -->
         <div class="toolbar no-print" aria-label="أدوات الصفحة">
           <button class="btn" onclick="window.print()">طباعة / حفظ PDF</button>
         </div>
-        <div class="screen-note no-print">اضغط “طباعة” ثم اختر “الحفظ كملف PDF”. الحجم مضبوط على A4.</div>
 
-        <!-- رأس -->
         <header>
           <h1>بركات ولادة الرسول الأكرم محمّد (صلى الله عليه وآله)</h1>
           <div class="subtitle">سيرة النبي الأكرم(ص)</div>
           <div class="divider" aria-hidden="true"></div>
         </header>
 
-        <!-- المقال (كامل بعمود واحد) -->
         <article>
           <p class="lead">
             لولادة الرسول الأكرم محمّد (صلى الله عليه وآله) وقدومه المبارك إلى هذه الدنيا بركات لا حصر لها، وسنذكر فيما يلي بعضاً منها:
@@ -242,13 +301,81 @@
             لقد كان وجود نبيّ الإسلام الأكرم (صلى الله عليه وآله وسلم)، أكبر عامل للوحدة في كافّة العصور الإسلاميّة واليوم يمكنه أن يكون كذلك، لأنّ عقيدة آحاد المسلمين بذاك الوجود الأقدس العظيم، توأم للعاطفة والعشق، لذلك كان ذاك العظيم، مركز ومحور العواطف والعقائد عند كافّة المسلمين. وهذه المحوريّة، من إحدى موجبات استئناس قلوب المسلمين وتقريب الفرق الإسلاميّة بعضها من بعض[8].
           </p>
         </article>
-
       </div>
     </div>
   </div>
 
+  <!-- ======= نسخة PDF (تظهر فقط عند الطباعة) ======= -->
+  <div class="pdf-page pdf-frame" style="display:none;">
+    <!-- شريط جانبي ذهبي لكل صفحة -->
+    <div class="pdf-left-bar"></div>
+
+    <!-- ترويسة PDF -->
+    <div class="pdf-header">
+      <div class="title">بركات ولادة الرسول الأكرم محمّد (ص)</div>
+      <div class="brand">سيرة النبي الأكرم</div>
+    </div>
+
+    <!-- تذييل PDF -->
+    <div class="pdf-footer">
+      <div>طبعة خاصة</div>
+      <div class="page-num"></div>
+    </div>
+
+    <!-- محتوى PDF -->
+    <div class="pdf-content">
+      <div class="pdf-title">بركات ولادة الرسول الأكرم محمّد (صلى الله عليه وآله)</div>
+      <div class="pdf-subtitle">سيرة النبي الأكرم(ص)</div>
+      <div class="pdf-divider" aria-hidden="true"></div>
+
+      <p>
+        لولادة الرسول الأكرم محمّد (صلى الله عليه وآله) وقدومه المبارك إلى هذه الدنيا بركات لا حصر لها، وسنذكر فيما يلي بعضاً منها:
+      </p>
+
+      <p>
+        <strong>لولادة الرسول الأكرم محمّد (صلى الله عليه وآله) وقدومه المبارك إلى هذه الدنيا بركات لا حصر لها، وسنذكر فيما يلي بعضاً منها:</strong>
+        <strong>تزلزل أعلام الشرك وعبادة الأصنام</strong>
+        إنّ ما جاء في الآثار والتواريخ حول تصدّع شرفات بلاط (قباب) كسرى وتزلزل أعلام عبادة الأصنام والشرك في كافّة أنحاء الدنيا - فيما إذا كانت هذه الآثار قطعية - لعلّه يكون ظهورًا للقدرة الإلهيّة، للإعلان الرمزي عن حضور هذه القوّة التي ستقضي على جذور الظلم والفساد وتطهّر العلم من الخرافة وتخلّص الحضارة من الفساد[1]. لقد أرسل الله تعالى إلى عالم الوجود الذخيرة الإلهيّة الكبرى أي الوجود المقدّس للرسول الأكرم (صلى الله عليه وآله وسلم)، فكان منطلقًا إلى مرحلة حسّاسة بداية مرحلة أساسيّة في مصير البشريّة. ولقد جاء في شأن آيات (علامات) ولادة الرسول أنّه عندما ولد ذاك العظيم، تهدّمت شرفات إيوان كسرى، وانطفأت نيران معبد آذركشسب الذي بقي مشتعلًا مدة قرون وجَفّت بحيرة ساوة التي كان يعتبرها بعض الناس في ذاك الزمان مقدّسة، وهُدِّمت الأصنام التي كانت معلّقة حول الكعبة[2]. إنّ هذه الإشارات الرمزيّة والظاهريّة بالكامل، تشير إلى اتّجاه الإرادة والسنّة الإلهيّتين في إسباغ خلعة الوجود على هذا الموجود العظيم، وهذه الشخصيّة الرفيعة والفريدة. معنى هذه الأحداث الرمزيّة هو أنّه مع هذا القدوم المبارك، هو حتميّة طيّ بساط الذلّ عن البشريّة، سواء كان ذلك (الذلّ) من خلال حاكميّة الجبّارين والحكّام المستبدّين - من قبيل ما كان يجري آنذاك في إيران وروما القديمة - أو كان وليد عبادة غير الله. وعلى يدي هذا المولود المبارك، لا بدّ أن تتحرّر البشريّة من قيود الظلم الذي فرضه حكّام الجور على المظلومين من البشر طوال التاريخ، ومن قيود الخرافات والعقائد الباطلة والمذلّة التي جعلت الإنسان خاضعًا ذليلًا أمام الموجودات الأدنى منه أو في مقابل أفراد البشر الآخرين. لذلك جاء في الآية القرآنيّة في باب بعثة النبيّ الأكرم(صلى الله عليه وآله وسلم)، قوله تعالى:
+      </p>
+
+      <div class="pdf-ayah">
+        ﴿هُوَ الَّذِي أَرْسَلَ رَسُولَهُ بِالْهُدَى وَدِينِ الْحَقِّ لِيُظْهِرَهُ عَلَى الدِّينِ كُلِّهِ وَكَفَى بِاللَّهِ شَهِيدًا﴾
+      </div>
+
+      <p>
+        إنّ عبارة <strong>﴿لِيُظْهِرَهُ عَلَى الدِّينِ كُلِّهِ﴾</strong> ليست خاضعة لحدّ (لتحديد) زماني، بل تشير إلى الوُجهة. يجب أن تتحرّك البشريّة بعد هذه الحادثة نحو الحريّة المعنوية والاجتماعيّة والحقيقيّة والعقلانيّة. لقد بدأ هذا العمل، وإنّ استمراره يكون بأيدينا نحن البشر. وهذه سُنّة أخرى في عالم الخلق[4].
+        <strong>نزول الرحمة الإلهيّة على البشر</strong>
+        إنّ هذه الولادة العظيمة، هي ولادة أرقى نماذج الرحمة الإلهيّة للبشريّة، لأنّ وجود ذاك العظيم وإرسال هذا النبيّ الكبير، هو رحمة الحقّ تعالى على العباد. وينبغي على البشريّة إدراك أنّ هذه الرحمة، هي رحمة غير منقطعة، بل هي رحمة مستمرّة[5].
+        <strong>حركة المسلمين نحو التكامل</strong>
+        ليس بمقدور أيّ إنسان بيان أبعاد شخصيّة النبيّ الأكرم (صلى الله عليه وآله وسلم) بنحو ٍكامل وتقديم صورة قريبة من الواقع عن شخصيّة ذاك العظيم... إنّ ما نعرفه ونعلمه عن من اختاره واصطفاه إلهُ العالم وطليعة الأنبياء على امتداد التاريخ، هو ظلٌّ وشبحٌ للوجود المعنوي والباطني والحقيقي لذاك العظيم، إلّا أنّ هذا المقدار من المعرفة يكفي المسلمين لضمان استمرار حركتهم نحو الكمال ولصيرورة قمّة الإنسانيّة وأوجّ التكامل البشري أمامهم ويشجّعهم على التحرّك نحو الوحدة الإسلاميّة والاجتماع حول ذاك المحور. بناءً على ما تقدّم، نوصي كافّة المسلمين في العالم، بزيادة العمل حول أبعاد شخصيّة الرسول وحياته وسيرته وأخلاقه والتعاليم المأثورة والمنصوصة عن ذاك العظيم[6].
+      </p>
+
+      <p>
+        <strong>الميل إلى الإسلام</strong>
+        ... هناك الكثير من البشر في العالم، ممّن إذا ما عرفوا رسول الإسلام بالقدر الذي عرفه المسلمون، أو حتّى أقلّ من ذلك - أي إذا ما تجلّى من تلك الشخصيّة النورانيّة في قلوبهم - فسيكون ذلك ضامنًا لعقيدتهم والتزامهم بالإسلام. يجب أن نعمل على هذه المسألة[7].
+        <strong>وحدة المسلمين</strong>
+        لقد كان وجود نبيّ الإسلام الأكرم (صلى الله عليه وآله وسلم)، أكبر عامل للوحدة في كافّة العصور الإسلاميّة واليوم يمكنه أن يكون كذلك، لأنّ عقيدة آحاد المسلمين بذاك الوجود الأقدس العظيم، توأم للعاطفة والعشق، لذلك كان ذاك العظيم، مركز ومحور العواطف والعقائد عند كافّة المسلمين. وهذه المحوريّة، من إحدى موجبات استئناس قلوب المسلمين وتقريب الفرق الإسلاميّة بعضها من بعض[8].
+      </p>
+    </div>
+  </div>
+
   <script>
-    /* لا حاجة لوظائف إضافية */
+    // إظهار نسخة PDF فقط أثناء الطباعة (وإخفاؤها على الشاشة)
+    const pdfPage = document.querySelector('.pdf-page');
+    if (pdfPage) {
+      const mql = window.matchMedia('print');
+      function togglePDFView(e){
+        if (e.matches) {
+          pdfPage.style.display = 'block';
+        } else {
+          pdfPage.style.display = 'none';
+        }
+      }
+      mql.addEventListener ? mql.addEventListener('change', togglePDFView) : mql.addListener(togglePDFView);
+      // في بعض المتصفحات، نحتاج لتفعيلها لحظة الضغط على Print
+      window.addEventListener('beforeprint', ()=>{ pdfPage.style.display = 'block'; });
+      window.addEventListener('afterprint', ()=>{ pdfPage.style.display = 'none'; });
+    }
   </script>
 </body>
 </html>
