@@ -6,135 +6,149 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     /* إعدادات صفحة الطباعة */
-    @page {
-      size: A4;
-      margin: 2cm;
-    }
+    @page { size: A4; margin: 2cm; }
 
     :root{
-      --gold:#d4af37;
-      --black:#000000;
-      --white:#ffffff;
+      --gold1:#b88911;
+      --gold2:#d4af37;
+      --gold3:#f6e27a;
       --ink:#111;
       --muted:#555;
-      --paper:#ffffff;
-      --rule:#eaeaea;
+      --paper:#fff;
     }
 
-    /* قاعدة عامة */
     html, body { height: 100%; }
     body{
       margin:0;
       background: var(--paper);
       color: var(--ink);
-      font-family: "Amiri", "Scheherazade", "Noto Naskh Arabic", serif;
-      line-height:1.9;
+      font-family: "Noto Naskh Arabic","Cairo","IBM Plex Sans Arabic","Amiri","Scheherazade",serif;
+      line-height:1.95;
       text-align: justify;
       text-justify: inter-word;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
-    /* غلاف/لوح الصفحة */
     .wrapper{
       max-width: 21cm;
       min-height: 100vh;
-      margin: auto;
       padding: 2.2cm 2cm;
+      margin:auto;
       box-sizing: border-box;
     }
 
-    /* بطاقة الورقة بشكل أنيق عند العرض على الشاشة */
+    /* برواز ذهبي رسمي + إطار داخلي */
     .sheet{
+      position: relative;
       background: var(--paper);
-      border: 1px solid #000;
-      box-shadow: 0 10px 30px rgba(0,0,0,.15);
-      padding: 2.2cm 2cm;
+      border: 10px solid transparent;
+      border-image: linear-gradient(135deg,var(--gold1),var(--gold2),var(--gold3),var(--gold2)) 1;
+      box-shadow: 0 10px 28px rgba(0,0,0,.12);
+      padding: 2cm 1.8cm;
+      border-radius: 12px;
+    }
+    .sheet::before{
+      content:"";
+      position:absolute; inset: 12px;
+      border: 1px solid rgba(0,0,0,.8);
+      border-radius: 8px;
+      pointer-events:none;
     }
 
-    /* رأس ذهبي */
-    .masthead{
-      text-align:center;
-      margin-bottom: 1.2em;
-    }
-    .masthead .kufi{
-      letter-spacing: 0.5px;
-      font-weight:700;
-      color: var(--gold);
+    /* رأس الصفحة */
+    .masthead{ text-align:center; margin-bottom:1.1em; }
+    h1{
+      margin:0 0 .25em;
       font-size: 28px;
-      margin: 0;
+      font-family: "Cairo","Noto Naskh Arabic",sans-serif;
+      font-weight:800;
+      color: var(--ink); /* أسود */
+      letter-spacing:.2px;
     }
     .subtitle{
+      margin:0 0 1.2em;
       color: var(--muted);
-      margin: .35em 0 1.1em;
       font-size:16px;
+      font-weight:600;
+    }
+    .rule{
+      width:72%;
+      height:2px;
+      margin:.6em auto 1.4em;
+      background: linear-gradient(to left, transparent, var(--gold2), transparent);
     }
 
-    .gold-rule{
-      height: 2px;
-      background: linear-gradient(to left, transparent, var(--gold), transparent);
-      margin: .6em auto 1.6em;
-      width: 70%;
-    }
-
-    /* أزرار الطباعة */
+    /* شريط الأدوات (يختفي عند الطباعة) */
     .toolbar{
-      display:flex;
-      justify-content:flex-start;
-      gap:.6rem;
-      margin-bottom:1.2rem;
+      display:flex; gap:.6rem; justify-content:flex-start; margin-bottom:1rem;
     }
     .btn{
-      background: var(--black);
-      color: var(--white);
-      border:1px solid var(--black);
-      padding:.5rem .9rem;
-      font-size:14px;
-      cursor:pointer;
-      border-radius:8px;
+      background: #000; color:#fff; border:1px solid #000;
+      padding:.55rem .95rem; border-radius:10px; font-size:14px; cursor:pointer;
     }
-    .btn.secondary{
-      background: var(--gold);
-      border-color: var(--gold);
-      color: #1a1a1a;
-    }
-    .note{
-      font-size: 12px;
-      color: var(--muted);
-      margin-top: .2rem;
+    .btn:hover{ opacity:.9; }
+
+    .note{ font-size:12px; color:var(--muted); margin:.25rem 0 1rem; }
+    .no-print{ /* عناصر تُخفى عند الطباعة */ }
+
+    /* تنسيق المقال */
+    article{ font-size:17px; }
+    p{ margin:0 0 1em; }
+    strong{ font-weight:800; color: inherit; } /* لا ذهبي في النص */
+
+    /* فقرة افتتاحية Drop Cap */
+    .lead:first-letter{
+      float:right;
+      font-size: 48px;
+      line-height: .9;
+      padding: .04em .12em 0 .12em;
+      margin: .06em 0 0 .2em;
+      border: 1px solid rgba(0,0,0,.15);
+      border-radius: 6px;
+      background: #fffdf5;
     }
 
-    /* المحتوى */
-    h1, h2, h3, h4, h5, h6{ margin:0 0 .5em; }
-    h1{ font-size: 26px; color: var(--gold); }
-    h5{ font-size:16px; color:var(--muted); }
-    p{ margin: 0 0 1em; font-size:17px; }
-    strong{ color: var(--gold); }
-
+    /* صندوق الآية */
     .ayah{
       text-align:center;
       font-weight:700;
-      border:1px dashed var(--gold);
-      padding:.8rem 1rem;
-      margin: 1.4em 0;
-      background:#fafafa;
+      border:1px dashed var(--gold2);
+      padding:.85rem 1rem;
+      margin: 1.4em 0 1.2em;
+      background:#faf9f2;
       font-size:18px;
     }
 
-    .footnote{
-      color:#444;
-      font-size:14px;
+    /* فواصل زخرفية */
+    .ornament{
+      height:10px;
+      margin: 1.2em auto 1.2em;
+      background:
+        linear-gradient(to left, transparent, var(--gold2), transparent),
+        radial-gradient(circle at 50% 50%, var(--gold3) 0 2px, transparent 3px);
+      background-repeat:no-repeat;
+      background-size: 70% 2px, 6px 6px;
+      background-position: center, center;
     }
 
-    /* إخفاء الإطار والظل عند الطباعة */
+    /* الحواشي (تُخفى عند الطباعة) */
+    .footnote{ color:#444; font-size:14px; }
+
+    /* الطباعة: عمودان وتخفيف المؤثرات */
     @media print{
-      body{ background:#fff; }
+      .no-print{ display:none !important; }
       .wrapper{ padding:0; }
       .sheet{
-        border:none;
-        box-shadow:none;
-        padding:0;
+        border: none; box-shadow: none; padding: 0; border-radius:0;
       }
-      .toolbar{ display:none !important; }
-      .gold-rule{ width:100%; }
+      .sheet::before{ display:none; }
+      .rule{ width:100%; }
+      article{
+        column-count: 2;
+        column-gap: 1.2cm;
+        orphans:3; widows:3;
+      }
     }
   </style>
 </head>
@@ -142,35 +156,37 @@
   <div class="wrapper">
     <div class="sheet">
 
-      <!-- شريط الأدوات -->
-      <div class="toolbar" aria-label="أدوات الصفحة">
+      <!-- شريط الأدوات + ملاحظة (تختفي عند الطباعة) -->
+      <div class="toolbar no-print" aria-label="أدوات الصفحة">
         <button class="btn" onclick="window.print()">طباعة / حفظ PDF</button>
-        <button class="btn secondary" onclick="scrollTo(0,0)">العودة للأعلى</button>
       </div>
-      <div class="note">ملاحظة: لحفظ الملف PDF اختر “Print / طباعة” ثم غيّر الوجهة إلى “Save as PDF”. الحجم مضبوط على A4.</div>
+      <div class="note no-print">
+        ملاحظة: يمكنك الحفظ كملف PDF من مربع الطباعة.
+      </div>
 
-      <!-- رأس الصفحة -->
+      <!-- رأس -->
       <header class="masthead">
-        <h1 class="kufi">بركات ولادة الرسول الأكرم محمّد (صلى الله عليه وآله)</h1>
-        <h5 class="subtitle">سيرة النبي الأكرم(ص)</h5>
-        <div class="gold-rule" aria-hidden="true"></div>
+        <h1>بركات ولادة الرسول الأكرم محمّد (صلى الله عليه وآله)</h1>
+        <div class="subtitle">سيرة النبي الأكرم(ص)</div>
+        <div class="rule" aria-hidden="true"></div>
       </header>
 
-      <!-- المقال الكامل (النص كما زوّدتني به دون اختصار) -->
+      <!-- المقال الكامل -->
       <article>
-
-        <p>
+        <p class="lead">
           لولادة الرسول الأكرم محمّد (صلى الله عليه وآله) وقدومه المبارك إلى هذه الدنيا بركات لا حصر لها، وسنذكر فيما يلي بعضاً منها:
         </p>
 
         <p>
           <strong>لولادة الرسول الأكرم محمّد (صلى الله عليه وآله) وقدومه المبارك إلى هذه الدنيا بركات لا حصر لها، وسنذكر فيما يلي بعضاً منها:</strong>
           <strong>تزلزل أعلام الشرك وعبادة الأصنام</strong>
-          إنّ ما جاء في الآثار والتواريخ حول تصدّع شرفات بلاط (قباب) كسرى وتزلزل أعلام عبادة الأصنام والشرك في كافّة أنحاء الدنيا - فيما إذا كانت هذه الآثار قطعية - لعلّه يكون ظهورًا للقدرة الإلهيّة، للإعلان الرمزي عن حضور هذه القوّة التي ستقضي على جذور الظلم والفساد وتطهّر العلم من الخرافة وتخلّص الحضارة من الفساد[1]. لقد أرسل الله تعالى إلى عالم الوجود الذخيرة الإلهيّة الكبرى أي الوجود المقدّس للرسول الأكرم (صلى الله عليه وآله وسلم)، فكان منطلقًا إلى مرحلة حسّاسة بداية مرحلة أساسيّة في مصير البشريّة. ولقد جاء في شأن آيات (علامات) ولادة الرسول أنّه عندما ولد ذاك العظيم، تهدّمت شرفات إيوان كسرى، وانطفأت نيران معبد آذركشسب الذي بقي مشتعلًا مدة قرون وجَفّت بحيرة ساوة التي كان يعتبرها بعض الناس في ذاك الزمان مقدّسة، وهُدِّمت الأصنام التي كانت معلّقة حول الكعبة[2].
-          إنّ هذه الإشارات الرمزيّة والظاهريّة بالكامل، تشير إلى اتّجاه الإرادة والسنّة الإلهيّتين في إسباغ خلعة الوجود على هذا الموجود العظيم، وهذه الشخصيّة الرفيعة والفريدة. معنى هذه الأحداث الرمزيّة هو أنّه مع هذا القدوم المبارك، هو حتميّة طيّ بساط الذلّ عن البشريّة، سواء كان ذلك (الذلّ) من خلال حاكميّة الجبّارين والحكّام المستبدّين - من قبيل ما كان يجري آنذاك في إيران وروما القديمة - أو كان وليد عبادة غير الله. وعلى يدي هذا المولود المبارك، لا بدّ أن تتحرّر البشريّة من قيود الظلم الذي فرضه حكّام الجور على المظلومين من البشر طوال التاريخ، ومن قيود الخرافات والعقائد الباطلة والمذلّة التي جعلت الإنسان خاضعًا ذليلًا أمام الموجودات الأدنى منه أو في مقابل أفراد البشر الآخرين. لذلك جاء في الآية القرآنيّة في باب بعثة النبيّ الأكرم(صلى الله عليه وآله وسلم)، قوله تعالى:
+          إنّ ما جاء في الآثار والتواريخ حول تصدّع شرفات بلاط (قباب) كسرى وتزلزل أعلام عبادة الأصنام والشرك في كافّة أنحاء الدنيا - فيما إذا كانت هذه الآثار قطعية - لعلّه يكون ظهورًا للقدرة الإلهيّة، للإعلان الرمزي عن حضور هذه القوّة التي ستقضي على جذور الظلم والفساد وتطهّر العلم من الخرافة وتخلّص الحضارة من الفساد[1]. لقد أرسل الله تعالى إلى عالم الوجود الذخيرة الإلهيّة الكبرى أي الوجود المقدّس للرسول الأكرم (صلى الله عليه وآله وسلم)، فكان منطلقًا إلى مرحلة حسّاسة بداية مرحلة أساسيّة في مصير البشريّة. ولقد جاء في شأن آيات (علامات) ولادة الرسول أنّه عندما ولد ذاك العظيم، تهدّمت شرفات إيوان كسرى، وانطفأت نيران معبد آذركشسب الذي بقي مشتعلًا مدة قرون وجَفّت بحيرة ساوة التي كان يعتبرها بعض الناس في ذاك الزمان مقدّسة، وهُدِّمت الأصنام التي كانت معلّقة حول الكعبة[2]. إنّ هذه الإشارات الرمزيّة والظاهريّة بالكامل، تشير إلى اتّجاه الإرادة والسنّة الإلهيّتين في إسباغ خلعة الوجود على هذا الموجود العظيم، وهذه الشخصيّة الرفيعة والفريدة. معنى هذه الأحداث الرمزيّة هو أنّه مع هذا القدوم المبارك، هو حتميّة طيّ بساط الذلّ عن البشريّة، سواء كان ذلك (الذلّ) من خلال حاكميّة الجبّارين والحكّام المستبدّين - من قبيل ما كان يجري آنذاك في إيران وروما القديمة - أو كان وليد عبادة غير الله. وعلى يدي هذا المولود المبارك، لا بدّ أن تتحرّر البشريّة من قيود الظلم الذي فرضه حكّام الجور على المظلومين من البشر طوال التاريخ، ومن قيود الخرافات والعقائد الباطلة والمذلّة التي جعلت الإنسان خاضعًا ذليلًا أمام الموجودات الأدنى منه أو في مقابل أفراد البشر الآخرين. لذلك جاء في الآية القرآنيّة في باب بعثة النبيّ الأكرم(صلى الله عليه وآله وسلم)، قوله تعالى:
         </p>
 
-        <div class="ayah">﴿هُوَ الَّذِي أَرْسَلَ رَسُولَهُ بِالْهُدَى وَدِينِ الْحَقِّ لِيُظْهِرَهُ عَلَى الدِّينِ كُلِّهِ وَكَفَى بِاللَّهِ شَهِيدًا﴾[3]</div>
+        <div class="ayah">
+          ﴿هُوَ الَّذِي أَرْسَلَ رَسُولَهُ بِالْهُدَى وَدِينِ الْحَقِّ لِيُظْهِرَهُ عَلَى الدِّينِ كُلِّهِ وَكَفَى بِاللَّهِ شَهِيدًا﴾
+          <span class="no-print">[3]</span>
+        </div>
 
         <p>
           إنّ عبارة <strong>﴿لِيُظْهِرَهُ عَلَى الدِّينِ كُلِّهِ﴾</strong> ليست خاضعة لحدّ (لتحديد) زماني، بل تشير إلى الوُجهة. يجب أن تتحرّك البشريّة بعد هذه الحادثة نحو الحريّة المعنوية والاجتماعيّة والحقيقيّة والعقلانيّة. لقد بدأ هذا العمل، وإنّ استمراره يكون بأيدينا نحن البشر. وهذه سُنّة أخرى في عالم الخلق[4].
@@ -179,6 +195,8 @@
           <strong>حركة المسلمين نحو التكامل</strong>
           ليس بمقدور أيّ إنسان بيان أبعاد شخصيّة النبيّ الأكرم (صلى الله عليه وآله وسلم) بنحو ٍكامل وتقديم صورة قريبة من الواقع عن شخصيّة ذاك العظيم... إنّ ما نعرفه ونعلمه عن من اختاره واصطفاه إلهُ العالم وطليعة الأنبياء على امتداد التاريخ، هو ظلٌّ وشبحٌ للوجود المعنوي والباطني والحقيقي لذاك العظيم، إلّا أنّ هذا المقدار من المعرفة يكفي المسلمين لضمان استمرار حركتهم نحو الكمال ولصيرورة قمّة الإنسانيّة وأوجّ التكامل البشري أمامهم ويشجّعهم على التحرّك نحو الوحدة الإسلاميّة والاجتماع حول ذاك المحور. بناءً على ما تقدّم، نوصي كافّة المسلمين في العالم، بزيادة العمل حول أبعاد شخصيّة الرسول وحياته وسيرته وأخلاقه والتعاليم المأثورة والمنصوصة عن ذاك العظيم[6].
         </p>
+
+        <div class="ornament" aria-hidden="true"></div>
 
         <p>
           <strong>الميل إلى الإسلام</strong>
@@ -189,19 +207,18 @@
 
       </article>
 
-      <!-- خط سفلي ذهبي بسيط -->
-      <div class="gold-rule" aria-hidden="true" style="margin-top:1.4em;"></div>
+      <div class="rule" aria-hidden="true"></div>
 
-      <!-- مراجع (إن رغبت بعرضها كحاشية) -->
-      <section class="footnote">
-        <p><strong>إشارات الحواشي:</strong> [1]–[8] كما في النص.</p>
+      <!-- الحواشي تظهر على الشاشة فقط وتختفي عند الطباعة -->
+      <section class="footnote no-print">
+        <p><strong>إشارات الحواشي:</strong> ]1[–]8[ كما في النص.</p>
       </section>
 
     </div>
   </div>
 
   <script>
-    // لا شيء إضافي الآن — زر الطباعة أعلى الصفحة.
+    /* لا حاجة إلى جافاسكربت إضافي – زر الطباعة يفي بالغرض */
   </script>
 </body>
 </html>
