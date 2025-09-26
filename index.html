@@ -5,151 +5,119 @@
   <title>بركات ولادة الرسول الأكرم محمّد (صلى الله عليه وآله)</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- خطوط Google (اختيارية لكنها تعطي مظهرًا أفضل) -->
-  <link href="https://fonts.googleapis.com/css2?family=Reem+Kufi:wght@500;700&family=Noto+Naskh+Arabic:wght@400;600;700&display=swap" rel="stylesheet">
+  <!-- خطوط احترافية -->
+  <link href="https://fonts.googleapis.com/css2?family=Reem+Kufi+Ink:wght@600;700&family=Markazi+Text:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
-    /* إعداد ورق الطباعة */
+    /* إعداد الطباعة */
     @page { size: A4; margin: 2cm; }
 
     :root{
-      --gold1:#b88911;
+      --gold1:#b9890f;
       --gold2:#d4af37;
-      --gold3:#f6e27a;
+      --gold3:#f2d674;
       --ink:#101010;
-      --muted:#5c5c5c;
+      --muted:#626262;
       --paper:#ffffff;
-      --soft:#f9f7f2;
+      --soft:#fffdf7;
     }
 
-    html, body { height: 100%; }
+    html, body { height:100%; }
     body{
       margin:0;
-      background: radial-gradient(1200px 800px at 50% -20%, #fff, #fdfdfd 50%, #f7f7f7 100%);
-      color: var(--ink);
-      font-family: "Noto Naskh Arabic", "Amiri", "IBM Plex Sans Arabic", "Scheherazade", serif;
-      line-height:1.95;
-      text-align: justify;
-      text-justify: inter-word;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
+      background:
+        radial-gradient(1200px 800px at 50% -20%, #fff, #f7f7f7 60%, #f1f1f1 100%);
+      color:var(--ink);
+      font-family:"Markazi Text","Noto Naskh Arabic","Amiri","Scheherazade",serif;
+      line-height:2.05;
+      text-align:justify;
+      text-justify:inter-word;
+      text-rendering:optimizeLegibility;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
     }
 
-    /* لوحة الورقة داخل برواز ذهبي مزخرف */
-    .stage{
-      max-width: 23cm;
-      padding: 2.2cm 0;
-      margin: auto;
-    }
+    /* المسرح العام */
+    .stage{ max-width:23cm; margin:auto; padding:2.2cm 0; }
+
+    /* الورقة */
     .sheet{
-      position: relative;
-      max-width: 21cm;
-      margin: auto;
-      background: var(--paper);
-      border-radius: 14px;
-      /* إطار ذهبي خارجي باستخدام border-image */
-      border: 12px solid transparent;
-      border-image: linear-gradient(135deg,var(--gold1),var(--gold2),var(--gold3),var(--gold2)) 1;
-      box-shadow: 0 18px 40px rgba(0,0,0,.12), 0 2px 8px rgba(0,0,0,.06);
-      overflow: hidden;
+      position:relative;
+      max-width:21cm;
+      margin:auto;
+      background:var(--paper);
+      border-radius:14px;
+      border:12px solid transparent;
+      border-image:linear-gradient(135deg,var(--gold1),var(--gold2),var(--gold3),var(--gold2)) 1;
+      box-shadow:0 18px 40px rgba(0,0,0,.12), 0 2px 8px rgba(0,0,0,.06);
+      overflow:hidden;
     }
-    /* إطار داخلي رفيع + زخارف زاوية (SVG) */
+    /* إطار داخلي رفيع وزخارف رقيقة */
     .sheet::before{
       content:"";
       position:absolute; inset: 14px;
-      border: 1px solid rgba(0,0,0,.85);
-      border-radius: 10px;
+      border:1px solid rgba(0,0,0,.85);
+      border-radius:10px;
       pointer-events:none;
       background:
-        /* زخارف في الزوايا الأربع */
-        url("data:image/svg+xml;utf8,\
-<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'>\
-<path d='M55 5c-10 0-20 10-20 20S25 45 15 45 5 35 5 25' fill='none' stroke='%23d4af37' stroke-width='2'/>\
-</svg>") top right / 38px 38px no-repeat,
-        url("data:image/svg+xml;utf8,\
-<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'>\
-<path d='M5 5c10 0 20 10 20 20S35 45 45 45s10-10 10-20' fill='none' stroke='%23d4af37' stroke-width='2'/>\
-</svg>") top left / 38px 38px no-repeat,
-        url("data:image/svg+xml;utf8,\
-<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'>\
-<path d='M55 55c-10 0-20-10-20-20S25 15 15 15 5 25 5 35' fill='none' stroke='%23d4af37' stroke-width='2'/>\
-</svg>") bottom right / 38px 38px no-repeat,
-        url("data:image/svg+xml;utf8,\
-<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'>\
-<path d='M5 55c10 0 20-10 20-20S35 15 45 15s10 10 10 20' fill='none' stroke='%23d4af37' stroke-width='2'/>\
-</svg>") bottom left / 38px 38px no-repeat;
+        radial-gradient(16% 16% at 95% 6%, #fff7d8 0, transparent 60%),
+        radial-gradient(14% 14% at 6% 94%, #fff7d8 0, transparent 60%);
     }
 
-    /* مساحة المحتوى مع حواشٍ داخلية منسقة */
-    .content{
-      padding: 2.2cm 1.9cm;
-      position: relative;
-      z-index:1;
-      background:
-        radial-gradient(20% 20% at 95% 5%, #fff8e1 0, transparent 60%),
-        radial-gradient(18% 18% at 5% 95%, #fff8e1 0, transparent 60%);
-    }
+    /* محتوى */
+    .content{ padding:2.1cm 1.9cm; position:relative; z-index:1; }
 
-    /* رأس أنيق */
-    header{
-      text-align:center;
-      margin-bottom: 1.4em;
-    }
+    /* رأس */
+    header{ text-align:center; margin-bottom:1.2em; }
     h1{
       margin:0 0 .35em;
-      font-family: "Reem Kufi", "Cairo", sans-serif;
+      font-family:"Reem Kufi Ink","Cairo",sans-serif;
       font-weight:700;
-      font-size: 30px;
-      color: var(--ink);
+      font-size:30px;
       letter-spacing:.2px;
+      color:var(--ink);
     }
     .subtitle{
-      margin:0 0 .9em;
-      color: var(--muted);
-      font-size:16px;
+      margin:0 0 1.1em;
+      color:var(--muted);
+      font-size:17px;
       font-weight:600;
     }
-    /* قاطع زخرفي */
     .divider{
-      height: 14px;
-      margin: .6em auto 1.4em;
-      width: 78%;
+      height:14px; width:78%; margin:.6em auto 1.4em;
       background:
         linear-gradient(to left, transparent, var(--gold2), transparent) center/100% 2px no-repeat,
         radial-gradient(circle, var(--gold3) 0 3px, transparent 4px) center/8px 8px no-repeat;
     }
 
-    /* أزرار */
+    /* أدوات شاشة فقط */
     .toolbar{ display:flex; gap:.6rem; justify-content:flex-start; margin-bottom:1rem; }
     .btn{
       background:#000; color:#fff; border:1px solid #000;
       padding:.6rem 1rem; border-radius:12px; font-size:14px; cursor:pointer;
     }
     .btn:hover{ opacity:.92; }
-    .no-print{ /* عناصر تختفي عند الطباعة */ }
     .screen-note{ font-size:12px; color:var(--muted); margin:.15rem 0 1rem; }
+    .no-print{}
 
     /* نص المقال */
-    article{ font-size:18px; }
+    article{ font-size:19px; }
     p{ margin:0 0 1em; }
-    strong{ font-weight:700; color: inherit; } /* لا نستخدم الذهبي للنص */
+    strong{ font-weight:700; color:inherit; }
 
-    /* Drop Cap لأول فقرة */
-    .lead{
-      position: relative;
-    }
+    /* Drop Cap راقٍ لأول فقرة */
     .lead:first-letter{
       float:right;
-      font-family: "Reem Kufi","Cairo",sans-serif;
+      font-family:"Reem Kufi Ink","Cairo",sans-serif;
       font-weight:700;
-      font-size: 52px;
-      line-height: .88;
-      padding: .02em .14em 0 .14em;
-      margin: .06em 0 0 .22em;
-      border: 1px solid rgba(0,0,0,.18);
-      border-radius: 8px;
-      background: linear-gradient(#fffdf7,#fff);
-      box-shadow: 0 1px 0 rgba(0,0,0,.06) inset;
+      font-size:54px;
+      line-height:.86;
+      padding:.02em .14em 0 .14em;
+      margin:.06em 0 0 .24em;
+      border:1px solid rgba(0,0,0,.18);
+      border-radius:8px;
+      background:linear-gradient(#fffef8,#ffffff);
+      box-shadow:0 1px 0 rgba(0,0,0,.05) inset;
     }
 
     /* صندوق الآية */
@@ -158,43 +126,71 @@
       font-weight:700;
       border:1px dashed var(--gold2);
       padding:1rem 1.1rem;
-      margin: 1.5em 0 1.3em;
-      background: linear-gradient(#fffef7,#fff);
-      font-size:19px;
+      margin:1.5em 0 1.3em;
+      background:linear-gradient(#fffef7,#fff);
+      font-size:20px;
+      page-break-inside:avoid;
     }
 
-    /* فاصل زخرفي صغير داخل النص */
+    /* فاصل زخرفي */
     .ornament{
-      height:12px;
-      margin: 1.4em auto 1.2em;
+      height:12px; margin:1.4em auto 1.2em;
       background:
         linear-gradient(to left, transparent, var(--gold2), transparent) center/60% 2px no-repeat,
         radial-gradient(circle, var(--gold2) 0 3px, transparent 4px) center/8px 8px no-repeat;
+      page-break-inside:avoid;
     }
 
-    /* تذييل بسيط */
-    footer{
-      margin-top: 1.2em;
-      text-align:center;
-      color: var(--muted);
-      font-size: 12px;
-    }
+    /* تحسينات منع التقطيع */
+    h1, .subtitle, header, .ayah, .divider{ page-break-inside:avoid; }
+    p{ orphans:3; widows:3; }
 
-    /* طباعة: عمود واحد دائمًا، وإخفاء عناصر الشاشة فقط */
+    /* إطار ذهبي لكل صفحة أثناء الطباعة (مستقل لكل صفحة) */
     @media print{
       .no-print{ display:none !important; }
       body{ background:#fff; }
-      .stage{ padding: 0; }
-      .sheet{ border-radius:0; box-shadow:none; border-width: 8px; }
-      .sheet::before{ border-radius:0; }
-      .content{ padding: 1.8cm 1.8cm; background: none; }
-      header{ page-break-inside: avoid; }
-      .ayah, .divider, .ornament{ page-break-inside: avoid; }
-      article{ column-count: 1; } /* تأكيد عمود واحد */
+
+      /* إطار ثابت يُطبع على كل صفحة */
+      .print-frame{
+        position:fixed;
+        top:0; left:0; right:0; bottom:0;
+        z-index:-1;
+      }
+      .print-frame::before{
+        content:"";
+        position:absolute; top:0; left:0; right:0; bottom:0;
+        margin:2cm; /* يطابق @page margin */
+        border:8px solid transparent;
+        border-image:linear-gradient(135deg,var(--gold1),var(--gold2),var(--gold3),var(--gold2)) 1;
+      }
+      .print-frame::after{
+        content:"";
+        position:absolute; top:0; left:0; right:0; bottom:0;
+        margin:calc(2cm + 10px);
+        border:1px solid #000;
+      }
+
+      /* إزالة الظلال والزوايا للنسخة المطبوعة (لأن لدينا إطار مخصص لكل صفحة) */
+      .stage{ padding:0; }
+      .sheet{ border:none; box-shadow:none; border-radius:0; }
+      .sheet::before{ display:none; }
+      .content{ padding:0; margin:0; }
+      header{ margin: 0 0 1.1em; padding: 1.2cm 1.2cm 0 1.2cm; }
+      article{ padding: 0 1.2cm 1.2cm 1.2cm; font-size:18.5px; }
+
+      /* لا تقسيم إلى أعمدة إطلاقاً */
+      article{ column-count:1; }
+
+      /* عناصر كل صفحة مستقلة (الإطار ثابت يكرر تلقائياً) */
+      /* إذا أردت إجبار فاصل صفحة قبل قسم معين أضف class="page-break" */
+      .page-break{ break-before: page; }
     }
   </style>
 </head>
 <body>
+
+  <!-- إطار الطباعة المتكرر لكل صفحة -->
+  <div class="print-frame"></div>
 
   <div class="stage">
     <div class="sheet">
@@ -204,9 +200,7 @@
         <div class="toolbar no-print" aria-label="أدوات الصفحة">
           <button class="btn" onclick="window.print()">طباعة / حفظ PDF</button>
         </div>
-        <div class="screen-note no-print">
-          احفظ كـ PDF من مربع الطباعة. الحجم مضبوط على A4. <!-- (لا تظهر عند الطباعة) -->
-        </div>
+        <div class="screen-note no-print">اضغط “طباعة” ثم اختر “الحفظ كملف PDF”. الحجم مضبوط على A4.</div>
 
         <!-- رأس -->
         <header>
@@ -215,7 +209,7 @@
           <div class="divider" aria-hidden="true"></div>
         </header>
 
-        <!-- المقال (كامل، دون تقسيم داخلي) -->
+        <!-- المقال (كامل بعمود واحد) -->
         <article>
           <p class="lead">
             لولادة الرسول الأكرم محمّد (صلى الله عليه وآله) وقدومه المبارك إلى هذه الدنيا بركات لا حصر لها، وسنذكر فيما يلي بعضاً منها:
@@ -248,10 +242,6 @@
             لقد كان وجود نبيّ الإسلام الأكرم (صلى الله عليه وآله وسلم)، أكبر عامل للوحدة في كافّة العصور الإسلاميّة واليوم يمكنه أن يكون كذلك، لأنّ عقيدة آحاد المسلمين بذاك الوجود الأقدس العظيم، توأم للعاطفة والعشق، لذلك كان ذاك العظيم، مركز ومحور العواطف والعقائد عند كافّة المسلمين. وهذه المحوريّة، من إحدى موجبات استئناس قلوب المسلمين وتقريب الفرق الإسلاميّة بعضها من بعض[8].
           </p>
         </article>
-
-        <footer>
-          — تصميم برواز ذهبي مزخرف وطباعة A4، عمود واحد —
-        </footer>
 
       </div>
     </div>
