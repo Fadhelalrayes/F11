@@ -4,10 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>بركات ولادة الرسول الأكرم محمد (صلى الله عليه وآله)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        @page {
-            size: A4;
-            margin: 0;
+        :root {
+            --gold: #D4AF37;
+            --light-gold: #F4E4A9;
+            --dark-gold: #B8941F;
+            --white: #FFFFFF;
+            --off-white: #FEFEFE;
+            --black: #222222;
+            --gray: #666666;
+            --light-gray: #F5F5F5;
         }
         
         * {
@@ -17,183 +26,407 @@
         }
         
         body {
-            font-family: 'Traditional Arabic', 'Times New Roman', serif;
-            background-color: #fefefe;
-            color: #333;
+            font-family: 'El Messiri', sans-serif;
+            background-color: var(--off-white);
+            color: var(--black);
             line-height: 1.8;
-            text-align: justify;
             direction: rtl;
-            padding: 0;
-            margin: 0;
-            width: 210mm;
-            min-height: 297mm;
-            margin: 0 auto;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            position: relative;
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
         }
         
         .page-container {
-            padding: 25mm;
+            width: 100%;
+            max-width: 210mm;
             min-height: 297mm;
+            background-color: var(--white);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             position: relative;
-            background: linear-gradient(to bottom, #fefefe, #fafafa);
+            overflow: hidden;
+            border-radius: 5px;
+            padding: 25mm;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .page-container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, var(--light-gold) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, var(--light-gold) 0%, transparent 50%);
+            opacity: 0.05;
+            z-index: 0;
         }
         
         .header {
             text-align: center;
-            margin-bottom: 30px;
-            border-bottom: 2px solid #D4AF37;
-            padding-bottom: 15px;
+            margin-bottom: 40px;
             position: relative;
+            z-index: 1;
         }
         
-        .header::after {
-            content: "";
-            position: absolute;
-            bottom: -5px;
-            left: 40%;
-            right: 40%;
-            height: 3px;
-            background-color: #D4AF37;
-        }
-        
-        h1 {
-            color: #D4AF37;
-            font-size: 32px;
+        .header h1 {
+            color: var(--gold);
+            font-size: 2.5rem;
             margin-bottom: 10px;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+            position: relative;
+            display: inline-block;
+            padding: 0 20px;
+        }
+        
+        .header h1::before, .header h1::after {
+            content: "✸";
+            color: var(--gold);
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5rem;
+        }
+        
+        .header h1::before {
+            right: -10px;
+        }
+        
+        .header h1::after {
+            left: -10px;
         }
         
         .subtitle {
-            color: #666;
-            font-size: 18px;
+            color: var(--gray);
+            font-size: 1.2rem;
             font-style: italic;
+            border-top: 1px solid var(--light-gold);
+            padding-top: 10px;
+            display: inline-block;
         }
         
         .content {
+            flex: 1;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .intro {
+            font-size: 1.1rem;
             margin-bottom: 30px;
+            text-align: center;
+            padding: 15px;
+            background-color: var(--light-gray);
+            border-radius: 8px;
+            border-right: 4px solid var(--gold);
         }
         
         .section {
-            margin-bottom: 25px;
-            padding: 15px;
-            background-color: #fff;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-            border-right: 3px solid #D4AF37;
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: var(--white);
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-top: 1px solid var(--light-gray);
+            border-left: 1px solid var(--light-gray);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--gold), var(--dark-gold));
+        }
+        
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
         
         h2 {
-            color: #D4AF37;
-            font-size: 22px;
+            color: var(--dark-gold);
+            font-size: 1.6rem;
             margin-bottom: 15px;
-            padding-bottom: 8px;
-            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--light-gold);
+            display: flex;
+            align-items: center;
+        }
+        
+        h2::before {
+            content: "•";
+            color: var(--gold);
+            margin-left: 10px;
+            font-size: 2rem;
         }
         
         p {
             margin-bottom: 15px;
-            text-indent: 20px;
-            font-size: 18px;
-            line-height: 1.8;
+            text-align: justify;
+            font-size: 1.1rem;
+            line-height: 1.9;
+        }
+        
+        .highlight {
+            background-color: var(--light-gold);
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-weight: 600;
         }
         
         .quote {
-            background-color: #f9f9f9;
-            border-right: 4px solid #D4AF37;
-            padding: 15px;
-            margin: 15px 0;
+            background: linear-gradient(to right, var(--light-gray), var(--white));
+            border-right: 4px solid var(--gold);
+            padding: 20px;
+            margin: 20px 0;
             font-style: italic;
-            color: #555;
-            border-radius: 0 5px 5px 0;
+            color: var(--black);
+            border-radius: 0 8px 8px 0;
+            position: relative;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.03);
+        }
+        
+        .quote::before {
+            content: """;
+            font-size: 4rem;
+            color: var(--light-gold);
+            position: absolute;
+            top: -10px;
+            right: 15px;
+            font-family: serif;
         }
         
         .verse {
-            font-family: 'Traditional Arabic', serif;
-            font-size: 20px;
+            font-family: 'El Messiri', serif;
+            font-size: 1.4rem;
             text-align: center;
-            color: #333;
-            margin: 20px 0;
-            padding: 15px;
-            background-color: #f5f5f5;
-            border-radius: 5px;
+            color: var(--black);
+            margin: 25px 0;
+            padding: 20px;
+            background-color: var(--light-gray);
+            border-radius: 8px;
             direction: rtl;
+            position: relative;
+            border: 1px solid var(--light-gold);
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+        }
+        
+        .verse::before, .verse::after {
+            content: "﴿";
+            color: var(--gold);
+            font-size: 2rem;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .verse::before {
+            right: 15px;
+        }
+        
+        .verse::after {
+            left: 15px;
+            content: "﴾";
         }
         
         .footer {
             text-align: center;
-            margin-top: 30px;
-            padding-top: 15px;
-            border-top: 1px solid #eee;
-            color: #666;
-            font-size: 14px;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--light-gold);
+            color: var(--gray);
+            font-size: 0.9rem;
+            position: relative;
+            z-index: 1;
         }
         
-        .decoration {
-            position: absolute;
-            width: 100%;
-            height: 20px;
-            background: repeating-linear-gradient(
-                45deg,
-                #D4AF37,
-                #D4AF37 10px,
-                #fefefe 10px,
-                #fefefe 20px
-            );
-            bottom: 0;
-            left: 0;
-        }
-        
-        .print-btn {
+        .controls {
             position: fixed;
             top: 20px;
-            right: 20px;
-            background-color: #D4AF37;
-            color: white;
+            left: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+        }
+        
+        .btn {
+            background-color: var(--gold);
+            color: var(--white);
             border: none;
             padding: 10px 15px;
             border-radius: 5px;
             cursor: pointer;
-            font-family: 'Traditional Arabic', serif;
-            font-size: 16px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-            z-index: 1000;
+            font-family: 'El Messiri', sans-serif;
+            font-size: 1rem;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
         
-        .print-btn:hover {
-            background-color: #b8941f;
+        .btn:hover {
+            background-color: var(--dark-gold);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 12px rgba(0, 0, 0, 0.25);
         }
         
+        .decoration {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 100%;
+            height: 20px;
+            background: repeating-linear-gradient(
+                45deg,
+                var(--gold),
+                var(--gold) 10px,
+                var(--white) 10px,
+                var(--white) 20px
+            );
+            opacity: 0.7;
+        }
+        
+        /* تأثيرات للطباعة */
         @media print {
-            .print-btn {
+            body {
+                padding: 0;
+                background: white;
+            }
+            
+            .page-container {
+                box-shadow: none;
+                margin: 0;
+                padding: 15mm;
+                max-width: 100%;
+                height: 277mm;
+            }
+            
+            .controls {
                 display: none;
             }
             
-            body {
+            .section:hover {
+                transform: none;
                 box-shadow: none;
-                margin: 0;
-                padding: 0;
-                width: 100%;
+            }
+        }
+        
+        /* تجاوب مع الشاشات المختلفة */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
             }
             
             .page-container {
                 padding: 15mm;
-                min-height: 277mm; /* A4 height minus margins */
             }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.4rem;
+            }
+            
+            p {
+                font-size: 1rem;
+            }
+            
+            .verse {
+                font-size: 1.2rem;
+                padding: 15px;
+            }
+            
+            .controls {
+                position: relative;
+                top: auto;
+                left: auto;
+                justify-content: center;
+                margin-bottom: 20px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .page-container {
+                padding: 10mm;
+            }
+            
+            .header h1 {
+                font-size: 1.7rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+            
+            h2 {
+                font-size: 1.2rem;
+            }
+            
+            .section {
+                padding: 15px;
+            }
+        }
+        
+        /* تأثيرات إضافية */
+        .fade-in {
+            animation: fadeIn 1s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .stagger > * {
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards;
+        }
+        
+        .stagger > *:nth-child(1) { animation-delay: 0.1s; }
+        .stagger > *:nth-child(2) { animation-delay: 0.2s; }
+        .stagger > *:nth-child(3) { animation-delay: 0.3s; }
+        .stagger > *:nth-child(4) { animation-delay: 0.4s; }
+        .stagger > *:nth-child(5) { animation-delay: 0.5s; }
+        
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 <body>
-    <button class="print-btn" onclick="window.print()">طباعة PDF</button>
+    <div class="controls">
+        <button class="btn" onclick="window.print()">
+            <span>🖨️</span> طباعة PDF
+        </button>
+        <button class="btn" onclick="toggleDarkMode()">
+            <span>🌙</span> وضع الليل
+        </button>
+    </div>
     
-    <div class="page-container">
+    <div class="page-container fade-in">
         <div class="header">
             <h1>بركات ولادة الرسول الأكرم محمد (صلى الله عليه وآله)</h1>
             <div class="subtitle">سيرة النبي الأكرم(ص)</div>
         </div>
         
-        <div class="content">
-            <p>لولادة الرسول الأكرم محمّد (صلى الله عليه وآله) وقدومه المبارك إلى هذه الدنيا بركات لا حصر لها، وسنذكر فيما يلي بعضاً منها:</p>
+        <div class="content stagger">
+            <div class="intro">
+                لولادة الرسول الأكرم محمّد (صلى الله عليه وآله) وقدومه المبارك إلى هذه الدنيا بركات لا حصر لها، وسنذكر فيما يلي بعضاً منها:
+            </div>
             
             <div class="section">
                 <h2>تزلزل أعلام الشرك وعبادة الأصنام</h2>
@@ -208,10 +441,10 @@
                 <p>معنى هذه الأحداث الرمزيّة هو أنّه مع هذا القدوم المبارك، هو حتميّة طيّ بساط الذلّ عن البشريّة، سواء كان ذلك (الذلّ) من خلال حاكميّة الجبّارين والحكّام المستبدّين - من قبيل ما كان يجري آنذاك في إيران وروما القديمة - أو كان وليد عبادة غير الله. وعلى يدي هذا المولود المبارك، لا بدّ أن تتحرّر البشريّة من قيود الظلم الذي فرضه حكّام الجور على المظلومين من البشر طوال التاريخ، ومن قيود الخرافات والعقائد الباطلة والمذلّة التي جعلت الإنسان خاضعًا ذليلًا أمام الموجودات الأدنى منه أو في مقابل أفراد البشر الآخرين.</p>
                 
                 <div class="verse">
-                    ﴿هُوَ الَّذِي أَرْسَلَ رَسُولَهُ بِالْهُدَى وَدِينِ الْحَقِّ لِيُظْهِرَهُ عَلَى الدِّينِ كُلِّهِ وَكَفَى بِاللَّهِ شَهِيدًا﴾
+                    هُوَ الَّذِي أَرْسَلَ رَسُولَهُ بِالْهُدَى وَدِينِ الْحَقِّ لِيُظْهِرَهُ عَلَى الدِّينِ كُلِّهِ وَكَفَى بِاللَّهِ شَهِيدًا
                 </div>
                 
-                <p>إنّ عبارة ﴿لِيُظْهِرَهُ عَلَى الدِّينِ كُلِّهِ﴾ ليست خاضعة لحدّ (لتحديد) زماني، بل تشير إلى الوُجهة. يجب أن تتحرّك البشريّة بعد هذه الحادثة نحو الحريّة المعنوية والاجتماعيّة والحقيقيّة والعقلانيّة. لقد بدأ هذا العمل، وإنّ استمراره يكون بأيدينا نحن البشر. وهذه سُنّة أخرى في عالم الخلق.</p>
+                <p>إنّ عبارة <span class="highlight">لِيُظْهِرَهُ عَلَى الدِّينِ كُلِّهِ</span> ليست خاضعة لحدّ (لتحديد) زماني، بل تشير إلى الوُجهة. يجب أن تتحرّك البشريّة بعد هذه الحادثة نحو الحريّة المعنوية والاجتماعيّة والحقيقيّة والعقلانيّة. لقد بدأ هذا العمل، وإنّ استمراره يكون بأيدينا نحن البشر. وهذه سُنّة أخرى في عالم الخلق.</p>
             </div>
             
             <div class="section">
@@ -244,24 +477,46 @@
     </div>
 
     <script>
-        // تعديل تلقائي لحجم الخط عند الطباعة لتحسين المظهر
-        window.onbeforeprint = function() {
-            document.querySelectorAll('p').forEach(p => {
-                p.style.fontSize = '16px';
-            });
-            document.querySelectorAll('h2').forEach(h2 => {
-                h2.style.fontSize = '20px';
-            });
-        };
+        // وظيفة تبديل وضع الليل
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            
+            if (document.body.classList.contains('dark-mode')) {
+                document.body.style.setProperty('--white', '#1a1a1a');
+                document.body.style.setProperty('--off-white', '#222222');
+                document.body.style.setProperty('--black', '#f0f0f0');
+                document.body.style.setProperty('--gray', '#cccccc');
+                document.body.style.setProperty('--light-gray', '#2a2a2a');
+            } else {
+                document.body.style.setProperty('--white', '#FFFFFF');
+                document.body.style.setProperty('--off-white', '#FEFEFE');
+                document.body.style.setProperty('--black', '#222222');
+                document.body.style.setProperty('--gray', '#666666');
+                document.body.style.setProperty('--light-gray', '#F5F5F5');
+            }
+        }
         
-        window.onafterprint = function() {
-            document.querySelectorAll('p').forEach(p => {
-                p.style.fontSize = '';
+        // تأثيرات التمرير
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('.section');
+            const windowHeight = window.innerHeight;
+            
+            sections.forEach(section => {
+                const sectionTop = section.getBoundingClientRect().top;
+                if (sectionTop < windowHeight * 0.75) {
+                    section.style.opacity = '1';
+                    section.style.transform = 'translateY(0)';
+                }
             });
-            document.querySelectorAll('h2').forEach(h2 => {
-                h2.style.fontSize = '';
+        });
+        
+        // تهيئة تأثيرات الظهور الأولي
+        document.addEventListener('DOMContentLoaded', () => {
+            const staggerElements = document.querySelectorAll('.stagger > *');
+            staggerElements.forEach((el, index) => {
+                el.style.animationDelay = `${0.1 + index * 0.1}s`;
             });
-        };
+        });
     </script>
 </body>
 </html>
