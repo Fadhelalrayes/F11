@@ -16,7 +16,7 @@
     
     <!-- Open Graph / Social Media -->
     <meta property="og:title" content="ابتكار للحلول الرقمية | تصميم مواقع احترافية">
-    <meta property="og:description" content="نصمم لك موقعًا ومتاجر إلكترونية تساعد على نمو أعمالك.">
+    <meta property="og:description" content="نصمم لك مواقع ومتاجر إلكترونية تساعد على نمو أعمالك.">
     <meta property="og:image" content="https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?q=80&w=1200&auto=format&fit=crop">
     <meta property="og:url" content="https://YOUR_WEBSITE_URL.com"> <!-- !! استبدل برابط موقعك !! -->
     <meta property="og:type" content="website">
@@ -37,10 +37,9 @@
         .container { max-width: 1200px; margin: auto; padding: 0 25px; }
         h1, h2, h3 { font-weight: 700; color: var(--heading-color); }
         
-        /* UPDATED: Reduced H1 font size */
         h1 { font-size: 3rem; font-weight: 800; }
         h2 { font-size: 2.5rem; text-align: center; margin-bottom: 50px; }
-        h3 { font-size: 1.5rem; }
+        h3 { font-size: 1.8rem; }
         section { padding: 80px 0; }
         .main-header { background-color: var(--white-color); box-shadow: 0 2px 15px rgba(0,0,0,0.07); padding: 15px 0; position: sticky; top: 0; z-index: 1000; }
         .main-header .container { display: flex; justify-content: space-between; align-items: center; }
@@ -57,7 +56,9 @@
         .service-card:hover { transform: translateY(-10px); box-shadow: 0 15px 40px rgba(0,0,0,0.1); }
         .service-card .icon { font-size: 2.5rem; color: var(--secondary-color); margin-bottom: 20px; }
         .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; background: var(--white-color); padding: 50px; border-radius: 10px; box-shadow: 0 10px 40px rgba(0,0,0,0.08); }
-        .contact-info h3 { font-size: 1.8rem; margin-top: 0; }
+        
+        /* UPDATED: Centered H3 and adjusted margin */
+        .contact-info h3 { margin-top: 0; text-align: center; }
         .contact-info p { text-align: justify; hyphens: auto; }
         .contact-buttons { margin-top: 20px; display: flex; flex-direction: row; gap: 15px; flex-wrap: wrap; }
         .contact-btn { flex-grow: 1; display: flex; align-items: center; justify-content: center; padding: 15px 10px; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 1rem; transition: transform 0.2s ease, box-shadow 0.2s ease; border: none; white-space: nowrap; }
@@ -70,8 +71,8 @@
         .contact-form button:hover { background-color: #c8a030; }
         .main-footer { background-color: var(--primary-color); color: var(--white-color); text-align: center; padding: 30px 0; }
         .main-footer p { margin: 0; opacity: 0.7; }
-        @media (max-width: 992px) { .contact-grid { grid-template-columns: 1fr; } }
-        @media (max-width: 768px) { h1 { font-size: 2.5rem; } h2 { font-size: 2rem; } .main-header .container { flex-direction: column; gap: 15px; } }
+        @media (max-width: 992px) { .contact-grid { grid-template-columns: 1fr; } .contact-info h3 { text-align: right; } /* Revert to right-align on smaller screens if preferred */ }
+        @media (max-width: 768px) { h1 { font-size: 2.5rem; } h2 { font-size: 2rem; } .main-header .container { flex-direction: column; gap: 15px; } .contact-info h3 { text-align: center; } /* Keep it centered on mobile */ }
     </style>
 </head>
 <body>
@@ -90,7 +91,8 @@
     <main>
         <section id="hero" class="hero">
             <div class="container">
-                <h1>تصميم مواقع احترافية تظهر في النتائج الأولى</h1>
+                <!-- UPDATED: H1 Title -->
+                <h1>تصميم مواقع احترافية لنمو أعمالك</h1>
                 <p>في "ابتكار للحلول الرقمية"، نحن لا نصمم لك موقعًا فحسب، بل نبني لك أصلاً رقميًا قويًا يجذب العملاء ويزيد من أرباحك.</p>
                 <a href="#contact" class="cta-button">اطلب تصميم موقعك الآن</a>
             </div>
@@ -119,6 +121,7 @@
                 <h2>تواصل معنا</h2>
                 <div class="contact-grid">
                     <div class="contact-info">
+                        <!-- UPDATED: H3 Title -->
                         <h3>لنبدأ مشروعك القادم</h3>
                         <p>سواء كنت تحتاج إلى تصميم موقع جديد، أو ترغب في تطوير متجرك الإلكتروني، فريقنا جاهز لمساعدتك على تحقيق أهدافك.</p>
                         <div class="contact-buttons">
