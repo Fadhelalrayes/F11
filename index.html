@@ -1,164 +1,416 @@
-<!DOCTYPE html><html lang="ar" dir="rtl">
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>بركات ولادة الرسول الأكرم محمّد (صلى الله عليه وآله)</title>
-  <!-- خطوط مريحة للقراءة مع بدائل محلية -->
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>أقوال منثورة — عرض تفاعلي و PDF</title>
+
+  <!-- خط عربي جميل -->
   <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+
   <style>
     :root{
-      --gold:#D4AF37; /* ذهبي أنيق */
-      --gold-soft:#E6CF86;
-      --black:#0d0d0d;
-      --white:#ffffff;
-      --ink:#111111;
-    }/* إعدادات الصفحة للطباعة بحجم A4 وهوامش تشبه الكتب */
-@page{ size: A4; margin: 0; }
+      --bg:#0b0b0c;        /* أسود ناعم */
+      --panel:#0f1115;     /* أسود مزرق خفيف */
+      --text:#ffffff;      /* أبيض */
+      --muted:#b6bcc7;     /* رمادي فاتح */
+      --gold:#d4af37;      /* ذهبي */
+      --gold-2:#f2d27a;    /* ذهبي فاتح */
+      --ring:rgba(212,175,55,.25);
+      --radius:18px;
+      --shadow:0 12px 30px rgba(0,0,0,.35);
+    }
 
-html,body{
-  background: var(--black);
-  color: var(--ink);
-  margin:0; padding:0;
-  font-family: 'Amiri', 'Noto Naskh Arabic', 'Scheherazade New', serif;
-  line-height: 1.9;
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-}
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 600px at 80% -10%, rgba(212,175,55,.08), transparent 60%),
+        radial-gradient(1000px 600px at 0% 0%, rgba(255,255,255,.04), transparent 60%),
+        var(--bg);
+      font-family: "Amiri", "Noto Naskh Arabic", serif;
+      line-height:1.9;
+    }
 
-/* حاوية الورقة */
-.sheet{
-  width: min(100%, 900px);
-  min-height: min(1400px, 100%);
-  margin: clamp(8px, 2vw, 20px) auto;
-  padding: clamp(16px, 4vw, 28px);
-  background: var(--white);
-  box-shadow: 0 24px 60px rgba(0,0,0,.45);
-  position: relative;
-  box-sizing: border-box;
-  border-radius: 14px;
-  outline: 1px solid rgba(212,175,55,.35);
-}
+    .wrap{
+      max-width:980px;
+      margin:32px auto 48px;
+      padding:0 16px;
+    }
 
-/* إطار زخرفي ذهبي رقيق */
-.sheet:before{
-  content:"";
-  position:absolute; inset: clamp(8px, 2vw, 16px);
-  border: 1.6px solid var(--gold);
-  pointer-events:none;
-  border-radius: 10px;
-}
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      border:1px solid rgba(255,255,255,.06);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
 
-/* شريط علوي ذهبي أنيق */
-.gilded-top{
-  position:absolute; left:0; right:0; top:0;
-  height: 6mm; background: linear-gradient(90deg, var(--gold), var(--gold-soft), var(--gold));
-}
+    header.hero{
+      padding:24px 20px 20px;
+      border-bottom:1px solid rgba(255,255,255,.08);
+      background:
+        radial-gradient(600px 160px at 15% 0%, rgba(212,175,55,.12), transparent 60%),
+        radial-gradient(500px 160px at 85% 0%, rgba(255,255,255,.08), transparent 60%);
+    }
+    h1{
+      margin:0;
+      font-family:"Cairo", system-ui, sans-serif;
+      font-size:28px;
+      font-weight:800;
+      letter-spacing:.2px;
+      background:linear-gradient(90deg, var(--gold), var(--gold-2));
+      -webkit-background-clip:text; background-clip:text; color:transparent;
+      text-shadow:0 1px 0 rgba(0,0,0,.35);
+    }
+    .sub{margin:.35rem 0 0; color:var(--muted); font-size:14px; font-family:"Cairo",sans-serif}
 
-/* رأس الصفحة */
-header{ text-align:center; margin-bottom: clamp(16px, 4vw, 28px); margin-top: clamp(10px, 2vw, 18px);} 
-.title{
-  font-family: 'Cairo', system-ui, -apple-system, sans-serif;
-  font-weight: 800; letter-spacing:.3px;
-  font-size: clamp(18pt, 4vw, 26pt); color: var(--black);
-}
-.subtitle{
-  font-family: 'Cairo', system-ui, -apple-system, sans-serif;
-  color: var(--gold);
-  font-size: clamp(11pt, 2.6vw, 14pt); font-weight:700; margin-top:6px;
-}
+    /* أزرار */
+    .toolbar{
+      display:flex; gap:10px; flex-wrap:wrap;
+      padding:14px; border-bottom:1px solid rgba(255,255,255,.06);
+      background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01));
+    }
+    .btn{
+      cursor:pointer;
+      padding:10px 14px;
+      font-family:"Cairo", system-ui, sans-serif;
+      font-weight:700; font-size:15px;
+      border-radius:14px;
+      border:1px solid rgba(212,175,55,.35);
+      color:#0b0b0c;
+      background:linear-gradient(180deg, var(--gold), #c79d2a);
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.25), 0 6px 16px rgba(212,175,55,.25);
+      transition:filter .12s ease, transform .05s ease, box-shadow .2s ease;
+      user-select:none;
+      text-decoration:none;
+    }
+    .btn:hover{filter:saturate(1.06) brightness(1.04)}
+    .btn:active{transform:translateY(1px)}
+    .btn.ghost{
+      background:rgba(255,255,255,.02);
+      color:var(--text);
+      border:1px solid rgba(255,255,255,.10);
+      box-shadow:none;
+    }
+    .spacer{flex:1}
 
-/* فاصل زخرفي */
-.divider{ display:flex; align-items:center; gap:8px; justify-content:center; margin: 8mm 0 5mm; }
-.divider .line{ height:1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); flex:1; }
-.divider .dot{ width:8px; height:8px; border-radius:50%; background: var(--gold); box-shadow:0 0 0 3px rgba(212,175,55,.25); }
+    /* المحتوى */
+    .content{
+      padding:18px 18px 28px;
+      display:grid; gap:16px;
+      background:
+        radial-gradient(900px 400px at 50% 0%, rgba(212,175,55,.06), transparent 70%),
+        var(--panel);
+    }
+    .note{
+      background:rgba(255,255,255,.02);
+      border:1px solid rgba(255,255,255,.06);
+      border-radius:16px;
+      padding:14px 16px;
+      color:var(--muted);
+      font-family:"Cairo",sans-serif;
+      font-size:13px;
+    }
 
-/* جسم النص: ضبط كامل مثل الكتب */
-article{ text-align: justify; text-justify: inter-word; font-size: clamp(11.2pt, 2.4vw, 12.6pt); }
-article p{ margin: 0 0 clamp(10px, 2.4vw, 14px); }
-article p:first-of-type::first-letter{ font-size:170%; font-weight:700; color: var(--gold); padding-left:2px; }
+    .section{
+      background:rgba(255,255,255,.03);
+      border:1px solid rgba(255,255,255,.07);
+      border-radius:16px; padding:18px;
+      outline:2px solid transparent;
+      transition:outline-color .2s ease, background .2s ease;
+    }
+    .section.active{outline-color:var(--ring); background:rgba(255,255,255,.045)}
+    .section h2{
+      margin:0 0 8px;
+      font-family:"Cairo",sans-serif;
+      font-size:20px; font-weight:800;
+      color:var(--gold-2);
+      text-shadow:0 1px 0 rgba(0,0,0,.45);
+      letter-spacing:.2px;
+    }
+    .section .prose{
+      color:#f7f7f7;
+      font-size:18px;
+      line-height:2.05;
+      text-align:justify;        /* محاذاة مثل الكتب */
+      text-justify:inter-word;
+    }
+    .section .prose p{margin:0 0 10px}
 
-/* عناوين الأقسام */
-h5, h4, h3{
-  font-family: 'Cairo', system-ui, -apple-system, sans-serif;
-  color: var(--black); margin: 7mm 0 3mm; line-height:1.6;
-}
-h3{ font-size: 16pt; border-right: 4px solid var(--gold); padding-right: 6px; }
-h4{ font-size: 14pt; }
-h5{ font-size: 12.5pt; color: #333; }
+    footer.foot{
+      border-top:1px solid rgba(255,255,255,.08);
+      padding:12px 14px; color:var(--muted);
+      font-family:"Cairo",sans-serif; font-size:12px;
+      background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01));
+    }
+    code{background:rgba(255,255,255,.06); padding:.1em .35em; border-radius:.35em}
 
-/* نقش خفيف أسفل الصفحة */
-footer{
-  position:absolute; left:22mm; right:22mm; bottom:12mm; display:flex; justify-content:space-between; align-items:center; color:#666; font-size:9pt;
-}
-.brand{ color: var(--gold); font-weight:600; }
-
-/* أزرار التحكم (لا تظهر في الطباعة) */
-.toolbar{ position: sticky; top:0; z-index:10; display:flex; gap:12px; justify-content:center; padding:10px; backdrop-filter: blur(8px); background: linear-gradient(180deg, rgba(0,0,0,.8), rgba(0,0,0,.35)); border-bottom:1px solid rgba(212,175,55,.35);} 
-.btn{ appearance:none; border:none; cursor:pointer; font-family:'Cairo', system-ui, sans-serif; font-weight:800; padding:10px 18px; border-radius:999px; background: linear-gradient(180deg, var(--gold), var(--gold-soft)); color: var(--black); box-shadow: 0 14px 30px rgba(212,175,55,.35), inset 0 1px 0 rgba(255,255,255,.5); transition: transform .12s ease, box-shadow .25s ease; }
-.btn:hover{ transform: translateY(-1px); box-shadow: 0 14px 26px rgba(212,175,55,.35), inset 0 1px 0 rgba(255,255,255,.45); }
-.btn:active{ transform: translateY(0); }
-
-/* للطباعة: إزالة الظلال والأزرار وضبط الهوامش تلقائياً */
-@media print{
-  body{ background: white; margin:0; }
-  .toolbar{ display:none !important; }
-  .sheet{ box-shadow:none; width:210mm; min-height:297mm; margin:0; padding:18mm; border-radius:0; outline: none; }
-  .sheet:before{ inset:0; border-width:0; }
-  .gilded-top{ height:0; }
-  h3, h4{ break-after: avoid; }
-  p{ orphans: 3; widows: 3; }
-}
-  .toolbar{ display:none !important; }
-  .sheet{ box-shadow:none; width:auto; min-height:auto; padding:0; }
-  .sheet:before{ inset:0; border-width:1.2px; }
-  .gilded-top{ height:4mm; }
-  footer{ color:#888; }
-  /* التحكم بالفواصل بين الصفحات إن لزم */
-  h3, h4{ break-after: avoid; }
-  p{ orphans: 3; widows: 3; }
-}
-
+    @media (max-width:560px){
+      .btn{width:100%; text-align:center}
+      .toolbar{gap:8px}
+    }
   </style>
 </head>
 <body>
-  <!-- شريط أدوات للتنزيل/الطباعة -->
-  <div class="toolbar" aria-hidden="false">
-    <button class="btn" onclick="window.print()">تنزيل / طباعة PDF</button>
-  </div>  <main class="sheet">
-    <div class="gilded-top" aria-hidden="true"></div>
-    <header>
-      <div class="title">بركات ولادة الرسول الأكرم محمّد (صلى الله عليه وآله)</div>
-      <div class="subtitle">سيرة النبي الأكرم(ص)</div>
-      <div class="divider" aria-hidden="true">
-        <div class="line"></div><div class="dot"></div><div class="line"></div>
+  <div class="wrap">
+    <div class="card" id="app">
+      <header class="hero">
+        <h1>أقوالٌ مختارة</h1>
+        <p class="sub">اضغط زرًا لعرض النص، ثم نزّل PDF منسّقًا بروابط تفاعلية داخلية بين الصفحات.</p>
+      </header>
+
+      <div class="toolbar">
+        <button class="btn" id="btn-husn">أطلبوا الخير عند حسان الوجوه</button>
+        <button class="btn" id="btn-ajr">الأجر العظيم</button>
+        <div class="spacer"></div>
+        <button class="btn ghost" id="open-pdf">فتح PDF في تبويب</button>
+        <button class="btn" id="download-pdf">تنزيل PDF منسّق</button>
       </div>
-    </header><article>
-  <p><strong>لولادة الرسول الأكرم محمّد (صلى الله عليه وآله) وقدومه المبارك إلى هذه الدنيا بركات لا حصر لها، وسنذكر فيما يلي بعضاً منها:</strong></p>
 
-  <h3>تزلزل أعلام الشرك وعبادة الأصنام</h3>
-  <p>إنّ ما جاء في الآثار والتواريخ حول تصدّع شرفات بلاط (قباب) كسرى وتزلزل أعلام عبادة الأصنام والشرك في كافّة أنحاء الدنيا - فيما إذا كانت هذه الآثار قطعية - لعلّه يكون ظهورًا للقدرة الإلهيّة، للإعلان الرمزي عن حضور هذه القوّة التي ستقضي على جذور الظلم والفساد وتطهّر العلم من الخرافة وتخلّص الحضارة من الفساد. لقد أرسل الله تعالى إلى عالم الوجود الذخيرة الإلهيّة الكبرى أي الوجود المقدّس للرسول الأكرم (صلى الله عليه وآله وسلم)، فكان منطلقًا إلى مرحلة حسّاسة بداية مرحلة أساسيّة في مصير البشريّة. ولقد جاء في شأن آيات (علامات) ولادة الرسول أنّه عندما ولد ذاك العظيم، تهدّمت شرفات إيوان كسرى، وانطفأت نيران معبد آذركشسب الذي بقي مشتعلًا مدة قرون وجَفّت بحيرة ساوة التي كان يعتبرها بعض الناس في ذاك الزمان مقدّسة، وهُدِّمت الأصنام التي كانت معلّقة حول الكعبة.</p>
-  <p>إنّ هذه الإشارات الرمزيّة والظاهريّة بالكامل، تشير إلى اتّجاه الإرادة والسنّة الإلهيّتين في إسباغ خلعة الوجود على هذا الموجود العظيم، وهذه الشخصيّة الرفيعة والفريدة. معنى هذه الأحداث الرمزيّة هو أنّه مع هذا القدوم المبارك، هو حتميّة طيّ بساط الذلّ عن البشريّة، سواء كان ذلك (الذلّ) من خلال حاكميّة الجبّارين والحكّام المستبدّين - من قبيل ما كان يجري آنذاك في إيران وروما القديمة - أو كان وليد عبادة غير الله. وعلى يدي هذا المولود المبارك، لا بدّ أن تتحرّر البشريّة من قيود الظلم الذي فرضه حكّام الجور على المظلومين من البشر طوال التاريخ، ومن قيود الخرافات والعقائد الباطلة والمذلّة التي جعلت الإنسان خاضعًا ذليلًا أمام الموجودات الأدنى منه أو في مقابل أفراد البشر الآخرين. لذلك جاء في الآية القرآنيّة في باب بعثة النبيّ الأكرم(صلى الله عليه وآله وسلم)، قوله تعالى: <strong>﴿هُوَ الَّذِي أَرْسَلَ رَسُولَهُ بِالْهُدَى وَدِينِ الْحَقِّ لِيُظْهِرَهُ عَلَى الدِّينِ كُلِّهِ وَكَفَى بِاللَّهِ شَهِيدًا﴾</strong></p>
-  <p>إنّ عبارة <strong>﴿لِيُظْهِرَهُ عَلَى الدِّينِ كُلِّهِ﴾</strong> ليست خاضعة لحدّ زماني، بل تشير إلى الوُجهة. يجب أن تتحرّك البشريّة بعد هذه الحادثة نحو الحريّة المعنوية والاجتماعيّة والحقيقيّة والعقلانيّة. لقد بدأ هذا العمل، وإنّ استمراره يكون بأيدينا نحن البشر. وهذه سُنّة أخرى في عالم الخلق.</p>
+      <div class="content">
+        <div class="note">
+          تلميح: التنسيق يعتمد خط <b>أميري</b> للنص و<b>القاهرة</b> للعناوين، مع محاذاة كاملة مثل الكتب.
+          زر <b>تنزيل PDF</b> يُنشئ ملفًا من صفحتين مع روابط داخلية للتنقل.
+        </div>
 
-  <h3>نزول الرحمة الإلهيّة على البشر</h3>
-  <p>إنّ هذه الولادة العظيمة، هي ولادة أرقى نماذج الرحمة الإلهيّة للبشريّة، لأنّ وجود ذاك العظيم وإرسال هذا النبيّ الكبير، هو رحمة الحقّ تعالى على العباد. وينبغي على البشريّة إدراك أنّ هذه الرحمة، هي رحمة غير منقطعة، بل هي رحمة مستمرّة.</p>
+        <!-- القسم الأول -->
+        <section id="sec-husn" class="section" hidden>
+          <h2>أطلبوا الخير عند حسان الوجوه</h2>
+          <div class="prose">
+            <p>
+              عنه (عليه السلام): حسن الصورة أول السعادة (3).<br>
+              عنه (عليه السلام): حسن وجه المؤمن من حسن عناية الله به (4).<br>
+              رسول الله (صلى الله عليه وآله): آفة الجمال الخيلاء (5).<br>
+              في الزبور: من أجرم الذنوب وأعجبه حسنه، فلينظر الأرض كيف لعبت بالوجوه في القبور وتجعلها رميماً،
+              إنما الجمال من عوفي من النار (6).<br>
+              رسول الله (صلى الله عليه وآله): خير ما أعطي الرجل المؤمن خلق حسن، وشر ما أعطي الرجل قلب سوء في صورة حسنة (7).<br>
+              الإمام الباقر (عليه السلام): أيما عبد كان له صورة حسنة مع موضع لا يشينه، ثم تواضع لله كان من خالصة الله.
+              قال الراوي: قلت: ما موضع لا يشينه؟ قال: لا يكون ضرب فيه سفاح (8).
+            </p>
+            <p>
+              536 - اطلبوا الخير عند حسان الوجوه — رسول الله (صلى الله عليه وآله): ابتغوا الخير عند حسان الوجوه (9).<br>
+              عنه (صلى الله عليه وآله): اطلبوا الخير عند حسان الوجوه (10).<br>
+              عنه (صلى الله عليه وآله): التمسوا الخير عند حسان الوجوه (11).<br>
+              عنه (صلى الله عليه وآله): اطلبوا حوائجكم عند حسان الوجوه، فإن قضى حاجتك قضاها بوجه طليق، وإن ردك ردك بوجه طليق،
+              فرب حسن الوجه دميمه عند طلب الحاجة، ورب دميم الوجه حسنه عند طلب الحاجة (12).<br>
+              عنه (صلى الله عليه وآله): اطلبوا الخير عند حسان الوجوه، فإن فعالهم أحرى أن تكون حسناً (13).
+            </p>
+            <p>
+              537 - إكرام الشعر — رسول الله (صلى الله عليه وآله): الشعر الحسن من كسوة الله فأكرموه (14).
+            </p>
+          </div>
+        </section>
 
-  <h3>حركة المسلمين نحو التكامل</h3>
-  <p>ليس بمقدور أيّ إنسان بيان أبعاد شخصيّة النبيّ الأكرم (صلى الله عليه وآله وسلم) بنحو كامل وتقديم صورة قريبة من الواقع عن شخصيّة ذاك العظيم... إنّ ما نعرفه ونعلمه عن من اختاره واصطفاه إلهُ العالم وطليعة الأنبياء على امتداد التاريخ، هو ظلٌّ وشبحٌ للوجود المعنوي والباطني والحقيقي لذاك العظيم، إلّا أنّ هذا المقدار من المعرفة يكفي المسلمين لضمان استمرار حركتهم نحو الكمال ولصيرورة قمّة الإنسانيّة وأوجّ التكامل البشري أمامهم ويشجّعهم على التحرّك نحو الوحدة الإسلاميّة والاجتماع حول ذاك المحور. بناءً على ما تقدّم، نوصي كافّة المسلمين في العالم، بزيادة العمل حول أبعاد شخصيّة الرسول وحياته وسيرته وأخلاقه والتعاليم المأثورة والمنصوصة عن ذاك العظيم.</p>
+        <!-- القسم الثاني -->
+        <section id="sec-ajr" class="section" hidden>
+          <h2>الأجر العظيم</h2>
+          <div class="prose">
+            <p>
+              عنه (عليه السلام): ما المجاهد الشهيد في سبيل الله بأعظم أجراً ممن قدر فعف،
+              لكاد العفيف أن يكون ملكاً من الملائكة (6).
+            </p>
+            <p>
+              6 - أجر الآخرة — الكتاب: <em>(ولأجر الآخرة خير للذين آمنوا وكانوا يتقون)</em> (7).<br>
+              <em>(والذين هاجروا في الله من بعد ما ظلموا لنبوئنهم في الدنيا حسنة ولأجر الآخرة أكبر لو كانوا يعلمون)</em> (8).<br>
+              الإمام علي (عليه السلام): شتان ما بين عملين: عمل تذهب لذته وتبقى تبعته، وعمل تذهب مؤونته ويبقى أجره (9).<br>
+              (انظر) الآخرة باب 26، 29.
+            </p>
+            <p>
+              7 - الأجر العظيم — الكتاب: <em>(الذين استجابوا لله والرسول من بعد ما أصابهم القرح للذين أحسنوا منهم واتقوا أجر عظيم)</em> (10).<br>
+              <em>(وإن تؤمنوا وتتقوا فلكم أجر عظيم)</em> (11).
+            </p>
+          </div>
+        </section>
+      </div>
 
-  <h3>الميل إلى الإسلام</h3>
-  <p>... هناك الكثير من البشر في العالم، ممّن إذا ما عرفوا رسول الإسلام بالقدر الذي عرفه المسلمون، أو حتّى أقلّ من ذلك - أي إذا ما تجلّى من تلك الشخصيّة النورانيّة في قلوبهم - فسيكون ذلك ضامنًا لعقيدتهم والتزامهم بالإسلام. يجب أن نعمل على هذه المسألة.</p>
-
-  <h3>وحدة المسلمين</h3>
-  <p>لقد كان وجود نبيّ الإسلام الأكرم (صلى الله عليه وآله وسلم)، أكبر عامل للوحدة في كافّة العصور الإسلاميّة واليوم يمكنه أن يكون كذلك، لأنّ عقيدة آحاد المسلمين بذاك الوجود الأقدس العظيم، توأم للعاطفة والعشق، لذلك كان ذاك العظيم، مركز ومحور العواطف والعقائد عند كافّة المسلمين. وهذه المحوريّة، من إحدى موجبات استئناس قلوب المسلمين وتقريب الفرق الإسلاميّة بعضها من بعض.</p>
-
-  <div class="divider" aria-hidden="true" style="margin-top:8mm;">
-    <div class="line"></div><div class="dot"></div><div class="line"></div>
+      <footer class="foot">
+        صنع بلمسات ذهبية ✨ — يمكن تعديل الألوان والخطوط بحرّية. زر <code>تنزيل PDF</code> ينشئ ملفًا تفاعليًا بصفحتين مع روابط.
+      </footer>
+    </div>
   </div>
-</article>
 
-  </main>  <script>
-    // لا نستخدم أي مكتبات؛ زر واحد للطباعة/التنزيل PDF عبر نافذة الطباعة الافتراضية للمتصفح
-    // يمكن للمستخدم اختيار "Save as PDF" لحفظ الملف.
-  </script></body>
+  <!-- مكتبة pdf-lib لصناعة PDF تفاعلي (روابط داخلية) -->
+  <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+
+  <script>
+    const btnHusn = document.getElementById('btn-husn');
+    const btnAjr  = document.getElementById('btn-ajr');
+    const secHusn = document.getElementById('sec-husn');
+    const secAjr  = document.getElementById('sec-ajr');
+    const openPdfBtn = document.getElementById('open-pdf');
+    const downloadBtn = document.getElementById('download-pdf');
+
+    function showSection(which){
+      [secHusn, secAjr].forEach(s=>{
+        const active = (s.id === which);
+        s.hidden = !active;
+        s.classList.toggle('active', active);
+      });
+      window.scrollTo({top:0, behavior:'smooth'});
+    }
+
+    btnHusn.addEventListener('click', ()=> showSection('sec-husn'));
+    btnAjr .addEventListener('click', ()=> showSection('sec-ajr'));
+
+    // محتوى النصين لإدراجها في PDF
+    const textHusn =
+`أطلبوا الخير عند حسان الوجوه
+
+عنه (عليه السلام): حسن الصورة أول السعادة (3).
+عنه (عليه السلام): حسن وجه المؤمن من حسن عناية الله به (4).
+رسول الله (صلى الله عليه وآله): آفة الجمال الخيلاء (5).
+في الزبور: من أجرم الذنوب وأعجبه حسنه، فلينظر الأرض كيف لعبت بالوجوه في القبور وتجعلها رميماً، إنما الجمال من عوفي من النار (6).
+رسول الله (صلى الله عليه وآله): خير ما أعطي الرجل المؤمن خلق حسن، وشر ما أعطي الرجل قلب سوء في صورة حسنة (7).
+الإمام الباقر (عليه السلام): أيما عبد كان له صورة حسنة مع موضع لا يشينه، ثم تواضع لله كان من خالصة الله. قال الراوي: قلت: ما موضع لا يشينه؟ قال: لا يكون ضرب فيه سفاح (8).
+
+536 - اطلبوا الخير عند حسان الوجوه — رسول الله (صلى الله عليه وآله): ابتغوا الخير عند حسان الوجوه (9).
+عنه (صلى الله عليه وآله): اطلبوا الخير عند حسان الوجوه (10).
+عنه (صلى الله عليه وآله): التمسوا الخير عند حسان الوجوه (11).
+عنه (صلى الله عليه وآله): اطلبوا حوائجكم عند حسان الوجوه، فإن قضى حاجتك قضاها بوجه طليق، وإن ردك ردك بوجه طليق، فرب حسن الوجه دميمه عند طلب الحاجة، ورب دميم الوجه حسنه عند طلب الحاجة (12).
+عنه (صلى الله عليه وآله): اطلبوا الخير عند حسان الوجوه، فإن فعالهم أحرى أن تكون حسناً (13).
+
+537 - إكرام الشعر — رسول الله (صلى الله عليه وآله): الشعر الحسن من كسوة الله فأكرموه (14).`;
+
+    const textAjr =
+`الأجر العظيم
+
+عنه (عليه السلام): ما المجاهد الشهيد في سبيل الله بأعظم أجراً ممن قدر فعف، لكاد العفيف أن يكون ملكاً من الملائكة (6).
+
+6 - أجر الآخرة — الكتاب: (ولأجر الآخرة خير للذين آمنوا وكانوا يتقون) (7).
+(والذين هاجروا في الله من بعد ما ظلموا لنبوئنهم في الدنيا حسنة ولأجر الآخرة أكبر لو كانوا يعلمون) (8).
+الإمام علي (عليه السلام): شتان ما بين عملين: عمل تذهب لذته وتبقى تبعته، وعمل تذهب مؤونته ويبقى أجره (9).
+(انظر) الآخرة باب 26، 29.
+
+7 - الأجر العظيم — الكتاب: (الذين استجابوا لله والرسول من بعد ما أصابهم القرح للذين أحسنوا منهم واتقوا أجر عظيم) (10).
+(وإن تؤمنوا وتتقوا فلكم أجر عظيم) (11).`;
+
+    // دالة لإنشاء PDF تفاعلي من صفحتين مع روابط داخلية
+    async function makePdfBlob(){
+      const { PDFDocument, StandardFonts, rgb } = PDFLib;
+      const pdfDoc = await PDFDocument.create();
+
+      // صفحة 1: "حسان الوجوه"
+      const page1 = pdfDoc.addPage([595.28, 841.89]); // A4 pt تقريبًا
+      const page2 = pdfDoc.addPage([595.28, 841.89]);
+
+      // خطوط
+      const font = await pdfDoc.embedFont(StandardFonts.TimesRoman);
+      const bold = await pdfDoc.embedFont(StandardFonts.TimesRomanBold);
+
+      // ألوان
+      const gold = rgb(212/255, 175/255, 55/255);
+      const white = rgb(1,1,1);
+      const black = rgb(0,0,0);
+
+      // خلفية داكنة خفيفة وحدود ذهبية
+      function paintFrame(page){
+        const { width, height } = page.getSize();
+        page.drawRectangle({ x:0, y:0, width, height, color: rgb(0.05,0.05,0.06) });
+        page.drawRectangle({ x:24, y:24, width: width-48, height: height-48, borderColor: gold, borderWidth: 1, color: rgb(0.06,0.07,0.09) });
+      }
+
+      paintFrame(page1);
+      paintFrame(page2);
+
+      function drawHeading(page, title){
+        const { width, height } = page.getSize();
+        page.drawText(title, {
+          x: 48, y: height-80, size: 18, font: bold, color: gold
+        });
+      }
+
+      // كتابة نص متعدد الأسطر RTL بشكل بسيط (سيفقد تشكيل المحاذاة الكاملة، لكنه منسق جيدًا)
+      function drawParagraph(page, text, startX=48, startY=740, lineHeight=18){
+        const lines = text.split('\n');
+        let y = startY;
+        for(const ln of lines){
+          // قص السطر بما يناسب العرض
+          const maxWidth = page.getSize().width - startX - 48;
+          let current = ln.trim();
+          if(current === ''){ y -= lineHeight; continue; }
+          while(font.widthOfTextAtSize(current, 12) > maxWidth){
+            // نبحث عن مكان مناسب للفصل
+            let cut = Math.floor(current.length * 0.9);
+            while(cut > 5 && font.widthOfTextAtSize(current.slice(0, cut), 12) > maxWidth) cut--;
+            page.drawText(current.slice(0, cut), { x: startX, y, size: 12, font, color: white });
+            current = current.slice(cut).trim();
+            y -= lineHeight;
+          }
+          page.drawText(current, { x: startX, y, size: 12, font, color: white });
+          y -= lineHeight;
+        }
+        return y;
+      }
+
+      // صفحة 1
+      drawHeading(page1, 'أطلبوا الخير عند حسان الوجوه');
+      drawParagraph(page1, textHusn, 48, 740, 18);
+
+      // زر (رابط) للانتقال إلى الصفحة 2
+      const btn1 = { x: 48, y: 40, w: 220, h: 26 };
+      page1.drawRectangle({
+        x: btn1.x, y: btn1.y, width: btn1.w, height: btn1.h,
+        color: gold, borderColor: black, borderWidth: 0
+      });
+      page1.drawText('الانتقال إلى: الأجر العظيم ⇢', {
+        x: btn1.x + 10, y: btn1.y + 7, size: 12, font: bold, color: black,
+      });
+      // رابط داخلي للصفحة الثانية
+      pdfDoc.addPageLabels([{ startPage: 0, style: 'DecimalArabic' }]);
+      const goToPg2 = pdfDoc.addPageDestination(page2);
+      page1.doc.addPageAnnotation(page1.ref, {
+        Type: 'Annot', Subtype: 'Link',
+        Rect: [btn1.x, btn1.y, btn1.x + btn1.w, btn1.y + btn1.h],
+        Border: [0, 0, 0],
+        Dest: goToPg2
+      });
+
+      // صفحة 2
+      drawHeading(page2, 'الأجر العظيم');
+      drawParagraph(page2, textAjr, 48, 740, 18);
+
+      // زر عودة للصفحة 1
+      const btn2 = { x: 48, y: 40, w: 200, h: 26 };
+      page2.drawRectangle({
+        x: btn2.x, y: btn2.y, width: btn2.w, height: btn2.h,
+        color: gold, borderColor: black, borderWidth: 0
+      });
+      page2.drawText('↤ العودة إلى حسان الوجوه', {
+        x: btn2.x + 10, y: btn2.y + 7, size: 12, font: bold, color: black,
+      });
+      const goToPg1 = pdfDoc.addPageDestination(page1);
+      page2.doc.addPageAnnotation(page2.ref, {
+        Type: 'Annot', Subtype: 'Link',
+        Rect: [btn2.x, btn2.y, btn2.x + btn2.w, btn2.y + btn2.h],
+        Border: [0, 0, 0],
+        Dest: goToPg1
+      });
+
+      const pdfBytes = await pdfDoc.save();
+      return new Blob([pdfBytes], { type: 'application/pdf' });
+    }
+
+    // فتح PDF في تبويب + تنزيل
+    openPdfBtn.addEventListener('click', async ()=>{
+      const blob = await makePdfBlob();
+      const url = URL.createObjectURL(blob);
+      window.open(url, '_blank');
+    });
+    downloadBtn.addEventListener('click', async ()=>{
+      const blob = await makePdfBlob();
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'aqwal-interactive.pdf';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+    });
+
+    // افتراضي: أظهر القسم الأول عند الفتح
+    showSection('sec-husn');
+  </script>
+</body>
 </html>
