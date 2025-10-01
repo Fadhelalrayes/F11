@@ -57,7 +57,6 @@
         .service-card .icon { font-size: 2.5rem; color: var(--secondary-color); margin-bottom: 20px; }
         .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; background: var(--white-color); padding: 50px; border-radius: 10px; box-shadow: 0 10px 40px rgba(0,0,0,0.08); }
         
-        /* UPDATED: Centered H3 and adjusted margin */
         .contact-info h3 { margin-top: 0; text-align: center; }
         .contact-info p { text-align: justify; hyphens: auto; }
         .contact-buttons { margin-top: 20px; display: flex; flex-direction: row; gap: 15px; flex-wrap: wrap; }
@@ -71,8 +70,8 @@
         .contact-form button:hover { background-color: #c8a030; }
         .main-footer { background-color: var(--primary-color); color: var(--white-color); text-align: center; padding: 30px 0; }
         .main-footer p { margin: 0; opacity: 0.7; }
-        @media (max-width: 992px) { .contact-grid { grid-template-columns: 1fr; } .contact-info h3 { text-align: right; } /* Revert to right-align on smaller screens if preferred */ }
-        @media (max-width: 768px) { h1 { font-size: 2.5rem; } h2 { font-size: 2rem; } .main-header .container { flex-direction: column; gap: 15px; } .contact-info h3 { text-align: center; } /* Keep it centered on mobile */ }
+        @media (max-width: 992px) { .contact-grid { grid-template-columns: 1fr; } .contact-info h3 { text-align: right; } }
+        @media (max-width: 768px) { h1 { font-size: 2.5rem; } h2 { font-size: 2rem; } .main-header .container { flex-direction: column; gap: 15px; } .contact-info h3 { text-align: center; } }
     </style>
 </head>
 <body>
@@ -91,7 +90,6 @@
     <main>
         <section id="hero" class="hero">
             <div class="container">
-                <!-- UPDATED: H1 Title -->
                 <h1>تصميم مواقع احترافية لنمو أعمالك</h1>
                 <p>في "ابتكار للحلول الرقمية"، نحن لا نصمم لك موقعًا فحسب، بل نبني لك أصلاً رقميًا قويًا يجذب العملاء ويزيد من أرباحك.</p>
                 <a href="#contact" class="cta-button">اطلب تصميم موقعك الآن</a>
@@ -121,7 +119,6 @@
                 <h2>تواصل معنا</h2>
                 <div class="contact-grid">
                     <div class="contact-info">
-                        <!-- UPDATED: H3 Title -->
                         <h3>لنبدأ مشروعك القادم</h3>
                         <p>سواء كنت تحتاج إلى تصميم موقع جديد، أو ترغب في تطوير متجرك الإلكتروني، فريقنا جاهز لمساعدتك على تحقيق أهدافك.</p>
                         <div class="contact-buttons">
@@ -135,8 +132,9 @@
                             </a>
                         </div>
                     </div>
-                    <!-- تذكر: يجب استبدال YOUR_FORM_URL بالرابط الصحيح من Formspree ليعمل النموذج -->
-                    <form class="contact-form" action="YOUR_FORM_URL" method="POST">
+                    
+                    <!-- Form is now ACTIVE with your personal URL -->
+                    <form class="contact-form" action="https://formspree.io/f/mqaybaev" method="POST">
                         <input type="text" name="name" placeholder="الاسم الكامل" required>
                         <input type="email" name="email" placeholder="البريد الإلكتروني" required>
                         <textarea name="message" rows="6" placeholder="اشرح لنا عن مشروعك..." required></textarea>
