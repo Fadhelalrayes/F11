@@ -3,176 +3,77 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>مجلة أقوال — عرض تفاعلي و PDF</title>
+  <title>مجلة الأقوال — PDF تفاعلي</title>
 
-  <!-- خطوط عربية جميلة -->
+  <!-- خطوط عربية (اختياري) -->
   <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@600;700&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      --bg:#0b0b0c;        /* أسود ناعم */
-      --panel:#0f1115;     /* أسود مزرق */
-      --text:#ffffff;      /* أبيض */
-      --muted:#c9ced8;     /* رمادي فاتح */
-      --gold:#d4af37;      /* ذهبي */
-      --gold-2:#f4dd8a;    /* ذهبي فاتح */
-      --radius:18px;
-      --ring:rgba(212,175,55,.25);
-      --shadow:0 14px 36px rgba(0,0,0,.35);
+      --bg:#0b0b0c; --panel:#0f1115; --text:#fff; --muted:#c9ced8;
+      --gold:#d4af37; --gold-2:#f4dd8a; --radius:18px; --ring:rgba(212,175,55,.25);
     }
-    *{box-sizing:border-box}
-    html,body{height:100%}
+    *{box-sizing:border-box} html,body{height:100%}
     body{
-      margin:0; color:var(--text);
-      background:
+      margin:0;color:var(--text);background:
         radial-gradient(1200px 600px at 80% -10%, rgba(212,175,55,.08), transparent 60%),
         radial-gradient(1000px 600px at 0% 0%, rgba(255,255,255,.04), transparent 60%),
         var(--bg);
-      font-family:"Amiri","Noto Naskh Arabic",serif;
-      line-height:1.95;
+      font-family:"Amiri","Noto Naskh Arabic",serif; line-height:1.95;
     }
-    .wrap{max-width:980px; margin:30px auto 40px; padding:0 16px}
-    .card{
-      background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
-      border:1px solid rgba(255,255,255,.06);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow); overflow:hidden;
-    }
-    header.hero{
-      padding:24px 20px 18px;
-      border-bottom:1px solid rgba(255,255,255,.08);
-      background:
-        radial-gradient(600px 160px at 15% 0%, rgba(212,175,55,.12), transparent 60%),
-        radial-gradient(500px 160px at 85% 0%, rgba(255,255,255,.08), transparent 60%);
-    }
-    h1{
-      margin:0; font-family:"Cairo",system-ui,sans-serif;
-      font-size:28px; font-weight:800; letter-spacing:.2px;
-      background:linear-gradient(90deg, var(--gold), var(--gold-2));
-      -webkit-background-clip:text;background-clip:text;color:transparent;
-      text-shadow:0 1px 0 rgba(0,0,0,.35);
-    }
-    .sub{margin:.4rem 0 0; color:var(--muted); font-size:14px; font-family:"Cairo",sans-serif}
-
-    .toolbar{
-      display:flex; gap:10px; flex-wrap:wrap;
-      padding:14px; border-bottom:1px solid rgba(255,255,255,.06);
-      background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01));
-    }
-    .btn{
-      cursor:pointer; user-select:none; text-decoration:none;
-      padding:10px 14px; border-radius:14px; font-family:"Cairo",system-ui,sans-serif;
-      font-weight:700; font-size:15px; color:#0b0b0c;
+    .wrap{max-width:980px;margin:30px auto 40px;padding:0 16px}
+    .card{background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.02));
+      border:1px solid rgba(255,255,255,.06); border-radius:18px; box-shadow:0 14px 36px rgba(0,0,0,.35); overflow:hidden}
+    header.hero{padding:24px 20px;border-bottom:1px solid rgba(255,255,255,.08);
+      background:radial-gradient(600px 160px at 15% 0%, rgba(212,175,55,.12), transparent 60%),
+                 radial-gradient(500px 160px at 85% 0%, rgba(255,255,255,.08), transparent 60%)}
+    h1{margin:0;font-family:"Cairo",system-ui,sans-serif;font-size:28px;font-weight:800;
+      background:linear-gradient(90deg,var(--gold),var(--gold-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+    .sub{margin:.4rem 0 0;color:var(--muted);font-size:14px;font-family:"Cairo",sans-serif}
+    .toolbar{display:flex;gap:10px;flex-wrap:wrap;padding:14px;border-bottom:1px solid rgba(255,255,255,.06)}
+    .btn{cursor:pointer;user-select:none;padding:10px 14px;border-radius:14px;
+      font-family:"Cairo",system-ui,sans-serif;font-weight:700;font-size:15px;color:#0b0b0c;
       border:1px solid rgba(212,175,55,.35);
-      background:linear-gradient(180deg, var(--gold), #c79d2a);
-      box-shadow:inset 0 1px 0 rgba(255,255,255,.25), 0 6px 16px rgba(212,175,55,.25);
-      transition:filter .12s ease, transform .05s ease;
-    }
-    .btn:hover{filter:saturate(1.06) brightness(1.04)}
-    .btn:active{transform:translateY(1px)}
-    .btn.ghost{
-      background:rgba(255,255,255,.03);
-      color:var(--text); border:1px solid rgba(255,255,255,.12);
-      box-shadow:none;
-    }
-    .spacer{flex:1}
-
-    .content{
-      padding:18px 18px 28px; display:grid; gap:16px;
-      background:radial-gradient(900px 400px at 50% 0%, rgba(212,175,55,.06), transparent 70%), var(--panel);
-    }
-    .note{
-      background:rgba(255,255,255,.02);
-      border:1px solid rgba(255,255,255,.06);
-      border-radius:16px; padding:12px 14px;
-      color:var(--muted); font-family:"Cairo",sans-serif; font-size:13px;
-    }
-    .section{
-      background:rgba(255,255,255,.03);
-      border:1px solid rgba(255,255,255,.07);
-      border-radius:16px; padding:18px; outline:2px solid transparent;
-      transition:outline-color .2s ease, background .2s ease;
-    }
-    .section.active{outline-color:var(--ring); background:rgba(255,255,255,.045)}
-    .section h2{
-      margin:0 0 8px; font-family:"Cairo",sans-serif; font-size:20px; font-weight:800;
-      color:var(--gold-2); text-shadow:0 1px 0 rgba(0,0,0,.45); letter-spacing:.2px;
-    }
-    .prose{
-      color:#f7f7f7; font-size:18px; line-height:2.05;
-      text-align:justify; text-justify:inter-word;
-    }
-    .prose p{margin:0 0 10px}
-    footer.foot{
-      border-top:1px solid rgba(255,255,255,.08);
-      padding:12px 14px; color:var(--muted);
-      font-family:"Cairo",sans-serif; font-size:12px;
-      background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01));
-    }
-
-    @media (max-width:560px){
-      .btn{width:100%; text-align:center}
-      .toolbar{gap:8px}
-    }
-
-    /* مساحة صفحات A4 ثابتة للـPDF (مجلة) — 794x1123 px ~ A4 عند 96dpi */
-    .a4{
-      width:794px; height:1123px; margin:0 auto 16px; position:relative;
-      background:#0d1017; border:1px solid rgba(255,255,255,.06); border-radius:12px;
-      overflow:hidden;
-    }
-    .a4 .page-inner{
-      padding:56px 56px 72px;
-      width:100%; height:100%;
-      background:
-        linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,0) 18%, rgba(255,255,255,.02) 100%);
-    }
-    .a4 .head{
-      font-family:"Cairo",sans-serif; font-size:26px; font-weight:800;
-      background:linear-gradient(90deg, var(--gold), var(--gold-2));
-      -webkit-background-clip:text;background-clip:text;color:transparent;
-      text-shadow:0 1px 0 rgba(0,0,0,.35);
-      margin:0 0 14px;
-    }
-    .a4 .rule{
-      height:2px; background:linear-gradient(90deg, var(--gold), transparent);
-      margin:8px 0 16px; opacity:.85;
-    }
-    .a4 .text{font-size:18px; line-height:2.05; text-align:justify; color:#f7f7f7}
-    .a4 .footer-btn{
-      position:absolute; left:56px; right:56px; bottom:36px;
-      display:flex; justify-content:flex-start; gap:8px;
-    }
-    .a4 .gold-btn{
-      background:linear-gradient(180deg, var(--gold), #c79d2a);
-      color:#0b0b0c; font-family:"Cairo",sans-serif; font-weight:800; font-size:14px;
-      padding:10px 14px; border-radius:10px; border:1px solid rgba(212,175,55,.35);
-      display:inline-block;
-    }
+      background:linear-gradient(180deg,var(--gold),#c79d2a);
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.25),0 6px 16px rgba(212,175,55,.25)}
+    .btn.ghost{background:rgba(255,255,255,.03);color:var(--text);border:1px solid rgba(255,255,255,.12);box-shadow:none}
+    .content{padding:18px 18px 28px;display:grid;gap:16px;background:
+      radial-gradient(900px 400px at 50% 0%, rgba(212,175,55,.06), transparent 70%),var(--panel)}
+    .section{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:16px;padding:18px}
+    .section h2{margin:0 0 8px;font-family:"Cairo",sans-serif;font-size:20px;font-weight:800;color:var(--gold-2)}
+    .prose{color:#f7f7f7;font-size:18px;line-height:2.05;text-align:justify;text-justify:inter-word}
+    /* صفحات A4 “مجلة” يتم تحويلها إلى PDF كصور */
+    .a4{width:794px;height:1123px;margin:0 auto 16px;position:relative;background:#0d1017;border:1px solid rgba(255,255,255,.06);border-radius:12px;overflow:hidden}
+    .a4 .page-inner{padding:56px 56px 72px;width:100%;height:100%}
+    .a4 .head{font-family:"Cairo",sans-serif;font-size:26px;font-weight:800;background:linear-gradient(90deg,var(--gold),var(--gold-2));
+      -webkit-background-clip:text;background-clip:text;color:transparent;margin:0 0 14px}
+    .a4 .rule{height:2px;background:linear-gradient(90deg,var(--gold),transparent);margin:8px 0 16px;opacity:.85}
+    .a4 .text{font-size:18px;line-height:2.05;text-align:justify;color:#f7f7f7}
+    .a4 .footer-btn{position:absolute;left:56px;right:56px;bottom:36px;display:flex;gap:8px}
+    .a4 .gold-btn{background:linear-gradient(180deg,var(--gold),#c79d2a);color:#0b0b0c;font-family:"Cairo",sans-serif;font-weight:800;font-size:14px;
+      padding:10px 14px;border-radius:10px;border:1px solid rgba(212,175,55,.35);display:inline-block}
     .hide-for-screen{display:none}
   </style>
 </head>
 <body>
   <div class="wrap">
-    <div class="card" id="app">
+    <div class="card">
       <header class="hero">
         <h1>مجلة الأقوال</h1>
-        <p class="sub">تنسيق ذهبي/أبيض/أسود، نص مبرّر “مثل الكتب”، وPDF تفاعلي بصفحتين.</p>
+        <p class="sub">تنزيل PDF “مثل المجلّة” بروابط داخلية بين الصفحات.</p>
       </header>
 
       <div class="toolbar">
-        <button class="btn" id="btn-husn">أطلبوا الخير عند حسان الوجوه</button>
-        <button class="btn" id="btn-ajr">الأجر العظيم</button>
-        <div class="spacer"></div>
-        <button class="btn ghost" id="open-pdf">فتح PDF في تبويب</button>
-        <button class="btn" id="download-pdf">تنزيل PDF “مثل المجلّة”</button>
+        <button class="btn" id="show-husn">أطلبوا الخير عند حسان الوجوه</button>
+        <button class="btn" id="show-ajr">الأجر العظيم</button>
+        <div style="flex:1"></div>
+        <button class="btn ghost" id="openPdf">فتح PDF في تبويب</button>
+        <button class="btn" id="downloadPdf">تنزيل PDF</button>
       </div>
 
+      <!-- عرض داخل الصفحة (اختياري) -->
       <div class="content">
-        <div class="note">تلميح: إن واجهت مشكلة في الفتح، استخدم زر <b>تنزيل PDF</b> بدل فتح التبويب (بعض المتصفحات تمنع النوافذ المنبثقة).</div>
-
-        <!-- عرض نصوص داخل الصفحة (تفاعلي) -->
-        <section id="sec-husn" class="section" hidden>
+        <section id="sec-husn" class="section">
           <h2>أطلبوا الخير عند حسان الوجوه</h2>
           <div class="prose">
             <p>
@@ -213,184 +114,146 @@
             </p>
           </div>
         </section>
+      </div>
 
-        <!-- قوالب صفحات A4 للـPDF (مجلة) — ثابتة المقاس -->
-        <div id="pdf-pages" class="hide-for-screen">
-          <!-- صفحة 1 -->
-          <div class="a4" data-page="1">
-            <div class="page-inner">
-              <div class="head">أطلبوا الخير عند حسان الوجوه</div>
-              <div class="rule"></div>
-              <div class="text">
-                <p>
-                  عنه (عليه السلام): حسن الصورة أول السعادة (3).<br>
-                  عنه (عليه السلام): حسن وجه المؤمن من حسن عناية الله به (4).<br>
-                  رسول الله (صلى الله عليه وآله): آفة الجمال الخيلاء (5).<br>
-                  في الزبور: من أجرم الذنوب وأعجبه حسنه، فلينظر الأرض كيف لعبت بالوجوه في القبور وتجعلها رميماً،
-                  إنما الجمال من عوفي من النار (6).<br>
-                  رسول الله (صلى الله عليه وآله): خير ما أعطي الرجل المؤمن خلق حسن، وشر ما أعطي الرجل قلب سوء في صورة حسنة (7).<br>
-                  الإمام الباقر (عليه السلام): أيما عبد كان له صورة حسنة مع موضع لا يشينه، ثم تواضع لله كان من خالصة الله.
-                  قال الراوي: قلت: ما موضع لا يشينه؟ قال: لا يكون ضرب فيه سفاح (8).
-                </p>
-                <p>
-                  536 - اطلبوا الخير عند حسان الوجوه — رسول الله (صلى الله عليه وآله): ابتغوا الخير عند حسان الوجوه (9).<br>
-                  عنه (صلى الله عليه وآله): اطلبوا الخير عند حسان الوجوه (10).<br>
-                  عنه (صلى الله عليه وآله): التمسوا الخير عند حسان الوجوه (11).<br>
-                  عنه (صلى الله عليه وآله): اطلبوا حوائجكم عند حسان الوجوه، فإن قضى حاجتك قضاها بوجه طليق، وإن ردك ردك بوجه طليق،
-                  فرب حسن الوجه دميمه عند طلب الحاجة، ورب دميم الوجه حسنه عند طلب الحاجة (12).<br>
-                  عنه (صلى الله عليه وآله): اطلبوا الخير عند حسان الوجوه، فإن فعالهم أحرى أن تكون حسناً (13).
-                </p>
-                <p>537 - إكرام الشعر — رسول الله (صلى الله عليه وآله): الشعر الحسن من كسوة الله فأكرموه (14).</p>
-              </div>
-              <div class="footer-btn">
-                <span class="gold-btn" id="btn-next-placeholder">الانتقال إلى: الأجر العظيم ⇢</span>
-              </div>
+      <!-- قوالب صفحات A4 “المجلّة” (سيتم تصويرها وتحويلها لـPDF) -->
+      <div id="pdf-pages" class="hide-for-screen">
+        <!-- صفحة 1 -->
+        <div class="a4" data-page="1">
+          <div class="page-inner">
+            <div class="head">أطلبوا الخير عند حسان الوجوه</div>
+            <div class="rule"></div>
+            <div class="text">
+              <p>
+                عنه (عليه السلام): حسن الصورة أول السعادة (3).<br>
+                عنه (عليه السلام): حسن وجه المؤمن من حسن عناية الله به (4).<br>
+                رسول الله (صلى الله عليه وآله): آفة الجمال الخيلاء (5).<br>
+                في الزبور: من أجرم الذنوب وأعجبه حسنه، فلينظر الأرض كيف لعبت بالوجوه في القبور وتجعلها رميماً،
+                إنما الجمال من عوفي من النار (6).<br>
+                رسول الله (صلى الله عليه وآله): خير ما أعطي الرجل المؤمن خلق حسن، وشر ما أعطي الرجل قلب سوء في صورة حسنة (7).<br>
+                الإمام الباقر (عليه السلام): أيما عبد كان له صورة حسنة مع موضع لا يشينه، ثم تواضع لله كان من خالصة الله.
+                قال الراوي: قلت: ما موضع لا يشينه؟ قال: لا يكون ضرب فيه سفاح (8).
+              </p>
+              <p>
+                536 - اطلبوا الخير عند حسان الوجوه — رسول الله (صلى الله عليه وآله): ابتغوا الخير عند حسان الوجوه (9).<br>
+                عنه (صلى الله عليه وآله): اطلبوا الخير عند حسان الوجوه (10).<br>
+                عنه (صلى الله عليه وآله): التمسوا الخير عند حسان الوجوه (11).<br>
+                عنه (صلى الله عليه وآله): اطلبوا حوائجكم عند حسان الوجوه، فإن قضى حاجتك قضاها بوجه طليق، وإن ردك ردك بوجه طليق،
+                فرب حسن الوجه دميمه عند طلب الحاجة، ورب دميم الوجه حسنه عند طلب الحاجة (12).<br>
+                عنه (صلى الله عليه وآله): اطلبوا الخير عند حسان الوجوه، فإن فعالهم أحرى أن تكون حسناً (13).
+              </p>
+              <p>537 - إكرام الشعر — رسول الله (صلى الله عليه وآله): الشعر الحسن من كسوة الله فأكرموه (14).</p>
             </div>
-          </div>
-
-          <!-- صفحة 2 -->
-          <div class="a4" data-page="2">
-            <div class="page-inner">
-              <div class="head">الأجر العظيم</div>
-              <div class="rule"></div>
-              <div class="text">
-                <p>عنه (عليه السلام): ما المجاهد الشهيد في سبيل الله بأعظم أجراً ممن قدر فعف، لكاد العفيف أن يكون ملكاً من الملائكة (6).</p>
-                <p>
-                  6 - أجر الآخرة — الكتاب: (ولأجر الآخرة خير للذين آمنوا وكانوا يتقون) (7).<br>
-                  (والذين هاجروا في الله من بعد ما ظلموا لنبوئنهم في الدنيا حسنة ولأجر الآخرة أكبر لو كانوا يعلمون) (8).<br>
-                  الإمام علي (عليه السلام): شتان ما بين عملين: عمل تذهب لذته وتبقى تبعته، وعمل تذهب مؤونته ويبقى أجره (9).<br>
-                  (انظر) الآخرة باب 26، 29.
-                </p>
-                <p>
-                  7 - الأجر العظيم — الكتاب: (الذين استجابوا لله والرسول من بعد ما أصابهم القرح للذين أحسنوا منهم واتقوا أجر عظيم) (10).<br>
-                  (وإن تؤمنوا وتتقوا فلكم أجر عظيم) (11).
-                </p>
-              </div>
-              <div class="footer-btn">
-                <span class="gold-btn" id="btn-prev-placeholder">↤ العودة إلى حسان الوجوه</span>
-              </div>
+            <div class="footer-btn">
+              <span class="gold-btn" data-link-to="2">الانتقال إلى: الأجر العظيم ⇢</span>
             </div>
           </div>
         </div>
-        <!-- /قوالب PDF -->
+
+        <!-- صفحة 2 -->
+        <div class="a4" data-page="2">
+          <div class="page-inner">
+            <div class="head">الأجر العظيم</div>
+            <div class="rule"></div>
+            <div class="text">
+              <p>عنه (عليه السلام): ما المجاهد الشهيد في سبيل الله بأعظم أجراً ممن قدر فعف، لكاد العفيف أن يكون ملكاً من الملائكة (6).</p>
+              <p>
+                6 - أجر الآخرة — الكتاب: (ولأجر الآخرة خير للذين آمنوا وكانوا يتقون) (7).<br>
+                (والذين هاجروا في الله من بعد ما ظلموا لنبوئنهم في الدنيا حسنة ولأجر الآخرة أكبر لو كانوا يعلمون) (8).<br>
+                الإمام علي (عليه السلام): شتان ما بين عملين: عمل تذهب لذته وتبقى تبعته، وعمل تذهب مؤونته ويبقى أجره (9).<br>
+                (انظر) الآخرة باب 26، 29.
+              </p>
+              <p>
+                7 - الأجر العظيم — الكتاب: (الذين استجابوا لله والرسول من بعد ما أصابهم القرح للذين أحسنوا منهم واتقوا أجر عظيم) (10).<br>
+                (وإن تؤمنوا وتتقوا فلكم أجر عظيم) (11).
+              </p>
+            </div>
+            <div class="footer-btn">
+              <span class="gold-btn" data-link-to="1">↤ العودة إلى حسان الوجوه</span>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <footer class="foot">تنسيق “مجلّة” مع محاذاة كاملة وخط عربي. الروابط داخل الـPDF: زر في الصفحة 1 ⇢ ينتقل للصفحة 2، وفي الصفحة 2 ⇠ يرجع للصفحة 1.</footer>
     </div>
   </div>
 
-  <!-- مكتبات إنشاء PDF من HTML (تحافظ على شكل الحروف العربية) -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" integrity="sha512-/8a0bW4j0s5i0l5qQnF0GJvV8D5YF6Sydq3sI7M2Gm2j8uJ5u3X0l6b0wVjS8X2SxqvOq9S8b5QeW7s0A2BzYQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNa5zs6Dqv0lG3e3y+1oWc1f3M5kLq0zKq+g6GdGQd8Q6sQ2Od1pYpY3x9g1TPn1nVqYxw7QbLZy6fWzqVn8Zg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-YcsIPVQat6VtYt0oWfQb7C8jQz1i9w3lJk8d1w2mY+8h1mQ6x5XrHqZ8m0+2q6N5aGJr6m3E0aQ0d1x6dYVf1g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <!-- مكتبات (استخدمنا CDN بدون integrity لتجنّب فشل التحميل) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
   <script>
-    // أزرار عرض الأقسام داخل الصفحة
-    const btnHusn = document.getElementById('btn-husn');
-    const btnAjr  = document.getElementById('btn-ajr');
+    // تبديل العرض داخل الصفحة (اختياري)
     const secHusn = document.getElementById('sec-husn');
     const secAjr  = document.getElementById('sec-ajr');
-    function showSection(id){
-      [secHusn, secAjr].forEach(s=>{
-        const active = s.id===id;
-        s.hidden = !active;
-        s.classList.toggle('active', active);
-      });
-      window.scrollTo({top:0,behavior:'smooth'});
+    document.getElementById('show-husn').onclick = ()=>{ secHusn.hidden=false; secAjr.hidden=true; window.scrollTo({top:0,behavior:'smooth'}) };
+    document.getElementById('show-ajr' ).onclick = ()=>{ secHusn.hidden=true; secAjr.hidden=false; window.scrollTo({top:0,behavior:'smooth'}) };
+
+    // إعدادات التحويل لخفض استهلاك الذاكرة على الجوال
+    const HTML2CANVAS_OPTIONS = { scale: 1.5, useCORS: true, backgroundColor: '#0d1017' };
+
+    async function renderPageToImage(el){
+      const canvas = await html2canvas(el, HTML2CANVAS_OPTIONS);
+      return canvas.toDataURL('image/jpeg', 0.96);
     }
-    btnHusn.addEventListener('click',()=>showSection('sec-husn'));
-    btnAjr .addEventListener('click',()=>showSection('sec-ajr'));
-    // افتراضي: القسم الأول
-    showSection('sec-husn');
 
-    // إنشاء PDF “مثل المجلّة” من القوالب الثابتة .a4 مع روابط داخلية
-    async function buildMagazinePDF(){
-      // 1) حوّل قسمي .a4 إلى صفحات PDF بالترتيب
-      const pagesContainer = document.getElementById('pdf-pages');
-      const pageEls = Array.from(pagesContainer.querySelectorAll('.a4'));
-
-      const opt = {
-        margin:       0,
-        filename:     'majalla-aqwal.pdf',
-        image:        { type: 'jpeg', quality: 0.98 },
-        html2canvas:  { scale: 2, useCORS: true, backgroundColor: '#0d1017' },
-        jsPDF:        { unit: 'pt', format: 'a4', orientation: 'portrait' }
-      };
-
-      // نبدأ بوثيقة jsPDF فارغة
+    async function buildPDF(){
       const { jsPDF } = window.jspdf;
-      const doc = new jsPDF(opt.jsPDF);
-
-      // مقاسات صفحة PDF بالنقاط
+      const doc = new jsPDF({ unit:'pt', format:'a4', orientation:'portrait' });
       const pageW = doc.internal.pageSize.getWidth();
       const pageH = doc.internal.pageSize.getHeight();
 
-      // دالة تساعد في تحويل عنصر HTML لصفحة PDF
-      async function addPageFromEl(el, isFirstPage){
-        // استخدم html2pdf على عنصر الصفحة للحصول على صورة الصفحة
-        const canvas = await html2canvas(el, opt.html2canvas);
-        const imgData = canvas.toDataURL('image/jpeg', 0.98);
-
-        if (!isFirstPage) doc.addPage();
-        doc.addImage(imgData, 'JPEG', 0, 0, pageW, pageH);
+      const pages = Array.from(document.querySelectorAll('#pdf-pages .a4'));
+      for (let i=0; i<pages.length; i++){
+        if (i>0) doc.addPage();
+        const img = await renderPageToImage(pages[i]);
+        doc.addImage(img, 'JPEG', 0, 0, pageW, pageH);
       }
 
-      // أضف الصفحتين
-      await addPageFromEl(pageEls[0], true);  // صفحة 1
-      await addPageFromEl(pageEls[1], false); // صفحة 2
-
-      // 2) أضف الروابط الداخلية (تعليمات ارتباط) في أسفل كل صفحة
-      // نبقي موضع الأزرار ثابتاً: داخل .a4 تركنا padding 56px وfooter bottom 36px
-      // نضع مستطيلات الروابط في أسفل اليسار تقريباً.
-      function addInternalLink({pageNumber, toPage, x, y, w, h}){
-        // doc.link: x,y,w,h بوحدة نقاط، والصفحات تبدأ من 1
-        doc.setPage(pageNumber);
-        doc.link(x, y, w, h, { pageNumber: toPage });
-      }
-
-      // أبعاد تقريبية للأزرار (تحكّم بها إن رغبت)
-      const btnWidth  = 220;    // عرض المستطيل
-      const btnHeight = 26;     // ارتفاع المستطيل
-      const leftPad   = 56;     // مسافة من الحافة اليسرى
-      const bottomPad = 36;     // مسافة من الحافة السفلية
-
-      // مستطيل الرابط في الصفحة 1 ⇢ يذهب للصفحة 2
-      addInternalLink({
-        pageNumber: 1,
-        toPage: 2,
-        x: leftPad,
-        y: pageH - bottomPad - btnHeight,  // من الأسفل لأعلى
-        w: btnWidth,
-        h: btnHeight
-      });
-
-      // مستطيل الرابط في الصفحة 2 ⇠ يعود للصفحة 1
-      addInternalLink({
-        pageNumber: 2,
-        toPage: 1,
-        x: leftPad,
-        y: pageH - bottomPad - btnHeight,
-        w: btnWidth,
-        h: btnHeight
-      });
+      // روابط داخلية تقريبية في أسفل الصفحتين
+      const linkW = 220, linkH = 26, padL = 56, padB = 36;
+      doc.setPage(1);
+      doc.link(padL, pageH - padB - linkH, linkW, linkH, { pageNumber: 2 });
+      doc.setPage(2);
+      doc.link(padL, pageH - padB - linkH, linkW, linkH, { pageNumber: 1 });
 
       return doc;
     }
 
-    // أزرار التصدير
-    const openBtn = document.getElementById('open-pdf');
-    const dlBtn   = document.getElementById('download-pdf');
+    // فتح في تبويب
+    document.getElementById('openPdf').onclick = async ()=>{
+      try{
+        const doc = await buildPDF();
+        const url = doc.output('bloburl'); // قد يحتاج السماح بالنوافذ المنبثقة
+        const win = window.open(url, '_blank');
+        if(!win){ alert('المتصفح منع فتح التبويب. استخدم زر "تنزيل PDF".'); }
+      }catch(e){
+        console.error(e); alert('تعذّر فتح PDF. جرّب زر "تنزيل PDF".');
+      }
+    };
 
-    openBtn.addEventListener('click', async ()=>{
-      const doc = await buildMagazinePDF();
-      // افتح في تبويب (قد يحتاج السماح بالنوافذ المنبثقة)
-      window.open(doc.output('bloburl'), '_blank');
-    });
-
-    dlBtn.addEventListener('click', async ()=>{
-      const doc = await buildMagazinePDF();
-      doc.save('majalla-aqwal.pdf');
-    });
+    // تنزيل مباشر + مسار احتياطي
+    document.getElementById('downloadPdf').onclick = async ()=>{
+      try{
+        const doc = await buildPDF();
+        // المحاولة 1: حفظ مباشر
+        doc.save('majalla-aqwal.pdf');
+        // إن فشل على بعض الأجهزة، ننفّذ المسار الاحتياطي بعد مهلة قصيرة:
+        setTimeout(()=>{
+          try{
+            const blob = doc.output('blob');
+            const url  = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url; a.download = 'majalla-aqwal.pdf';
+            document.body.appendChild(a); a.click(); a.remove();
+            setTimeout(()=>URL.revokeObjectURL(url), 2000);
+          }catch(_){}
+        }, 600);
+      }catch(e){
+        console.error(e);
+        alert('تعذّر إنشاء PDF. أعد المحاولة بعد إغلاق تبويبات كثيرة أو جرّب على جهاز مكتبي.');
+      }
+    };
   </script>
 </body>
 </html>
