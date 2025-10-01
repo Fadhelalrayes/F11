@@ -1,259 +1,346 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>مجلة الأقوال — PDF تفاعلي</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تصميمات البحرين - تصميم مواقع احترافية</title>
+    <style>
+        /* --- Google Fonts --- */
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
 
-  <!-- خطوط عربية (اختياري) -->
-  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@600;700&display=swap" rel="stylesheet">
+        /* --- General Styles --- */
+        :root {
+            --primary-color: #004AAD;
+            --secondary-color: #FFC107;
+            --background-color: #F8F9FA;
+            --text-color: #212529;
+            --white-color: #FFFFFF;
+        }
 
-  <style>
-    :root{
-      --bg:#0b0b0c; --panel:#0f1115; --text:#fff; --muted:#c9ced8;
-      --gold:#d4af37; --gold-2:#f4dd8a; --radius:18px; --ring:rgba(212,175,55,.25);
-    }
-    *{box-sizing:border-box} html,body{height:100%}
-    body{
-      margin:0;color:var(--text);background:
-        radial-gradient(1200px 600px at 80% -10%, rgba(212,175,55,.08), transparent 60%),
-        radial-gradient(1000px 600px at 0% 0%, rgba(255,255,255,.04), transparent 60%),
-        var(--bg);
-      font-family:"Amiri","Noto Naskh Arabic",serif; line-height:1.95;
-    }
-    .wrap{max-width:980px;margin:30px auto 40px;padding:0 16px}
-    .card{background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.02));
-      border:1px solid rgba(255,255,255,.06); border-radius:18px; box-shadow:0 14px 36px rgba(0,0,0,.35); overflow:hidden}
-    header.hero{padding:24px 20px;border-bottom:1px solid rgba(255,255,255,.08);
-      background:radial-gradient(600px 160px at 15% 0%, rgba(212,175,55,.12), transparent 60%),
-                 radial-gradient(500px 160px at 85% 0%, rgba(255,255,255,.08), transparent 60%)}
-    h1{margin:0;font-family:"Cairo",system-ui,sans-serif;font-size:28px;font-weight:800;
-      background:linear-gradient(90deg,var(--gold),var(--gold-2));-webkit-background-clip:text;background-clip:text;color:transparent}
-    .sub{margin:.4rem 0 0;color:var(--muted);font-size:14px;font-family:"Cairo",sans-serif}
-    .toolbar{display:flex;gap:10px;flex-wrap:wrap;padding:14px;border-bottom:1px solid rgba(255,255,255,.06)}
-    .btn{cursor:pointer;user-select:none;padding:10px 14px;border-radius:14px;
-      font-family:"Cairo",system-ui,sans-serif;font-weight:700;font-size:15px;color:#0b0b0c;
-      border:1px solid rgba(212,175,55,.35);
-      background:linear-gradient(180deg,var(--gold),#c79d2a);
-      box-shadow:inset 0 1px 0 rgba(255,255,255,.25),0 6px 16px rgba(212,175,55,.25)}
-    .btn.ghost{background:rgba(255,255,255,.03);color:var(--text);border:1px solid rgba(255,255,255,.12);box-shadow:none}
-    .content{padding:18px 18px 28px;display:grid;gap:16px;background:
-      radial-gradient(900px 400px at 50% 0%, rgba(212,175,55,.06), transparent 70%),var(--panel)}
-    .section{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:16px;padding:18px}
-    .section h2{margin:0 0 8px;font-family:"Cairo",sans-serif;font-size:20px;font-weight:800;color:var(--gold-2)}
-    .prose{color:#f7f7f7;font-size:18px;line-height:2.05;text-align:justify;text-justify:inter-word}
-    /* صفحات A4 “مجلة” يتم تحويلها إلى PDF كصور */
-    .a4{width:794px;height:1123px;margin:0 auto 16px;position:relative;background:#0d1017;border:1px solid rgba(255,255,255,.06);border-radius:12px;overflow:hidden}
-    .a4 .page-inner{padding:56px 56px 72px;width:100%;height:100%}
-    .a4 .head{font-family:"Cairo",sans-serif;font-size:26px;font-weight:800;background:linear-gradient(90deg,var(--gold),var(--gold-2));
-      -webkit-background-clip:text;background-clip:text;color:transparent;margin:0 0 14px}
-    .a4 .rule{height:2px;background:linear-gradient(90deg,var(--gold),transparent);margin:8px 0 16px;opacity:.85}
-    .a4 .text{font-size:18px;line-height:2.05;text-align:justify;color:#f7f7f7}
-    .a4 .footer-btn{position:absolute;left:56px;right:56px;bottom:36px;display:flex;gap:8px}
-    .a4 .gold-btn{background:linear-gradient(180deg,var(--gold),#c79d2a);color:#0b0b0c;font-family:"Cairo",sans-serif;font-weight:800;font-size:14px;
-      padding:10px 14px;border-radius:10px;border:1px solid rgba(212,175,55,.35);display:inline-block}
-    .hide-for-screen{display:none}
-  </style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            margin: 0;
+            line-height: 1.6;
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            padding: 0 20px;
+            overflow: hidden;
+        }
+
+        h1, h2, h3 {
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        section {
+            padding: 60px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.5rem;
+        }
+
+        /* --- Header --- */
+        .main-header {
+            background-color: var(--white-color);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .main-header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .main-nav a {
+            color: #333;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: 400;
+            transition: color 0.3s;
+        }
+        
+        .main-nav a:hover {
+            color: var(--primary-color);
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            background: linear-gradient(rgba(0, 74, 173, 0.85), rgba(0, 74, 173, 0.85)), url('https://images.unsplash.com/photo-1559028006-44d5a2b279c8?q=80&w=2070&auto=format&fit=crop') no-repeat center center/cover;
+            color: var(--white-color);
+            height: 70vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+            font-size: 3.2rem;
+            margin-bottom: 10px;
+            color: var(--white-color);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 700;
+            margin-top: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+        }
+
+        /* --- Portfolio Section --- */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .portfolio-item {
+            background: var(--white-color);
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+        
+        .portfolio-item:hover {
+            transform: translateY(-10px);
+        }
+
+        .portfolio-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .portfolio-content {
+            padding: 20px;
+        }
+
+        /* --- Contact Section --- */
+        .contact {
+            background-color: #e9ecef;
+        }
+        
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .contact-info p {
+            font-size: 1.1rem;
+            margin: 15px 0;
+        }
+        
+        .contact-info a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        .contact-form input, .contact-form textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-family: 'Cairo', sans-serif;
+        }
+        
+        .contact-form button {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--primary-color);
+            color: var(--white-color);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 700;
+            transition: background-color 0.3s;
+        }
+        
+        .contact-form button:hover {
+            background-color: #003b8a;
+        }
+
+        /* --- Responsive --- */
+        @media (max-width: 768px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            .main-header .container {
+                flex-direction: column;
+            }
+            .main-nav {
+                margin-top: 10px;
+            }
+        }
+
+        /* --- WhatsApp Floating Icon --- */
+        .whatsapp-float {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 40px;
+            left: 40px;
+            background-color: #25D366;
+            color: #FFF;
+            border-radius: 50px;
+            text-align: center;
+            box-shadow: 2px 2px 3px #999;
+            z-index: 100;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.3s;
+        }
+        
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+        }
+
+        /* --- Footer --- */
+        .main-footer {
+            background-color: var(--text-color);
+            color: var(--white-color);
+            text-align: center;
+            padding: 20px 0;
+        }
+    </style>
 </head>
 <body>
-  <div class="wrap">
-    <div class="card">
-      <header class="hero">
-        <h1>مجلة الأقوال</h1>
-        <p class="sub">تنزيل PDF “مثل المجلّة” بروابط داخلية بين الصفحات.</p>
-      </header>
 
-      <div class="toolbar">
-        <button class="btn" id="show-husn">أطلبوا الخير عند حسان الوجوه</button>
-        <button class="btn" id="show-ajr">الأجر العظيم</button>
-        <div style="flex:1"></div>
-        <button class="btn ghost" id="openPdf">فتح PDF في تبويب</button>
-        <button class="btn" id="downloadPdf">تنزيل PDF</button>
-      </div>
-
-      <!-- عرض داخل الصفحة (اختياري) -->
-      <div class="content">
-        <section id="sec-husn" class="section">
-          <h2>أطلبوا الخير عند حسان الوجوه</h2>
-          <div class="prose">
-            <p>
-              عنه (عليه السلام): حسن الصورة أول السعادة (3).<br>
-              عنه (عليه السلام): حسن وجه المؤمن من حسن عناية الله به (4).<br>
-              رسول الله (صلى الله عليه وآله): آفة الجمال الخيلاء (5).<br>
-              في الزبور: من أجرم الذنوب وأعجبه حسنه، فلينظر الأرض كيف لعبت بالوجوه في القبور وتجعلها رميماً،
-              إنما الجمال من عوفي من النار (6).<br>
-              رسول الله (صلى الله عليه وآله): خير ما أعطي الرجل المؤمن خلق حسن، وشر ما أعطي الرجل قلب سوء في صورة حسنة (7).<br>
-              الإمام الباقر (عليه السلام): أيما عبد كان له صورة حسنة مع موضع لا يشينه، ثم تواضع لله كان من خالصة الله.
-              قال الراوي: قلت: ما موضع لا يشينه؟ قال: لا يكون ضرب فيه سفاح (8).
-            </p>
-            <p>
-              536 - اطلبوا الخير عند حسان الوجوه — رسول الله (صلى الله عليه وآله): ابتغوا الخير عند حسان الوجوه (9).<br>
-              عنه (صلى الله عليه وآله): اطلبوا الخير عند حسان الوجوه (10).<br>
-              عنه (صلى الله عليه وآله): التمسوا الخير عند حسان الوجوه (11).<br>
-              عنه (صلى الله عليه وآله): اطلبوا حوائجكم عند حسان الوجوه، فإن قضى حاجتك قضاها بوجه طليق، وإن ردك ردك بوجه طليق،
-              فرب حسن الوجه دميمه عند طلب الحاجة، ورب دميم الوجه حسنه عند طلب الحاجة (12).<br>
-              عنه (صلى الله عليه وآله): اطلبوا الخير عند حسان الوجوه، فإن فعالهم أحرى أن تكون حسناً (13).
-            </p>
-            <p>537 - إكرام الشعر — رسول الله (صلى الله عليه وآله): الشعر الحسن من كسوة الله فأكرموه (14).</p>
-          </div>
-        </section>
-
-        <section id="sec-ajr" class="section" hidden>
-          <h2>الأجر العظيم</h2>
-          <div class="prose">
-            <p>عنه (عليه السلام): ما المجاهد الشهيد في سبيل الله بأعظم أجراً ممن قدر فعف، لكاد العفيف أن يكون ملكاً من الملائكة (6).</p>
-            <p>
-              6 - أجر الآخرة — الكتاب: <em>(ولأجر الآخرة خير للذين آمنوا وكانوا يتقون)</em> (7).<br>
-              <em>(والذين هاجروا في الله من بعد ما ظلموا لنبوئنهم في الدنيا حسنة ولأجر الآخرة أكبر لو كانوا يعلمون)</em> (8).<br>
-              الإمام علي (عليه السلام): شتان ما بين عملين: عمل تذهب لذته وتبقى تبعته، وعمل تذهب مؤونته ويبقى أجره (9).<br>
-              (انظر) الآخرة باب 26، 29.
-            </p>
-            <p>
-              7 - الأجر العظيم — الكتاب: <em>(الذين استجابوا لله والرسول من بعد ما أصابهم القرح للذين أحسنوا منهم واتقوا أجر عظيم)</em> (10).<br>
-              <em>(وإن تؤمنوا وتتقوا فلكم أجر عظيم)</em> (11).
-            </p>
-          </div>
-        </section>
-      </div>
-
-      <!-- قوالب صفحات A4 “المجلّة” (سيتم تصويرها وتحويلها لـPDF) -->
-      <div id="pdf-pages" class="hide-for-screen">
-        <!-- صفحة 1 -->
-        <div class="a4" data-page="1">
-          <div class="page-inner">
-            <div class="head">أطلبوا الخير عند حسان الوجوه</div>
-            <div class="rule"></div>
-            <div class="text">
-              <p>
-                عنه (عليه السلام): حسن الصورة أول السعادة (3).<br>
-                عنه (عليه السلام): حسن وجه المؤمن من حسن عناية الله به (4).<br>
-                رسول الله (صلى الله عليه وآله): آفة الجمال الخيلاء (5).<br>
-                في الزبور: من أجرم الذنوب وأعجبه حسنه، فلينظر الأرض كيف لعبت بالوجوه في القبور وتجعلها رميماً،
-                إنما الجمال من عوفي من النار (6).<br>
-                رسول الله (صلى الله عليه وآله): خير ما أعطي الرجل المؤمن خلق حسن، وشر ما أعطي الرجل قلب سوء في صورة حسنة (7).<br>
-                الإمام الباقر (عليه السلام): أيما عبد كان له صورة حسنة مع موضع لا يشينه، ثم تواضع لله كان من خالصة الله.
-                قال الراوي: قلت: ما موضع لا يشينه؟ قال: لا يكون ضرب فيه سفاح (8).
-              </p>
-              <p>
-                536 - اطلبوا الخير عند حسان الوجوه — رسول الله (صلى الله عليه وآله): ابتغوا الخير عند حسان الوجوه (9).<br>
-                عنه (صلى الله عليه وآله): اطلبوا الخير عند حسان الوجوه (10).<br>
-                عنه (صلى الله عليه وآله): التمسوا الخير عند حسان الوجوه (11).<br>
-                عنه (صلى الله عليه وآله): اطلبوا حوائجكم عند حسان الوجوه، فإن قضى حاجتك قضاها بوجه طليق، وإن ردك ردك بوجه طليق،
-                فرب حسن الوجه دميمه عند طلب الحاجة، ورب دميم الوجه حسنه عند طلب الحاجة (12).<br>
-                عنه (صلى الله عليه وآله): اطلبوا الخير عند حسان الوجوه، فإن فعالهم أحرى أن تكون حسناً (13).
-              </p>
-              <p>537 - إكرام الشعر — رسول الله (صلى الله عليه وآله): الشعر الحسن من كسوة الله فأكرموه (14).</p>
-            </div>
-            <div class="footer-btn">
-              <span class="gold-btn" data-link-to="2">الانتقال إلى: الأجر العظيم ⇢</span>
-            </div>
-          </div>
+    <!-- Header -->
+    <header class="main-header">
+        <div class="container">
+            <a href="#" class="logo">تصميمات البحرين</a>
+            <nav class="main-nav">
+                <a href="#hero">الرئيسية</a>
+                <a href="#portfolio">أعمالنا</a>
+                <a href="#contact">تواصل معنا</a>
+            </nav>
         </div>
+    </header>
 
-        <!-- صفحة 2 -->
-        <div class="a4" data-page="2">
-          <div class="page-inner">
-            <div class="head">الأجر العظيم</div>
-            <div class="rule"></div>
-            <div class="text">
-              <p>عنه (عليه السلام): ما المجاهد الشهيد في سبيل الله بأعظم أجراً ممن قدر فعف، لكاد العفيف أن يكون ملكاً من الملائكة (6).</p>
-              <p>
-                6 - أجر الآخرة — الكتاب: (ولأجر الآخرة خير للذين آمنوا وكانوا يتقون) (7).<br>
-                (والذين هاجروا في الله من بعد ما ظلموا لنبوئنهم في الدنيا حسنة ولأجر الآخرة أكبر لو كانوا يعلمون) (8).<br>
-                الإمام علي (عليه السلام): شتان ما بين عملين: عمل تذهب لذته وتبقى تبعته، وعمل تذهب مؤونته ويبقى أجره (9).<br>
-                (انظر) الآخرة باب 26، 29.
-              </p>
-              <p>
-                7 - الأجر العظيم — الكتاب: (الذين استجابوا لله والرسول من بعد ما أصابهم القرح للذين أحسنوا منهم واتقوا أجر عظيم) (10).<br>
-                (وإن تؤمنوا وتتقوا فلكم أجر عظيم) (11).
-              </p>
+    <!-- Hero Section -->
+    <section id="hero" class="hero">
+        <h1>نصمم لك وجودك الرقمي في البحرين</h1>
+        <p>حلول متكاملة لإنشاء وتصميم صفحات الويب والمتاجر الإلكترونية التي تتوافق مع جميع الأجهزة وتعكس هوية علامتك التجارية.</p>
+        <a href="#contact" class="cta-button">اطلب تصميمك الآن</a>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="portfolio">
+        <div class="container">
+            <h2 class="section-title">معرض أعمالنا</h2>
+            <div class="portfolio-grid">
+                <!-- Portfolio Item 1 -->
+                <div class="portfolio-item">
+                    <img src="https://via.placeholder.com/400x250/004AAD/FFFFFF?text=مشروع+1" alt="صورة مشروع 1">
+                    <div class="portfolio-content">
+                        <h3>موقع شركة عقارية</h3>
+                        <p>تصميم عصري يركز على عرض العقارات بشكل جذاب وسهل التصفح.</p>
+                    </div>
+                </div>
+                <!-- Portfolio Item 2 -->
+                <div class="portfolio-item">
+                    <img src="https://via.placeholder.com/400x250/FFC107/212529?text=مشروع+2" alt="صورة مشروع 2">
+                    <div class="portfolio-content">
+                        <h3>متجر إلكتروني للمنتجات الحرفية</h3>
+                        <p>متجر إلكتروني متكامل مع تجربة شراء سلسة وآمنة.</p>
+                    </div>
+                </div>
+                <!-- Portfolio Item 3 -->
+                <div class="portfolio-item">
+                    <img src="https://via.placeholder.com/400x250/212529/FFFFFF?text=مشروع+3" alt="صورة مشروع 3">
+                    <div class="portfolio-content">
+                        <h3>صفحة هبوط لتطبيق جوال</h3>
+                        <p>صفحة تعريفية جذابة تهدف لزيادة عدد تحميلات التطبيق.</p>
+                    </div>
+                </div>
             </div>
-            <div class="footer-btn">
-              <span class="gold-btn" data-link-to="1">↤ العودة إلى حسان الوجوه</span>
-            </div>
-          </div>
         </div>
-      </div>
+    </section>
 
-    </div>
-  </div>
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">تواصل معنا</h2>
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h3>هل أنت مستعد للبدء؟</h3>
+                    <p>املأ النموذج أو تواصل معنا مباشرة عبر المعلومات التالية للحصول على استشارة مجانية.</p>
+                    <p><strong>البريد الإلكتروني:</strong> <a href="mailto:Richadvadv@gmail.com">Richadvadv@gmail.com</a></p>
+                    <p><strong>رقم الاتصال والواتساب:</strong> <a href="tel:+97333375858">0097333375858</a></p>
+                </div>
+                <form class="contact-form" action="#" method="POST">
+                    <input type="text" name="name" placeholder="الاسم الكامل" required>
+                    <input type="email" name="email" placeholder="البريد الإلكتروني" required>
+                    <textarea name="message" rows="5" placeholder="رسالتك" required></textarea>
+                    <button type="submit">إرسال الرسالة</button>
+                </form>
+            </div>
+        </div>
+    </section>
 
-  <!-- مكتبات (استخدمنا CDN بدون integrity لتجنّب فشل التحميل) -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <!-- WhatsApp Floating Icon -->
+    <a href="https://wa.me/97333375858" class="whatsapp-float" target="_blank" aria-label="تواصل عبر واتساب">
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/>
+        </svg>
+    </a>
 
-  <script>
-    // تبديل العرض داخل الصفحة (اختياري)
-    const secHusn = document.getElementById('sec-husn');
-    const secAjr  = document.getElementById('sec-ajr');
-    document.getElementById('show-husn').onclick = ()=>{ secHusn.hidden=false; secAjr.hidden=true; window.scrollTo({top:0,behavior:'smooth'}) };
-    document.getElementById('show-ajr' ).onclick = ()=>{ secHusn.hidden=true; secAjr.hidden=false; window.scrollTo({top:0,behavior:'smooth'}) };
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container">
+            <p>&copy; 2025 تصميمات البحرين. جميع الحقوق محفوظة.</p>
+        </div>
+    </footer>
 
-    // إعدادات التحويل لخفض استهلاك الذاكرة على الجوال
-    const HTML2CANVAS_OPTIONS = { scale: 1.5, useCORS: true, backgroundColor: '#0d1017' };
-
-    async function renderPageToImage(el){
-      const canvas = await html2canvas(el, HTML2CANVAS_OPTIONS);
-      return canvas.toDataURL('image/jpeg', 0.96);
-    }
-
-    async function buildPDF(){
-      const { jsPDF } = window.jspdf;
-      const doc = new jsPDF({ unit:'pt', format:'a4', orientation:'portrait' });
-      const pageW = doc.internal.pageSize.getWidth();
-      const pageH = doc.internal.pageSize.getHeight();
-
-      const pages = Array.from(document.querySelectorAll('#pdf-pages .a4'));
-      for (let i=0; i<pages.length; i++){
-        if (i>0) doc.addPage();
-        const img = await renderPageToImage(pages[i]);
-        doc.addImage(img, 'JPEG', 0, 0, pageW, pageH);
-      }
-
-      // روابط داخلية تقريبية في أسفل الصفحتين
-      const linkW = 220, linkH = 26, padL = 56, padB = 36;
-      doc.setPage(1);
-      doc.link(padL, pageH - padB - linkH, linkW, linkH, { pageNumber: 2 });
-      doc.setPage(2);
-      doc.link(padL, pageH - padB - linkH, linkW, linkH, { pageNumber: 1 });
-
-      return doc;
-    }
-
-    // فتح في تبويب
-    document.getElementById('openPdf').onclick = async ()=>{
-      try{
-        const doc = await buildPDF();
-        const url = doc.output('bloburl'); // قد يحتاج السماح بالنوافذ المنبثقة
-        const win = window.open(url, '_blank');
-        if(!win){ alert('المتصفح منع فتح التبويب. استخدم زر "تنزيل PDF".'); }
-      }catch(e){
-        console.error(e); alert('تعذّر فتح PDF. جرّب زر "تنزيل PDF".');
-      }
-    };
-
-    // تنزيل مباشر + مسار احتياطي
-    document.getElementById('downloadPdf').onclick = async ()=>{
-      try{
-        const doc = await buildPDF();
-        // المحاولة 1: حفظ مباشر
-        doc.save('majalla-aqwal.pdf');
-        // إن فشل على بعض الأجهزة، ننفّذ المسار الاحتياطي بعد مهلة قصيرة:
-        setTimeout(()=>{
-          try{
-            const blob = doc.output('blob');
-            const url  = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url; a.download = 'majalla-aqwal.pdf';
-            document.body.appendChild(a); a.click(); a.remove();
-            setTimeout(()=>URL.revokeObjectURL(url), 2000);
-          }catch(_){}
-        }, 600);
-      }catch(e){
-        console.error(e);
-        alert('تعذّر إنشاء PDF. أعد المحاولة بعد إغلاق تبويبات كثيرة أو جرّب على جهاز مكتبي.');
-      }
-    };
-  </script>
 </body>
 </html>
