@@ -78,21 +78,26 @@
         .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; background: var(--white-color); padding: 50px; border-radius: 10px; box-shadow: 0 10px 40px rgba(0,0,0,0.08); }
         .contact-info h3 { font-size: 1.8rem; margin-top: 0; }
         
-        /* NEW: Contact Buttons Styling */
-        .contact-buttons { margin-top: 20px; display: flex; flex-direction: column; gap: 15px; }
+        /* UPDATED: Justified text */
+        .contact-info p { text-align: justify; hyphens: auto; }
+
+        /* UPDATED: Contact Buttons Styling */
+        .contact-buttons { margin-top: 20px; display: flex; flex-direction: row; gap: 15px; flex-wrap: wrap; }
         .contact-btn {
+            flex-grow: 1; /* Allow buttons to grow and fill space */
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 15px 20px;
+            padding: 15px 10px;
             border-radius: 8px;
             text-decoration: none;
             font-weight: 700;
-            font-size: 1.1rem;
+            font-size: 1rem;
             transition: transform 0.2s ease, box-shadow 0.2s ease;
             border: none;
+            white-space: nowrap; /* Prevent text from wrapping */
         }
-        .contact-btn i { font-size: 1.3rem; margin-left: 10px; }
+        .contact-btn i { font-size: 1.2rem; margin-left: 10px; }
         .contact-btn:hover { transform: translateY(-3px); box-shadow: 0 4px 15px rgba(0,0,0,0.15); }
         
         .btn-whatsapp { background-color: var(--success-color); color: var(--white-color); }
@@ -163,7 +168,6 @@
                     <div class="contact-info">
                         <h3>تواصل معنا مباشرة</h3>
                         <p>هل تفضل التواصل السريع؟ استخدم الأزرار التالية لمراسلتنا عبر واتساب أو البريد الإلكتروني. أو يمكنك ملء النموذج وسنعاود الاتصال بك.</p>
-                        <!-- NEW: Elegant Contact Buttons -->
                         <div class="contact-buttons">
                             <a href="https://wa.me/97333375858" target="_blank" class="contact-btn btn-whatsapp">
                                 <i class="fab fa-whatsapp"></i>
@@ -175,6 +179,7 @@
                             </a>
                         </div>
                     </div>
+                    <!-- !!! خطوة هامة لتفعيل النموذج !!! -->
                     <form class="contact-form" action="https://formspree.io/f/YOUR_UNIQUE_ID" method="POST">
                         <input type="text" name="name" placeholder="الاسم الكامل" required>
                         <input type="email" name="email" placeholder="البريد الإلكتروني" required>
