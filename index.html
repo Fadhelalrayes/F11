@@ -7,9 +7,10 @@
     <!-- SEO Meta Tags -->
     <title>ابتكار للحلول الرقمية | تصميم مواقع احترافية ومتاجر إلكترونية 2025</title>
     <meta name="description" content="تصميم وتطوير مواقع ومتاجر إلكترونية احترافية. حلول رقمية تساعد على نمو أعمالك وزيادة المبيعات. اتصل الآن!">
-    <meta name="keywords" content="تصميم مواقع, شركة تصميم مواقع, تطوير متاجر إلكترونية, حلول رقمية, ابتكار, تصميم مواقع احترافية">
+    <meta name="keywords" content="تصميم مواقع, شركة تصميم مواقع, تطوير متاجر إلكترونية, حلول رقمية, ابتكار, تصميم مواقع احترافية, تطوير ويب, متاجر إلكترونية">
     <meta name="author" content="ابتكار للحلول الرقمية">
     <link rel="canonical" href="https://fadhel-alrayes.fun/design.html">
+    <meta name="robots" content="index, follow">
 
     <!-- Google Site Verification -->
     <!-- <meta name="google-site-verification" content="YOUR_UNIQUE_VERIFICATION_CODE" /> -->
@@ -26,7 +27,7 @@
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="ابتكار للحلول الرقمية">
 
-    <!-- Schema Markup for Local Business -->
+    <!-- Schema Markup for Organization -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -35,7 +36,10 @@
       "description": "تصميم مواقع ومتاجر إلكترونية احترافية",
       "url": "https://fadhel-alrayes.fun/design.html",
       "telephone": "+97333375858",
-      "email": "Richadvadv@gmail.com"
+      "email": "Richadvadv@gmail.com",
+      "sameAs": [
+        "https://wa.me/97333375858"
+      ]
     }
     </script>
 
@@ -61,8 +65,10 @@
         .main-header { background-color: var(--white-color); box-shadow: 0 2px 15px rgba(0,0,0,0.07); padding: 15px 0; position: sticky; top: 0; z-index: 1000; }
         .main-header .container { display: flex; justify-content: space-between; align-items: center; }
         .logo { font-size: 1.6rem; font-weight: 800; color: var(--primary-color); text-decoration: none; }
-        .main-nav a { color: var(--primary-color); text-decoration: none; margin: 0 18px; font-weight: 500; transition: color 0.3s; }
+        .main-nav { display: flex; flex-wrap: nowrap; align-items: center; gap: 20px; } /* تعديل لجعل الروابط في سطر واحد دائماً */
+        .main-nav a { color: var(--primary-color); text-decoration: none; font-weight: 500; transition: color 0.3s; white-space: nowrap; } /* إضافة white-space لمنع الكسر */
         .main-nav a:hover { color: var(--secondary-color); }
+        @media (max-width: 768px) { .main-nav { gap: 10px; font-size: 0.9rem; } } /* تقليل المسافات على الشاشات الصغيرة دون كسر */
         .hero { background: var(--primary-color); color: var(--white-color); padding: 100px 0; text-align: center; }
         .hero h1 { color: var(--white-color); margin-bottom: 20px; }
         .hero p { font-size: 1.2rem; max-width: 700px; margin: 0 auto 30px; opacity: 0.8; font-weight: 400; }
@@ -92,7 +98,7 @@
         .main-footer { background-color: var(--primary-color); color: var(--white-color); text-align: center; padding: 30px 0; }
         .main-footer p { margin: 0; opacity: 0.7; }
         @media (max-width: 992px) { .contact-grid { grid-template-columns: 1fr; } .contact-info h3 { text-align: right; } }
-        @media (max-width: 768px) { h1 { font-size: 2.5rem; } h2 { font-size: 2rem; } .main-header .container { flex-direction: column; gap: 15px; } .contact-info h3 { text-align: center; } }
+        @media (max-width: 768px) { h1 { font-size: 2.5rem; } h2 { font-size: 2rem; } .main-header .container { flex-direction: column; gap: 15px; } .contact-info h3 { text-align: center; } .main-nav { justify-content: center; } }
     </style>
 </head>
 <body>
@@ -125,12 +131,12 @@
                     <div class="service-card">
                         <div class="icon"><i class="fas fa-laptop-code"></i></div>
                         <h3>تصميم وتطوير المواقع</h3>
-                        <p>نصمم مواقع ويب عصرية وسريعة، مع التركيز على تجربة المستخدم لضمان بقاء الزوار وتحويلهم إلى عملاء مخلصين.</p>
+                        <p>نصمم مواقع ويب عصرية وسريعة، مع التركيز على تجربة المستخدم لضمان بقاء الزوار وتحويلهم إلى عملاء مخلصين. <a href="#why-us">اكتشف المزيد عن جودتنا</a>.</p>
                     </div>
                     <div class="service-card">
                         <div class="icon"><i class="fas fa-store"></i></div>
                         <h3>تطوير متاجر إلكترونية</h3>
-                        <p>هل تريد البيع عبر الإنترنت؟ نطور لك متجرًا إلكترونيًا متكاملًا وسهل الإدارة لتبدأ في تحقيق المبيعات فورًا.</p>
+                        <p>هل تريد البيع عبر الإنترنت؟ نطور لك متجرًا إلكترونيًا متكاملًا وسهل الإدارة لتبدأ في تحقيق المبيعات فورًا. <a href="#contact">ابدأ مشروعك اليوم</a>.</p>
                     </div>
                 </div>
             </div>
@@ -143,22 +149,22 @@
                     <div class="why-us-card">
                         <div class="icon"><i class="fas fa-rocket"></i></div>
                         <h3>تصميم عصري ومتجاوب</h3>
-                        <p>مواقعنا تعمل بسلاسة على جميع الأجهزة، مما يضمن تجربة مستخدم مثالية وزيادة في معدلات التحويل.</p>
+                        <p>مواقعنا تعمل بسلاسة على جميع الأجهزة، مما يضمن تجربة مستخدم مثالية وزيادة في معدلات التحويل بنسبة تصل إلى 50%.</p>
                     </div>
                     <div class="why-us-card">
                         <div class="icon"><i class="fas fa-shield-alt"></i></div>
                         <h3>أمان وخصوصية عالية</h3>
-                        <p>نستخدم أحدث تقنيات الأمان لحماية بيانات عملائك، مع الالتزام بمعايير الخصوصية العالمية.</p>
+                        <p>نستخدم أحدث تقنيات الأمان لحماية بيانات عملائك، مع الالتزام بمعايير الخصوصية العالمية مثل GDPR.</p>
                     </div>
                     <div class="why-us-card">
                         <div class="icon"><i class="fas fa-chart-line"></i></div>
                         <h3>تحسين لمحركات البحث</h3>
-                        <p>كل موقع نصممه مُحسَّن للـ SEO، لمساعدتك في الظهور في نتائج البحث وجذب المزيد من الزوار العضويين.</p>
+                        <p>كل موقع نصممه مُحسَّن للـ SEO، لمساعدتك في الظهور في نتائج البحث وجذب المزيد من الزوار العضويين دون تكاليف إعلانية.</p>
                     </div>
                     <div class="why-us-card">
                         <div class="icon"><i class="fas fa-headset"></i></div>
                         <h3>دعم فني مستمر</h3>
-                        <p>فريقنا متوفر 24/7 لمساعدتك في أي وقت، لضمان استمرارية عمل موقعك دون انقطاع.</p>
+                        <p>فريقنا متوفر 24/7 لمساعدتك في أي وقت، لضمان استمرارية عمل موقعك دون انقطاع وتحديثات دورية.</p>
                     </div>
                 </div>
                 <img src="https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?q=80&w=1200&auto=format&fit=crop" alt="تصميم موقع إلكتروني احترافي وحديث" style="width: 100%; max-width: 800px; margin: 40px auto; display: block; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
@@ -171,7 +177,7 @@
                 <div class="contact-grid">
                     <div class="contact-info">
                         <h3>لنبدأ مشروعك القادم</h3>
-                        <p>سواء كنت تحتاج إلى تصميم موقع جديد، أو ترغب في تطوير متجرك الإلكتروني، فريقنا جاهز لمساعدتك على تحقيق أهدافك.</p>
+                        <p>سواء كنت تحتاج إلى تصميم موقع جديد، أو ترغب في تطوير متجرك الإلكتروني، فريقنا جاهز لمساعدتك على تحقيق أهدافك. <a href="#services">تعرف على خدماتنا</a>.</p>
                         <div class="contact-buttons">
                             <a href="https://wa.me/97333375858" target="_blank" class="contact-btn btn-whatsapp">
                                 <i class="fab fa-whatsapp"></i>
@@ -198,7 +204,7 @@
 
     <footer class="main-footer">
         <div class="container">
-            <p>&copy; 2025 ابتكار للحلول الرقمية. جميع الحقوق محفوظة.</p>
+            <p>&copy; 2025 ابتكار للحلول الرقمية. جميع الحقوق محفوظة. <a href="#services" style="color: var(--secondary-color);">خدماتنا</a> | <a href="#why-us" style="color: var(--secondary-color);">لماذا نحن</a> | <a href="#contact" style="color: var(--secondary-color);">تواصل معنا</a></p>
         </div>
     </footer>
 
