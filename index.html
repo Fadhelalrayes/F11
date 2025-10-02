@@ -61,50 +61,319 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
     <style>
-        :root { --primary-color: #0d1b2a; --secondary-color: #d4af37; --background-color: #f5f7fa; --text-color: #495057; --heading-color: #1b263b; --white-color: #FFFFFF; --success-color: #25D366; }
+        :root { 
+            --primary-color: #0d1b2a; 
+            --secondary-color: #d4af37; 
+            --background-color: #f5f7fa; 
+            --text-color: #495057; 
+            --heading-color: #1b263b; 
+            --white-color: #FFFFFF; 
+            --success-color: #25D366; 
+            --overlay-dark: rgba(13, 27, 42, 0.7);
+            --glow-color: rgba(212, 175, 55, 0.6);
+        }
         html { scroll-behavior: smooth; }
-        body { font-family: 'Tajawal', sans-serif; margin: 0; line-height: 1.8; background-color: var(--background-color); color: var(--text-color); font-weight: 400; }
+        body { 
+            font-family: 'Tajawal', sans-serif; 
+            margin: 0; 
+            line-height: 1.8; 
+            background-color: var(--background-color); 
+            color: var(--text-color); 
+            font-weight: 400; 
+            overflow-x: hidden;
+        }
         .container { max-width: 1200px; margin: auto; padding: 0 25px; }
         h1, h2, h3 { font-weight: 700; color: var(--heading-color); }
         
-        h1 { font-size: 3rem; font-weight: 800; }
-        h2 { font-size: 2.5rem; text-align: center; margin-bottom: 50px; }
+        h1 { font-size: 3.5rem; font-weight: 800; letter-spacing: -1px; }
+        h2 { font-size: 2.8rem; text-align: center; margin-bottom: 50px; position: relative; }
+        h2::after { content: ''; display: block; width: 80px; height: 3px; background: var(--secondary-color); margin: 20px auto; border-radius: 2px; }
         h3 { font-size: 1.8rem; }
         section { padding: 80px 0; }
-        .main-header { background-color: var(--white-color); box-shadow: 0 2px 15px rgba(0,0,0,0.07); padding: 15px 0; position: sticky; top: 0; z-index: 1000; }
+        .main-header { 
+            background-color: var(--white-color); 
+            box-shadow: 0 2px 15px rgba(0,0,0,0.07); 
+            padding: 15px 0; 
+            position: sticky; 
+            top: 0; 
+            z-index: 1000; 
+            backdrop-filter: blur(10px);
+        }
         .main-header .container { display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 1.6rem; font-weight: 800; color: var(--primary-color); text-decoration: none; }
-        .main-nav { display: flex; flex-wrap: nowrap; align-items: center; gap: 20px; }
-        .main-nav a { color: var(--primary-color); text-decoration: none; font-weight: 500; transition: color 0.3s; white-space: nowrap; }
+        .logo { 
+            font-size: 1.8rem; 
+            font-weight: 800; 
+            color: var(--primary-color); 
+            text-decoration: none; 
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .main-nav { display: flex; flex-wrap: nowrap; align-items: center; gap: 25px; }
+        .main-nav a { 
+            color: var(--primary-color); 
+            text-decoration: none; 
+            font-weight: 500; 
+            transition: all 0.3s ease; 
+            white-space: nowrap; 
+            position: relative;
+            padding: 5px 10px;
+        }
+        .main-nav a::after { content: ''; position: absolute; bottom: -5px; left: 50%; width: 0; height: 2px; background: var(--secondary-color); transition: all 0.3s ease; transform: translateX(-50%); }
         .main-nav a:hover { color: var(--secondary-color); }
-        @media (max-width: 768px) { .main-nav { gap: 10px; font-size: 0.9rem; } }
-        .hero { background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=2070&auto=format&fit=crop'); background-size: cover; background-position: center; color: var(--white-color); padding: 100px 0; text-align: center; }
-        .hero h1 { color: var(--white-color); margin-bottom: 20px; }
-        .hero p { font-size: 1.2rem; max-width: 700px; margin: 0 auto 30px; opacity: 0.9; font-weight: 400; }
-        .cta-button { background: var(--secondary-color); color: var(--primary-color); padding: 15px 40px; text-decoration: none; border-radius: 50px; font-weight: 700; font-size: 1.1rem; transition: all 0.3s ease; box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3); }
-        .cta-button:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4); }
-        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; max-width: 800px; margin: auto; }
-        .service-card { background: var(--white-color); padding: 40px 30px; border-radius: 10px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.05); transition: transform 0.3s, box-shadow 0.3s; }
-        .service-card:hover { transform: translateY(-10px); box-shadow: 0 15px 40px rgba(0,0,0,0.1); }
-        .service-card .icon { font-size: 2.5rem; color: var(--secondary-color); margin-bottom: 20px; }
-        .why-us-section { background: var(--white-color); }
-        .why-us-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; max-width: 1000px; margin: auto; }
-        .why-us-card { text-align: center; padding: 30px; border-radius: 10px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); }
-        .why-us-card .icon { font-size: 2rem; color: var(--secondary-color); margin-bottom: 15px; }
-        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; background: var(--white-color); padding: 50px; border-radius: 10px; box-shadow: 0 10px 40px rgba(0,0,0,0.08); }
+        .main-nav a:hover::after { width: 100%; }
+        @media (max-width: 768px) { .main-nav { gap: 15px; font-size: 0.95rem; } }
         
-        .contact-info h3 { margin-top: 0; text-align: center; }
-        .contact-info p { text-align: justify; hyphens: auto; }
-        .contact-buttons { margin-top: 20px; display: flex; flex-direction: row; gap: 15px; flex-wrap: wrap; justify-content: center; }
-        .contact-btn { display: flex; align-items: center; justify-content: center; width: 60px; height: 60px; border-radius: 50%; text-decoration: none; font-weight: 700; font-size: 1.5rem; transition: transform 0.2s ease, box-shadow 0.2s ease; border: none; }
-        .contact-btn i { font-size: 1.5rem; }
-        .contact-btn:hover { transform: translateY(-3px) scale(1.1); box-shadow: 0 4px 15px rgba(0,0,0,0.15); }
-        .btn-whatsapp { background-color: var(--success-color); color: var(--white-color); }
-        .btn-call { background-color: var(--primary-color); color: var(--white-color); }
-        .main-footer { background-color: var(--primary-color); color: var(--white-color); text-align: center; padding: 30px 0; }
-        .main-footer p { margin: 0; opacity: 0.7; }
-        @media (max-width: 992px) { .contact-grid { grid-template-columns: 1fr; } .contact-info h3 { text-align: right; } }
-        @media (max-width: 768px) { h1 { font-size: 2.5rem; } h2 { font-size: 2rem; } .main-header .container { flex-direction: column; gap: 15px; } .contact-info h3 { text-align: center; } .main-nav { justify-content: center; } .contact-btn { width: 50px; height: 50px; font-size: 1.2rem; } }
+        .hero { 
+            background: linear-gradient(135deg, var(--overlay-dark), rgba(13, 27, 42, 0.5)), url('https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=2070&auto=format&fit=crop'); 
+            background-size: cover; 
+            background-position: center; 
+            background-attachment: fixed;
+            color: var(--white-color); 
+            padding: 150px 0; 
+            text-align: center; 
+            position: relative;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 80%, rgba(212, 175, 55, 0.1), transparent 50%), 
+                        radial-gradient(circle at 80% 20%, rgba(37, 211, 102, 0.1), transparent 50%);
+            pointer-events: none;
+        }
+        .hero .container {
+            position: relative;
+            z-index: 2;
+        }
+        .hero h1 { 
+            color: var(--white-color); 
+            margin-bottom: 25px; 
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            animation: fadeInUp 1s ease-out;
+        }
+        .hero p { 
+            font-size: 1.3rem; 
+            max-width: 700px; 
+            margin: 0 auto 40px; 
+            opacity: 0.95; 
+            font-weight: 400; 
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+        .cta-button { 
+            background: linear-gradient(135deg, var(--secondary-color), #c8a030); 
+            color: var(--primary-color); 
+            padding: 18px 45px; 
+            text-decoration: none; 
+            border-radius: 50px; 
+            font-weight: 700; 
+            font-size: 1.2rem; 
+            transition: all 0.4s ease; 
+            box-shadow: 0 8px 20px var(--glow-color);
+            display: inline-block;
+            animation: fadeInUp 1s ease-out 0.4s both;
+        }
+        .cta-button:hover { 
+            transform: translateY(-8px) scale(1.05); 
+            box-shadow: 0 12px 30px var(--glow-color); 
+            color: var(--primary-color);
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .services-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
+            gap: 40px; 
+            max-width: 900px; 
+            margin: auto; 
+        }
+        .service-card { 
+            background: var(--white-color); 
+            padding: 50px 35px; 
+            border-radius: 20px; 
+            text-align: center; 
+            box-shadow: 0 15px 40px rgba(0,0,0,0.08); 
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            position: relative;
+            overflow: hidden;
+        }
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--secondary-color), var(--success-color));
+        }
+        .service-card:hover { 
+            transform: translateY(-15px) rotateX(5deg); 
+            box-shadow: 0 25px 60px rgba(0,0,0,0.15); 
+        }
+        .service-card .icon { 
+            font-size: 3rem; 
+            color: var(--secondary-color); 
+            margin-bottom: 25px; 
+            transition: transform 0.3s ease;
+        }
+        .service-card:hover .icon { transform: scale(1.1) rotate(10deg); }
+        
+        .why-us-section { 
+            background: linear-gradient(135deg, var(--white-color) 0%, #f8f9fa 100%); 
+        }
+        .why-us-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+            gap: 40px; 
+            max-width: 1100px; 
+            margin: auto; 
+        }
+        .why-us-card { 
+            text-align: center; 
+            padding: 40px 25px; 
+            border-radius: 15px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05); 
+            background: var(--white-color);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .why-us-card::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            background: var(--secondary-color);
+            border-radius: 50%;
+            opacity: 0.1;
+            transition: opacity 0.3s ease;
+        }
+        .why-us-card:hover::before { opacity: 0.2; }
+        .why-us-card .icon { 
+            font-size: 2.5rem; 
+            color: var(--secondary-color); 
+            margin-bottom: 20px; 
+            display: block;
+        }
+        .why-us-card:hover { transform: translateY(-5px); box-shadow: 0 20px 50px rgba(0,0,0,0.1); }
+        
+        .contact-grid { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 60px; 
+            align-items: start; 
+            background: linear-gradient(135deg, var(--white-color), #f8f9fa); 
+            padding: 60px; 
+            border-radius: 20px; 
+            box-shadow: 0 15px 50px rgba(0,0,0,0.1); 
+            margin: 40px auto;
+            max-width: 1000px;
+        }
+        .contact-info h3 { 
+            margin-top: 0; 
+            text-align: center; 
+            color: var(--primary-color);
+        }
+        .contact-info p { 
+            text-align: justify; 
+            hyphens: auto; 
+            margin-bottom: 30px;
+        }
+        .contact-buttons { 
+            margin-top: 20px; 
+            display: flex; 
+            flex-direction: row; 
+            gap: 20px; 
+            flex-wrap: wrap; 
+            justify-content: center; 
+        }
+        .contact-btn { 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            width: 70px; 
+            height: 70px; 
+            border-radius: 50%; 
+            text-decoration: none; 
+            font-weight: 700; 
+            font-size: 1.5rem; 
+            transition: all 0.4s ease; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        .contact-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s, height 0.3s;
+        }
+        .contact-btn:hover::before { width: 200px; height: 200px; }
+        .contact-btn i { 
+            font-size: 1.8rem; 
+            transition: transform 0.3s ease;
+        }
+        .contact-btn:hover { 
+            transform: translateY(-5px) scale(1.1); 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2); 
+        }
+        .contact-btn:hover i { transform: scale(1.2); }
+        .btn-whatsapp { background: linear-gradient(135deg, var(--success-color), #128C7E); color: var(--white-color); }
+        .btn-call { background: linear-gradient(135deg, var(--primary-color), #1e3a5f); color: var(--white-color); }
+        
+        .main-footer { 
+            background: linear-gradient(135deg, var(--primary-color), #1e3a5f); 
+            color: var(--white-color); 
+            text-align: center; 
+            padding: 40px 0; 
+            position: relative;
+        }
+        .main-footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 10"><defs><pattern id="grain" width="100" height="10" patternUnits="userSpaceOnUse"><circle cx="25" cy="5" r="1" fill="white" opacity="0.05"/></pattern></defs><rect width="100" height="10" fill="url(%23grain)"/></svg>');
+            pointer-events: none;
+        }
+        .main-footer p { 
+            margin: 0; 
+            opacity: 0.9; 
+            position: relative;
+            z-index: 1;
+        }
+        .main-footer a { color: var(--secondary-color); text-decoration: none; transition: color 0.3s; }
+        .main-footer a:hover { color: #fff; }
+        
+        @media (max-width: 992px) { 
+            .contact-grid { grid-template-columns: 1fr; gap: 40px; padding: 40px; } 
+            .contact-info h3 { text-align: right; } 
+        }
+        @media (max-width: 768px) { 
+            h1 { font-size: 2.8rem; } 
+            h2 { font-size: 2.2rem; } 
+            .main-header .container { flex-direction: column; gap: 20px; } 
+            .contact-info h3 { text-align: center; } 
+            .main-nav { justify-content: center; flex-wrap: wrap; } 
+            .contact-btn { width: 60px; height: 60px; font-size: 1.3rem; } 
+            .hero { padding: 100px 0; background-attachment: scroll; }
+        }
+        .services { background: var(--background-color); }
+        .contact { background: var(--background-color); }
     </style>
 </head>
 <body>
@@ -173,7 +442,7 @@
                         <p>فريقنا متوفر دائمًا للرد على استفساراتك وضمان رضاك الكامل عن الخدمة في جميع أنحاء البحرين.</p>
                     </div>
                 </div>
-                <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=1200&auto=format&fit=crop" alt="صورة توضيحية لتنظيف احترافي بعد البناء في منزل حديث بالبحرين" style="width: 100%; max-width: 800px; margin: 40px auto; display: block; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+                <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=1200&auto=format&fit=crop" alt="صورة توضيحية لتنظيف احترافي بعد البناء في منزل حديث بالبحرين" style="width: 100%; max-width: 900px; margin: 50px auto; display: block; border-radius: 15px; box-shadow: 0 15px 40px rgba(0,0,0,0.1);">
             </div>
         </section>
 
@@ -194,7 +463,10 @@
                         </div>
                     </div>
                     
-                    <div></div>
+                    <div style="text-align: center; padding: 20px;">
+                        <i class="fas fa-map-marker-alt" style="font-size: 2rem; color: var(--secondary-color); margin-bottom: 10px; display: block;"></i>
+                        <p style="font-size: 1rem; color: var(--text-color);">خدماتنا تغطي جميع مناطق البحرين</p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -202,7 +474,7 @@
 
     <footer class="main-footer">
         <div class="container">
-            <p>&copy; 2025 شركة البحرين للتنظيفات. جميع الحقوق محفوظة. <a href="#services" style="color: var(--secondary-color);">خدمات تنظيف بعد البناء</a> | <a href="#why-us" style="color: var(--secondary-color);">لماذا نحن</a> | <a href="#contact" style="color: var(--secondary-color);">تواصل معنا في البحرين</a></p>
+            <p>&copy; 2025 شركة البحرين للتنظيفات. جميع الحقوق محفوظة. <a href="#services" >خدمات تنظيف بعد البناء</a> | <a href="#why-us" >لماذا نحن</a> | <a href="#contact" >تواصل معنا في البحرين</a></p>
         </div>
     </footer>
 
