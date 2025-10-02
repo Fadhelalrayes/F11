@@ -93,18 +93,17 @@
         .btn-whatsapp { background-color: var(--success-color); color: var(--white-color); }
         .btn-email { background-color: var(--primary-color); color: var(--white-color); }
         .contact-form input, .contact-form textarea, .contact-form select { width: 100%; padding: 15px; margin-bottom: 20px; border-radius: 8px; border: 1px solid #ddd; font-family: 'Tajawal', sans-serif; font-size: 1rem; box-sizing: border-box; }
-        .phone-group { display: flex; gap: 10px; align-items: stretch; }
-        .phone-group select { flex: 1; font-size: 0.95rem; padding: 12px; min-width: 120px; }
-        .phone-group input { flex: 2; }
-        .contact-form .checkbox-group { display: flex; align-items: center; margin-bottom: 20px; font-size: 1rem; }
-        .contact-form .checkbox-group input[type="checkbox"] { width: auto; margin-left: 10px; margin-bottom: 0; transform: scale(1.1); }
-        .contact-form .checkbox-group label { margin: 0; cursor: pointer; }
+        .phone-group { display: flex; flex-direction: column; gap: 10px; }
+        .country-search { position: relative; }
+        .country-search input[type="text"] { width: 100%; padding: 12px; font-size: 0.95rem; border-radius: 6px; border: 1px solid #ddd; }
+        .phone-group select { font-size: 0.9rem; padding: 10px; min-height: 40px; max-height: 150px; overflow-y: auto; }
+        .phone-group input[type="tel"] { padding: 15px; font-size: 1rem; }
         .contact-form button { width: 100%; padding: 15px; background: var(--secondary-color); color: var(--primary-color); border: none; border-radius: 8px; cursor: pointer; font-size: 1.1rem; font-weight: 700; transition: all 0.3s; }
         .contact-form button:hover { background-color: #c8a030; }
         .main-footer { background-color: var(--primary-color); color: var(--white-color); text-align: center; padding: 30px 0; }
         .main-footer p { margin: 0; opacity: 0.7; }
         @media (max-width: 992px) { .contact-grid { grid-template-columns: 1fr; } .contact-info h3 { text-align: right; } }
-        @media (max-width: 768px) { h1 { font-size: 2.5rem; } h2 { font-size: 2rem; } .main-header .container { flex-direction: column; gap: 15px; } .contact-info h3 { text-align: center; } .main-nav { justify-content: center; } .phone-group { flex-direction: column; gap: 10px; } .phone-group select, .phone-group input { min-width: auto; } }
+        @media (max-width: 768px) { h1 { font-size: 2.5rem; } h2 { font-size: 2rem; } .main-header .container { flex-direction: column; gap: 15px; } .contact-info h3 { text-align: center; } .main-nav { justify-content: center; } .phone-group { gap: 8px; } }
     </style>
 </head>
 <body>
@@ -201,7 +200,10 @@
                         <input type="text" name="name" placeholder="الاسم الكامل" required>
                         <input type="email" name="email" placeholder="البريد الإلكتروني" required>
                         <div class="phone-group">
-                            <select name="country_code">
+                            <div class="country-search">
+                                <input type="text" id="countrySearch" placeholder="ابحث عن الدولة...">
+                            </div>
+                            <select name="country_code" id="countrySelect">
                                 <option value="">اختر الدولة</option>
 <option value="+1">Anguilla (+1)</option>
 <option value="+1">Antigua and Barbuda (+1)</option>
@@ -434,10 +436,6 @@
                             </select>
                             <input type="tel" name="phone" placeholder="رقم الهاتف">
                         </div>
-                        <div class="checkbox-group">
-                            <input type="checkbox" name="open_line" value="yes" id="open_line">
-                            <label for="open_line">فتح الخط</label>
-                        </div>
                         <textarea name="message" rows="6" placeholder="اشرح لنا عن مشروعك..." required></textarea>
                         <button type="submit">إرسال النموذج</button>
                     </form>
@@ -451,6 +449,32 @@
             <p>&copy; 2025 ابتكار للحلول الرقمية. جميع الحقوق محفوظة. <a href="#services" style="color: var(--secondary-color);">خدماتنا</a> | <a href="#why-us" style="color: var(--secondary-color);">لماذا نحن</a> | <a href="#contact" style="color: var(--secondary-color);">تواصل معنا</a></p>
         </div>
     </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('countrySearch');
+            const select = document.getElementById('countrySelect');
+
+            searchInput.addEventListener('input', function() {
+                const filter = searchInput.value.toLowerCase();
+                const options = select.options;
+
+                for (let i = 1; i < options.length; i++) { // Skip the first option
+                    const optionText = options[i].text.toLowerCase();
+                    if (optionText.includes(filter)) {
+                        options[i].style.display = '';
+                    } else {
+                        options[i].style.display = 'none';
+                    }
+                }
+
+                // Reset to top if no match
+                if (filter === '') {
+                    select.selectedIndex = 0;
+                }
+            });
+        });
+    </script>
 
 </body>
 </html>
