@@ -1,521 +1,177 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ورق عنب بيتنا - أشهى ورق عنب طبيعي</title>
-  <meta name="description" content="ورق عنب طبيعي 100% مع توصيل سريع داخل منطقتك. اطلب الآن طازجًا أو مجمدًا أو معبأً فاخرًا." />
-  <meta name="theme-color" content="#2d5a32" />
-  <meta property="og:title" content="ورق عنب بيتنا - أشهى ورق عنب طبيعي" />
-  <meta property="og:description" content="مذاق أصيل وتغليف يحافظ على الطزاجة. اطلب الآن!" />
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- تم تحسين العنوان ليصبح أكثر تحديدًا وجاذبية -->
+  <title>فاضل الريس | مركز الأدوات والمشاريع</title>
+
+  <!-- SEO أساسي -->
+  <meta name="description" content="مجموعة من الأدوات والمشاريع التي طورها فاضل الريس، وتشمل: محادثة ذكاء اصطناعي، مواقيت الصلاة، القرآن الكريم، أدوات صحية، أخبار، وغيرها من التطبيقات المفيدة." />
+  <meta name="keywords" content="فاضل الريس, أدوات, مشاريع, ذكاء اصطناعي, مواقيت الصلاة, القرآن الكريم, استخارة, مسبحة, أخبار, رياضة, تذاكر طيران, حاسبة عمر, فاحص طبي, العد التنازلي, تصميم مواقع ويب, Fadhel Alrayes" />
+  <link rel="canonical" href="https://fadhel-alrayes.fun/" />
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+  <meta name="author" content="فاضل الريس" />
+
+  <!-- Open Graph / Twitter -->
   <meta property="og:type" content="website" />
+  <meta property="og:title" content="فاضل الريس | مركز الأدوات والمشاريع" />
+  <meta property="og:description" content="مجموعة من الأدوات والمشاريع التي طورها فاضل الريس." />
+  <meta property="og:url" content="https://fadhel-alrayes.fun/" />
+  <meta property="og:image" content="https://fadhel-alrayes.fun/og-cover.jpg" />
   <meta property="og:locale" content="ar_AR" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- تحسين الأداء -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;700;800&display=swap" rel="stylesheet" />
-  <style>
+  <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+  <link rel="dns-prefetch" href="//fonts.gstatic.com" />
+  <link rel="dns-prefetch" href="//pagead2.googlesyndication.com" />
+  <link rel="dns-prefetch" href="//googleads.g.doubleclick.net" />
+
+  <!-- خط Cairo -->
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800;900&display=swap" rel="stylesheet" />
+
+  <!-- التحقق من جوجل -->
+  <meta name="google-site-verification" content="google7486b7402e792c6c.html" />
+
+  <!-- Content Security Policy -->
+  <meta http-equiv="Content-Security-Policy" content="
+    default-src 'self';
+    base-uri 'self';
+    object-src 'none';
+    upgrade-insecure-requests;
+    form-action 'self';
+    frame-ancestors 'self';
+    script-src 'self' https://pagead2.googlesyndication.com https://securepubads.g.doubleclick.net 'nonce-7uSYr3';
+    style-src 'self' https://fonts.googleapis.com 'nonce-7uSYr3';
+    img-src 'self' https://fadhel-alrayes.fun data: https://pagead2.googlesyndication.com https://googleads.g.doubleclick.net;
+    font-src https://fonts.gstatic.com;
+    connect-src 'self' https://pagead2.googlesyndication.com https://googleads.g.doubleclick.net;
+    frame-src https://googleads.g.doubleclick.net https://tpc.googlesyndication.com;
+  ">
+
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
+  <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=(), interest-cohort=()" />
+
+  <!-- AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1934188535842979" crossorigin="anonymous"></script>
+
+  <!-- CSS -->
+  <style nonce="7uSYr3">
     :root{
-      --brand:#2d5a32; /* أخضر ورق العنب */
-      --brand-600:#244b29;
-      --gold:#bfa05a; /* ذهبي ناعم */
-      --ink:#333;
-      --bg:#fff;
-      --muted:#6b7280;
-      --card:#ffffff;
-      --border:#e5e7eb;
-      --shadow:0 8px 24px rgba(0,0,0,.08);
-      --radius:14px;
-      --container:1180px;
+      --gold-1:#d4af37; --gold-2:#f5d76e;
+      --bg-1:#ffffff; --bg-2:#f7f4ea;
+      --text:#101418; --muted:#5e6773;
+      --card:#fff; --border:#e8e2cf;
+      --radius:16px;
+      --shadow:0 10px 28px rgba(0,0,0,.10);
+      --shadow-hover:0 16px 40px rgba(0,0,0,.14);
     }
     *{box-sizing:border-box}
-    html,body{height:100%}
-    body{font-family:'Cairo',system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial,sans-serif;margin:0;background:var(--bg);color:var(--ink);}
-    a{color:inherit}
-    .container{max-width:var(--container);margin:0 auto;padding:0 20px}
-
-    /* Header */
-    .header{position:sticky;top:0;z-index:50;background:#fffccf00;backdrop-filter:saturate(180%) blur(12px);border-bottom:1px solid var(--border);}
-    .header-inner{display:flex;align-items:center;justify-content:space-between;padding:14px 0;}
-    .logo{display:flex;align-items:center;gap:10px;color:var(--brand);font-weight:800;font-size:20px}
-    .logo svg{width:28px;height:28px}
-    nav a{margin:0 10px;text-decoration:none;color:#222;font-weight:600;opacity:.85}
-    nav a:hover{opacity:1;color:var(--brand)}
-    .actions{display:flex;align-items:center;gap:10px}
-    .btn{display:inline-flex;align-items:center;gap:8px;border:none;border-radius:999px;padding:10px 16px;font-weight:700;cursor:pointer}
-    .btn-primary{background:var(--brand);color:#fff}
-    .btn-primary:hover{background:var(--brand-600)}
-    .icon-btn{position:relative;border:1px solid var(--border);background:#fff;border-radius:999px;padding:8px 12px}
-    .badge{position:absolute;top:-6px;inset-inline-end:-6px;background:crimson;color:#fff;border-radius:999px;font-size:11px;min-width:18px;line-height:18px;text-align:center;padding:0 6px}
-
-    /* Mobile nav */
-    .menu-toggle{display:none}
-    .mobile-nav{display:none;position:fixed;inset:60px 12px auto 12px;background:#fff;border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:14px}
-    .mobile-nav a{display:block;padding:10px 12px;border-radius:10px;color:#111;text-decoration:none}
-    .mobile-nav a:hover{background:#f3f4f6}
-
-    /* Hero */
-    .hero{position:relative;isolation:isolate}
-    .hero .bg{position:absolute;inset:0;background:url('https://images.pexels.com/photos/5638330/pexels-photo-5638330.jpeg?auto=compress&cs=tinysrgb&w=1600') center/cover no-repeat;z-index:-2}
-    .hero .overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.45),rgba(0,0,0,.35))}
-    .hero-content{padding:96px 0 64px;color:#fff;text-align:center}
-    .hero h1{font-size:44px;margin:0 0 12px;line-height:1.2}
-    .hero p{font-size:18px;opacity:.95;margin:0 0 24px}
-    .hero-cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-    .chip{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.2);backdrop-filter:blur(4px);padding:8px 12px;border-radius:999px;font-weight:700}
-
-    /* Features */
-    .features{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin:-34px auto 0;position:relative}
-    .feature{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px;text-align:center}
-    .feature .ico{font-size:30px}
-    .feature h3{margin:10px 0 6px;font-size:18px}
-    .feature p{margin:0;color:var(--muted);font-size:14px}
-
-    /* Section */
-    section{padding:54px 0}
-    .section-title{font-size:32px;margin:0 0 20px;text-align:center}
-    .section-sub{margin:-8px 0 32px;text-align:center;color:var(--muted)}
-
-    /* Products */
-    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
-    .card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column}
-    .card img{width:100%;height:210px;object-fit:cover}
-    .card-body{padding:16px}
-    .price{color:var(--brand);font-weight:800}
-    .qty{display:flex;align-items:center;gap:8px;margin-top:10px}
-    .qty input{width:64px;border:1px solid var(--border);border-radius:10px;padding:8px 10px}
-
-    .add{margin-top:12px}
-
-    /* Reviews */
-    .reviews{display:grid;grid-auto-flow:column;grid-auto-columns:300px;gap:16px;overflow:auto;padding-bottom:8px}
-    .review{border:1px solid var(--border);border-radius:var(--radius);padding:16px;background:#fff;box-shadow:var(--shadow)}
-    .review .name{font-weight:800}
-    .stars{color:#f59e0b}
-
-    /* FAQ */
-    details{border:1px solid var(--border);border-radius:12px;padding:12px 14px;background:#fff}
-    details+details{margin-top:10px}
-    summary{cursor:pointer;font-weight:700}
-
-    /* Footer */
-    footer{background:#111;color:#fff;padding:40px 0;margin-top:40px}
-    footer a{color:var(--gold);text-decoration:none}
-    .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:22px}
-    .copy{border-top:1px solid #222;margin-top:20px;padding-top:12px;text-align:center;color:#aaa}
-
-    /* Cart drawer */
-    .drawer{position:fixed;inset:0 0 0 auto;width:min(420px,92vw);background:#fff;border-left:1px solid var(--border);box-shadow:var(--shadow);transform:translateX(100%);transition:transform .3s ease;z-index:60;display:flex;flex-direction:column}
-    .drawer.open{transform:translateX(0)}
-    .drawer-header{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid var(--border)}
-    .drawer-body{padding:16px;flex:1;overflow:auto}
-    .drawer-footer{border-top:1px solid var(--border);padding:14px 16px}
-    .cart-item{display:grid;grid-template-columns:64px 1fr auto;gap:12px;border:1px solid var(--border);border-radius:12px;padding:10px;margin-bottom:10px}
-    .cart-item img{width:64px;height:64px;object-fit:cover;border-radius:8px}
-    .empty{color:var(--muted);text-align:center;margin:24px 0}
-
-    /* Floating WhatsApp */
-    .wa{position:fixed;inset:auto 16px 16px auto;background:#25D366;color:#fff;border-radius:999px;padding:12px 16px;display:flex;align-items:center;gap:8px;box-shadow:var(--shadow);text-decoration:none;font-weight:800;z-index:40}
-
-    /* Responsive */
-    @media (max-width: 992px){
-      .features{grid-template-columns:repeat(2,1fr)}
-      .grid{grid-template-columns:repeat(2,1fr)}
-      nav{display:none}
-      .menu-toggle{display:inline-flex}
-      .footer-grid{grid-template-columns:1fr 1fr}
+    body{
+      margin:0; color:var(--text);
+      font-family:"Cairo","Noto Kufi Arabic",Tahoma,Arial,sans-serif;
+      background:
+        radial-gradient(900px 480px at 85% -10%, rgba(212,175,55,.10), transparent),
+        linear-gradient(180deg,var(--bg-2),var(--bg-1));
     }
-    @media (max-width: 640px){
-      .hero h1{font-size:32px}
-      .hero-content{padding:72px 0 52px}
-      .features{grid-template-columns:1fr}
-      .grid{grid-template-columns:1fr}
-      .footer-grid{grid-template-columns:1fr}
+    .wrap{max-width:1000px; margin:0 auto; padding:20px}
+    .title-bar{
+      background:#fff; border:1px solid var(--border); border-radius:18px;
+      padding:18px 22px; box-shadow:0 10px 26px rgba(0,0,0,.06);
+      margin-bottom:22px; position:relative; overflow:hidden;
     }
+    .title-bar::before{
+      content:""; position:absolute; inset:0 0 auto 0; height:5px;
+      background:linear-gradient(90deg, var(--gold-1), var(--gold-2));
+    }
+    .title{margin:0; text-align:center; font-weight:900; font-size:1.8rem; letter-spacing:.4px; color:#1a1f27;}
+
+    .grid{display:grid; gap:14px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));}
+    a.card{
+      display:block; text-decoration:none; color:inherit; background:var(--card);
+      border:1px solid var(--border); border-radius:var(--radius);
+      padding:16px; box-shadow:var(--shadow); transition:.2s ease;
+      will-change: transform, box-shadow;
+    }
+    a.card:hover{transform:translateY(-3px); box-shadow:var(--shadow-hover)}
+    .row{display:flex; align-items:flex-start; gap:12px}
+    .ico{
+      width:42px; height:42px; border-radius:12px; display:grid; place-items:center; flex:0 0 42px;
+      background: radial-gradient(120% 120% at 20% 15%, var(--gold-2), var(--gold-1));
+      color:#fff; font-size:1.1rem; box-shadow:0 8px 18px rgba(212,175,55,.30)
+    }
+    h3{margin:0 0 6px; font-size:1.06rem; font-weight:800}
+    p.desc{margin:0; color:var(--muted); font-size:.92rem; line-height:1.65}
+
+    footer{margin:26px 0 6px; text-align:center; color:var(--muted); font-size:.9rem; font-weight:600;}
+    #footerName{cursor:pointer; user-select:none; -webkit-tap-highlight-color:transparent}
+
+    .ad-slot { display:block; text-align:center; margin:20px 0; }
   </style>
-  
-  <!-- Structured Data -->
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"LocalBusiness",
-    "name":"ورق عنب بيتنا",
-    "image":"https://images.pexels.com/photos/5638330/pexels-photo-5638330.jpeg",
-    "description":"ورق عنب طبيعي مع توصيل سريع",
-    "servesCuisine":"شرق أوسطي",
-    "areaServed":"SA, BH",
-    "url":"",
-    "sameAs":[],
-    "offers":{
-      "@type":"AggregateOffer",
-      "lowPrice":"25",
-      "highPrice":"35",
-      "priceCurrency":"SAR"
-    }
-  }
-  </script>
 </head>
 <body>
-  <!-- Header -->
-  <header class="header" aria-label="شريط التنقل">
-    <div class="container header-inner">
-      <a href="#top" class="logo" aria-label="ورق عنب بيتنا">
-        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2c3 2 6 3 9 3-1 6-4 11-9 17C7 16 4 11 3 5c3 0 6-1 9-3Z" stroke="currentColor" stroke-width="1.5"/></svg>
-        <span>ورق عنب بيتنا</span>
-      </a>
+  <div class="wrap">
+    <header class="title-bar"><h1 class="title">فاضل الريس</h1></header>
 
-      <nav aria-label="روابط الموقع">
-        <a href="#products">منتجاتنا</a>
-        <a href="#recipes">وصفات</a>
-        <a href="#reviews">آراء العملاء</a>
-        <a href="#faq">الأسئلة الشائعة</a>
-        <a href="#contact">تواصل معنا</a>
-      </nav>
+    <!-- إعلان -->
+    <ins class="adsbygoogle ad-slot"
+         data-ad-client="ca-pub-1934188535842979"
+         data-ad-slot="1234567890"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
 
-      <div class="actions">
-        <button class="btn btn-primary" onclick="document.querySelector('#products').scrollIntoView({behavior:'smooth'});">اطلب الآن</button>
-        <button class="icon-btn menu-toggle" aria-label="قائمة"><span>☰</span></button>
-        <button class="icon-btn" aria-label="السلة" id="openCart">
-          🛒 <span class="badge" id="cartCount">0</span>
-        </button>
-      </div>
-    </div>
-    <div class="container mobile-nav" id="mobileNav" role="dialog" aria-modal="true" aria-label="قائمة الجوال">
-      <a href="#products">منتجاتنا</a>
-      <a href="#recipes">وصفات</a>
-      <a href="#reviews">آراء العملاء</a>
-      <a href="#faq">الأسئلة الشائعة</a>
-      <a href="#contact">تواصل معنا</a>
-    </div>
-  </header>
+    <main class="grid">
+      <!-- كل البطاقات -->
+      <a class="card" href="https://fadhel-alrayes.fun/talk.html"><div class="row"><span class="ico" role="img" aria-label="أيقونة روبوت">🤖</span><div><h3>محادثة الذكاء الاصطناعي</h3><p class="desc">مساعد ذكي يتفاعل معك بالعربية.</p></div></div></a>
+      <a class="card" href="https://fadhelalrayes.github.io/Akbar/"><div class="row"><span class="ico" role="img" aria-label="أيقونة جريدة">📰</span><div><h3>مدار الخبر</h3><p class="desc">صفحة خفيفة لأحدث المستجدّات العربية.</p></div></div></a>
+      <a class="card" href="https://fadhel-alrayes.fun/index3.html"><div class="row"><span class="ico" role="img" aria-label="أيقونة مسجد">🕌</span><div><h3>مواقيت الصلاة</h3><p class="desc">حساب وعرض المواقيت الدقيقة.</p></div></div></a>
+      <a class="card" href="https://fadhel-alrayes.fun/index67.html"><div class="row"><span class="ico" role="img" aria-label="أيقونة كسوف">🌑</span><div><h3>تقويم الخسوف والكسوف</h3><p class="desc">مواعيد دقيقة للأحداث القادمة.</p></div></div></a>
+      <a class="card" href="https://fadhel-alrayes.fun/index5.html#home"><div class="row"><span class="ico" role="img" aria-label="أيقونة كتاب">📖</span><div><h3>استخارة بالقرآن</h3><p class="desc">نتيجة لحظية بالآيات.</p></div></div></a>
+      <a class="card" href="https://fadhel-alrayes.fun/index6.html#home"><div class="row"><span class="ico" role="img" aria-label="أيقونة أرقام">🔢</span><div><h3>مِسبحة رقمية</h3><p class="desc">تسبيح الزهراء عليها السلام.</p></div></div></a>
+      <a class="card" href="https://fadhel-alrayes.fun/index7.html"><div class="row"><span class="ico" role="img" aria-label="أيقونة تقويم">📅</span><div><h3>الأيام الصالحة للزواج</h3><p class="desc">تقويم يساعدك على اختيار الأيام.</p></div></div></a>
+      <a class="card" href="https://fadhel-alrayes.fun/index9.html#home"><div class="row"><span class="ico" role="img" aria-label="أيقونة هلال">🌙</span><div><h3>حساب سنّ التكليف</h3><p class="desc">تحويل العمر القمري.</p></div></div></a>
+      <a class="card" href="https://fadhel-alrayes.fun/index11.html"><div class="row"><span class="ico" role="img" aria-label="أيقونة كرة قدم">⚽</span><div><h3>خط التماس الأخباري</h3><p class="desc">آخر الأخبار الرياضية.</p></div></div></a>
+      <a class="card" href="https://fadhel-alrayes.fun/index13.html"><div class="row"><span class="ico" role="img" aria-label="أيقونة طائرة">✈️</span><div><h3>تذكرتك للطيران</h3><p class="desc">قارن أسعار الرحلات.</p></div></div></a>
+      <a class="card" href="https://fadhel-alrayes.fun/index15.html"><div class="row"><span class="ico" role="img" aria-label="أيقونة مصحف">📜</span><div><h3>القرآن الكريم</h3><p class="desc">اختيار السورة والاستماع.</p></div></div></a>
+      <a class="card" href="https://fadhel-alrayes.fun/index22.html"><div class="row"><span class="ico" role="img" aria-label="أيقونة ساعة رملية">⏳</span><div><h3>حاسبة العمر</h3><p class="desc">عمر متوقّع ونصائح صحية.</p></div></div></a>
+      <a class="card" href="https://fadhel-alrayes.fun/index23.html"><div class="row"><span class="ico" role="img" aria-label="أيقونة أنبوب اختبار">🧪</span><div><h3>فاحص السرطان</h3><p class="desc">استبيان إرشادي.</p></div></div></a>
+      <a class="card" href="https://fadhel-alrayes.fun/index88.html"><div class="row"><span class="ico" role="img" aria-label="أيقونة قلب">❤️</span><div><h3>فاحص القلب</h3><p class="desc">تقدير خطورة الأعراض القلبية.</p></div></div></a>
+      <a class="card" href="https://fadhel-alrayes.fun/index89.html"><div class="row"><span class="ico" role="img" aria-label="أيقونة طفل رضيع">👶</span><div><h3>فاحص العقم</h3><p class="desc">مؤشرات أولية.</p></div></div></a>
+      <a class="card" href="https://fadhel-alrayes.fun/index90.html"><div class="row"><span class="ico" role="img" aria-label="أيقونة قطعة أحجية">🧩</span><div><h3>فاحص التوحّد</h3><p class="desc">تقدير المؤشرات.</p></div></div></a>
+      <a class="card" href="https://fadhel-alrayes.fun/index91.html"><div class="row"><span class="ico" role="img" aria-label="أيقونة سماعة طبيب">🩺</span><div><h3>فاحص الاكتئاب</h3><p class="desc">مؤشرات الاكتئاب.</p></div></div></a>
+      <a class="card" href="https://fadhel-alrayes.fun/index92.html"><div class="row"><span class="ico" role="img" aria-label="أيقونة قطرة دم">🩸</span><div><h3>فاحص السكري</h3><p class="desc">مؤشرات السكري.</p></div></div></a>
+      <a class="card" href="https://fadhel-alrayes.fun/index10.html"><div class="row"><span class="ico" role="img" aria-label="أيقونة هلال">🌙</span><div><h3>العدّ التنازلي لرمضان</h3><p class="desc">حساب دقيق للشهر.</p></div></div></a>
+      <a class="card" href="https://fadhel-alrayes.fun/index55.html"><div class="row"><span class="ico" role="img" aria-label="أيقونة تقويم">📆</span><div><h3>العدّ التنازلي لمحرم</h3><p class="desc">موعد بداية محرم.</p></div></div></a>
+      <a class="card" href="https://fadhel-alrayes.fun/index505.html"><div class="row"><span class="ico" role="img" aria-label="أيقونة مصحف">📜</span><div><h3>أربعون حديث</h3><p class="desc">أحاديث الإمام الجواد.</p></div></div></a>
+      <a class="card" href="https://fadhel-alrayes.fun/index202.html"><div class="row"><span class="ico" role="img" aria-label="أيقونة يدين تدعو">🤲</span><div><h3>فصل الصدقة</h3><p class="desc">آيات وأحاديث مختارة.</p></div></div></a>
+      <a class="card" href="https://fadhel-alrayes.fun/index787.html"><div class="row"><span class="ico" role="img" aria-label="أيقونة نقود">💵</span><div><h3>رصيد استلام</h3><p class="desc">إنشاء إيصال فوري مع ختم وتوقيع PDF جاهز للطباعة.</p></div></div></a>
+      <a class="card" href="https://fadhel-alrayes.fun/index242.html"><div class="row"><span class="ico" role="img" aria-label="أيقونة مستند">📄</span><div><h3>لتر هد أونلاين</h3><p class="desc">Letterhead A4 احترافي بالعربي مع ختم أزرق، توقيع أونلاين، و<span dir="ltr">PDF</span> جاهز للطباعة.</p></div></div></a>
+      <a class="card" href="https://fadhel-alrayes.fun/design.html#contact"><div class="row"><span class="ico" role="img" aria-label="أيقونة حاسوب محمول">💻</span><div><h3>تصميم مواقع ويب</h3><p class="desc">نقدم خدمة تصميم مواقع ويب احترافية.</p></div></div></a>
+    </main>
 
-  <!-- Hero -->
-  <section class="hero" id="top">
-    <div class="bg" aria-hidden="true"></div>
-    <div class="overlay" aria-hidden="true"></div>
-    <div class="container hero-content">
-      <div class="chip">🌱 طبيعي 100% · 🚚 توصيل سريع · 🧊 تغليف محكم</div>
-      <h1>أشهى ورق عنب طبيعي 100% إلى باب بيتك</h1>
-      <p>اختيارك المثالي للمناسبات والعزائم. طازج، مجمّد، ومعبأ فاخر.</p>
-      <div class="hero-cta">
-        <a class="btn btn-primary" href="#products">تصفح المنتجات</a>
-        <a class="btn" style="border:1px solid var(--border)" href="#contact">تواصل للاستفسار</a>
-      </div>
-    </div>
-  </section>
+    <footer>© <span id="year"></span> <span id="footerName">فاضل الريس</span> — جميع الحقوق محفوظة</footer>
+  </div>
 
-  <!-- Features -->
-  <section class="container" style="padding-top:0">
-    <div class="features" aria-label="مزايا منتجاتنا">
-      <div class="feature"><div class="ico">🌱</div><h3>طبيعي وعضوي</h3><p>أوراق مختارة بعناية</p></div>
-      <div class="feature"><div class="ico">🚚</div><h3>توصيل سريع</h3><p>في نفس اليوم داخل المدينة*</p></div>
-      <div class="feature"><div class="ico">🧊</div><h3>تغليف متقن</h3><p>يحافظ على الطزاجة</p></div>
-      <div class="feature"><div class="ico">⭐</div><h3>ثقة العملاء</h3><p>تقييمات 4.9/5</p></div>
-    </div>
-  </section>
+  <!-- تهيئة الإعلان -->
+  <script nonce="7uSYr3">
+    try { (window.adsbygoogle = window.adsbygoogle || []).push({}); } catch(e) {}
+  </script>
 
-  <!-- Products -->
-  <section id="products">
-    <div class="container">
-      <h2 class="section-title">منتجاتنا المميزة</h2>
-      <p class="section-sub">اختر الكمية المناسبة وأضف مباشرة إلى السلة</p>
-      <div class="grid" role="list">
-        <!-- Product 1 -->
-        <article class="card" role="listitem">
-          <img src="https://images.pexels.com/photos/5945907/pexels-photo-5945907.jpeg?auto=compress&cs=tinysrgb&w=800" alt="ورق عنب طازج بالكيلو" loading="lazy" />
-          <div class="card-body">
-            <h3>ورق عنب طازج بالكيلو</h3>
-            <div class="price">35 ر.س</div>
-            <div class="qty"><label for="q1">الكمية</label><input id="q1" type="number" min="1" value="1" inputmode="numeric" /></div>
-            <button class="btn btn-primary add" data-id="fresh" data-name="ورق عنب طازج بالكيلو" data-price="35" data-img="https://images.pexels.com/photos/5945907/pexels-photo-5945907.jpeg?auto=compress&cs=tinysrgb&w=800" data-qty="q1">أضف للسلة</button>
-          </div>
-        </article>
-        <!-- Product 2 -->
-        <article class="card" role="listitem">
-          <img src="https://images.pexels.com/photos/6940973/pexels-photo-6940973.jpeg?auto=compress&cs=tinysrgb&w=800" alt="ورق عنب مجمد 500 جم" loading="lazy" />
-          <div class="card-body">
-            <h3>ورق عنب مجمّد (500 جرام)</h3>
-            <div class="price">25 ر.س</div>
-            <div class="qty"><label for="q2">الكمية</label><input id="q2" type="number" min="1" value="1" inputmode="numeric" /></div>
-            <button class="btn btn-primary add" data-id="frozen" data-name="ورق عنب مجمّد (500 جرام)" data-price="25" data-img="https://images.pexels.com/photos/6940973/pexels-photo-6940973.jpeg?auto=compress&cs=tinysrgb&w=800" data-qty="q2">أضف للسلة</button>
-          </div>
-        </article>
-        <!-- Product 3 -->
-        <article class="card" role="listitem">
-          <img src="https://images.pexels.com/photos/5908257/pexels-photo-5908257.jpeg?auto=compress&cs=tinysrgb&w=800" alt="ورق عنب معبأ فاخر" loading="lazy" />
-          <div class="card-body">
-            <h3>ورق عنب معبّأ فاخر</h3>
-            <div class="price">30 ر.س</div>
-            <div class="qty"><label for="q3">الكمية</label><input id="q3" type="number" min="1" value="1" inputmode="numeric" /></div>
-            <button class="btn btn-primary add" data-id="packed" data-name="ورق عنب معبّأ فاخر" data-price="30" data-img="https://images.pexels.com/photos/5908257/pexels-photo-5908257.jpeg?auto=compress&cs=tinysrgb&w=800" data-qty="q3">أضف للسلة</button>
-          </div>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- Recipes / CTA -->
-  <section id="recipes" style="background:#f9fafb">
-    <div class="container">
-      <h2 class="section-title">وصفات مقترحة</h2>
-      <p class="section-sub">أفكار سريعة لتحضير ألذ محشي ورق عنب</p>
-      <div class="grid">
-        <div class="card"><img src="https://images.pexels.com/photos/5908249/pexels-photo-5908249.jpeg?auto=compress&cs=tinysrgb&w=800" alt="وصفة كلاسيكية" /><div class="card-body"><h3>الوصفة الكلاسيكية</h3><p style="color:var(--muted)">أرز، لحم مفروم، توابل عربية، عصير ليمون.</p><a class="btn" style="border:1px solid var(--border)" href="#contact">اطلب المكوّنات</a></div></div>
-        <div class="card"><img src="https://images.pexels.com/photos/6157041/pexels-photo-6157041.jpeg?auto=compress&cs=tinysrgb&w=800" alt="وصفة نباتية" /><div class="card-body"><h3>وصفة نباتية</h3><p style="color:var(--muted)">أرز بسمتي، بصل، طماطم، بقدونس وزيت زيتون.</p><a class="btn" style="border:1px solid var(--border)" href="#contact">اطلب المكوّنات</a></div></div>
-        <div class="card"><img src="https://images.pexels.com/photos/6157044/pexels-photo-6157044.jpeg?auto=compress&cs=tinysrgb&w=800" alt="وصفة عائلية" /><div class="card-body"><h3>وليمة عائلية</h3><p style="color:var(--muted)">صينية كبيرة تكفي 6–8 أشخاص مع إضافات.</p><a class="btn" style="border:1px solid var(--border)" href="#contact">اطلب الآن</a></div></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Reviews -->
-  <section id="reviews">
-    <div class="container">
-      <h2 class="section-title">آراء العملاء</h2>
-      <div class="reviews" aria-label="آراء متحركة">
-        <div class="review"><div class="stars">★★★★★</div><p>الطعم يجنن والتوصيل سريع جدًا.</p><div class="name">نورة.</div></div>
-        <div class="review"><div class="stars">★★★★★</div><p>أفضل ورق عنب جربته، طزاجة لا تقاوم.</p><div class="name">محمد.</div></div>
-        <div class="review"><div class="stars">★★★★☆</div><p>التغليف ممتاز والعبوة مرتبة.</p><div class="name">سارة.</div></div>
-        <div class="review"><div class="stars">★★★★★</div><p>أنصح به للمناسبات، رائع!</p><div class="name">عبدالله.</div></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FAQ -->
-  <section id="faq" style="background:#f9fafb">
-    <div class="container">
-      <h2 class="section-title">الأسئلة الشائعة</h2>
-      <details>
-        <summary>هل الورق طبيعي وبدون إضافات؟</summary>
-        <p>نعم، أوراقنا طبيعية 100% ومن مصادر موثوقة.</p>
-      </details>
-      <details>
-        <summary>كم يستغرق التوصيل؟</summary>
-        <p>داخل المدينة عادة خلال 2–6 ساعات، وخارجها خلال 1–2 يوم عمل.</p>
-      </details>
-      <details>
-        <summary>سياسة الاسترجاع</summary>
-        <p>إذا وصل المنتج غير مطابق، نتكفّل بالاستبدال أو الاسترجاع خلال 24 ساعة.</p>
-      </details>
-    </div>
-  </section>
-
-  <!-- Contact -->
-  <section id="contact">
-    <div class="container">
-      <h2 class="section-title">تواصل معنا</h2>
-      <p class="section-sub">للطلبات السريعة عبر واتساب أو النموذج</p>
-      <div class="grid">
-        <form class="card" id="contactForm" onsubmit="sendMessage(event)">
-          <div class="card-body">
-            <div style="display:grid;gap:12px">
-              <label>اسمك<input name="name" required style="width:100%;border:1px solid var(--border);border-radius:10px;padding:10px" /></label>
-              <label>رقم الهاتف<input name="phone" required inputmode="tel" style="width:100%;border:1px solid var(--border);border-radius:10px;padding:10px" /></label>
-              <label>رسالتك<textarea name="msg" rows="4" style="width:100%;border:1px solid var(--border);border-radius:10px;padding:10px"></textarea></label>
-              <button class="btn btn-primary" type="submit">إرسال</button>
-            </div>
-          </div>
-        </form>
-        <div class="card">
-          <div class="card-body">
-            <h3>معلومات المتجر</h3>
-            <p style="color:var(--muted)">نعمل يوميًا 10 ص – 10 م</p>
-            <p>هاتف: <a href="tel:+966500000000">+966 50 000 0000</a></p>
-            <p>واتساب: <a href="https://wa.me/966500000000" target="_blank" rel="noopener">مراسلة مباشرة</a></p>
-            <p>إنستغرام: <a href="#" target="_blank" rel="noopener">@warak_betna</a></p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer role="contentinfo">
-    <div class="container footer-grid">
-      <div>
-        <h3 style="margin-top:0">ورق عنب بيتنا</h3>
-        <p style="color:#c9c9c9">مذاق أصيل وتغليف يحافظ على الطزاجة.</p>
-      </div>
-      <div>
-        <h4>روابط</h4>
-        <ul style="list-style:none;padding:0;line-height:2">
-          <li><a href="#products">المنتجات</a></li>
-          <li><a href="#faq">الأسئلة الشائعة</a></li>
-          <li><a href="#contact">تواصل</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4>السياسات</h4>
-        <ul style="list-style:none;padding:0;line-height:2">
-          <li><a href="#">سياسة الخصوصية</a></li>
-          <li><a href="#">الشحن والاسترجاع</a></li>
-          <li><a href="#">الشروط والأحكام</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="container copy">© <span id="year"></span> ورق عنب بيتنا. جميع الحقوق محفوظة.</div>
-  </footer>
-
-  <!-- Cart Drawer -->
-  <aside class="drawer" id="drawer" aria-label="سلة المشتريات" aria-hidden="true">
-    <div class="drawer-header">
-      <strong>سلتك</strong>
-      <button class="icon-btn" id="closeCart" aria-label="إغلاق">✕</button>
-    </div>
-    <div class="drawer-body" id="cartItems">
-      <p class="empty">سلتك فارغة. ابدأ بإضافة المنتجات.</p>
-    </div>
-    <div class="drawer-footer">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
-        <strong>الإجمالي:</strong>
-        <strong id="cartTotal">0 ر.س</strong>
-      </div>
-      <a id="checkoutBtn" class="btn btn-primary" style="width:100%;justify-content:center">إتمام الطلب عبر واتساب</a>
-    </div>
-  </aside>
-
-  <!-- Floating WhatsApp CTA -->
-  <a class="wa" href="https://wa.me/966500000000?text=%D8%A3%D8%B1%D9%8A%D8%AF%20%D8%B7%D9%84%D8%A8%20%D9%88%D8%B1%D9%82%20%D8%B9%D9%86%D8%A8" target="_blank" rel="noopener" aria-label="مراسلة عبر واتساب">
-    <span>💬</span> اطلب عبر واتساب
-  </a>
-
-  <script>
-    // Utilities
-    const $ = (s,root=document)=>root.querySelector(s);
-    const $$ = (s,root=document)=>Array.from(root.querySelectorAll(s));
-
-    // State
-    const CART_KEY = 'wb-cart-v1';
-    const state = { cart: loadCart() };
-
-    function loadCart(){
-      try{ return JSON.parse(localStorage.getItem(CART_KEY)) || []; }catch{ return [] }
-    }
-    function saveCart(){ localStorage.setItem(CART_KEY, JSON.stringify(state.cart)); }
-
-    function money(n){ return `${Number(n).toLocaleString('ar-EG')} ر.س`; }
-
-    // Cart operations
-    function addToCart(item){
-      const found = state.cart.find(p=>p.id===item.id);
-      if(found){ found.qty += item.qty; }
-      else{ state.cart.push(item); }
-      saveCart();
-      renderCart();
-      toast('تمت الإضافة إلى السلة');
-    }
-
-    function removeItem(id){
-      state.cart = state.cart.filter(p=>p.id!==id);
-      saveCart();
-      renderCart();
-    }
-
-    function updateQty(id,qty){
-      const it = state.cart.find(p=>p.id===id); if(!it) return;
-      it.qty = Math.max(1, qty|0);
-      saveCart();
-      renderCart();
-    }
-
-    function cartTotal(){ return state.cart.reduce((s,p)=>s + p.price*p.qty, 0); }
-
-    function renderCart(){
-      const count = state.cart.reduce((s,p)=>s+p.qty,0);
-      $('#cartCount').textContent = count;
-      const body = $('#cartItems');
-      if(state.cart.length===0){ body.innerHTML = '<p class="empty">سلتك فارغة. ابدأ بإضافة المنتجات.</p>'; }
-      else{
-        body.innerHTML = '';
-        state.cart.forEach(p=>{
-          const el = document.createElement('div');
-          el.className='cart-item';
-          el.innerHTML = `
-            <img src="${p.img}" alt="${p.name}" />
-            <div>
-              <div style="font-weight:800">${p.name}</div>
-              <div style="color:var(--muted)">${money(p.price)}</div>
-              <div class="qty" style="margin-top:8px">
-                <button class="icon-btn" aria-label="نقص" data-dec="${p.id}">−</button>
-                <input type="number" min="1" value="${p.qty}" data-q="${p.id}" style="width:64px;border:1px solid var(--border);border-radius:10px;padding:6px 10px" />
-                <button class="icon-btn" aria-label="زيادة" data-inc="${p.id}">+</button>
-              </div>
-            </div>
-            <div style="display:flex;flex-direction:column;align-items:end;gap:8px">
-              <div style="font-weight:800">${money(p.price*p.qty)}</div>
-              <button class="icon-btn" aria-label="حذف" data-del="${p.id}">🗑</button>
-            </div>`;
-          body.appendChild(el);
-        });
-      }
-      $('#cartTotal').textContent = money(cartTotal());
-      // Build WhatsApp checkout link
-      const lines = state.cart.map(p=>`• ${p.name} × ${p.qty} = ${p.price*p.qty} ر.س`).join('%0A');
-      const total = cartTotal();
-      const msg = encodeURI(`طلب جديد:%0A${lines}%0Aالإجمالي: ${total} ر.س`);
-      $('#checkoutBtn').setAttribute('href', `https://wa.me/966500000000?text=${msg}`);
-    }
-
-    // Toast
-    let toastTimer;
-    function toast(text){
-      let el = $('#toast');
-      if(!el){
-        el = document.createElement('div');
-        el.id='toast';
-        el.style.cssText='position:fixed;inset:auto 50% 24px auto;transform:translateX(50%);background:#111;color:#fff;padding:10px 16px;border-radius:999px;box-shadow:var(--shadow);z-index:80';
-        document.body.appendChild(el);
-      }
-      el.textContent = text;
-      el.style.opacity = '1';
-      clearTimeout(toastTimer);
-      toastTimer = setTimeout(()=>{ el.style.opacity='0'; }, 1600);
-    }
-
-    // Events
-    document.addEventListener('click', (e)=>{
-      const addBtn = e.target.closest('.add');
-      if(addBtn){
-        const qtyInput = document.getElementById(addBtn.dataset.qty);
-        addToCart({
-          id:addBtn.dataset.id,
-          name:addBtn.dataset.name,
-          price:Number(addBtn.dataset.price),
-          img:addBtn.dataset.img,
-          qty: Math.max(1, Number(qtyInput?.value||1))
-        });
-      }
-      if(e.target.id==='openCart'){ openDrawer(true); }
-      if(e.target.id==='closeCart'){ openDrawer(false); }
-      if(e.target.dataset.del){ removeItem(e.target.dataset.del); }
-      if(e.target.dataset.inc){ const id=e.target.dataset.inc; const it=state.cart.find(p=>p.id===id); updateQty(id,(it?.qty||1)+1); }
-      if(e.target.dataset.dec){ const id=e.target.dataset.dec; const it=state.cart.find(p=>p.id===id); updateQty(id,(it?.qty||1)-1); }
-    });
-
-    document.addEventListener('input',(e)=>{
-      if(e.target.matches('[data-q]')){ updateQty(e.target.dataset.q, Number(e.target.value)); }
-    })
-
-    const drawer = $('#drawer');
-    function openDrawer(v){ drawer.classList.toggle('open', !!v); drawer.setAttribute('aria-hidden', v? 'false':'true'); }
-
-    // Mobile nav
-    $('.menu-toggle').addEventListener('click',()=>{ $('#mobileNav').style.display = $('#mobileNav').style.display==='block' ? 'none' : 'block'; });
-    $$('#mobileNav a').forEach(a=>a.addEventListener('click',()=> $('#mobileNav').style.display='none'));
-
-    // Contact form -> WhatsApp
-    function sendMessage(e){
-      e.preventDefault();
-      const fd = new FormData(e.target);
-      const name = fd.get('name');
-      const phone = fd.get('phone');
-      const msg = fd.get('msg') || 'أرغب بالطلب والاستفسار';
-      const text = encodeURIComponent(`مرحبا، أنا ${name} (${phone}). ${msg}`);
-      window.open(`https://wa.me/966500000000?text=${text}`, '_blank');
-    }
-    window.sendMessage = sendMessage;
-
-    // Init
+  <!-- تحسينات بسيطة -->
+  <script nonce="7uSYr3">
+    // سنة الفوتر
     document.getElementById('year').textContent = new Date().getFullYear();
-    renderCart();
+
+    // رابط واتساب عند الضغط على الاسم
+    const waUrl = "https://api.whatsapp.com/send/?phone=97333375858&text&type=phone_number&app_absent=0";
+    document.getElementById('footerName').addEventListener('click', () => {
+      window.open(waUrl, '_blank', 'noopener,noreferrer');
+    });
   </script>
 </body>
 </html>
