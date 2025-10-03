@@ -2,176 +2,303 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <!-- تم تحسين العنوان ليصبح أكثر تحديدًا وجاذبية -->
-  <title>فاضل الريس | مركز الأدوات والمشاريع</title>
-
-  <!-- SEO أساسي -->
-  <meta name="description" content="مجموعة من الأدوات والمشاريع التي طورها فاضل الريس، وتشمل: محادثة ذكاء اصطناعي، مواقيت الصلاة، القرآن الكريم، أدوات صحية، أخبار، وغيرها من التطبيقات المفيدة." />
-  <meta name="keywords" content="فاضل الريس, أدوات, مشاريع, ذكاء اصطناعي, مواقيت الصلاة, القرآن الكريم, استخارة, مسبحة, أخبار, رياضة, تذاكر طيران, حاسبة عمر, فاحص طبي, العد التنازلي, تصميم مواقع ويب, Fadhel Alrayes" />
-  <link rel="canonical" href="https://fadhel-alrayes.fun/" />
-  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
-  <meta name="author" content="فاضل الريس" />
-
-  <!-- Open Graph / Twitter -->
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="فاضل الريس | مركز الأدوات والمشاريع" />
-  <meta property="og:description" content="مجموعة من الأدوات والمشاريع التي طورها فاضل الريس." />
-  <meta property="og:url" content="https://fadhel-alrayes.fun/" />
-  <meta property="og:image" content="https://fadhel-alrayes.fun/og-cover.jpg" />
-  <meta property="og:locale" content="ar_AR" />
-  <meta name="twitter:card" content="summary_large_image" />
-
-  <!-- تحسين الأداء -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="dns-prefetch" href="//fonts.googleapis.com" />
-  <link rel="dns-prefetch" href="//fonts.gstatic.com" />
-  <link rel="dns-prefetch" href="//pagead2.googlesyndication.com" />
-  <link rel="dns-prefetch" href="//googleads.g.doubleclick.net" />
-
-  <!-- خط Cairo -->
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800;900&display=swap" rel="stylesheet" />
-
-  <!-- التحقق من جوجل -->
-  <meta name="google-site-verification" content="google7486b7402e792c6c.html" />
-
-  <!-- Content Security Policy -->
-  <meta http-equiv="Content-Security-Policy" content="
-    default-src 'self';
-    base-uri 'self';
-    object-src 'none';
-    upgrade-insecure-requests;
-    form-action 'self';
-    frame-ancestors 'self';
-    script-src 'self' https://pagead2.googlesyndication.com https://securepubads.g.doubleclick.net 'nonce-7uSYr3';
-    style-src 'self' https://fonts.googleapis.com 'nonce-7uSYr3';
-    img-src 'self' https://fadhel-alrayes.fun data: https://pagead2.googlesyndication.com https://googleads.g.doubleclick.net;
-    font-src https://fonts.gstatic.com;
-    connect-src 'self' https://pagead2.googlesyndication.com https://googleads.g.doubleclick.net;
-    frame-src https://googleads.g.doubleclick.net https://tpc.googlesyndication.com;
-  ">
-
-  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
-  <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=(), interest-cohort=()" />
-
-  <!-- AdSense -->
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1934188535842979" crossorigin="anonymous"></script>
-
-  <!-- CSS -->
-  <style nonce="7uSYr3">
+  <title>تقويم الصلاة الشهري</title>
+  <style>
     :root{
-      --gold-1:#d4af37; --gold-2:#f5d76e;
-      --bg-1:#ffffff; --bg-2:#f7f4ea;
-      --text:#101418; --muted:#5e6773;
-      --card:#fff; --border:#e8e2cf;
-      --radius:16px;
-      --shadow:0 10px 28px rgba(0,0,0,.10);
-      --shadow-hover:0 16px 40px rgba(0,0,0,.14);
+      --bg:#f7f7f7;--card:#fff;--ink:#111;--muted:#666;--brand:#1e7e34;--accent:#0a58ca;
+      --grid:#e7e7e7;--warn:#b02a37;
     }
     *{box-sizing:border-box}
-    body{
-      margin:0; color:var(--text);
-      font-family:"Cairo","Noto Kufi Arabic",Tahoma,Arial,sans-serif;
-      background:
-        radial-gradient(900px 480px at 85% -10%, rgba(212,175,55,.10), transparent),
-        linear-gradient(180deg,var(--bg-2),var(--bg-1));
+    body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Noto Kufi Arabic",Tahoma,Arial,sans-serif}
+    header{padding:18px 16px;background:var(--card);position:sticky;top:0;z-index:5;border-bottom:1px solid var(--grid)}
+    h1{margin:0 0 8px;font-size:22px}
+    .controls{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px}
+    .controls>div{display:flex;gap:6px;align-items:center}
+    label{font-size:13px;color:var(--muted)}
+    select,input,button{
+      padding:10px;border:1px solid var(--grid);border-radius:10px;background:#fff;font-size:14px
     }
-    .wrap{max-width:1000px; margin:0 auto; padding:20px}
-    .title-bar{
-      background:#fff; border:1px solid var(--border); border-radius:18px;
-      padding:18px 22px; box-shadow:0 10px 26px rgba(0,0,0,.06);
-      margin-bottom:22px; position:relative; overflow:hidden;
+    button{cursor:pointer}
+    .nav{display:flex;gap:8px;align-items:center}
+    .nav button{background:var(--card)}
+    .nav strong{min-width:160px;text-align:center}
+    main{max-width:1100px;margin:18px auto;padding:0 12px}
+    .legend{margin:10px 0 16px;color:var(--muted);font-size:13px}
+    .table-wrap{background:var(--card);border:1px solid var(--grid);border-radius:14px;overflow:auto}
+    table{border-collapse:separate;border-spacing:0;width:100%;min-width:760px}
+    thead th{position:sticky;top:60px;background:var(--card);z-index:4}
+    th,td{padding:10px 12px;border-bottom:1px solid var(--grid);text-align:center;white-space:nowrap}
+    thead th{font-size:13px;color:#333}
+    tbody tr:nth-child(odd){background:#fafafa}
+    tbody td:first-child, thead th:first-child{position:sticky;right:0;background:inherit}
+    .badge{display:inline-block;padding:.15rem .45rem;border-radius:6px;font-size:12px;background:#eef7ee;color:#1e7e34;border:1px solid #cfe7cf}
+    .danger{background:#fdeceb;color:#b02a37;border-color:#f6cacc}
+    .muted{color:var(--muted)}
+    footer{max-width:1100px;margin:28px auto 40px;padding:0 12px;color:var(--muted);font-size:12px}
+    .error{color:var(--warn);margin-top:8px}
+    .events-note{font-size:12px;color:var(--muted)}
+    .events-tag{font-size:12px}
+    @media (max-width:780px){
+      .controls{grid-template-columns:1fr 1fr}
+      thead th{top:112px}
     }
-    .title-bar::before{
-      content:""; position:absolute; inset:0 0 auto 0; height:5px;
-      background:linear-gradient(90deg, var(--gold-1), var(--gold-2));
-    }
-    .title{margin:0; text-align:center; font-weight:900; font-size:1.8rem; letter-spacing:.4px; color:#1a1f27;}
-
-    .grid{display:grid; gap:14px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));}
-    a.card{
-      display:block; text-decoration:none; color:inherit; background:var(--card);
-      border:1px solid var(--border); border-radius:var(--radius);
-      padding:16px; box-shadow:var(--shadow); transition:.2s ease;
-      will-change: transform, box-shadow;
-    }
-    a.card:hover{transform:translateY(-3px); box-shadow:var(--shadow-hover)}
-    .row{display:flex; align-items:flex-start; gap:12px}
-    .ico{
-      width:42px; height:42px; border-radius:12px; display:grid; place-items:center; flex:0 0 42px;
-      background: radial-gradient(120% 120% at 20% 15%, var(--gold-2), var(--gold-1));
-      color:#fff; font-size:1.1rem; box-shadow:0 8px 18px rgba(212,175,55,.30)
-    }
-    h3{margin:0 0 6px; font-size:1.06rem; font-weight:800}
-    p.desc{margin:0; color:var(--muted); font-size:.92rem; line-height:1.65}
-
-    footer{margin:26px 0 6px; text-align:center; color:var(--muted); font-size:.9rem; font-weight:600;}
-    #footerName{cursor:pointer; user-select:none; -webkit-tap-highlight-color:transparent}
-
-    .ad-slot { display:block; text-align:center; margin:20px 0; }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <header class="title-bar"><h1 class="title">فاضل الريس</h1></header>
+  <header>
+    <h1>تقويم أوقات الصلاة الشهري</h1>
+    <div class="controls">
+      <div>
+        <label for="country">الدولة</label>
+        <input id="country" placeholder="مثال: Bahrain" value="Bahrain" />
+      </div>
+      <div>
+        <label for="city">المدينة</label>
+        <input id="city" placeholder="مثال: Manama" value="Manama" />
+      </div>
+      <div>
+        <label for="method">طريقة الحساب</label>
+        <select id="method" title="طريقة الحساب">
+          <option value="5" selected>أم القرى (السعودية)</option>
+          <option value="3">الجمعية الإسلامية لشمال أمريكا</option>
+          <option value="2">رابطة العالم الإسلامي</option>
+          <option value="12">هيئة الشؤون الإسلامية (الإمارات)</option>
+          <option value="4">أوقاف مصر</option>
+          <option value="1">جامعة العلوم الإسلامية (كراتشي)</option>
+          <option value="7">هيئة المساحة (المغرب)</option>
+          <option value="9">تركيا</option>
+        </select>
+      </div>
+      <div class="nav">
+        <button id="prev">‹ الشهر السابق</button>
+        <strong id="title"></strong>
+        <button id="next">الشهر التالي ›</button>
+      </div>
+    </div>
+    <div id="status" class="error" hidden></div>
+  </header>
 
-    <!-- إعلان -->
-    <ins class="adsbygoogle ad-slot"
-         data-ad-client="ca-pub-1934188535842979"
-         data-ad-slot="1234567890"
-         data-ad-format="auto"
-         data-full-width-responsive="true"></ins>
+  <main>
+    <p class="legend">
+      يتم جلب البيانات عبر <span class="badge">AlAdhan API</span>.
+      أوقات الشروق تُعرض للمعلومية، ولا تُعد صلاة.
+    </p>
 
-    <main class="grid">
-      <!-- كل البطاقات -->
-      <a class="card" href="https://fadhel-alrayes.fun/talk.html"><div class="row"><span class="ico" role="img" aria-label="أيقونة روبوت">🤖</span><div><h3>محادثة الذكاء الاصطناعي</h3><p class="desc">مساعد ذكي يتفاعل معك بالعربية.</p></div></div></a>
-      <a class="card" href="https://fadhelalrayes.github.io/Akbar/"><div class="row"><span class="ico" role="img" aria-label="أيقونة جريدة">📰</span><div><h3>مدار الخبر</h3><p class="desc">صفحة خفيفة لأحدث المستجدّات العربية.</p></div></div></a>
-      <a class="card" href="https://fadhel-alrayes.fun/index3.html"><div class="row"><span class="ico" role="img" aria-label="أيقونة مسجد">🕌</span><div><h3>مواقيت الصلاة</h3><p class="desc">حساب وعرض المواقيت الدقيقة.</p></div></div></a>
-      <a class="card" href="https://fadhel-alrayes.fun/index67.html"><div class="row"><span class="ico" role="img" aria-label="أيقونة كسوف">🌑</span><div><h3>تقويم الخسوف والكسوف</h3><p class="desc">مواعيد دقيقة للأحداث القادمة.</p></div></div></a>
-      <a class="card" href="https://fadhel-alrayes.fun/index5.html#home"><div class="row"><span class="ico" role="img" aria-label="أيقونة كتاب">📖</span><div><h3>استخارة بالقرآن</h3><p class="desc">نتيجة لحظية بالآيات.</p></div></div></a>
-      <a class="card" href="https://fadhel-alrayes.fun/index6.html#home"><div class="row"><span class="ico" role="img" aria-label="أيقونة أرقام">🔢</span><div><h3>مِسبحة رقمية</h3><p class="desc">تسبيح الزهراء عليها السلام.</p></div></div></a>
-      <a class="card" href="https://fadhel-alrayes.fun/index7.html"><div class="row"><span class="ico" role="img" aria-label="أيقونة تقويم">📅</span><div><h3>الأيام الصالحة للزواج</h3><p class="desc">تقويم يساعدك على اختيار الأيام.</p></div></div></a>
-      <a class="card" href="https://fadhel-alrayes.fun/index9.html#home"><div class="row"><span class="ico" role="img" aria-label="أيقونة هلال">🌙</span><div><h3>حساب سنّ التكليف</h3><p class="desc">تحويل العمر القمري.</p></div></div></a>
-      <a class="card" href="https://fadhel-alrayes.fun/index11.html"><div class="row"><span class="ico" role="img" aria-label="أيقونة كرة قدم">⚽</span><div><h3>خط التماس الأخباري</h3><p class="desc">آخر الأخبار الرياضية.</p></div></div></a>
-      <a class="card" href="https://fadhel-alrayes.fun/index13.html"><div class="row"><span class="ico" role="img" aria-label="أيقونة طائرة">✈️</span><div><h3>تذكرتك للطيران</h3><p class="desc">قارن أسعار الرحلات.</p></div></div></a>
-      <a class="card" href="https://fadhel-alrayes.fun/index15.html"><div class="row"><span class="ico" role="img" aria-label="أيقونة مصحف">📜</span><div><h3>القرآن الكريم</h3><p class="desc">اختيار السورة والاستماع.</p></div></div></a>
-      <a class="card" href="https://fadhel-alrayes.fun/index22.html"><div class="row"><span class="ico" role="img" aria-label="أيقونة ساعة رملية">⏳</span><div><h3>حاسبة العمر</h3><p class="desc">عمر متوقّع ونصائح صحية.</p></div></div></a>
-      <a class="card" href="https://fadhel-alrayes.fun/index23.html"><div class="row"><span class="ico" role="img" aria-label="أيقونة أنبوب اختبار">🧪</span><div><h3>فاحص السرطان</h3><p class="desc">استبيان إرشادي.</p></div></div></a>
-      <a class="card" href="https://fadhel-alrayes.fun/index88.html"><div class="row"><span class="ico" role="img" aria-label="أيقونة قلب">❤️</span><div><h3>فاحص القلب</h3><p class="desc">تقدير خطورة الأعراض القلبية.</p></div></div></a>
-      <a class="card" href="https://fadhel-alrayes.fun/index89.html"><div class="row"><span class="ico" role="img" aria-label="أيقونة طفل رضيع">👶</span><div><h3>فاحص العقم</h3><p class="desc">مؤشرات أولية.</p></div></div></a>
-      <a class="card" href="https://fadhel-alrayes.fun/index90.html"><div class="row"><span class="ico" role="img" aria-label="أيقونة قطعة أحجية">🧩</span><div><h3>فاحص التوحّد</h3><p class="desc">تقدير المؤشرات.</p></div></div></a>
-      <a class="card" href="https://fadhel-alrayes.fun/index91.html"><div class="row"><span class="ico" role="img" aria-label="أيقونة سماعة طبيب">🩺</span><div><h3>فاحص الاكتئاب</h3><p class="desc">مؤشرات الاكتئاب.</p></div></div></a>
-      <a class="card" href="https://fadhel-alrayes.fun/index92.html"><div class="row"><span class="ico" role="img" aria-label="أيقونة قطرة دم">🩸</span><div><h3>فاحص السكري</h3><p class="desc">مؤشرات السكري.</p></div></div></a>
-      <a class="card" href="https://fadhel-alrayes.fun/index10.html"><div class="row"><span class="ico" role="img" aria-label="أيقونة هلال">🌙</span><div><h3>العدّ التنازلي لرمضان</h3><p class="desc">حساب دقيق للشهر.</p></div></div></a>
-      <a class="card" href="https://fadhel-alrayes.fun/index55.html"><div class="row"><span class="ico" role="img" aria-label="أيقونة تقويم">📆</span><div><h3>العدّ التنازلي لمحرم</h3><p class="desc">موعد بداية محرم.</p></div></div></a>
-      <a class="card" href="https://fadhel-alrayes.fun/index505.html"><div class="row"><span class="ico" role="img" aria-label="أيقونة مصحف">📜</span><div><h3>أربعون حديث</h3><p class="desc">أحاديث الإمام الجواد.</p></div></div></a>
-      <a class="card" href="https://fadhel-alrayes.fun/index202.html"><div class="row"><span class="ico" role="img" aria-label="أيقونة يدين تدعو">🤲</span><div><h3>فصل الصدقة</h3><p class="desc">آيات وأحاديث مختارة.</p></div></div></a>
-      <a class="card" href="https://fadhel-alrayes.fun/index787.html"><div class="row"><span class="ico" role="img" aria-label="أيقونة نقود">💵</span><div><h3>رصيد استلام</h3><p class="desc">إنشاء إيصال فوري مع ختم وتوقيع PDF جاهز للطباعة.</p></div></div></a>
-      <a class="card" href="https://fadhel-alrayes.fun/index242.html"><div class="row"><span class="ico" role="img" aria-label="أيقونة مستند">📄</span><div><h3>لتر هد أونلاين</h3><p class="desc">Letterhead A4 احترافي بالعربي مع ختم أزرق، توقيع أونلاين، و<span dir="ltr">PDF</span> جاهز للطباعة.</p></div></div></a>
-      <a class="card" href="https://fadhel-alrayes.fun/design.html#contact"><div class="row"><span class="ico" role="img" aria-label="أيقونة حاسوب محمول">💻</span><div><h3>تصميم مواقع ويب</h3><p class="desc">نقدم خدمة تصميم مواقع ويب احترافية.</p></div></div></a>
-    </main>
+    <div class="table-wrap">
+      <table id="cal">
+        <thead>
+          <tr>
+            <th>اليوم</th>
+            <th>هجري</th>
+            <th>ميلادي</th>
+            <th>الفجر</th>
+            <th>الشروق</th>
+            <th>الظهر</th>
+            <th>العصر</th>
+            <th>المغرب</th>
+            <th>العشاء</th>
+            <th>المناسبات</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
 
-    <footer>© <span id="year"></span> <span id="footerName">فاضل الريس</span> — جميع الحقوق محفوظة</footer>
-  </div>
+    <p class="events-note">
+      لإضافة “المناسبات” آليًا، ضع ملف JSON مستضافًا لديك (أو Google Sheets كـJSON) بالشكل:
+      <code>[{ "hijri":"1447-04-08", "title":"مولد الإمام الحسن العسكري" }]</code>
+      ثم حدّث المتغيّر <code>EVENTS_URL</code> أدناه.
+    </p>
+  </main>
 
-  <!-- تهيئة الإعلان -->
-  <script nonce="7uSYr3">
-    try { (window.adsbygoogle = window.adsbygoogle || []).push({}); } catch(e) {}
-  </script>
+  <footer>
+    <div>ملاحظة: يتم التخزين المؤقت محليًا لمدّة 24 ساعة لكل شهر لتقليل النداءات.</div>
+  </footer>
 
-  <!-- تحسينات بسيطة -->
-  <script nonce="7uSYr3">
-    // سنة الفوتر
-    document.getElementById('year').textContent = new Date().getFullYear();
+  <script>
+    // ====== إعدادات قابلة للتخصيص ======
+    const EVENTS_URL = ""; // مثال: "https://example.com/events.json"
+    const CACHE_TTL_MS = 24*60*60*1000; // 24h
 
-    // رابط واتساب عند الضغط على الاسم
-    const waUrl = "https://api.whatsapp.com/send/?phone=97333375858&text&type=phone_number&app_absent=0";
-    document.getElementById('footerName').addEventListener('click', () => {
-      window.open(waUrl, '_blank', 'noopener,noreferrer');
-    });
+    // ====== مساعدات عامة ======
+    const $ = (s,root=document)=>root.querySelector(s);
+    const $$ = (s,root=document)=>Array.from(root.querySelectorAll(s));
+    const weekdaysAr = ["الأحد","الاثنين","الثلاثاء","الأربعاء","الخميس","الجمعة","السبت"];
+
+    function fmt12(hm){ // "HH:MM" -> "HH:MM"
+      // API يرجع بصيغة 24h أصلًا؛ نكتفي بالتنظيف
+      return hm.replace(/^0/,''); // إزالة الصفر اليسار للتجميل
+    }
+    function pad(n){return n<10?("0"+n):(""+n)}
+
+    function yearMonthLabel(d){
+      const g = d.toLocaleDateString('ar', { year:'numeric', month:'long' });
+      return g;
+    }
+
+    function cacheKey({y,m,city,country,method}){
+      return `cal:${y}-${m}:${country}:${city}:m${method}`;
+    }
+
+    function getCached(key){
+      try{
+        const raw = localStorage.getItem(key);
+        if(!raw) return null;
+        const obj = JSON.parse(raw);
+        if(Date.now() - obj.ts > CACHE_TTL_MS) return null;
+        return obj.data;
+      }catch{ return null }
+    }
+    function setCached(key,data){
+      try{ localStorage.setItem(key, JSON.stringify({ts:Date.now(), data})) }catch{}
+    }
+
+    // ====== جلب المناسبات (اختياري) ======
+    async function fetchEvents(){
+      if(!EVENTS_URL) return [];
+      try{
+        const res = await fetch(EVENTS_URL, {cache:'no-store'});
+        if(!res.ok) throw new Error('حدث خطأ في جلب المناسبات');
+        const arr = await res.json();
+        // فهرسة حسب التاريخ الهجري "YYYY-MM-DD"
+        const map = {};
+        for(const e of arr){
+          if(e.hijri){
+            (map[e.hijri] ||= []).push(e.title || e.name || "");
+          }
+        }
+        return map;
+      }catch(e){
+        console.warn(e);
+        return [];
+      }
+    }
+
+    // ====== جلب تقويم الشهر من AlAdhan ======
+    async function fetchMonth({y,m,city,country,method}){
+      const key = cacheKey({y,m,city,country,method});
+      const cached = getCached(key);
+      if(cached) return cached;
+
+      const url = `https://api.aladhan.com/v1/calendarByCity?city=${encodeURIComponent(city)}&country=${encodeURIComponent(country)}&method=${method}&month=${m}&year=${y}`;
+      const res = await fetch(url);
+      if(!res.ok) throw new Error('تعذّر الاتصال بواجهة أوقات الصلاة');
+      const json = await res.json();
+      if(json.code!==200 || !json.data) throw new Error('استجابة غير متوقعة من الواجهة');
+      setCached(key, json.data);
+      return json.data;
+    }
+
+    // ====== بناء الجدول ======
+    async function buildTable(targetDate){
+      const status = $('#status');
+      status.hidden = true;
+
+      const country = $('#country').value.trim();
+      const city = $('#city').value.trim();
+      const method = +$('#method').value;
+
+      const y = targetDate.getFullYear();
+      const m = targetDate.getMonth()+1;
+
+      $('#title').textContent = `${yearMonthLabel(targetDate)} — ${city}, ${country}`;
+
+      try{
+        const [rows, eventsMap] = await Promise.all([
+          fetchMonth({y,m,city,country,method}),
+          fetchEvents()
+        ]);
+
+        const tbody = $('#cal tbody');
+        tbody.innerHTML = '';
+
+        rows.forEach((row) => {
+          const t = row.timings;
+          const d = row.date;
+          // تنظيف " (+03:00)" من الأوقات
+          const clean = k => (t[k]||'').split(' ')[0];
+          const g = d.gregorian;
+          const h = d.hijri;
+
+          const tr = document.createElement('tr');
+
+          const day = new Date(g.date.replace(/-/g,'/')); // لضمان التوافق
+          const weekday = weekdaysAr[day.getDay()];
+
+          const hijriStr = `${h.day.padStart(2,'0')} ${h.month.ar} ${h.year}`;
+          const gregStr = `${g.day.padStart(2,'0')} ${g.month.en} ${g.year}`;
+
+          tr.innerHTML = `
+            <td><span>${weekday}</span></td>
+            <td>${hijriStr}</td>
+            <td class="muted">${gregStr}</td>
+            <td>${fmt12(clean('Fajr'))}</td>
+            <td>${fmt12(clean('Sunrise'))}</td>
+            <td>${fmt12(clean('Dhuhr'))}</td>
+            <td>${fmt12(clean('Asr'))}</td>
+            <td>${fmt12(clean('Maghrib'))}</td>
+            <td>${fmt12(clean('Isha'))}</td>
+            <td class="events-tag"></td>
+          `;
+
+          // المناسبات (إن وجدت)
+          const hijriISO = `${h.year}-${pad(+h.month.number)}-${pad(+h.day)}`;
+          const cell = tr.querySelector('.events-tag');
+          if(eventsMap && eventsMap[hijriISO]){
+            eventsMap[hijriISO].forEach((title, i) => {
+              const b = document.createElement('span');
+              b.className = 'badge danger';
+              b.textContent = title;
+              if(i>0) cell.append(' ');
+              cell.appendChild(b);
+            });
+          }
+
+          tbody.appendChild(tr);
+        });
+
+      }catch(err){
+        status.textContent = 'عذرًا، حدث خطأ: ' + err.message;
+        status.hidden = false;
+      }
+    }
+
+    // ====== ربط الواجهة ======
+    (function init(){
+      const today = new Date();
+      let current = new Date(today.getFullYear(), today.getMonth(), 1);
+
+      const render = () => buildTable(current);
+
+      $('#prev').addEventListener('click', ()=>{ current.setMonth(current.getMonth()-1); render(); });
+      $('#next').addEventListener('click', ()=>{ current.setMonth(current.getMonth()+1); render(); });
+      $('#country').addEventListener('change', render);
+      $('#city').addEventListener('change', render);
+      $('#method').addEventListener('change', render);
+
+      // محاولة قراءة إعدادات محفوظة
+      try{
+        const saved = JSON.parse(localStorage.getItem('cal:prefs')||'{}');
+        if(saved.city) $('#city').value = saved.city;
+        if(saved.country) $('#country').value = saved.country;
+        if(saved.method) $('#method').value = saved.method;
+      }catch{}
+
+      // حفظ التفضيلات
+      const savePrefs = () => {
+        try{
+          localStorage.setItem('cal:prefs', JSON.stringify({
+            city: $('#city').value.trim(),
+            country: $('#country').value.trim(),
+            method: +$('#method').value
+          }));
+        }catch{}
+      };
+      $$('#country,#city,#method').forEach(el=>el.addEventListener('change', savePrefs));
+
+      render();
+    })();
   </script>
 </body>
 </html>
