@@ -3,88 +3,73 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>تقويم الصلاة الشهري</title>
+  <title>تقويم أوقات الصلاة (الجعفري)</title>
   <style>
     :root{
-      --bg:#f7f7f7;--card:#fff;--ink:#111;--muted:#666;--brand:#1e7e34;--accent:#0a58ca;
-      --grid:#e7e7e7;--warn:#b02a37;
+      --bg:#f6f7f9;--card:#fff;--ink:#111;--muted:#6b7280;--grid:#e5e7eb;
+      --brand:#0f766e;--accent:#2563eb;--danger:#b91c1c;
     }
     *{box-sizing:border-box}
     body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Noto Kufi Arabic",Tahoma,Arial,sans-serif}
-    header{padding:18px 16px;background:var(--card);position:sticky;top:0;z-index:5;border-bottom:1px solid var(--grid)}
-    h1{margin:0 0 8px;font-size:22px}
-    .controls{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px}
-    .controls>div{display:flex;gap:6px;align-items:center}
-    label{font-size:13px;color:var(--muted)}
-    select,input,button{
-      padding:10px;border:1px solid var(--grid);border-radius:10px;background:#fff;font-size:14px
-    }
+    header{position:sticky;top:0;background:var(--card);border-bottom:1px solid var(--grid);z-index:10}
+    .wrap{max-width:1100px;margin:auto;padding:12px}
+    h1{font-size:20px;margin:4px 0 8px}
+    .controls{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .row{display:flex;gap:8px;align-items:center}
+    label{font-size:12px;color:var(--muted)}
+    input,button,select{width:100%;padding:10px;border:1px solid var(--grid);border-radius:10px;background:#fff;font-size:14px}
     button{cursor:pointer}
-    .nav{display:flex;gap:8px;align-items:center}
-    .nav button{background:var(--card)}
-    .nav strong{min-width:160px;text-align:center}
-    main{max-width:1100px;margin:18px auto;padding:0 12px}
-    .legend{margin:10px 0 16px;color:var(--muted);font-size:13px}
+    .pill{padding:8px 12px;border-radius:999px;border:1px solid var(--grid);background:#fff}
+    .hint{font-size:12px;color:var(--muted);margin-top:6px}
+    .nav{display:flex;gap:8px;align-items:center;justify-content:space-between;margin-top:6px}
+    .nav .title{flex:1;text-align:center;font-weight:600}
+    main{max-width:1100px;margin:12px auto;padding:0 12px}
     .table-wrap{background:var(--card);border:1px solid var(--grid);border-radius:14px;overflow:auto}
-    table{border-collapse:separate;border-spacing:0;width:100%;min-width:760px}
-    thead th{position:sticky;top:60px;background:var(--card);z-index:4}
+    table{border-collapse:separate;border-spacing:0;width:100%;min-width:720px}
     th,td{padding:10px 12px;border-bottom:1px solid var(--grid);text-align:center;white-space:nowrap}
-    thead th{font-size:13px;color:#333}
+    thead th{position:sticky;top:96px;background:var(--card);z-index:5;font-size:12px;color:#374151}
     tbody tr:nth-child(odd){background:#fafafa}
-    tbody td:first-child, thead th:first-child{position:sticky;right:0;background:inherit}
-    .badge{display:inline-block;padding:.15rem .45rem;border-radius:6px;font-size:12px;background:#eef7ee;color:#1e7e34;border:1px solid #cfe7cf}
-    .danger{background:#fdeceb;color:#b02a37;border-color:#f6cacc}
     .muted{color:var(--muted)}
-    footer{max-width:1100px;margin:28px auto 40px;padding:0 12px;color:var(--muted);font-size:12px}
-    .error{color:var(--warn);margin-top:8px}
-    .events-note{font-size:12px;color:var(--muted)}
-    .events-tag{font-size:12px}
-    @media (max-width:780px){
-      .controls{grid-template-columns:1fr 1fr}
-      thead th{top:112px}
+    .badge{display:inline-block;padding:.2rem .5rem;border-radius:6px;border:1px solid #c7ece8;background:#ecfdf5;color:#065f46;font-size:12px}
+    .error{color:var(--danger);margin-top:6px}
+    @media(min-width:820px){
+      .controls{grid-template-columns:2fr 2fr 1fr}
+      thead th{top:84px}
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>تقويم أوقات الصلاة الشهري</h1>
-    <div class="controls">
-      <div>
-        <label for="country">الدولة</label>
-        <input id="country" placeholder="مثال: Bahrain" value="Bahrain" />
+    <div class="wrap">
+      <h1>تقويم أوقات الصلاة (وفق المذهب الجعفري)</h1>
+      <div class="controls">
+        <div>
+          <label>الدولة</label>
+          <input id="country" placeholder="Bahrain" value="Bahrain">
+        </div>
+        <div>
+          <label>المدينة</label>
+          <input id="city" placeholder="Manama" value="Manama">
+        </div>
+        <div class="row">
+          <button id="useGps" class="pill" title="تحديد الموقع تلقائيًا">استخدام موقعي</button>
+          <button id="resetLoc" class="pill">مسح الموقع</button>
+        </div>
       </div>
-      <div>
-        <label for="city">المدينة</label>
-        <input id="city" placeholder="مثال: Manama" value="Manama" />
-      </div>
-      <div>
-        <label for="method">طريقة الحساب</label>
-        <select id="method" title="طريقة الحساب">
-          <option value="5" selected>أم القرى (السعودية)</option>
-          <option value="3">الجمعية الإسلامية لشمال أمريكا</option>
-          <option value="2">رابطة العالم الإسلامي</option>
-          <option value="12">هيئة الشؤون الإسلامية (الإمارات)</option>
-          <option value="4">أوقاف مصر</option>
-          <option value="1">جامعة العلوم الإسلامية (كراتشي)</option>
-          <option value="7">هيئة المساحة (المغرب)</option>
-          <option value="9">تركيا</option>
-        </select>
-      </div>
+
       <div class="nav">
-        <button id="prev">‹ الشهر السابق</button>
-        <strong id="title"></strong>
-        <button id="next">الشهر التالي ›</button>
+        <button id="prev" class="pill">‹ الشهر السابق</button>
+        <div class="title" id="title"></div>
+        <button id="next" class="pill">الشهر التالي ›</button>
+      </div>
+      <div id="status" class="error" hidden></div>
+      <div class="hint">
+        الحساب: <span class="badge">Jafari (Shia Ithna-Ashari)</span> من <strong>AlAdhan API</strong>.
       </div>
     </div>
-    <div id="status" class="error" hidden></div>
   </header>
 
   <main>
-    <p class="legend">
-      يتم جلب البيانات عبر <span class="badge">AlAdhan API</span>.
-      أوقات الشروق تُعرض للمعلومية، ولا تُعد صلاة.
-    </p>
-
     <div class="table-wrap">
       <table id="cal">
         <thead>
@@ -92,210 +77,205 @@
             <th>اليوم</th>
             <th>هجري</th>
             <th>ميلادي</th>
-            <th>الفجر</th>
+            <th>الإمساك</th>
+            <th>أذان الفجر</th>
             <th>الشروق</th>
-            <th>الظهر</th>
-            <th>العصر</th>
-            <th>المغرب</th>
-            <th>العشاء</th>
-            <th>المناسبات</th>
+            <th>أذان الظهر</th>
+            <th>أذان المغرب</th>
+            <th>وقت صلاة الليل</th>
           </tr>
         </thead>
         <tbody></tbody>
       </table>
     </div>
-
-    <p class="events-note">
-      لإضافة “المناسبات” آليًا، ضع ملف JSON مستضافًا لديك (أو Google Sheets كـJSON) بالشكل:
-      <code>[{ "hijri":"1447-04-08", "title":"مولد الإمام الحسن العسكري" }]</code>
-      ثم حدّث المتغيّر <code>EVENTS_URL</code> أدناه.
-    </p>
+    <p class="hint">وقت صلاة الليل يُحسب هنا كبداية <strong>الثلث الأخير</strong> (منه حتى الفجر). منتصف الليل الشرعي = نِصف المسافة بين المغرب والفجر.</p>
   </main>
 
-  <footer>
-    <div>ملاحظة: يتم التخزين المؤقت محليًا لمدّة 24 ساعة لكل شهر لتقليل النداءات.</div>
-  </footer>
-
   <script>
-    // ====== إعدادات قابلة للتخصيص ======
-    const EVENTS_URL = ""; // مثال: "https://example.com/events.json"
-    const CACHE_TTL_MS = 24*60*60*1000; // 24h
-
-    // ====== مساعدات عامة ======
+    // ==== تفضيلات وساعدات ====
+    const CACHE_TTL_MS = 12*60*60*1000; // 12 ساعة
+    const JAFARI_METHOD = 0; // طريقة الحساب الجعفري في AlAdhan
     const $ = (s,root=document)=>root.querySelector(s);
-    const $$ = (s,root=document)=>Array.from(root.querySelectorAll(s));
     const weekdaysAr = ["الأحد","الاثنين","الثلاثاء","الأربعاء","الخميس","الجمعة","السبت"];
+    const pad = n => (n<10? "0"+n : ""+n);
 
-    function fmt12(hm){ // "HH:MM" -> "HH:MM"
-      // API يرجع بصيغة 24h أصلًا؛ نكتفي بالتنظيف
-      return hm.replace(/^0/,''); // إزالة الصفر اليسار للتجميل
+    function cleanTime(txt){ return (txt||"").split(" ")[0]; } // يحذف (+03:00)
+
+    function keyFor(params){
+      const {y,m,mode,city,country,lat,lng} = params;
+      return `shiaCal:${y}-${m}:${mode}:${city||""}:${country||""}:${lat||""},${lng||""}`;
     }
-    function pad(n){return n<10?("0"+n):(""+n)}
-
-    function yearMonthLabel(d){
-      const g = d.toLocaleDateString('ar', { year:'numeric', month:'long' });
-      return g;
-    }
-
-    function cacheKey({y,m,city,country,method}){
-      return `cal:${y}-${m}:${country}:${city}:m${method}`;
-    }
-
-    function getCached(key){
+    function getCached(k){
       try{
-        const raw = localStorage.getItem(key);
-        if(!raw) return null;
+        const raw = localStorage.getItem(k); if(!raw) return null;
         const obj = JSON.parse(raw);
-        if(Date.now() - obj.ts > CACHE_TTL_MS) return null;
+        if(Date.now()-obj.ts > CACHE_TTL_MS) return null;
         return obj.data;
       }catch{ return null }
     }
-    function setCached(key,data){
-      try{ localStorage.setItem(key, JSON.stringify({ts:Date.now(), data})) }catch{}
+    function setCached(k,data){
+      try{ localStorage.setItem(k, JSON.stringify({ts:Date.now(), data})) }catch{}
     }
 
-    // ====== جلب المناسبات (اختياري) ======
-    async function fetchEvents(){
-      if(!EVENTS_URL) return [];
-      try{
-        const res = await fetch(EVENTS_URL, {cache:'no-store'});
-        if(!res.ok) throw new Error('حدث خطأ في جلب المناسبات');
-        const arr = await res.json();
-        // فهرسة حسب التاريخ الهجري "YYYY-MM-DD"
-        const map = {};
-        for(const e of arr){
-          if(e.hijri){
-            (map[e.hijri] ||= []).push(e.title || e.name || "");
-          }
-        }
-        return map;
-      }catch(e){
-        console.warn(e);
-        return [];
-      }
+    // تحويل "HH:MM" إلى Date بناء على تاريخ ميلادي محدد
+    function timeToDate(baseDate, hhmm){
+      const [H,M] = hhmm.split(":").map(x=>parseInt(x,10));
+      const d = new Date(baseDate);
+      d.setHours(H, M, 0, 0);
+      return d;
+    }
+    // مدة زمنية إلى "HH:MM"
+    function dateToHM(d){
+      return pad(d.getHours())+":"+pad(d.getMinutes());
+    }
+    // إضافة دقائق
+    function addMinutes(date, mins){
+      const d = new Date(date); d.setMinutes(d.getMinutes()+mins); return d;
+    }
+    // فرق الدقائق
+    function diffMinutes(later, earlier){
+      return Math.round((later - earlier)/60000);
     }
 
-    // ====== جلب تقويم الشهر من AlAdhan ======
-    async function fetchMonth({y,m,city,country,method}){
-      const key = cacheKey({y,m,city,country,method});
-      const cached = getCached(key);
+    // يحسب منتصف الليل الشرعي وبداية الثلث الأخير
+    function nightTimes(baseDate, maghribHM, fajrHM){
+      const maghrib = timeToDate(baseDate, maghribHM);
+      // الفجر لليوم التالي
+      const fajr = addMinutes(timeToDate(baseDate, fajrHM), 24*60); // +24h
+      const nightLen = diffMinutes(fajr, maghrib);
+      const half = addMinutes(maghrib, Math.floor(nightLen/2));
+      const lastThirdStart = addMinutes(maghrib, Math.floor(nightLen*(2/3)));
+      return {midnightHM: dateToHM(half), lastThirdHM: dateToHM(lastThirdStart)};
+    }
+
+    function monthLabel(d){
+      return d.toLocaleDateString('ar', {month:'long', year:'numeric'});
+    }
+
+    async function getCalendar(params){
+      const k = keyFor(params);
+      const cached = getCached(k);
       if(cached) return cached;
 
-      const url = `https://api.aladhan.com/v1/calendarByCity?city=${encodeURIComponent(city)}&country=${encodeURIComponent(country)}&method=${method}&month=${m}&year=${y}`;
+      let url;
+      if(params.mode === "gps"){
+        const {lat,lng,y,m} = params;
+        url = `https://api.aladhan.com/v1/calendar?latitude=${lat}&longitude=${lng}&method=${JAFARI_METHOD}&month=${m}&year=${y}`;
+      }else{
+        const {city,country,y,m} = params;
+        url = `https://api.aladhan.com/v1/calendarByCity?city=${encodeURIComponent(city)}&country=${encodeURIComponent(country)}&method=${JAFARI_METHOD}&month=${m}&year=${y}`;
+      }
+
       const res = await fetch(url);
-      if(!res.ok) throw new Error('تعذّر الاتصال بواجهة أوقات الصلاة');
+      if(!res.ok) throw new Error("تعذّر الاتصال بالخدمة");
       const json = await res.json();
-      if(json.code!==200 || !json.data) throw new Error('استجابة غير متوقعة من الواجهة');
-      setCached(key, json.data);
+      if(json.code!==200 || !json.data) throw new Error("استجابة غير متوقعة من الواجهة");
+      setCached(k, json.data);
       return json.data;
     }
 
-    // ====== بناء الجدول ======
-    async function buildTable(targetDate){
-      const status = $('#status');
-      status.hidden = true;
+    function renderRows(data){
+      const tbody = $("#cal tbody");
+      tbody.innerHTML = "";
 
-      const country = $('#country').value.trim();
-      const city = $('#city').value.trim();
-      const method = +$('#method').value;
+      data.forEach(row=>{
+        const t = row.timings, d = row.date;
+        const g = d.gregorian, h = d.hijri;
+
+        // أوقات خام
+        const imsak = cleanTime(t.Imsak);
+        const fajr  = cleanTime(t.Fajr);
+        const sunrise = cleanTime(t.Sunrise);
+        const dhuhr = cleanTime(t.Dhuhr);
+        const maghrib = cleanTime(t.Maghrib);
+
+        // حساب وقت صلاة الليل (بداية الثلث الأخير)
+        const baseDate = new Date(g.date.replace(/-/g,'/')); // لضمان التوافق
+        const { lastThirdHM } = nightTimes(baseDate, maghrib, fajr);
+
+        const weekday = weekdaysAr[new Date(baseDate).getDay()];
+        const hijriStr = `${pad(+h.day)} ${h.month.ar} ${h.year}`;
+        const gregStr = `${pad(+g.day)} ${g.month.en} ${g.year}`;
+
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${weekday}</td>
+          <td>${hijriStr}</td>
+          <td class="muted">${gregStr}</td>
+          <td>${imsak}</td>
+          <td>${fajr}</td>
+          <td>${sunrise}</td>
+          <td>${dhuhr}</td>
+          <td>${maghrib}</td>
+          <td><span class="badge" title="بداية الثلث الأخير من الليل">${lastThirdHM}</span></td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    async function build(targetDate){
+      const status = $("#status"); status.hidden = true;
+
+      const city = $("#city").value.trim();
+      const country = $("#country").value.trim();
+
+      const gps = JSON.parse(localStorage.getItem("shia:gps")||"null");
+      const mode = gps ? "gps" : "city";
 
       const y = targetDate.getFullYear();
       const m = targetDate.getMonth()+1;
 
-      $('#title').textContent = `${yearMonthLabel(targetDate)} — ${city}, ${country}`;
+      $("#title").textContent = `${monthLabel(targetDate)} — ${mode==="gps" ? "اعتماد الموقع الحالي" : `${city}, ${country}`}`;
 
       try{
-        const [rows, eventsMap] = await Promise.all([
-          fetchMonth({y,m,city,country,method}),
-          fetchEvents()
-        ]);
-
-        const tbody = $('#cal tbody');
-        tbody.innerHTML = '';
-
-        rows.forEach((row) => {
-          const t = row.timings;
-          const d = row.date;
-          // تنظيف " (+03:00)" من الأوقات
-          const clean = k => (t[k]||'').split(' ')[0];
-          const g = d.gregorian;
-          const h = d.hijri;
-
-          const tr = document.createElement('tr');
-
-          const day = new Date(g.date.replace(/-/g,'/')); // لضمان التوافق
-          const weekday = weekdaysAr[day.getDay()];
-
-          const hijriStr = `${h.day.padStart(2,'0')} ${h.month.ar} ${h.year}`;
-          const gregStr = `${g.day.padStart(2,'0')} ${g.month.en} ${g.year}`;
-
-          tr.innerHTML = `
-            <td><span>${weekday}</span></td>
-            <td>${hijriStr}</td>
-            <td class="muted">${gregStr}</td>
-            <td>${fmt12(clean('Fajr'))}</td>
-            <td>${fmt12(clean('Sunrise'))}</td>
-            <td>${fmt12(clean('Dhuhr'))}</td>
-            <td>${fmt12(clean('Asr'))}</td>
-            <td>${fmt12(clean('Maghrib'))}</td>
-            <td>${fmt12(clean('Isha'))}</td>
-            <td class="events-tag"></td>
-          `;
-
-          // المناسبات (إن وجدت)
-          const hijriISO = `${h.year}-${pad(+h.month.number)}-${pad(+h.day)}`;
-          const cell = tr.querySelector('.events-tag');
-          if(eventsMap && eventsMap[hijriISO]){
-            eventsMap[hijriISO].forEach((title, i) => {
-              const b = document.createElement('span');
-              b.className = 'badge danger';
-              b.textContent = title;
-              if(i>0) cell.append(' ');
-              cell.appendChild(b);
-            });
-          }
-
-          tbody.appendChild(tr);
-        });
-
-      }catch(err){
-        status.textContent = 'عذرًا، حدث خطأ: ' + err.message;
+        const data = await getCalendar({y,m,mode,city,country,lat:gps?.lat,lng:gps?.lng});
+        renderRows(data);
+      }catch(e){
+        status.textContent = "عذرًا، حدث خطأ: " + e.message;
         status.hidden = false;
       }
     }
 
-    // ====== ربط الواجهة ======
+    // ===== التهيئة وربط الواجهة =====
     (function init(){
-      const today = new Date();
-      let current = new Date(today.getFullYear(), today.getMonth(), 1);
+      let current = new Date(); current = new Date(current.getFullYear(), current.getMonth(), 1);
 
-      const render = () => buildTable(current);
+      const render = ()=>build(current);
+      $("#prev").addEventListener("click", ()=>{ current.setMonth(current.getMonth()-1); render(); });
+      $("#next").addEventListener("click", ()=>{ current.setMonth(current.getMonth()+1); render(); });
 
-      $('#prev').addEventListener('click', ()=>{ current.setMonth(current.getMonth()-1); render(); });
-      $('#next').addEventListener('click', ()=>{ current.setMonth(current.getMonth()+1); render(); });
-      $('#country').addEventListener('change', render);
-      $('#city').addEventListener('change', render);
-      $('#method').addEventListener('change', render);
+      // GPS
+      $("#useGps").addEventListener("click", ()=>{
+        if(!("geolocation" in navigator)){ alert("المتصفح لا يدعم تحديد الموقع"); return; }
+        navigator.geolocation.getCurrentPosition(pos=>{
+          const {latitude:lat, longitude:lng} = pos.coords;
+          localStorage.setItem("shia:gps", JSON.stringify({lat:+lat.toFixed(6), lng:+lng.toFixed(6)}));
+          render();
+        }, err=>{
+          alert("تعذّر تحديد الموقع: "+err.message);
+        }, {enableHighAccuracy:true, timeout:10000, maximumAge:300000});
+      });
+      $("#resetLoc").addEventListener("click", ()=>{
+        localStorage.removeItem("shia:gps");
+        render();
+      });
 
-      // محاولة قراءة إعدادات محفوظة
-      try{
-        const saved = JSON.parse(localStorage.getItem('cal:prefs')||'{}');
-        if(saved.city) $('#city').value = saved.city;
-        if(saved.country) $('#country').value = saved.country;
-        if(saved.method) $('#method').value = saved.method;
-      }catch{}
-
-      // حفظ التفضيلات
-      const savePrefs = () => {
-        try{
-          localStorage.setItem('cal:prefs', JSON.stringify({
-            city: $('#city').value.trim(),
-            country: $('#country').value.trim(),
-            method: +$('#method').value
-          }));
-        }catch{}
+      // حفظ تفضيلات المدينة/الدولة
+      const savePrefs = ()=>{
+        localStorage.setItem("shia:prefs", JSON.stringify({
+          city: $("#city").value.trim(),
+          country: $("#country").value.trim()
+        }));
       };
-      $$('#country,#city,#method').forEach(el=>el.addEventListener('change', savePrefs));
+      ["change","blur","keyup"].forEach(ev=>{
+        $("#city").addEventListener(ev, savePrefs);
+        $("#country").addEventListener(ev, savePrefs);
+      });
+      try{
+        const p = JSON.parse(localStorage.getItem("shia:prefs")||"{}");
+        if(p.city) $("#city").value = p.city;
+        if(p.country) $("#country").value = p.country;
+      }catch{}
 
       render();
     })();
