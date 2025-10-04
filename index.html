@@ -1,334 +1,291 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>تقويم أوقات الصلاة (الجعفري)</title>
-<meta name="color-scheme" content="dark light">
-<style>
-  :root{
-    --bg:#0b0b0c;        /* أسود فحمي */
-    --card:#111214;      /* أسود ناعم */
-    --ink:#f6f7f9;       /* أبيض ناصع */
-    --muted:#b6b8bd;     /* رمادي فاتح */
-    --gold:#c9a64d;      /* ذهبي راقٍ */
-    --gold-2:#a98935;
-    --grid:#1c1e22;      /* حدود داكنة */
-    --accent:#c9a64d;
-    --danger:#e05b57;
-    --shadow: 0 8px 30px rgba(0,0,0,.35);
-  }
-  *{box-sizing:border-box}
-  html,body{height:100%}
-  body{
-    margin:0;background:
-      radial-gradient(1200px 600px at 100% -10%, rgba(201,166,77,.06), transparent 60%),
-      radial-gradient(900px 700px at -10% 110%, rgba(201,166,77,.05), transparent 60%),
-      var(--bg);
-    color:var(--ink);
-    font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Noto Kufi Arabic","Cairo",Tahoma,Arial,sans-serif;
-    letter-spacing:.1px;
-  }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  /* رأس الصفحة */
-  header{
-    position:sticky;top:0;z-index:20;
-    background:linear-gradient(180deg,var(--card),rgba(17,18,20,.96));
-    border-bottom:1px solid var(--grid);
-    backdrop-filter:saturate(180%) blur(8px);
-  }
-  .wrap{max-width:1150px;margin:auto;padding:14px 12px}
-  h1{
-    margin:0 0 10px;
-    font-size:22px;font-weight:700;
-    background:linear-gradient(90deg,#fff,var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent;
-  }
+  <!-- SEO Meta Tags -->
+  <title>دليل المشي والرجيم 2025 | برنامج غذائي ورياضي موثوق من مصادر عالمية</title>
+  <meta name="description" content="برنامج مشي ورجيم عملي مبني على توصيات منظمة الصحة العالمية: 150–300 دقيقة نشاط أسبوعيًا، 2 يوم تقوية عضلية، ونصائح غذائية (خضار وفواكه ≥400غم، ملح <5غم/اليوم، تقليل السكر والدهون المشبعة). خطة أسبوعية + نموذج وجبات.">
+  <meta name="keywords" content="المشي, الرجيم, حمية صحية, خسارة الوزن, برنامج غذائي, منظمة الصحة العالمية, نشاط بدني, خطة أسبوعية, خطوات, دايت">
+  <meta name="author" content="دليل المشي والرجيم">
+  <link rel="canonical" href="https://fadhel-alrayes.fun/design.html">
+  <meta name="robots" content="index, follow">
 
-  /* عناصر التحكم */
-  .controls{display:grid;grid-template-columns:1fr;gap:10px}
-  .row{display:flex;gap:8px;align-items:center}
-  label{font-size:12px;color:var(--muted)}
-  input,button,select{
-    width:100%;padding:11px 12px;border-radius:12px;
-    border:1px solid var(--grid);background:#0e0f12;color:var(--ink);font-size:14px;
-    outline:none;
-  }
-  input::placeholder{color:#7b7f86}
-  button{
-    cursor:pointer;transition:transform .05s ease, border-color .2s ease, box-shadow .2s ease;
-    border:1px solid rgba(201,166,77,.35);
-  }
-  .btn{
-    background:
-      linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.00)),
-      #121316;
-    box-shadow:inset 0 1px 0 rgba(255,255,255,.07);
-  }
-  .btn:hover{border-color:var(--gold);box-shadow:0 0 0 2px rgba(201,166,77,.15)}
-  .btn:active{transform:translateY(1px)}
-  .btn-ghost{background:#121316;border-color:var(--grid)}
-  .pill{border-radius:999px}
+  <!-- Open Graph -->
+  <meta property="og:title" content="دليل المشي والرجيم | خطة موثوقة وسهلة التطبيق">
+  <meta property="og:description" content="ابدأ برنامجًا صحيًا مبنيًا على توصيات منظمة الصحة العالمية: نشاط بدني منتظم وتغذية متوازنة.">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1552083375-1447ce886485?q=80&w=1200&auto=format&fit=crop" />
+  <meta property="og:image:alt" content="المشي من أجل الصحة والرشاقة">
+  <meta property="og:url" content="https://fadhel-alrayes.fun/design.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="دليل المشي والرجيم">
 
-  .nav{display:flex;gap:8px;align-items:center;justify-content:space-between;margin-top:8px}
-  .nav .title{flex:1;text-align:center;font-weight:700;color:#fff}
-  .title .loc{color:var(--gold)}
-
-  .hint{font-size:12px;color:var(--muted);margin-top:6px}
-  .badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
-  .badge{display:inline-flex;align-items:center;gap:6px;padding:.35rem .6rem;border-radius:999px;font-size:12px;border:1px solid rgba(201,166,77,.45);color:#e9cf88;background:rgba(201,166,77,.06)}
-  .dot{width:8px;height:8px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 3px rgba(201,166,77,.18)}
-
-  /* الجدول */
-  main{max-width:1150px;margin:16px auto;padding:0 12px}
-  .table-wrap{
-    background:linear-gradient(180deg,#101114,#0e0f12);
-    border:1px solid var(--grid);border-radius:16px;overflow:auto;box-shadow:var(--shadow)
+  <!-- Schema Markup -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"WebSite",
+    "name":"دليل المشي والرجيم",
+    "url":"https://fadhel-alrayes.fun/design.html",
+    "description":"برنامج غذائي ورياضي للصحة وخسارة الوزن مستند إلى توصيات منظمة الصحة العالمية",
+    "inLanguage":"ar"
   }
-  table{border-collapse:separate;border-spacing:0;width:100%;min-width:760px}
-  th,td{padding:12px;border-bottom:1px solid #15171b;text-align:center;white-space:nowrap}
-  thead th{
-    position:sticky;top:112px;z-index:5;
-    background:
-      linear-gradient(180deg,#131419,#101215);
-    color:#e7e9ed;font-weight:700;font-size:12px;
-    border-bottom:1px solid #20242a;
-  }
-  tbody tr{transition:background .2s}
-  tbody tr:nth-child(odd){background:#0d0f12}
-  tbody tr:nth-child(even){background:#0b0d10}
-  tbody tr:hover{background:rgba(201,166,77,.06)}
-  td .chip{display:inline-block;padding:.2rem .55rem;border:1px solid rgba(201,166,77,.4);border-radius:8px;background:rgba(201,166,77,.08);color:#f4e2a4;font-size:12px}
+  </script>
 
-  .muted{color:var(--muted)}
-  .error{color:var(--danger);margin-top:8px}
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
-  /* فواصل ذهبية رفيعة حول الحاويات */
-  .divider{height:1px;background:linear-gradient(90deg,transparent,rgba(201,166,77,.45),transparent);margin:10px 0}
-
-  /* شاشات عريضة */
-  @media(min-width:820px){
-    .controls{grid-template-columns:2fr 2fr 1fr}
-    thead th{top:100px}
-  }
-
-  /* iOS safe area */
-  @supports(padding:max(0px)){
-    header .wrap{padding-left:max(12px,env(safe-area-inset-left));padding-right:max(12px,env(safe-area-inset-right))}
-    main{padding-left:max(12px,env(safe-area-inset-left));padding-right:max(12px,env(safe-area-inset-right))}
-  }
-</style>
+  <style>
+    :root{
+      --primary-color:#0d1b2a;--secondary-color:#2fbf71;--background-color:#f5f7fa;
+      --text-color:#495057;--heading-color:#1b263b;--white-color:#fff;--accent:#d4af37
+    }
+    html{scroll-behavior:smooth}
+    body{font-family:'Tajawal',sans-serif;margin:0;line-height:1.8;background:var(--background-color);color:var(--text-color)}
+    .container{max-width:1200px;margin:auto;padding:0 25px}
+    h1,h2,h3{font-weight:700;color:var(--heading-color)}
+    h1{font-size:2.6rem;font-weight:800}
+    h2{font-size:2rem;text-align:center;margin-bottom:40px}
+    h3{font-size:1.3rem}
+    section{padding:70px 0}
+    .main-header{background:var(--white-color);box-shadow:0 2px 15px rgba(0,0,0,.07);padding:12px 0;position:sticky;top:0;z-index:1000}
+    .main-header .container{display:flex;justify-content:space-between;align-items:center;gap:12px}
+    .logo{font-size:1.4rem;font-weight:800;color:var(--primary-color);text-decoration:none}
+    .main-nav{display:flex;flex-wrap:nowrap;align-items:center;gap:18px}
+    .main-nav a{color:var(--primary-color);text-decoration:none;font-weight:500;transition:.3s;white-space:nowrap}
+    .main-nav a:hover{color:var(--secondary-color)}
+    @media (max-width:768px){.main-nav{gap:10px;font-size:.95rem}}
+    .hero{background:linear-gradient(135deg,var(--primary-color),#16324f);color:var(--white-color);padding:90px 0;text-align:center}
+    .hero p{font-size:1.05rem;max-width:780px;margin:0 auto 24px;opacity:.9}
+    .cta-button{background:var(--secondary-color);color:#06321a;padding:14px 32px;text-decoration:none;border-radius:999px;font-weight:800;font-size:1rem;transition:.25s;box-shadow:0 5px 15px rgba(47,191,113,.3)}
+    .cta-button:hover{transform:translateY(-4px);box-shadow:0 10px 25px rgba(47,191,113,.4)}
+    .grid{display:grid;gap:24px}
+    .two{grid-template-columns:repeat(2,1fr)}
+    .three{grid-template-columns:repeat(3,1fr)}
+    @media (max-width:992px){.two,.three{grid-template-columns:1fr}}
+    .card{background:var(--white-color);padding:28px;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.06)}
+    .icon{font-size:1.6rem;color:var(--secondary-color);margin-left:8px}
+    .highlight{background:#eaf8f1;border:1px dashed #b7ebcd;border-radius:12px;padding:18px}
+    .badge{display:inline-block;background:var(--accent);color:#1b1b1b;padding:3px 10px;border-radius:999px;font-size:.85rem;margin-left:6px}
+    .table{width:100%;border-collapse:collapse;background:var(--white-color);border-radius:12px;overflow:hidden}
+    .table th,.table td{padding:14px;border-bottom:1px solid #eee;text-align:right}
+    .table thead th{background:#f0f4f7;color:#334}
+    .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+    @media (max-width:992px){.contact-grid{grid-template-columns:1fr}}
+    .contact-buttons{display:flex;gap:12px;flex-wrap:wrap;margin-top:10px}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 16px;border-radius:10px;text-decoration:none;font-weight:700;border:none;cursor:pointer}
+    .btn-whatsapp{background:#25D366;color:#fff}
+    .btn-email{background:var(--primary-color);color:#fff}
+    .note{font-size:.95rem;opacity:.85}
+    .footer{background:var(--primary-color);color:#fff;text-align:center;padding:28px 0}
+    .footer a{color:var(--accent)}
+  </style>
 </head>
 <body>
-  <header>
-    <div class="wrap">
-      <h1>تقويم أوقات الصلاة — <span style="color:var(--gold)">الجعفري</span></h1>
 
-      <div class="controls">
-        <div>
-          <label>الدولة</label>
-          <input id="country" placeholder="مثال: Bahrain" value="Bahrain" />
-        </div>
-        <div>
-          <label>المدينة</label>
-          <input id="city" placeholder="مثال: Manama" value="Manama" />
-        </div>
-        <div class="row">
-          <button id="useGps" class="btn pill" title="تحديد الموقع تلقائيًا">
-            <span class="dot"></span> استخدام موقعي
-          </button>
-          <button id="resetLoc" class="btn-ghost pill">مسح الموقع</button>
-        </div>
-      </div>
-
-      <div class="nav">
-        <button id="prev" class="btn pill">‹ الشهر السابق</button>
-        <div class="title" id="title">—</div>
-        <button id="next" class="btn pill">الشهر التالي ›</button>
-      </div>
-
-      <div class="badges">
-        <div class="badge"><span class="dot"></span> Jafari (Shia Ithna-Ashari)</div>
-        <div class="badge">المصدر: AlAdhan API</div>
-        <div class="badge">يُحدّث تلقائيًا</div>
-      </div>
-      <div class="divider"></div>
-      <div id="status" class="error" hidden></div>
-      <div class="hint">**وقت صلاة الليل** هنا هو بداية <strong>الثلث الأخير</strong> من الليل (منه حتى الفجر). الإمساك من الواجهة مباشرة.</div>
+  <header class="main-header">
+    <div class="container">
+      <a href="#" class="logo">دليل المشي والرجيم</a>
+      <nav class="main-nav">
+        <a href="#hero">الرئيسية</a>
+        <a href="#why-walk">فوائد المشي</a>
+        <a href="#program">البرنامج الأسبوعي</a>
+        <a href="#nutrition">البرنامج الغذائي</a>
+        <a href="#tips">نصائح وأمان</a>
+        <a href="#refs">المراجع</a>
+      </nav>
     </div>
   </header>
 
   <main>
-    <div class="table-wrap">
-      <table id="cal">
-        <thead>
-          <tr>
-            <th>اليوم</th>
-            <th>هجري</th>
-            <th>ميلادي</th>
-            <th>الإمساك</th>
-            <th>أذان الفجر</th>
-            <th>الشروق</th>
-            <th>أذان الظهر</th>
-            <th>أذان المغرب</th>
-            <th>وقت صلاة الليل</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
-    </div>
-    <p class="hint" style="margin-top:10px">إن لم يُمنح إذن الموقع، سيُستخدم إدخال المدينة/الدولة كبديل.</p>
+    <!-- HERO -->
+    <section id="hero" class="hero">
+      <div class="container">
+        <h1>المشي والرجيم: خطة بسيطة وموثوقة للصحة وخسارة الوزن</h1>
+        <p>
+          صفحة عملية مبنية على توصيات <strong>منظمة الصحة العالمية</strong> وجهات صحية مرجعية:
+          نشاط بدني منتظم، غذاء متوازن، ونمط حياة صحي يساعدك على فقدان الوزن وتحسين اللياقة بأمان.
+        </p>
+        <a href="#program" class="cta-button">ابدأ الخطة الأسبوعية الآن</a>
+      </div>
+    </section>
+
+    <!-- WHY WALK -->
+    <section id="why-walk">
+      <div class="container grid two">
+        <div class="card">
+          <h2>فوائد المشي المختصرة</h2>
+          <ul>
+            <li><i class="fa-solid fa-heart-pulse icon"></i> يدعم صحة القلب والدورة الدموية.</li>
+            <li><i class="fa-solid fa-weight-scale icon"></i> يساعد على ضبط الوزن ضمن نظام غذائي مناسب.</li>
+            <li><i class="fa-solid fa-brain icon"></i> يحسن المزاج ويقلل التوتر ويحسّن النوم.</li>
+            <li><i class="fa-solid fa-person-walking icon"></i> سهل، قليل المخاطر، ويمكن توزيعه على اليوم.</li>
+          </ul>
+          <div class="highlight note">
+            <strong>الدليل العالمي:</strong>
+            للبالغين يُنصح بـ <b>150–300 دقيقة</b> أسبوعيًا من نشاط هوائي متوسط الشدة (مثل المشي السريع)،
+            أو <b>75–150 دقيقة</b> من الشدة العالية، مع <b>تقوية عضلية يومين/أسبوع</b>. البدايات الصغيرة أفضل من عدم البدء.
+            <!-- WHO physical activity guidance -->
+          </div>
+        </div>
+        <div class="card">
+          <img src="https://images.unsplash.com/photo-1552083375-1447ce886485?q=80&w=1200&auto=format&fit=crop"
+               alt="المشي كتمرين يومي" style="width:100%;border-radius:12px">
+        </div>
+      </div>
+    </section>
+
+    <!-- PROGRAM -->
+    <section id="program">
+      <div class="container">
+        <h2>برنامج المشي والتمارين الأسبوعي (لـ 4 أسابيع قابلة للتكرار)</h2>
+
+        <div class="card">
+          <h3>مستوى تمهيدي (أسبوع 1–2)</h3>
+          <table class="table">
+            <thead><tr><th>اليوم</th><th>المشي</th><th>التقوية/المرونة</th><th>ملاحظات</th></tr></thead>
+            <tbody>
+              <tr><td>السبت</td><td>20–25 دقيقة مشي مريح</td><td>5–8 دقائق تمطيط خفيف</td><td>إحماء 5 دقائق وبريد 5 دقائق</td></tr>
+              <tr><td>الأحد</td><td>20–25 دقيقة</td><td>—</td><td>راقب التنفس: جملة قصيرة = شدة متوسطة</td></tr>
+              <tr><td>الاثنين</td><td>راحة/10–15 دقيقة خفيفة</td><td>تقوية جسم كامل 10–15 دقيقة (وزن الجسم)</td><td>قرفصاء، دفع حائط، قَطّة/جَمل للظهر</td></tr>
+              <tr><td>الثلاثاء</td><td>25–30 دقيقة</td><td>—</td><td>اختر مسارًا مسطحًا</td></tr>
+              <tr><td>الأربعاء</td><td>20–25 دقيقة</td><td>—</td><td>ترطيب قبل/بعد</td></tr>
+              <tr><td>الخميس</td><td>راحة نشطة 10–15 دقيقة</td><td>تقوية 10–15 دقيقة</td><td>استهدف مجموعتين عضليتين كبيرتين</td></tr>
+              <tr><td>الجمعة</td><td>30 دقيقة</td><td>5 دقائق تمطيط</td><td>مجموع الأسبوع ≈ 150 دقيقة (مع الإحماء)</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="card" style="margin-top:18px">
+          <h3>مستوى متقدم تدريجي (أسبوع 3–4)</h3>
+          <table class="table">
+            <thead><tr><th>اليوم</th><th>المشي</th><th>التقوية/المرونة</th><th>ملاحظات</th></tr></thead>
+            <tbody>
+              <tr><td>السبت</td><td>30–35 دقيقة (إدراج 3 فترات أسرع × 2 دقيقة)</td><td>—</td><td>لا ألم حاد</td></tr>
+              <tr><td>الأحد</td><td>30 دقيقة</td><td>—</td><td>سرعة محادثة</td></tr>
+              <tr><td>الاثنين</td><td>راحة/15 دقيقة خفيفة</td><td>تقوية 15–20 دقيقة (يوم 1)</td><td>عضلات كبرى + مركز الجسم</td></tr>
+              <tr><td>الثلاثاء</td><td>35–40 دقيقة</td><td>—</td><td>مسار بظل إن أمكن</td></tr>
+              <tr><td>الأربعاء</td><td>20–25 دقيقة خفيفة</td><td>—</td><td>تعافٍ</td></tr>
+              <tr><td>الخميس</td><td>راحة/15 دقيقة خفيفة</td><td>تقوية 15–20 دقيقة (يوم 2)</td><td>تمارين سحب/دفع/اندفاعات</td></tr>
+              <tr><td>الجمعة</td><td>40–45 دقيقة</td><td>تمطيط 5–10 دقائق</td><td>مجموع الأسبوع 180–220 دقيقة (يمكن رفعه حتى 300)</td></tr>
+            </tbody>
+          </table>
+          <p class="note">الهدف الآمن: التدرج نحو 150–300 دقيقة/أسبوع + تقوية عضلية مرتين أسبوعيًا.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- NUTRITION -->
+    <section id="nutrition">
+      <div class="container grid two">
+        <div class="card">
+          <h2>البرنامج الغذائي (مبادئ WHO مختصرة)</h2>
+          <ul>
+            <li><i class="fa-solid fa-carrot icon"></i> الخضار والفواكه: <b>≥400 غم/اليوم</b> (≈ 5 حصص).</li>
+            <li><i class="fa-solid fa-salt-shaker icon"></i> الصوديوم: أقل من <b>2 غم صوديوم/اليوم</b> (≈ <b>5 غم ملح</b>).</li>
+            <li><i class="fa-solid fa-cubes-stacked icon"></i> السُكريات الحرة: <b>&lt;10%</b> من إجمالي الطاقة (الأفضل &lt;5%).</li>
+            <li><i class="fa-solid fa-cheese icon"></i> الدهون: إجمالي الدهون ≲ <b>30%</b> من الطاقة، المشبعة &lt; <b>10%</b>، المتحولة &lt; <b>1%</b>.</li>
+            <li><i class="fa-solid fa-bread-slice icon"></i> الحبوب الكاملة، البقوليات، المكسرات، البروتينات الخفيفة (سمك/دجاج منزوع الجلد/بقول).</li>
+          </ul>
+          <div class="highlight note">
+            لخسارة وزن تدريجية وآمنة غالبًا ما تكفي <b>سُلفة سعرات</b> معتدلة (مثل تقليل ~<b>500 ك.س/اليوم</b>) مع الحفاظ على تغذية متوازنة،
+            وقدر خسارة معتاد <b>0.5–1 كغ/الأسبوع</b> يراه NHS آمنًا لمعظم البالغين. استشر مختصًا إن لديك حالات صحية خاصة.
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>نموذج يوم غذائي متوازن</h3>
+          <ul>
+            <li><b>الفطور:</b> شوفان + لبن/حليب قليل الدسم + فاكهة موسمية + مكسرات غير مملحة.</li>
+            <li><b>وجبة خفيفة:</b> خضار مقطعة (خيار/جزر/فلفل) مع حمص.</li>
+            <li><b>الغداء:</b> صدر دجاج/سمك مشوي + رز بني/برغل + سلطة كبيرة بزيت زيتون معتدل.</li>
+            <li><b>وجبة خفيفة:</b> فاكهة + لبن رائب غير محلى.</li>
+            <li><b>العشاء:</b> عدس/فاصولياء + خبز حبوب كاملة + سلطة خضراء.</li>
+          </ul>
+          <p class="note">الماء: اشرب بشكل منتظم، وقلّل المشروبات السكرية. راقب الملح المضاف.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- TIPS & SAFETY -->
+    <section id="tips">
+      <div class="container grid two">
+        <div class="card">
+          <h2>نصائح تطبيقية سريعة</h2>
+          <ul>
+            <li><i class="fa-solid fa-shoe-prints icon"></i> زد الدقائق أسبوعيًا تدريجيًا (5–10 د) لتفادي الإصابات.</li>
+            <li><i class="fa-solid fa-bottle-droplet icon"></i> الترطيب والملابس والأحذية المريحة أساس النجاح.</li>
+            <li><i class="fa-solid fa-dumbbell icon"></i> لا تنسَ <b>تقوية عضلية 2 يوم/أسبوع</b> (وزن الجسم/أشرطة مقاومة).</li>
+            <li><i class="fa-solid fa-moon icon"></i> نم جيدًا واضبط مواقيت الوجبات.</li>
+            <li><i class="fa-solid fa-stairs icon"></i> استبدل المصعد بالدرج، امشِ مكالماتك، وحدد مواعيد ثابتة للمشي.</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h2>السلامة أولًا</h2>
+          <ul>
+            <li>استشر طبيبًا قبل البدء إن كان لديك أمراض مزمنة، أو كنت على أدوية، أو حاملًا.</li>
+            <li>أوقِف التمرين عند ألم حاد/دوخة/ضيق نفس غير اعتيادي.</li>
+            <li>تجنب الحر الشديد، وابدأ بإحماء 5–10 دقائق وأنهِ بتهدئة وتمطيط.</li>
+          </ul>
+          <p class="note">هذه إرشادات عامة تعليمية وليست بديلاً عن الاستشارة الطبية الفردية.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT / JOIN -->
+    <section id="contact">
+      <div class="container">
+        <h2>انضم لتحدّي المشي 4 أسابيع</h2>
+        <div class="card contact-grid">
+          <div>
+            <h3>سجّل لتصلك خطة PDF أسبوعية ونموذج متابعة</h3>
+            <p class="note">أدخل بريدك وهدفك الأسبوعي (الدقائق/الأيام). لن نشارك بياناتك.</p>
+            <div class="contact-buttons">
+              <a class="btn btn-whatsapp" href="https://wa.me/97333375858" target="_blank"><i class="fa-brands fa-whatsapp"></i> تواصل واتساب</a>
+              <a class="btn btn-email" href="mailto:Richadvadv@gmail.com"><i class="fa-solid fa-envelope"></i> راسلنا بالبريد</a>
+            </div>
+          </div>
+
+          <!-- يمكن الإبقاء على نفس Formspree الخاص بك -->
+          <form action="https://formspree.io/f/mqaybaev" method="POST">
+            <input type="text" name="name" placeholder="الاسم الكامل" required />
+            <input type="email" name="email" placeholder="البريد الإلكتروني" required />
+            <input type="text" name="goal" placeholder="هدفك: مثلاً 180 دقيقة/الأسبوع" />
+            <textarea name="message" rows="5" placeholder="ملاحظاتك الصحية/هدفك بالوزن (اختياري)"></textarea>
+            <button class="btn" style="background:var(--secondary-color);color:#06321a" type="submit">
+              <i class="fa-solid fa-paper-plane"></i> إرسال
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- REFERENCES -->
+    <section id="refs">
+      <div class="container">
+        <h2>المراجع</h2>
+        <div class="card">
+          <ol>
+            <li>منظمة الصحة العالمية (WHO) – <a href="https://www.who.int/initiatives/behealthy/physical-activity" target="_blank" rel="noopener">النشاط البدني للبالغين</a>.</li>
+            <li>منظمة الصحة العالمية (WHO) – <a href="https://www.who.int/news-room/fact-sheets/detail/healthy-diet" target="_blank" rel="noopener">ورقة حقائق: النظام الغذائي الصحي</a>، و<a href="https://www.who.int/health-topics/healthy-diet" target="_blank" rel="noopener">صفحة موضوع النظام الغذائي الصحي</a>.</li>
+            <li>التوجيه السريري (NHS) – <a href="https://www.nhs.uk/conditions/obesity/treatment/" target="_blank" rel="noopener">علاج السمنة وخسارة الوزن بأمان</a>.</li>
+            <li>مراكز السيطرة على الأمراض (CDC) – <a href="https://www.cdc.gov/physical-activity-basics/guidelines/adults.html" target="_blank" rel="noopener">إرشادات نشاط البالغين</a>.</li>
+          </ol>
+          <p class="note">تم تبسيط التوصيات للمستخدم العام. راجع مختص تغذية/طبيبًا لخطط فردية وحالات خاصة.</p>
+        </div>
+      </div>
+    </section>
   </main>
 
-  <script>
-    // ===== إعدادات عامة =====
-    const CACHE_TTL_MS = 12*60*60*1000; // 12 ساعة
-    const JAFARI_METHOD = 0;            // المذهب الجعفري في AlAdhan
-    const $ = (s,root=document)=>root.querySelector(s);
-    const weekdaysAr = ["الأحد","الاثنين","الثلاثاء","الأربعاء","الخميس","الجمعة","السبت"];
-    const pad = n => n<10?("0"+n):(""+n);
-
-    function cleanTime(txt){ return (txt||"").split(" ")[0]; }
-    function monthLabel(d){ return d.toLocaleDateString('ar', {month:'long', year:'numeric'}); }
-    function keyFor(p){ const {y,m,mode,city,country,lat,lng}=p; return `goldShia:${y}-${m}:${mode}:${city||""}:${country||""}:${lat||""},${lng||""}`;}
-    function getCached(k){ try{const r=localStorage.getItem(k); if(!r) return null; const o=JSON.parse(r); if(Date.now()-o.ts> CACHE_TTL_MS) return null; return o.data;}catch{ return null } }
-    function setCached(k,data){ try{ localStorage.setItem(k, JSON.stringify({ts:Date.now(), data})) }catch{} }
-
-    // تحويلات وقتية
-    function timeToDate(baseDate, hm){ const [H,M]=hm.split(":").map(Number); const d=new Date(baseDate); d.setHours(H,M,0,0); return d; }
-    function addMinutes(d,mins){ const x=new Date(d); x.setMinutes(x.getMinutes()+mins); return x; }
-    function diffMinutes(a,b){ return Math.round((a-b)/60000); }
-    function hm(d){ return pad(d.getHours())+":"+pad(d.getMinutes()); }
-
-    // حساب منتصف الليل وبداية الثلث الأخير (وقت صلاة الليل)
-    function nightTimes(baseDate, maghribHM, fajrHM){
-      const m = timeToDate(baseDate, maghribHM);
-      const f = addMinutes(timeToDate(baseDate, fajrHM), 24*60); // فجر اليوم التالي
-      const len = diffMinutes(f,m);
-      const lastThirdStart = addMinutes(m, Math.floor(len*2/3));
-      return { lastThirdHM: hm(lastThirdStart) };
-    }
-
-    async function fetchMonth(params){
-      const k = keyFor(params);
-      const cached = getCached(k);
-      if(cached) return cached;
-
-      let url;
-      if(params.mode === "gps"){
-        const {lat,lng,y,m} = params;
-        url = `https://api.aladhan.com/v1/calendar?latitude=${lat}&longitude=${lng}&method=${JAFARI_METHOD}&month=${m}&year=${y}`;
-      }else{
-        const {city,country,y,m} = params;
-        url = `https://api.aladhan.com/v1/calendarByCity?city=${encodeURIComponent(city)}&country=${encodeURIComponent(country)}&method=${JAFARI_METHOD}&month=${m}&year=${y}`;
-      }
-      const res = await fetch(url);
-      if(!res.ok) throw new Error("تعذّر الاتصال بواجهة المواقيت");
-      const json = await res.json();
-      if(json.code!==200 || !json.data) throw new Error("استجابة غير متوقعة من الواجهة");
-      setCached(k, json.data);
-      return json.data;
-    }
-
-    function renderRows(rows){
-      const tbody = $("#cal tbody");
-      tbody.innerHTML = "";
-
-      rows.forEach(row=>{
-        const t = row.timings, d = row.date;
-        const g = d.gregorian, h = d.hijri;
-
-        const imsak   = cleanTime(t.Imsak);
-        const fajr    = cleanTime(t.Fajr);
-        const sunrise = cleanTime(t.Sunrise);
-        const dhuhr   = cleanTime(t.Dhuhr);
-        const maghrib = cleanTime(t.Maghrib);
-
-        const baseDate = new Date(g.date.replace(/-/g,'/'));
-        const { lastThirdHM } = nightTimes(baseDate, maghrib, fajr);
-
-        const weekday = weekdaysAr[new Date(baseDate).getDay()];
-        const hijriStr = `${pad(+h.day)} ${h.month.ar} ${h.year}`;
-        const gregStr = `${pad(+g.day)} ${g.month.en} ${g.year}`;
-
-        const tr = document.createElement("tr");
-        tr.innerHTML = `
-          <td>${weekday}</td>
-          <td>${hijriStr}</td>
-          <td class="muted">${gregStr}</td>
-          <td><span class="chip">${imsak}</span></td>
-          <td><span class="chip">${fajr}</span></td>
-          <td>${sunrise}</td>
-          <td>${dhuhr}</td>
-          <td><strong style="color:#ffd98a">${maghrib}</strong></td>
-          <td><span class="chip" title="بداية الثلث الأخير من الليل">${lastThirdHM}</span></td>
-        `;
-        tbody.appendChild(tr);
-      });
-    }
-
-    async function build(targetDate){
-      const status = $("#status"); status.hidden = true;
-
-      const savedGps = JSON.parse(localStorage.getItem("gold:gps")||"null");
-      const mode = savedGps ? "gps" : "city";
-
-      const city = $("#city").value.trim();
-      const country = $("#country").value.trim();
-      const y = targetDate.getFullYear();
-      const m = targetDate.getMonth()+1;
-
-      $("#title").innerHTML = `${monthLabel(targetDate)} — <span class="loc">${mode==="gps"?"موقعي الحالي":" "+city+", "+country}</span>`;
-
-      try{
-        const data = await fetchMonth({y,m,mode,city,country,lat:savedGps?.lat,lng:savedGps?.lng});
-        renderRows(data);
-      }catch(e){
-        status.textContent = "عذرًا، حدث خطأ: " + e.message;
-        status.hidden = false;
-      }
-    }
-
-    // ===== محاولة تحديد الموقع افتراضيًا عند التحميل =====
-    async function tryGeolocate(onDone){
-      if(!("geolocation" in navigator)){ onDone(false,"المتصفح لا يدعم تحديد الموقع."); return; }
-      navigator.geolocation.getCurrentPosition(pos=>{
-        const {latitude:lat, longitude:lng} = pos.coords;
-        localStorage.setItem("gold:gps", JSON.stringify({lat:+lat.toFixed(6), lng:+lng.toFixed(6)}));
-        onDone(true);
-      }, err=>{
-        // لا نحفظ شيء — نتحوّل للوضع اليدوي
-        onDone(false, err.message || "تعذّر تحديد الموقع.");
-      }, {enableHighAccuracy:true, timeout:10000, maximumAge:300000});
-    }
-
-    // ===== التهيئة وربط الواجهة =====
-    (function init(){
-      let current = new Date();
-      current = new Date(current.getFullYear(), current.getMonth(), 1);
-
-      const render = ()=>build(current);
-
-      // تنقّل شهري
-      $("#prev").addEventListener("click", ()=>{ current.setMonth(current.getMonth()-1); render(); });
-      $("#next").addEventListener("click", ()=>{ current.setMonth(current.getMonth()+1); render(); });
-
-      // أزرار الموقع
-      $("#useGps").addEventListener("click", ()=> tryGeolocate(()=>render()));
-      $("#resetLoc").addEventListener("click", ()=>{ localStorage.removeItem("gold:gps"); render(); });
-
-      // حفظ تفضيلات النصوص
-      const savePrefs = ()=>localStorage.setItem("gold:prefs", JSON.stringify({ city:$("#city").value.trim(), country:$("#country").value.trim() }));
-      ["change","blur"].forEach(ev=>{ $("#city").addEventListener(ev,savePrefs); $("#country").addEventListener(ev,savePrefs); });
-      try{ const p = JSON.parse(localStorage.getItem("gold:prefs")||"{}"); if(p.city) $("#city").value = p.city; if(p.country) $("#country").value = p.country; }catch{}
-
-      // افتراضيًا: نحاول تحديد الموقع عند أول فتح
-      const hasGps = !!localStorage.getItem("gold:gps");
-      if(!hasGps){
-        tryGeolocate((ok,msg)=>{ if(!ok){ const st=$("#status"); st.hidden=false; st.textContent="لم يُفعّل تحديد الموقع: "+msg+" — سيتم استخدام المدينة/الدولة."; } render(); });
-      }else{
-        render();
-      }
-    })();
-  </script>
+  <footer class="footer">
+    <div class="container">
+      <p>© 2025 دليل المشي والرجيم. <a href="#program">ابدأ البرنامج</a> • <a href="#nutrition">البرنامج الغذائي</a> • <a href="#tips">نصائح وأمان</a></p>
+    </div>
+  </footer>
 </body>
 </html>
