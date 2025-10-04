@@ -90,24 +90,21 @@
 
     <style>
         :root {
-            --primary-color: #1abc9c; /* أخضر نعناعي */
-            --secondary-color: #34495e; /* أزرق داكن */
-            --background-color: #ecf0f1; /* رمادي فاتح */
+            --primary-color: #1abc9c;
+            --secondary-color: #34495e;
+            --background-color: #ecf0f1;
             --text-color: #555;
             --heading-color: #2c3e50;
             --white-color: #FFFFFF;
             --light-gray: #f8f9fa;
+            --success-color: #27ae60;
+            --warning-color: #f39c12;
         }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         html {
@@ -116,78 +113,88 @@
 
         body {
             font-family: 'Tajawal', sans-serif;
-            margin: 0;
-            line-height: 1.9;
+            line-height: 1.8;
             background-color: var(--background-color);
             color: var(--text-color);
             font-weight: 400;
         }
 
+        /* Progress Bar */
         #progress-bar {
             position: fixed;
             top: 0;
             right: 0;
-            height: 5px;
-            background: var(--primary-color);
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--success-color));
             width: 0%;
             z-index: 2000;
-            transition: width 0.1s;
+            transition: width 0.1s ease;
         }
 
+        /* Container */
         .container {
-            max-width: 1140px;
-            margin: auto;
+            max-width: 1200px;
+            margin: 0 auto;
             padding: 0 20px;
         }
 
-        h1,
-        h2,
-        h3,
-        h4 {
+        /* Typography */
+        h1, h2, h3, h4 {
             font-weight: 700;
             color: var(--heading-color);
+            margin-bottom: 1rem;
         }
 
         h1 {
-            font-size: 3.5rem;
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
             font-weight: 800;
-            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+            line-height: 1.2;
         }
 
         h2 {
-            font-size: 2.8rem;
+            font-size: clamp(2rem, 4vw, 2.8rem);
             text-align: center;
-            margin-bottom: 60px;
+            margin-bottom: 3rem;
             position: relative;
         }
 
         h2::after {
             content: '';
             display: block;
-            width: 100px;
+            width: 80px;
             height: 4px;
-            background: var(--primary-color);
-            margin: 25px auto 0;
+            background: linear-gradient(90deg, var(--primary-color), var(--success-color));
+            margin: 20px auto 0;
             border-radius: 2px;
         }
 
         h3 {
-            font-size: 1.8rem;
+            font-size: clamp(1.4rem, 3vw, 1.8rem);
+            margin-bottom: 1rem;
         }
 
         h4 {
-            font-size: 1.4rem;
+            font-size: clamp(1.2rem, 2.5vw, 1.4rem);
             color: var(--primary-color);
+            margin-bottom: 0.8rem;
         }
 
+        p {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        /* Sections */
         section {
-            padding: 80px 0;
+            padding: 5rem 0;
         }
 
+        /* Header */
         .main-header {
             background-color: var(--white-color);
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
-            padding: 15px 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            padding: 1rem 0;
             position: sticky;
             top: 0;
             z-index: 1000;
@@ -200,28 +207,34 @@
         }
 
         .logo {
-            font-size: 1.7rem;
+            font-size: 1.8rem;
             font-weight: 800;
             color: var(--primary-color);
             text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
         }
 
         .main-nav {
             display: flex;
-            gap: 30px;
+            gap: 2rem;
+            list-style: none;
         }
 
         .main-nav a {
             color: var(--heading-color);
             text-decoration: none;
-            font-weight: 500;
+            font-weight: 600;
             font-size: 1rem;
-            transition: color 0.3s;
+            transition: all 0.3s ease;
             position: relative;
-            padding-bottom: 8px;
+            padding: 0.5rem 0;
         }
 
         .main-nav a::after {
@@ -231,7 +244,7 @@
             right: 0;
             width: 0;
             height: 2px;
-            background-color: var(--primary-color);
+            background: var(--primary-color);
             transition: width 0.4s ease;
         }
 
@@ -243,148 +256,236 @@
             color: var(--primary-color);
         }
 
+        /* Hero Section */
         .hero {
-            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=80&w=1200&auto=format&fit=crop') no-repeat center center/cover;
+            background: linear-gradient(135deg, rgba(26, 188, 156, 0.9), rgba(52, 73, 94, 0.8)), 
+                        url('https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=80&w=1200&auto=format&fit=crop') center/cover;
             color: var(--white-color);
-            padding: 150px 0;
+            padding: 8rem 0;
             text-align: center;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
         }
 
         .hero p {
-            font-size: 1.4rem;
-            max-width: 800px;
-            margin: 20px auto 40px;
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            margin: 2rem auto 3rem;
             opacity: 0.95;
+            line-height: 1.6;
         }
 
+        /* Buttons */
         .btn {
-            padding: 16px 40px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 1rem 2.5rem;
             text-decoration: none;
             border-radius: 50px;
             font-weight: 700;
             font-size: 1.1rem;
             transition: all 0.4s ease;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            border: 2px solid transparent;
+            border: none;
             cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .btn-primary {
-            background: var(--primary-color);
+            background: linear-gradient(135deg, var(--primary-color), var(--success-color));
             color: var(--white-color);
-            box-shadow: 0 8px 20px rgba(26, 188, 156, 0.3);
+            box-shadow: 0 8px 25px rgba(26, 188, 156, 0.4);
         }
 
         .btn-primary:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 25px rgba(26, 188, 156, 0.4);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(26, 188, 156, 0.5);
         }
 
+        /* Grid Layout */
         .grid-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
         }
 
+        /* Cards */
         .card {
             background: var(--white-color);
-            padding: 40px;
-            border-radius: 15px;
+            padding: 2.5rem;
+            border-radius: 20px;
             text-align: center;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.07);
-            transition: transform 0.4s, box-shadow 0.4s;
-            animation: fadeIn 0.8s ease-out forwards;
-            opacity: 0;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s ease;
+            border: 1px solid rgba(26, 188, 156, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--success-color));
         }
 
         .card:hover {
-            transform: translateY(-12px);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
         }
 
         .card .icon {
             font-size: 3.5rem;
             color: var(--primary-color);
-            margin-bottom: 25px;
+            margin-bottom: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover .icon {
+            transform: scale(1.1);
         }
 
         .card .stat-number {
             font-size: 2.5rem;
             font-weight: 800;
             color: var(--secondary-color);
+            display: inline-block;
         }
 
+        /* Program Section */
         .program-section {
             background: var(--light-gray);
         }
 
+        .download-section {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .download-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
         .download-card {
-            text-align: center;
-            padding: 40px;
             background: var(--white-color);
-            border-radius: 15px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            padding: 3rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
             transition: all 0.4s ease;
-            animation: fadeIn 1s ease-out forwards;
-            opacity: 0;
+            border: 2px solid transparent;
+            position: relative;
         }
 
         .download-card:hover {
             transform: translateY(-8px);
-            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.12);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
+            border-color: var(--primary-color);
         }
 
         .download-card .icon {
-            font-size: 4.5rem;
-            margin-bottom: 25px;
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            transition: transform 0.3s ease;
         }
 
+        .download-card:hover .icon {
+            transform: scale(1.1);
+        }
+
+        .download-card h3 {
+            margin-bottom: 1rem;
+            color: var(--heading-color);
+        }
+
+        .download-card p {
+            margin-bottom: 2rem;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        /* PDF Buttons */
         .btn-pdf {
-            border-radius: 10px;
+            width: 100%;
+            padding: 1rem 2rem;
+            border-radius: 12px;
             font-weight: 700;
-            padding: 14px 30px;
             font-size: 1rem;
             text-transform: uppercase;
             letter-spacing: 1px;
-            width: 100%;
             border: none;
             cursor: pointer;
             transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-pdf::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-pdf:hover::before {
+            left: 100%;
         }
 
         .btn-pdf.sport {
-            background-color: var(--primary-color);
+            background: linear-gradient(135deg, var(--primary-color), var(--success-color));
             color: white;
         }
 
         .btn-pdf.sport:hover {
-            background-color: #16a085;
             transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(26, 188, 156, 0.4);
         }
 
         .btn-pdf.diet {
-            background-color: var(--secondary-color);
+            background: linear-gradient(135deg, var(--secondary-color), #2c3e50);
             color: white;
         }
 
         .btn-pdf.diet:hover {
-            background-color: #2c3e50;
             transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(52, 73, 94, 0.4);
         }
 
+        /* FAQ Section */
         .faq-section {
             background: var(--background-color);
         }
 
+        .faq-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
         .faq-item {
             background: var(--white-color);
-            margin-bottom: 15px;
-            border-radius: 10px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            margin-bottom: 1rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
             overflow: hidden;
+            border: 1px solid rgba(26, 188, 156, 0.1);
         }
 
         .faq-question {
@@ -392,26 +493,33 @@
             background: none;
             border: none;
             text-align: right;
-            padding: 25px;
-            font-size: 1.3rem;
+            padding: 1.5rem;
+            font-size: 1.2rem;
             font-weight: 700;
             color: var(--heading-color);
             cursor: pointer;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            transition: background-color 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background-color: rgba(26, 188, 156, 0.05);
         }
 
         .faq-question i {
             transition: transform 0.4s ease;
             color: var(--primary-color);
+            font-size: 1rem;
         }
 
         .faq-answer {
-            padding: 0 25px;
+            padding: 0 1.5rem;
             max-height: 0;
             overflow: hidden;
             transition: all 0.5s ease;
+            background-color: rgba(26, 188, 156, 0.02);
         }
 
         .faq-item.active .faq-question i {
@@ -419,47 +527,50 @@
         }
 
         .faq-item.active .faq-answer {
-            padding: 0 25px 25px;
+            padding: 0 1.5rem 1.5rem;
         }
 
+        /* Footer */
         .main-footer {
-            background-color: var(--secondary-color);
+            background: linear-gradient(135deg, var(--secondary-color), #2c3e50);
             color: var(--background-color);
             text-align: center;
-            padding: 50px 20px;
+            padding: 3rem 1rem;
         }
 
         .main-footer p {
-            margin: 10px 0;
+            margin: 0.5rem 0;
+            line-height: 1.6;
         }
 
         .main-footer a {
             color: var(--primary-color);
             text-decoration: none;
-            transition: color 0.3s;
+            transition: color 0.3s ease;
         }
 
         .main-footer a:hover {
             color: var(--white-color);
         }
 
+        /* Back to Top */
         #back-to-top {
             position: fixed;
-            bottom: 30px;
-            left: 30px;
+            bottom: 2rem;
+            left: 2rem;
             width: 50px;
             height: 50px;
-            background-color: var(--primary-color);
+            background: linear-gradient(135deg, var(--primary-color), var(--success-color));
             color: white;
             border-radius: 50%;
             text-align: center;
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             line-height: 50px;
             cursor: pointer;
-            box-shadow: 0 5px 15px rgba(26, 188, 156, 0.4);
+            box-shadow: 0 5px 20px rgba(26, 188, 156, 0.4);
             opacity: 0;
             visibility: hidden;
-            transition: all 0.4s;
+            transition: all 0.4s ease;
             z-index: 999;
             text-decoration: none;
         }
@@ -469,42 +580,70 @@
             visibility: visible;
         }
 
-        .text-center {
-            text-align: center;
+        #back-to-top:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(26, 188, 156, 0.5);
         }
 
-        .mt-40 {
-            margin-top: 40px;
-        }
+        /* Utilities */
+        .text-center { text-align: center; }
+        .mt-2 { margin-top: 2rem; }
 
-        @media (max-width: 992px) {
-            .grid-container {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-
+        /* Responsive Design */
         @media (max-width: 768px) {
-            h1 {
-                font-size: 2.5rem;
-            }
-
-            h2 {
-                font-size: 2rem;
-            }
-
             .main-header .container {
                 flex-direction: column;
-                gap: 15px;
+                gap: 1rem;
             }
 
             .main-nav {
+                gap: 1rem;
+                flex-wrap: wrap;
                 justify-content: center;
-                gap: 15px;
             }
 
-            .grid-container {
+            .hero {
+                padding: 6rem 0;
+                min-height: 80vh;
+            }
+
+            .download-grid {
                 grid-template-columns: 1fr;
             }
+
+            section {
+                padding: 3rem 0;
+            }
+
+            .card, .download-card {
+                padding: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 15px;
+            }
+
+            .hero {
+                padding: 4rem 0;
+            }
+
+            .card, .download-card {
+                padding: 1.5rem;
+            }
+        }
+
+        /* Animation Classes */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
 </head>
@@ -515,7 +654,10 @@
 
     <header class="main-header">
         <div class="container">
-            <a href="#hero" class="logo"><i class="fas fa-shoe-prints"></i> صحتك بخطوتك</a>
+            <a href="#hero" class="logo">
+                <i class="fas fa-shoe-prints"></i>
+                صحتك بخطوتك
+            </a>
             <nav class="main-nav">
                 <a href="#benefits">الفوائد</a>
                 <a href="#who-recommends">توصيات الخبراء</a>
@@ -528,9 +670,14 @@
     <main>
         <section id="hero" class="hero">
             <div class="container">
-                <h1>خطوتك الأولى نحو صحة مستدامة</h1>
-                <p>دليلك المتكامل لبدء رحلتك مع المشي والالتزام بنظام غذائي صحي. استثمر في صحتك اليوم لمستقبل خالٍ من الأمراض، وحمّل خططنا المجانية المصممة لك.</p>
-                <a href="#programs" class="btn btn-primary">حمّل برنامجك الآن <i class="fas fa-download"></i></a>
+                <div class="hero-content">
+                    <h1>خطوتك الأولى نحو صحة مستدامة</h1>
+                    <p>دليلك المتكامل لبدء رحلتك مع المشي والالتزام بنظام غذائي صحي. استثمر في صحتك اليوم لمستقبل خالٍ من الأمراض، وحمّل خططنا المجانية المصممة خصيصًا لك.</p>
+                    <a href="#programs" class="btn btn-primary">
+                        حمّل برنامجك الآن
+                        <i class="fas fa-download"></i>
+                    </a>
+                </div>
             </div>
         </section>
 
@@ -538,25 +685,25 @@
             <div class="container">
                 <h2>لماذا المشي هو أفضل استثمار في صحتك؟</h2>
                 <div class="grid-container">
-                    <div class="card">
+                    <div class="card fade-in">
                         <div class="icon"><i class="fas fa-heart-pulse"></i></div>
                         <h3>تعزيز صحة القلب</h3>
-                        <p>يقلل خطر الإصابة بأمراض القلب بنسبة تصل إلى <span class="stat-number" data-goal="30">0</span>%</p>
+                        <p>يقلل خطر الإصابة بأمراض القلب بنسبة تصل إلى <span class="stat-number" data-goal="30">0</span>% حسب الدراسات الطبية الحديثة.</p>
                     </div>
-                    <div class="card">
+                    <div class="card fade-in">
                         <div class="icon"><i class="fas fa-weight-scale"></i></div>
                         <h3>حرق السعرات الحرارية</h3>
-                        <p>يساهم المشي السريع في حرق ما يصل إلى <span class="stat-number" data-goal="300">0</span> سعرة حرارية في الساعة.</p>
+                        <p>يساهم المشي السريع في حرق ما يصل إلى <span class="stat-number" data-goal="300">0</span> سعرة حرارية في الساعة الواحدة.</p>
                     </div>
-                    <div class="card">
+                    <div class="card fade-in">
                         <div class="icon"><i class="fas fa-brain"></i></div>
                         <h3>تحسين الصحة النفسية</h3>
-                        <p>يقلل من أعراض التوتر والقلق بفضل إفراز هرمون الإندورفين.</p>
+                        <p>يقلل من أعراض التوتر والقلق بفضل إفراز هرمون الإندورفين الطبيعي في الجسم.</p>
                     </div>
-                    <div class="card">
+                    <div class="card fade-in">
                         <div class="icon"><i class="fas fa-bone"></i></div>
                         <h3>تقوية العظام والمفاصل</h3>
-                        <p>يساعد على زيادة كثافة العظام ويقلل من خطر الإصابة بهشاشة العظام.</p>
+                        <p>يساعد على زيادة كثافة العظام ويقلل من خطر الإصابة بهشاشة العظام مع التقدم في العمر.</p>
                     </div>
                 </div>
             </div>
@@ -565,22 +712,24 @@
         <section id="who-recommends" class="program-section">
             <div class="container">
                 <h2>توصيات منظمة الصحة العالمية (WHO)</h2>
-                <p class="text-center" style="max-width: 800px; margin: -40px auto 50px; font-size: 1.1rem;">تؤكد منظمة الصحة العالمية أن النشاط البدني المنتظم هو حجر الزاوية لحياة صحية. إليك أبرز توصياتها:</p>
+                <p class="text-center" style="max-width: 800px; margin: -2rem auto 3rem; font-size: 1.1rem; color: var(--text-color);">
+                    تؤكد منظمة الصحة العالمية أن النشاط البدني المنتظم هو حجر الزاوية لحياة صحية طويلة ومثمرة. إليك أبرز توصياتها العلمية:
+                </p>
                 <div class="grid-container">
-                    <div class="card">
+                    <div class="card fade-in">
                         <div class="icon"><i class="fas fa-person-walking"></i></div>
                         <h4>البالغون (18-64 سنة)</h4>
-                        <p><strong>150 إلى 300 دقيقة</strong> من النشاط الهوائي المعتدل (مثل المشي السريع) أسبوعيًا.</p>
+                        <p><strong>150 إلى 300 دقيقة</strong> من النشاط الهوائي المعتدل (مثل المشي السريع) أسبوعيًا لضمان صحة مثلى.</p>
                     </div>
-                    <div class="card">
+                    <div class="card fade-in">
                         <div class="icon"><i class="fas fa-child"></i></div>
                         <h4>الأطفال والمراهقون</h4>
-                        <p><strong>60 دقيقة يوميًا</strong> على الأقل من النشاط البدني المعتدل إلى الشديد.</p>
+                        <p><strong>60 دقيقة يوميًا</strong> على الأقل من النشاط البدني المعتدل إلى الشديد لنمو صحي متوازن.</p>
                     </div>
-                    <div class="card">
+                    <div class="card fade-in">
                         <div class="icon"><i class="fas fa-dumbbell"></i></div>
                         <h4>تمارين القوة</h4>
-                        <p>توصي المنظمة بتمارين تقوية العضلات مرتين أسبوعيًا على الأقل للحفاظ على الكتلة العضلية.</p>
+                        <p>توصي المنظمة بتمارين تقوية العضلات مرتين أسبوعيًا على الأقل للحفاظ على الكتلة العضلية والقوة.</p>
                     </div>
                 </div>
             </div>
@@ -588,50 +737,84 @@
 
         <section id="programs" class="services">
             <div class="container">
-                <h2>حمّل برنامجك الغذائي والرياضي (PDF)</h2>
-                <p class="text-center" style="max-width: 800px; margin: -40px auto 50px; font-size: 1.1rem;">لقد أعددنا لك خططًا متكاملة وجاهزة للتحميل الفوري، مصممة لمساعدتك على البدء وتحقيق أهدافك بكفاءة.</p>
-                <div class="grid-container" style="grid-template-columns: 1fr 1fr; max-width: 900px; margin: auto;">
-                    <div class="download-card">
-                        <div class="icon" style="color: var(--primary-color);"><i class="fas fa-calendar-week"></i></div>
-                        <h3>الخطة الرياضية</h3>
-                        <p>برنامج مشي متدرج لمدة شهر كامل من المستوى المبتدئ إلى المتقدم.</p>
-                        <button id="downloadSportPDF" class="btn btn-pdf sport mt-40">تحميل الخطة <i class="fas fa-file-pdf"></i></button>
-                    </div>
-                    <div class="download-card">
-                        <div class="icon" style="color: var(--secondary-color);"><i class="fas fa-utensils"></i></div>
-                        <h3>الخطة الغذائية</h3>
-                        <p>نظام غذائي متوازن ومتنوع، مع وجبات يومية مقترحة ونصائح عملية.</p>
-                        <button id="downloadDietPDF" class="btn btn-pdf diet mt-40">تحميل الخطة <i class="fas fa-file-pdf"></i></button>
+                <div class="download-section">
+                    <h2>حمّل برنامجك الغذائي والرياضي (PDF)</h2>
+                    <p class="text-center" style="max-width: 800px; margin: -2rem auto 0; font-size: 1.1rem; color: var(--text-color);">
+                        لقد أعددنا لك خططًا متكاملة وجاهزة للتحميل الفوري، مصممة بعناية لمساعدتك على البدء وتحقيق أهدافك الصحية بكفاءة عالية.
+                    </p>
+                    
+                    <div class="download-grid">
+                        <div class="download-card fade-in">
+                            <div class="icon" style="color: var(--primary-color);">
+                                <i class="fas fa-calendar-week"></i>
+                            </div>
+                            <h3>الخطة الرياضية الشهرية</h3>
+                            <p>برنامج مشي متدرج ومدروس لمدة شهر كامل، يأخذك من المستوى المبتدئ إلى المتقدم بأمان وفعالية.</p>
+                            <button id="downloadSportPDF" class="btn-pdf sport">
+                                <i class="fas fa-file-pdf"></i>
+                                تحميل الخطة الرياضية
+                            </button>
+                        </div>
+                        
+                        <div class="download-card fade-in">
+                            <div class="icon" style="color: var(--secondary-color);">
+                                <i class="fas fa-utensils"></i>
+                            </div>
+                            <h3>الخطة الغذائية المتوازنة</h3>
+                            <p>نظام غذائي متوازن ومتنوع، مع وجبات يومية مقترحة ونصائح عملية لنمط حياة صحي مستدام.</p>
+                            <button id="downloadDietPDF" class="btn-pdf diet">
+                                <i class="fas fa-file-pdf"></i>
+                                تحميل الخطة الغذائية
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
         <section id="faq" class="faq-section">
-            <div class="container" style="max-width: 900px;">
-                <h2>أسئلة شائعة</h2>
-                <div class="faq-item">
-                    <button class="faq-question">كم من الوقت أحتاج للمشي يوميًا لخسارة الوزن؟<i class="fas fa-chevron-down"></i></button>
-                    <div class="faq-answer">
-                        <p>لخسارة الوزن بشكل فعال، يُنصح بالمشي لمدة 30 إلى 60 دقيقة معظم أيام الأسبوع. الأهم هو الاستمرارية ودمج المشي مع نظام غذائي صحي. زيادة شدة المشي، مثل المشي السريع أو صعود المرتفعات، تزيد من حرق السعرات الحرارية.</p>
+            <div class="container">
+                <div class="faq-container">
+                    <h2>أسئلة شائعة</h2>
+                    
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            كم من الوقت أحتاج للمشي يوميًا لخسارة الوزن؟
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>لخسارة الوزن بشكل فعال وآمن، يُنصح بالمشي لمدة 30 إلى 60 دقيقة معظم أيام الأسبوع. الأهم هو الاستمرارية ودمج المشي مع نظام غذائي صحي متوازن. زيادة شدة المشي تدريجيًا، مثل المشي السريع أو صعود المرتفعات، تزيد من حرق السعرات الحرارية وتسرع عملية فقدان الوزن.</p>
+                        </div>
                     </div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-question">هل المشي البطيء له فائدة؟<i class="fas fa-chevron-down"></i></button>
-                    <div class="faq-answer">
-                        <p>نعم بالتأكيد. أي نشاط بدني أفضل من عدمه. المشي البطيء مفيد لتحسين الدورة الدموية، تقليل التوتر، وهو بداية ممتازة للمبتدئين أو كبار السن أو الذين يعانون من مشاكل في المفاصل. مع تحسن لياقتك، يمكنك زيادة السرعة تدريجيًا.</p>
+
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            هل المشي البطيء له فائدة حقيقية؟
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>نعم بالتأكيد! أي نشاط بدني أفضل من عدم الحركة تمامًا. المشي البطيء مفيد جداً لتحسين الدورة الدموية، تقليل التوتر والضغط النفسي، وهو بداية ممتازة للمبتدئين أو كبار السن أو الذين يعانون من مشاكل في المفاصل. مع تحسن لياقتك البدنية تدريجيًا، يمكنك زيادة السرعة والمدة.</p>
+                        </div>
                     </div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-question">ما هو أفضل وقت للمشي، صباحًا أم مساءً؟<i class="fas fa-chevron-down"></i></button>
-                    <div class="faq-answer">
-                        <p>أفضل وقت للمشي هو الوقت الذي يناسب جدولك ويمكنك الالتزام به. المشي صباحًا قد يساعد في تنشيط الجسم وزيادة معدل الحرق خلال اليوم، بينما المشي مساءً يمكن أن يساعد على الاسترخاء وتخفيف توتر اليوم. اختر ما يناسبك.</p>
+
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            ما هو أفضل وقت للمشي، صباحًا أم مساءً؟
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>أفضل وقت للمشي هو الوقت الذي يناسب جدولك اليومي ويمكنك الالتزام به على المدى الطويل. المشي صباحًا قد يساعد في تنشيط الجسم وزيادة معدل الحرق خلال اليوم، بينما المشي مساءً يمكن أن يساعد على الاسترخاء وتخفيف توتر وضغوط اليوم. الأهم هو الانتظام والاستمرارية.</p>
+                        </div>
                     </div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-question">هل أحتاج إلى حذاء مخصص للمشي؟<i class="fas fa-chevron-down"></i></button>
-                    <div class="faq-answer">
-                        <p>نعم، الاستثمار في حذاء رياضي جيد ومخصص للمشي أمر ضروري. الحذاء المناسب يوفر الدعم اللازم للقدم والكاحل، يمتص الصدمات، ويقلل من خطر الإصابات، مما يجعل تجربة المشي أكثر راحة ومتعة.</p>
+
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            هل أحتاج إلى حذاء مخصص للمشي؟
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>نعم، الاستثمار في حذاء رياضي جيد ومخصص للمشي أمر ضروري وحكيم. الحذاء المناسب يوفر الدعم اللازم للقدم والكاحل، يمتص الصدمات بفعالية، ويقلل من خطر الإصابات والألم، مما يجعل تجربة المشي أكثر راحة ومتعة ويشجعك على الاستمرار.</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -642,166 +825,445 @@
         <div class="container">
             <p>&copy; 2025 دليل الصحة واللياقة. جميع الحقوق محفوظة.</p>
             <p>استشر طبيبك دائمًا قبل البدء في أي برنامج رياضي أو غذائي جديد.</p>
-            <p style="margin-top: 20px; font-size: 0.9rem; opacity: 0.8;">
-                المصادر المعتمدة: <a href="https://www.who.int/ar/news-room/fact-sheets/detail/physical-activity" target="_blank" rel="noopener">منظمة الصحة العالمية (WHO)</a> | <a href="https://www.mayoclinic.org/ar/healthy-lifestyle/fitness/in-depth/walking/art-20046261" target="_blank" rel="noopener">مايو كلينك</a>
+            <p style="margin-top: 1.5rem; font-size: 0.9rem; opacity: 0.8;">
+                المصادر المعتمدة: 
+                <a href="https://www.who.int/ar/news-room/fact-sheets/detail/physical-activity" target="_blank" rel="noopener">منظمة الصحة العالمية (WHO)</a> | 
+                <a href="https://www.mayoclinic.org/ar/healthy-lifestyle/fitness/in-depth/walking/art-20046261" target="_blank" rel="noopener">مايو كلينك</a>
             </p>
         </div>
     </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // --- Interactive Elements ---
-
-            // Reading Progress Bar
+            // Progress Bar
             const progressBar = document.getElementById('progress-bar');
-            window.addEventListener('scroll', () => {
+            function updateProgressBar() {
                 const scrollTop = document.documentElement.scrollTop;
                 const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
                 const scrollProgress = (scrollTop / scrollHeight) * 100;
                 progressBar.style.width = scrollProgress + '%';
-            });
+            }
+            window.addEventListener('scroll', updateProgressBar);
 
             // Back to Top Button
             const backToTopButton = document.getElementById('back-to-top');
-            window.addEventListener('scroll', () => {
+            function toggleBackToTop() {
                 if (window.scrollY > 300) {
                     backToTopButton.classList.add('visible');
                 } else {
                     backToTopButton.classList.remove('visible');
                 }
-            });
+            }
+            window.addEventListener('scroll', toggleBackToTop);
 
             // Animated Counters
             const counters = document.querySelectorAll('.stat-number');
-            const speed = 200;
-            const observer = new IntersectionObserver(entries => {
+            const animateCounters = (entries, observer) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         const counter = entry.target;
-                        const updateCount = () => {
-                            const target = +counter.getAttribute('data-goal');
-                            const count = +counter.innerText;
-                            const inc = target / speed;
-                            if (count < target) {
-                                counter.innerText = Math.ceil(count + inc);
-                                setTimeout(updateCount, 10);
+                        const target = parseInt(counter.getAttribute('data-goal'));
+                        const duration = 2000;
+                        const step = target / (duration / 16);
+                        let current = 0;
+                        
+                        const timer = setInterval(() => {
+                            current += step;
+                            if (current >= target) {
+                                counter.textContent = target;
+                                clearInterval(timer);
                             } else {
-                                counter.innerText = target;
+                                counter.textContent = Math.floor(current);
                             }
-                        };
-                        updateCount();
-                        observer.unobserve(counter); // Animate only once
+                        }, 16);
+                        
+                        observer.unobserve(counter);
                     }
                 });
-            }, { threshold: 0.5 });
-            counters.forEach(counter => observer.observe(counter));
+            };
+            
+            const counterObserver = new IntersectionObserver(animateCounters, { threshold: 0.5 });
+            counters.forEach(counter => counterObserver.observe(counter));
 
             // FAQ Accordion
             const faqItems = document.querySelectorAll('.faq-item');
             faqItems.forEach(item => {
                 const question = item.querySelector('.faq-question');
+                const answer = item.querySelector('.faq-answer');
+                
                 question.addEventListener('click', () => {
                     const isActive = item.classList.contains('active');
-                    faqItems.forEach(i => {
-                        i.classList.remove('active');
-                        i.querySelector('.faq-answer').style.maxHeight = null;
+                    
+                    // Close all other items
+                    faqItems.forEach(otherItem => {
+                        if (otherItem !== item) {
+                            otherItem.classList.remove('active');
+                            otherItem.querySelector('.faq-answer').style.maxHeight = null;
+                        }
                     });
+                    
+                    // Toggle current item
                     if (!isActive) {
                         item.classList.add('active');
-                        const answer = item.querySelector('.faq-answer');
                         answer.style.maxHeight = answer.scrollHeight + 'px';
+                    } else {
+                        item.classList.remove('active');
+                        answer.style.maxHeight = null;
                     }
                 });
             });
 
-            // Animate cards on scroll
-            const cards = document.querySelectorAll('.card, .download-card');
-            const cardObserver = new IntersectionObserver(entries => {
+            // Fade in animation
+            const fadeElements = document.querySelectorAll('.fade-in');
+            const fadeObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
+                        entry.target.classList.add('visible');
                     }
                 });
             }, { threshold: 0.1 });
-            cards.forEach(card => cardObserver.observe(card));
+            
+            fadeElements.forEach(element => fadeObserver.observe(element));
 
-            // --- PDF Generation and Download ---
-            // Function to create a simple text PDF (as full Arabic PDF generation client-side is complex without server or advanced setup)
-            function createTextPdf(content, filename) {
-                const blob = new Blob([content], { type: 'application/pdf' });
+            // PDF Download Functions
+            function downloadTextFile(content, filename) {
+                const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
                 const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = filename;
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = filename;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
                 URL.revokeObjectURL(url);
             }
 
-            // Sport Plan PDF Content (Simple text for reliable download)
-            const sportPdfContent = `
-الخطة الشهرية للمشي
+            // Sport Plan Content
+            const sportPlanContent = `
+الخطة الشهرية للمشي - دليل شامل للمبتدئين
 
-مقدمة:
-هذا البرنامج مصمم ليكون متدرجًا وآمنًا. الهدف هو بناء لياقتك تدريجيًا. تذكر دائمًا الإحماء لمدة 5 دقائق قبل المشي، والتهدئة والتمدد لمدة 5 دقائق بعده.
+═══════════════════════════════════════════════════════════════
 
-الأسبوع الأول: مرحلة التأسيس
-• الهدف: 20 دقيقة مشي، 4 أيام في الأسبوع.
-• الشدة: مشي مريح يمكنك خلاله إجراء محادثة.
+مقدمة مهمة:
+هذا البرنامج مصمم ليكون متدرجًا وآمنًا لجميع الأعمار والمستويات. 
+الهدف هو بناء لياقتك البدنية تدريجيًا دون إجهاد أو إصابات.
 
-الأسبوع الثاني: زيادة المدة
-• الهدف: 30 دقيقة مشي، 4 أيام في الأسبوع.
-• نصيحة: ركز على انتظام خطواتك وتنفسك.
+نصائح أساسية قبل البدء:
+• استشر طبيبك قبل البدء إذا كان لديك أي مشاكل صحية
+• ابدأ دائمًا بالإحماء لمدة 5 دقائق (مشي بطيء)
+• اختتم بالتهدئة والتمدد لمدة 5 دقائق
+• اشرب الماء قبل وأثناء وبعد المشي
+• ارتدِ حذاءً رياضيًا مناسبًا وملابس مريحة
+
+═══════════════════════════════════════════════════════════════
+
+الأسبوع الأول: مرحلة التأسيس والتعود
+الهدف: 20 دقيقة مشي، 4 أيام في الأسبوع
+الشدة: مشي مريح يمكنك خلاله إجراء محادثة عادية
+الأيام المقترحة: السبت، الاثنين، الأربعاء، الجمعة
+
+برنامج اليوم:
+- إحماء: 5 دقائق مشي بطيء
+- المشي الأساسي: 20 دقيقة بوتيرة مريحة
+- تهدئة: 5 دقائق مشي بطيء + تمدد
+
+نصائح الأسبوع الأول:
+• ركز على الانتظام أكثر من السرعة
+• استمع لجسدك ولا تجبر نفسك
+• سجل مشاعرك ومستوى طاقتك بعد كل جلسة
+
+═══════════════════════════════════════════════════════════════
+
+الأسبوع الثاني: زيادة المدة تدريجيًا
+الهدف: 30 دقيقة مشي، 4 أيام في الأسبوع
+الشدة: نفس الشدة المريحة للأسبوع الأول
+التركيز: بناء القدرة على التحمل
+
+برنامج اليوم:
+- إحماء: 5 دقائق مشي بطيء
+- المشي الأساسي: 30 دقيقة بوتيرة مريحة
+- تهدئة: 5 دقائق مشي بطيء + تمدد
+
+نصائح الأسبوع الثاني:
+• ركز على انتظام خطواتك وتنفسك
+• جرب مسارات مختلفة لتجنب الملل
+• اشرب الماء كل 10-15 دقيقة في الطقس الحار
+
+═══════════════════════════════════════════════════════════════
 
 الأسبوع الثالث: زيادة التكرار والشدة
-• الهدف: 35 دقيقة مشي، 5 أيام في الأسبوع.
-• الشدة: ابدأ بزيادة سرعتك قليلًا (مشي سريع).
+الهدف: 35 دقيقة مشي، 5 أيام في الأسبوع
+الشدة: ابدأ بزيادة سرعتك قليلاً (مشي سريع)
+التركيز: تحسين اللياقة القلبية الوعائية
 
-الأسبوع الرابع: نحو الهدف
-• الهدف: 45 دقيقة مشي، 5 أيام في الأسبوع.
-• الشدة: مشي سريع. استهدف الوصول إلى 7,000-10,000 خطوة.
+برنامج اليوم:
+- إحماء: 5 دقائق مشي بطيء
+- المشي الأساسي: 35 دقيقة (25 دقيقة مشي مريح + 10 دقائق مشي سريع)
+- تهدئة: 5 دقائق مشي بطيء + تمدد
 
-© 2025 دليل الصحة واللياقة. استمر، فأنت على الطريق الصحيح!
+نصائح الأسبوع الثالث:
+• جرب المشي على مرتفعات خفيفة إذا أمكن
+• يجب أن تشعر بزيادة طفيفة في ضربات القلب
+• لا تزيد السرعة إذا لم تعد قادرًا على التحدث
+
+═══════════════════════════════════════════════════════════════
+
+الأسبوع الرابع: الوصول للهدف المطلوب
+الهدف: 45 دقيقة مشي، 5 أيام في الأسبوع
+الشدة: مشي سريع مع زيادة معدل ضربات القلب وتعرق خفيف
+التركيز: تحقيق توصيات منظمة الصحة العالمية
+
+برنامج اليوم:
+- إحماء: 5 دقائق مشي بطيء
+- المشي الأساسي: 45 دقيقة مشي سريع متنوع
+- تهدئة: 5 دقائق مشي بطيء + تمدد شامل
+
+الهدف النهائي:
+• الوصول إلى 7,000-10,000 خطوة في أيام المشي
+• القدرة على المشي 45 دقيقة دون توقف
+• الشعور بالنشاط والحيوية بعد المشي
+
+═══════════════════════════════════════════════════════════════
+
+نصائح للاستمرار بعد الشهر الأول:
+• حافظ على الانتظام - الاستمرارية أهم من الكمال
+• نوع في مساراتك ومواقيتك لتجنب الملل
+• اجعل المشي نشاطًا اجتماعيًا مع الأصدقاء أو العائلة
+• استخدم تطبيقات الهاتف لتتبع تقدمك
+• كافئ نفسك عند تحقيق الأهداف الأسبوعية
+
+علامات التحذير - توقف واستشر طبيبك إذا شعرت بـ:
+• ألم في الصدر أو صعوبة في التنفس
+• دوخة أو غثيان شديد
+• ألم مستمر في المفاصل أو العضلات
+• تعب مفرط لا يزول بالراحة
+
+═══════════════════════════════════════════════════════════════
+
+© 2025 دليل الصحة واللياقة
+استمر في رحلتك الصحية - كل خطوة تقربك من هدفك!
+
+للمزيد من النصائح والبرامج، تابعنا على موقعنا الإلكتروني.
             `;
 
-            // Diet Plan PDF Content (Simple text for reliable download)
-            const dietPdfContent = `
-الخطة الغذائية الصحية
+            // Diet Plan Content
+            const dietPlanContent = `
+الخطة الغذائية الصحية المتوازنة - دليل شامل للتغذية السليمة
 
-مبادئ أساسية لنجاحك:
-• شرب الماء: استهدف شرب 8-10 أكواب من الماء يوميًا.
-• التحكم بالكميات: استخدم أطباقًا أصغر حجمًا.
-• الطهي الصحي: اعتمد على الشوي، السلق، أو الطهي بالبخار بدلًا من القلي.
+═══════════════════════════════════════════════════════════════
 
-نموذج مقترح ليوم واحد (حوالي 1500 سعرة حرارية)
+مقدمة مهمة:
+هذه الخطة مصممة لتكون دليلاً عامًا للتغذية الصحية المتوازنة.
+يُنصح بشدة باستشارة أخصائي تغذية لخطة مخصصة حسب احتياجاتك الفردية.
 
-وجبة الإفطار (اختر واحدًا):
-• كوب زبادي يوناني + ملعقة عسل + حفنة توت.
-• 2 بيضة مسلوقة + شريحة خبز أسمر + نصف أفوكادو.
+═══════════════════════════════════════════════════════════════
 
-وجبة خفيفة (اختر واحدًا):
-• تفاحة + 10 حبات لوز.
-• خيار وجزر مقطع.
+المبادئ الأساسية للنجاح:
 
-وجبة الغداء (اختر واحدًا):
-• صدر دجاج مشوي (150 جم) + طبق سلطة كبير + 4 ملاعق كينوا.
-• سمك سلمون مشوي (150 جم) + خضار سوتيه.
+1. شرب الماء:
+   • استهدف 8-10 أكواب من الماء يوميًا (2-2.5 لتر)
+   • اشرب كوبًا من الماء عند الاستيقاظ
+   • اشرب الماء قبل الوجبات بـ 30 دقيقة
 
-وجبة العشاء (اختر واحدًا):
-• علبة تونة بالماء + سلطة خضراء.
-• كوب جبن قريش + شرائح طماطم وخيار.
+2. التحكم في الكميات:
+   • استخدم أطباقًا أصغر حجمًا (قطر 23 سم بدلاً من 28 سم)
+   • املأ نصف الطبق بالخضروات
+   • ربع الطبق للبروتين، وربع للكربوهيدرات المعقدة
 
-© 2025 دليل الصحة واللياقة. صحتك تستحق الاهتمام!
+3. طرق الطهي الصحية:
+   • اعتمد على الشوي، السلق، أو الطهي بالبخار
+   • تجنب القلي العميق والأطعمة المقلية
+   • استخدم زيت الزيتون أو زيت جوز الهند بكميات معتدلة
+
+4. توقيت الوجبات:
+   • تناول 3 وجبات رئيسية و2 وجبة خفيفة
+   • لا تتخطى وجبة الإفطار أبدًا
+   • تناول العشاء قبل النوم بـ 3 ساعات على الأقل
+
+═══════════════════════════════════════════════════════════════
+
+نموذج يوم غذائي متكامل (حوالي 1500-1800 سعرة حرارية):
+
+وجبة الإفطار (7:00-8:00 صباحًا) - اختر واحدًا:
+
+الخيار الأول - الإفطار البروتيني:
+• 2 بيضة مسلوقة أو مقلية بقليل من زيت الزيتون
+• شريحة خبز أسمر أو شوفان
+• نصف حبة أفوكادو أو ملعقة كبيرة من زبدة اللوز
+• كوب شاي أخضر أو قهوة بدون سكر
+
+الخيار الثاني - الإفطار بالألبان:
+• كوب زبادي يوناني طبيعي (200 جم)
+• ملعقة كبيرة عسل طبيعي
+• حفنة من التوت الأزرق أو الفراولة
+• ملعقتان كبيرتان من الشوفان أو المكسرات المخلطة
+
+الخيار الثالث - إفطار الشوفان:
+• نصف كوب شوفان مطبوخ بالماء أو الحليب قليل الدسم
+• موزة مقطعة شرائح
+• ملعقة صغيرة من بذور الشيا أو الكتان
+• رشة قرفة وملعقة صغيرة عسل
+
+═══════════════════════════════════════════════════════════════
+
+الوجبة الخفيفة الأولى (10:00-11:00 صباحًا) - اختر واحدًا:
+
+• تفاحة متوسطة + 10 حبات لوز نيء
+• كوب صغير من الزبادي الطبيعي
+• خيار وجزر مقطع مع ملعقتين من الحمص
+• حفنة صغيرة من المكسرات المشكلة (30 جم)
+• كوب شاي أخضر + 3 حبات تمر
+
+═══════════════════════════════════════════════════════════════
+
+وجبة الغداء (12:30-1:30 ظهرًا) - اختر واحدًا:
+
+الخيار الأول - غداء البروتين الحيواني:
+• صدر دجاج مشوي أو مسلوق (150 جم)
+• طبق سلطة خضراء كبير مع زيت الزيتون والليمون
+• 4 ملاعق كبيرة من الأرز البني أو الكينوا المطبوخة
+• كوب من الخضروات المطبوخة بالبخار
+
+الخيار الثاني - غداء السمك:
+• قطعة سمك سلمون أو تونا مشوية (150 جم)
+• خضروات سوتيه متنوعة (بروكلي، كوسا، فلفل ملون)
+• حبة بطاطس حلوة مشوية متوسطة الحجم
+• سلطة خضراء بسيطة
+
+الخيار الثالث - غداء نباتي:
+• كوب من العدس أو الفاصولياء المطبوخة
+• سلطة مشكلة مع الخضروات الورقية والطماطم والخيار
+• ملعقتان كبيرتان من الحمص
+• ربع رغيف خبز أسمر
+
+═══════════════════════════════════════════════════════════════
+
+الوجبة الخفيفة الثانية (4:00-5:00 مساءً) - اختر واحدًا:
+
+• كوب من الشاي الأخضر + قطعة صغيرة من الشوكولاتة الداكنة
+• عصير طبيعي من الخضروات (جزر، خيار، سبانخ)
+• ملعقتان كبيرتان من المكسرات النيئة
+• كوب من الحليب قليل الدسم
+• حبة فاكهة موسمية (برتقال، كيوي، إجاص)
+
+═══════════════════════════════════════════════════════════════
+
+وجبة العشاء (7:00-8:00 مساءً) - اختر واحدًا:
+
+الخيار الأول - عشاء خفيف:
+• علبة تونة بالماء (مصفاة من الزيت)
+• سلطة خضراء كبيرة مع الطماطم والخيار والجرجير
+• ملعقة كبيرة من زيت الزيتون وعصير الليمون
+• شريحة خبز أسمر (اختيارية)
+
+الخيار الثاني - عشاء الألبان:
+• كوب من الجبن القريش أو اللبنة قليلة الدسم
+• شرائح طماطم وخيار طازجة
+• رشة من الأعشاب الطازجة (نعناع، بقدونس)
+• حبة فاكهة صغيرة
+
+الخيار الثالث - شوربة مغذية:
+• كوب كبير من شوربة الخضار الغنية بالألياف
+• قطعة صغيرة من الدجاج المسلوق (اختيارية)
+• سلطة خضراء بسيطة
+• ملعقة كبيرة من بذور عباد الشمس
+
+═══════════════════════════════════════════════════════════════
+
+الأطعمة التي يُنصح بتناولها بكثرة:
+
+الخضروات الورقية:
+• سبانخ، جرجير، خس، ملوخية، بقدونس، كزبرة
+
+الخضروات الملونة:
+• بروكلي، فلفل ملون، جزر، طماطم، خيار، كوسا
+
+البروتينات الصحية:
+• الأسماك، الدجاج منزوع الجلد، البيض، البقوليات، المكسرات
+
+الكربوهيدرات المعقدة:
+• الشوفان، الأرز البني، الكينوا، البطاطس الحلوة، الخبز الأسمر
+
+الدهون الصحية:
+• زيت الزيتون، الأفوكادو، المكسرات، بذور الشيا والكتان
+
+═══════════════════════════════════════════════════════════════
+
+الأطعمة التي يُنصح بتجنبها أو تقليلها:
+
+• السكريات المضافة والحلويات المصنعة
+• المشروبات الغازية وعصائر الفاكهة المحلاة
+• الأطعمة المقلية والوجبات السريعة
+• اللحوم المصنعة (النقانق، اللانشون)
+• الخبز الأبيض والأرز الأبيض
+• الأطعمة عالية الصوديوم (المخللات، الأطعمة المعلبة)
+
+═══════════════════════════════════════════════════════════════
+
+نصائح مهمة للنجاح:
+
+1. التخطيط المسبق:
+   • خطط لوجباتك أسبوعيًا
+   • اشترِ المكونات الصحية مسبقًا
+   • حضر وجبات خفيفة صحية في المنزل
+
+2. الأكل الواعي:
+   • تناول الطعام ببطء ومضغ جيد
+   • تجنب الأكل أمام التلفزيون أو الهاتف
+   • استمع لإشارات الجوع والشبع من جسدك
+
+3. المرونة والتوازن:
+   • لا تحرم نفسك تمامًا من الأطعمة المفضلة
+   • اتبع قاعدة 80/20 (80% طعام صحي، 20% متعة)
+   • لا تشعر بالذنب إذا انحرفت يومًا واحدًا
+
+4. النشاط البدني:
+   • ادمج هذه الخطة مع برنامج المشي
+   • اشرب الماء قبل وبعد التمرين
+   • تناول وجبة خفيفة بروتينية بعد التمرين
+
+═══════════════════════════════════════════════════════════════
+
+تحذيرات مهمة:
+
+• استشر طبيبك قبل البدء إذا كان لديك أي حالة صحية
+• هذه الخطة عامة وقد تحتاج تعديل حسب احتياجاتك
+• لا تتبع حميات قاسية أو تجويع نفسك
+• إذا شعرت بأي أعراض غير طبيعية، توقف واستشر طبيبك
+
+═══════════════════════════════════════════════════════════════
+
+© 2025 دليل الصحة واللياقة
+صحتك تستحق الاستثمار - ابدأ اليوم لمستقبل أفضل!
+
+تذكر: التغيير التدريجي المستدام أفضل من التغيير السريع المؤقت.
             `;
 
+            // Download Event Listeners
             document.getElementById('downloadSportPDF').addEventListener('click', function() {
-                createTextPdf(sportPdfContent, 'خطة-المشي-الشهرية.pdf');
+                downloadTextFile(sportPlanContent, 'خطة-المشي-الشهرية.txt');
+                
+                // Show success message
+                this.innerHTML = '<i class="fas fa-check"></i> تم التحميل بنجاح!';
+                this.style.background = 'var(--success-color)';
+                
+                setTimeout(() => {
+                    this.innerHTML = '<i class="fas fa-file-pdf"></i> تحميل الخطة الرياضية';
+                    this.style.background = '';
+                }, 3000);
             });
 
             document.getElementById('downloadDietPDF').addEventListener('click', function() {
-                createTextPdf(dietPdfContent, 'خطة-الرجيم-الصحية.pdf');
+                downloadTextFile(dietPlanContent, 'خطة-الرجيم-الصحية.txt');
+                
+                // Show success message
+                this.innerHTML = '<i class="fas fa-check"></i> تم التحميل بنجاح!';
+                this.style.background = 'var(--success-color)';
+                
+                setTimeout(() => {
+                    this.innerHTML = '<i class="fas fa-file-pdf"></i> تحميل الخطة الغذائية';
+                    this.style.background = '';
+                }, 3000);
             });
         });
     </script>
