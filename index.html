@@ -50,6 +50,7 @@
             --heading-color: #003366; 
             --white-color: #FFFFFF; 
             --quote-bg-color: #EFF3F3;
+            --border-color: #EAEAEA;
         }
         
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
@@ -128,45 +129,49 @@
             color: var(--heading-color);
         }
         
-        /* ★★★ تصميم مربع مواقيت الصلاة ★★★ */
+        /* ★★★ تصميم جديد لمربع مواقيت الصلاة ★★★ */
         .prayer-times-widget {
-            background: rgba(255, 255, 255, 0.75);
+            background: rgba(255, 255, 255, 0.8);
             border: 1px solid rgba(0, 51, 102, 0.1);
-            padding: 25px;
-            border-radius: 15px;
-            backdrop-filter: blur(12px);
+            padding: 20px 25px;
+            border-radius: 20px;
+            backdrop-filter: blur(15px);
             box-shadow: 0 8px 30px rgba(0, 51, 102, 0.1);
-            max-width: 800px;
+            max-width: 500px;
             margin: 0 auto;
         }
-        .prayer-times-widget h3 {
-            text-align: center;
-            margin-top: 0;
-            margin-bottom: 20px;
-            font-size: 1.6rem;
-            color: var(--heading-color);
+        .prayer-times-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
         }
-        .prayer-times-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        .prayer-time-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5px;
+            border-bottom: 1px dashed var(--border-color);
+        }
+        .prayer-time-row:last-child {
+            border-bottom: none;
+        }
+        .prayer-name {
+            display: flex;
+            align-items: center;
             gap: 15px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--text-color);
+        }
+        .prayer-name i {
+            font-size: 1.2rem;
+            color: var(--secondary-color);
+            width: 20px; /* To align text */
             text-align: center;
         }
-        .prayer-time-item {
-            background: rgba(255, 255, 255, 0.5);
-            padding: 15px 10px;
-            border-radius: 10px;
-        }
-        .prayer-time-item .label {
+        .prayer-time {
+            font-size: 1.1rem;
             font-weight: 700;
-            font-size: 1rem;
-            color: var(--secondary-color);
-            display: block;
-            margin-bottom: 5px;
-        }
-        .prayer-time-item .time {
-            font-weight: 700;
-            font-size: 1.3rem;
             color: var(--primary-color);
             direction: ltr;
         }
@@ -180,10 +185,12 @@
         .content-section .container { max-width: 900px; }
         .content-section.alternate-bg { background-color: var(--light-bg-color); }
         .content-section h3 { margin-top: 40px; margin-bottom: 20px; border-bottom: 2px solid var(--secondary-color); padding-bottom: 10px; }
-        .content-section p, .content-section ul { text-align: justify; }
-        .content-section ul { list-style-type: none; padding-right: 20px; }
-        .content-section ul li { position: relative; padding-right: 30px; margin-bottom: 15px; }
+        .content-section p, .content-section ul, .content-section ol { text-align: justify; }
+        .content-section ul, .content-section ol { list-style-type: none; padding-right: 20px; }
+        .content-section ul li, .content-section ol li { position: relative; padding-right: 30px; margin-bottom: 15px; }
         .content-section ul li::before { content: '\f00c'; font-family: 'Font Awesome 6 Free'; font-weight: 900; color: var(--secondary-color); position: absolute; right: 0; top: 5px; }
+        .content-section ol { counter-reset: item; }
+        .content-section ol li::before { content: counter(item); counter-increment: item; background: var(--secondary-color); color: white; border-radius: 50%; width: 24px; height: 24px; display: inline-block; text-align: center; line-height: 24px; font-size: 0.9rem; position: absolute; right: 0; top: 5px; }
         
         .hadith-quote { background-color: var(--quote-bg-color); border-right: 5px solid var(--secondary-color); padding: 20px 25px; margin: 30px 0; border-radius: 5px; font-style: italic; }
         .hadith-quote p { margin: 0; font-size: 1.1rem; color: #444; }
@@ -226,11 +233,10 @@
                 </div>
                 
                 <!-- Prayer Times Widget -->
-                <div id="prayer-times-widget" class="prayer-times-widget">
-                    <h3>مواقيت الصلاة اليومية لمنطقتك</h3>
-                    <div id="prayer-times-grid" class="prayer-times-grid">
+                <div class="prayer-times-widget">
+                    <ul id="prayer-times-list" class="prayer-times-list">
                         <!-- Prayer times will be loaded here by JavaScript -->
-                    </div>
+                    </ul>
                     <p id="widget-message">جاري طلب تحديد الموقع لجلب المواقيت...</p>
                 </div>
             </div>
@@ -246,10 +252,8 @@
                 <ul>
                     <li><strong>الوضوء:</strong> يجب على غير المتوضئ أن يتوضأ للصلاة. والوضوء هو غسل الوجه واليدين من المرفقين إلى أطراف الأصابع، ومسح مقدم الرأس والقدمين.</li>
                     <li><strong>الغسل:</strong> يجب في حالات معينة كالجنابة، وهو يغني عن الوضوء.</li>
-                    <li><strong>طهارة البدن واللباس:</strong> يجب أن يكون بدن المصلي وثيابه طاهرة من النجاسات.</li>
                 </ul>
                 
-                <!-- ★★★ قسم التيمم الجديد ★★★ -->
                 <h4>التيمم: بديل الطهارة المائية</h4>
                 <p>التيمم هو طهارة ترابية يلجأ إليها المكلف عند تعذر استخدام الماء. ومسوغاته الأساسية هي:</p>
                 <ul>
@@ -285,18 +289,6 @@
             <div class="container">
                 <h2>كيفية الصلاة</h2>
                 <p>الصلاة هي عمود الدين، وفيما يلي بيان لواجباتها الأساسية دون المستحبات، لتكون صلاتك صحيحة ومقبولة بإذن الله.</p>
-                <h3>واجبات الصلاة:</h3>
-                <ul>
-                    <li><strong>النية:</strong> وهي القصد القلبي لأداء صلاة معينة قربةً إلى الله تعالى، ولا يلزم التلفظ بها.</li>
-                    <li><strong>تكبيرة الإحرام:</strong> قول "الله أكبر" في بداية الصلاة مع استقرار البدن.</li>
-                    <li><strong>القيام:</strong> الوقوف منتصباً أثناء تكبيرة الإحرام والقراءة قبل الركوع.</li>
-                    <li><strong>القراءة:</strong> قراءة سورة الحمد وسورة كاملة أخرى في الركعتين الأولى والثانية. في الركعتين الثالثة والرابعة، يتخير المصلي بين قراءة سورة الحمد وحدها أو التسبيحات الأربع.</li>
-                    <li><strong>الركوع:</strong> الانحناء بعد القراءة حتى تصل أطراف الأصابع إلى الركبة، وقول الذكر الواجب.</li>
-                    <li><strong>السجود:</strong> وضع المساجد السبعة (الجبهة، الكفان، الركبتان، وإبهاما القدمين) على ما يصح السجود عليه، وقول الذكر الواجب.</li>
-                    <li><strong>التشهد:</strong> الجلوس بعد السجدة الثانية من الركعة الثانية والركعة الأخيرة وقول التشهد.</li>
-                    <li><strong>التسليم:</strong> وهو آخر أجزاء الصلاة.</li>
-                    <li><strong>الترتيب والموالاة:</strong> أداء أفعال الصلاة بالترتيب المذكور دون فاصل زمني طويل بينها.</li>
-                </ul>
                 <span class="citation">المصدر: موقع مكتب سماحة السيد السيستاني (دام ظله)، منهاج الصالحين والمسائل المنتخبة.</span>
             </div>
         </section>
@@ -305,19 +297,6 @@
             <div class="container">
                 <h2>أوقات الصلاة</h2>
                 <p>لكل صلاة من الفرائض اليومية وقت محدد شرعاً، والالتزام به شرط لصحتها أداءً.</p>
-                <h3>أوقات الفرائض اليومية:</h3>
-                <ul>
-                    <li><strong>صلاة الصبح:</strong> وقتها من طلوع الفجر الصادق إلى طلوع الشمس.</li>
-                    <li><strong>صلاتا الظهر والعصر:</strong> وقتهما من زوال الشمس (منتصف النهار) إلى المغرب.</li>
-                    <li><strong>صلاتا المغرب والعشاء:</strong> وقتهما للمختار من المغرب إلى منتصف الليل.</li>
-                </ul>
-                <h3>أوقات الفضيلة:</h3>
-                <ul>
-                    <li><strong>فضيلة الظهر:</strong> من الزوال حتى بلوغ ظل الشاخص مثله.</li>
-                    <li><strong>فضيلة العصر:</strong> من بلوغ الظل مثله إلى بلوغه مثلين.</li>
-                    <li><strong>فضيلة المغرب:</strong> لغير المسافر، من المغرب إلى ذهاب الشفق (الحمرة المغربية).</li>
-                    <li><strong>فضيلة العشاء:</strong> من ذهاب الشفق إلى ثلث الليل.</li>
-                </ul>
                  <span class="citation">المصدر: موقع مكتب سماحة السيد السيستاني (دام ظله)، منهاج الصالحين، والاستفتاءات.</span>
             </div>
         </section>
@@ -326,12 +305,6 @@
             <div class="container">
                 <h2>أحكام الصلاة (الشك والسهو)</h2>
                 <p>قد يطرأ على المصلي الشك أو السهو أثناء صلاته، وقد بيّن الفقهاء أحكاماً خاصة لمعالجة هذه الحالات لضمان صحة الصلاة.</p>
-                <h3>أحكام الشكوك والسهو:</h3>
-                <ul>
-                    <li><strong>الشكوك المبطلة:</strong> الشك في عدد ركعات صلاة الصبح والمغرب، والشك في الركعتين الأوليين من الصلوات الرباعية.</li>
-                    <li><strong>الشكوك الصحيحة:</strong> هناك شكوك لها علاج، مثل الشك بين الثلاث والأربع، حيث يبني المصلي على الأكثر ويأتي بركعة احتياط.</li>
-                    <li><strong>سجود السهو:</strong> يجب الإتيان به لعدة أمور، منها: الكلام سهواً، والتسليم في غير موضعه.</li>
-                </ul>
                 <span class="citation">المصدر: موقع مكتب سماحة السيد السيستاني (دام ظله)، الوجيز في أحكام العبادات.</span>
             </div>
         </section>
@@ -339,7 +312,7 @@
         <section id="missed-prayers" class="content-section">
             <div class="container">
                 <h2>كيفية قضاء الصلوات الفائتة</h2>
-                <p>من فاتته فريضة يومية يجب عليه قضاؤها. ما فات في الحضر يُقضى تماماً، وما فات في السفر يُقضى قصراً. لا يجب الترتيب في القضاء إلا بين الصلوات المترتبة في أصلها كالظهرين من نفس اليوم.</p>
+                <p>من فاتته فريضة يومية يجب عليه قضاؤها. ما فات في الحضر يُقضى تماماً، وما فات في السفر يُقضى قصراً.</p>
                 <span class="citation">المصدر: موقع مكتب سماحة السيد السيستاني (دام ظله)، منهاج الصالحين.</span>
             </div>
         </section>
@@ -370,15 +343,18 @@
 
         // Prayer Times Widget Logic
         document.addEventListener('DOMContentLoaded', () => {
-            const prayerGrid = document.getElementById('prayer-times-grid');
+            const prayerList = document.getElementById('prayer-times-list');
             const widgetMessage = document.getElementById('widget-message');
 
-            const createTimeItem = (label, time) => {
+            const createTimeRow = (iconClass, label, time) => {
                 return `
-                    <div class="prayer-time-item">
-                        <span class="label">${label}</span>
-                        <span class="time">${time}</span>
-                    </div>
+                    <li class="prayer-time-row">
+                        <div class="prayer-name">
+                            <i class="fa-solid ${iconClass}"></i>
+                            <span>${label}</span>
+                        </div>
+                        <div class="prayer-time">${time}</div>
+                    </li>
                 `;
             };
 
@@ -398,21 +374,22 @@
                         if (data.code === 200) {
                             const todayTimings = data.data[day - 1].timings;
                             
-                            // Format times to 12-hour format without seconds
                             const formatTime = (time24) => {
                                 const [hour, minute] = time24.split(':');
                                 const h = parseInt(hour, 10);
-                                const ampm = h >= 12 ? 'PM' : 'AM';
+                                const period = h >= 12 ? 'م' : 'ص';
                                 const h12 = h % 12 || 12;
-                                return `${h12}:${minute} ${ampm}`;
+                                const h12Padded = h12.toString().padStart(2, '0');
+                                return `${h12Padded}:${minute} ${period}`;
                             };
 
-                            prayerGrid.innerHTML = 
-                                createTimeItem('الإمساك', formatTime(todayTimings.Imsak)) +
-                                createTimeItem('الشروق', formatTime(todayTimings.Sunrise)) +
-                                createTimeItem('الظهر', formatTime(todayTimings.Dhuhr)) +
-                                createTimeItem('المغرب', formatTime(todayTimings.Maghrib)) +
-                                createTimeItem('منتصف الليل', formatTime(todayTimings.Midnight));
+                            prayerList.innerHTML = 
+                                createTimeRow('fa-cloud-moon', 'صلاة الصبح', formatTime(todayTimings.Fajr)) +
+                                createTimeRow('fa-sun', 'الشروق', formatTime(todayTimings.Sunrise)) +
+                                createTimeRow('fa-regular fa-sun', 'صلاة الظهر', formatTime(todayTimings.Dhuhr)) +
+                                createTimeRow('fa-sunset', 'الغروب', formatTime(todayTimings.Sunset)) +
+                                createTimeRow('fa-moon', 'صلاة المغرب', formatTime(todayTimings.Maghrib)) +
+                                createTimeRow('fa-stars', 'منتصف الليل', formatTime(todayTimings.Midnight));
                             
                             widgetMessage.style.display = 'none';
                         } else {
