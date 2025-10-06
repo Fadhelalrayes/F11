@@ -272,11 +272,14 @@
             border-collapse: collapse;
             margin: 30px 0;
             font-size: 1rem;
+            overflow-x: auto;
+            display: block;
         }
         .fiqh-table th, .fiqh-table td {
             border: 1px solid #ddd;
             padding: 12px;
             text-align: center;
+            white-space: nowrap;
         }
         .fiqh-table th {
             background-color: var(--secondary-color);
@@ -613,20 +616,30 @@
                             const hijriDateStr = `${hijriDate.day} ${hijriDate.month.ar} ${hijriDate.year} هـ`;
                             dateDisplay.innerHTML = `${gregorianDateStr}<br>${hijriDateStr}`;
 
+                            // *** FAJR TIME CORRECTION (+15 minutes) ***
+                            // The API's Fajr time (based on 16 degrees) can be early.
+                            // We add 15 minutes as a precaution to ensure Fajr Sadiq has occurred.
+                            const fajrTime = parseTimeToDate(timings.Fajr.split(' ')[0]);
+                            fajrTime.setMinutes(fajrTime.getMinutes() + 15);
+
+                            // Maghrib time correction (+14 minutes after sunset)
                             const sunsetTime = parseTimeToDate(timings.Sunset.split(' ')[0]);
                             sunsetTime.setMinutes(sunsetTime.getMinutes() + 14);
-                            const maghribHour = sunsetTime.getHours();
-                            const maghribMinute = sunsetTime.getMinutes();
-                            const ampm = maghribHour >= 12 ? 'م' : 'ص';
-                            const formattedMaghribHour = ((maghribHour + 11) % 12 + 1);
-                            const correctedMaghrib = `${formattedMaghribHour.toString().padStart(2, '0')}:${maghribMinute.toString().padStart(2, '0')} ${ampm}`;
+                            
+                            const formatToAmPm = (dateObj) => {
+                                const hour = dateObj.getHours();
+                                const minute = dateObj.getMinutes();
+                                const ampm = hour >= 12 ? 'م' : 'ص';
+                                const formattedHour = ((hour + 11) % 12 + 1);
+                                return `${formattedHour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')} ${ampm}`;
+                            };
 
                             const prayerTimesMap = [
-                                { name: 'الفجر', time: timings.Fajr.split(' ')[0] },
+                                { name: 'الفجر', time: formatToAmPm(fajrTime) },
                                 { name: 'الشروق', time: timings.Sunrise.split(' ')[0] },
                                 { name: 'الظهر', time: timings.Dhuhr.split(' ')[0] },
                                 { name: 'الغروب', time: timings.Sunset.split(' ')[0] },
-                                { name: 'المغرب', time: correctedMaghrib },
+                                { name: 'المغرب', time: formatToAmPm(sunsetTime) },
                                 { name: 'منتصف الليل', time: timings.Midnight.split(' ')[0] }
                             ];
 
@@ -634,7 +647,7 @@
                             const prayerTimesForCountdown = [];
 
                             prayerTimesMap.forEach(p => {
-                                const [hour, minute] = p.time.split(':');
+                                const [hour, minute] = p.time.split(/:| /);
                                 const d = new Date();
                                 d.setHours(parseInt(hour), parseInt(minute), 0, 0);
                                 
@@ -645,7 +658,7 @@
                                 prayerList.innerHTML += createTimeRow(p.name, formattedTime);
                                 
                                 if (p.name !== 'الشروق' && p.name !== 'الغروب' && p.name !== 'منتصف الليل') {
-                                     prayerTimesForCountdown.push({ name: p.name, time: parseTimeToDate(formattedTime) });
+                                     prayerTimesForCountdown.push({ name: p.name, time: parseTimeToDate(p.time) });
                                 }
                             });
                             
