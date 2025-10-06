@@ -602,7 +602,12 @@
                 const year = date.getFullYear();
                 const month = date.getMonth() + 1;
                 const day = date.getDate();
-                const url = `https://api.aladhan.com/v1/calendar/${year}/${month}?latitude=${latitude}&longitude=${longitude}&method=2`;
+                
+                // *** FINAL TIME CORRECTION USING API 'TUNE' PARAMETER ***
+                // This is the most reliable method.
+                // tune=0,15,0,0,0,14,0,0,0 -> Fajr +15min, Maghrib +14min after Sunset
+                const adjustments = '0,15,0,0,0,14,0,0,0';
+                const url = `https://api.aladhan.com/v1/calendar/${year}/${month}?latitude=${latitude}&longitude=${longitude}&method=2&tune=${adjustments}`;
 
                 fetch(url)
                     .then(response => response.json())
@@ -616,30 +621,12 @@
                             const hijriDateStr = `${hijriDate.day} ${hijriDate.month.ar} ${hijriDate.year} هـ`;
                             dateDisplay.innerHTML = `${gregorianDateStr}<br>${hijriDateStr}`;
 
-                            // *** FAJR TIME CORRECTION (+15 minutes) ***
-                            // The API's Fajr time (based on 16 degrees) can be early.
-                            // We add 15 minutes as a precaution to ensure Fajr Sadiq has occurred.
-                            const fajrTime = parseTimeToDate(timings.Fajr.split(' ')[0]);
-                            fajrTime.setMinutes(fajrTime.getMinutes() + 15);
-
-                            // Maghrib time correction (+14 minutes after sunset)
-                            const sunsetTime = parseTimeToDate(timings.Sunset.split(' ')[0]);
-                            sunsetTime.setMinutes(sunsetTime.getMinutes() + 14);
-                            
-                            const formatToAmPm = (dateObj) => {
-                                const hour = dateObj.getHours();
-                                const minute = dateObj.getMinutes();
-                                const ampm = hour >= 12 ? 'م' : 'ص';
-                                const formattedHour = ((hour + 11) % 12 + 1);
-                                return `${formattedHour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')} ${ampm}`;
-                            };
-
                             const prayerTimesMap = [
-                                { name: 'الفجر', time: formatToAmPm(fajrTime) },
+                                { name: 'الفجر', time: timings.Fajr.split(' ')[0] },
                                 { name: 'الشروق', time: timings.Sunrise.split(' ')[0] },
                                 { name: 'الظهر', time: timings.Dhuhr.split(' ')[0] },
                                 { name: 'الغروب', time: timings.Sunset.split(' ')[0] },
-                                { name: 'المغرب', time: formatToAmPm(sunsetTime) },
+                                { name: 'المغرب', time: timings.Maghrib.split(' ')[0] },
                                 { name: 'منتصف الليل', time: timings.Midnight.split(' ')[0] }
                             ];
 
@@ -647,7 +634,7 @@
                             const prayerTimesForCountdown = [];
 
                             prayerTimesMap.forEach(p => {
-                                const [hour, minute] = p.time.split(/:| /);
+                                const [hour, minute] = p.time.split(':');
                                 const d = new Date();
                                 d.setHours(parseInt(hour), parseInt(minute), 0, 0);
                                 
@@ -658,7 +645,7 @@
                                 prayerList.innerHTML += createTimeRow(p.name, formattedTime);
                                 
                                 if (p.name !== 'الشروق' && p.name !== 'الغروب' && p.name !== 'منتصف الليل') {
-                                     prayerTimesForCountdown.push({ name: p.name, time: parseTimeToDate(p.time) });
+                                     prayerTimesForCountdown.push({ name: p.name, time: parseTimeToDate(formattedTime) });
                                 }
                             });
                             
