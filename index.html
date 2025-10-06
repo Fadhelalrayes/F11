@@ -12,7 +12,9 @@
     <link rel="canonical" href="https://your-domain.com/salah-guide.html">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
     <meta name="theme-color" content="#003366">
+    
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' https: data:; connect-src 'self' https://api.aladhan.com; frame-ancestors 'none'; form-action 'none'; base-uri 'self';">
+    
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta http-equiv="X-Frame-Options" content="DENY">
     <meta name="referrer-policy" content="strict-origin-when-cross-origin">
@@ -51,6 +53,7 @@
             --white-color: #FFFFFF; 
             --quote-bg-color: #F1F5F9;
             --border-color: #EAEAEA;
+            --success-color: #28a745;
         }
         
         html { scroll-behavior: smooth; }
@@ -299,6 +302,39 @@
         .back-to-top { position: fixed; bottom: 25px; left: 25px; background: var(--primary-color); color: var(--white-color); width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; opacity: 0; visibility: hidden; transition: opacity 0.3s, visibility 0.3s, transform 0.3s; transform: translateY(20px); z-index: 1000; }
         .back-to-top.visible { opacity: 0.8; visibility: visible; transform: translateY(0); }
         .back-to-top:hover { opacity: 1; }
+
+        /* Custom Toast Notification Styles */
+        .toast-notification {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translate(-50%, 100px);
+            background-color: var(--white-color);
+            color: var(--text-color);
+            padding: 20px 30px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: transform 0.4s ease, opacity 0.4s ease, visibility 0.4s;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .toast-notification.show {
+            transform: translate(-50%, 0);
+            opacity: 1;
+            visibility: visible;
+        }
+        .toast-notification .icon {
+            font-size: 1.5rem;
+            color: var(--success-color);
+        }
+        .toast-notification .message {
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
     </style>
 </head>
 <body>
@@ -524,6 +560,12 @@
 
     <a href="#" class="back-to-top" aria-label="العودة إلى الأعلى"><i class="fas fa-arrow-up"></i></a>
 
+    <!-- Custom Toast Notification HTML -->
+    <div id="toast-notification" class="toast-notification">
+        <div class="icon"><i class="fas fa-check-circle"></i></div>
+        <div class="message" id="toast-message"></div>
+    </div>
+
     <!-- Prayer Times Library -->
     <script src="https://cdn.jsdelivr.net/npm/prayer-times-js@1.0.1/lib/PrayerTimes.min.js"></script>
 
@@ -538,6 +580,17 @@
             }
         });
 
+        // Custom Toast Notification Function
+        const showToast = (message) => {
+            const toast = document.getElementById('toast-notification');
+            const toastMessage = document.getElementById('toast-message');
+            toastMessage.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 2500); // Hide after 2.5 seconds
+        };
+
         // Share functionality
         const pageUrl = window.location.href;
         const pageTitle = document.title;
@@ -545,9 +598,9 @@
         document.getElementById('share-telegram').href = `https://t.me/share/url?url=${encodeURIComponent(pageUrl)}&text=${encodeURIComponent(pageTitle)}`;
         document.getElementById('copy-link-btn').addEventListener('click', () => {
             navigator.clipboard.writeText(pageUrl).then(() => {
-                alert('تم نسخ الرابط!');
+                showToast('تم نسخ الرابط بنجاح!');
             }, () => {
-                alert('فشل نسخ الرابط.');
+                showToast('فشل نسخ الرابط.');
             });
         });
 
