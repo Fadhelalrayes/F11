@@ -566,8 +566,8 @@
         <div class="message" id="toast-message"></div>
     </div>
 
-    <!-- Prayer Times Library -->
-    <script src="https://cdn.jsdelivr.net/npm/prayer-times-js@1.0.1/lib/PrayerTimes.min.js"></script>
+    <!-- Prayer Times Library (fixed path) -->
+    <script src="https://cdn.jsdelivr.net/npm/praytimes@0.0.5/src/praytimes.min.js"></script>
 
     <script>
         // Back to top button
@@ -659,8 +659,8 @@
 
             const getPrayerTimes = (latitude, longitude) => {
                 const date = new Date();
-                const prayerTimes = new PrayerTimes('Jafari'); // Use Jafari method
-                const times = prayerTimes.getTimes(date, [latitude, longitude]);
+                const prayTimes = new PrayTimes('Jafari'); // (fixed class name)
+                const times = prayTimes.getTimes(date, [latitude, longitude]);
 
                 // Fetch Hijri date from an external API as prayer-times.js doesn't provide it
                 fetch(`https://api.aladhan.com/v1/gToH?date=${date.getDate()}-${date.getMonth()+1}-${date.getFullYear()}`)
