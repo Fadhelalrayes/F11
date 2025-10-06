@@ -69,6 +69,7 @@
         h4 { font-size: clamp(1.2rem, 3vw, 1.4rem); color: var(--secondary-color); }
         section { padding: clamp(60px, 8vw, 90px) 0; }
 
+        /* --- FINAL HEADER FIX V3 (CSS GRID) --- */
         .main-header { 
             background-color: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(10px);
@@ -79,11 +80,10 @@
             z-index: 1000; 
         }
         .main-header .container { 
-            display: flex; 
-            justify-content: space-between; 
+            display: grid;
+            grid-template-columns: auto 1fr; /* Logo takes its space, nav takes the rest */
             align-items: center;
-            flex-wrap: wrap;
-            gap: 15px;
+            gap: 20px;
         }
         .logo { 
             font-size: clamp(1.4rem, 4vw, 1.7rem); 
@@ -96,12 +96,15 @@
             display: flex; 
             align-items: center; 
             gap: clamp(15px, 2.5vw, 25px);
-            flex-grow: 1;
-            justify-content: flex-start;
+            justify-content: flex-start; /* Align links to the start (left in LTR, right in RTL) */
         }
-        @media (max-width: 900px) {
+        @media (max-width: 950px) {
+            .main-header .container {
+                grid-template-columns: 1fr; /* Stack logo and nav */
+                justify-items: center; /* Center both logo and nav */
+                gap: 10px;
+            }
             .main-nav {
-                order: 3;
                 width: 100%;
                 justify-content: center;
                 overflow-x: auto;
@@ -316,9 +319,20 @@
                     <span class="source">عن الإمام الصادق (عليه السلام) - الكافي، ج 3، ص 268.</span>
                 </div>
 
-                <h3>1. الطهارة (الوضوء، الغسل، التيمم)</h3>
+                <h3>1. الطهارة</h3>
                 <p>وهي شرط أساسي، وتشمل الطهارة من الحدث (بالوضوء أو الغسل أو التيمم) والطهارة من الخبث (إزالة النجاسة عن البدن واللباس).</p>
                 
+                <h4>كيفية الوضوء</h4>
+                <p>الوضوء هو طهارة مائية واجبة للصلاة وغيرها من العبادات. وهو يتكون من غسلتين ومسحتين:</p>
+                <ol>
+                    <li><strong>النية:</strong> أن يقصد بقلبه فعل الوضوء قربة إلى الله تعالى.</li>
+                    <li><strong>غسل الوجه:</strong> غسل الوجه من منبت الشعر طولاً إلى طرف الذقن، وما دارت عليه الإبهام والوسطى عرضاً.</li>
+                    <li><strong>غسل اليد اليمنى:</strong> غسل اليد اليمنى من المرفق إلى أطراف الأصابع.</li>
+                    <li><strong>غسل اليد اليسرى:</strong> غسل اليد اليسرى من المرفق إلى أطراف الأصابع.</li>
+                    <li><strong>مسح الرأس:</strong> مسح مقدم الرأس بما بقي من بلل الوضوء في اليد اليمنى.</li>
+                    <li><strong>مسح القدمين:</strong> مسح ظاهر القدم اليمنى بباطن الكف اليمنى، ثم مسح ظاهر القدم اليسرى بباطن الكف اليسرى.</li>
+                </ol>
+
                 <h4>التيمم: بديل الطهارة المائية</h4>
                 <p>التيمم هو طهارة ترابية يلجأ إليها المكلف عند تعذر استخدام الماء. ومسوغاته الأساسية هي: عدم وجدان الماء، عدم إمكانية الوصول إليه، الخوف من ضرر عند استعماله، أو الحرج والمشقة الشديدة.</p>
                 <ol>
