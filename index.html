@@ -6,8 +6,8 @@
 
     <!-- SEO, Security, Social Media Headers -->
     <title>الصلاة وفق المذهب الجعفري | تعلم الصلاة ومواقيتها</title>
-    <meta name="description" content="دليلك الشامل لتعلم الصلاة وأحكامها (الطهارة، الوضوء، التيمم، السهو، المبطلات) مع مواقيت الصلاة اليومية الدقيقة لمنطقتك، وفقاً لفتاوى سماحة السيد السيستاني (دام ظله).">
-    <meta name="keywords" content="مواقيت الصلاة, تعليم الصلاة, كيفية الصلاة, المذهب الجعفري, السيد السيستاني, أحكام الصلاة, التيمم, السهو, الطهارة, الوضوء, قضاء الصلاة, فقه, شيعة, الأذان, الإقامة, مبطلات الصلاة">
+    <meta name="description" content="دليلك الشامل لتعلم الصلاة وأحكامها (الطهارة، الوضوء، التيمم، السهو، المبطلات، المستحبات) مع مواقيت الصلاة اليومية الدقيقة لمنطقتك، وفقاً لفتاوى سماحة السيد السيستاني (دام ظله).">
+    <meta name="keywords" content="مواقيت الصلاة, تعليم الصلاة, كيفية الصلاة, المذهب الجعفري, السيد السيستاني, أحكام الصلاة, التيمم, السهو, الطهارة, الوضوء, قضاء الصلاة, فقه, شيعة, الأذان, الإقامة, مبطلات الصلاة, مستحبات الصلاة, القنوت">
     <meta name="author" content="فاضل الريس">
     <link rel="canonical" href="https://your-domain.com/salah-guide.html">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
@@ -69,7 +69,6 @@
         h4 { font-size: clamp(1.2rem, 3vw, 1.4rem); color: var(--secondary-color); }
         section { padding: clamp(60px, 8vw, 90px) 0; }
 
-        /* --- FINAL HEADER FIX --- */
         .main-header { 
             background-color: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(10px);
@@ -83,33 +82,41 @@
             display: flex; 
             justify-content: space-between; 
             align-items: center;
-            flex-wrap: nowrap; /* Prevents wrapping */
+            flex-wrap: wrap;
+            gap: 15px;
         }
         .logo { 
-            font-size: clamp(1.3rem, 3vw, 1.6rem); 
+            font-size: clamp(1.4rem, 4vw, 1.7rem); 
             font-weight: 800; 
             color: var(--primary-color); 
             text-decoration: none; 
             white-space: nowrap;
-            flex-shrink: 0; /* Prevents logo from shrinking */
         }
         .main-nav { 
             display: flex; 
             align-items: center; 
-            gap: clamp(10px, 2vw, 25px);
-            overflow-x: auto; /* Allows horizontal scroll on small screens */
-            -ms-overflow-style: none;  /* IE and Edge */
-            scrollbar-width: none;  /* Firefox */
+            gap: clamp(15px, 2.5vw, 25px);
+            flex-grow: 1;
+            justify-content: flex-start;
         }
-        .main-nav::-webkit-scrollbar { display: none; } /* Chrome, Safari, Opera */
+        @media (max-width: 900px) {
+            .main-nav {
+                order: 3;
+                width: 100%;
+                justify-content: center;
+                overflow-x: auto;
+                -ms-overflow-style: none;
+                scrollbar-width: none;
+            }
+            .main-nav::-webkit-scrollbar { display: none; }
+        }
         .main-nav a { 
             color: var(--primary-color); 
             text-decoration: none; 
             font-weight: 500; 
             transition: color 0.3s; 
-            font-size: clamp(0.85rem, 1.8vw, 1rem); 
+            font-size: clamp(0.9rem, 2vw, 1rem); 
             white-space: nowrap; 
-            flex-shrink: 0;
         }
         .main-nav a:hover { color: var(--secondary-color); }
         
@@ -209,6 +216,28 @@
         .hadith-quote .source { display: block; text-align: left; font-style: normal; font-weight: 500; margin-top: 15px; color: #64748B; font-size: 0.95rem; position: relative; z-index: 2; }
         
         .main-footer { background-color: var(--primary-color); color: var(--white-color); text-align: center; padding: 40px 20px; }
+        .share-section { margin-bottom: 30px; }
+        .share-section h4 { color: var(--white-color); font-weight: 500; margin-bottom: 15px; }
+        .share-icons { display: flex; justify-content: center; align-items: center; gap: 20px; }
+        .share-icons a, .share-icons button {
+            background-color: rgba(255, 255, 255, 0.15);
+            color: var(--white-color);
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 1.3rem;
+            transition: background-color 0.3s, transform 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        .share-icons a:hover, .share-icons button:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+        }
         .main-footer p { margin: 0; opacity: 0.9; }
         .footer-credit { margin-top: 15px; font-size: 1.1rem; }
         .footer-credit a { color: #a9cce3; text-decoration: none; font-weight: 700; transition: color 0.3s; }
@@ -312,7 +341,8 @@
         <section id="how-to-pray" class="content-section alternate-bg">
             <div class="container">
                 <h2>كيفية الصلاة وأذكارها</h2>
-                <p>فيما يلي بيان لواجبات الصلاة الأساسية مع تفصيل الأذكار الواجبة والمستحبة.</p>
+                <p>فيما يلي بيان لواجبات الصلاة الأساسية مع تفصيل الأذكار والمستحبات لزيادة كمال الصلاة.</p>
+                <h3>واجبات الصلاة:</h3>
                 <ul>
                     <li><strong>النية وتكبيرة الإحرام:</strong> القصد القلبي للصلاة ثم قول "الله أكبر".</li>
                     <li><strong>القراءة:</strong> قراءة سورة الحمد وسورة كاملة أخرى في الركعتين الأولى والثانية.</li>
@@ -334,6 +364,15 @@
                             <strong>صيغة التسليم الواجب:</strong> "السَّلامُ عَلَيْكُمْ وَرَحْمَةُ اللهِ وَبَرَكاتُهُ". ويستحب إضافة "السَّلامُ عَلَيْكَ أَيُّهَا النَّبِيُّ وَرَحْمَةُ اللهِ وَبَرَكاتُهُ، السَّلامُ عَلَيْنا وَعَلى عِبادِ اللهِ الصّالِحينَ" قبله.
                         </div>
                     </li>
+                </ul>
+                
+                <h3>مستحبات الصلاة:</h3>
+                <p>هناك العديد من المستحبات التي تزيد من كمال الصلاة وثوابها، ومن أهمها:</p>
+                <ul>
+                    <li><strong>القنوت:</strong> وهو مستحب مؤكد في الركعة الثانية من كل صلاة بعد القراءة وقبل الركوع. وهو عبارة عن رفع اليدين بالدعاء. من أبسط صيغه قول: "رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ".</li>
+                    <li><strong>التكبيرات الانتقالية:</strong> يستحب قول "الله أكبر" عند الانتقال من ركن إلى آخر، مثل الهوي إلى الركوع أو السجود والرفع منهما.</li>
+                    <li><strong>الاستعاذة قبل القراءة:</strong> قول "أعوذ بالله من الشيطان الرجيم" سراً قبل قراءة سورة الحمد.</li>
+                    <li><strong>التعقيبات:</strong> وهي الأذكار والدعاء بعد الانتهاء من الصلاة، وأشهرها تسبيح الزهراء (عليها السلام): (الله أكبر 34 مرة، الحمد لله 33 مرة، سبحان الله 33 مرة).</li>
                 </ul>
                 <div class="citation-box">المصدر: موقع مكتب سماحة السيد السيستاني (دام ظله)، منهاج الصالحين والمسائل المنتخبة.</div>
             </div>
@@ -396,6 +435,14 @@
 
     <footer class="main-footer">
         <div class="container">
+            <div class="share-section">
+                <h4>شارك الصفحة</h4>
+                <div class="share-icons">
+                    <a href="#" id="share-whatsapp" target="_blank" aria-label="مشاركة عبر واتساب"><i class="fab fa-whatsapp"></i></a>
+                    <a href="#" id="share-telegram" target="_blank" aria-label="مشاركة عبر تليجرام"><i class="fab fa-telegram"></i></a>
+                    <button id="copy-link-btn" aria-label="نسخ الرابط"><i class="fas fa-link"></i></button>
+                </div>
+            </div>
             <p>&copy; 2025 الصلاة وفق المذهب الجعفري.</p>
             <p class="footer-credit">
                 إعداد ومراجعة: 
@@ -415,6 +462,19 @@
             } else {
                 backToTopButton.classList.remove('visible');
             }
+        });
+
+        // Share functionality
+        const pageUrl = window.location.href;
+        const pageTitle = document.title;
+        document.getElementById('share-whatsapp').href = `https://api.whatsapp.com/send?text=${encodeURIComponent(pageTitle + " " + pageUrl)}`;
+        document.getElementById('share-telegram').href = `https://t.me/share/url?url=${encodeURIComponent(pageUrl)}&text=${encodeURIComponent(pageTitle)}`;
+        document.getElementById('copy-link-btn').addEventListener('click', () => {
+            navigator.clipboard.writeText(pageUrl).then(() => {
+                alert('تم نسخ الرابط!');
+            }, () => {
+                alert('فشل نسخ الرابط.');
+            });
         });
 
         // Prayer Times Widget Logic
