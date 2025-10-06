@@ -566,7 +566,7 @@
         <div class="message" id="toast-message"></div>
     </div>
 
-    <!-- Prayer Times Library (fixed path) -->
+    <!-- Prayer Times Library -->
     <script src="https://cdn.jsdelivr.net/npm/praytimes@0.0.5/src/praytimes.min.js"></script>
 
     <script>
@@ -588,7 +588,7 @@
             toast.classList.add('show');
             setTimeout(() => {
                 toast.classList.remove('show');
-            }, 2500); // Hide after 2.5 seconds
+            }, 2500);
         };
 
         // Share functionality
@@ -604,7 +604,7 @@
             });
         });
 
-        // Prayer Times Widget Logic (REBUILT)
+        // Prayer Times Widget Logic
         document.addEventListener('DOMContentLoaded', () => {
             const prayerList = document.getElementById('prayer-times-list');
             const widgetMessage = document.getElementById('widget-message');
@@ -620,7 +620,6 @@
                 const [hour, minute] = timeStr.split(':');
                 const date = new Date();
                 date.setHours(parseInt(hour, 10), parseInt(minute, 10), 0, 0);
-                
                 const ampm = date.getHours() >= 12 ? 'م' : 'ص';
                 const formattedHour = ((date.getHours() + 11) % 12 + 1);
                 return `${formattedHour.toString().padStart(2, '0')}:${minute} ${ampm}`;
@@ -628,7 +627,6 @@
 
             const startCountdown = (prayerTimes) => {
                 if (countdownInterval) clearInterval(countdownInterval);
-
                 countdownInterval = setInterval(() => {
                     const now = new Date();
                     let nextPrayerName = null;
@@ -659,29 +657,32 @@
 
             const getPrayerTimes = (latitude, longitude) => {
                 const date = new Date();
-                const prayTimes = new PrayTimes('Jafari'); // (fixed class name)
+
+                // جعفري + منتصف الليل جعفري + إزاحة المغرب 15 دقيقة (لتطابق 5:34 بعد غروب 5:19)
+                const prayTimes = new PrayTimes('Jafari');
+                prayTimes.adjust({ midnight: 'Jafari', highLats: 'AngleBased' });
+                prayTimes.tune({ maghrib: 15 });
+
                 const times = prayTimes.getTimes(date, [latitude, longitude]);
 
-                // Fetch Hijri date from an external API as prayer-times.js doesn't provide it
+                // التاريخ الهجري
                 fetch(`https://api.aladhan.com/v1/gToH?date=${date.getDate()}-${date.getMonth()+1}-${date.getFullYear()}`)
                     .then(response => response.json())
                     .then(hijriData => {
                         const gregorianDateStr = new Intl.DateTimeFormat('ar-EG-u-nu-latn', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }).format(date);
                         const hijriDateStr = `${hijriData.data.hijri.day} ${hijriData.data.hijri.month.ar} ${hijriData.data.hijri.year} هـ`;
                         dateDisplay.innerHTML = `${gregorianDateStr}<br>${hijriDateStr}`;
-                    }).catch(err => {
-                        // Fallback if Hijri API fails
+                    }).catch(() => {
                         const gregorianDateStr = new Intl.DateTimeFormat('ar-EG-u-nu-latn', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }).format(date);
                         dateDisplay.innerHTML = gregorianDateStr;
                     });
 
-
                 const prayerTimesMap = [
                     { name: 'الفجر', time: formatToAmPm(times.fajr) },
                     { name: 'الشروق', time: formatToAmPm(times.sunrise) },
-                    { name: 'الظهر', time: formatToAmPm(times.dhuhr) },
+                    { name: 'الظهر',  time: formatToAmPm(times.dhuhr) },
                     { name: 'الغروب', time: formatToAmPm(times.sunset) },
-                    { name: 'المغرب', time: formatToAmPm(times.maghrib) },
+                    { name: 'المغرب', time: formatToAmPm(prayTimes.timeFormat === '24h' ? times.maghrib : times.maghrib) },
                     { name: 'منتصف الليل', time: formatToAmPm(times.midnight) }
                 ];
 
@@ -690,19 +691,18 @@
 
                 prayerTimesMap.forEach(p => {
                     prayerList.innerHTML += createTimeRow(p.name, p.time);
-                    
                     if (p.name !== 'الشروق' && p.name !== 'الغروب' && p.name !== 'منتصف الليل') {
-                         const [time, modifier] = p.time.split(' ');
-                         let [hours, minutes] = time.split(':');
-                         hours = parseInt(hours, 10);
-                         if (modifier === 'م' && hours !== 12) hours += 12;
-                         if (modifier === 'ص' && hours === 12) hours = 0;
-                         const dateForCountdown = new Date();
-                         dateForCountdown.setHours(hours, parseInt(minutes, 10), 0, 0);
-                         prayerTimesForCountdown.push({ name: p.name, time: dateForCountdown });
+                        const [time, modifier] = p.time.split(' ');
+                        let [hours, minutes] = time.split(':');
+                        hours = parseInt(hours, 10);
+                        if (modifier === 'م' && hours !== 12) hours += 12;
+                        if (modifier === 'ص' && hours === 12) hours = 0;
+                        const dateForCountdown = new Date();
+                        dateForCountdown.setHours(hours, parseInt(minutes, 10), 0, 0);
+                        prayerTimesForCountdown.push({ name: p.name, time: dateForCountdown });
                     }
                 });
-                
+
                 prayerTimesForCountdown.sort((a, b) => a.time - b.time);
                 startCountdown(prayerTimesForCountdown);
                 widgetMessage.style.display = 'none';
