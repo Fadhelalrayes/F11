@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- SEO, Security, Social Media Headers -->
-    <title>دليل الصلاة الشامل | تعلم الصلاة ومواقيتها وفق المذهب الجعفري</title>
+    <title>الصلاة وفق المذهب الجعفري | تعلم الصلاة ومواقيتها</title>
     <meta name="description" content="دليلك الشامل لتعلم الصلاة وأحكامها (الطهارة، الوضوء، التيمم، السهو) مع مواقيت الصلاة اليومية الدقيقة لمنطقتك، وفقاً لفتاوى سماحة السيد السيستاني (دام ظله).">
     <meta name="keywords" content="مواقيت الصلاة, تعليم الصلاة, كيفية الصلاة, المذهب الجعفري, السيد السيستاني, أحكام الصلاة, التيمم, السهو, الطهارة, الوضوء, قضاء الصلاة, فقه, شيعة">
     <meta name="author" content="فاضل الريس">
@@ -16,7 +16,7 @@
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta http-equiv="X-Frame-Options" content="DENY">
     <meta name="referrer-policy" content="strict-origin-when-cross-origin">
-    <meta property="og:title" content="دليل الصلاة الشامل | تعلم الصلاة ومواقيتها وفق المذهب الجعفري">
+    <meta property="og:title" content="الصلاة وفق المذهب الجعفري | تعلم الصلاة ومواقيتها">
     <meta property="og:description" content="دليل مبسط لتعلم الصلاة وأحكامها مع مواقيت الصلاة اليومية الدقيقة لمنطقتك.">
     <meta property="og:image" content="https://images.unsplash.com/photo-1584335319462-a3c6a3885165?q=80&w=2070&auto=format&fit=crop">
     <meta property="og:url" content="https://your-domain.com/salah-guide.html">
@@ -27,7 +27,7 @@
       "@context": "https://schema.org",
       "@type": "Article",
       "mainEntityOfPage": { "@type": "WebPage", "@id": "https://your-domain.com/salah-guide.html" },
-      "headline": "دليل الصلاة الشامل: تعلم الصلاة ومواقيتها وفق المذهب الجعفري (فتاوى السيد السيستاني)",
+      "headline": "الصلاة وفق المذهب الجعفري: تعلم الصلاة ومواقيتها (فتاوى السيد السيستاني)",
       "image": "https://images.unsplash.com/photo-1584335319462-a3c6a3885165?q=80&w=2070&auto=format&fit=crop",
       "author": { "@type": "Person", "name": "فاضل الريس" },
       "publisher": { "@type": "Organization", "name": "دليل الصلاة الجعفرية" }
@@ -53,8 +53,6 @@
             --border-color: #EAEAEA;
         }
         
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-
         html { scroll-behavior: smooth; }
         body { 
             font-family: 'Tajawal', sans-serif; 
@@ -66,13 +64,10 @@
             font-size: clamp(16px, 1.2vw, 18px);
         }
         .container { max-width: 1100px; margin: 0 auto; padding: 0 25px; }
-        h2 { font-size: clamp(2rem, 5vw, 2.6rem); text-align: center; margin-bottom: 50px; }
-        h3 { font-size: clamp(1.5rem, 4vw, 1.8rem); }
+        h2 { font-size: clamp(2rem, 5vw, 2.6rem); text-align: center; margin-bottom: 50px; color: var(--heading-color); }
+        h3 { font-size: clamp(1.5rem, 4vw, 1.8rem); color: var(--heading-color); }
         h4 { font-size: clamp(1.2rem, 3vw, 1.4rem); color: var(--secondary-color); }
-        section { 
-            padding: clamp(60px, 8vw, 90px) 0; 
-            animation: fadeIn 1s ease-out both;
-        }
+        section { padding: clamp(60px, 8vw, 90px) 0; }
 
         .main-header { 
             background-color: rgba(255, 255, 255, 0.85);
@@ -83,11 +78,10 @@
             top: 0; 
             z-index: 1000; 
         }
-        .main-header .container { display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap; }
-        .logo { font-size: clamp(1.4rem, 3vw, 1.7rem); font-weight: 800; color: var(--primary-color); text-decoration: none; white-space: nowrap; flex-shrink: 0; }
-        .logo span { color: var(--secondary-color); }
-        .main-nav { display: flex; align-items: center; justify-content: center; flex-grow: 1; gap: clamp(15px, 3vw, 35px); }
-        .main-nav a { color: var(--primary-color); text-decoration: none; font-weight: 500; transition: color 0.3s; font-size: clamp(0.9rem, 2vw, 1.05rem); white-space: nowrap; }
+        .main-header .container { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: clamp(1.4rem, 3vw, 1.7rem); font-weight: 800; color: var(--primary-color); text-decoration: none; white-space: nowrap; }
+        .main-nav { display: flex; align-items: center; gap: clamp(15px, 2.5vw, 30px); }
+        .main-nav a { color: var(--primary-color); text-decoration: none; font-weight: 500; transition: color 0.3s; font-size: clamp(0.9rem, 1.8vw, 1rem); white-space: nowrap; }
         .main-nav a:hover { color: var(--secondary-color); }
         
         .hero {
@@ -182,40 +176,34 @@
             line-height: 1;
             z-index: 1;
         }
-        .hadith-quote p {
-            margin: 0;
-            font-size: 1.2rem;
-            font-weight: 500;
-            color: #334155;
-            position: relative;
-            z-index: 2;
-        }
-        .hadith-quote .source {
-            display: block;
-            text-align: left;
-            font-style: normal;
-            font-weight: 500;
-            margin-top: 15px;
-            color: #64748B;
-            font-size: 0.95rem;
-            position: relative;
-            z-index: 2;
-        }
+        .hadith-quote p { margin: 0; font-size: 1.2rem; font-weight: 500; color: #334155; position: relative; z-index: 2; }
+        .hadith-quote .source { display: block; text-align: left; font-style: normal; font-weight: 500; margin-top: 15px; color: #64748B; font-size: 0.95rem; position: relative; z-index: 2; }
         
         .main-footer { background-color: var(--primary-color); color: var(--white-color); text-align: center; padding: 40px 20px; }
         .main-footer p { margin: 0; opacity: 0.9; }
         .footer-credit { margin-top: 15px; font-size: 1.1rem; }
         .footer-credit a { color: #a9cce3; text-decoration: none; font-weight: 700; transition: color 0.3s; }
         .footer-credit a:hover { color: var(--white-color); }
-        .citation { font-size: 0.85rem; color: #777; display: block; margin-top: 20px; text-align: left; }
+        
+        .citation-box {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-right: 4px solid var(--secondary-color);
+            padding: 10px 15px;
+            margin-top: 30px;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            color: #6c757d;
+            text-align: right;
+        }
 
         .back-to-top { position: fixed; bottom: 25px; left: 25px; background: var(--primary-color); color: var(--white-color); width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; opacity: 0; visibility: hidden; transition: opacity 0.3s, visibility 0.3s, transform 0.3s; transform: translateY(20px); z-index: 1000; }
         .back-to-top.visible { opacity: 0.8; visibility: visible; transform: translateY(0); }
         .back-to-top:hover { opacity: 1; }
 
-        @media (max-width: 768px) { 
-            .main-header .container { justify-content: center; } 
-            .main-nav { overflow-x: auto; padding-bottom: 10px; }
+        @media (max-width: 850px) { 
+            .main-header .container { flex-wrap: wrap; justify-content: center; row-gap: 10px; }
+            .main-nav { order: 3; width: 100%; overflow-x: auto; justify-content: flex-start; padding-bottom: 5px; }
         }
     </style>
 </head>
@@ -223,7 +211,7 @@
 
     <header class="main-header">
         <div class="container">
-            <a href="#" class="logo">دليل الصلاة <span>الجعفرية</span></a>
+            <a href="#" class="logo">الصلاة وفق المذهب الجعفري</a>
             <nav class="main-nav">
                 <a href="#preliminaries">مقدمات الصلاة</a>
                 <a href="#how-to-pray">كيفية الصلاة</a>
@@ -264,7 +252,7 @@
                     <span class="source">عن الإمام الصادق (عليه السلام) - الكافي، ج 3، ص 268.</span>
                 </div>
 
-                <h3>1. الطهارة (الوضوء والغسل):</h3>
+                <h3>1. الطهارة (الوضوء والغسل)</h3>
                 <p>وهي شرط أساسي، وتشمل الطهارة من الحدث (بالوضوء أو الغسل) والطهارة من الخبث (إزالة النجاسة عن البدن واللباس).</p>
                 <ul>
                     <li><strong>الوضوء:</strong> يجب على غير المتوضئ أن يتوضأ للصلاة. والوضوء هو غسل الوجه واليدين من المرفقين إلى أطراف الأصابع، ومسح مقدم الرأس والقدمين.</li>
@@ -292,7 +280,7 @@
                 
                 <h3>3. لباس المصلي:</h3>
                 <p>هناك شروط للباس الذي تصح فيه الصلاة: الطهارة، الإباحة (غير مغصوب)، وألا يكون من أجزاء الميتة أو ما لا يؤكل لحمه (على الأحوط)، وألا يكون حريراً خالصاً أو ذهباً للرجال.</p>
-                 <span class="citation">المصدر: موقع مكتب سماحة السيد السيستاني (دام ظله)، منهاج الصالحين والمسائل المنتخبة.</span>
+                <div class="citation-box">المصدر: موقع مكتب سماحة السيد السيستاني (دام ظله)، منهاج الصالحين والمسائل المنتخبة.</div>
             </div>
         </section>
 
@@ -312,7 +300,7 @@
                     <li><strong>التسليم:</strong> وهو آخر أجزاء الصلاة.</li>
                     <li><strong>الترتيب والموالاة:</strong> أداء أفعال الصلاة بالترتيب المذكور دون فاصل زمني طويل بينها.</li>
                 </ul>
-                <span class="citation">المصدر: موقع مكتب سماحة السيد السيستاني (دام ظله)، منهاج الصالحين والمسائل المنتخبة.</span>
+                <div class="citation-box">المصدر: موقع مكتب سماحة السيد السيستاني (دام ظله)، منهاج الصالحين والمسائل المنتخبة.</div>
             </div>
         </section>
 
@@ -333,7 +321,7 @@
                     <li><strong>فضيلة المغرب:</strong> لغير المسافر، من المغرب الشرعي إلى ذهاب الشفق (الحمرة المغربية).</li>
                     <li><strong>فضيلة العشاء:</strong> من ذهاب الشفق إلى ثلث الليل.</li>
                 </ul>
-                 <span class="citation">المصدر: موقع مكتب سماحة السيد السيستاني (دام ظله)، منهاج الصالحين، والاستفتاءات.</span>
+                 <div class="citation-box">المصدر: موقع مكتب سماحة السيد السيستاني (دام ظله)، منهاج الصالحين، والاستفتاءات.</div>
             </div>
         </section>
 
@@ -353,7 +341,7 @@
                     <li><strong>سجود السهو:</strong> يجب الإتيان بسجدتي السهو لعدة أمور، منها: الكلام سهواً، والتسليم في غير موضعه، ونسيان التشهد، والشك بين الركعة الرابعة والخامسة بعد إكمال السجدتين. كيفية سجود السهو هي نية ثم سجدتان، في كل سجدة ذكر معين (مثل: بسم الله وبالله، السلام عليك أيها النبي ورحمة الله وبركاته)، ثم تشهد وتسليم.</li>
                     <li><strong>قضاء الأجزاء المنسية:</strong> من نسي سجدة واحدة أو أكثر ولم يمكن تداركها في الصلاة، يجب عليه قضاؤها بعد الصلاة مباشرة، ثم الإتيان بسجود السهو لنسيان السجدة.</li>
                 </ul>
-                <span class="citation">المصدر: موقع مكتب سماحة السيد السيستاني (دام ظله)، الوجيز في أحكام العبادات والمسائل المنتخبة.</span>
+                <div class="citation-box">المصدر: موقع مكتب سماحة السيد السيستاني (دام ظله)، الوجيز في أحكام العبادات والمسائل المنتخبة.</div>
             </div>
         </section>
 
@@ -368,14 +356,14 @@
                     <li><strong>الترتيب في القضاء:</strong> لا يجب الترتيب في قضاء الصلوات الفائتة، إلا بين الصلوات المترتبة في أصلها كالظهر والعصر من نفس اليوم.</li>
                     <li><strong>عدم معرفة عدد الفوائت:</strong> إذا لم يعلم المكلف بعدد الصلوات التي فاتته، يجوز له الاقتصار على قضاء القدر المتيقن الذي يعلم بفواته.</li>
                 </ul>
-                <span class="citation">المصدر: موقع مكتب سماحة السيد السيستاني (دام ظله)، منهاج الصالحين.</span>
+                <div class="citation-box">المصدر: موقع مكتب سماحة السيد السيستاني (دام ظله)، منهاج الصالحين.</div>
             </div>
         </section>
     </main>
 
     <footer class="main-footer">
         <div class="container">
-            <p>&copy; 2025 دليل الصلاة الجعفرية.</p>
+            <p>&copy; 2025 الصلاة وفق المذهب الجعفري.</p>
             <p class="footer-credit">
                 إعداد ومراجعة: 
                 <a href="https://wa.me/97333375858" target="_blank" rel="noopener noreferrer">فاضل الريس</a>
@@ -415,7 +403,7 @@
                 if (modifier && modifier.toLowerCase() === 'م' && hours !== 12) {
                     hours += 12;
                 }
-                if (modifier && modifier.toLowerCase() === 'ص' && hours === 12) { // Midnight case (12 AM)
+                if (modifier && modifier.toLowerCase() === 'ص' && hours === 12) {
                     hours = 0;
                 }
                 const date = new Date();
@@ -467,84 +455,84 @@
                 fetch(url)
                     .then(response => response.json())
                     .then(data => {
-                        if
-                        const todayData = data.data[day - 1];
-                        const timings = todayData.timings;
-                        const hijriDate = todayData.date.hijri;
+                        if (data.code === 200) {
+                            const todayData = data.data[day - 1];
+                            const timings = todayData.timings;
+                            const hijriDate = todayData.date.hijri;
 
-                        // Display Dates
-                        const gregorianDateStr = new Intl.DateTimeFormat('ar-EG-u-nu-latn', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }).format(date);
-                        const hijriDateStr = `${hijriDate.day} ${hijriDate.month.ar} ${hijriDate.year} هـ`;
-                        dateDisplay.innerHTML = `${gregorianDateStr}<br>${hijriDateStr}`;
+                            // Display Dates
+                            const gregorianDateStr = new Intl.DateTimeFormat('ar-EG-u-nu-latn', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }).format(date);
+                            const hijriDateStr = `${hijriDate.day} ${hijriDate.month.ar} ${hijriDate.year} هـ`;
+                            dateDisplay.innerHTML = `${gregorianDateStr}<br>${hijriDateStr}`;
 
-                        // Correct Maghrib time (add ~10-15 minutes to Sunset)
-                        const sunsetTime = parseTimeToDate(timings.Sunset.split(' ')[0]);
-                        sunsetTime.setMinutes(sunsetTime.getMinutes() + 14); // Adding 14 minutes as a safe average
-                        const maghribHour = sunsetTime.getHours();
-                        const maghribMinute = sunsetTime.getMinutes();
-                        const ampm = maghribHour >= 12 ? 'م' : 'ص';
-                        const formattedMaghribHour = ((maghribHour + 11) % 12 + 1);
-                        const correctedMaghrib = `${formattedMaghribHour.toString().padStart(2, '0')}:${maghribMinute.toString().padStart(2, '0')} ${ampm}`;
+                            // Correct Maghrib time (add ~10-15 minutes to Sunset)
+                            const sunsetTime = parseTimeToDate(timings.Sunset.split(' ')[0]);
+                            sunsetTime.setMinutes(sunsetTime.getMinutes() + 14); // Adding 14 minutes as a safe average
+                            const maghribHour = sunsetTime.getHours();
+                            const maghribMinute = sunsetTime.getMinutes();
+                            const ampm = maghribHour >= 12 ? 'م' : 'ص';
+                            const formattedMaghribHour = ((maghribHour + 11) % 12 + 1);
+                            const correctedMaghrib = `${formattedMaghribHour.toString().padStart(2, '0')}:${maghribMinute.toString().padStart(2, '0')} ${ampm}`;
 
-                        const prayerTimesMap = [
-                            { name: 'الفجر', time: timings.Fajr.split(' ')[0] },
-                            { name: 'الشروق', time: timings.Sunrise.split(' ')[0] },
-                            { name: 'الظهر', time: timings.Dhuhr.split(' ')[0] },
-                            { name: 'الغروب', time: timings.Sunset.split(' ')[0] },
-                            { name: 'المغرب', time: correctedMaghrib },
-                            { name: 'منتصف الليل', time: timings.Midnight.split(' ')[0] }
-                        ];
+                            const prayerTimesMap = [
+                                { name: 'الفجر', time: timings.Fajr.split(' ')[0] },
+                                { name: 'الشروق', time: timings.Sunrise.split(' ')[0] },
+                                { name: 'الظهر', time: timings.Dhuhr.split(' ')[0] },
+                                { name: 'الغروب', time: timings.Sunset.split(' ')[0] },
+                                { name: 'المغرب', time: correctedMaghrib },
+                                { name: 'منتصف الليل', time: timings.Midnight.split(' ')[0] }
+                            ];
 
-                        prayerList.innerHTML = ''; // Clear previous list
-                        const prayerTimesForCountdown = [];
+                            prayerList.innerHTML = ''; // Clear previous list
+                            const prayerTimesForCountdown = [];
 
-                        prayerTimesMap.forEach(p => {
-                            const time24 = p.time;
-                            const [hour, minute] = time24.split(':');
-                            const d = new Date();
-                            d.setHours(parseInt(hour), parseInt(minute), 0, 0);
+                            prayerTimesMap.forEach(p => {
+                                const time24 = p.time;
+                                const [hour, minute] = time24.split(':');
+                                const d = new Date();
+                                d.setHours(parseInt(hour), parseInt(minute), 0, 0);
+                                
+                                const ampm = d.getHours() >= 12 ? 'م' : 'ص';
+                                const formattedHour = ((d.getHours() + 11) % 12 + 1);
+                                const formattedTime = `${formattedHour.toString().padStart(2, '0')}:${minute} ${ampm}`;
+
+                                prayerList.innerHTML += createTimeRow(p.name, formattedTime);
+                                
+                                // Prepare for countdown
+                                if (p.name !== 'الشروق' && p.name !== 'الغروب' && p.name !== 'منتصف الليل') {
+                                     prayerTimesForCountdown.push({ name: p.name, time: parseTimeToDate(formattedTime) });
+                                }
+                            });
                             
-                            const ampm = d.getHours() >= 12 ? 'م' : 'ص';
-                            const formattedHour = ((d.getHours() + 11) % 12 + 1);
-                            const formattedTime = `${formattedHour.toString().padStart(2, '0')}:${minute} ${ampm}`;
+                            prayerTimesForCountdown.sort((a, b) => a.time - b.time);
+                            startCountdown(prayerTimesForCountdown);
+                            widgetMessage.style.display = 'none';
 
-                            prayerList.innerHTML += createTimeRow(p.name, formattedTime);
-                            
-                            // Prepare for countdown
-                            if (p.name !== 'الشروق' && p.name !== 'الغروب' && p.name !== 'منتصف الليل') {
-                                 prayerTimesForCountdown.push({ name: p.name, time: parseTimeToDate(formattedTime) });
-                            }
-                        });
-                        
-                        prayerTimesForCountdown.sort((a, b) => a.time - b.time);
-                        startCountdown(prayerTimesForCountdown);
-                        widgetMessage.style.display = 'none';
+                        } else {
+                            widgetMessage.textContent = 'حدث خطأ أثناء جلب مواقيت الصلاة.';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error fetching prayer times:', error);
+                        widgetMessage.textContent = 'لا يمكن الاتصال بخادم المواقيت. يرجى التحقق من اتصالك بالإنترنت.';
+                    });
+            };
 
-                    } else {
-                        widgetMessage.textContent = 'حدث خطأ أثناء جلب مواقيت الصلاة.';
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        getPrayerTimes(position.coords.latitude, position.coords.longitude);
+                    },
+                    (error) => {
+                        console.error("Geolocation error:", error);
+                        widgetMessage.textContent = 'يرجى السماح بالوصول إلى الموقع لعرض مواقيت الصلاة.';
                     }
-                })
-                .catch(error => {
-                    console.error('Error fetching prayer times:', error);
-                    widgetMessage.textContent = 'لا يمكن الاتصال بخادم المواقيت. يرجى التحقق من اتصالك بالإنترنت.';
-                });
-        };
-
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    getPrayerTimes(position.coords.latitude, position.coords.longitude);
-                },
-                (error) => {
-                    console.error("Geolocation error:", error);
-                    widgetMessage.textContent = 'يرجى السماح بالوصول إلى الموقع لعرض مواقيت الصلاة.';
-                }
-            );
-        } else {
-            widgetMessage.textContent = 'المتصفح لا يدعم خدمة تحديد المواقع.';
-        }
-    });
-</script>
+                );
+            } else {
+                widgetMessage.textContent = 'المتصفح لا يدعم خدمة تحديد المواقع.';
+            }
+        });
+    </script>
 
 </body>
 </html>
