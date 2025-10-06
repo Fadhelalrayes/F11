@@ -267,19 +267,24 @@
         .dhikr-box strong { color: var(--primary-color); }
         .dhikr-box em { font-style: normal; color: #555; }
 
+        /* --- FINAL RESPONSIVE TABLE STYLE --- */
+        .fiqh-table-wrapper {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin: 30px 0;
+        }
         .fiqh-table {
             width: 100%;
             border-collapse: collapse;
-            margin: 30px 0;
             font-size: 1rem;
-            overflow-x: auto;
-            display: block;
         }
         .fiqh-table th, .fiqh-table td {
             border: 1px solid #ddd;
-            padding: 12px;
+            padding: 12px 15px;
             text-align: center;
-            white-space: nowrap;
+            white-space: normal; /* Allow text to wrap */
         }
         .fiqh-table th {
             background-color: var(--secondary-color);
@@ -287,6 +292,10 @@
             font-weight: 700;
         }
         .fiqh-table tr:nth-child(even) { background-color: #f9f9f9; }
+        .fiqh-table td:first-child {
+            font-weight: 500;
+            text-align: right;
+        }
 
         .back-to-top { position: fixed; bottom: 25px; left: 25px; background: var(--primary-color); color: var(--white-color); width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; opacity: 0; visibility: hidden; transition: opacity 0.3s, visibility 0.3s, transform 0.3s; transform: translateY(20px); z-index: 1000; }
         .back-to-top.visible { opacity: 0.8; visibility: visible; transform: translateY(0); }
@@ -406,7 +415,6 @@
                 <div class="citation-box">المصدر: موقع مكتب سماحة السيد السيستاني (دام ظله)، منهاج الصالحين والمسائل المنتخبة.</div>
             </div>
         </section>
-
         <section id="prayer-rulings" class="content-section">
             <div class="container">
                 <h2>أحكام الشك والسهو (تفصيل)</h2>
@@ -419,32 +427,34 @@
                     <li><strong>الشكوك التي لا يعتنى بها:</strong> وهي التي يجب على المصلي عدم الاهتمام بها والمضي في صلاته، مثل: شك كثير الشك، وشك الإمام والمأموم، والشك بعد الفراغ من الصلاة أو بعد تجاوز المحل.</li>
                     <li><strong>الشكوك الصحيحة وعلاجها:</strong> وهي خاصة بالصلوات الرباعية (الظهر، العصر، العشاء)، ولها علاج محدد كما في الجدول التالي:</li>
                 </ul>
-                <table class="fiqh-table">
-                    <thead>
-                        <tr>
-                            <th>نوع الشك</th>
-                            <th>الوظيفة (العلاج)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>الشك بين الركعتين <strong>الثانية والثالثة</strong></td>
-                            <td>يبني على الثالثة، وبعد إتمام الصلاة يأتي بركعة احتياط من قيام.</td>
-                        </tr>
-                        <tr>
-                            <td>الشك بين الركعتين <strong>الثالثة والرابعة</strong></td>
-                            <td>يبني على الرابعة، وبعد إتمام الصلاة يأتي بركعة احتياط من قيام أو ركعتين من جلوس (مخيراً).</td>
-                        </tr>
-                        <tr>
-                            <td>الشك بين الركعتين <strong>الثانية والرابعة</strong></td>
-                            <td>يبني على الرابعة، وبعد إتمام الصلاة يأتي بركعتين احتياط من قيام.</td>
-                        </tr>
-                        <tr>
-                            <td>الشك بين الركعتين <strong>الرابعة والخامسة</strong> (بعد إكمال السجدتين)</td>
-                            <td>يبني على الرابعة ويتشهد ويسلم، ثم يأتي بسجدتي السهو.</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="fiqh-table-wrapper">
+                    <table class="fiqh-table">
+                        <thead>
+                            <tr>
+                                <th>نوع الشك</th>
+                                <th>الوظيفة (العلاج)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>الشك بين الركعتين <strong>الثانية والثالثة</strong></td>
+                                <td>يبني على الثالثة، وبعد إتمام الصلاة يأتي بركعة احتياط من قيام.</td>
+                            </tr>
+                            <tr>
+                                <td>الشك بين الركعتين <strong>الثالثة والرابعة</strong></td>
+                                <td>يبني على الرابعة، وبعد إتمام الصلاة يأتي بركعة احتياط من قيام أو ركعتين من جلوس (مخيراً).</td>
+                            </tr>
+                            <tr>
+                                <td>الشك بين الركعتين <strong>الثانية والرابعة</strong></td>
+                                <td>يبني على الرابعة، وبعد إتمام الصلاة يأتي بركعتين احتياط من قيام.</td>
+                            </tr>
+                            <tr>
+                                <td>الشك بين الركعتين <strong>الرابعة والخامسة</strong> (بعد إكمال السجدتين)</td>
+                                <td>يبني على الرابعة ويتشهد ويسلم، ثم يأتي بسجدتي السهو.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
 
                 <h3>ثانياً: أحكام السهو</h3>
                 <p>إذا نسي المصلي جزءاً من الصلاة أو أتى بشيء سهواً، فهناك أحكام تترتب عليه:</p>
@@ -565,6 +575,18 @@
                 date.setHours(hours, parseInt(minutes, 10), 0, 0);
                 return date;
             };
+            
+            const addMinutes = (date, minutes) => {
+                return new Date(date.getTime() + minutes * 60000);
+            };
+
+            const formatToAmPm = (dateObj) => {
+                const hour = dateObj.getHours();
+                const minute = dateObj.getMinutes();
+                const ampm = hour >= 12 ? 'م' : 'ص';
+                const formattedHour = ((hour + 11) % 12 + 1);
+                return `${formattedHour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')} ${ampm}`;
+            };
 
             const startCountdown = (prayerTimes) => {
                 if (countdownInterval) clearInterval(countdownInterval);
@@ -603,11 +625,7 @@
                 const month = date.getMonth() + 1;
                 const day = date.getDate();
                 
-                // *** FINAL TIME CORRECTION USING API 'TUNE' PARAMETER ***
-                // This is the most reliable method.
-                // tune=0,15,0,0,0,14,0,0,0 -> Fajr +15min, Maghrib +14min after Sunset
-                const adjustments = '0,15,0,0,0,14,0,0,0';
-                const url = `https://api.aladhan.com/v1/calendar/${year}/${month}?latitude=${latitude}&longitude=${longitude}&method=2&tune=${adjustments}`;
+                const url = `https://api.aladhan.com/v1/calendar/${year}/${month}?latitude=${latitude}&longitude=${longitude}&method=2`;
 
                 fetch(url)
                     .then(response => response.json())
@@ -621,31 +639,30 @@
                             const hijriDateStr = `${hijriDate.day} ${hijriDate.month.ar} ${hijriDate.year} هـ`;
                             dateDisplay.innerHTML = `${gregorianDateStr}<br>${hijriDateStr}`;
 
+                            // *** FINAL MANUAL TIME CORRECTION ***
+                            const fajrTimeObject = parseTimeToDate(timings.Fajr);
+                            const correctedFajrTime = addMinutes(fajrTimeObject, 15);
+
+                            const sunsetTimeObject = parseTimeToDate(timings.Sunset);
+                            const correctedMaghribTime = addMinutes(sunsetTimeObject, 14);
+
                             const prayerTimesMap = [
-                                { name: 'الفجر', time: timings.Fajr.split(' ')[0] },
-                                { name: 'الشروق', time: timings.Sunrise.split(' ')[0] },
-                                { name: 'الظهر', time: timings.Dhuhr.split(' ')[0] },
-                                { name: 'الغروب', time: timings.Sunset.split(' ')[0] },
-                                { name: 'المغرب', time: timings.Maghrib.split(' ')[0] },
-                                { name: 'منتصف الليل', time: timings.Midnight.split(' ')[0] }
+                                { name: 'الفجر', time: formatToAmPm(correctedFajrTime) },
+                                { name: 'الشروق', time: timings.Sunrise.split(' ')[0] + ' ص' },
+                                { name: 'الظهر', time: timings.Dhuhr.split(' ')[0] + ' م' },
+                                { name: 'الغروب', time: formatToAmPm(sunsetTimeObject) },
+                                { name: 'المغرب', time: formatToAmPm(correctedMaghribTime) },
+                                { name: 'منتصف الليل', time: timings.Midnight.split(' ')[0] + ' ص' }
                             ];
 
                             prayerList.innerHTML = '';
                             const prayerTimesForCountdown = [];
 
                             prayerTimesMap.forEach(p => {
-                                const [hour, minute] = p.time.split(':');
-                                const d = new Date();
-                                d.setHours(parseInt(hour), parseInt(minute), 0, 0);
-                                
-                                const ampm = d.getHours() >= 12 ? 'م' : 'ص';
-                                const formattedHour = ((d.getHours() + 11) % 12 + 1);
-                                const formattedTime = `${formattedHour.toString().padStart(2, '0')}:${minute} ${ampm}`;
-
-                                prayerList.innerHTML += createTimeRow(p.name, formattedTime);
+                                prayerList.innerHTML += createTimeRow(p.name, p.time);
                                 
                                 if (p.name !== 'الشروق' && p.name !== 'الغروب' && p.name !== 'منتصف الليل') {
-                                     prayerTimesForCountdown.push({ name: p.name, time: parseTimeToDate(formattedTime) });
+                                     prayerTimesForCountdown.push({ name: p.name, time: parseTimeToDate(p.time) });
                                 }
                             });
                             
