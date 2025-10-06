@@ -6,8 +6,8 @@
 
     <!-- SEO, Security, Social Media Headers -->
     <title>الصلاة وفق المذهب الجعفري | تعلم الصلاة ومواقيتها</title>
-    <meta name="description" content="دليلك الشامل لتعلم الصلاة وأحكامها (الطهارة، الوضوء، التيمم، السهو) مع مواقيت الصلاة اليومية الدقيقة لمنطقتك، وفقاً لفتاوى سماحة السيد السيستاني (دام ظله).">
-    <meta name="keywords" content="مواقيت الصلاة, تعليم الصلاة, كيفية الصلاة, المذهب الجعفري, السيد السيستاني, أحكام الصلاة, التيمم, السهو, الطهارة, الوضوء, قضاء الصلاة, فقه, شيعة">
+    <meta name="description" content="دليلك الشامل لتعلم الصلاة وأحكامها (الطهارة، الوضوء، التيمم، السهو، المبطلات) مع مواقيت الصلاة اليومية الدقيقة لمنطقتك، وفقاً لفتاوى سماحة السيد السيستاني (دام ظله).">
+    <meta name="keywords" content="مواقيت الصلاة, تعليم الصلاة, كيفية الصلاة, المذهب الجعفري, السيد السيستاني, أحكام الصلاة, التيمم, السهو, الطهارة, الوضوء, قضاء الصلاة, فقه, شيعة, الأذان, الإقامة, مبطلات الصلاة">
     <meta name="author" content="فاضل الريس">
     <link rel="canonical" href="https://your-domain.com/salah-guide.html">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
@@ -69,6 +69,7 @@
         h4 { font-size: clamp(1.2rem, 3vw, 1.4rem); color: var(--secondary-color); }
         section { padding: clamp(60px, 8vw, 90px) 0; }
 
+        /* --- FINAL HEADER FIX --- */
         .main-header { 
             background-color: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(10px);
@@ -78,10 +79,38 @@
             top: 0; 
             z-index: 1000; 
         }
-        .main-header .container { display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: clamp(1.4rem, 3vw, 1.7rem); font-weight: 800; color: var(--primary-color); text-decoration: none; white-space: nowrap; }
-        .main-nav { display: flex; align-items: center; gap: clamp(15px, 2.5vw, 30px); }
-        .main-nav a { color: var(--primary-color); text-decoration: none; font-weight: 500; transition: color 0.3s; font-size: clamp(0.9rem, 1.8vw, 1rem); white-space: nowrap; }
+        .main-header .container { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            flex-wrap: nowrap; /* Prevents wrapping */
+        }
+        .logo { 
+            font-size: clamp(1.3rem, 3vw, 1.6rem); 
+            font-weight: 800; 
+            color: var(--primary-color); 
+            text-decoration: none; 
+            white-space: nowrap;
+            flex-shrink: 0; /* Prevents logo from shrinking */
+        }
+        .main-nav { 
+            display: flex; 
+            align-items: center; 
+            gap: clamp(10px, 2vw, 25px);
+            overflow-x: auto; /* Allows horizontal scroll on small screens */
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+        .main-nav::-webkit-scrollbar { display: none; } /* Chrome, Safari, Opera */
+        .main-nav a { 
+            color: var(--primary-color); 
+            text-decoration: none; 
+            font-weight: 500; 
+            transition: color 0.3s; 
+            font-size: clamp(0.85rem, 1.8vw, 1rem); 
+            white-space: nowrap; 
+            flex-shrink: 0;
+        }
         .main-nav a:hover { color: var(--secondary-color); }
         
         .hero {
@@ -196,15 +225,20 @@
             color: #6c757d;
             text-align: right;
         }
+        .dhikr-box {
+            background-color: #eaf2f8;
+            border: 1px solid #b6d4ea;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-family: 'Tajawal', sans-serif;
+        }
+        .dhikr-box strong { color: var(--primary-color); }
+        .dhikr-box em { font-style: normal; color: #555; }
 
         .back-to-top { position: fixed; bottom: 25px; left: 25px; background: var(--primary-color); color: var(--white-color); width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; opacity: 0; visibility: hidden; transition: opacity 0.3s, visibility 0.3s, transform 0.3s; transform: translateY(20px); z-index: 1000; }
         .back-to-top.visible { opacity: 0.8; visibility: visible; transform: translateY(0); }
         .back-to-top:hover { opacity: 1; }
-
-        @media (max-width: 850px) { 
-            .main-header .container { flex-wrap: wrap; justify-content: center; row-gap: 10px; }
-            .main-nav { order: 3; width: 100%; overflow-x: auto; justify-content: flex-start; padding-bottom: 5px; }
-        }
     </style>
 </head>
 <body>
@@ -213,11 +247,12 @@
         <div class="container">
             <a href="#" class="logo">الصلاة وفق المذهب الجعفري</a>
             <nav class="main-nav">
-                <a href="#preliminaries">مقدمات الصلاة</a>
+                <a href="#preliminaries">المقدمات</a>
                 <a href="#how-to-pray">كيفية الصلاة</a>
-                <a href="#prayer-times">أوقات الصلاة</a>
-                <a href="#prayer-rulings">أحكام الصلاة</a>
-                <a href="#missed-prayers">قضاء الفوائت</a>
+                <a href="#prayer-times">الأوقات</a>
+                <a href="#prayer-rulings">الأحكام</a>
+                <a href="#invalidators">المبطلات</a>
+                <a href="#missed-prayers">القضاء</a>
             </nav>
         </div>
     </header>
@@ -252,22 +287,11 @@
                     <span class="source">عن الإمام الصادق (عليه السلام) - الكافي، ج 3، ص 268.</span>
                 </div>
 
-                <h3>1. الطهارة (الوضوء والغسل)</h3>
-                <p>وهي شرط أساسي، وتشمل الطهارة من الحدث (بالوضوء أو الغسل) والطهارة من الخبث (إزالة النجاسة عن البدن واللباس).</p>
-                <ul>
-                    <li><strong>الوضوء:</strong> يجب على غير المتوضئ أن يتوضأ للصلاة. والوضوء هو غسل الوجه واليدين من المرفقين إلى أطراف الأصابع، ومسح مقدم الرأس والقدمين.</li>
-                    <li><strong>الغسل:</strong> يجب في حالات معينة كالجنابة، وهو يغني عن الوضوء.</li>
-                </ul>
+                <h3>1. الطهارة (الوضوء، الغسل، التيمم)</h3>
+                <p>وهي شرط أساسي، وتشمل الطهارة من الحدث (بالوضوء أو الغسل أو التيمم) والطهارة من الخبث (إزالة النجاسة عن البدن واللباس).</p>
                 
                 <h4>التيمم: بديل الطهارة المائية</h4>
-                <p>التيمم هو طهارة ترابية يلجأ إليها المكلف عند تعذر استخدام الماء. ومسوغاته الأساسية هي:</p>
-                <ul>
-                    <li>عدم وجدان الماء الكافي للوضوء أو الغسل.</li>
-                    <li>عدم إمكانية الوصول إلى الماء.</li>
-                    <li>الخوف من ضرر عند استعمال الماء لمرض ونحوه.</li>
-                    <li>الحرج والمشقة الشديدة في تحصيل الماء أو استعماله.</li>
-                </ul>
-                <p><strong>كيفية التيمم:</strong></p>
+                <p>التيمم هو طهارة ترابية يلجأ إليها المكلف عند تعذر استخدام الماء. ومسوغاته الأساسية هي: عدم وجدان الماء، عدم إمكانية الوصول إليه، الخوف من ضرر عند استعماله، أو الحرج والمشقة الشديدة.</p>
                 <ol>
                     <li>ضرب باطن الكفين معاً على ما يصح التيمم به (كالتراب الطاهر أو الصخر).</li>
                     <li>مسح تمام الجبهة والجبينين بالكفين من منبت الشعر إلى طرف الأنف الأعلى والحاجبين.</li>
@@ -275,30 +299,41 @@
                     <li>مسح تمام ظاهر الكف اليسرى بباطن الكف اليمنى.</li>
                 </ol>
 
-                <h3>2. القبلة:</h3>
-                <p>يجب على المصلي التوجه نحو الكعبة المشرفة في مكة المكرمة. من كان بعيداً، يكفيه التوجه نحو جهتها.</p>
-                
-                <h3>3. لباس المصلي:</h3>
-                <p>هناك شروط للباس الذي تصح فيه الصلاة: الطهارة، الإباحة (غير مغصوب)، وألا يكون من أجزاء الميتة أو ما لا يؤكل لحمه (على الأحوط)، وألا يكون حريراً خالصاً أو ذهباً للرجال.</p>
+                <h3>2. الأذان والإقامة</h3>
+                <p>يستحب استحباباً مؤكداً للرجال والنساء الأذان والإقامة قبل الصلوات اليومية، ويتأكد الاستحباب في صلاتي الصبح والمغرب. صيغتهما المشهورة هي:</p>
+                <ul>
+                    <li><strong>الأذان:</strong> (اللهُ أَكْبَر) - 4 مرات، (أَشْهَدُ أَنْ لا إِلهَ إِلاَّ الله) - مرتان، (أَشْهَدُ أَنَّ مُحَمَّداً رَسُولُ الله) - مرتان، (أَشْهَدُ أَنَّ عَلِيّاً وَلِيُّ الله) - مرتان، (حَيَّ عَلَى الصَّلاة) - مرتان، (حَيَّ عَلَى الْفَلاح) - مرتان، (حَيَّ عَلَى خَيْرِ الْعَمَل) - مرتان، (اللهُ أَكْبَر) - مرتان، (لا إِلهَ إِلاَّ الله) - مرتان.</li>
+                    <li><strong>الإقامة:</strong> (اللهُ أَكْبَر) - مرتان، (أَشْهَدُ أَنْ لا إِلهَ إِلاَّ الله) - مرتان، (أَشْهَدُ أَنَّ مُحَمَّداً رَسُولُ الله) - مرتان، (أَشْهَدُ أَنَّ عَلِيّاً وَلِيُّ الله) - مرتان، (حَيَّ عَلَى الصَّلاة) - مرتان، (حَيَّ عَلَى الْفَلاح) - مرتان، (حَيَّ عَلَى خَيْرِ الْعَمَل) - مرتان، (قَدْ قامَتِ الصَّلاة) - مرتان، (اللهُ أَكْبَر) - مرتان، (لا إِلهَ إِلاَّ الله) - مرة واحدة.</li>
+                </ul>
                 <div class="citation-box">المصدر: موقع مكتب سماحة السيد السيستاني (دام ظله)، منهاج الصالحين والمسائل المنتخبة.</div>
             </div>
         </section>
 
         <section id="how-to-pray" class="content-section alternate-bg">
             <div class="container">
-                <h2>كيفية الصلاة</h2>
-                <p>الصلاة هي عمود الدين، وفيما يلي بيان لواجباتها الأساسية دون المستحبات، لتكون صلاتك صحيحة ومقبولة بإذن الله.</p>
-                <h3>واجبات الصلاة:</h3>
+                <h2>كيفية الصلاة وأذكارها</h2>
+                <p>فيما يلي بيان لواجبات الصلاة الأساسية مع تفصيل الأذكار الواجبة والمستحبة.</p>
                 <ul>
-                    <li><strong>النية:</strong> وهي القصد القلبي لأداء صلاة معينة قربةً إلى الله تعالى، ولا يلزم التلفظ بها.</li>
-                    <li><strong>تكبيرة الإحرام:</strong> قول "الله أكبر" في بداية الصلاة مع استقرار البدن.</li>
-                    <li><strong>القيام:</strong> الوقوف منتصباً أثناء تكبيرة الإحرام والقراءة قبل الركوع.</li>
-                    <li><strong>القراءة:</strong> قراءة سورة الحمد وسورة كاملة أخرى في الركعتين الأولى والثانية. في الركعتين الثالثة والرابعة، يتخير المصلي بين قراءة سورة الحمد وحدها أو التسبيحات الأربع.</li>
-                    <li><strong>الركوع:</strong> الانحناء بعد القراءة حتى تصل أطراف الأصابع إلى الركبة، وقول الذكر الواجب.</li>
-                    <li><strong>السجود:</strong> وضع المساجد السبعة (الجبهة، الكفان، الركبتان، وإبهاما القدمين) على ما يصح السجود عليه، وقول الذكر الواجب.</li>
-                    <li><strong>التشهد:</strong> الجلوس بعد السجدة الثانية من الركعة الثانية والركعة الأخيرة وقول التشهد.</li>
-                    <li><strong>التسليم:</strong> وهو آخر أجزاء الصلاة.</li>
-                    <li><strong>الترتيب والموالاة:</strong> أداء أفعال الصلاة بالترتيب المذكور دون فاصل زمني طويل بينها.</li>
+                    <li><strong>النية وتكبيرة الإحرام:</strong> القصد القلبي للصلاة ثم قول "الله أكبر".</li>
+                    <li><strong>القراءة:</strong> قراءة سورة الحمد وسورة كاملة أخرى في الركعتين الأولى والثانية.</li>
+                    <li><strong>الركوع:</strong> الانحناء ووضع اليدين على الركبتين.
+                        <div class="dhikr-box">
+                            <strong>الذكر الواجب:</strong> "سُبْحانَ رَبِّيَ الْعَظيمِ وَبِحَمْدِه" مرة واحدة. أو "سبحان الله" ثلاث مرات.<br>
+                            <em>الذكر المستحب:</em> تكرار الذكر الواجب ثلاثاً أو خمساً أو سبعاً، والصلاة على محمد وآل محمد.
+                        </div>
+                    </li>
+                    <li><strong>السجود:</strong> وضع المساجد السبعة على الأرض (الجبهة، الكفان، الركبتان، إبهاما القدمين).
+                        <div class="dhikr-box">
+                            <strong>الذكر الواجب:</strong> "سُبْحانَ رَبِّيَ الأَعْلى وَبِحَمْدِه" مرة واحدة. أو "سبحان الله" ثلاث مرات.<br>
+                            <em>الذكر المستحب:</em> تكرار الذكر الواجب، والدعاء، والصلاة على محمد وآل محمد.
+                        </div>
+                    </li>
+                    <li><strong>التشهد والتسليم:</strong> الجلوس بعد السجدة الثانية من الركعة الثانية والركعة الأخيرة.
+                        <div class="dhikr-box">
+                            <strong>صيغة التشهد الواجب:</strong> "أَشْهَدُ أَنْ لا إِلهَ إِلاَّ اللهُ وَحْدَهُ لا شَريكَ لَهُ، وَأَشْهَدُ أَنَّ مُحَمَّداً عَبْدُهُ وَرَسُولُهُ، اللّهُمَّ صَلِّ عَلى مُحَمَّدٍ وَآلِ مُحَمَّدٍ".<br>
+                            <strong>صيغة التسليم الواجب:</strong> "السَّلامُ عَلَيْكُمْ وَرَحْمَةُ اللهِ وَبَرَكاتُهُ". ويستحب إضافة "السَّلامُ عَلَيْكَ أَيُّهَا النَّبِيُّ وَرَحْمَةُ اللهِ وَبَرَكاتُهُ، السَّلامُ عَلَيْنا وَعَلى عِبادِ اللهِ الصّالِحينَ" قبله.
+                        </div>
+                    </li>
                 </ul>
                 <div class="citation-box">المصدر: موقع مكتب سماحة السيد السيستاني (دام ظله)، منهاج الصالحين والمسائل المنتخبة.</div>
             </div>
@@ -308,18 +343,10 @@
             <div class="container">
                 <h2>أوقات الصلاة</h2>
                 <p>لكل صلاة من الفرائض اليومية وقت محدد شرعاً، والالتزام به شرط لصحتها أداءً.</p>
-                <h3>أوقات الفرائض اليومية:</h3>
                 <ul>
                     <li><strong>صلاة الصبح:</strong> وقتها من طلوع الفجر الصادق إلى طلوع الشمس.</li>
-                    <li><strong>صلاتا الظهر والعصر:</strong> وقتهما من زوال الشمس (منتصف النهار) إلى المغرب الشرعي. تختص صلاة الظهر بأول الوقت بمقدار أدائها، وتختص صلاة العصر بآخر الوقت بمقدار أدائها، وما بينهما وقت مشترك لهما.</li>
-                    <li><strong>صلاتا المغرب والعشاء:</strong> وقتهما للمختار من المغرب الشرعي (بعد ذهاب الحمرة المشرقية) إلى منتصف الليل. تختص صلاة المغرب بأول الوقت بمقدار أدائها، وتختص العشاء بآخر الوقت بمقدار أدائها، وما بينهما وقت مشترك.</li>
-                </ul>
-                <h3>أوقات الفضيلة:</h3>
-                <ul>
-                    <li><strong>فضيلة الظهر:</strong> من الزوال حتى بلوغ ظل الشاخص مثله.</li>
-                    <li><strong>فضيلة العصر:</strong> من بلوغ الظل مثله إلى بلوغه مثلين.</li>
-                    <li><strong>فضيلة المغرب:</strong> لغير المسافر، من المغرب الشرعي إلى ذهاب الشفق (الحمرة المغربية).</li>
-                    <li><strong>فضيلة العشاء:</strong> من ذهاب الشفق إلى ثلث الليل.</li>
+                    <li><strong>صلاتا الظهر والعصر:</strong> وقتهما من زوال الشمس (منتصف النهار) إلى المغرب الشرعي.</li>
+                    <li><strong>صلاتا المغرب والعشاء:</strong> وقتهما للمختار من المغرب الشرعي (بعد ذهاب الحمرة المشرقية) إلى منتصف الليل.</li>
                 </ul>
                  <div class="citation-box">المصدر: موقع مكتب سماحة السيد السيستاني (دام ظله)، منهاج الصالحين، والاستفتاءات.</div>
             </div>
@@ -327,35 +354,41 @@
 
         <section id="prayer-rulings" class="content-section alternate-bg">
             <div class="container">
-                <h2>أحكام الصلاة (الشك والسهو)</h2>
-                <p>قد يطرأ على المصلي الشك أو السهو أثناء صلاته، وقد بيّن الفقهاء أحكاماً خاصة لمعالجة هذه الحالات لضمان صحة الصلاة.</p>
+                <h2>أحكام الشك والسهو</h2>
+                <p>قد يطرأ على المصلي الشك أو السهو أثناء صلاته، وقد بيّن الفقهاء أحكاماً خاصة لمعالجة هذه الحالات.</p>
                 <h3>أحكام الشكوك:</h3>
-                <ul>
-                    <li><strong>الشكوك التي تبطل الصلاة:</strong> الشك في عدد ركعات صلاة الصبح والمغرب، والشك في الركعتين الأوليين من الصلوات الرباعية يبطل الصلاة إذا لم يترجح ظن المصلي لأحد الطرفين.</li>
-                    <li><strong>الشكوك التي لا تبطل الصلاة:</strong> هناك شكوك لها علاج، مثل الشك بين الثلاث والأربع، حيث يبني المصلي على الأكثر (الأربع) ثم يأتي بركعة احتياط.</li>
-                    <li><strong>كثير الشك:</strong> من يكثر شكه في الصلاة لا يعتني بشكه ويبني على وقوع الفعل المشكوك فيه، إلا إذا كان هذا البناء مفسداً للصلاة.</li>
-                </ul>
+                <p>منها ما يبطل الصلاة (كالشك في عدد ركعات الصبح والمغرب)، ومنها ما له علاج (كالشك بين الثلاث والأربع حيث يبني على الأربع ويأتي بركعة احتياط).</p>
                 <h3>أحكام السهو:</h3>
-                <p>السهو في الصلاة قد يوجب الإتيان بسجدتي السهو أو قضاء الجزء المنسي.</p>
-                <ul>
-                    <li><strong>سجود السهو:</strong> يجب الإتيان بسجدتي السهو لعدة أمور، منها: الكلام سهواً، والتسليم في غير موضعه، ونسيان التشهد، والشك بين الركعة الرابعة والخامسة بعد إكمال السجدتين. كيفية سجود السهو هي نية ثم سجدتان، في كل سجدة ذكر معين (مثل: بسم الله وبالله، السلام عليك أيها النبي ورحمة الله وبركاته)، ثم تشهد وتسليم.</li>
-                    <li><strong>قضاء الأجزاء المنسية:</strong> من نسي سجدة واحدة أو أكثر ولم يمكن تداركها في الصلاة، يجب عليه قضاؤها بعد الصلاة مباشرة، ثم الإتيان بسجود السهو لنسيان السجدة.</li>
-                </ul>
-                <div class="citation-box">المصدر: موقع مكتب سماحة السيد السيستاني (دام ظله)، الوجيز في أحكام العبادات والمسائل المنتخبة.</div>
+                <p>يجب الإتيان بسجدتي السهو لعدة أمور، منها: الكلام سهواً، ونسيان التشهد، والشك بين الركعة الرابعة والخامسة. ومن نسي سجدة، يجب عليه قضاؤها بعد الصلاة ثم الإتيان بسجود السهو.</p>
+                <div class="citation-box">المصدر: موقع مكتب سماحة السيد السيستاني (دام ظله)، الوجيز في أحكام العبادات.</div>
+            </div>
+        </section>
+        
+        <section id="invalidators" class="content-section">
+            <div class="container">
+                <h2>مبطلات الصلاة</h2>
+                <p>تبطل الصلاة بعدة أمور إذا وقعت أثناءها عمداً أو سهواً في بعض الحالات.</p>
+                <ol>
+                    <li>فقدان شرط من شروطها أثناءها، كالطهارة أو ستر العورة.</li>
+                    <li>الحدث الأصغر أو الأكبر (كالريح أو البول).</li>
+                    <li>وضع اليدين إحداهما على الأخرى (التكتف) على نحو الأدب والخضوع.</li>
+                    <li>قول "آمين" بعد قراءة سورة الحمد.</li>
+                    <li>تعمد الالتفات بالوجه عن القبلة بما يوجب الإخلال بالاستقبال.</li>
+                    <li>الكلام العمدي، ولو بحرفين ليس لهما معنى.</li>
+                    <li>القهقهة (الضحك المشتمل على الصوت والترجيع).</li>
+                    <li>البكاء العمدي بصوت لأمور الدنيا.</li>
+                    <li>كل فعل ماحٍ لصورة الصلاة، كالتصفيق والقفز.</li>
+                    <li>الأكل والشرب.</li>
+                    <li>تعمد زيادة ركن أو نقصانه.</li>
+                </ol>
+                <div class="citation-box">المصدر: موقع مكتب سماحة السيد السيستاني (دام ظله)، منهاج الصالحين.</div>
             </div>
         </section>
 
-        <section id="missed-prayers" class="content-section">
+        <section id="missed-prayers" class="content-section alternate-bg">
             <div class="container">
                 <h2>كيفية قضاء الصلوات الفائتة</h2>
-                <p>من فاتته فريضة يومية عمداً أو سهواً أو لأي سبب آخر، يجب عليه قضاؤها خارج وقتها.</p>
-                <h3>أحكام القضاء:</h3>
-                <ul>
-                    <li><strong>وقت القضاء:</strong> يجوز قضاء الصلوات الفائتة في أي وقت من ليل أو نهار.</li>
-                    <li><strong>كيفية القضاء:</strong> ما فات في الحضر يُقضى تماماً، وما فات في السفر يُقضى قصراً.</li>
-                    <li><strong>الترتيب في القضاء:</strong> لا يجب الترتيب في قضاء الصلوات الفائتة، إلا بين الصلوات المترتبة في أصلها كالظهر والعصر من نفس اليوم.</li>
-                    <li><strong>عدم معرفة عدد الفوائت:</strong> إذا لم يعلم المكلف بعدد الصلوات التي فاتته، يجوز له الاقتصار على قضاء القدر المتيقن الذي يعلم بفواته.</li>
-                </ul>
+                <p>من فاتته فريضة يومية يجب عليه قضاؤها. ما فات في الحضر يُقضى تماماً، وما فات في السفر يُقضى قصراً. ولا يجب الترتيب في القضاء إلا بين الصلوات المترتبة في أصلها كالظهر والعصر من نفس اليوم.</p>
                 <div class="citation-box">المصدر: موقع مكتب سماحة السيد السيستاني (دام ظله)، منهاج الصالحين.</div>
             </div>
         </section>
@@ -419,7 +452,6 @@
                     let nextPrayerName = null;
                     let nextPrayerTime = null;
 
-                    // Find the next prayer for today
                     for (const prayer of prayerTimes) {
                         if (prayer.time > now) {
                             nextPrayerName = prayer.name;
@@ -428,7 +460,6 @@
                         }
                     }
 
-                    // If all prayers for today are done, next is Fajr of tomorrow
                     if (!nextPrayerName) {
                         nextPrayerName = prayerTimes[0].name;
                         nextPrayerTime = new Date(prayerTimes[0].time);
@@ -449,7 +480,6 @@
                 const year = date.getFullYear();
                 const month = date.getMonth() + 1;
                 const day = date.getDate();
-                // Method 2: Ja'fari (Shia Ithna-Ashari)
                 const url = `https://api.aladhan.com/v1/calendar/${year}/${month}?latitude=${latitude}&longitude=${longitude}&method=2`;
 
                 fetch(url)
@@ -460,14 +490,12 @@
                             const timings = todayData.timings;
                             const hijriDate = todayData.date.hijri;
 
-                            // Display Dates
                             const gregorianDateStr = new Intl.DateTimeFormat('ar-EG-u-nu-latn', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }).format(date);
                             const hijriDateStr = `${hijriDate.day} ${hijriDate.month.ar} ${hijriDate.year} هـ`;
                             dateDisplay.innerHTML = `${gregorianDateStr}<br>${hijriDateStr}`;
 
-                            // Correct Maghrib time (add ~10-15 minutes to Sunset)
                             const sunsetTime = parseTimeToDate(timings.Sunset.split(' ')[0]);
-                            sunsetTime.setMinutes(sunsetTime.getMinutes() + 14); // Adding 14 minutes as a safe average
+                            sunsetTime.setMinutes(sunsetTime.getMinutes() + 14);
                             const maghribHour = sunsetTime.getHours();
                             const maghribMinute = sunsetTime.getMinutes();
                             const ampm = maghribHour >= 12 ? 'م' : 'ص';
@@ -483,12 +511,11 @@
                                 { name: 'منتصف الليل', time: timings.Midnight.split(' ')[0] }
                             ];
 
-                            prayerList.innerHTML = ''; // Clear previous list
+                            prayerList.innerHTML = '';
                             const prayerTimesForCountdown = [];
 
                             prayerTimesMap.forEach(p => {
-                                const time24 = p.time;
-                                const [hour, minute] = time24.split(':');
+                                const [hour, minute] = p.time.split(':');
                                 const d = new Date();
                                 d.setHours(parseInt(hour), parseInt(minute), 0, 0);
                                 
@@ -498,7 +525,6 @@
 
                                 prayerList.innerHTML += createTimeRow(p.name, formattedTime);
                                 
-                                // Prepare for countdown
                                 if (p.name !== 'الشروق' && p.name !== 'الغروب' && p.name !== 'منتصف الليل') {
                                      prayerTimesForCountdown.push({ name: p.name, time: parseTimeToDate(formattedTime) });
                                 }
@@ -514,7 +540,7 @@
                     })
                     .catch(error => {
                         console.error('Error fetching prayer times:', error);
-                        widgetMessage.textContent = 'لا يمكن الاتصال بخادم المواقيت. يرجى التحقق من اتصالك بالإنترنت.';
+                        widgetMessage.textContent = 'لا يمكن الاتصال بخادم المواقيت.';
                     });
             };
 
@@ -525,7 +551,7 @@
                     },
                     (error) => {
                         console.error("Geolocation error:", error);
-                        widgetMessage.textContent = 'يرجى السماح بالوصول إلى الموقع لعرض مواقيت الصلاة.';
+                        widgetMessage.textContent = 'يرجى السماح بالوصول إلى الموقع لعرض المواقيت.';
                     }
                 );
             } else {
