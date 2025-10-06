@@ -267,7 +267,6 @@
         .dhikr-box strong { color: var(--primary-color); }
         .dhikr-box em { font-style: normal; color: #555; }
 
-        /* --- FINAL RESPONSIVE TABLE STYLE --- */
         .fiqh-table-wrapper {
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
@@ -284,7 +283,7 @@
             border: 1px solid #ddd;
             padding: 12px 15px;
             text-align: center;
-            white-space: normal; /* Allow text to wrap */
+            white-space: normal;
         }
         .fiqh-table th {
             background-color: var(--secondary-color);
@@ -561,18 +560,10 @@
                 return `<li class="prayer-time-row"><div class="prayer-name">${label}</div><div class="prayer-time">${time}</div></li>`;
             };
 
-            const parseTimeToDate = (timeStr) => {
-                const [time, modifier] = timeStr.split(' ');
-                let [hours, minutes] = time.split(':');
-                hours = parseInt(hours, 10);
-                if (modifier && modifier.toLowerCase() === 'م' && hours !== 12) {
-                    hours += 12;
-                }
-                if (modifier && modifier.toLowerCase() === 'ص' && hours === 12) {
-                    hours = 0;
-                }
+            const parseApiTime = (timeStr) => {
+                const [hours, minutes] = timeStr.split(':');
                 const date = new Date();
-                date.setHours(hours, parseInt(minutes, 10), 0, 0);
+                date.setHours(parseInt(hours, 10), parseInt(minutes, 10), 0, 0);
                 return date;
             };
             
@@ -639,20 +630,20 @@
                             const hijriDateStr = `${hijriDate.day} ${hijriDate.month.ar} ${hijriDate.year} هـ`;
                             dateDisplay.innerHTML = `${gregorianDateStr}<br>${hijriDateStr}`;
 
-                            // *** FINAL MANUAL TIME CORRECTION ***
-                            const fajrTimeObject = parseTimeToDate(timings.Fajr);
-                            const correctedFajrTime = addMinutes(fajrTimeObject, 15);
+                            // *** FINAL, CORRECTED TIME LOGIC ***
+                            const fajrApiTime = parseApiTime(timings.Fajr.split(' ')[0]);
+                            const correctedFajrTime = addMinutes(fajrApiTime, 15);
 
-                            const sunsetTimeObject = parseTimeToDate(timings.Sunset);
-                            const correctedMaghribTime = addMinutes(sunsetTimeObject, 14);
+                            const sunsetApiTime = parseApiTime(timings.Sunset.split(' ')[0]);
+                            const correctedMaghribTime = addMinutes(sunsetApiTime, 14);
 
                             const prayerTimesMap = [
                                 { name: 'الفجر', time: formatToAmPm(correctedFajrTime) },
-                                { name: 'الشروق', time: timings.Sunrise.split(' ')[0] + ' ص' },
-                                { name: 'الظهر', time: timings.Dhuhr.split(' ')[0] + ' م' },
-                                { name: 'الغروب', time: formatToAmPm(sunsetTimeObject) },
+                                { name: 'الشروق', time: formatToAmPm(parseApiTime(timings.Sunrise.split(' ')[0])) },
+                                { name: 'الظهر', time: formatToAmPm(parseApiTime(timings.Dhuhr.split(' ')[0])) },
+                                { name: 'الغروب', time: formatToAmPm(sunsetApiTime) },
                                 { name: 'المغرب', time: formatToAmPm(correctedMaghribTime) },
-                                { name: 'منتصف الليل', time: timings.Midnight.split(' ')[0] + ' ص' }
+                                { name: 'منتصف الليل', time: formatToAmPm(parseApiTime(timings.Midnight.split(' ')[0])) }
                             ];
 
                             prayerList.innerHTML = '';
@@ -662,7 +653,15 @@
                                 prayerList.innerHTML += createTimeRow(p.name, p.time);
                                 
                                 if (p.name !== 'الشروق' && p.name !== 'الغروب' && p.name !== 'منتصف الليل') {
-                                     prayerTimesForCountdown.push({ name: p.name, time: parseTimeToDate(p.time) });
+                                     // Re-parse the formatted time to ensure consistency for countdown
+                                     const [time, modifier] = p.time.split(' ');
+                                     let [hours, minutes] = time.split(':');
+                                     hours = parseInt(hours, 10);
+                                     if (modifier === 'م' && hours !== 12) hours += 12;
+                                     if (modifier === 'ص' && hours === 12) hours = 0;
+                                     const dateForCountdown = new Date();
+                                     dateForCountdown.setHours(hours, parseInt(minutes, 10), 0, 0);
+                                     prayerTimesForCountdown.push({ name: p.name, time: dateForCountdown });
                                 }
                             });
                             
