@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>حِكمة في طلب العلم - الإصدار النهائي</title>
-    <meta name="description" content="مقال بتصميم صفحة كتاب احترافية، جاهز للعرض والتنزيل كملف PDF مطابق للشاشة وبجودة عالية.">
+    <meta name="description" content="مقال بتصميم صفحة كتاب احترافية، مع دعم كامل للغة العربية في ملف PDF لضمان نص واضح وسليم.">
 
-    <!-- Google Fonts -->
+    <!-- Google Fonts for screen display -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Noto+Kufi+Arabic:wght@600;700&display=swap" rel="stylesheet">
@@ -14,9 +14,11 @@
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
-    <!-- ** THE MOST RELIABLE LIBRARIES: jsPDF and html2canvas ** -->
+    <!-- ** THE DEFINITIVE SOLUTION LIBRARIES ** -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <!-- The key library for fixing Arabic text rendering -->
+    <script src="https://unpkg.com/arabic-persian-reshaper@0.0.2/arabic-persian-reshaper.js"></script>
+
 
     <style>
         :root {
@@ -141,43 +143,86 @@
 
         document.getElementById('download-btn').addEventListener('click', function () {
             const downloadButton = this;
-            const contentToPrint = document.getElementById('content-to-print');
-            
             downloadButton.disabled = true;
             downloadButton.innerHTML = 'جاري التحضير... <i class="fas fa-spinner fa-spin"></i>';
 
-            // ** THE FINAL FIX: A short delay to ensure fonts are rendered **
-            setTimeout(() => {
-                html2canvas(contentToPrint, {
-                    scale: 3, // High resolution
-                    useCORS: true,
-                    allowTaint: true,
-                    logging: false,
-                    backgroundColor: '#e9ecef' // Match body background
-                }).then(canvas => {
-                    const imgData = canvas.toDataURL('image/png');
-                    const pdf = new jsPDF({
-                        orientation: 'portrait',
-                        unit: 'mm',
-                        format: 'a4'
-                    });
-
-                    const pdfWidth = pdf.internal.pageSize.getWidth();
-                    const pdfHeight = pdf.internal.pageSize.getHeight();
-                    
-                    pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-                    pdf.save('حكمة-في-طلب-العلم.pdf');
-
-                    downloadButton.disabled = false;
-                    downloadButton.innerHTML = 'تحميل كملف PDF <i class="fas fa-download"></i>';
-
-                }).catch(err => {
-                    console.error("PDF Generation Failed:", err);
-                    alert("عذراً، حدث خطأ أثناء إنشاء الملف. يرجى المحاولة مرة أخرى.");
-                    downloadButton.disabled = false;
-                    downloadButton.innerHTML = 'تحميل كملف PDF <i class="fas fa-download"></i>';
+            try {
+                const pdf = new jsPDF({
+                    orientation: 'portrait',
+                    unit: 'mm',
+                    format: 'a4'
                 });
-            }, 500); // 500ms delay - this is the magic key
+
+                pdf.addFont("https://raw.githack.com/sphilee/jsPDF-CustomFonts-support/master/dist/Amiri-Regular.ttf", "Amiri", "normal");
+                pdf.setFont("Amiri", "normal");
+
+                const margin = 20;
+                const pageWidth = pdf.internal.pageSize.getWidth();
+                const pageHeight = pdf.internal.pageSize.getHeight();
+                const usableWidth = pageWidth - (margin * 2);
+                let y = margin;
+
+                function processText(text) {
+                    return arabicPersianReshaper.process(text).split('').reverse().join('');
+                }
+
+                // --- Header ---
+                pdf.setFontSize(10);
+                pdf.text(processText("مقال في آداب طلب العلم"), pageWidth / 2, y, { align: 'center' });
+                y += 5;
+                pdf.setLineWidth(0.2);
+                pdf.line(margin, y, pageWidth - margin, y);
+                y += 20;
+
+                // --- Title ---
+                pdf.setFontSize(24);
+                const title = document.querySelector('h1').innerText;
+                pdf.text(processText(title), pageWidth / 2, y, { align: 'center' });
+                y += 20;
+
+                // --- Body Paragraphs ---
+                pdf.setFontSize(12);
+                const paragraphs = document.querySelectorAll('.page-content p, .page-content .quote');
+                
+                paragraphs.forEach(p => {
+                    let text = p.innerText;
+                    let isQuote = p.classList.contains('quote');
+                    
+                    const lines = pdf.splitTextToSize(text, usableWidth - (isQuote ? 10 : 0));
+                    
+                    if (y + (lines.length * 7) > pageHeight - margin) {
+                        pdf.addPage();
+                        y = margin;
+                    }
+
+                    if (isQuote) {
+                        pdf.setLineWidth(1);
+                        pdf.setDrawColor('#c9b79c');
+                        pdf.line(pageWidth - margin - 5, y, pageWidth - margin - 5, y + (lines.length * 7) - 5);
+                    }
+
+                    lines.forEach((line, index) => {
+                        pdf.text(processText(line), pageWidth - margin - (isQuote ? 10 : 0), y, { align: 'right' });
+                        y += 7;
+                    });
+                    y += 5;
+                });
+
+                // --- Footer ---
+                pdf.setLineWidth(0.2);
+                pdf.setDrawColor('#333333');
+                pdf.line(margin, pageHeight - margin + 5, pageWidth - margin, pageHeight - margin + 5);
+                pdf.text(processText("1"), pageWidth / 2, pageHeight - margin + 10, { align: 'center' });
+
+                pdf.save('حكمة-في-طلب-العلم.pdf');
+
+            } catch (error) {
+                console.error("PDF Generation Failed:", error);
+                alert("عذراً، حدث خطأ فادح أثناء إنشاء الملف. يرجى المحاولة مرة أخرى.");
+            } finally {
+                downloadButton.disabled = false;
+                downloadButton.innerHTML = 'تحميل كملف PDF <i class="fas fa-download"></i>';
+            }
         });
     </script>
 
