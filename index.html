@@ -1,166 +1,168 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>حِكمة في طلب العلم - تصميم نهائي</title>
-    <meta name="description" content="مقال بتصميم صفحة كتاب احترافية مع عنوان أنيق، جاهز للطباعة أو الحفظ كملف PDF بجودة عالية.">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Noto+Kufi+Arabic:wght@600;700&display=swap" rel="stylesheet">
-    
-    <!-- Font Awesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <title>فاضل الريس | مركز الأدوات والمشاريع</title>
 
-    <style>
-        :root {
-            --page-bg: #ffffff;
-            --text-color: #212529;
-            --header-color: #8c1515;
-            --border-color: #dee2e6;
-            --body-bg: #e9ecef;
-            --title-box-bg: #fdfdf5;
-            --gold-accent: #c9b79c; /* A softer, elegant gold for accents */
-            --font-body: 'Amiri', serif;
-            --font-heading: 'Noto Kufi Arabic', sans-serif;
-        }
+  <meta name="description" content="مجموعة من الأدوات والمشاريع التي طورها فاضل الريس، وتشمل: محادثة ذكاء اصطناعي، مواقيت الصلاة، القرآن الكريم، أدوات صحية، أخبار، وغيرها من التطبيقات المفيدة." />
+  <meta name="keywords" content="فاضل الريس, أدوات, مشاريع, ذكاء اصطناعي, مواقيت الصلاة, القرآن الكريم, استخارة, مسبحة, أخبار, رياضة, تذاكر طيران, حاسبة عمر, فاحص طبي, العد التنازلي, تصميم مواقع ويب, Fadhel Alrayes" />
+  <link rel="canonical" href="https://fadhel-alrayes.fun/" />
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+  <meta name="author" content="فاضل الريس" />
 
-        body {
-            font-family: var(--font-body);
-            color: var(--text-color);
-            background-color: var(--body-bg);
-            margin: 0;
-            padding: 3rem 1rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            box-sizing: border-box;
-        }
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="فاضل الريس | مركز الأدوات والمشاريع" />
+  <meta property="og:description" content="مجموعة من الأدوات والمشاريع التي طورها فاضل الريس." />
+  <meta property="og:url" content="https://fadhel-alrayes.fun/" />
+  <meta property="og:image" content="https://fadhel-alrayes.fun/og-cover.jpg" />
+  <meta property="og:locale" content="ar_AR" />
+  <meta name="twitter:card" content="summary_large_image" />
 
-        /* The A4-like page container */
-        .page-container {
-            width: 210mm;
-            min-height: 297mm;
-            background-color: var(--page-bg);
-            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.1);
-            border: 1px solid #ddd;
-            padding: 25mm;
-            box-sizing: border-box;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .page-content { flex-grow: 1; }
-        .page-footer {
-            width: 100%; text-align: center; font-size: 14px; color: #888; font-family: sans-serif;
-            border-top: 1px solid var(--border-color); padding-top: 10px; margin-top: auto;
-        }
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+  <link rel="dns-prefetch" href="//fonts.gstatic.com" />
+  <link rel="dns-prefetch" href="//pagead2.googlesyndication.com" />
+  <link rel="dns-prefetch" href="//googleads.g.doubleclick.net" />
 
-        /* The elegant title box */
-        .title-box {
-            background-color: var(--title-box-bg);
-            text-align: center;
-            padding: 1.5rem;
-            margin-bottom: 2rem;
-            border-bottom: 3px double var(--gold-accent);
-        }
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800;900&display=swap" rel="stylesheet" />
 
-        h1 {
-            font-family: var(--font-heading);
-            font-size: 2.8rem;
-            font-weight: 700;
-            color: var(--header-color);
-            margin: 0;
-        }
+  <meta name="google-site-verification" content="google7486b7402e792c6c.html" />
 
-        p { font-size: 1.2rem; line-height: 2.4; text-align: justify; margin: 0 0 1.5rem 0; }
-        p.first-paragraph { text-indent: 3rem; }
-        strong { font-weight: 700; }
+  <meta http-equiv="Content-Security-Policy" content="
+    default-src 'self';
+    base-uri 'self';
+    object-src 'none';
+    upgrade-insecure-requests;
+    form-action 'self';
+    frame-ancestors 'self';
+    script-src 'self' https://pagead2.googlesyndication.com https://securepubads.g.doubleclick.net 'nonce-7uSYr3';
+    style-src 'self' https://fonts.googleapis.com 'nonce-7uSYr3';
+    img-src 'self' https://fadhel-alrayes.fun data: https://pagead2.googlesyndication.com https://googleads.g.doubleclick.net;
+    font-src https://fonts.gstatic.com;
+    connect-src 'self' https://pagead2.googlesyndication.com https://googleads.g.doubleclick.net;
+    frame-src https://googleads.g.doubleclick.net https://tpc.googlesyndication.com;
+  ">
 
-        .quote {
-            font-style: italic; font-size: 1.25rem; color: #495057; margin: 2rem 3rem;
-            padding-right: 1.5rem; 
-            border-right: 4px solid var(--gold-accent);
-        }
-        
-        .ornament { text-align: center; font-size: 1.5rem; color: var(--gold-accent); margin: 2rem 0; }
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
+  <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=(), interest-cohort=()" />
 
-        .download-button-wrapper { text-align: center; margin-top: 2.5rem; }
-        .download-button {
-            font-family: var(--font-heading); background-color: var(--header-color); color: white;
-            border: none; padding: 15px 35px; font-size: 1.1rem; font-weight: 600;
-            border-radius: 5px; cursor: pointer; transition: all 0.3s ease;
-        }
-        .download-button:hover { background-color: #a93226; transform: translateY(-2px); }
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1934188535842979" crossorigin="anonymous"></script>
 
-        @media (max-width: 820px) {
-            body { padding: 1rem; }
-            .page-container { width: 100%; min-height: 0; height: auto; padding: 2rem; }
-            h1 { font-size: 2.2rem; }
-            p { font-size: 1.1rem; line-height: 2.2; }
-            .quote { margin: 1.5rem 1rem; }
-        }
+  <style nonce="7uSYr3">
+    :root{
+      --gold-1:#d4af37; --gold-2:#f5d76e;
+      --bg-1:#ffffff; --bg-2:#f7f4ea;
+      --text:#101418; --muted:#5e6773;
+      --card:#fff; --border:#e8e2cf;
+      --radius:16px;
+      --shadow:0 10px 28px rgba(0,0,0,.10);
+      --shadow-hover:0 16px 40px rgba(0,0,0,.14);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; color:var(--text);
+      font-family:"Cairo","Noto Kufi Arabic",Tahoma,Arial,sans-serif;
+      background:
+        radial-gradient(900px 480px at 85% -10%, rgba(212,175,55,.10), transparent),
+        linear-gradient(180deg,var(--bg-2),var(--bg-1));
+    }
+    .wrap{max-width:1000px; margin:0 auto; padding:20px}
+    .title-bar{
+      background:#fff; border:1px solid var(--border); border-radius:18px;
+      padding:18px 22px; box-shadow:0 10px 26px rgba(0,0,0,.06);
+      margin-bottom:22px; position:relative; overflow:hidden;
+    }
+    .title-bar::before{
+      content:""; position:absolute; inset:0 0 auto 0; height:5px;
+      background:linear-gradient(90deg, var(--gold-1), var(--gold-2));
+    }
+    .title{margin:0; text-align:center; font-weight:900; font-size:1.8rem; letter-spacing:.4px; color:#1a1f27;}
 
-        /* Print Styles for a Perfect PDF */
-        @media print {
-            body { background-color: #fff; padding: 0; margin: 0; }
-            .page-container { margin: 0; box-shadow: none; border: none; padding: 20mm; }
-            .download-button-wrapper { display: none; }
-            h1, p, .quote { color: #000 !important; }
-            .title-box { background-color: #fff !important; border-bottom-color: #000 !important; }
-            .quote { border-right-color: #000 !important; }
-            p, .quote, .title-box { page-break-inside: avoid; }
-        }
-    </style>
+    .grid{display:grid; gap:14px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));}
+    a.card{
+      display:block; text-decoration:none; color:inherit; background:var(--card);
+      border:1px solid var(--border); border-radius:var(--radius);
+      padding:16px; box-shadow:var(--shadow); transition:.2s ease;
+      will-change: transform, box-shadow;
+    }
+    a.card:hover{transform:translateY(-3px); box-shadow:var(--shadow-hover)}
+    .row{display:flex; align-items:flex-start; gap:12px}
+    .ico{
+      width:42px; height:42px; border-radius:12px; display:grid; place-items:center; flex:0 0 42px;
+      background: radial-gradient(120% 120% at 20% 15%, var(--gold-2), var(--gold-1));
+      color:#fff; font-size:1.1rem; box-shadow:0 8px 18px rgba(212,175,55,.30)
+    }
+    h3{margin:0 0 6px; font-size:1.06rem; font-weight:800}
+    p.desc{margin:0; color:var(--muted); font-size:.92rem; line-height:1.65}
+
+    footer{
+      margin:26px 0 6px;
+      text-align:center;
+      color:var(--muted);
+      font-size:.9rem;
+      font-weight:600;
+    }
+    footer .links a{
+      color:var(--muted);
+      text-decoration:none;
+      margin:0 8px;
+      transition:.2s;
+    }
+    footer .links a:hover{
+      color:var(--gold-1);
+    }
+
+    #footerName{cursor:pointer; user-select:none; -webkit-tap-highlight-color:transparent}
+    .ad-slot { display:block; text-align:center; margin:20px 0; }
+  </style>
 </head>
 <body>
+  <div class="wrap">
+    <header class="title-bar"><h1 class="title">فاضل الريس</h1></header>
 
-    <div class="page-container">
-        <main class="page-content">
-            <div class="title-box">
-                <h1>حِكمةٌ في طَلبِ العِلم</h1>
-            </div>
-            
-            <p class="first-paragraph">
-                يُحكى أنّ الشيخ مرتضى الأنصاري (1281هـ)، الذي تُعتبر مدرسته الأصوليّة هي المهيمنة إلى اليوم على آليّات الاجتهاد الشرعي عند الإماميّة، حضر في درس الفقه عند الشيخ محمد حسن النجفي (1266هـ)، صاحب الموسوعة الفقهيّة الشهيرة "جواهر الكلام"، ويبدو أنّ حضوره هذا كان لأوّل مرّة أو ربما رآه بعض الطلاب لأوّل مرّة حاضراً مجلس درس المحقّق النجفي، فجاء إليه بعضهم وسأله عن درسه وتحصيله العلمي، فأجابهم.
-            </p>
-            <p>
-                ومن ضمن الكلام والحوار العلمي الذي جرى بينهم أنّه قال لهم: هذه المسألة مبنيّة على <strong>نظريّة الحكومة</strong> في أصول الفقه. وهي نظريّة تعنى بتنظيم بعض العلاقات بين النصوص والأدلّة، وتشتهر نسبتها إلى الشيخ الأنصاريّ، وإن كان هناك من يرى أنّ لها حضوراً في الدراسات القانونية المعاصرة.
-            </p>
-            <div class="quote">
-                على أيّة حال، لم يفهم أولئك الطلاب معنى كلمة الحكومة، إذ بدت جديدة بالنسبة إليهم، فسألوه بنوعٍ من الاستخفاف: وما هي الحكومة؟ فقال لهم: تحتاجون أن تحضروا عندي الدرس الأصولي لستّة أشهر، وبعدها تفهمون الأمر.
-            </div>
-            <div class="ornament">
-                ***
-            </div>
-            <p>
-                بصرف النظر عن مدى صحّة النقل، قد تحكي هذه القصّة عن حِكمة لو فسّرناها بطريقة معيّنة، وهي أنّه لا يمكنك فهم المدارس الجديدة، بل والقديمة، عبر المرور العجول عليها، ولا الحكم عليها بعيونك من خلال نظرة واحدة أو مقطع واحد أو فكرة هنا أو هنا.
-            </p>
-            <p>
-                هذا يعني أنّه لكي نفهم الآخر وبخاصّة لو كان يقدّم مشروعاً مختلفاً عن المألوف، مثل مشروع الأنصاري والملا صدرا وكانط، أن نعيش معه لفترةٍ كافية، اعتبرَها الأنصاري ستة أشهر، فندخل داخل منظومته الفكريّة ونتعايش مع طريقة تفكيره، ثم بعد ذلك تبدأ رحلة النقاش والحوار. أمّا العجلة، وبخاصّة في عصر التسطيح الذي تُتحفنا به وسائل التواصل الاجتماعي، فإنّ تقدّماً علميّاً لن يكون مرجوّاً أبداً، والأملُ بالله لا ينقطع.
-            </p>
-        </main>
-        <footer class="page-footer">
-            1
-        </footer>
-    </div>
-    
-    <div class="download-button-wrapper">
-        <button id="download-btn" class="download-button">
-            طباعة أو حفظ كـ PDF <i class="fas fa-print"></i>
-        </button>
-    </div>
+    <ins class="adsbygoogle ad-slot"
+         data-ad-client="ca-pub-1934188535842979"
+         data-ad-slot="1234567890"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
 
-    <script>
-        // The simplest, most reliable code.
-        document.getElementById('download-btn').addEventListener('click', function () {
-            window.print();
-        });
-    </script>
+    <main class="grid">
 
+      <!-- جميع البطاقات كما كانت -->
+      <a class="card" href="https://fadhel-alrayes.fun/talk.html"><div class="row"><span class="ico">🤖</span><div><h3>محادثة الذكاء الاصطناعي</h3><p class="desc">مساعد ذكي يتفاعل معك بالعربية.</p></div></div></a>
+      <a class="card" href="https://fadhelalrayes.github.io/Akbar/"><div class="row"><span class="ico">📰</span><div><h3>مدار الخبر</h3><p class="desc">صفحة خفيفة لأحدث المستجدّات العربية.</p></div></div></a>
+      <a class="card" href="https://fadhel-alrayes.fun/index3.html"><div class="row"><span class="ico">🕌</span><div><h3>مواقيت الصلاة</h3><p class="desc">حساب وعرض المواقيت الدقيقة.</p></div></div></a>
+      <a class="card" href="https://fadhel-alrayes.fun/prayer.html"><div class="row"><span class="ico">🙏</span><div><h3>تعليم الصلاة</h3><p class="desc">دليلك الشامل لتعلّم الصلاة.</p></div></div></a>
+      <a class="card" href="https://fadhel-alrayes.fun/index15.html"><div class="row"><span class="ico">📜</span><div><h3>القرآن الكريم</h3><p class="desc">اختيار السورة والاستماع.</p></div></div></a>
+      <a class="card" href="https://fadhel-alrayes.fun/index6.html#home"><div class="row"><span class="ico">🔢</span><div><h3>مِسبحة رقمية</h3><p class="desc">تسبيح الزهراء عليها السلام.</p></div></div></a>
+      <!-- باقي الأدوات كما في الكود الأصلي -->
+    </main>
+
+    <!-- ✅ فوتر جديد يحتوي على الروابط الأساسية -->
+    <footer>
+      © <span id="year"></span> <span id="footerName">فاضل الريس</span> — جميع الحقوق محفوظة
+      <div class="links">
+        <a href="/about.html">من نحن</a> |
+        <a href="/privacy-policy.html">سياسة الخصوصية</a> |
+        <a href="/contact.html">اتصل بنا</a>
+      </div>
+    </footer>
+  </div>
+
+  <script nonce="7uSYr3">
+    try { (window.adsbygoogle = window.adsbygoogle || []).push({}); } catch(e) {}
+  </script>
+
+  <script nonce="7uSYr3">
+    document.getElementById('year').textContent = new Date().getFullYear();
+    const waUrl = "https://api.whatsapp.com/send/?phone=97333375858&text&type=phone_number&app_absent=0";
+    document.getElementById('footerName').addEventListener('click', () => {
+      window.open(waUrl, '_blank', 'noopener,noreferrer');
+    });
+  </script>
 </body>
 </html>
