@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>حِكمة في طلب العلم - تصميم كتاب</title>
-    <meta name="description" content="مقال بتصميم صفحة كتاب احترافية، جاهز للعرض والتنزيل كملف PDF عالي الجودة.">
+    <title>حِكمة في طلب العلم - إصدار نهائي</title>
+    <meta name="description" content="مقال بتصميم صفحة كتاب احترافية، مع دعم كامل للغة العربية في ملف PDF لضمان نص واضح وسليم.">
 
-    <!-- Google Fonts -->
+    <!-- Google Fonts for screen display -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Noto+Kufi+Arabic:wght@600;700&display=swap" rel="stylesheet">
@@ -14,9 +14,15 @@
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
-    <!-- jsPDF and html2canvas Libraries -->
+    <!-- ** THE DEFINITIVE SOLUTION: jsPDF with Arabic Font Support ** -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <!-- This file contains the Amiri font data for jsPDF -->
+    <script src="https://raw.githack.com/MrRio/jsPDF/master/src/modules/arabic.js"></script>
+    <script src="https://raw.githack.com/MrRio/jsPDF/master/src/modules/split_text_to_size.js"></script>
+    <script src="https://raw.githack.com/MrRio/jsPDF/master/src/modules/standard_fonts_metrics.js"></script>
+    <script src="https://raw.githack.com/MrRio/jsPDF/master/dist/jspdf.customfonts.min.js"></script>
+    <script src="https://raw.githack.com/MrRio/jsPDF/master/dist/default_vfs.js"></script>
+
 
     <style>
         :root {
@@ -24,13 +30,10 @@
             --text-color: #212529;
             --header-color: #8c1515;
             --border-color: #dee2e6;
-            --accent-color: #c9b79c;
-            --body-bg: #e9ecef; /* A light grey background to highlight the page */
+            --body-bg: #e9ecef;
             --font-body: 'Amiri', serif;
             --font-heading: 'Noto Kufi Arabic', sans-serif;
         }
-
-        html { scroll-behavior: smooth; }
 
         body {
             font-family: var(--font-body);
@@ -46,116 +49,55 @@
             box-sizing: border-box;
         }
 
-        /* The A4-like page container */
         .page-container {
-            width: 210mm; /* A4 width */
-            min-height: 297mm; /* A4 height */
-            padding: 20mm 25mm; /* Standard book margins */
+            width: 210mm;
+            min-height: 297mm;
+            padding: 20mm 25mm;
             background-color: var(--page-bg);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             border: 1px solid #ccc;
             box-sizing: border-box;
             display: flex;
             flex-direction: column;
-            position: relative;
         }
         
-        .page-content {
-            flex-grow: 1;
-        }
+        .page-content { flex-grow: 1; }
 
-        /* Header and Footer for the page */
         .page-header, .page-footer {
-            width: 100%;
-            text-align: center;
-            font-size: 14px;
-            color: #888;
-            font-family: sans-serif;
+            width: 100%; text-align: center; font-size: 14px; color: #888; font-family: sans-serif;
         }
-        .page-header {
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 10px;
-            margin-bottom: 20mm; /* Space after header */
-        }
-        .page-footer {
-            border-top: 1px solid var(--border-color);
-            padding-top: 10px;
-            margin-top: auto; /* Pushes footer to the bottom */
-        }
+        .page-header { border-bottom: 1px solid var(--border-color); padding-bottom: 10px; margin-bottom: 20mm; }
+        .page-footer { border-top: 1px solid var(--border-color); padding-top: 10px; margin-top: auto; }
 
-        /* Typography */
         h1 {
-            font-family: var(--font-heading);
-            font-size: 2.6rem;
-            font-weight: 700;
-            color: var(--header-color);
-            text-align: center;
-            margin: 0 0 1.5rem 0;
+            font-family: var(--font-heading); font-size: 2.6rem; font-weight: 700; color: var(--header-color);
+            text-align: center; margin: 0 0 1.5rem 0;
         }
 
-        p {
-            font-size: 1.2rem;
-            line-height: 2.4;
-            text-align: justify;
-            margin: 0 0 1.5rem 0;
-        }
-        
+        p { font-size: 1.2rem; line-height: 2.4; text-align: justify; margin: 0 0 1.5rem 0; }
         p.first-paragraph { text-indent: 3rem; }
-
         strong { font-weight: 700; }
 
         .quote {
-            font-style: italic;
-            font-size: 1.25rem;
-            color: #495057;
-            margin: 2rem 3rem;
-            padding-right: 1.5rem;
-            border-right: 4px solid var(--accent-color);
+            font-style: italic; font-size: 1.25rem; color: #495057; margin: 2rem 3rem;
+            padding-right: 1.5rem; border-right: 4px solid #c9b79c;
         }
         
-        .ornament {
-            text-align: center;
-            font-size: 1.5rem;
-            color: var(--accent-color);
-            margin: 2rem 0;
-        }
+        .ornament { text-align: center; font-size: 1.5rem; color: #c9b79c; margin: 2rem 0; }
 
-        /* Download Button */
-        .download-button-wrapper {
-            text-align: center;
-            margin-top: 2.5rem;
-        }
+        .download-button-wrapper { text-align: center; margin-top: 2.5rem; }
         .download-button {
-            font-family: var(--font-heading);
-            background-color: var(--header-color);
-            color: white;
-            border: none;
-            padding: 15px 35px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.3s ease;
+            font-family: var(--font-heading); background-color: var(--header-color); color: white;
+            border: none; padding: 15px 35px; font-size: 1.1rem; font-weight: 600;
+            border-radius: 5px; cursor: pointer; transition: all 0.3s ease;
         }
-        .download-button:hover:not(:disabled) {
-            background-color: #a93226;
-            transform: translateY(-2px);
-        }
-        .download-button:disabled {
-            background-color: #aaa;
-            cursor: not-allowed;
-        }
+        .download-button:hover:not(:disabled) { background-color: #a93226; transform: translateY(-2px); }
+        .download-button:disabled { background-color: #aaa; cursor: not-allowed; }
         .download-button i { margin-left: 10px; }
 
-        /* Responsive: On smaller screens, the A4 dimensions are relaxed */
         @media (max-width: 820px) {
             body { padding: 1rem; }
-            .page-container {
-                width: 100%;
-                min-height: 0;
-                height: auto;
-                padding: 2rem;
-            }
+            .page-container { width: 100%; min-height: 0; height: auto; padding: 2rem; }
             h1 { font-size: 2.2rem; }
             p { font-size: 1.1rem; line-height: 2.2; }
             .quote { margin: 1.5rem 1rem; }
@@ -165,10 +107,9 @@
 <body>
 
     <div class="page-container" id="content-to-print">
-        <header class="page-header">
+        <header class="page-header" data-pdf-ignore="true">
             مقال في آداب طلب العلم
         </header>
-
         <main class="page-content">
             <h1>حِكمةٌ في طَلبِ العِلم</h1>
             <p class="first-paragraph">
@@ -180,7 +121,7 @@
             <div class="quote">
                 على أيّة حال، لم يفهم أولئك الطلاب معنى كلمة الحكومة، إذ بدت جديدة بالنسبة إليهم، فسألوه بنوعٍ من الاستخفاف: وما هي الحكومة؟ فقال لهم: تحتاجون أن تحضروا عندي الدرس الأصولي لستّة أشهر، وبعدها تفهمون الأمر.
             </div>
-            <div class="ornament">
+            <div class="ornament" data-pdf-ignore="true">
                 ***
             </div>
             <p>
@@ -190,8 +131,7 @@
                 هذا يعني أنّه لكي نفهم الآخر وبخاصّة لو كان يقدّم مشروعاً مختلفاً عن المألوف، مثل مشروع الأنصاري والملا صدرا وكانط، أن نعيش معه لفترةٍ كافية، اعتبرَها الأنصاري ستة أشهر، فندخل داخل منظومته الفكريّة ونتعايش مع طريقة تفكيره، ثم بعد ذلك تبدأ رحلة النقاش والحوار. أمّا العجلة، وبخاصّة في عصر التسطيح الذي تُتحفنا به وسائل التواصل الاجتماعي، فإنّ تقدّماً علميّاً لن يكون مرجوّاً أبداً، والأملُ بالله لا ينقطع.
             </p>
         </main>
-
-        <footer class="page-footer">
+        <footer class="page-footer" data-pdf-ignore="true">
             1
         </footer>
     </div>
@@ -207,40 +147,95 @@
 
         document.getElementById('download-btn').addEventListener('click', function () {
             const downloadButton = this;
-            const contentToPrint = document.getElementById('content-to-print');
-            
             downloadButton.disabled = true;
             downloadButton.innerHTML = 'جاري التحضير... <i class="fas fa-spinner fa-spin"></i>';
 
-            html2canvas(contentToPrint, {
-                scale: 3,
-                useCORS: true,
-                allowTaint: true,
-                logging: false,
-                windowWidth: contentToPrint.scrollWidth,
-                windowHeight: contentToPrint.scrollHeight
-            }).then(canvas => {
-                const imgData = canvas.toDataURL('image/png');
-                const pdf = new jsPDF({
-                    orientation: 'portrait',
-                    unit: 'mm',
-                    format: 'a4'
-                });
-
-                const pdfWidth = pdf.internal.pageSize.getWidth();
-                const pdfHeight = pdf.internal.pageSize.getHeight();
-                
-                pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-                pdf.save('حكمة-في-طلب-العلم.pdf');
-
-                downloadButton.disabled = false;
-                downloadButton.innerHTML = 'تحميل كملف PDF <i class="fas fa-download"></i>';
-            }).catch(err => {
-                console.error("PDF Generation Failed:", err);
-                alert("عذراً، حدث خطأ أثناء إنشاء الملف. يرجى المحاولة مرة أخرى.");
-                downloadButton.disabled = false;
-                downloadButton.innerHTML = 'تحميل كملف PDF <i class="fas fa-download"></i>';
+            const pdf = new jsPDF({
+                orientation: 'portrait',
+                unit: 'mm',
+                format: 'a4'
             });
+
+            // ** The Key Step: Add the Arabic font **
+            pdf.addFont('Amiri-Regular.ttf', 'Amiri', 'normal');
+            pdf.setFont('Amiri');
+
+            const margin = 20;
+            const pageWidth = pdf.internal.pageSize.getWidth();
+            const pageHeight = pdf.internal.pageSize.getHeight();
+            const usableWidth = pageWidth - (margin * 2);
+            let y = margin;
+
+            // --- Header ---
+            pdf.setFontSize(10);
+            pdf.text("مقال في آداب طلب العلم", pageWidth / 2, y, { align: 'center' });
+            y += 5;
+            pdf.setLineWidth(0.2);
+            pdf.line(margin, y, pageWidth - margin, y);
+            y += 20;
+
+            // --- Title ---
+            pdf.setFontSize(24);
+            const title = document.querySelector('h1').innerText;
+            pdf.text(title, pageWidth / 2, y, { align: 'center' });
+            y += 20;
+
+            // --- Body Paragraphs ---
+            pdf.setFontSize(12);
+            const paragraphs = document.querySelectorAll('.page-content p, .page-content .quote');
+            
+            paragraphs.forEach(p => {
+                let text = p.innerText;
+                let isQuote = p.classList.contains('quote');
+                let isFirst = p.classList.contains('first-paragraph');
+                
+                // Split text into lines that fit the page width
+                const lines = pdf.splitTextToSize(text, usableWidth - (isQuote ? 10 : 0));
+                
+                // Check if there's enough space for the text block, otherwise add a new page
+                if (y + (lines.length * 7) > pageHeight - margin) {
+                    pdf.addPage();
+                    y = margin;
+                }
+
+                // Draw quote line if it's a quote
+                if (isQuote) {
+                    pdf.setLineWidth(1);
+                    pdf.setDrawColor('#c9b79c');
+                    pdf.line(pageWidth - margin - 5, y, pageWidth - margin - 5, y + (lines.length * 7));
+                }
+
+                // Add text line by line
+                lines.forEach((line, index) => {
+                    let x = pageWidth - margin;
+                    let textOptions = { align: 'right', lang: 'ar' };
+
+                    // Handle first line indent
+                    if (isFirst && index === 0) {
+                        x -= 10; // Indent
+                    }
+                    
+                    if (isQuote) {
+                        x -= 10; // Indent for quote
+                    }
+
+                    pdf.text(line, x, y, textOptions);
+                    y += 7; // Line height
+                });
+                y += 5; // Space between paragraphs
+            });
+
+            // --- Footer ---
+            pdf.setLineWidth(0.2);
+            pdf.setDrawColor('#333333');
+            pdf.line(margin, pageHeight - margin + 5, pageWidth - margin, pageHeight - margin + 5);
+            pdf.text("1", pageWidth / 2, pageHeight - margin + 10, { align: 'center' });
+
+            // --- Save the PDF ---
+            pdf.save('حكمة-في-طلب-العلم.pdf');
+
+            downloadButton.disabled = false;
+            downloadButton.innerHTML = 'تحميل كملف PDF <i class="fas fa-download"></i>';
         });
     </script>
 
