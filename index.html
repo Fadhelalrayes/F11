@@ -14,14 +14,10 @@
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
-    <!-- ** THE DEFINITIVE SOLUTION: jsPDF with Arabic Font Support ** -->
+    <!-- ** THE RELIABLE SOLUTION: jsPDF with built-in Arabic support ** -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <!-- This file contains the Amiri font data for jsPDF -->
-    <script src="https://raw.githack.com/MrRio/jsPDF/master/src/modules/arabic.js"></script>
-    <script src="https://raw.githack.com/MrRio/jsPDF/master/src/modules/split_text_to_size.js"></script>
-    <script src="https://raw.githack.com/MrRio/jsPDF/master/src/modules/standard_fonts_metrics.js"></script>
-    <script src="https://raw.githack.com/MrRio/jsPDF/master/dist/jspdf.customfonts.min.js"></script>
-    <script src="https://raw.githack.com/MrRio/jsPDF/master/dist/default_vfs.js"></script>
+    <!-- This script provides the VFS (Virtual File System) for fonts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.23/jspdf.plugin.autotable.js"></script>
 
 
     <style>
@@ -107,7 +103,7 @@
 <body>
 
     <div class="page-container" id="content-to-print">
-        <header class="page-header" data-pdf-ignore="true">
+        <header class="page-header">
             مقال في آداب طلب العلم
         </header>
         <main class="page-content">
@@ -121,7 +117,7 @@
             <div class="quote">
                 على أيّة حال، لم يفهم أولئك الطلاب معنى كلمة الحكومة، إذ بدت جديدة بالنسبة إليهم، فسألوه بنوعٍ من الاستخفاف: وما هي الحكومة؟ فقال لهم: تحتاجون أن تحضروا عندي الدرس الأصولي لستّة أشهر، وبعدها تفهمون الأمر.
             </div>
-            <div class="ornament" data-pdf-ignore="true">
+            <div class="ornament">
                 ***
             </div>
             <p>
@@ -131,7 +127,7 @@
                 هذا يعني أنّه لكي نفهم الآخر وبخاصّة لو كان يقدّم مشروعاً مختلفاً عن المألوف، مثل مشروع الأنصاري والملا صدرا وكانط، أن نعيش معه لفترةٍ كافية، اعتبرَها الأنصاري ستة أشهر، فندخل داخل منظومته الفكريّة ونتعايش مع طريقة تفكيره، ثم بعد ذلك تبدأ رحلة النقاش والحوار. أمّا العجلة، وبخاصّة في عصر التسطيح الذي تُتحفنا به وسائل التواصل الاجتماعي، فإنّ تقدّماً علميّاً لن يكون مرجوّاً أبداً، والأملُ بالله لا ينقطع.
             </p>
         </main>
-        <footer class="page-footer" data-pdf-ignore="true">
+        <footer class="page-footer">
             1
         </footer>
     </div>
@@ -150,92 +146,94 @@
             downloadButton.disabled = true;
             downloadButton.innerHTML = 'جاري التحضير... <i class="fas fa-spinner fa-spin"></i>';
 
-            const pdf = new jsPDF({
-                orientation: 'portrait',
-                unit: 'mm',
-                format: 'a4'
-            });
-
-            // ** The Key Step: Add the Arabic font **
-            pdf.addFont('Amiri-Regular.ttf', 'Amiri', 'normal');
-            pdf.setFont('Amiri');
-
-            const margin = 20;
-            const pageWidth = pdf.internal.pageSize.getWidth();
-            const pageHeight = pdf.internal.pageSize.getHeight();
-            const usableWidth = pageWidth - (margin * 2);
-            let y = margin;
-
-            // --- Header ---
-            pdf.setFontSize(10);
-            pdf.text("مقال في آداب طلب العلم", pageWidth / 2, y, { align: 'center' });
-            y += 5;
-            pdf.setLineWidth(0.2);
-            pdf.line(margin, y, pageWidth - margin, y);
-            y += 20;
-
-            // --- Title ---
-            pdf.setFontSize(24);
-            const title = document.querySelector('h1').innerText;
-            pdf.text(title, pageWidth / 2, y, { align: 'center' });
-            y += 20;
-
-            // --- Body Paragraphs ---
-            pdf.setFontSize(12);
-            const paragraphs = document.querySelectorAll('.page-content p, .page-content .quote');
-            
-            paragraphs.forEach(p => {
-                let text = p.innerText;
-                let isQuote = p.classList.contains('quote');
-                let isFirst = p.classList.contains('first-paragraph');
-                
-                // Split text into lines that fit the page width
-                const lines = pdf.splitTextToSize(text, usableWidth - (isQuote ? 10 : 0));
-                
-                // Check if there's enough space for the text block, otherwise add a new page
-                if (y + (lines.length * 7) > pageHeight - margin) {
-                    pdf.addPage();
-                    y = margin;
-                }
-
-                // Draw quote line if it's a quote
-                if (isQuote) {
-                    pdf.setLineWidth(1);
-                    pdf.setDrawColor('#c9b79c');
-                    pdf.line(pageWidth - margin - 5, y, pageWidth - margin - 5, y + (lines.length * 7));
-                }
-
-                // Add text line by line
-                lines.forEach((line, index) => {
-                    let x = pageWidth - margin;
-                    let textOptions = { align: 'right', lang: 'ar' };
-
-                    // Handle first line indent
-                    if (isFirst && index === 0) {
-                        x -= 10; // Indent
-                    }
-                    
-                    if (isQuote) {
-                        x -= 10; // Indent for quote
-                    }
-
-                    pdf.text(line, x, y, textOptions);
-                    y += 7; // Line height
+            try {
+                const pdf = new jsPDF({
+                    orientation: 'portrait',
+                    unit: 'mm',
+                    format: 'a4'
                 });
-                y += 5; // Space between paragraphs
-            });
 
-            // --- Footer ---
-            pdf.setLineWidth(0.2);
-            pdf.setDrawColor('#333333');
-            pdf.line(margin, pageHeight - margin + 5, pageWidth - margin, pageHeight - margin + 5);
-            pdf.text("1", pageWidth / 2, pageHeight - margin + 10, { align: 'center' });
+                // ** The Key Step: Set the font that is built-in for Arabic support **
+                // This font is included in the standard jsPDF library distribution
+                pdf.setFont("Amiri", "normal");
 
-            // --- Save the PDF ---
-            pdf.save('حكمة-في-طلب-العلم.pdf');
+                const margin = 20;
+                const pageWidth = pdf.internal.pageSize.getWidth();
+                const pageHeight = pdf.internal.pageSize.getHeight();
+                const usableWidth = pageWidth - (margin * 2);
+                let y = margin;
 
-            downloadButton.disabled = false;
-            downloadButton.innerHTML = 'تحميل كملف PDF <i class="fas fa-download"></i>';
+                // --- Header ---
+                pdf.setFontSize(10);
+                pdf.text("مقال في آداب طلب العلم", pageWidth / 2, y, { align: 'center' });
+                y += 5;
+                pdf.setLineWidth(0.2);
+                pdf.line(margin, y, pageWidth - margin, y);
+                y += 20;
+
+                // --- Title ---
+                pdf.setFontSize(24);
+                const title = document.querySelector('h1').innerText;
+                pdf.text(title, pageWidth / 2, y, { align: 'center' });
+                y += 20;
+
+                // --- Body Paragraphs ---
+                pdf.setFontSize(12);
+                const paragraphs = document.querySelectorAll('.page-content p, .page-content .quote');
+                
+                paragraphs.forEach(p => {
+                    let text = p.innerText;
+                    let isQuote = p.classList.contains('quote');
+                    let isFirst = p.classList.contains('first-paragraph');
+                    
+                    const lines = pdf.splitTextToSize(text, usableWidth - (isQuote ? 10 : 0));
+                    
+                    if (y + (lines.length * 7) > pageHeight - margin) {
+                        pdf.addPage();
+                        y = margin;
+                    }
+
+                    if (isQuote) {
+                        pdf.setLineWidth(1);
+                        pdf.setDrawColor('#c9b79c');
+                        pdf.line(pageWidth - margin - 5, y, pageWidth - margin - 5, y + (lines.length * 7) - 5);
+                    }
+
+                    lines.forEach((line, index) => {
+                        let x = pageWidth - margin;
+                        let textOptions = { align: 'right', lang: 'ar' };
+
+                        if (isFirst && index === 0) {
+                            x -= 10;
+                        }
+                        
+                        if (isQuote) {
+                            x -= 10;
+                        }
+
+                        pdf.text(line, x, y, textOptions);
+                        y += 7;
+                    });
+                    y += 5;
+                });
+
+                // --- Footer ---
+                pdf.setLineWidth(0.2);
+                pdf.setDrawColor('#333333');
+                pdf.line(margin, pageHeight - margin + 5, pageWidth - margin, pageHeight - margin + 5);
+                pdf.text("1", pageWidth / 2, pageHeight - margin + 10, { align: 'center' });
+
+                // --- Save the PDF ---
+                pdf.save('حكمة-في-طلب-العلم.pdf');
+
+            } catch (error) {
+                console.error("PDF Generation Failed:", error);
+                alert("عذراً، حدث خطأ فادح أثناء إنشاء الملف. يرجى المحاولة مرة أخرى.");
+            } finally {
+                // This will run whether there was an error or not
+                downloadButton.disabled = false;
+                downloadButton.innerHTML = 'تحميل كملف PDF <i class="fas fa-download"></i>';
+            }
         });
     </script>
 
