@@ -3,311 +3,164 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حِكمة في طلب العلم - قصة الشيخ الأنصاري</title>
+    <meta name="description" content="قصة تروي أهمية التعمق في فهم المدارس الفكرية بدلاً من الأحكام السطحية العجولة.">
 
-    <!-- SEO Meta Tags -->
-    <title>حاسبة وجدول قضاء الصلوات الفائتة</title>
-    <meta name="description" content="أداة متكاملة لحساب الصلوات الفائتة، تحديد سن التكليف، وتقديم جدول عملي مقترح لقضائها. اطبع جدولك وابدأ اليوم.">
-    <meta name="keywords" content="قضاء الصلاة, حساب الصلوات الفائتة, جدول قضاء الصلوات, الصلاة الفائتة, سن التكليف الشرعي, طباعة جدول الصلاة">
-    <meta name="author" content="Manus">
-    <meta name="robots" content="index, follow">
-
-    <!-- Google Fonts: Tajawal -->
+    <!-- Google Fonts: Amiri for body, Noto Kufi Arabic for headings -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
-    
-    <!-- Font Awesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Noto+Kufi+Arabic:wght@600;700&display=swap" rel="stylesheet">
 
     <style>
-        :root { --primary-color: #0d1b2a; --secondary-color: #2a9d8f; --background-color: #f5f7fa; --text-color: #495057; --heading-color: #1b263b; --white-color: #FFFFFF; --danger-color: #e76f51; --info-color: #2196F3; }
-        html { scroll-behavior: smooth; }
-        body { font-family: 'Tajawal', sans-serif; margin: 0; line-height: 1.8; background-color: var(--background-color); color: var(--text-color); font-weight: 400; }
-        .container { max-width: 800px; margin: auto; padding: 0 25px; }
-        h1, h2, h3 { font-weight: 700; color: var(--heading-color); text-align: center; }
-        
-        h1 { font-size: 2.8rem; font-weight: 800; margin-bottom: 10px; }
-        h3 { font-size: 1.8rem; margin-top: 40px; margin-bottom: 20px; }
-        
-        section { padding: 60px 0; }
-        
-        .calculator-section { background: var(--white-color); padding: 40px; border-radius: 10px; box-shadow: 0 10px 40px rgba(0,0,0,0.08); }
-        
-        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
-        .form-group { display: flex; flex-direction: column; }
-        .form-group label { font-weight: 700; margin-bottom: 8px; color: var(--heading-color); }
-        .form-group input, .form-group select { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #ddd; font-family: 'Tajawal', sans-serif; font-size: 1rem; box-sizing: border-box; transition: border-color 0.3s; }
-        .form-group input:focus, .form-group select:focus { border-color: var(--secondary-color); outline: none; }
-        
-        .full-width { grid-column: 1 / -1; }
-        
-        .calc-button { width: 100%; padding: 15px; background: var(--secondary-color); color: var(--white-color); border: none; border-radius: 8px; cursor: pointer; font-size: 1.2rem; font-weight: 700; transition: all 0.3s; margin-top: 20px; }
-        .calc-button:hover { background-color: #248a7e; }
-
-        .results-section { margin-top: 40px; background-color: #f8f9fa; padding: 30px; border-radius: 10px; border: 1px solid #dee2e6; display: none; /* Hidden by default */ }
-        
-        .results-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        .results-table th, .results-table td { padding: 12px 15px; text-align: right; border: 1px solid #dee2e6; }
-        .results-table th { background-color: var(--primary-color); color: var(--white-color); font-weight: 700; }
-        .results-table td { font-size: 1.1rem; background-color: var(--white-color); }
-        .total-row td { font-weight: 800; color: var(--danger-color); font-size: 1.2rem !important; background-color: #fff3f0; }
-        .info-row td { font-weight: 700; color: var(--info-color); background-color: #e9f7ff; }
-        .header-row { background-color: #e9ecef !important; text-align: center !important; font-weight: bold; color: var(--heading-color); }
-
-        .print-button { display: block; width: 250px; margin: 25px auto 0; padding: 12px; background: var(--primary-color); color: var(--white-color); border: none; border-radius: 8px; cursor: pointer; font-size: 1.1rem; font-weight: 700; transition: all 0.3s; }
-        .print-button:hover { background-color: #1b263b; }
-        .print-button i { margin-left: 8px; }
-
-        .main-footer { background-color: var(--primary-color); color: var(--white-color); text-align: center; padding: 20px 0; margin-top: 60px; }
-        .main-footer p { margin: 0; opacity: 0.7; }
-
-        @media (max-width: 768px) {
-            h1 { font-size: 2.2rem; }
-            .form-grid { grid-template-columns: 1fr; }
+        /* --- Base Styles --- */
+        :root {
+            --page-bg: #fdfdfa; /* لون ورق كريمي خفيف */
+            --text-color: #2c2c2c; /* لون الحبر الأسود الداكن */
+            --header-color: #8c1515; /* لون العناوين (أحمر داكن تراثي) */
+            --border-color: #d1c7b7; /* لون إطار خفيف */
+            --font-body: 'Amiri', serif; /* خط كلاسيكي للنص الأساسي */
+            --font-heading: 'Noto Kufi Arabic', sans-serif; /* خط حديث وواضح للعناوين */
         }
-        
-        /* Print Styles */
+
+        html {
+            background-color: #e0e0e0; /* خلفية رمادية لإبراز الصفحة */
+        }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--text-color);
+            line-height: 2.2; /* تباعد أسطر مريح للقراءة المطولة */
+            font-size: 18px; /* حجم خط أساسي واضح */
+            margin: 0;
+            padding: 2rem 0;
+        }
+
+        /* --- Page Container (The "PDF" Sheet) --- */
+        .page-container {
+            max-width: 800px; /* عرض مشابه لصفحة A4 */
+            margin: 0 auto;
+            padding: 4rem 5rem; /* هوامش داخلية واسعة مثل الكتب */
+            background-color: var(--page-bg);
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15); /* ظل لإعطاء عمق للصفحة */
+            border: 1px solid var(--border-color);
+            border-radius: 3px;
+        }
+
+        /* --- Typography --- */
+        h1 {
+            font-family: var(--font-heading);
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--header-color);
+            text-align: center;
+            margin-top: 0;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        p {
+            text-align: justify; /* محاذاة كاملة (ضبط) مثل الكتب */
+            text-justify: inter-word;
+            margin-bottom: 1.5rem;
+            hyphens: auto; /* للمساعدة في توزيع الكلمات عند الحواف */
+        }
+
+        /* --- Specific Styling for Emphasis --- */
+        strong, b {
+            font-weight: 700;
+            color: var(--header-color); /* تمييز الكلمات الهامة بنفس لون العنوان */
+        }
+
+        .quote {
+            font-style: italic;
+            font-size: 1.1rem;
+            color: #555;
+            margin: 2rem 3rem;
+            padding-right: 1.5rem;
+            border-right: 3px solid var(--border-color);
+        }
+
+        .conclusion {
+            margin-top: 2.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-color);
+            font-size: 1.1rem;
+            font-weight: bold;
+            text-align: center;
+            color: #333;
+        }
+
+        /* --- Responsive Design for Smaller Screens --- */
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem 0;
+            }
+            .page-container {
+                padding: 2rem 2.5rem;
+                margin: 0 1rem;
+            }
+            h1 {
+                font-size: 2rem;
+            }
+            body {
+                font-size: 16px;
+                line-height: 2.0;
+            }
+        }
+
+        /* --- Print Styles (To make it look perfect when printed or saved as PDF) --- */
         @media print {
-            body { background-color: var(--white-color); color: #000; }
-            .calculator-section, .main-footer, .print-button, #prayer-form, header > p { display: none; }
-            section { padding: 0; }
-            .results-section { display: block !important; box-shadow: none; border: none; margin-top: 0; padding: 0; background-color: transparent; }
-            .container { max-width: 100%; padding: 0; }
-            h1 { font-size: 2rem; color: #000; }
-            h3 { color: #000; }
-            .results-table th { background-color: #eee !important; color: #000 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-            .results-table, .results-table th, .results-table td { border: 1px solid #ccc; }
-            .total-row td, .info-row td { color: #000 !important; }
-            .results-table td { background-color: #fff !important; }
+            html, body {
+                background-color: #fff; /* خلفية بيضاء للطباعة */
+                padding: 0;
+                margin: 0;
+            }
+            .page-container {
+                box-shadow: none;
+                border: none;
+                max-width: 100%;
+                padding: 0;
+                margin: 0;
+            }
+            h1 {
+                color: #000;
+            }
+            strong, b {
+                color: #000;
+            }
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="container">
-            <h1>حاسبة وجدول قضاء الصلوات الفائتة</h1>
-            <p style="text-align: center; max-width: 600px; margin: 0 auto 40px;">أداة لمساعدتك على معرفة عدد الصلوات التي عليك قضاؤها وتنظيم جدول عملي لذلك.</p>
-        </div>
-    </header>
+    <div class="page-container">
+        <h1>حِكمةٌ في طَلبِ العِلم</h1>
 
-    <main>
-        <section id="calculator">
-            <div class="container">
-                <div class="calculator-section">
-                    <form id="prayer-form">
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label for="birth-date">تاريخ الميلاد</label>
-                                <input type="date" id="birth-date" name="birth_date" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="gender">الجنس</label>
-                                <select id="gender" name="gender" required>
-                                    <option value="" disabled selected>اختر الجنس</option>
-                                    <option value="male">ذكر</option>
-                                    <option value="female">أنثى</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="start-miss-date">منذ متى تركت الصلاة؟ (تاريخ البداية)</label>
-                                <input type="date" id="start-miss-date" name="start_miss_date" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="prayers-made-up">كم صلاة قضيت حتى الآن؟ (تقريبي)</label>
-                                <input type="number" id="prayers-made-up" name="prayers_made_up" value="0" min="0" required>
-                            </div>
-                        </div>
-                        <div class="form-group full-width">
-                            <button type="submit" class="calc-button"><i class="fas fa-calculator"></i> احسب ونظم جدول القضاء</button>
-                        </div>
-                    </form>
+        <p>
+            يُحكى أنّ الشيخ <strong>مرتضى الأنصاري</strong> (1281هـ)، الذي تُعتبر مدرسته الأصوليّة هي المهيمنة إلى اليوم على آليّات الاجتهاد الشرعي عند الإماميّة، حضر في درس الفقه عند الشيخ محمد حسن النجفي (1266هـ)، صاحب الموسوعة الفقهيّة الشهيرة "جواهر الكلام"، ويبدو أنّ حضوره هذا كان لأوّل مرّة أو ربما رآه بعض الطلاب لأوّل مرّة حاضراً مجلس درس المحقّق النجفي، فجاء إليه بعضهم وسأله عن درسه وتحصيله العلمي، فأجابهم.
+        </p>
 
-                    <div id="results" class="results-section">
-                        <h3>ملخص الحسابات</h3>
-                        <table class="results-table">
-                            <tbody>
-                                <tr class="info-row">
-                                    <td>تاريخ بدء التكليف الشرعي</td>
-                                    <td id="takleef-date">0</td>
-                                </tr>
-                                <tr class="info-row">
-                                    <td>منذ متى بدأ التكليف الشرعي</td>
-                                    <td id="takleef-duration">0</td>
-                                </tr>
-                                <tr class="info-row">
-                                    <td>إجمالي الصلوات المفروضة عليك</td>
-                                    <td id="total-obligatory-prayers">0</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2" class="header-row">الصلوات الفائتة المتبقية</td>
-                                </tr>
-                                <tr>
-                                    <td>الفجر</td>
-                                    <td id="fajr-missed">0</td>
-                                </tr>
-                                <tr>
-                                    <td>الظهر</td>
-                                    <td id="dhuhr-missed">0</td>
-                                </tr>
-                                <tr>
-                                    <td>العصر</td>
-                                    <td id="asr-missed">0</td>
-                                </tr>
-                                <tr>
-                                    <td>المغرب</td>
-                                    <td id="maghrib-missed">0</td>
-                                </tr>
-                                <tr>
-                                    <td>العشاء</td>
-                                    <td id="isha-missed">0</td>
-                                </tr>
-                                <tr class="total-row">
-                                    <td><strong>الإجمالي المتبقي للقضاء</strong></td>
-                                    <td id="total-missed"><strong>0</strong></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <p id="female-notice" style="text-align: center; font-size: 0.9rem; margin-top: 15px; display: none;">ملاحظة: تم خصم ما يقارب 10 أيام شهرياً كفترة عذر شرعي للمرأة.</p>
-                        
-                        <div id="qadaa-plan-section" style="display: none;">
-                            <h3>جدول مقترح لقضاء الصلوات</h3>
-                            <p style="text-align: center;">اختر الخطة التي تناسبك للالتزام بها. (مثال: مع كل صلاة حاضرة، تصلي صلاة فائتة من نفس النوع).</p>
-                            <table class="results-table">
-                                <thead>
-                                    <tr>
-                                        <th>الخطة المقترحة</th>
-                                        <th>المدة الزمنية المتوقعة للانتهاء</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>قضاء صلوات <strong>يوم واحد</strong> كل يوم</td>
-                                        <td id="plan-1-duration">0</td>
-                                    </tr>
-                                    <tr>
-                                        <td>قضاء صلوات <strong>يومين</strong> كل يوم</td>
-                                        <td id="plan-2-duration">0</td>
-                                    </tr>
-                                    <tr>
-                                        <td>قضاء صلوات <strong>أسبوع (7 أيام)</strong> كل يوم</td>
-                                        <td id="plan-3-duration">0</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+        <p>
+            ومن ضمن الكلام والحوار العلمي الذي جرى بينهم أنّه قال لهم: هذه المسألة مبنيّة على <strong>نظريّة الحكومة</strong> في أصول الفقه. وهي نظريّة تعنى بتنظيم بعض العلاقات بين النصوص والأدلّة، وتشتهر نسبتها إلى الشيخ الأنصاريّ، وإن كان هناك من يرى أنّ لها حضوراً في الدراسات القانونية المعاصرة. ومن المناسب تقديم دراسة تاريخيّة مفصّلة حول نظريّة الحكومة؛ لفهم تطوّراتها في المدارس الأصوليّة المختلفة عند المذاهب ولو بعناوين مختلفة، وكذلك المدارس القانونية المعاصرة.
+        </p>
 
-                        <button id="print-button" class="print-button"><i class="fas fa-print"></i> طباعة / حفظ كـ PDF</button>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
+        <p class="quote">
+            على أيّة حال، لم يفهم أولئك الطلاب معنى كلمة الحكومة، إذ بدت جديدة بالنسبة إليهم، فسألوه بنوعٍ من الاستخفاف: وما هي الحكومة؟ فقال لهم: تحتاجون أن تحضروا عندي الدرس الأصولي لستّة أشهر، وبعدها تفهمون الأمر.
+        </p>
 
-    <footer class="main-footer">
-        <div class="container">
-            <p>&copy; 2025 حاسبة قضاء الصلوات. نسأل الله لنا ولكم الثبات والقبول.</p>
-        </div>
-    </footer>
+        <p>
+            بصرف النظر عن مدى صحّة النقل، قد تحكي هذه القصّة عن حِكمة لو فسّرناها بطريقة معيّنة، وهي أنّه لا يمكنك فهم المدارس الجديدة، بل والقديمة، عبر المرور العجول عليها، ولا الحكم عليها بعيونك من خلال نظرة واحدة أو مقطع واحد أو فكرة هنا أو هنا. فمن السخيف أن يحكم شخص على فلسفة الملا صدرا بمطالعة مقالٍ أو بحث هنا أو هناك، أو يتعرّف عليها من خلال محاضرة أو كتيّب، كما ومن السخيف أن يحكم آخر على فلسفة كانط بالطريقة عينها.
+        </p>
 
-    <script>
-        function formatDuration(totalDays) {
-            if (totalDays <= 0) return "لا يوجد";
-            const years = Math.floor(totalDays / 365.25);
-            const months = Math.floor((totalDays % 365.25) / 30.44);
-            const days = Math.floor((totalDays % 365.25) % 30.44);
+        <p>
+            هذا يعني أنّه لكي نفهم الآخر وبخاصّة لو كان يقدّم مشروعاً مختلفاً عن المألوف، مثل مشروع الأنصاري والملا صدرا وكانط، أن نعيش معه لفترةٍ كافية، اعتبرَها الأنصاري ستة أشهر، فندخل داخل منظومته الفكريّة ونتعايش مع طريقة تفكيره، ثم بعد ذلك تبدأ رحلة النقاش والحوار.
+        </p>
 
-            let result = "";
-            if (years > 0) result += `${years} سنة `;
-            if (months > 0) result += `${months} شهر `;
-            if (days > 0 && years === 0) result += `${days} يوم`; // Show days only if duration is less than a year
-            return result.trim();
-        }
-
-        document.getElementById('prayer-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-
-            // جمع البيانات
-            const birthDate = new Date(document.getElementById('birth-date').value);
-            const gender = document.getElementById('gender').value;
-            const startMissDate = new Date(document.getElementById('start-miss-date').value);
-            const prayersMadeUp = parseInt(document.getElementById('prayers-made-up').value) || 0;
-            const today = new Date();
-            const locale = 'ar-EG';
-
-            // حساب سن وتاريخ التكليف
-            const ageOfTakleefDate = new Date(birthDate);
-            ageOfTakleefDate.setFullYear(birthDate.getFullYear() + 15);
-            
-            let daysSinceTakleef = 0;
-            if (ageOfTakleefDate < today) {
-                daysSinceTakleef = Math.floor((today.getTime() - ageOfTakleefDate.getTime()) / (1000 * 3600 * 24));
-            }
-
-            // حساب إجمالي الصلوات المفروضة
-            let totalObligatoryPrayers = daysSinceTakleef * 5;
-            if (gender === 'female') {
-                const monthsSinceTakleef = daysSinceTakleef / 30.44;
-                const periodDays = Math.floor(monthsSinceTakleef * 10);
-                totalObligatoryPrayers -= periodDays * 5;
-            }
-            totalObligatoryPrayers = Math.max(0, Math.floor(totalObligatoryPrayers));
-
-            // حساب الصلوات الفائتة
-            const calculationStartDate = startMissDate > ageOfTakleefDate ? startMissDate : ageOfTakleefDate;
-            let totalMissedPrayers = 0;
-            let daysMissed = 0;
-            if (calculationStartDate < today) {
-                daysMissed = Math.floor((today.getTime() - calculationStartDate.getTime()) / (1000 * 3600 * 24));
-                totalMissedPrayers = daysMissed * 5;
-                
-                if (gender === 'female') {
-                    const monthsMissed = daysMissed / 30.44;
-                    const periodDays = Math.floor(monthsMissed * 10);
-                    totalMissedPrayers -= periodDays * 5;
-                    document.getElementById('female-notice').style.display = 'block';
-                } else {
-                    document.getElementById('female-notice').style.display = 'none';
-                }
-            }
-            totalMissedPrayers = Math.max(0, Math.floor(totalMissedPrayers));
-
-            // حساب المتبقي
-            const remainingPrayers = Math.max(0, totalMissedPrayers - prayersMadeUp);
-            const remainingPerPrayer = Math.ceil(remainingPrayers / 5);
-
-            // عرض النتائج
-            document.getElementById('takleef-date').textContent = ageOfTakleefDate.toLocaleDateString(locale, { year: 'numeric', month: 'long', day: 'numeric' });
-            document.getElementById('takleef-duration').textContent = formatDuration(daysSinceTakleef);
-            document.getElementById('total-obligatory-prayers').textContent = totalObligatoryPrayers.toLocaleString(locale);
-            
-            document.getElementById('fajr-missed').textContent = remainingPerPrayer.toLocaleString(locale);
-            document.getElementById('dhuhr-missed').textContent = remainingPerPrayer.toLocaleString(locale);
-            document.getElementById('asr-missed').textContent = remainingPerPrayer.toLocaleString(locale);
-            document.getElementById('maghrib-missed').textContent = remainingPerPrayer.toLocaleString(locale);
-            document.getElementById('isha-missed').textContent = remainingPerPrayer.toLocaleString(locale);
-            document.getElementById('total-missed').textContent = remainingPrayers.toLocaleString(locale);
-            
-            // حساب وعرض خطط القضاء
-            if (remainingPrayers > 0) {
-                const missedDays = remainingPrayers / 5;
-                document.getElementById('plan-1-duration').textContent = formatDuration(missedDays);
-                document.getElementById('plan-2-duration').textContent = formatDuration(missedDays / 2);
-                document.getElementById('plan-3-duration').textContent = formatDuration(missedDays / 7);
-                document.getElementById('qadaa-plan-section').style.display = 'block';
-            } else {
-                document.getElementById('qadaa-plan-section').style.display = 'none';
-            }
-
-            document.getElementById('results').style.display = 'block';
-            document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
-        });
-
-        // تفعيل زر الطباعة
-        document.getElementById('print-button').addEventListener('click', function() {
-            window.print();
-        });
-    </script>
+        <p class="conclusion">
+            أمّا العجلة، وبخاصّة في عصر التسطيح الذي تُتحفنا به وسائل التواصل الاجتماعي، فإنّ تقدّماً علميّاً لن يكون مرجوّاً أبداً، والأملُ بالله لا ينقطع.
+        </p>
+    </div>
 
 </body>
 </html>
