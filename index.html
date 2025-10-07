@@ -14,8 +14,9 @@
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
-    <!-- html2pdf.js Library -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- ** NEW LIBRARIES: jsPDF and html2canvas ** -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
     <style>
         :root {
@@ -29,9 +30,7 @@
             --font-heading: 'Noto Kufi Arabic', sans-serif;
         }
 
-        html {
-            scroll-behavior: smooth;
-        }
+        html { scroll-behavior: smooth; }
 
         body {
             font-family: var(--font-body);
@@ -46,7 +45,6 @@
             min-height: 100vh;
         }
 
-        /* --- Screen Display Container --- */
         .screen-container {
             max-width: 850px;
             width: 100%;
@@ -58,7 +56,6 @@
             box-sizing: border-box;
         }
 
-        /* --- Typography for Screen --- */
         h1 {
             font-family: var(--font-heading);
             font-size: 2.8rem;
@@ -75,10 +72,7 @@
             margin: 0 0 1.5rem 0;
         }
         
-        /* Indent first line of the first paragraph */
-        p.first-paragraph {
-            text-indent: 3rem;
-        }
+        p.first-paragraph { text-indent: 3rem; }
 
         strong { font-weight: 700; color: var(--header-color); }
 
@@ -98,7 +92,6 @@
             margin: 2rem 0;
         }
 
-        /* --- Download Button --- */
         .download-button-wrapper {
             text-align: center;
             margin-top: 2.5rem;
@@ -114,12 +107,10 @@
             border-radius: 5px;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
         .download-button:hover:not(:disabled) {
             background-color: #6d1111;
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+            transform: translateY(-2px);
         }
         .download-button:disabled {
             background-color: #aaa;
@@ -127,7 +118,6 @@
         }
         .download-button i { margin-left: 10px; }
 
-        /* --- Responsive Adjustments --- */
         @media (max-width: 768px) {
             body { padding: 1rem; }
             .screen-container { padding: 2rem; }
@@ -135,36 +125,11 @@
             p { font-size: 1.1rem; line-height: 2.2; }
             .quote { margin: 1.5rem 1rem; }
         }
-
-        /* --- PDF Export Specific Styles (Applied via JS) --- */
-        .pdf-export-container {
-            width: 210mm;
-            height: 297mm;
-            padding: 20mm;
-            background: white;
-            display: flex;
-            flex-direction: column;
-            box-sizing: border-box;
-            color: #000;
-        }
-        .pdf-export-container .page-content { flex-grow: 1; }
-        .pdf-export-container h1 { font-size: 24pt; color: #000; margin-bottom: 15mm; }
-        .pdf-export-container p { font-size: 12pt; line-height: 1.8; color: #000; }
-        .pdf-export-container p.first-paragraph { text-indent: 15mm; }
-        .pdf-export-container strong { color: #000; font-weight: bold; }
-        .pdf-export-container .quote { font-size: 13pt; border-color: #888; color: #333; }
-        .pdf-export-container .ornament { color: #888; }
-        .pdf-export-container .page-header, .pdf-export-container .page-footer {
-            width: 100%; text-align: center; font-size: 9pt; color: #666;
-            font-family: sans-serif;
-        }
-        .pdf-export-container .page-header { border-bottom: 1px solid #ccc; padding-bottom: 8px; margin-bottom: 15mm; }
-        .pdf-export-container .page-footer { border-top: 1px solid #ccc; padding-top: 8px; margin-top: auto; }
     </style>
 </head>
 <body>
 
-    <div class="screen-container" id="content-to-display">
+    <div class="screen-container" id="content-to-print">
         <h1>حِكمةٌ في طَلبِ العِلم</h1>
         <p class="first-paragraph">
             يُحكى أنّ الشيخ <strong>مرتضى الأنصاري</strong> (1281هـ)، الذي تُعتبر مدرسته الأصوليّة هي المهيمنة إلى اليوم على آليّات الاجتهاد الشرعي عند الإماميّة، حضر في درس الفقه عند الشيخ محمد حسن النجفي (1266هـ)، صاحب الموسوعة الفقهيّة الشهيرة "جواهر الكلام"، ويبدو أنّ حضوره هذا كان لأوّل مرّة أو ربما رآه بعض الطلاب لأوّل مرّة حاضراً مجلس درس المحقّق النجفي، فجاء إليه بعضهم وسأله عن درسه وتحصيله العلمي، فأجابهم.
@@ -184,56 +149,81 @@
         <p>
             هذا يعني أنّه لكي نفهم الآخر وبخاصّة لو كان يقدّم مشروعاً مختلفاً عن المألوف، مثل مشروع الأنصاري والملا صدرا وكانط، أن نعيش معه لفترةٍ كافية، اعتبرَها الأنصاري ستة أشهر، فندخل داخل منظومته الفكريّة ونتعايش مع طريقة تفكيره، ثم بعد ذلك تبدأ رحلة النقاش والحوار. أمّا العجلة، وبخاصّة في عصر التسطيح الذي تُتحفنا به وسائل التواصل الاجتماعي، فإنّ تقدّماً علميّاً لن يكون مرجوّاً أبداً، والأملُ بالله لا ينقطع.
         </p>
-        <div class="download-button-wrapper">
-            <button id="download-btn" class="download-button">
-                تحميل كملف PDF <i class="fas fa-file-pdf"></i>
-            </button>
-        </div>
+    </div>
+    
+    <div class="download-button-wrapper">
+        <button id="download-btn" class="download-button">
+            تحميل كملف PDF <i class="fas fa-file-pdf"></i>
+        </button>
     </div>
 
     <script>
+        // ** FINAL, ROBUST SOLUTION **
+        window.jsPDF = window.jspdf.jsPDF;
+
         document.getElementById('download-btn').addEventListener('click', function () {
             const downloadButton = this;
-            const originalContent = document.getElementById('content-to-display');
-
+            const contentToPrint = document.getElementById('content-to-print');
+            
+            // Disable button and show loading state
             downloadButton.disabled = true;
             downloadButton.innerHTML = 'جاري التحضير... <i class="fas fa-spinner fa-spin"></i>';
 
-            // **الحل الرئيسي: انتظر حتى يتم تحميل الخطوط بالكامل**
-            document.fonts.ready.then(() => {
-                // إنشاء حاوية افتراضية للتصدير
-                const exportContainer = document.createElement('div');
-                exportContainer.className = 'pdf-export-container';
+            // Use html2canvas to capture the content as an image
+            html2canvas(contentToPrint, {
+                scale: 3, // Increase scale for higher resolution
+                useCORS: true, // Important for external resources like fonts
+                allowTaint: true,
+                logging: false // Disable console logs from the library
+            }).then(canvas => {
+                const imgData = canvas.toDataURL('image/png');
                 
-                exportContainer.innerHTML = `
-                    <header class="page-header">مقال في آداب طلب العلم</header>
-                    <main class="page-content">${originalContent.innerHTML}</main>
-                    <footer class="page-footer">1</footer>
-                `;
+                // A4 page dimensions in mm
+                const pdfWidth = 210;
+                const pdfHeight = 297;
+
+                // Calculate the aspect ratio to fit the image on the A4 page
+                const canvasWidth = canvas.width;
+                const canvasHeight = canvas.height;
+                const canvasAspectRatio = canvasWidth / canvasHeight;
+                const pageAspectRatio = pdfWidth / pdfHeight;
+
+                let finalWidth, finalHeight;
+                if (canvasAspectRatio > pageAspectRatio) {
+                    finalWidth = pdfWidth;
+                    finalHeight = pdfWidth / canvasAspectRatio;
+                } else {
+                    finalHeight = pdfHeight;
+                    finalWidth = pdfHeight * canvasAspectRatio;
+                }
                 
-                exportContainer.querySelector('.download-button-wrapper').remove();
+                // Center the image on the page
+                const x = (pdfWidth - finalWidth) / 2;
+                const y = (pdfHeight - finalHeight) / 2;
 
-                exportContainer.style.position = 'absolute';
-                exportContainer.style.left = '-9999px';
-                document.body.appendChild(exportContainer);
-
-                const opt = {
-                    margin: 0,
-                    filename: 'حكمة-في-طلب-العلم.pdf',
-                    image: { type: 'jpeg', quality: 1.0 },
-                    html2canvas: { scale: 3, useCORS: true, letterRendering: true, dpi: 300 },
-                    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-                };
-
-                html2pdf().set(opt).from(exportContainer).save().then(() => {
-                    document.body.removeChild(exportContainer);
-                    downloadButton.disabled = false;
-                    downloadButton.innerHTML = 'تحميل كملف PDF <i class="fas fa-file-pdf"></i>';
+                // Create a new PDF document
+                const pdf = new jsPDF({
+                    orientation: 'portrait',
+                    unit: 'mm',
+                    format: 'a4'
                 });
-            }).catch(err => {
-                console.error("Font loading failed or PDF generation error:", err);
+
+                // Add the captured image to the PDF
+                pdf.addImage(imgData, 'PNG', x, y, finalWidth, finalHeight);
+                
+                // Save the PDF
+                pdf.save('حكمة-في-طلب-العلم.pdf');
+
+                // Re-enable the button
                 downloadButton.disabled = false;
-                downloadButton.innerHTML = 'حدث خطأ، حاول مجدداً <i class="fas fa-exclamation-triangle"></i>';
+                downloadButton.innerHTML = 'تحميل كملف PDF <i class="fas fa-file-pdf"></i>';
+
+            }).catch(err => {
+                console.error("PDF Generation Failed:", err);
+                alert("عذراً، حدث خطأ أثناء إنشاء الملف. يرجى المحاولة مرة أخرى.");
+                // Re-enable the button on failure
+                downloadButton.disabled = false;
+                downloadButton.innerHTML = 'تحميل كملف PDF <i class="fas fa-file-pdf"></i>';
             });
         });
     </script>
