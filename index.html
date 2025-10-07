@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- SEO Meta Tags -->
-    <title>حاسبة الصلوات الفائتة | حساب وقضاء الصلوات</title>
-    <meta name="description" content="أداة لحساب عدد الصلوات التي فاتتك، وتحديد سن التكليف، ومساعدتك على تنظيم قضائها. يمكنك طباعة النتائج لمتابعة تقدمك.">
+    <title>حاسبة وجدول قضاء الصلوات الفائتة</title>
+    <meta name="description" content="أداة متكاملة لحساب الصلوات الفائتة، تحديد سن التكليف، وتقديم جدول عملي مقترح لقضائها. اطبع جدولك وابدأ اليوم.">
     <meta name="keywords" content="قضاء الصلاة, حساب الصلوات الفائتة, جدول قضاء الصلوات, الصلاة الفائتة, سن التكليف الشرعي, طباعة جدول الصلاة">
     <meta name="author" content="Manus">
     <meta name="robots" content="index, follow">
@@ -24,10 +24,11 @@
         html { scroll-behavior: smooth; }
         body { font-family: 'Tajawal', sans-serif; margin: 0; line-height: 1.8; background-color: var(--background-color); color: var(--text-color); font-weight: 400; }
         .container { max-width: 800px; margin: auto; padding: 0 25px; }
-        h1, h2 { font-weight: 700; color: var(--heading-color); text-align: center; }
+        h1, h2, h3 { font-weight: 700; color: var(--heading-color); text-align: center; }
         
         h1 { font-size: 2.8rem; font-weight: 800; margin-bottom: 10px; }
-        h2 { font-size: 2rem; margin-bottom: 40px; color: var(--secondary-color); }
+        h3 { font-size: 1.8rem; margin-top: 40px; margin-bottom: 20px; }
+        
         section { padding: 60px 0; }
         
         .calculator-section { background: var(--white-color); padding: 40px; border-radius: 10px; box-shadow: 0 10px 40px rgba(0,0,0,0.08); }
@@ -43,16 +44,15 @@
         .calc-button { width: 100%; padding: 15px; background: var(--secondary-color); color: var(--white-color); border: none; border-radius: 8px; cursor: pointer; font-size: 1.2rem; font-weight: 700; transition: all 0.3s; margin-top: 20px; }
         .calc-button:hover { background-color: #248a7e; }
 
-        .results-section { margin-top: 40px; background-color: #e9f5f3; padding: 30px; border-radius: 10px; border: 2px solid var(--secondary-color); display: none; /* Hidden by default */ }
-        .results-section h3 { text-align: center; margin-top: 0; font-size: 1.8rem; }
+        .results-section { margin-top: 40px; background-color: #f8f9fa; padding: 30px; border-radius: 10px; border: 1px solid #dee2e6; display: none; /* Hidden by default */ }
         
         .results-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        .results-table th, .results-table td { padding: 12px 15px; text-align: right; border-bottom: 1px solid #ccc; }
+        .results-table th, .results-table td { padding: 12px 15px; text-align: right; border: 1px solid #dee2e6; }
         .results-table th { background-color: var(--primary-color); color: var(--white-color); font-weight: 700; }
-        .results-table td { font-size: 1.1rem; }
-        .results-table tr:last-child td { border-bottom: none; }
-        .total-row td { font-weight: 800; color: var(--danger-color); font-size: 1.2rem !important; }
-        .info-row td { font-weight: 700; color: var(--info-color); }
+        .results-table td { font-size: 1.1rem; background-color: var(--white-color); }
+        .total-row td { font-weight: 800; color: var(--danger-color); font-size: 1.2rem !important; background-color: #fff3f0; }
+        .info-row td { font-weight: 700; color: var(--info-color); background-color: #e9f7ff; }
+        .header-row { background-color: #e9ecef !important; text-align: center !important; font-weight: bold; color: var(--heading-color); }
 
         .print-button { display: block; width: 250px; margin: 25px auto 0; padding: 12px; background: var(--primary-color); color: var(--white-color); border: none; border-radius: 8px; cursor: pointer; font-size: 1.1rem; font-weight: 700; transition: all 0.3s; }
         .print-button:hover { background-color: #1b263b; }
@@ -69,15 +69,16 @@
         /* Print Styles */
         @media print {
             body { background-color: var(--white-color); color: #000; }
-            .calculator-section, .main-footer, .print-button, #prayer-form { display: none; }
+            .calculator-section, .main-footer, .print-button, #prayer-form, header > p { display: none; }
             section { padding: 0; }
             .results-section { display: block !important; box-shadow: none; border: none; margin-top: 0; padding: 0; background-color: transparent; }
             .container { max-width: 100%; padding: 0; }
             h1 { font-size: 2rem; color: #000; }
-            p { color: #333; }
+            h3 { color: #000; }
             .results-table th { background-color: #eee !important; color: #000 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
             .results-table, .results-table th, .results-table td { border: 1px solid #ccc; }
             .total-row td, .info-row td { color: #000 !important; }
+            .results-table td { background-color: #fff !important; }
         }
     </style>
 </head>
@@ -85,8 +86,8 @@
 
     <header>
         <div class="container">
-            <h1>حاسبة قضاء الصلوات الفائتة</h1>
-            <p style="text-align: center; max-width: 600px; margin: 0 auto 40px;">أداة لمساعدتك على معرفة عدد الصلوات التي عليك قضاؤها وتنظيم جدول لذلك.</p>
+            <h1>حاسبة وجدول قضاء الصلوات الفائتة</h1>
+            <p style="text-align: center; max-width: 600px; margin: 0 auto 40px;">أداة لمساعدتك على معرفة عدد الصلوات التي عليك قضاؤها وتنظيم جدول عملي لذلك.</p>
         </div>
     </header>
 
@@ -118,28 +119,28 @@
                             </div>
                         </div>
                         <div class="form-group full-width">
-                            <button type="submit" class="calc-button"><i class="fas fa-calculator"></i> احسب الصلوات الفائتة</button>
+                            <button type="submit" class="calc-button"><i class="fas fa-calculator"></i> احسب ونظم جدول القضاء</button>
                         </div>
                     </form>
 
                     <div id="results" class="results-section">
-                        <h3>ملخص حساب الصلوات</h3>
+                        <h3>ملخص الحسابات</h3>
                         <table class="results-table">
                             <tbody>
                                 <tr class="info-row">
-                                    <td>سن التكليف الشرعي (البلوغ)</td>
-                                    <td id="takleef-age">0</td>
-                                </tr>
-                                <tr class="info-row">
                                     <td>تاريخ بدء التكليف الشرعي</td>
                                     <td id="takleef-date">0</td>
+                                </tr>
+                                <tr class="info-row">
+                                    <td>منذ متى بدأ التكليف الشرعي</td>
+                                    <td id="takleef-duration">0</td>
                                 </tr>
                                 <tr class="info-row">
                                     <td>إجمالي الصلوات المفروضة عليك</td>
                                     <td id="total-obligatory-prayers">0</td>
                                 </tr>
                                 <tr>
-                                    <td colspan="2" style="text-align: center; padding-top: 20px; font-weight: bold; background-color: #ddd;">الصلوات الفائتة المتبقية</td>
+                                    <td colspan="2" class="header-row">الصلوات الفائتة المتبقية</td>
                                 </tr>
                                 <tr>
                                     <td>الفجر</td>
@@ -168,6 +169,34 @@
                             </tbody>
                         </table>
                         <p id="female-notice" style="text-align: center; font-size: 0.9rem; margin-top: 15px; display: none;">ملاحظة: تم خصم ما يقارب 10 أيام شهرياً كفترة عذر شرعي للمرأة.</p>
+                        
+                        <div id="qadaa-plan-section" style="display: none;">
+                            <h3>جدول مقترح لقضاء الصلوات</h3>
+                            <p style="text-align: center;">اختر الخطة التي تناسبك للالتزام بها. (مثال: مع كل صلاة حاضرة، تصلي صلاة فائتة من نفس النوع).</p>
+                            <table class="results-table">
+                                <thead>
+                                    <tr>
+                                        <th>الخطة المقترحة</th>
+                                        <th>المدة الزمنية المتوقعة للانتهاء</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>قضاء صلوات <strong>يوم واحد</strong> كل يوم</td>
+                                        <td id="plan-1-duration">0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>قضاء صلوات <strong>يومين</strong> كل يوم</td>
+                                        <td id="plan-2-duration">0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>قضاء صلوات <strong>أسبوع (7 أيام)</strong> كل يوم</td>
+                                        <td id="plan-3-duration">0</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
                         <button id="print-button" class="print-button"><i class="fas fa-print"></i> طباعة / حفظ كـ PDF</button>
                     </div>
                 </div>
@@ -177,11 +206,24 @@
 
     <footer class="main-footer">
         <div class="container">
-            <p>&copy; 2025 حاسبة قضاء الصلوات. نسأل الله لنا ولكم القبول.</p>
+            <p>&copy; 2025 حاسبة قضاء الصلوات. نسأل الله لنا ولكم الثبات والقبول.</p>
         </div>
     </footer>
 
     <script>
+        function formatDuration(totalDays) {
+            if (totalDays <= 0) return "لا يوجد";
+            const years = Math.floor(totalDays / 365.25);
+            const months = Math.floor((totalDays % 365.25) / 30.44);
+            const days = Math.floor((totalDays % 365.25) % 30.44);
+
+            let result = "";
+            if (years > 0) result += `${years} سنة `;
+            if (months > 0) result += `${months} شهر `;
+            if (days > 0 && years === 0) result += `${days} يوم`; // Show days only if duration is less than a year
+            return result.trim();
+        }
+
         document.getElementById('prayer-form').addEventListener('submit', function(event) {
             event.preventDefault();
 
@@ -197,24 +239,26 @@
             const ageOfTakleefDate = new Date(birthDate);
             ageOfTakleefDate.setFullYear(birthDate.getFullYear() + 15);
             
-            // حساب إجمالي الصلوات المفروضة
-            let totalObligatoryPrayers = 0;
+            let daysSinceTakleef = 0;
             if (ageOfTakleefDate < today) {
-                const daysSinceTakleef = Math.floor((today.getTime() - ageOfTakleefDate.getTime()) / (1000 * 3600 * 24));
-                totalObligatoryPrayers = daysSinceTakleef * 5;
-                if (gender === 'female') {
-                    const monthsSinceTakleef = daysSinceTakleef / 30.44;
-                    const periodDays = Math.floor(monthsSinceTakleef * 10);
-                    totalObligatoryPrayers -= periodDays * 5;
-                }
+                daysSinceTakleef = Math.floor((today.getTime() - ageOfTakleefDate.getTime()) / (1000 * 3600 * 24));
+            }
+
+            // حساب إجمالي الصلوات المفروضة
+            let totalObligatoryPrayers = daysSinceTakleef * 5;
+            if (gender === 'female') {
+                const monthsSinceTakleef = daysSinceTakleef / 30.44;
+                const periodDays = Math.floor(monthsSinceTakleef * 10);
+                totalObligatoryPrayers -= periodDays * 5;
             }
             totalObligatoryPrayers = Math.max(0, Math.floor(totalObligatoryPrayers));
 
             // حساب الصلوات الفائتة
             const calculationStartDate = startMissDate > ageOfTakleefDate ? startMissDate : ageOfTakleefDate;
             let totalMissedPrayers = 0;
+            let daysMissed = 0;
             if (calculationStartDate < today) {
-                const daysMissed = Math.floor((today.getTime() - calculationStartDate.getTime()) / (1000 * 3600 * 24));
+                daysMissed = Math.floor((today.getTime() - calculationStartDate.getTime()) / (1000 * 3600 * 24));
                 totalMissedPrayers = daysMissed * 5;
                 
                 if (gender === 'female') {
@@ -233,8 +277,8 @@
             const remainingPerPrayer = Math.ceil(remainingPrayers / 5);
 
             // عرض النتائج
-            document.getElementById('takleef-age').textContent = "15 سنة (تقريبًا)";
             document.getElementById('takleef-date').textContent = ageOfTakleefDate.toLocaleDateString(locale, { year: 'numeric', month: 'long', day: 'numeric' });
+            document.getElementById('takleef-duration').textContent = formatDuration(daysSinceTakleef);
             document.getElementById('total-obligatory-prayers').textContent = totalObligatoryPrayers.toLocaleString(locale);
             
             document.getElementById('fajr-missed').textContent = remainingPerPrayer.toLocaleString(locale);
@@ -244,6 +288,17 @@
             document.getElementById('isha-missed').textContent = remainingPerPrayer.toLocaleString(locale);
             document.getElementById('total-missed').textContent = remainingPrayers.toLocaleString(locale);
             
+            // حساب وعرض خطط القضاء
+            if (remainingPrayers > 0) {
+                const missedDays = remainingPrayers / 5;
+                document.getElementById('plan-1-duration').textContent = formatDuration(missedDays);
+                document.getElementById('plan-2-duration').textContent = formatDuration(missedDays / 2);
+                document.getElementById('plan-3-duration').textContent = formatDuration(missedDays / 7);
+                document.getElementById('qadaa-plan-section').style.display = 'block';
+            } else {
+                document.getElementById('qadaa-plan-section').style.display = 'none';
+            }
+
             document.getElementById('results').style.display = 'block';
             document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
         });
