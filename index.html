@@ -38,7 +38,7 @@
             color: var(--text-color);
             background-color: var(--body-bg);
             margin: 0;
-            padding: 2rem 1rem; /* Add padding for small screens */
+            padding: 2rem 1rem;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -48,7 +48,7 @@
 
         /* --- Screen Display Container --- */
         .screen-container {
-            max-width: 850px; /* Comfortable reading width on screen */
+            max-width: 850px;
             width: 100%;
             background-color: var(--page-bg);
             padding: 3rem 4rem;
@@ -65,23 +65,19 @@
             font-weight: 700;
             color: var(--header-color);
             text-align: center;
-            margin: 0 0 1.5rem 0;
+            margin: 0 0 2rem 0;
         }
 
         p {
-            font-size: 1.2rem; /* Larger font for screen readability */
+            font-size: 1.2rem;
             line-height: 2.4;
             text-align: justify;
             margin: 0 0 1.5rem 0;
         }
         
-        p:first-of-type::first-letter {
-            font-size: 4rem;
-            float: right;
-            line-height: 1;
-            margin: 8px 0 0 10px;
-            color: var(--header-color);
-            font-family: var(--font-heading);
+        /* Indent first line of the first paragraph */
+        p.first-paragraph {
+            text-indent: 3rem;
         }
 
         strong { font-weight: 700; color: var(--header-color); }
@@ -152,10 +148,10 @@
             color: #000;
         }
         .pdf-export-container .page-content { flex-grow: 1; }
-        .pdf-export-container h1 { font-size: 24pt; color: #000; }
+        .pdf-export-container h1 { font-size: 24pt; color: #000; margin-bottom: 15mm; }
         .pdf-export-container p { font-size: 12pt; line-height: 1.8; color: #000; }
-        .pdf-export-container p:first-of-type::first-letter { font-size: 36pt; color: #000; margin-top: 5px; }
-        .pdf-export-container strong { color: #000; }
+        .pdf-export-container p.first-paragraph { text-indent: 15mm; }
+        .pdf-export-container strong { color: #000; font-weight: bold; }
         .pdf-export-container .quote { font-size: 13pt; border-color: #888; color: #333; }
         .pdf-export-container .ornament { color: #888; }
         .pdf-export-container .page-header, .pdf-export-container .page-footer {
@@ -170,7 +166,7 @@
 
     <div class="screen-container" id="content-to-display">
         <h1>حِكمةٌ في طَلبِ العِلم</h1>
-        <p>
+        <p class="first-paragraph">
             يُحكى أنّ الشيخ <strong>مرتضى الأنصاري</strong> (1281هـ)، الذي تُعتبر مدرسته الأصوليّة هي المهيمنة إلى اليوم على آليّات الاجتهاد الشرعي عند الإماميّة، حضر في درس الفقه عند الشيخ محمد حسن النجفي (1266هـ)، صاحب الموسوعة الفقهيّة الشهيرة "جواهر الكلام"، ويبدو أنّ حضوره هذا كان لأوّل مرّة أو ربما رآه بعض الطلاب لأوّل مرّة حاضراً مجلس درس المحقّق النجفي، فجاء إليه بعضهم وسأله عن درسه وتحصيله العلمي، فأجابهم.
         </p>
         <p>
@@ -200,49 +196,42 @@
             const downloadButton = this;
             const originalContent = document.getElementById('content-to-display');
 
-            // تعطيل الزر وتغيير النص
             downloadButton.disabled = true;
             downloadButton.innerHTML = 'جاري التحضير... <i class="fas fa-spinner fa-spin"></i>';
 
-            // إنشاء حاوية افتراضية للتصدير بمقاس A4
-            const exportContainer = document.createElement('div');
-            exportContainer.className = 'pdf-export-container';
-            
-            // إضافة الترويسة والمحتوى والتذييل
-            exportContainer.innerHTML = `
-                <header class="page-header">مقال في آداب طلب العلم</header>
-                <main class="page-content">${originalContent.innerHTML}</main>
-                <footer class="page-footer">1</footer>
-            `;
-            
-            // إزالة زر التحميل من المحتوى المنسوخ
-            exportContainer.querySelector('.download-button-wrapper').remove();
-
-            // إضافة الحاوية المؤقتة إلى الصفحة (مخفية) لتطبيق الأنماط
-            exportContainer.style.position = 'absolute';
-            exportContainer.style.left = '-9999px';
-            document.body.appendChild(exportContainer);
-
-            const opt = {
-                margin:       0,
-                filename:     'حكمة-في-طلب-العلم.pdf',
-                image:        { type: 'jpeg', quality: 1.0 },
-                html2canvas:  { scale: 3, useCORS: true, letterRendering: true, dpi: 300 },
-                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
-            };
-
-            // إنشاء الـ PDF من الحاوية المؤقتة
-            html2pdf().set(opt).from(exportContainer).save().then(() => {
-                // إزالة الحاوية المؤقتة
-                document.body.removeChild(exportContainer);
+            // **الحل الرئيسي: انتظر حتى يتم تحميل الخطوط بالكامل**
+            document.fonts.ready.then(() => {
+                // إنشاء حاوية افتراضية للتصدير
+                const exportContainer = document.createElement('div');
+                exportContainer.className = 'pdf-export-container';
                 
-                // إعادة تفعيل الزر
-                downloadButton.disabled = false;
-                downloadButton.innerHTML = 'تحميل كملف PDF <i class="fas fa-file-pdf"></i>';
+                exportContainer.innerHTML = `
+                    <header class="page-header">مقال في آداب طلب العلم</header>
+                    <main class="page-content">${originalContent.innerHTML}</main>
+                    <footer class="page-footer">1</footer>
+                `;
+                
+                exportContainer.querySelector('.download-button-wrapper').remove();
+
+                exportContainer.style.position = 'absolute';
+                exportContainer.style.left = '-9999px';
+                document.body.appendChild(exportContainer);
+
+                const opt = {
+                    margin: 0,
+                    filename: 'حكمة-في-طلب-العلم.pdf',
+                    image: { type: 'jpeg', quality: 1.0 },
+                    html2canvas: { scale: 3, useCORS: true, letterRendering: true, dpi: 300 },
+                    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+                };
+
+                html2pdf().set(opt).from(exportContainer).save().then(() => {
+                    document.body.removeChild(exportContainer);
+                    downloadButton.disabled = false;
+                    downloadButton.innerHTML = 'تحميل كملف PDF <i class="fas fa-file-pdf"></i>';
+                });
             }).catch(err => {
-                console.error(err);
-                // في حالة حدوث خطأ، أعد تفعيل الزر أيضًا
-                document.body.removeChild(exportContainer);
+                console.error("Font loading failed or PDF generation error:", err);
                 downloadButton.disabled = false;
                 downloadButton.innerHTML = 'حدث خطأ، حاول مجدداً <i class="fas fa-exclamation-triangle"></i>';
             });
