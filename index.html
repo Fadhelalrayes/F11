@@ -4,163 +4,230 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>حِكمة في طلب العلم - قصة الشيخ الأنصاري</title>
-    <meta name="description" content="قصة تروي أهمية التعمق في فهم المدارس الفكرية بدلاً من الأحكام السطحية العجولة.">
+    <meta name="description" content="مقال احترافي حول أهمية التعمق في فهم المدارس الفكرية، جاهز للطباعة والتقديم.">
 
     <!-- Google Fonts: Amiri for body, Noto Kufi Arabic for headings -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Noto+Kufi+Arabic:wght@600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <!-- html2pdf.js Library for Professional PDF Export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
     <style>
-        /* --- Base Styles --- */
         :root {
-            --page-bg: #fdfdfa; /* لون ورق كريمي خفيف */
-            --text-color: #2c2c2c; /* لون الحبر الأسود الداكن */
-            --header-color: #8c1515; /* لون العناوين (أحمر داكن تراثي) */
-            --border-color: #d1c7b7; /* لون إطار خفيف */
-            --font-body: 'Amiri', serif; /* خط كلاسيكي للنص الأساسي */
-            --font-heading: 'Noto Kufi Arabic', sans-serif; /* خط حديث وواضح للعناوين */
+            --page-bg: #ffffff;
+            --text-color: #212529;
+            --header-color: #8c1515; /* لون أحمر تراثي داكن */
+            --border-color: #dee2e6;
+            --accent-color: #c9b79c; /* لون ذهبي باهت للزخرفة */
+            --font-body: 'Amiri', serif;
+            --font-heading: 'Noto Kufi Arabic', sans-serif;
         }
 
         html {
-            background-color: #e0e0e0; /* خلفية رمادية لإبراز الصفحة */
+            background-color: #f0f2f5; /* خلفية رمادية فاتحة لإبراز الصفحة */
         }
 
         body {
             font-family: var(--font-body);
             color: var(--text-color);
-            line-height: 2.2; /* تباعد أسطر مريح للقراءة المطولة */
-            font-size: 18px; /* حجم خط أساسي واضح */
+            line-height: 2.3;
+            font-size: 18px;
             margin: 0;
-            padding: 2rem 0;
+            padding: 3rem 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        /* --- Page Container (The "PDF" Sheet) --- */
+        /* --- The "PDF" Sheet Container --- */
         .page-container {
-            max-width: 800px; /* عرض مشابه لصفحة A4 */
+            width: 210mm; /* عرض ورقة A4 */
+            min-height: 297mm; /* ارتفاع ورقة A4 */
+            padding: 20mm 25mm; /* هوامش قياسية للكتب */
             margin: 0 auto;
-            padding: 4rem 5rem; /* هوامش داخلية واسعة مثل الكتب */
             background-color: var(--page-bg);
-            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15); /* ظل لإعطاء عمق للصفحة */
-            border: 1px solid var(--border-color);
-            border-radius: 3px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 1px solid #ddd;
+            box-sizing: border-box; /* لضمان أن padding لا يزيد من العرض */
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        
+        .page-content {
+            flex-grow: 1;
+        }
+
+        /* --- Header and Footer --- */
+        .page-header, .page-footer {
+            width: 100%;
+            text-align: center;
+            font-size: 14px;
+            color: #888;
+        }
+        .page-header {
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-family: var(--font-heading);
+        }
+        .page-footer {
+            border-top: 1px solid var(--border-color);
+            padding-top: 10px;
+            margin-top: auto; /* يدفع التذييل إلى أسفل الصفحة */
         }
 
         /* --- Typography --- */
         h1 {
             font-family: var(--font-heading);
-            font-size: 2.5rem;
+            font-size: 2.6rem;
             font-weight: 700;
             color: var(--header-color);
             text-align: center;
             margin-top: 0;
-            margin-bottom: 1rem;
-            padding-bottom: 1rem;
-            border-bottom: 2px solid var(--border-color);
+            margin-bottom: 1.5rem;
         }
 
         p {
-            text-align: justify; /* محاذاة كاملة (ضبط) مثل الكتب */
+            text-align: justify;
             text-justify: inter-word;
             margin-bottom: 1.5rem;
-            hyphens: auto; /* للمساعدة في توزيع الكلمات عند الحواف */
+            hyphens: auto;
+        }
+        p:first-of-type::first-letter { /* تكبير أول حرف في المقال */
+            font-size: 3.5rem;
+            float: right;
+            line-height: 1;
+            margin-left: 10px;
+            margin-top: 5px;
+            color: var(--header-color);
+            font-family: var(--font-heading);
         }
 
-        /* --- Specific Styling for Emphasis --- */
         strong, b {
             font-weight: 700;
-            color: var(--header-color); /* تمييز الكلمات الهامة بنفس لون العنوان */
+            color: var(--header-color);
         }
 
         .quote {
             font-style: italic;
             font-size: 1.1rem;
-            color: #555;
+            color: #495057;
             margin: 2rem 3rem;
             padding-right: 1.5rem;
-            border-right: 3px solid var(--border-color);
+            border-right: 4px solid var(--accent-color);
         }
-
-        .conclusion {
-            margin-top: 2.5rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid var(--border-color);
-            font-size: 1.1rem;
-            font-weight: bold;
+        
+        .ornament { /* فاصل زخرفي */
             text-align: center;
-            color: #333;
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            margin: 2rem 0;
         }
 
-        /* --- Responsive Design for Smaller Screens --- */
-        @media (max-width: 768px) {
-            body {
-                padding: 1rem 0;
-            }
-            .page-container {
-                padding: 2rem 2.5rem;
-                margin: 0 1rem;
-            }
-            h1 {
-                font-size: 2rem;
-            }
-            body {
-                font-size: 16px;
-                line-height: 2.0;
-            }
+        /* --- Download Button --- */
+        .download-button {
+            font-family: var(--font-heading);
+            background-color: var(--header-color);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 2rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        .download-button:hover {
+            background-color: #6d1111;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+        .download-button i {
+            margin-left: 10px;
         }
 
-        /* --- Print Styles (To make it look perfect when printed or saved as PDF) --- */
+        /* --- Print and PDF Export Styles --- */
         @media print {
-            html, body {
-                background-color: #fff; /* خلفية بيضاء للطباعة */
-                padding: 0;
-                margin: 0;
-            }
-            .page-container {
-                box-shadow: none;
-                border: none;
-                max-width: 100%;
-                padding: 0;
-                margin: 0;
-            }
-            h1 {
-                color: #000;
-            }
-            strong, b {
-                color: #000;
-            }
+            html, body { background: #fff; padding: 0; margin: 0; }
+            .download-button { display: none; }
+            .page-container { box-shadow: none; border: none; margin: 0; padding: 20mm; width: 100%; height: 100%; }
         }
     </style>
 </head>
 <body>
 
-    <div class="page-container">
-        <h1>حِكمةٌ في طَلبِ العِلم</h1>
+    <div class="page-container" id="page-to-export">
+        <header class="page-header">
+            مقال في آداب طلب العلم
+        </header>
 
-        <p>
-            يُحكى أنّ الشيخ <strong>مرتضى الأنصاري</strong> (1281هـ)، الذي تُعتبر مدرسته الأصوليّة هي المهيمنة إلى اليوم على آليّات الاجتهاد الشرعي عند الإماميّة، حضر في درس الفقه عند الشيخ محمد حسن النجفي (1266هـ)، صاحب الموسوعة الفقهيّة الشهيرة "جواهر الكلام"، ويبدو أنّ حضوره هذا كان لأوّل مرّة أو ربما رآه بعض الطلاب لأوّل مرّة حاضراً مجلس درس المحقّق النجفي، فجاء إليه بعضهم وسأله عن درسه وتحصيله العلمي، فأجابهم.
-        </p>
+        <main class="page-content">
+            <h1>حِكمةٌ في طَلبِ العِلم</h1>
 
-        <p>
-            ومن ضمن الكلام والحوار العلمي الذي جرى بينهم أنّه قال لهم: هذه المسألة مبنيّة على <strong>نظريّة الحكومة</strong> في أصول الفقه. وهي نظريّة تعنى بتنظيم بعض العلاقات بين النصوص والأدلّة، وتشتهر نسبتها إلى الشيخ الأنصاريّ، وإن كان هناك من يرى أنّ لها حضوراً في الدراسات القانونية المعاصرة. ومن المناسب تقديم دراسة تاريخيّة مفصّلة حول نظريّة الحكومة؛ لفهم تطوّراتها في المدارس الأصوليّة المختلفة عند المذاهب ولو بعناوين مختلفة، وكذلك المدارس القانونية المعاصرة.
-        </p>
+            <p>
+                يُحكى أنّ الشيخ <strong>مرتضى الأنصاري</strong> (1281هـ)، الذي تُعتبر مدرسته الأصوليّة هي المهيمنة إلى اليوم على آليّات الاجتهاد الشرعي عند الإماميّة، حضر في درس الفقه عند الشيخ محمد حسن النجفي (1266هـ)، صاحب الموسوعة الفقهيّة الشهيرة "جواهر الكلام"، ويبدو أنّ حضوره هذا كان لأوّل مرّة أو ربما رآه بعض الطلاب لأوّل مرّة حاضراً مجلس درس المحقّق النجفي، فجاء إليه بعضهم وسأله عن درسه وتحصيله العلمي، فأجابهم.
+            </p>
 
-        <p class="quote">
-            على أيّة حال، لم يفهم أولئك الطلاب معنى كلمة الحكومة، إذ بدت جديدة بالنسبة إليهم، فسألوه بنوعٍ من الاستخفاف: وما هي الحكومة؟ فقال لهم: تحتاجون أن تحضروا عندي الدرس الأصولي لستّة أشهر، وبعدها تفهمون الأمر.
-        </p>
+            <p>
+                ومن ضمن الكلام والحوار العلمي الذي جرى بينهم أنّه قال لهم: هذه المسألة مبنيّة على <strong>نظريّة الحكومة</strong> في أصول الفقه. وهي نظريّة تعنى بتنظيم بعض العلاقات بين النصوص والأدلّة، وتشتهر نسبتها إلى الشيخ الأنصاريّ، وإن كان هناك من يرى أنّ لها حضوراً في الدراسات القانونية المعاصرة. ومن المناسب تقديم دراسة تاريخيّة مفصّلة حول نظريّة الحكومة؛ لفهم تطوّراتها في المدارس الأصوليّة المختلفة عند المذاهب ولو بعناوين مختلفة، وكذلك المدارس القانونية المعاصرة.
+            </p>
 
-        <p>
-            بصرف النظر عن مدى صحّة النقل، قد تحكي هذه القصّة عن حِكمة لو فسّرناها بطريقة معيّنة، وهي أنّه لا يمكنك فهم المدارس الجديدة، بل والقديمة، عبر المرور العجول عليها، ولا الحكم عليها بعيونك من خلال نظرة واحدة أو مقطع واحد أو فكرة هنا أو هنا. فمن السخيف أن يحكم شخص على فلسفة الملا صدرا بمطالعة مقالٍ أو بحث هنا أو هناك، أو يتعرّف عليها من خلال محاضرة أو كتيّب، كما ومن السخيف أن يحكم آخر على فلسفة كانط بالطريقة عينها.
-        </p>
+            <div class="quote">
+                على أيّة حال، لم يفهم أولئك الطلاب معنى كلمة الحكومة، إذ بدت جديدة بالنسبة إليهم، فسألوه بنوعٍ من الاستخفاف: وما هي الحكومة؟ فقال لهم: تحتاجون أن تحضروا عندي الدرس الأصولي لستّة أشهر، وبعدها تفهمون الأمر.
+            </div>
 
-        <p>
-            هذا يعني أنّه لكي نفهم الآخر وبخاصّة لو كان يقدّم مشروعاً مختلفاً عن المألوف، مثل مشروع الأنصاري والملا صدرا وكانط، أن نعيش معه لفترةٍ كافية، اعتبرَها الأنصاري ستة أشهر، فندخل داخل منظومته الفكريّة ونتعايش مع طريقة تفكيره، ثم بعد ذلك تبدأ رحلة النقاش والحوار.
-        </p>
+            <div class="ornament">
+                ***
+            </div>
 
-        <p class="conclusion">
-            أمّا العجلة، وبخاصّة في عصر التسطيح الذي تُتحفنا به وسائل التواصل الاجتماعي، فإنّ تقدّماً علميّاً لن يكون مرجوّاً أبداً، والأملُ بالله لا ينقطع.
-        </p>
+            <p>
+                بصرف النظر عن مدى صحّة النقل، قد تحكي هذه القصّة عن حِكمة لو فسّرناها بطريقة معيّنة، وهي أنّه لا يمكنك فهم المدارس الجديدة، بل والقديمة، عبر المرور العجول عليها، ولا الحكم عليها بعيونك من خلال نظرة واحدة أو مقطع واحد أو فكرة هنا أو هنا. فمن السخيف أن يحكم شخص على فلسفة الملا صدرا بمطالعة مقالٍ أو بحث هنا أو هناك، أو يتعرّف عليها من خلال محاضرة أو كتيّب، كما ومن السخيف أن يحكم آخر على فلسفة كانط بالطريقة عينها.
+            </p>
+
+            <p>
+                هذا يعني أنّه لكي نفهم الآخر وبخاصّة لو كان يقدّم مشروعاً مختلفاً عن المألوف، مثل مشروع الأنصاري والملا صدرا وكانط، أن نعيش معه لفترةٍ كافية، اعتبرَها الأنصاري ستة أشهر، فندخل داخل منظومته الفكريّة ونتعايش مع طريقة تفكيره، ثم بعد ذلك تبدأ رحلة النقاش والحوار. أمّا العجلة، وبخاصّة في عصر التسطيح الذي تُتحفنا به وسائل التواصل الاجتماعي، فإنّ تقدّماً علميّاً لن يكون مرجوّاً أبداً، والأملُ بالله لا ينقطع.
+            </p>
+        </main>
+
+        <footer class="page-footer">
+            1
+        </footer>
     </div>
+
+    <button id="download-btn" class="download-button">
+        تحميل كملف PDF <i class="fas fa-file-pdf"></i>
+    </button>
+
+    <script>
+        document.getElementById('download-btn').addEventListener('click', function () {
+            const element = document.getElementById('page-to-export');
+            
+            // إخفاء الزر قبل إنشاء الـ PDF
+            const downloadButton = document.getElementById('download-btn');
+            downloadButton.style.display = 'none';
+
+            const opt = {
+                margin:       0,
+                filename:     'حكمة-في-طلب-العلم.pdf',
+                image:        { type: 'jpeg', quality: 1.0 },
+                html2canvas:  { scale: 3, useCORS: true, letterRendering: true }, // زيادة الدقة
+                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+
+            // إنشاء الـ PDF ثم إعادة إظهار الزر
+            html2pdf().set(opt).from(element).save().then(() => {
+                downloadButton.style.display = 'block';
+            });
+        });
+    </script>
 
 </body>
 </html>
