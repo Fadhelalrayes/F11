@@ -5,71 +5,84 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>أصناف العلماء و"العوام"</title>
     <style>
-        /* --- إعدادات عامة --- */
-        @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap');
+        /* --- إعدادات عامة وخطوط --- */
+        @import url('https://fonts.googleapis.com/css2?family=Marhey:wght@400;700&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap');
 
         body {
-            background-color: #f4f4f4; /* خلفية بيضاء مائلة للرمادي الفاتح لراحة العين */
-            color: #333333; /* لون نص أسود داكن */
+            background-color: #FDF6E3; /* لون ورق البردي/البيج الفاتح */
+            color: #586E75; /* لون رمادي-أزرق هادئ للنص */
             font-family: 'Amiri', serif;
-            line-height: 2.2;
+            line-height: 2.3;
             margin: 0;
             padding: 20px;
+            font-size: 16px; /* حجم خط أساسي */
         }
 
-        /* --- حاوية المحتوى الرئيسي --- */
+        /* --- حاوية المحتوى الرئيسية --- */
         .container {
-            max-width: 800px;
-            margin: 40px auto;
-            padding: 50px;
-            background-color: #ffffff; /* خلفية بيضاء نقية للمحتوى */
-            border: 1px solid #e0e0e0;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); /* ظل ناعم لإبراز الحاوية */
-            border-radius: 8px;
+            max-width: 850px;
+            margin: 50px auto;
+            padding: 40px 50px;
+            background-color: rgba(255, 255, 255, 0.6); /* خلفية بيضاء شفافة قليلاً */
+            border: 1px solid #D3CBB8;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.07);
+            border-radius: 4px;
         }
 
-        /* --- صندوق العنوان الاحترافي --- */
-        .title-box {
-            background-color: #1a1a1a; /* خلفية سوداء للصندوق */
-            padding: 30px;
-            margin: -50px -50px 40px -50px; /* يمتد ليلامس حواف الحاوية */
-            border-top-left-radius: 8px;
-            border-top-right-radius: 8px;
-            border-bottom: 4px solid #FFD700; /* خط ذهبي سميك في الأسفل */
+        /* --- تصميم العنوان --- */
+        .title-container {
             text-align: center;
-            position: relative;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 3px double #C09553; /* خط مزدوج بلون ذهبي مطفي */
         }
 
         h1 {
-            color: #FFD700; /* لون ذهبي ساطع للعنوان */
-            font-size: 2.8em;
+            font-family: 'Marhey', cursive; /* خط زخرفي مميز للعنوان */
+            color: #002B36; /* لون أزرق ليلي داكن جداً */
+            font-size: 3em;
             font-weight: 700;
             margin: 0;
-            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5); /* ظل للنص لإعطاء عمق */
         }
 
         /* --- الفقرات والنصوص --- */
         p, li {
-            font-size: 1.2em;
-            text-align: justify; /* محاذاة مستقيمة من الطرفين */
+            font-size: 1.25em;
+            text-align: justify;
             margin-bottom: 1.5em;
         }
 
         /* --- تمييز النصوص --- */
         strong {
-            color: #B38B00; /* تمييز باللون الذهبي الداكن ليتناسب مع الخلفية البيضاء */
-            font-weight: bold;
+            color: #856733; /* لون ذهبي-بني للكلمات المهمة */
+            font-weight: 700;
         }
 
         /* --- القائمة المرقمة --- */
         ol {
-            padding-right: 20px;
-            list-style-type: decimal; /* ترقيم عشري قياسي */
+            padding-right: 25px;
+            list-style: none; /* إزالة الترقيم الافتراضي */
+            counter-reset: item;
         }
-        
-        li::marker {
-            color: #B38B00; /* تلوين أرقام القائمة باللون الذهبي */
+
+        li {
+            counter-increment: item;
+            margin-bottom: 1.5em;
+        }
+
+        li::before {
+            content: counter(item); /* استخدام عداد مخصص */
+            color: #FDF6E3; /* لون الرقم (نفس لون الخلفية) */
+            background-color: #002B36; /* خلفية الرقم (أزرق ليلي) */
             font-weight: bold;
+            font-size: 0.9em;
+            border-radius: 50%;
+            width: 28px;
+            height: 28px;
+            display: inline-block;
+            text-align: center;
+            line-height: 28px;
+            margin-left: 15px;
         }
 
         /* --- زر الطباعة --- */
@@ -79,10 +92,10 @@
         }
 
         .print-button {
-            background: #1a1a1a; /* خلفية سوداء لتتناسق مع العنوان */
-            color: #FFD700; /* نص ذهبي */
-            border: 1px solid #FFD700;
-            padding: 12px 30px;
+            background-color: #002B36; /* أزرق ليلي */
+            color: #FDF6E3; /* لون بيج فاتح */
+            border: 1px solid #002B36;
+            padding: 10px 25px;
             font-family: 'Amiri', serif;
             font-size: 1.1em;
             font-weight: bold;
@@ -92,59 +105,27 @@
         }
 
         .print-button:hover {
-            background: #FFD700; /* تغيير الخلفية للذهبي عند التمرير */
-            color: #1a1a1a; /* تغيير النص للأسود */
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            background-color: #FDF6E3;
+            color: #002B36;
+            border-color: #856733;
         }
 
-        /* --- إعدادات خاصة بالطباعة --- */
+        /* --- إعدادات الطباعة --- */
         @media print {
-            body {
-                background-color: #ffffff;
-                color: #000000;
-                padding: 0;
-                margin: 0;
-            }
-
-            .container {
-                border: none;
-                box-shadow: none;
-                margin: 0;
-                padding: 0;
-                max-width: 100%;
-                border-radius: 0;
-            }
-            
-            .title-box {
-                background-color: #ffffff;
-                border-bottom: 2px solid #000000;
-                margin: 0 0 30px 0;
-                padding: 0 0 15px 0;
-                border-radius: 0;
-            }
-
-            h1 {
-                color: #000000;
-                text-shadow: none;
-                font-size: 2.5em;
-            }
-            
-            strong, li::marker {
-                color: #000000;
-            }
-
-            .print-button-container {
-                display: none; /* إخفاء زر الطباعة */
-            }
+            body { background-color: #fff; color: #000; }
+            .container { border: none; box-shadow: none; margin: 0; padding: 0; max-width: 100%; }
+            .title-container { border-bottom: 2px solid #000; }
+            h1, strong, li::before { color: #000; }
+            li::before { background-color: #fff; border: 1px solid #000; }
+            .print-button-container { display: none; }
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <div class="title-box">
-            <h1>أصناف العلماء و"العوام"!</h1>
+        <div class="title-container">
+            <h1>أصناف العلماء و"العوام"</h1>
         </div>
 
         <p>ربما يمكن فرز العلماء وطلاب العلوم الدينيّة، من حيث نوعيّة علاقتهم بالعوام، إلى أصناف، أبرزها:</p>
