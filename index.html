@@ -1,168 +1,134 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أصناف العلماء و"العوام"</title>
+    <style>
+        /* --- إعدادات عامة --- */
+        @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap');
 
-  <title>فاضل الريس | مركز الأدوات والمشاريع</title>
+        body {
+            background-color: #121212; /* أسود داكن */
+            color: #E0E0E0; /* لون نص فاتح قليلاً */
+            font-family: 'Amiri', serif; /* خط عربي أنيق يشبه خط الكتب */
+            line-height: 2.2; /* تباعد أسطر مريح للقراءة */
+            margin: 0;
+            padding: 0;
+        }
 
-  <meta name="description" content="مجموعة من الأدوات والمشاريع التي طورها فاضل الريس، وتشمل: محادثة ذكاء اصطناعي، مواقيت الصلاة، القرآن الكريم، أدوات صحية، أخبار، وغيرها من التطبيقات المفيدة." />
-  <meta name="keywords" content="فاضل الريس, أدوات, مشاريع, ذكاء اصطناعي, مواقيت الصلاة, القرآن الكريم, استخارة, مسبحة, أخبار, رياضة, تذاكر طيران, حاسبة عمر, فاحص طبي, العد التنازلي, تصميم مواقع ويب, Fadhel Alrayes" />
-  <link rel="canonical" href="https://fadhel-alrayes.fun/" />
-  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
-  <meta name="author" content="فاضل الريس" />
+        /* --- حاوية المحتوى الرئيسي --- */
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 40px;
+            background-color: #1A1A1A; /* خلفية أغمق قليلاً للمحتوى */
+            border: 1px solid #B38B00; /* إطار ذهبي */
+            box-shadow: 0 0 25px rgba(179, 139, 0, 0.2); /* توهج ذهبي خفيف */
+        }
 
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="فاضل الريس | مركز الأدوات والمشاريع" />
-  <meta property="og:description" content="مجموعة من الأدوات والمشاريع التي طورها فاضل الريس." />
-  <meta property="og:url" content="https://fadhel-alrayes.fun/" />
-  <meta property="og:image" content="https://fadhel-alrayes.fun/og-cover.jpg" />
-  <meta property="og:locale" content="ar_AR" />
-  <meta name="twitter:card" content="summary_large_image" />
+        /* --- العناوين --- */
+        h1 {
+            color: #FFD700; /* لون ذهبي ساطع */
+            text-align: center;
+            font-size: 2.8em;
+            font-weight: 700;
+            margin-bottom: 30px;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5); /* توهج للنص */
+        }
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="dns-prefetch" href="//fonts.googleapis.com" />
-  <link rel="dns-prefetch" href="//fonts.gstatic.com" />
-  <link rel="dns-prefetch" href="//pagead2.googlesyndication.com" />
-  <link rel="dns-prefetch" href="//googleads.g.doubleclick.net" />
+        /* --- الفقرات والنصوص --- */
+        p, li {
+            font-size: 1.2em;
+            text-align: justify; /* محاذاة مستقيمة من الطرفين مثل الكتب */
+            margin-bottom: 1.5em;
+        }
 
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800;900&display=swap" rel="stylesheet" />
+        /* --- تمييز النصوص --- */
+        strong {
+            color: #FFD700; /* تمييز باللون الذهبي */
+            font-weight: bold;
+        }
 
-  <meta name="google-site-verification" content="google7486b7402e792c6c.html" />
+        /* --- القائمة المرقمة --- */
+        ol {
+            padding-right: 20px; /* مسافة بادئة للقائمة */
+        }
 
-  <meta http-equiv="Content-Security-Policy" content="
-    default-src 'self';
-    base-uri 'self';
-    object-src 'none';
-    upgrade-insecure-requests;
-    form-action 'self';
-    frame-ancestors 'self';
-    script-src 'self' https://pagead2.googlesyndication.com https://securepubads.g.doubleclick.net 'nonce-7uSYr3';
-    style-src 'self' https://fonts.googleapis.com 'nonce-7uSYr3';
-    img-src 'self' https://fadhel-alrayes.fun data: https://pagead2.googlesyndication.com https://googleads.g.doubleclick.net;
-    font-src https://fonts.gstatic.com;
-    connect-src 'self' https://pagead2.googlesyndication.com https://googleads.g.doubleclick.net;
-    frame-src https://googleads.g.doubleclick.net https://tpc.googlesyndication.com;
-  ">
+        /* --- زر الطباعة --- */
+        .print-button-container {
+            text-align: center;
+            margin-top: 40px;
+            margin-bottom: 20px;
+        }
 
-  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
-  <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=(), interest-cohort=()" />
+        .print-button {
+            background: linear-gradient(145deg, #FFD700, #B38B00); /* تدرج لوني ذهبي */
+            color: #121212; /* لون نص أسود */
+            border: none;
+            padding: 12px 30px;
+            font-family: 'Amiri', serif;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 5px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
 
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1934188535842979" crossorigin="anonymous"></script>
+        .print-button:hover {
+            transform: translateY(-3px); /* تأثير رفع عند التمرير */
+            box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4); /* توهج أقوى عند التمرير */
+        }
 
-  <style nonce="7uSYr3">
-    :root{
-      --gold-1:#d4af37; --gold-2:#f5d76e;
-      --bg-1:#ffffff; --bg-2:#f7f4ea;
-      --text:#101418; --muted:#5e6773;
-      --card:#fff; --border:#e8e2cf;
-      --radius:16px;
-      --shadow:0 10px 28px rgba(0,0,0,.10);
-      --shadow-hover:0 16px 40px rgba(0,0,0,.14);
-    }
-    *{box-sizing:border-box}
-    body{
-      margin:0; color:var(--text);
-      font-family:"Cairo","Noto Kufi Arabic",Tahoma,Arial,sans-serif;
-      background:
-        radial-gradient(900px 480px at 85% -10%, rgba(212,175,55,.10), transparent),
-        linear-gradient(180deg,var(--bg-2),var(--bg-1));
-    }
-    .wrap{max-width:1000px; margin:0 auto; padding:20px}
-    .title-bar{
-      background:#fff; border:1px solid var(--border); border-radius:18px;
-      padding:18px 22px; box-shadow:0 10px 26px rgba(0,0,0,.06);
-      margin-bottom:22px; position:relative; overflow:hidden;
-    }
-    .title-bar::before{
-      content:""; position:absolute; inset:0 0 auto 0; height:5px;
-      background:linear-gradient(90deg, var(--gold-1), var(--gold-2));
-    }
-    .title{margin:0; text-align:center; font-weight:900; font-size:1.8rem; letter-spacing:.4px; color:#1a1f27;}
+        /* --- إعدادات خاصة بالطباعة --- */
+        @media print {
+            body {
+                background-color: #ffffff; /* خلفية بيضاء عند الطباعة */
+                color: #000000; /* نص أسود */
+            }
 
-    .grid{display:grid; gap:14px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));}
-    a.card{
-      display:block; text-decoration:none; color:inherit; background:var(--card);
-      border:1px solid var(--border); border-radius:var(--radius);
-      padding:16px; box-shadow:var(--shadow); transition:.2s ease;
-      will-change: transform, box-shadow;
-    }
-    a.card:hover{transform:translateY(-3px); box-shadow:var(--shadow-hover)}
-    .row{display:flex; align-items:flex-start; gap:12px}
-    .ico{
-      width:42px; height:42px; border-radius:12px; display:grid; place-items:center; flex:0 0 42px;
-      background: radial-gradient(120% 120% at 20% 15%, var(--gold-2), var(--gold-1));
-      color:#fff; font-size:1.1rem; box-shadow:0 8px 18px rgba(212,175,55,.30)
-    }
-    h3{margin:0 0 6px; font-size:1.06rem; font-weight:800}
-    p.desc{margin:0; color:var(--muted); font-size:.92rem; line-height:1.65}
+            .container {
+                border: none;
+                box-shadow: none;
+                margin: 0;
+                padding: 0;
+                max-width: 100%;
+            }
 
-    footer{
-      margin:26px 0 6px;
-      text-align:center;
-      color:var(--muted);
-      font-size:.9rem;
-      font-weight:600;
-    }
-    footer .links a{
-      color:var(--muted);
-      text-decoration:none;
-      margin:0 8px;
-      transition:.2s;
-    }
-    footer .links a:hover{
-      color:var(--gold-1);
-    }
+            h1, strong {
+                color: #000000; /* تحويل الألوان للأسود في الطباعة */
+                text-shadow: none;
+            }
 
-    #footerName{cursor:pointer; user-select:none; -webkit-tap-highlight-color:transparent}
-    .ad-slot { display:block; text-align:center; margin:20px 0; }
-  </style>
+            .print-button-container {
+                display: none; /* إخفاء زر الطباعة عند الطباعة */
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="wrap">
-    <header class="title-bar"><h1 class="title">فاضل الريس</h1></header>
 
-    <ins class="adsbygoogle ad-slot"
-         data-ad-client="ca-pub-1934188535842979"
-         data-ad-slot="1234567890"
-         data-ad-format="auto"
-         data-full-width-responsive="true"></ins>
+    <div class="container">
+        <h1>أصناف العلماء و"العوام"!</h1>
 
-    <main class="grid">
+        <p>ربما يمكن فرز العلماء وطلاب العلوم الدينيّة، من حيث نوعيّة علاقتهم بالعوام، إلى أصناف، أبرزها:</p>
 
-      <!-- جميع البطاقات كما كانت -->
-      <a class="card" href="https://fadhel-alrayes.fun/talk.html"><div class="row"><span class="ico">🤖</span><div><h3>محادثة الذكاء الاصطناعي</h3><p class="desc">مساعد ذكي يتفاعل معك بالعربية.</p></div></div></a>
-      <a class="card" href="https://fadhelalrayes.github.io/Akbar/"><div class="row"><span class="ico">📰</span><div><h3>مدار الخبر</h3><p class="desc">صفحة خفيفة لأحدث المستجدّات العربية.</p></div></div></a>
-      <a class="card" href="https://fadhel-alrayes.fun/index3.html"><div class="row"><span class="ico">🕌</span><div><h3>مواقيت الصلاة</h3><p class="desc">حساب وعرض المواقيت الدقيقة.</p></div></div></a>
-      <a class="card" href="https://fadhel-alrayes.fun/prayer.html"><div class="row"><span class="ico">🙏</span><div><h3>تعليم الصلاة</h3><p class="desc">دليلك الشامل لتعلّم الصلاة.</p></div></div></a>
-      <a class="card" href="https://fadhel-alrayes.fun/index15.html"><div class="row"><span class="ico">📜</span><div><h3>القرآن الكريم</h3><p class="desc">اختيار السورة والاستماع.</p></div></div></a>
-      <a class="card" href="https://fadhel-alrayes.fun/index6.html#home"><div class="row"><span class="ico">🔢</span><div><h3>مِسبحة رقمية</h3><p class="desc">تسبيح الزهراء عليها السلام.</p></div></div></a>
-      <!-- باقي الأدوات كما في الكود الأصلي -->
-    </main>
+        <ol>
+            <li><strong>الصنف الأوّل:</strong> وهو الصنف الذي يصدق عليه أنّه من العوام حقيقةً، فلا يختلفون عن طريقة تفكير العوام في شيء، فيعتمدون على الخيال والعاطفة، وتنمو أفكارهم بتأثير المجتمع عليهم تماماً، ولا يخضعون لمنطق موضوعي وعلمي، فهم عوام بلباس علماء.</li>
+            <li><strong>الصنف الثاني:</strong> المتأثرون بالعوام، وهم أولئك الذين يتأثرون بطريقة تفكير العوام، فتجدهم حيناً يفكّرون كأنّهم من عوام الناس، وحيناً آخر تجدهم علماء حصيفين ونقّاداً نابهين.</li>
+            <li><strong>الصنف الثالث:</strong> وهم الذين لا يفكّرون على طريقة العوام، ولا يتأثرون بهم في طريقة التفكير، لكنّهم يخشون العامّة من الناس، ويهابون غضبهم، فيفضّلون المشي معهم والمحاكاة لطريقتهم، خوفاً لا واقعاً.</li>
+            <li><strong>الصنف الرابع:</strong> وهم الذين لا يفكّرون على طريقة العوام، ولا يتأثرون بهم في طريقة التفكير، كما أنّهم لا يخشونهم ولا يخافون منهم، غير أنّهم يرون أنّ من الصلاح مداراة العوام ومجاملتهم، اعتقاداً منهم أنّ في مواجهة العوام خسارة تعود على الحقّ والحقيقة نفسها.</li>
+            <li><strong>الصنف الخامس:</strong> وهم الذين بلغت بهم المفاصلة مع العوام وطرائق تفكيرهم أنّهم يملكون الجرأة على مواجهتهم، ولا يرون صلاحاً في الخنوع لهم أو المجاملة، ويعتبرون ذلك مصداقاً لعنوان "لا يخاف في الله لومة لائم".</li>
+            <li><strong>الصنف السادس:</strong> وهم الذين ذهبت بهم المفاصلة مع العوام، لا إلى حدّ الجرأة على مخالفتهم، بل إلى حدٍّ يمكن تصنيفه بمعاداة العوام، فيصبح ذلك أشبه بالمرض الذي يدعو دوماً للمناكفة والمشاكسة مع كلّ ما هو متوالم مع ثقافة العوام وعقائدهم وعاداتهم وتقاليدهم.</li>
+        </ol>
 
-    <!-- ✅ فوتر جديد يحتوي على الروابط الأساسية -->
-    <footer>
-      © <span id="year"></span> <span id="footerName">فاضل الريس</span> — جميع الحقوق محفوظة
-      <div class="links">
-        <a href="/about.html">من نحن</a> |
-        <a href="/privacy-policy.html">سياسة الخصوصية</a> |
-        <a href="/contact.html">اتصل بنا</a>
-      </div>
-    </footer>
-  </div>
+        <p>واعتقادي أنّ الأصل الصحيح هو ما عليه الصنف الخامس مع أسلوب شفيقٍ رحيم، لكن مطعّماً بمنهج الصنف الرابع حيث تقتضي الضرورات الحقيقيّة، والعلم عند الله.</p>
 
-  <script nonce="7uSYr3">
-    try { (window.adsbygoogle = window.adsbygoogle || []).push({}); } catch(e) {}
-  </script>
+        <div class="print-button-container">
+            <button class="print-button" onclick="window.print()">طباعة الصفحة (PDF)</button>
+        </div>
+    </div>
 
-  <script nonce="7uSYr3">
-    document.getElementById('year').textContent = new Date().getFullYear();
-    const waUrl = "https://api.whatsapp.com/send/?phone=97333375858&text&type=phone_number&app_absent=0";
-    document.getElementById('footerName').addEventListener('click', () => {
-      window.open(waUrl, '_blank', 'noopener,noreferrer');
-    });
-  </script>
 </body>
 </html>
