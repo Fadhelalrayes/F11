@@ -1,197 +1,243 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>سيرة الشيخ حيدر حب الله</title>
-    <style>
-        /* --- Google Fonts --- */
-        @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;600&display=swap');
-
-        /* --- General Styles --- */
-        body {
-            font-family: 'Cairo', sans-serif;
-            background-color: #f4f4f9;
-            color: #333;
-            line-height: 1.8;
-            margin: 0;
-            padding: 20px;
-            direction: rtl;
-        }
-
-        /* --- Container --- */
-        .container {
-            max-width: 800px;
-            margin: 40px auto;
-            padding: 40px;
-            background-color: #ffffff;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-            border-top: 5px solid #4a6a8a;
-        }
-
-        /* --- Typography --- */
-        h1 {
-            font-family: 'Amiri', serif;
-            font-size: 2.5em;
-            color: #2c3e50;
-            text-align: center;
-            margin-bottom: 10px;
-            border-bottom: 2px solid #e0e0e0;
-            padding-bottom: 15px;
-        }
-
-        h2 {
-            font-family: 'Amiri', serif;
-            font-size: 1.8em;
-            color: #4a6a8a;
-            margin-top: 30px;
-            margin-bottom: 15px;
-            border-right: 4px solid #4a6a8a;
-            padding-right: 10px;
-        }
-
-        p, li {
-            font-size: 1.1em;
-            text-align: justify; /* محاذاة النص مثل الكتب */
-            margin-bottom: 15px;
-        }
-
-        ul {
-            list-style-type: disc;
-            padding-right: 20px;
-        }
-
-        /* --- Action Buttons --- */
-        .action-buttons {
-            text-align: center;
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 1px solid #eee;
-        }
-
-        .btn {
-            font-family: 'Cairo', sans-serif;
-            text-decoration: none;
-            color: #fff;
-            padding: 12px 25px;
-            border-radius: 5px;
-            font-size: 1em;
-            margin: 5px;
-            display: inline-block;
-            transition: background-color 0.3s, transform 0.2s;
-            border: none;
-            cursor: pointer;
-        }
-
-        .btn-pdf {
-            background-color: #d35400; /* لون مميز للتحميل */
-        }
-
-        .btn-print {
-            background-color: #2980b9; /* لون مميز للطباعة */
-        }
-        
-        .btn-interactive-pdf {
-            background-color: #8e44ad; /* لون مميز للنسخة التفاعلية */
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
-        
-        .btn-pdf:hover {
-            background-color: #e67e22;
-        }
-
-        .btn-print:hover {
-            background-color: #3498db;
-        }
-        
-        .btn-interactive-pdf:hover {
-            background-color: #9b59b6;
-        }
-
-        /* --- Print Styles --- */
-        @media print {
-            body {
-                background-color: #fff;
-                padding: 0;
-            }
-            .container {
-                box-shadow: none;
-                margin: 0;
-                max-width: 100%;
-                border-top: none;
-            }
-            .action-buttons {
-                display: none; /* إخفاء الأزرار عند الطباعة */
-            }
-            h1, h2 {
-                color: #000;
-                border-color: #000;
-            }
-        }
-    </style>
-</head>
 <body>
-
-    <div class="container">
-        <h1>حيدر محمد كامل حب الله</h1>
-
-        <section>
-            <h2>الولادة والنشأة</h2>
-            <p>
-                ولد الشيخ حيدر محمد كامل حبّ الله في 15 ـ 1 ـ 1973م، في مدينة صور بجنوب لبنان، في أسرة متديّنة، ودرس في المدارس الابتدائية والمتوسّطة في المدينة، وقد توفّيت والدته وهو لم يتجاوز الثلاث سنوات من عمره.
-            </p>
-        </section>
-
-        <section>
-            <h2>دراسته الدينيّة</h2>
-            <p>
-                عام 1988م انتسب للحوزة العلمية في مدينة صور (المدرسة الدينية)، ودرس المقدّمات والسطوح على مجموعة من الأساتذة المعروفين.
-            </p>
-            <p>
-                عام 1995م سافر إلى الجمهوريّة الإسلاميّة الإيرانية لإكمال دراساته الحوزويّة العليا، فحضر أبحاث الخارج في الفقه والأصول عند كبار آيات الله والمرجعيات الدينيّة.
-            </p>
-        </section>
-
-        <section>
-            <h2>دراسته الجامعيّة</h2>
-            <p>
-                عام 2002م، التحق بقسم دراسات الماجستير في علوم القرآن والحديث في كلّية أصول الدين في إيران، وحصل على درجة الماجستير، ثم أخذ ماجستير في علوم الشريعة (الفقه وأصول الفقه الإسلامي) من جامعة المصطفى العالميّة في إيران (الحوزة العلمية في قم).
-            </p>
-            <p>
-                كما درس في جامعة الأديان والمذاهب في إيران، وحصل على الدكتوراه في اختصاص مقارنة الأديان واللاهوت المسيحي.
-            </p>
-        </section>
-
-        <section>
-            <h2>أساتذته في الحوزة والجامعة</h2>
-            <p>
-                تلمّذ في مرحلتي المقدّمات والسطوح على مجموعة من الأساتذة المعروفين منهم: أخوه الشيخ علي حبّ الله، والسيد محمد الغروي، والشيخ محمد الطحيني، والشيخ صالح الفقيه، والشيخ حسن حريري و..
-            </p>
-            <p>
-                كما تلمّذ في مرحلة البحث الخارج على يد كلّ من: المرجع الديني الشيخ محمد تقي الفقيه، والأستاذ الشيخ مفيد الفقيه العاملي، والمرجع الديني السيد محمود الهاشمي الشاهرودي، والفيلسوف والمرجع الديني الشيخ جوادي آملي الذي حضر عنده درس التفسير أيضاً، والمرجع الديني الشيخ الوحيد الخراساني، والأستاذ الشيخ حسين النجاتي، والأستاذ الشيخ باقر الإيرواني، وغيرهم.
-            </p>
-            <p>
-                كما درس الفلسفة وعلم المعرفة والاستقراء عند العلامة الأستاذ السيد عمار أبو رغيف، والأستاذ السيّد علي أكبر الحائري، ودرس قسماً من نهاية الحكمة عند العلامة السيد كمال الحيدري.
-            </p>
-            <p>
-                وتلمّذ الشيخ حيدر حب الله في الجامعة على عدد من الأساتذة البارزين في مجال علوم القرآن والحديث وغيرهما، ومنهم: الأستاذ العلامة السيد محمّد علي أيازي، والعلامة الأستاذ الشيخ مهدي مهريزي، والأستاذ الدكتور محمد كاظم شاكر، والأستاذ الدكتور فتح الله نجارزادكان، والأستاذ الدكتور زاهدي، والأستاذ الدكتور محمد حسني، والأستاذ الدكتور العلامة الشيخ أحمد العابدي وغيرهم.
-            </p>
-            <p>
-                كما حضر في الجامعة في اختصاص مقارنة الأديان واللاهوت المسيحي، عند عددٍ من الأساتذة، منهم: الدكتور الشيخ مهراب صادق نيا، والدكتور أحمد رضا مفتاح، والدكتور علي شهبازي، والدكتور الشيخ محمد تقي أنصاريبور، والدكتور يوسف دانشور، والدكتور الحاخام يونس حمامي لاله زار، والدكتور حسين سليماني، والدكتور بهروز حدادي، والدكتور الشيخ حسين توفيقي، والدكتور حميد بخشنده، والدكتور إلياس عارف زاده، والدكتور الشيخ باقر طالبي دارابي، وغيرهم.
-            </p>
-        </section>
-
-        <div class="action-buttons">
-            <a href="https://github.com/manus-team/assets/raw/main/pdfs/Haider_Hobbollah_Bio_Interactive.pdf" class="btn btn-interactive-pdf" download>تحميل PDF تفاعلي</a>
-            <a href="https://github.com/manus-team/assets/raw/main/pdfs/Haider_Hobbollah_Bio_Static.pdf" class="btn btn-pdf" download>تحميل PDF عادي</a>
-            <button onclick="window.print()" class="btn btn-print">طباعة الصفحة</button>
+  <div class="container">
+    <header class="hero" role="banner">
+      <h1 class="heroTitle">تقويم الخسوف والكسوف | صلاة الآيات</h1>
+    </header>
+    <main>
+      <section class="nextBox" id="nextBox" aria-live="polite" aria-labelledby="next-title">
+        <h2 id="next-title" class="nextTitle">الحدث الفلكي القادم</h2>
+        <div class="nextDate" id="nextDate">—</div>
+        <div class="eventName" id="eventName">—</div>
+        <div class="whenCol">
+          <span class="tag" id="tStart">يبدأ: —</span>
+          <span class="tag" id="tMax">الأعظم: —</span>
+          <span class="tag" id="tEnd">ينتهي: —</span>
         </div>
+        <div class="ruleLine" id="nextRuling">الحكم الشرعي للصلاة : واجبة</div>
+      </section>
+      <div class="tzActions"><button class="btn primary" id="openTZ" type="button">تغيير المنطقة الزمنية</button></div>
+      <section class="row" aria-label="معلومات التوقيت الحالية">
+        <div class="chip"><div class="stack"><div class="label">التاريخ الميلادي</div><div class="value" id="greg">—</div></div></div>
+        <div class="chip"><div class="stack"><div class="label">المنطقة الزمنية</div><div class="value" id="tzLabel">—</div></div></div>
+      </section>
+      <section class="rulingBox" aria-labelledby="rulings-title">
+        <h2 id="rulings-title">أحكام صلاة الآيات</h2>
+        <div class="rulingGrid">
+          <article class="rCard" aria-labelledby="rule-def-title">
+            <h3 id="rule-def-title">تعريف</h3><p>صلاة واجبة عند الظواهر المخوفة مثل الكسوف والخسوف، وتؤدّى بنية صلاة الآيات تقربًا إلى الله تعالى.</p>
+          </article>
+          <article class="rCard" aria-labelledby="rule-how-title">
+            <h3 id="rule-how-title">الطريقة</h3><p>ركعتان، في كل ركعة خمسة ركوعات ثم سجدتان. تعاد الركعة الثانية كذلك، ثم التشهد والسلام.</p><p>القراءة: إمّا الفاتحة وسورة كاملة لكل قيام، أو تجزئة سورة واحدة على القيامات الخمسة.</p>
+          </article>
+          <article class="rCard" aria-labelledby="rule-gen-title">
+            <h3 id="rule-gen-title">الأحكام العامة</h3><ul class="rList"><li>واجبة عند حدوث الكسوف أو الخسوف ولو جزئيًا.</li><li>وقتها: من ابتداء الظاهرة إلى تمام الانجلاء.</li><li>القضاء: من علم بالظاهرة ولم يصلِّ حتى انجلت وجب عليه القضاء. من لم يعلم بها: يقضي إن كان كليًا فقط.</li></ul>
+          </article>
+          <article class="rCard" aria-labelledby="rule-exc-title">
+            <h3 id="rule-exc-title">ذوو الأعذار (النساء)</h3><ul class="rList"><li>الحائض والنفساء: لا تجب الصلاة حال العذر، ولا قضاء لما فات زمن العذر.</li><li>إن طهرت أثناء بقاء وقت الظاهرة صلّت ما دام الوقت باقيًا.</li></ul>
+          </article>
+        </div>
+      </section>
+      <section class="defsGrid" aria-labelledby="defs-title">
+        <article class="defCard defWide">
+          <h2 id="defs-title">الكسوف والخسوف: التعريف الفلكي</h2>
+          <p>ظاهرتان فلكيتان مختلفتان تمامًا: الكسوف للشمس والخسوف للقمر.</p>
+        </article>
+        <article class="defCard" aria-labelledby="solar-eclipse-title">
+          <h3 id="solar-eclipse-title">الكسوف الشمسي</h3><p>حجب الشمس عن الأرض عندما يمرّ القمر بين الشمس والأرض فيَحجُب ضوءها كليًا أو جزئيًا.</p><ul class="bul"><li>المحجوب: الشمس</li><li>الترتيب: الشمس - القمر - الأرض</li></ul>
+        </article>
+        <article class="defCard" aria-labelledby="lunar-eclipse-title">
+          <h3 id="lunar-eclipse-title">الخسوف القمري</h3><p>وقوع القمر في ظلّ الأرض عندما تكون الأرض بين الشمس والقمر؛ فيبدو القمر مظلمًا أو محمرًا.</p><ul class="bul"><li>المحجوب: القمر</li><li>الترتيب: الشمس - الأرض - القمر</li></ul>
+        </article>
+      </section>
+      <section class="upcoming" id="upcoming" aria-labelledby="upcoming-title">
+        <h2 id="upcoming-title">الخسوف والكسوف القادمة</h2>
+        <p class="uDesc">أقرب خمسة أحداث قادمة عالميًا: التاريخ بالعربية، ووقت أعظم الظاهرة محليًا وبتوقيت UTC.</p>
+        <div class="uList" id="uList"><div class="uItem"><div class="uName">جارٍ التحميل</div><div class="uWhen"><span class="l">...</span><span class="z">...</span></div></div></div>
+      </section>
+    </main>
+    <aside class="sourcesBar" aria-label="مصادر معتمدة">
+      <label for="srcSel">المصادر المعتمدة:</label>
+      <select id="srcSel" aria-label="اختيار مصدر">
+        <optgroup label="مصادر فلكية">
+          <option value="https://eclipse.gsfc.nasa.gov/SEdecade/SEdecade2021.html">NASA GSFC — Solar Eclipses 2021-2030</option>
+          <option value="https://eclipse.gsfc.nasa.gov/LEdecade/LEdecade2021.html">NASA GSFC — Lunar Eclipses 2021-2030</option>
+          <option value="https://www.timeanddate.com/eclipse/">TimeandDate — Eclipses</option>
+          <option value="https://www.eclipsewise.com/">EclipseWise</option>
+        </optgroup>
+        <optgroup label="مصادر فقهية (موقع السيد السيستاني)">
+          <option value="https://www.sistani.org/arabic/qa/0551/">استفتاءات صلاة الآيات</option>
+          <option value="https://www.sistani.org/arabic/book/23720/4663/">موارد وجوب صلاة الآيات</option>
+          <option value="https://www.sistani.org/arabic/book/23720/4664/">وقت صلاة الآيات</option>
+          <option value="https://www.sistani.org/arabic/book/23720/4665/">كيفية صلاة الآيات</option>
+        </optgroup>
+      </select>
+      <button type="button" id="openSrc" class="btn primary">فتح المصدر المحدد</button>
+    </aside>
+    <footer><p class="credit">برمجة وتطوير فاضل الريس</p></footer>
+  </div>
+  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="box">
+      <h2 id="modal-title" style="text-align:center; margin-top:0;">تغيير المنطقة الزمنية</h2>
+      <div class="rowCtrl"><label for="tzSel">اختر المنطقة:</label><select id="tzSel"></select></div>
+      <div class="actions">
+        <button class="btn" id="cancelTZ" type="button">إلغاء</button>
+        <button class="btn primary" id="saveTZ" type="button">حفظ</button>
+      </div>
     </div>
+  </div>
 
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const SYSTEM_TZ = Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC';
+  let tz = localStorage.getItem('eclipse_tz') || SYSTEM_TZ;
+
+  function fmtDateFull(d, zone){ return new Intl.DateTimeFormat('ar', {timeZone: zone, weekday:'long', year:'numeric', month:'long', day:'numeric'}).format(d); }
+  function fmtHMS12(d, zone){ return new Intl.DateTimeFormat('en-US', {timeZone: zone, hour:'2-digit', minute:'2-digit', second:'2-digit', hour12:true}).format(d); }
+  function fmtHMS12UTC(iso){ return new Intl.DateTimeFormat('en-US', {timeZone: 'UTC', hour:'2-digit', minute:'2-digit', second:'2-digit', hour12:true}).format(new Date(iso)); }
+  function toTZ(iso, zone){
+    const d = new Date(iso);
+    const parts = new Intl.DateTimeFormat('en-CA', { timeZone: zone, year:'numeric', month:'2-digit', day:'2-digit', hour:'2-digit', minute:'2-digit', second:'2-digit', hourCycle: 'h23' }).formatToParts(d);
+    const g = t => +(parts.find(p=>p.type===t)?.value || 0);
+    return new Date(Date.UTC(g('year'), g('month')-1, g('day'), g('hour') === 24 ? 0 : g('hour'), g('minute'), g('second')));
+  }
+
+  const EVENTS = [
+    { id:"LE-2025-09-07", kind:"خسوف قمري كلي", p1:"2025-09-07T15:28:21Z", u1:"2025-09-07T16:27:02Z", u2:"2025-09-07T17:30:41Z", greatest:"2025-09-07T18:11:43Z", u3:"2025-09-07T18:52:47Z", u4:"2025-09-07T19:56:26Z", p4:"2025-09-07T20:55:00Z" },
+    { id:"SE-2025-09-21", kind:"كسوف شمسي جزئي", p1:"2025-09-21T17:30:51Z", greatest:"2025-09-21T19:43:04Z", p4:"2025-09-21T21:54:55Z" },
+    { id:"SE-2026-02-17", kind:"كسوف شمسي حلقي", p1:"2026-02-17T09:57:36Z", greatest:"2026-02-17T12:13:06Z", p4:"2026-02-17T14:28:51Z" },
+    { id:"LE-2026-03-03", kind:"خسوف قمري كلي", p1:"2026-03-03T08:44:22Z", u1:"2026-03-03T09:50:00Z", u2:"2026-03-03T11:04:26Z", greatest:"2026-03-03T11:33:37Z", u3:"2026-03-03T12:02:45Z", u4:"2026-03-03T13:17:10Z", p4:"2026-03-03T14:22:59Z" },
+    { id:"SE-2026-08-12", kind:"كسوف شمسي كلي", p1:"2026-08-12T15:34:15Z", greatest:"2026-08-12T17:46:06Z", p4:"2026-08-12T19:57:57Z" },
+    { id:"LE-2026-08-28", kind:"خسوف قمري جزئي", p1:"2026-08-28T01:23:58Z", u1:"2026-08-28T02:33:54Z", greatest:"2026-08-28T04:12:53Z", u4:"2026-08-28T05:51:59Z", p4:"2026-08-28T07:01:47Z" },
+    { id:"SE-2027-02-06", kind:"كسوف شمسي حلقي", p1:"2027-02-06T12:58:47Z", greatest:"2027-02-06T16:00:48Z", p4:"2027-02-06T19:02:50Z" },
+    { id:"SE-2027-08-02", kind:"كسوف شمسي كلي", p1:"2027-08-02T07:30:11Z", greatest:"2027-08-02T10:06:40Z", p4:"2027-08-02T12:43:10Z" }
+  ];
+
+  function nextOrCurrent(){
+    const now = new Date();
+    const sorted = [...EVENTS].sort((a,b)=> new Date(a.p1 || a.greatest) - new Date(b.p1 || b.greatest));
+    for(const ev of sorted){
+      const end = new Date(ev.p4 || ev.u4 || ev.greatest);
+      if(now <= end) return {ev, state: 'upcoming'};
+    }
+    return {ev: sorted[sorted.length-1], state:'past'};
+  }
+
+  function renderEvent(){
+    const {ev, state} = nextOrCurrent();
+    document.getElementById('eventName').textContent = ev.kind;
+    const startLocal = toTZ(ev.p1 || ev.greatest, tz);
+    document.getElementById('nextDate').textContent = fmtDateFull(startLocal, tz);
+    const s = ev.p1 ? fmtHMS12(toTZ(ev.p1, tz), tz) : '—';
+    const g = ev.greatest ? fmtHMS12(toTZ(ev.greatest, tz), tz) : '—';
+    const e = (ev.p4 || ev.u4) ? fmtHMS12(toTZ(ev.p4 || ev.u4, tz), tz) : '—';
+    document.getElementById('tStart').textContent = "يبدأ: " + s;
+    document.getElementById('tMax').textContent   = "الأعظم: " + g;
+    document.getElementById('tEnd').textContent   = "ينتهي: " + e;
+    document.getElementById('nextRuling').textContent = "الحكم الشرعي للصلاة : واجبة";
+    updateEventSchema(ev, state);
+  }
+
+  function renderUpcoming(){
+    const now = new Date();
+    const future = [...EVENTS]
+      .filter(e => new Date(e.p1 || e.greatest) > now)
+      .sort((a,b)=> new Date(a.p1||a.greatest) - new Date(b.p1||b.greatest))
+      .slice(0,5);
+
+    const uList = document.getElementById('uList');
+    if(!future.length){
+      uList.innerHTML = `<div class="uItem"><div class="uName">لا توجد أحداث قادمة ضمن البيانات الحالية</div></div>`;
+    } else {
+      uList.innerHTML = future.map(e=>{
+        const dLocal = fmtDateFull(toTZ(e.greatest || e.p1, tz), tz);
+        const tLocal = fmtHMS12(toTZ(e.greatest || e.p1, tz), tz);
+        const tUTC   = fmtHMS12UTC(e.greatest || e.p1);
+        return `<div class="uItem"><div class="uName">${e.kind}</div><div class="uWhen"><span class="l">${dLocal} - ${tLocal}</span><span class="z">UTC: ${tUTC}</span></div></div>`;
+      }).join('');
+    }
+    updateListSchema(future);
+  }
+
+  const pageUrl = "https://fadhel-alrayes.fun/index67.html";
+  const mainUrl = "https://fadhel-alrayes.fun";
+
+  function updateEventSchema(ev, state) {
+    const ld = {
+      "@context": "https://schema.org",
+      "@type": "Event",
+      "name": ev.kind,
+      "startDate": ev.p1 || ev.greatest,
+      "endDate": ev.p4 || ev.u4 || ev.greatest,
+      "description": `تقويم فلكي لظاهرة ${ev.kind} مع مواعيد البداية والنهاية والذروة حسب التوقيت المحلي، بالإضافة إلى الأحكام الشرعية المتعلقة بصلاة الآيات.`,
+      "eventStatus": state === 'past' ? "https://schema.org/EventPostponed" : "https://schema.org/EventScheduled",
+      "eventAttendanceMode": "https://schema.org/OnlineEventAttendanceMode",
+      "location": { "@type": "VirtualLocation", "url": pageUrl },
+      "organizer": { "@type": "Person", "name": "فاضل الريس", "url": mainUrl },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "SAR",
+        "availability": "https://schema.org/InStock",
+        "url": pageUrl
+      }
+    };
+    document.getElementById('ld-json').textContent = JSON.stringify(ld, null, 2);
+  }
+
+  function updateListSchema(futureEvents) {
+    const list = {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      "name": "الأحداث الفلكية القادمة - الخسوف والكسوف",
+      "itemListElement": futureEvents.map((e,i)=>({
+        "@type": "ListItem",
+        "position": i+1,
+        "item": {
+          "@type": "Event",
+          "name": e.kind,
+          "startDate": e.p1 || e.greatest,
+          "endDate": e.p4 || e.u4 || e.greatest,
+          "location": { "@type": "VirtualLocation", "url": pageUrl },
+          "organizer": { "@type": "Person", "name": "فاضل الريس", "url": mainUrl }
+        }
+      }))
+    };
+    document.getElementById('ld-list').textContent = JSON.stringify(list, null, 2);
+  }
+
+  const TZ_LIST = ["UTC","Asia/Bahrain","Asia/Riyadh","Asia/Kuwait","Asia/Baghdad","Asia/Tehran","Asia/Beirut","Asia/Dubai","Asia/Qatar","Africa/Cairo","Europe/Istanbul","Europe/Athens","Europe/Paris","Europe/London","America/New_York","America/Toronto","Asia/Karachi","Asia/Kolkata","Asia/Tokyo"];
+  function renderMeta(){
+    document.getElementById('tzLabel').textContent = tz;
+    document.getElementById('greg').textContent = fmtDateFull(new Date(), tz);
+  }
+
+  const modal = document.getElementById('modal');
+  const tzSel  = document.getElementById('tzSel');
+  document.getElementById('openTZ').addEventListener('click', ()=>{
+    tzSel.innerHTML = TZ_LIST.map(z=>`<option value="${z}" ${z === tz ? 'selected' : ''}>${z}</option>`).join("");
+    modal.classList.add('open'); document.body.style.overflow='hidden';
+  });
+  document.getElementById('cancelTZ').addEventListener('click', ()=>{ modal.classList.remove('open'); document.body.style.overflow=''; });
+  document.getElementById('saveTZ').addEventListener('click', ()=>{
+    tz = tzSel.value || SYSTEM_TZ;
+    localStorage.setItem('eclipse_tz', tz);
+    modal.classList.remove('open');
+    document.body.style.overflow='';
+    renderMeta(); renderEvent(); renderUpcoming();
+  });
+  modal.addEventListener('click', (e)=>{ if(e.target===modal){ modal.classList.remove('open'); document.body.style.overflow=''; } });
+
+  /* زر فتح المصدر */
+  document.getElementById('openSrc').addEventListener('click', ()=>{
+    const url = document.getElementById('srcSel').value;
+    if(url) window.open(url, '_blank', 'noopener,noreferrer');
+  });
+
+  /* تشغيل أولي */
+  renderMeta();
+  renderEvent();
+  renderUpcoming();
+});
+</script>
 </body>
 </html>
