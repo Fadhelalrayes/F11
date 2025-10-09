@@ -3,190 +3,149 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ألفونس دو لامارتين | تحفة فنية</title>
+    <title>ألفونس دو لامارتين | رؤية في السياسة</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Arabic:wght@400;700&display=swap" rel="stylesheet">
 
     <style>
-        /* --- الإعدادات العامة: روح المخطوطة --- */
+        /* --- الإعدادات العامة: تصميم مشرق ونظيف --- */
         body {
-            font-family: 'Amiri', serif;
-            background-color: #2c2c2c;
-            color: #1a1a1a;
+            font-family: 'Noto Serif Arabic', serif;
+            background-color: #F8F9FA; /* خلفية رمادية فاتحة جداً */
+            color: #212529; /* أسود غير حاد ومريح للعين */
             margin: 0;
-            padding: 40px 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            padding: 50px 20px;
         }
 
-        /* --- الحاوية: اللوحة الفنية الرئيسية --- */
+        /* --- الحاوية الرئيسية --- */
         .container {
-            max-width: 900px;
-            width: 95%;
-            padding: 60px 70px;
-            background-color: #FDFBF5;
-            background-image: url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23d4af37" fill-opacity="0.03"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3), 0 0 0 10px rgba(255,255,255,0.1);
-            border: 1px solid #D4AF37;
-            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 50px 60px;
+            background-color: #FFFFFF;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            border-top: 5px solid #C09F6B; /* خط ذهبي رفيع وأنيق في الأعلى */
         }
 
-        /* --- العنوان: قطعة فنية مركزية --- */
+        /* --- زر الطباعة --- */
+        .print-button-container {
+            text-align: left;
+            margin-bottom: 40px;
+        }
+        .print-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background-color: #212529;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-family: sans-serif;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+        .print-button:hover {
+            background-color: #C09F6B;
+        }
+
+        /* --- تصميم العناوين --- */
         .header-title {
             text-align: center;
             margin-bottom: 40px;
-            position: relative;
         }
-        .header-title::before, .header-title::after {
-            content: '';
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 150px;
-            height: 2px;
-            background: linear-gradient(to right, transparent, #D4AF37, transparent);
-        }
-        .header-title::before { top: -20px; }
-        .header-title::after { bottom: -20px; }
-
         h1 {
-            font-size: 3.8em;
-            color: #1a1a1a;
-            margin: 0;
+            font-size: 2.8em;
+            color: #212529;
+            margin: 0 0 10px 0;
             font-weight: 700;
         }
-
         h2 {
-            font-size: 1.5em;
-            color: #8c7851;
-            margin-top: 15px;
-            font-style: italic;
+            font-size: 1.3em;
+            color: #6c757d;
+            margin: 0;
             font-weight: 400;
         }
+        .divider {
+            width: 100px;
+            height: 1px;
+            background-color: #dee2e6;
+            margin: 30px auto;
+        }
 
-        /* --- المقال: فن الطباعة --- */
+        /* --- تنسيق المقال --- */
         .article-content {
-            text-align: justify;
-            font-size: 1.3em;
+            font-size: 1.15em;
             line-height: 2;
+            text-align: justify;
         }
-        
+        .article-content p {
+            margin-bottom: 1.5em;
+        }
         .article-content p:first-of-type::first-letter {
-            font-size: 4.5em;
-            float: right;
-            line-height: 0.9;
-            margin: 0 0 -10px 15px;
-            color: #D4AF37;
-            font-weight: bold;
-            border: 1px solid #D4AF37;
-            padding: 2px 8px;
-            border-radius: 3px;
-        }
-
-        blockquote {
-            border: none;
-            text-align: center;
-            margin: 50px auto;
-            padding: 30px;
-            background-color: #1a1a1a;
-            color: #D4AF37;
-            font-size: 1.4em;
-            font-style: italic;
-            position: relative;
-            width: 80%;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-        }
-        blockquote::before, blockquote::after {
-            font-family: serif;
             font-size: 3em;
-            position: absolute;
-            color: #D4AF37;
-            opacity: 0.5;
-        }
-        blockquote::before { content: '“'; top: 10px; right: 15px; }
-        blockquote::after { content: '”'; bottom: -10px; left: 15px; }
-
-        /* --- زر الطباعة: إصلاح وضمان العمل --- */
-        .print-button-container {
-            position: absolute;
-            top: 25px;
-            left: 25px;
-            z-index: 1000; /* الأهم: لضمان بقاء الزر في الأعلى */
-        }
-        .print-button {
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 10px;
-            position: relative;
-        }
-        .print-icon {
-            width: 36px; /* تكبير الأيقونة قليلاً */
-            height: 36px;
-            fill: #b48c5a;
-            transition: all 0.3s ease;
-        }
-        .print-button:hover .print-icon {
-            fill: #1a1a1a;
-            transform: scale(1.1);
-        }
-        .print-tooltip {
-            visibility: hidden;
-            opacity: 0;
-            position: absolute;
-            bottom: 110%;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: #1a1a1a;
-            color: #fff;
-            padding: 5px 10px;
-            border-radius: 4px;
-            font-size: 0.9em;
-            white-space: nowrap;
-            transition: opacity 0.3s ease;
-        }
-        .print-button:hover .print-tooltip {
-            visibility: visible;
-            opacity: 1;
+            float: right;
+            line-height: 1;
+            margin: 0 0 0 10px;
+            color: #C09F6B;
+            font-weight: bold;
         }
 
-        /* --- إعدادات الطباعة الاحترافية النهائية --- */
+        /* --- تنسيق الاقتباس --- */
+        blockquote {
+            border-right: 3px solid #C09F6B;
+            padding-right: 20px;
+            margin: 40px 0;
+            font-size: 1.2em;
+            font-style: italic;
+            color: #495057;
+        }
+
+        /* --- إعدادات الطباعة الاحترافية للـ PDF --- */
         @media print {
             @page {
                 size: A4;
-                margin: 0; /* إزالة الهوامش الافتراضية للمتصفح */
+                margin: 1in;
+                @top-center {
+                    content: "ألفونس دو لامارتين: الفرق بين السياسة البريطانية والفرنسية";
+                    font-family: 'Noto Serif Arabic', serif;
+                    font-size: 9pt;
+                    color: #6c757d;
+                    border-bottom: 1px solid #dee2e6;
+                    padding-bottom: 5px;
+                    width: 100%;
+                }
+                @bottom-center {
+                    content: "صفحة " counter(page);
+                    font-family: sans-serif;
+                    font-size: 9pt;
+                    color: #6c757d;
+                }
             }
             body {
                 background-color: #fff;
                 padding: 0;
-                -webkit-print-color-adjust: exact; /* لضمان طباعة الألوان في Chrome/Safari */
-                print-color-adjust: exact; /* المعيار الرسمي */
+                margin: 0;
             }
             .print-button-container { display: none; }
             .container {
+                box-shadow: none;
+                border-top: none;
+                padding: 0;
+                margin: 0;
                 width: 100%;
                 max-width: 100%;
-                height: 100%;
-                margin: 0;
-                padding: 0.75in; /* هوامش داخلية للإطار */
-                border: 2px solid #D4AF37 !important;
-                box-shadow: none;
-                box-sizing: border-box; /* لضمان حساب الحجم بشكل صحيح */
             }
-            h1, h2, blockquote, .article-content p:first-of-type::first-letter {
+            h1, h2, p, blockquote {
                 color: #000 !important;
             }
             blockquote {
-                background-color: #f0f0f0 !important;
-                border: 1px solid #ccc !important;
-            }
-            blockquote::before, blockquote::after {
-                color: #000 !important;
-                opacity: 0.5;
+                border-color: #000 !important;
+                background-color: #f8f9fa !important;
             }
         }
 
@@ -194,16 +153,11 @@
         @media (max-width: 768px) {
             body { padding: 0; }
             .container {
-                width: 100%;
-                margin: 0;
                 padding: 30px 25px;
                 box-shadow: none;
-                border: none;
-                border-top: 5px solid #D4AF37;
             }
-            h1 { font-size: 2.8em; }
+            h1 { font-size: 2.2em; }
             .article-content { font-size: 1.1em; }
-            blockquote { width: 90%; }
         }
     </style>
 </head>
@@ -212,14 +166,15 @@
     <div class="container">
         
         <div class="print-button-container">
-            <button class="print-button" onclick="window.print()" aria-label="طباعة أو حفظ">
-                <svg class="print-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/></svg>
-                <span class="print-tooltip">طباعة أو حفظ كـ PDF</span>
+            <button class="print-button" onclick="window.print()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M2.5 8a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z"/><path d="M5 1a2 2 0 0 0-2 2v2H2a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h1v1a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1h1a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1V3a2 2 0 0 0-2-2H5zM4 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2H4V3zm1 5a2 2 0 0 0-2 2v1H2a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v-1a2 2 0 0 0-2-2H5zm7 2v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1z"/></svg>
+                <span>طباعة / حفظ PDF</span>
             </button>
         </div>
 
         <header class="header-title">
             <h1>ألفونس دو لامارتين</h1>
+            <div class="divider"></div>
             <h2>والفرق بين السياسة البريطانيّة والفرنسيّة</h2>
         </header>
 
