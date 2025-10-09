@@ -5,31 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ألفونس دو لامارتين | رؤية في السياسة</title>
     
+    <!-- استيراد الخط الجديد: IBM Plex Sans Arabic -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Arabic:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;700&display=swap" rel="stylesheet">
 
     <style>
-        /* --- الإعدادات العامة: تصميم مشرق ونظيف --- */
+        /* --- استخدام الخط الجديد --- */
         body {
-            font-family: 'Noto Serif Arabic', serif;
-            background-color: #F8F9FA; /* خلفية رمادية فاتحة جداً */
-            color: #212529; /* أسود غير حاد ومريح للعين */
+            /* تطبيق الخط الجديد على كامل الصفحة */
+            font-family: 'IBM Plex Sans Arabic', sans-serif;
+            background-color: #F8F9FA;
+            color: #212529;
             margin: 0;
             padding: 50px 20px;
+            -webkit-font-smoothing: antialiased; /* لجعل الخطوط أكثر نعومة */
+            -moz-osx-font-smoothing: grayscale;
         }
 
-        /* --- الحاوية الرئيسية --- */
+        /* --- باقي التصميم (نفس التصميم الأنيق السابق) --- */
         .container {
             max-width: 800px;
             margin: 0 auto;
             padding: 50px 60px;
             background-color: #FFFFFF;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            border-top: 5px solid #C09F6B; /* خط ذهبي رفيع وأنيق في الأعلى */
+            border-top: 5px solid #C09F6B;
         }
-
-        /* --- زر الطباعة --- */
         .print-button-container {
             text-align: left;
             margin-bottom: 40px;
@@ -42,7 +44,7 @@
             color: #fff;
             border: none;
             padding: 10px 20px;
-            font-family: sans-serif;
+            font-family: 'IBM Plex Sans Arabic', sans-serif; /* استخدام الخط للزر أيضاً */
             font-size: 14px;
             font-weight: bold;
             cursor: pointer;
@@ -52,8 +54,6 @@
         .print-button:hover {
             background-color: #C09F6B;
         }
-
-        /* --- تصميم العناوين --- */
         .header-title {
             text-align: center;
             margin-bottom: 40px;
@@ -76,8 +76,6 @@
             background-color: #dee2e6;
             margin: 30px auto;
         }
-
-        /* --- تنسيق المقال --- */
         .article-content {
             font-size: 1.15em;
             line-height: 2;
@@ -94,8 +92,6 @@
             color: #C09F6B;
             font-weight: bold;
         }
-
-        /* --- تنسيق الاقتباس --- */
         blockquote {
             border-right: 3px solid #C09F6B;
             padding-right: 20px;
@@ -105,14 +101,13 @@
             color: #495057;
         }
 
-        /* --- إعدادات الطباعة الاحترافية للـ PDF --- */
         @media print {
             @page {
                 size: A4;
                 margin: 1in;
                 @top-center {
                     content: "ألفونس دو لامارتين: الفرق بين السياسة البريطانية والفرنسية";
-                    font-family: 'Noto Serif Arabic', serif;
+                    font-family: 'IBM Plex Sans Arabic', serif;
                     font-size: 9pt;
                     color: #6c757d;
                     border-bottom: 1px solid #dee2e6;
@@ -126,71 +121,41 @@
                     color: #6c757d;
                 }
             }
-            body {
-                background-color: #fff;
-                padding: 0;
-                margin: 0;
-            }
+            body { background-color: #fff; padding: 0; margin: 0; }
             .print-button-container { display: none; }
-            .container {
-                box-shadow: none;
-                border-top: none;
-                padding: 0;
-                margin: 0;
-                width: 100%;
-                max-width: 100%;
-            }
-            h1, h2, p, blockquote {
-                color: #000 !important;
-            }
-            blockquote {
-                border-color: #000 !important;
-                background-color: #f8f9fa !important;
-            }
+            .container { box-shadow: none; border-top: none; padding: 0; margin: 0; width: 100%; max-width: 100%; }
+            h1, h2, p, blockquote { color: #000 !important; }
+            blockquote { border-color: #000 !important; background-color: #f8f9fa !important; }
         }
 
-        /* --- التوافق مع الأجهزة الصغيرة --- */
         @media (max-width: 768px) {
             body { padding: 0; }
-            .container {
-                padding: 30px 25px;
-                box-shadow: none;
-            }
+            .container { padding: 30px 25px; box-shadow: none; }
             h1 { font-size: 2.2em; }
             .article-content { font-size: 1.1em; }
         }
     </style>
 </head>
 <body>
-
     <div class="container">
-        
         <div class="print-button-container">
             <button class="print-button" onclick="window.print()">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M2.5 8a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z"/><path d="M5 1a2 2 0 0 0-2 2v2H2a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h1v1a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1h1a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1V3a2 2 0 0 0-2-2H5zM4 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2H4V3zm1 5a2 2 0 0 0-2 2v1H2a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v-1a2 2 0 0 0-2-2H5zm7 2v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1z"/></svg>
                 <span>طباعة / حفظ PDF</span>
             </button>
         </div>
-
         <header class="header-title">
             <h1>ألفونس دو لامارتين</h1>
             <div class="divider"></div>
             <h2>والفرق بين السياسة البريطانيّة والفرنسيّة</h2>
         </header>
-
         <article class="article-content">
             <p><strong>ألفونس دو لامارتين</strong> (1869م)، سياسي فرنسي وأحد كبار شعراء المدرسة الرومانسيّة الفرنسيّة، وهو صاحب المقولة الشهيرة:</p>
-            
             <blockquote>«الضمير وحده من دون الله أشبه بمحكمةٍ ليس فيها قاضٍ».</blockquote>
-
             <p>يُنقل عنه ـ وهو الذي خاض مجال العمل السياسي، وأصيب بإحباطات بعد مجيء نابليون الثالث (1873م) إلى السلطة ـ يُنقل عنه أنّه قال: «في بريطانيا يتمّ تغيير السياسات، أمّا في فرنسا فيتمّ تغيير الأفراد».</p>
-
             <p>يقصد ألفونس دو لامارتين بذلك أنّ الديمقراطيّة ـ وكذلك الثورات ـ ذات شكلين: شكل يقوم بتغيير الأفراد، فيذهب ملك أو حاكم أو رئيس أو جنرال حرب، ليأتي مكانَه شخصٌ آخر مختلف تماماً، ويقوم الشعب بإبداء رأيه في ذلك بالانتخابات أو بالثورة، لكنّ الحاكم الجديد لا فرق بينه وبين القديم في شيءٍ يذكر، إلا في بعض الشعارات والكلمات والأدبيّات واللغة. وهذا ما يعتبر دو لامارتين أنّه حصل في فرنسا، بينما يرى أنّ البريطانيّين يتحرّكون بطريقة مختلفة، وكان يغبطهم على ذلك، وهو أنّهم يركّزون أكثر على تغيير السياسات، وأقلّ على تغيير الأفراد، أو بالأحرى: إنّ تغيير الأفراد هو نتيجٌ تلقائي لتغيير السياسات، أمّا لو كان التغيير الحقيقي هو للأفراد ولجهاز السلطة مع بقاء العقليّة نفسها، فلا أمل في حصول تغييراتٍ جوهريّة.</p>
-
             <p>يمكن لهذه الفكرة الحكيمة أن ترشدنا للكثير من التقويم لوضع بلداننا، وثوراتها وديمقراطيّاتها! ليكون العمل على تغيير السياسات والرؤى أكثر من مجرّد العمل على تغيير الأفراد حصراً.</p>
         </article>
-
     </div>
-
 </body>
 </html>
