@@ -3,159 +3,195 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ألفونس دو لامارتين | رؤية في السياسة</title>
-    
-    <!-- استيراد الخط الجديد: IBM Plex Sans Arabic -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;700&display=swap" rel="stylesheet">
-
+    <title>سيرة الشيخ حيدر حب الله</title>
     <style>
-        /* --- استخدام الخط الجديد --- */
+        /* --- Google Fonts --- */
+        @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;600&display=swap');
+
+        /* --- General Styles --- */
         body {
-            /* تطبيق الخط الجديد على كامل الصفحة */
-            font-family: 'IBM Plex Sans Arabic', sans-serif;
-            background-color: #F8F9FA;
-            color: #212529;
+            font-family: 'Cairo', sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            line-height: 1.8;
             margin: 0;
-            padding: 50px 20px;
-            -webkit-font-smoothing: antialiased; /* لجعل الخطوط أكثر نعومة */
-            -moz-osx-font-smoothing: grayscale;
+            padding: 20px;
+            direction: rtl;
         }
 
-        /* --- باقي التصميم (نفس التصميم الأنيق السابق) --- */
+        /* --- Container --- */
         .container {
             max-width: 800px;
-            margin: 0 auto;
-            padding: 50px 60px;
-            background-color: #FFFFFF;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            border-top: 5px solid #C09F6B;
+            margin: 40px auto;
+            padding: 40px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            border-top: 5px solid #4a6a8a;
         }
-        .print-button-container {
-            text-align: left;
-            margin-bottom: 40px;
-        }
-        .print-button {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background-color: #212529;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            font-family: 'IBM Plex Sans Arabic', sans-serif; /* استخدام الخط للزر أيضاً */
-            font-size: 14px;
-            font-weight: bold;
-            cursor: pointer;
-            border-radius: 4px;
-            transition: background-color 0.3s ease;
-        }
-        .print-button:hover {
-            background-color: #C09F6B;
-        }
-        .header-title {
-            text-align: center;
-            margin-bottom: 40px;
-        }
+
+        /* --- Typography --- */
         h1 {
-            font-size: 2.8em;
-            color: #212529;
-            margin: 0 0 10px 0;
-            font-weight: 700;
+            font-family: 'Amiri', serif;
+            font-size: 2.5em;
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 10px;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 15px;
         }
+
         h2 {
-            font-size: 1.3em;
-            color: #6c757d;
-            margin: 0;
-            font-weight: 400;
+            font-family: 'Amiri', serif;
+            font-size: 1.8em;
+            color: #4a6a8a;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            border-right: 4px solid #4a6a8a;
+            padding-right: 10px;
         }
-        .divider {
-            width: 100px;
-            height: 1px;
-            background-color: #dee2e6;
-            margin: 30px auto;
+
+        p, li {
+            font-size: 1.1em;
+            text-align: justify; /* محاذاة النص مثل الكتب */
+            margin-bottom: 15px;
         }
-        .article-content {
-            font-size: 1.15em;
-            line-height: 2;
-            text-align: justify;
-        }
-        .article-content p {
-            margin-bottom: 1.5em;
-        }
-        .article-content p:first-of-type::first-letter {
-            font-size: 3em;
-            float: right;
-            line-height: 1;
-            margin: 0 0 0 10px;
-            color: #C09F6B;
-            font-weight: bold;
-        }
-        blockquote {
-            border-right: 3px solid #C09F6B;
+
+        ul {
+            list-style-type: disc;
             padding-right: 20px;
-            margin: 40px 0;
-            font-size: 1.2em;
-            font-style: italic;
-            color: #495057;
         }
 
+        /* --- Action Buttons --- */
+        .action-buttons {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        .btn {
+            font-family: 'Cairo', sans-serif;
+            text-decoration: none;
+            color: #fff;
+            padding: 12px 25px;
+            border-radius: 5px;
+            font-size: 1em;
+            margin: 5px;
+            display: inline-block;
+            transition: background-color 0.3s, transform 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-pdf {
+            background-color: #d35400; /* لون مميز للتحميل */
+        }
+
+        .btn-print {
+            background-color: #2980b9; /* لون مميز للطباعة */
+        }
+        
+        .btn-interactive-pdf {
+            background-color: #8e44ad; /* لون مميز للنسخة التفاعلية */
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .btn-pdf:hover {
+            background-color: #e67e22;
+        }
+
+        .btn-print:hover {
+            background-color: #3498db;
+        }
+        
+        .btn-interactive-pdf:hover {
+            background-color: #9b59b6;
+        }
+
+        /* --- Print Styles --- */
         @media print {
-            @page {
-                size: A4;
-                margin: 1in;
-                @top-center {
-                    content: "ألفونس دو لامارتين: الفرق بين السياسة البريطانية والفرنسية";
-                    font-family: 'IBM Plex Sans Arabic', serif;
-                    font-size: 9pt;
-                    color: #6c757d;
-                    border-bottom: 1px solid #dee2e6;
-                    padding-bottom: 5px;
-                    width: 100%;
-                }
-                @bottom-center {
-                    content: "صفحة " counter(page);
-                    font-family: sans-serif;
-                    font-size: 9pt;
-                    color: #6c757d;
-                }
+            body {
+                background-color: #fff;
+                padding: 0;
             }
-            body { background-color: #fff; padding: 0; margin: 0; }
-            .print-button-container { display: none; }
-            .container { box-shadow: none; border-top: none; padding: 0; margin: 0; width: 100%; max-width: 100%; }
-            h1, h2, p, blockquote { color: #000 !important; }
-            blockquote { border-color: #000 !important; background-color: #f8f9fa !important; }
-        }
-
-        @media (max-width: 768px) {
-            body { padding: 0; }
-            .container { padding: 30px 25px; box-shadow: none; }
-            h1 { font-size: 2.2em; }
-            .article-content { font-size: 1.1em; }
+            .container {
+                box-shadow: none;
+                margin: 0;
+                max-width: 100%;
+                border-top: none;
+            }
+            .action-buttons {
+                display: none; /* إخفاء الأزرار عند الطباعة */
+            }
+            h1, h2 {
+                color: #000;
+                border-color: #000;
+            }
         }
     </style>
 </head>
 <body>
+
     <div class="container">
-        <div class="print-button-container">
-            <button class="print-button" onclick="window.print()">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M2.5 8a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z"/><path d="M5 1a2 2 0 0 0-2 2v2H2a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h1v1a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1h1a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1V3a2 2 0 0 0-2-2H5zM4 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2H4V3zm1 5a2 2 0 0 0-2 2v1H2a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v-1a2 2 0 0 0-2-2H5zm7 2v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1z"/></svg>
-                <span>طباعة / حفظ PDF</span>
-            </button>
+        <h1>حيدر محمد كامل حب الله</h1>
+
+        <section>
+            <h2>الولادة والنشأة</h2>
+            <p>
+                ولد الشيخ حيدر محمد كامل حبّ الله في 15 ـ 1 ـ 1973م، في مدينة صور بجنوب لبنان، في أسرة متديّنة، ودرس في المدارس الابتدائية والمتوسّطة في المدينة، وقد توفّيت والدته وهو لم يتجاوز الثلاث سنوات من عمره.
+            </p>
+        </section>
+
+        <section>
+            <h2>دراسته الدينيّة</h2>
+            <p>
+                عام 1988م انتسب للحوزة العلمية في مدينة صور (المدرسة الدينية)، ودرس المقدّمات والسطوح على مجموعة من الأساتذة المعروفين.
+            </p>
+            <p>
+                عام 1995م سافر إلى الجمهوريّة الإسلاميّة الإيرانية لإكمال دراساته الحوزويّة العليا، فحضر أبحاث الخارج في الفقه والأصول عند كبار آيات الله والمرجعيات الدينيّة.
+            </p>
+        </section>
+
+        <section>
+            <h2>دراسته الجامعيّة</h2>
+            <p>
+                عام 2002م، التحق بقسم دراسات الماجستير في علوم القرآن والحديث في كلّية أصول الدين في إيران، وحصل على درجة الماجستير، ثم أخذ ماجستير في علوم الشريعة (الفقه وأصول الفقه الإسلامي) من جامعة المصطفى العالميّة في إيران (الحوزة العلمية في قم).
+            </p>
+            <p>
+                كما درس في جامعة الأديان والمذاهب في إيران، وحصل على الدكتوراه في اختصاص مقارنة الأديان واللاهوت المسيحي.
+            </p>
+        </section>
+
+        <section>
+            <h2>أساتذته في الحوزة والجامعة</h2>
+            <p>
+                تلمّذ في مرحلتي المقدّمات والسطوح على مجموعة من الأساتذة المعروفين منهم: أخوه الشيخ علي حبّ الله، والسيد محمد الغروي، والشيخ محمد الطحيني، والشيخ صالح الفقيه، والشيخ حسن حريري و..
+            </p>
+            <p>
+                كما تلمّذ في مرحلة البحث الخارج على يد كلّ من: المرجع الديني الشيخ محمد تقي الفقيه، والأستاذ الشيخ مفيد الفقيه العاملي، والمرجع الديني السيد محمود الهاشمي الشاهرودي، والفيلسوف والمرجع الديني الشيخ جوادي آملي الذي حضر عنده درس التفسير أيضاً، والمرجع الديني الشيخ الوحيد الخراساني، والأستاذ الشيخ حسين النجاتي، والأستاذ الشيخ باقر الإيرواني، وغيرهم.
+            </p>
+            <p>
+                كما درس الفلسفة وعلم المعرفة والاستقراء عند العلامة الأستاذ السيد عمار أبو رغيف، والأستاذ السيّد علي أكبر الحائري، ودرس قسماً من نهاية الحكمة عند العلامة السيد كمال الحيدري.
+            </p>
+            <p>
+                وتلمّذ الشيخ حيدر حب الله في الجامعة على عدد من الأساتذة البارزين في مجال علوم القرآن والحديث وغيرهما، ومنهم: الأستاذ العلامة السيد محمّد علي أيازي، والعلامة الأستاذ الشيخ مهدي مهريزي، والأستاذ الدكتور محمد كاظم شاكر، والأستاذ الدكتور فتح الله نجارزادكان، والأستاذ الدكتور زاهدي، والأستاذ الدكتور محمد حسني، والأستاذ الدكتور العلامة الشيخ أحمد العابدي وغيرهم.
+            </p>
+            <p>
+                كما حضر في الجامعة في اختصاص مقارنة الأديان واللاهوت المسيحي، عند عددٍ من الأساتذة، منهم: الدكتور الشيخ مهراب صادق نيا، والدكتور أحمد رضا مفتاح، والدكتور علي شهبازي، والدكتور الشيخ محمد تقي أنصاريبور، والدكتور يوسف دانشور، والدكتور الحاخام يونس حمامي لاله زار، والدكتور حسين سليماني، والدكتور بهروز حدادي، والدكتور الشيخ حسين توفيقي، والدكتور حميد بخشنده، والدكتور إلياس عارف زاده، والدكتور الشيخ باقر طالبي دارابي، وغيرهم.
+            </p>
+        </section>
+
+        <div class="action-buttons">
+            <a href="https://github.com/manus-team/assets/raw/main/pdfs/Haider_Hobbollah_Bio_Interactive.pdf" class="btn btn-interactive-pdf" download>تحميل PDF تفاعلي</a>
+            <a href="https://github.com/manus-team/assets/raw/main/pdfs/Haider_Hobbollah_Bio_Static.pdf" class="btn btn-pdf" download>تحميل PDF عادي</a>
+            <button onclick="window.print()" class="btn btn-print">طباعة الصفحة</button>
         </div>
-        <header class="header-title">
-            <h1>ألفونس دو لامارتين</h1>
-            <div class="divider"></div>
-            <h2>والفرق بين السياسة البريطانيّة والفرنسيّة</h2>
-        </header>
-        <article class="article-content">
-            <p><strong>ألفونس دو لامارتين</strong> (1869م)، سياسي فرنسي وأحد كبار شعراء المدرسة الرومانسيّة الفرنسيّة، وهو صاحب المقولة الشهيرة:</p>
-            <blockquote>«الضمير وحده من دون الله أشبه بمحكمةٍ ليس فيها قاضٍ».</blockquote>
-            <p>يُنقل عنه ـ وهو الذي خاض مجال العمل السياسي، وأصيب بإحباطات بعد مجيء نابليون الثالث (1873م) إلى السلطة ـ يُنقل عنه أنّه قال: «في بريطانيا يتمّ تغيير السياسات، أمّا في فرنسا فيتمّ تغيير الأفراد».</p>
-            <p>يقصد ألفونس دو لامارتين بذلك أنّ الديمقراطيّة ـ وكذلك الثورات ـ ذات شكلين: شكل يقوم بتغيير الأفراد، فيذهب ملك أو حاكم أو رئيس أو جنرال حرب، ليأتي مكانَه شخصٌ آخر مختلف تماماً، ويقوم الشعب بإبداء رأيه في ذلك بالانتخابات أو بالثورة، لكنّ الحاكم الجديد لا فرق بينه وبين القديم في شيءٍ يذكر، إلا في بعض الشعارات والكلمات والأدبيّات واللغة. وهذا ما يعتبر دو لامارتين أنّه حصل في فرنسا، بينما يرى أنّ البريطانيّين يتحرّكون بطريقة مختلفة، وكان يغبطهم على ذلك، وهو أنّهم يركّزون أكثر على تغيير السياسات، وأقلّ على تغيير الأفراد، أو بالأحرى: إنّ تغيير الأفراد هو نتيجٌ تلقائي لتغيير السياسات، أمّا لو كان التغيير الحقيقي هو للأفراد ولجهاز السلطة مع بقاء العقليّة نفسها، فلا أمل في حصول تغييراتٍ جوهريّة.</p>
-            <p>يمكن لهذه الفكرة الحكيمة أن ترشدنا للكثير من التقويم لوضع بلداننا، وثوراتها وديمقراطيّاتها! ليكون العمل على تغيير السياسات والرؤى أكثر من مجرّد العمل على تغيير الأفراد حصراً.</p>
-        </article>
     </div>
+
 </body>
 </html>
