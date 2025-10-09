@@ -4,87 +4,124 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ألفونس دو لامارتين | مقارنة بين السياسة البريطانية والفرنسية</title>
+    
+    <!-- استيراد الخطوط من Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+
     <style>
-        /* --- إعدادات عامة --- */
+        /* --- إعدادات عامة وخطوط جديدة --- */
         body {
-            font-family: 'Times New Roman', Times, serif; /* خط كلاسيكي يشبه الكتب */
-            background-color: #ffffff; /* خلفية بيضاء */
-            color: #333;
+            /* استخدام خط Amiri الأنيق، مع Cairo كبديل */
+            font-family: 'Amiri', 'Cairo', serif;
+            background-color: #fdfdfd; /* لون أبيض مائل للرمادي الفاتح جداً */
+            color: #2c2c2c; /* لون نص داكن ومريح للعين */
             margin: 0;
             padding: 0;
-            line-height: 1.8; /* تباعد أسطر مريح للقراءة */
+            line-height: 1.9; /* زيادة تباعد الأسطر للمقروئية */
         }
 
         /* --- حاوية الصفحة الرئيسية --- */
         .container {
-            max-width: 800px; /* عرض مناسب للمحتوى النصي */
+            max-width: 850px;
             margin: 40px auto;
-            padding: 20px 40px;
-            background-color: #fff;
-            border-right: 5px solid #D4AF37; /* خط ذهبي على اليمين */
-            border-left: 5px solid #D4AF37;  /* خط ذهبي على اليسار */
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+            padding: 30px 50px;
+            background-color: #ffffff;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+            border-top: 4px solid #c5a47e; /* لون ذهبي مطفي وأنيق */
+            border-bottom: 4px solid #c5a47e;
         }
 
-        /* --- تنسيق العناوين --- */
-        h1 {
-            font-size: 2.5em;
-            color: #D4AF37; /* لون ذهبي مميز */
+        /* --- تصميم مربع العنوان الاحترافي --- */
+        .title-box {
+            border: 2px solid #c5a47e;
+            padding: 20px;
             text-align: center;
-            margin-bottom: 10px;
-            font-weight: bold;
+            margin-bottom: 25px;
+            position: relative;
+            background: linear-gradient(145deg, #ffffff, #f9f6f2);
+        }
+        
+        h1 {
+            font-size: 2.8em;
+            color: #b48c5a; /* درجة ذهبية أغمق للعنوان */
+            margin: 0;
+            font-weight: 700; /* وزن خط أثقل للعنوان */
         }
 
         h2 {
-            font-size: 1.2em;
-            color: #555;
+            font-size: 1.3em;
+            color: #707070;
             text-align: center;
-            margin-top: 0;
+            margin-top: 10px;
             margin-bottom: 30px;
             font-style: italic;
+            font-weight: 400;
+        }
+        
+        /* --- فاصل زخرفي --- */
+        .divider {
+            height: 1px;
+            background: linear-gradient(to left, transparent, #c5a47e, transparent);
+            margin: 35px 0;
+            border: 0;
         }
 
         /* --- تنسيق نص المقال (محاذاة كاملة) --- */
         .article-content p {
-            text-align: justify; /* أهم خاصية: لجعل حواف النص مستقيمة */
-            font-size: 1.1em;
-            margin-bottom: 15px;
+            text-align: justify;
+            font-size: 1.2em; /* تكبير طفيف لحجم الخط */
+            margin-bottom: 20px;
         }
 
         /* --- تنسيق الاقتباس --- */
         blockquote {
-            border-right: 3px solid #D4AF37;
-            padding-right: 20px;
-            margin-right: 0;
+            border-right: 4px solid #c5a47e;
+            padding-right: 25px;
+            margin: 25px 0;
             font-style: italic;
-            color: #666;
-            font-size: 1.1em;
+            color: #555;
+            font-size: 1.25em;
+            background-color: #fafafa;
+            padding-top: 10px;
+            padding-bottom: 10px;
         }
 
         /* --- تنسيق زر الطباعة والتنزيل --- */
         .print-button-container {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 35px;
         }
 
         .print-button {
-            background-color: #D4AF37; /* خلفية ذهبية */
-            color: #ffffff; /* نص أبيض */
-            border: none;
-            padding: 12px 25px;
-            font-size: 1em;
+            background-color: #b48c5a;
+            color: #ffffff;
+            border: 1px solid #a07b4e;
+            padding: 12px 30px;
+            font-size: 1.1em;
+            font-family: 'Cairo', sans-serif; /* خط عصري للزر */
             font-weight: bold;
             cursor: pointer;
             border-radius: 5px;
-            transition: background-color 0.3s ease;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
         .print-button:hover {
-            background-color: #b89b34; /* درجة أغمق من الذهبي عند المرور */
+            background-color: #a07b4e;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
         }
 
-        /* --- إخفاء الزر عند الطباعة --- */
+        /* --- إعدادات الطباعة --- */
         @media print {
+            body {
+                /* ضمان استخدام الخطوط الصحيحة عند الطباعة */
+                font-family: 'Amiri', 'Cairo', serif !important;
+                background-color: #fff;
+                color: #000;
+            }
             .print-button-container {
                 display: none;
             }
@@ -93,17 +130,34 @@
                 box-shadow: none;
                 margin: 0;
                 max-width: 100%;
+                padding: 0;
+            }
+            h1 {
+                color: #000 !important; /* جعل العنوان أسود في الطباعة للوضوح */
+            }
+            .title-box {
+                border: 2px solid #000;
+                background: none;
+            }
+            blockquote {
+                border-right-color: #000;
+                color: #000;
             }
         }
 
         /* --- التوافق مع الأجهزة الصغيرة (الهواتف) --- */
         @media (max-width: 768px) {
             .container {
-                margin: 20px 10px;
-                padding: 15px;
+                margin: 20px 15px;
+                padding: 20px;
+                border-top-width: 3px;
+                border-bottom-width: 3px;
             }
             h1 {
-                font-size: 2em;
+                font-size: 2.2em;
+            }
+            .article-content p {
+                font-size: 1.1em;
             }
         }
     </style>
@@ -112,15 +166,18 @@
 
     <div class="container">
         
-        <!-- زر الطباعة والتنزيل -->
         <div class="print-button-container">
             <button class="print-button" onclick="window.print()">🖨️ طباعة أو حفظ كـ PDF</button>
         </div>
 
         <header>
-            <h1>ألفونس دو لامارتين</h1>
+            <div class="title-box">
+                <h1>ألفونس دو لامارتين</h1>
+            </div>
             <h2>والفرق بين السياسة البريطانيّة والفرنسيّة</h2>
         </header>
+        
+        <hr class="divider">
 
         <article class="article-content">
             <p><strong>ألفونس دو لامارتين</strong> (1869م)، سياسي فرنسي وأحد كبار شعراء المدرسة الرومانسيّة الفرنسيّة، وهو صاحب المقولة الشهيرة:</p>
