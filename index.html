@@ -3,81 +3,380 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>أخبارنا وبحوثنا - بوابتك الإخبارية</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Changa:wght@400;700&display=swap" rel="stylesheet">
-    <!-- Font Awesome Icons -->
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+    <!-- **1. SEO & Geo-Targeting Meta Tags (مهم جداً لمحركات البحث) ** -->
+    <title>تنظيفات البحرين | خدمة تنظيف بعد البناء والتشطيب في البحرين</title>
+    <meta name="description" content="شركة تنظيفات البحرين تقدم خدمة تنظيف احترافية بعد البناء والتشطيب في المنامة وجميع مناطق البحرين. إزالة مخلفات البناء، جلي وتلميع الرخام. اتصل بنا الآن!">
+    <meta name="keywords" content="تنظيف بعد البناء في البحرين, شركة تنظيفات البحرين, تنظيف بعد التشطيب المنامة, شركات تنظيف المباني الجديدة, جلي رخام بعد البناء البحرين">
+    <meta name="author" content="تنظيفات البحرين">
+    <meta name="geo.region" content="BH">
+    <meta name="geo.placename" content="Manama">
+    <meta name="geo.position" content="26.2285;50.5860">
+    <meta name="ICBM" content="26.2285, 50.5860">
+
+    <!-- **2. Security Meta Tag (CSP - سياسة أمان المحتوى) ** -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https://*; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com;">
+
+    <!-- **3. Performance & Modern Design Links ** -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+
+    <!-- **4. CSS with Modern Standards ** -->
+    <style>
+        :root {
+            --primary-color: #C10000; /* لون علم البحرين الأحمر */
+            --secondary-color: #f0c420; /* لون ذهبي فاخر */
+            --dark-color: #2c2c2c;
+            --light-color: #f9f9f9;
+            --white-color: #ffffff;
+            --font-family: 'Cairo', sans-serif;
+            --border-radius: 8px;
+            --shadow: 0 5px 20px rgba(0,0,0,0.07);
+        }
+        
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-family);
+            margin: 0;
+            line-height: 1.8;
+            color: var(--dark-color);
+            background-color: var(--white-color);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: var(--white-color);
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        header h1 {
+            margin: 0;
+            color: var(--primary-color);
+            font-weight: 900;
+            font-size: 1.8rem;
+        }
+
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1581578731548-c64695cc6952?q=80&w=2070&auto=format&fit=crop') no-repeat center center/cover;
+            color: var(--white-color);
+            padding: 100px 0;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 70vh;
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .hero h2 {
+            font-size: clamp(2rem, 5vw, 3rem); /* Responsive font size */
+            margin-bottom: 15px;
+            font-weight: 900;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--secondary-color);
+            color: var(--dark-color);
+            padding: 15px 35px;
+            text-decoration: none;
+            border-radius: var(--border-radius);
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            border: none;
+        }
+
+        .cta-button:hover {
+            background-color: #d9b01d;
+            transform: scale(1.05);
+        }
+
+        section {
+            padding: 80px 20px;
+        }
+
+        section:nth-child(even) {
+            background-color: var(--light-color);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            font-weight: 900;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: var(--white-color);
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .card h3 {
+            color: var(--primary-color);
+            margin-top: 0;
+            font-size: 1.4rem;
+        }
+
+        .icon {
+            font-size: 3.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .gallery-grid img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .testimonials {
+            background: var(--primary-color);
+            color: var(--white-color);
+        }
+
+        .testimonials .section-title {
+            color: var(--white-color);
+        }
+
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: var(--border-radius);
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .faq-item {
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 20px;
+            font-weight: 700;
+            cursor: pointer;
+            position: relative;
+            background: var(--white-color);
+        }
+
+        .faq-question::after {
+            content: '+';
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            transition: transform 0.3s ease;
+        }
+
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.4s ease;
+            background: var(--light-color);
+        }
+        
+        details[open] .faq-question::after {
+            transform: translateY(-50%) rotate(45deg);
+        }
+
+        details[open] .faq-answer {
+            padding: 20px;
+        }
+
+        .final-cta {
+            background: var(--dark-color);
+            color: var(--white-color);
+            text-align: center;
+            padding: 80px 20px;
+        }
+
+        footer {
+            background: #222;
+            color: #ccc;
+            text-align: center;
+            padding: 20px 0;
+        }
+    </style>
 </head>
 <body>
-    <header class="main-header">
+
+    <header>
         <div class="container">
-            <h1 class="logo">أخبارنا</h1>
-            <nav class="main-nav">
-                <ul>
-                    <li><a href="#">الرئيسية</a></li>
-                    <li><a href="#news-section">آخر الأخبار</a></li>
-                    <li><a href="#research-section">بحوث ومقالات</a></li>
-                    <li><a href="#">اقتصاد</a></li>
-                    <li><a href="#">تكنولوجيا</a></li>
-                    <li><a href="#">اتصل بنا</a></li>
-                </ul>
-            </nav>
+            <h1>تنظيفات البحرين</h1>
         </div>
     </header>
 
-    <div class="hero-section">
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h2>خدمة تنظيف بعد البناء والتشطيب في مملكة البحرين</h2>
+                <p>نحول فوضى مواقع البناء إلى عقارات نظيفة وجاهزة للسكن. متخصصون في إزالة أصعب مخلفات التشطيب في المنامة، الرفاع، المحرق، وجميع مناطق البحرين.</p>
+                <a href="tel:0097333375858" class="cta-button">اتصل بنا الآن لمعاينة مجانية</a>
+            </div>
+        </section>
+
+        <section id="services">
+            <div class="container">
+                <h2 class="section-title">خدماتنا المتكاملة للتنظيف بعد البناء</h2>
+                <div class="grid-container">
+                    <div class="card">
+                        <div class="icon">🧹</div>
+                        <h3>إزالة مخلفات البناء</h3>
+                        <p>جمع وإزالة بقايا مواد البناء والغبار الناعم باستخدام مكانس صناعية متخصصة، وتجهيز الموقع لمراحل التنظيف العميق.</p>
+                    </div>
+                    <div class="card">
+                        <div class="icon">✨</div>
+                        <h3>جلي وتلميع الأرضيات</h3>
+                        <p>إزالة بقع الدهان والأسمنت، مع جلي وتلميع الرخام والسيراميك والجرانيت لإعادة لمعانه الأصلي وحمايته.</p>
+                    </div>
+                    <div class="card">
+                        <div class="icon">🧼</div>
+                        <h3>تنظيف وتعقيم شامل</h3>
+                        <p>تنظيف عميق للنوافذ، المطابخ، والحمامات، مع تعقيم كامل لضمان بيئة صحية وآمنة وجاهزة للاستخدام الفوري.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="why-us">
+            <div class="container">
+                <h2 class="section-title">لماذا تختار تنظيفات البحرين؟</h2>
+                <div class="grid-container">
+                    <div class="card">
+                        <div class="icon">👥</div>
+                        <h3>فريق بحريني وخبرة محلية</h3>
+                        <p>فريق عمل محترف على دراية كاملة بمتطلبات السوق البحريني، ملتزمون بأعلى معايير الجودة والدقة في المواعيد.</p>
+                    </div>
+                    <div class="card">
+                        <div class="icon">🛠️</div>
+                        <h3>أحدث المعدات العالمية</h3>
+                        <p>نستخدم أحدث التقنيات والمعدات الألمانية والإيطالية التي تضمن كفاءة وسرعة في إنجاز أصعب مهام التنظيف.</p>
+                    </div>
+                    <div class="card">
+                        <div class="icon">🌿</div>
+                        <h3>مواد تنظيف آمنة وفعالة</h3>
+                        <p>نحرص على استخدام مواد تنظيف معتمدة وآمنة على جميع الأسطح، وصديقة للبيئة، لسلامة أسرتك وممتلكاتك.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="gallery">
+            <div class="container">
+                <h2 class="section-title">شاهد جودة عملنا: قبل وبعد</h2>
+                <div class="gallery-grid">
+                    <img src="https://via.placeholder.com/400x300.png?text=فيلا+قبل+التنظيف+في+الرفاع" alt="فيلا قبل التنظيف في الرفاع" loading="lazy">
+                    <img src="https://via.placeholder.com/400x300.png?text=فيلا+بعد+التنظيف" alt="فيلا بعد التنظيف الاحترافي من تنظيفات البحرين" loading="lazy">
+                    <img src="https://via.placeholder.com/400x300.png?text=إزالة+بقع+الأسمنت" alt="إزالة بقع الأسمنت من أرضية سيراميك" loading="lazy">
+                </div>
+            </div>
+        </section>
+
+        <section id="testimonials" class="testimonials">
+            <div class="container">
+                <h2 class="section-title">عملاؤنا في البحرين يثقون بنا</h2>
+                <div class="testimonial-card">
+                    <p>"من أفضل شركات التنظيف في البحرين. استلمت بيتي الجديد في ديار المحرق يلمع وكأنه لم يكن موقع بناء. شكراً لفريق تنظيفات البحرين."</p>
+                    <cite>– السيد/ جاسم محمد، ديار المحرق</cite>
+                </div>
+            </div>
+        </section>
+
+        <section id="faq">
+            <div class="container">
+                <h2 class="section-title">أسئلة متكررة</h2>
+                <details class="faq-item">
+                    <summary class="faq-question">هل تغطون جميع مناطق مملكة البحرين؟</summary>
+                    <div class="faq-answer"><p>نعم، نقدم خدماتنا في جميع محافظات ومناطق البحرين، بما في ذلك المنامة، المحرق، الرفاع، مدينة عيسى، والمناطق الجديدة مثل ديار المحرق وجزر أمواج.</p></div>
+                </details>
+                <details class="faq-item">
+                    <summary class="faq-question">متى أفضل وقت لحجز الخدمة؟</summary>
+                    <div class="faq-answer"><p>نوصي بالتواصل معنا فور انتهاء أعمال التشطيب وقبل تركيب الأثاث. هذا يتيح لنا العمل بحرية تامة وتحقيق أفضل النتائج.</p></div>
+                </details>
+                <details class="faq-item">
+                    <summary class="faq-question">هل الأسعار ثابتة أم حسب المعاينة؟</summary>
+                    <div class="faq-answer"><p>نحن لا نقدم أسعاراً ثابتة لأن كل مشروع له متطلباته الخاصة. نقدم عرض سعر دقيق ومفصل بعد إجراء معاينة مجانية للموقع لتقييم حجم العمل المطلوب.</p></div>
+                </details>
+            </div>
+        </section>
+
+        <section class="final-cta">
+            <div class="container">
+                <h2>جاهز لاستلام عقارك الجديد نظيفاً بالكامل؟</h2>
+                <p>اتصل بنا اليوم واحصل على معاينة وعرض سعر مجاني لخدمة التنظيف بعد البناء في أي مكان بالبحرين.</p>
+                <a href="tel:0097333375858" class="cta-button">اتصل الآن: 0097333375858</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
         <div class="container">
-            <div class="hero-news">
-                <h2>أحدث المستجدات في عالم الأخبار والبحوث</h2>
-                <p>تابع أهم الأحداث والتحليلات العميقة من مصادر موثوقة.</p>
-                <a href="#news-section" class="btn-read-more">تصفح الآن</a>
-            </div>
-        </div>
-    </div>
-
-    <div class="container main-content">
-        <aside class="sidebar">
-            <div class="sidebar-widget">
-                <h3>أخبار عاجلة</h3>
-                <ul class="breaking-news" id="breaking-news-list">
-                    <li><a href="#">جاري التحميل...</a></li>
-                </ul>
-            </div>
-            <div class="sidebar-widget">
-                <h3>الأكثر قراءة (قريبًا)</h3>
-                <ul class="most-read">
-                    <li><a href="#">سيتم عرض المقالات الأكثر قراءة هنا.</a></li>
-                </ul>
-            </div>
-        </aside>
-
-        <main class="news-main">
-            <h2 class="section-title" id="news-section">آخر الأخبار</h2>
-            <div class="news-grid" id="news-container">
-                <p class="loading-message">جاري تحميل آخر الأخبار...</p>
-                <!-- الأخبار سيتم إضافتها هنا بواسطة JavaScript -->
-            </div>
-
-            <h2 class="section-title" id="research-section">بحوث ومقالات متخصصة</h2>
-            <div class="news-grid" id="research-container">
-                <p class="loading-message">جاري تحميل البحوث والمقالات...</p>
-                <!-- البحوث سيتم إضافتها هنا بواسطة JavaScript -->
-            </div>
-        </main>
-    </div>
-
-    <footer class="main-footer">
-        <div class="container">
-            <p>&copy; 2023 أخبارنا وبحوثنا. جميع الحقوق محفوظة.</p>
-            <div class="social-links">
-                <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
-                <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
-            </div>
+            <p>جميع الحقوق محفوظة © 2025 - شركة تنظيفات البحرين</p>
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script>
+        // No complex JS needed for this version, details/summary handles the accordion natively.
+        // This keeps the site faster and more secure.
+    </script>
+
 </body>
 </html>
