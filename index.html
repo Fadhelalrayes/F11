@@ -14,9 +14,9 @@
     <!-- Performance & Modern Design Links -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&display=swap" rel="stylesheet">
 
-    <!-- CSS with Elegant & Professional Theme -->
+    <!-- CSS with New Elegant & Professional Theme -->
     <style>
         :root {
             --primary-gold: #BFA15F; /* ذهبي أنيق وغير لامع */
@@ -40,30 +40,59 @@
             background-color: var(--white-color);
         }
         .container { width: 90%; max-width: 1100px; margin: 0 auto; }
+        
+        /* --- New Header Design --- */
         header {
-            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1585421514284-efb74c2b69ba?q=80&w=2070&auto=format&fit=crop') no-repeat center center/cover;
-            color: var(--white-color);
-            padding: 80px 20px;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1585421514284-efb74c2b69ba?q=80&w=2070&auto=format&fit=crop') no-repeat center center/cover;
+            padding: 100px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 90vh;
+        }
+        .header-box {
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: var(--border-radius);
             text-align: center;
+            max-width: 750px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
-        header .brand {
-            font-weight: 900;
-            font-size: clamp(1.8rem, 4vw, 2.5rem);
-            color: var(--primary-gold);
+        .header-box .brand {
+            font-weight: 800;
+            font-size: clamp(1.5rem, 4vw, 2.2rem);
+            color: var(--white-color);
             margin: 0;
+            position: relative;
+            padding-bottom: 15px;
+            margin-bottom: 15px;
         }
-        header h1 {
-            font-size: clamp(2.5rem, 6vw, 4rem);
-            margin: 10px 0 20px 0;
-            font-weight: 900;
-            line-height: 1.3;
+        .header-box .brand::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background-color: var(--primary-gold);
         }
-        header p {
-            font-size: 1.2rem;
-            max-width: 700px;
+        .header-box h1 {
+            font-size: clamp(1.8rem, 5vw, 2.8rem);
+            margin: 10px 0 15px 0;
+            font-weight: 600;
+            line-height: 1.4;
+            color: var(--white-color);
+        }
+        .header-box p {
+            font-size: 1.1rem;
             margin: 0 auto 30px auto;
             opacity: 0.9;
+            color: #e0e0e0;
         }
+        
         .cta-button {
             display: inline-flex;
             align-items: center;
@@ -73,7 +102,7 @@
             color: var(--white-color);
             padding: 15px 35px;
             text-decoration: none;
-            border-radius: 50px; /* Rounded button */
+            border-radius: 50px;
             font-weight: 700;
             font-size: 1.1rem;
             transition: transform 0.3s ease, background-color 0.3s ease;
@@ -82,9 +111,10 @@
         }
         .cta-button:hover { background-color: #1EBE5A; transform: scale(1.05); }
         .cta-button svg { width: 24px; height: 24px; fill: currentColor; }
+        
         section { padding: 80px 20px; }
         section.light-bg { background-color: var(--light-gray-bg); }
-        .section-title { text-align: center; margin-bottom: 50px; font-size: 2.5rem; color: var(--dark-gray); font-weight: 900; }
+        .section-title { text-align: center; margin-bottom: 50px; font-size: 2.5rem; color: var(--dark-gray); font-weight: 800; }
         .section-title span { color: var(--primary-gold); }
         .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
         .card {
@@ -100,10 +130,7 @@
         .card h3 { color: var(--dark-gray); margin-top: 0; font-size: 1.4rem; }
         .card p { color: var(--medium-gray); }
         .icon { font-size: 3.5rem; color: var(--primary-gold); margin-bottom: 15px; }
-        .testimonials { background: var(--dark-gray); color: var(--white-color); }
-        .testimonials .section-title { color: var(--white-color); }
-        .testimonial-card { background: rgba(255, 255, 255, 0.05); padding: 30px; border-radius: var(--border-radius); margin-bottom: 20px; border-right: 4px solid var(--primary-gold); }
-        .testimonial-card cite { color: var(--primary-gold); font-weight: bold; }
+        
         .faq-item { margin-bottom: 15px; border: 1px solid #ddd; border-radius: var(--border-radius); overflow: hidden; }
         .faq-question {
             padding: 20px 20px 20px 50px;
@@ -133,8 +160,8 @@
 <body>
 
     <header>
-        <div class="container">
-            <div class="brand">تنظيفات البحرين</div>
+        <div class="header-box">
+            <h2 class="brand">تنظيفات البحرين</h2>
             <h1>نحول فوضى البناء إلى مساحات جاهزة للسكن</h1>
             <p>خدمة تنظيف احترافية بعد البناء والتشطيب في جميع مناطق مملكة البحرين. دقة، جودة، والتزام بالمواعيد.</p>
             <a href="https://wa.me/97333375858" class="cta-button" target="_blank">
@@ -190,21 +217,7 @@
                 </div>
             </div>
         </section>
-        <section id="testimonials" class="testimonials">
-            <div class="container">
-                <h2 class="section-title">عملاؤنا في البحرين <span>يثقون بنا</span></h2>
-                <div class="testimonial-card">
-                    <p>"من أفضل شركات التنظيف في البحرين. استلمت بيتي الجديد في ديار المحرق يلمع وكأنه لم يكن موقع بناء. شكراً لفريق تنظيفات البحرين."</p>
-                    <cite>– السيد/ جاسم محمد، ديار المحرق</cite>
-                </div>
-                <div class="testimonial-card">
-                    <p>"احترافية عالية ودقة في المواعيد. تم تنظيف الفيلا بالكامل بعد التشطيب وكانت النتيجة مذهلة. أنصح بهم بشدة."</p>
-                    <cite>– السيدة/ نورة أحمد، الرفاع</cite>
-                </div>
-            </div>
-        </section>
-
-        <section id="faq" class="light-bg">
+        <section id="faq">
             <div class="container">
                 <h2 class="section-title">أسئلة <span>متكررة</span></h2>
                 <details class="faq-item">
