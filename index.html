@@ -11,26 +11,24 @@
     <meta name="author" content="تنظيفات البحرين">
     <meta name="geo.region" content="BH">
 
-    <!-- Security Meta Tag -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: https://*; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com;">
-
     <!-- Performance & Modern Design Links -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
 
-    <!-- CSS with Modern Standards -->
+    <!-- CSS with New Red Gradient Theme -->
     <style>
         :root {
-            --primary-color: #C10000; /* لون علم البحرين الأحمر */
-            --secondary-color: #f0c420; /* لون ذهبي فاخر */
-            --whatsapp-color: #25D366; /* لون واتساب الرسمي */
-            --dark-color: #2c2c2c;
-            --light-color: #f9f9f9;
-            --white-color: #ffffff;
+            --primary-red: #c00000; /* أحمر داكن رئيسي */
+            --secondary-red: #a00000; /* أحمر أغمق للتدرج */
+            --accent-gold: #d4af37; /* لون ذهبي للتفاصيل الفاخرة */
+            --whatsapp-color: #25D366;
+            --dark-text: #333333;
+            --light-text: #ffffff;
+            --bg-light: #fff8f8; /* خلفية فاتحة جداً مع لمسة حمراء */
             --font-family: 'Cairo', sans-serif;
             --border-radius: 8px;
-            --shadow: 0 5px 20px rgba(0,0,0,0.07);
+            --shadow: 0 5px 20px rgba(0,0,0,0.08);
         }
         
         *, *::before, *::after { box-sizing: border-box; }
@@ -39,7 +37,7 @@
             font-family: var(--font-family);
             margin: 0;
             line-height: 1.8;
-            color: var(--dark-color);
+            color: var(--dark-text);
             background-color: var(--white-color);
         }
         .container { width: 90%; max-width: 1100px; margin: 0 auto; }
@@ -53,27 +51,27 @@
             z-index: 1000;
             box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
-        header h1 { margin: 0; color: var(--primary-color); font-weight: 900; font-size: 1.8rem; }
+        header h1 { margin: 0; color: var(--primary-red); font-weight: 900; font-size: 1.8rem; }
         .hero {
-            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1581578731548-c64695cc6952?q=80&w=2070&auto=format&fit=crop') no-repeat center center/cover;
-            color: var(--white-color);
+            background: linear-gradient(45deg, var(--primary-red), var(--secondary-red));
+            color: var(--light-text);
             padding: 100px 20px;
             text-align: center;
             display: flex;
             align-items: center;
             justify-content: center;
-            min-height: 70vh;
+            min-height: 60vh;
         }
         .hero-content { max-width: 800px; }
-        .hero h2 { font-size: clamp(2rem, 5vw, 3rem); margin-bottom: 15px; font-weight: 900; }
-        .hero p { font-size: 1.2rem; margin-bottom: 30px; }
+        .hero h2 { font-size: clamp(2.2rem, 5vw, 3.2rem); margin-bottom: 15px; font-weight: 900; }
+        .hero p { font-size: 1.2rem; margin-bottom: 30px; opacity: 0.9; }
         .cta-button {
             display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
             background: var(--whatsapp-color);
-            color: var(--white-color);
+            color: var(--light-text);
             padding: 15px 35px;
             text-decoration: none;
             border-radius: var(--border-radius);
@@ -85,8 +83,8 @@
         .cta-button:hover { background-color: #1EBE5A; transform: scale(1.05); }
         .cta-button svg { width: 24px; height: 24px; fill: currentColor; }
         section { padding: 80px 20px; }
-        section.light-bg { background-color: var(--light-color); }
-        .section-title { text-align: center; margin-bottom: 50px; font-size: 2.5rem; color: var(--primary-color); font-weight: 900; }
+        section.light-bg { background-color: var(--bg-light); }
+        .section-title { text-align: center; margin-bottom: 50px; font-size: 2.5rem; color: var(--primary-red); font-weight: 900; }
         .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
         .card {
             background: var(--white-color);
@@ -95,10 +93,11 @@
             box-shadow: var(--shadow);
             text-align: center;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-top: 4px solid var(--primary-red);
         }
-        .card:hover { transform: translateY(-10px); box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        .card h3 { color: var(--primary-color); margin-top: 0; font-size: 1.4rem; }
-        .icon { font-size: 3.5rem; color: var(--secondary-color); margin-bottom: 15px; }
+        .card:hover { transform: translateY(-10px); box-shadow: 0 10px 30px rgba(192,0,0,0.15); }
+        .card h3 { color: var(--primary-red); margin-top: 0; font-size: 1.4rem; }
+        .icon { font-size: 3.5rem; color: var(--accent-gold); margin-bottom: 15px; }
         .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px; margin-top: 30px; }
         .gallery-grid img {
             width: 100%;
@@ -106,10 +105,12 @@
             object-fit: cover;
             border-radius: var(--border-radius);
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
         }
-        .testimonials { background: var(--primary-color); color: var(--white-color); }
-        .testimonials .section-title { color: var(--white-color); }
-        .testimonial-card { background: rgba(255, 255, 255, 0.1); padding: 30px; border-radius: var(--border-radius); margin-bottom: 20px; border: 1px solid rgba(255, 255, 255, 0.2); }
+        .gallery-grid img:hover { transform: scale(1.05); }
+        .testimonials { background: linear-gradient(45deg, var(--primary-red), var(--secondary-red)); color: var(--light-text); }
+        .testimonials .section-title { color: var(--light-text); }
+        .testimonial-card { background: rgba(255, 255, 255, 0.1); padding: 30px; border-radius: var(--border-radius); margin-bottom: 20px; border-left: 4px solid var(--accent-gold); }
         .faq-item { margin-bottom: 15px; border: 1px solid #ddd; border-radius: var(--border-radius); overflow: hidden; }
         .faq-question {
             padding: 20px 20px 20px 50px;
@@ -118,6 +119,7 @@
             position: relative;
             background: var(--white-color);
             display: block;
+            color: var(--primary-red);
         }
         .faq-question::after {
             content: '+';
@@ -126,12 +128,12 @@
             top: 50%;
             transform: translateY(-50%);
             font-size: 1.5rem;
-            color: var(--primary-color);
+            color: var(--primary-red);
             transition: transform 0.3s ease;
         }
         details[open] > summary.faq-question::after { transform: translateY(-50%) rotate(45deg); }
-        .faq-answer { padding: 20px; background: var(--light-color); }
-        .final-cta { background: var(--dark-color); color: var(--white-color); text-align: center; padding: 80px 20px; }
+        .faq-answer { padding: 20px; background: var(--bg-light); }
+        .final-cta { background: var(--dark-text); color: var(--light-text); text-align: center; padding: 80px 20px; }
         footer { background: #222; color: #ccc; text-align: center; padding: 20px 0; }
     </style>
 </head>
@@ -204,9 +206,9 @@
             <div class="container">
                 <h2 class="section-title">شاهد جودة عملنا: قبل وبعد</h2>
                 <div class="gallery-grid">
-                    <img src="https://images.unsplash.com/photo-1545161296-d9c2c241f2ad?q=80&w=1974&auto=format&fit=crop" alt="فيلا قبل التنظيف في البحرين" loading="lazy">
-                    <img src="https://images.unsplash.com/photo-1528740561666-dc2479703592?q=80&w=1974&auto=format&fit=crop" alt="فيلا بعد التنظيف الاحترافي من تنظيفات البحرين" loading="lazy">
-                    <img src="https://images.unsplash.com/photo-1600271886712-9ef43e2ca79b?q=80&w=1974&auto=format&fit=crop" alt="إزالة بقع الأسمنت من أرضية سيراميك" loading="lazy">
+                    <img src="https://images.unsplash.com/photo-1545161296-d9c2c241f2ad?q=80&w=1974&auto=format&fit=crop" alt="عامل يقوم بالتنظيف العميق بعد البناء" loading="lazy">
+                    <img src="https://images.unsplash.com/photo-1528740561666-dc2479703592?q=80&w=1974&auto=format&fit=crop" alt="أرضية لامعة بعد التنظيف والجلي" loading="lazy">
+                    <img src="https://images.unsplash.com/photo-1600271886712-9ef43e2ca79b?q=80&w=1974&auto=format&fit=crop" alt="نافذة نظيفة ولامعة بعد إزالة غبار البناء" loading="lazy">
                 </div>
             </div>
         </section>
@@ -225,7 +227,7 @@
             </div>
         </section>
 
-        <section id="faq">
+        <section id="faq" class="light-bg">
             <div class="container">
                 <h2 class="section-title">أسئلة متكررة</h2>
                 <details class="faq-item">
