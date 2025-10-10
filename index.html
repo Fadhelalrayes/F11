@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- SEO & Geo-Targeting Meta Tags -->
-    <title>تنظيفات البحرين | خدمة تنظيف بعد البناء والتشطيب في جميع مناطق البحرين</title>
-    <meta name="description" content="شركة تنظيفات البحرين تقدم خدمة تنظيف احترافية بعد البناء والتشطيب في جميع مناطق مملكة البحرين. إزالة مخلفات البناء، جلي وتلميع الرخام. تواصل معنا عبر WhatsApp!">
+    <title>تنظيفات البحرين | خدمة تنظيف احترافية بعد البناء والتشطيب</title>
+    <meta name="description" content="شركة تنظيفات البحرين: خبراء تحويل فوضى البناء إلى مساحات جاهزة للسكن. خدمة متكاملة تشمل جميع مناطق البحرين. جودة، دقة، واحترافية.">
     <meta name="keywords" content="تنظيف بعد البناء في البحرين, شركة تنظيفات البحرين, تنظيف بعد التشطيب, شركات تنظيف المباني الجديدة, جلي رخام بعد البناء البحرين">
     <meta name="author" content="تنظيفات البحرين">
     <meta name="geo.region" content="BH">
@@ -16,19 +16,18 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
 
-    <!-- CSS with New Red Gradient Theme -->
+    <!-- CSS with New Elegant & Professional Theme -->
     <style>
         :root {
-            --primary-red: #c00000; /* أحمر داكن رئيسي */
-            --secondary-red: #a00000; /* أحمر أغمق للتدرج */
-            --accent-gold: #d4af37; /* لون ذهبي للتفاصيل الفاخرة */
+            --primary-gold: #BFA15F; /* ذهبي أنيق وغير لامع */
+            --dark-gray: #333333;   /* رمادي داكن للنصوص الرئيسية */
+            --medium-gray: #555555; /* رمادي متوسط للنصوص الفرعية */
+            --light-gray-bg: #f8f9fa; /* خلفية رمادية فاتحة جداً للأقسام */
             --whatsapp-color: #25D366;
-            --dark-text: #333333;
-            --light-text: #ffffff;
-            --bg-light: #fff8f8; /* خلفية فاتحة جداً مع لمسة حمراء */
+            --white-color: #ffffff;
             --font-family: 'Cairo', sans-serif;
             --border-radius: 8px;
-            --shadow: 0 5px 20px rgba(0,0,0,0.08);
+            --shadow: 0 8px 25px rgba(0,0,0,0.07);
         }
         
         *, *::before, *::after { box-sizing: border-box; }
@@ -37,54 +36,56 @@
             font-family: var(--font-family);
             margin: 0;
             line-height: 1.8;
-            color: var(--dark-text);
+            color: var(--dark-gray);
             background-color: var(--white-color);
         }
         .container { width: 90%; max-width: 1100px; margin: 0 auto; }
         header {
-            background: var(--white-color);
-            padding: 15px 0;
-            border-bottom: 1px solid #eee;
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1585421514284-efb74c2b69ba?q=80&w=2070&auto=format&fit=crop') no-repeat center center/cover;
+            color: var(--white-color);
+            padding: 80px 20px;
             text-align: center;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
-        header h1 { margin: 0; color: var(--primary-red); font-weight: 900; font-size: 1.8rem; }
-        .hero {
-            background: linear-gradient(45deg, var(--primary-red), var(--secondary-red));
-            color: var(--light-text);
-            padding: 100px 20px;
-            text-align: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 60vh;
+        header .brand {
+            font-weight: 900;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            color: var(--primary-gold);
+            margin: 0;
         }
-        .hero-content { max-width: 800px; }
-        .hero h2 { font-size: clamp(2.2rem, 5vw, 3.2rem); margin-bottom: 15px; font-weight: 900; }
-        .hero p { font-size: 1.2rem; margin-bottom: 30px; opacity: 0.9; }
+        header h1 {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            margin: 10px 0 20px 0;
+            font-weight: 900;
+            line-height: 1.3;
+        }
+        header p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px auto;
+            opacity: 0.9;
+        }
         .cta-button {
             display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
             background: var(--whatsapp-color);
-            color: var(--light-text);
+            color: var(--white-color);
             padding: 15px 35px;
             text-decoration: none;
-            border-radius: var(--border-radius);
+            border-radius: 50px; /* Rounded button */
             font-weight: 700;
             font-size: 1.1rem;
             transition: transform 0.3s ease, background-color 0.3s ease;
             border: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
         .cta-button:hover { background-color: #1EBE5A; transform: scale(1.05); }
         .cta-button svg { width: 24px; height: 24px; fill: currentColor; }
         section { padding: 80px 20px; }
-        section.light-bg { background-color: var(--bg-light); }
-        .section-title { text-align: center; margin-bottom: 50px; font-size: 2.5rem; color: var(--primary-red); font-weight: 900; }
+        section.light-bg { background-color: var(--light-gray-bg); }
+        .section-title { text-align: center; margin-bottom: 50px; font-size: 2.5rem; color: var(--dark-gray); font-weight: 900; }
+        .section-title span { color: var(--primary-gold); }
         .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
         .card {
             background: var(--white-color);
@@ -93,11 +94,12 @@
             box-shadow: var(--shadow);
             text-align: center;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border-top: 4px solid var(--primary-red);
+            border-bottom: 4px solid var(--primary-gold);
         }
-        .card:hover { transform: translateY(-10px); box-shadow: 0 10px 30px rgba(192,0,0,0.15); }
-        .card h3 { color: var(--primary-red); margin-top: 0; font-size: 1.4rem; }
-        .icon { font-size: 3.5rem; color: var(--accent-gold); margin-bottom: 15px; }
+        .card:hover { transform: translateY(-10px); box-shadow: 0 12px 35px rgba(0,0,0,0.1); }
+        .card h3 { color: var(--dark-gray); margin-top: 0; font-size: 1.4rem; }
+        .card p { color: var(--medium-gray); }
+        .icon { font-size: 3.5rem; color: var(--primary-gold); margin-bottom: 15px; }
         .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px; margin-top: 30px; }
         .gallery-grid img {
             width: 100%;
@@ -108,9 +110,10 @@
             transition: transform 0.3s ease;
         }
         .gallery-grid img:hover { transform: scale(1.05); }
-        .testimonials { background: linear-gradient(45deg, var(--primary-red), var(--secondary-red)); color: var(--light-text); }
-        .testimonials .section-title { color: var(--light-text); }
-        .testimonial-card { background: rgba(255, 255, 255, 0.1); padding: 30px; border-radius: var(--border-radius); margin-bottom: 20px; border-left: 4px solid var(--accent-gold); }
+        .testimonials { background: var(--dark-gray); color: var(--white-color); }
+        .testimonials .section-title { color: var(--white-color); }
+        .testimonial-card { background: rgba(255, 255, 255, 0.05); padding: 30px; border-radius: var(--border-radius); margin-bottom: 20px; border-right: 4px solid var(--primary-gold); }
+        .testimonial-card cite { color: var(--primary-gold); font-weight: bold; }
         .faq-item { margin-bottom: 15px; border: 1px solid #ddd; border-radius: var(--border-radius); overflow: hidden; }
         .faq-question {
             padding: 20px 20px 20px 50px;
@@ -119,7 +122,7 @@
             position: relative;
             background: var(--white-color);
             display: block;
-            color: var(--primary-red);
+            color: var(--dark-gray);
         }
         .faq-question::after {
             content: '+';
@@ -128,38 +131,33 @@
             top: 50%;
             transform: translateY(-50%);
             font-size: 1.5rem;
-            color: var(--primary-red);
+            color: var(--primary-gold);
             transition: transform 0.3s ease;
         }
         details[open] > summary.faq-question::after { transform: translateY(-50%) rotate(45deg); }
-        .faq-answer { padding: 20px; background: var(--bg-light); }
-        .final-cta { background: var(--dark-text); color: var(--light-text); text-align: center; padding: 80px 20px; }
-        footer { background: #222; color: #ccc; text-align: center; padding: 20px 0; }
+        .faq-answer { padding: 20px; background: var(--light-gray-bg); }
+        .final-cta { background: var(--dark-gray); color: var(--white-color); text-align: center; padding: 80px 20px; }
+        footer { background: #222; color: #aaa; text-align: center; padding: 20px 0; font-size: 0.9rem; }
     </style>
 </head>
 <body>
 
     <header>
         <div class="container">
-            <h1>تنظيفات البحرين</h1>
+            <div class="brand">تنظيفات البحرين</div>
+            <h1>نحول فوضى البناء إلى مساحات جاهزة للسكن</h1>
+            <p>خدمة تنظيف احترافية بعد البناء والتشطيب في جميع مناطق مملكة البحرين. دقة، جودة، والتزام بالمواعيد.</p>
+            <a href="https://wa.me/97333375858" class="cta-button" target="_blank">
+                <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.61 15.36 3.48 16.84L2 22L7.32 20.55C8.75 21.33 10.37 21.8 12.04 21.8C17.5 21.8 21.95 17.35 21.95 11.89C21.95 6.43 17.5 2 12.04 2M12.04 20.13C10.56 20.13 9.12 19.7 7.89 18.9L7.5 18.66L3.81 19.59L4.77 16.04L4.48 15.65C3.63 14.31 3.18 12.79 3.18 11.23C3.18 7.04 7.2 3.03 12.04 3.03C16.88 3.03 20.9 7.04 20.9 11.88C20.9 16.72 16.88 20.13 12.04 20.13M17.44 14.43C17.24 14.93 16.39 15.42 15.9 15.52C15.41 15.62 14.82 15.64 14.37 15.49C13.92 15.34 12.96 15.03 11.81 14.03C10.38 12.78 9.42 11.23 9.22 10.73C9.02 10.23 9.24 9.97 9.42 9.79C9.57 9.64 9.76 9.45 9.96 9.25C10.16 9.05 10.26 8.9 10.41 8.65C10.56 8.4 10.51 8.2 10.41 8C10.31 7.8 9.87 6.65 9.67 6.15C9.47 5.65 9.27 5.7 9.12 5.7C8.97 5.7 8.77 5.7 8.57 5.7C8.37 5.7 8.07 5.75 7.82 6C7.57 6.25 7.06 6.75 7.06 7.9C7.06 9.05 8.32 10.25 8.47 10.45C8.62 10.65 9.87 12.65 11.82 13.54C13.77 14.44 14.32 14.74 14.82 14.89C15.32 15.04 15.97 14.99 16.32 14.69C16.72 14.34 17.19 13.74 17.34 13.39C17.49 13.04 17.54 12.74 17.44 12.49C17.34 12.24 17.24 12.14 17.04 11.94C16.84 11.74 16.69 11.64 16.54 11.49C16.39 11.34 16.24 11.19 16.39 10.94C16.54 10.69 16.99 11.29 17.19 11.49C17.39 11.69 17.54 11.84 17.64 11.99C17.74 12.14 17.84 12.44 17.74 12.84C17.64 13.24 17.64 13.93 17.44 14.43Z"/></svg>
+                اطلب معاينة مجانية
+            </a>
         </div>
     </header>
 
     <main>
-        <section class="hero">
-            <div class="hero-content">
-                <h2>خدمة تنظيف بعد البناء والتشطيب في مملكة البحرين</h2>
-                <p>نحول فوضى مواقع البناء إلى عقارات نظيفة وجاهزة للسكن. متخصصون في إزالة أصعب مخلفات التشطيب في جميع مناطق البحرين.</p>
-                <a href="https://wa.me/97333375858" class="cta-button" target="_blank">
-                    <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.61 15.36 3.48 16.84L2 22L7.32 20.55C8.75 21.33 10.37 21.8 12.04 21.8C17.5 21.8 21.95 17.35 21.95 11.89C21.95 6.43 17.5 2 12.04 2M12.04 20.13C10.56 20.13 9.12 19.7 7.89 18.9L7.5 18.66L3.81 19.59L4.77 16.04L4.48 15.65C3.63 14.31 3.18 12.79 3.18 11.23C3.18 7.04 7.2 3.03 12.04 3.03C16.88 3.03 20.9 7.04 20.9 11.88C20.9 16.72 16.88 20.13 12.04 20.13M17.44 14.43C17.24 14.93 16.39 15.42 15.9 15.52C15.41 15.62 14.82 15.64 14.37 15.49C13.92 15.34 12.96 15.03 11.81 14.03C10.38 12.78 9.42 11.23 9.22 10.73C9.02 10.23 9.24 9.97 9.42 9.79C9.57 9.64 9.76 9.45 9.96 9.25C10.16 9.05 10.26 8.9 10.41 8.65C10.56 8.4 10.51 8.2 10.41 8C10.31 7.8 9.87 6.65 9.67 6.15C9.47 5.65 9.27 5.7 9.12 5.7C8.97 5.7 8.77 5.7 8.57 5.7C8.37 5.7 8.07 5.75 7.82 6C7.57 6.25 7.06 6.75 7.06 7.9C7.06 9.05 8.32 10.25 8.47 10.45C8.62 10.65 9.87 12.65 11.82 13.54C13.77 14.44 14.32 14.74 14.82 14.89C15.32 15.04 15.97 14.99 16.32 14.69C16.72 14.34 17.19 13.74 17.34 13.39C17.49 13.04 17.54 12.74 17.44 12.49C17.34 12.24 17.24 12.14 17.04 11.94C16.84 11.74 16.69 11.64 16.54 11.49C16.39 11.34 16.24 11.19 16.39 10.94C16.54 10.69 16.99 11.29 17.19 11.49C17.39 11.69 17.54 11.84 17.64 11.99C17.74 12.14 17.84 12.44 17.74 12.84C17.64 13.24 17.64 13.93 17.44 14.43Z"/></svg>
-                    تواصل معنا عبر WhatsApp
-                </a>
-            </div>
-        </section>
-
         <section id="services">
             <div class="container">
-                <h2 class="section-title">خدماتنا المتكاملة للتنظيف بعد البناء</h2>
+                <h2 class="section-title">خدماتنا <span>المتكاملة</span></h2>
                 <div class="grid-container">
                     <div class="card">
                         <div class="icon">🧹</div>
@@ -182,7 +180,7 @@
 
         <section id="why-us" class="light-bg">
             <div class="container">
-                <h2 class="section-title">لماذا تختار تنظيفات البحرين؟</h2>
+                <h2 class="section-title">لماذا تختار <span>تنظيفات البحرين؟</span></h2>
                 <div class="grid-container">
                     <div class="card">
                         <div class="icon">👥</div>
@@ -192,7 +190,7 @@
                     <div class="card">
                         <div class="icon">🛠️</div>
                         <h3>أحدث المعدات العالمية</h3>
-                        <p>نستخدم أحدث التقنيات والمعدات الألمانية والإيطالية التي تضمن كفاءة وسرعة في إنجاز أصعب مهام التنظيف.</p>
+                        <p>نستخدم أحدث التقنيات والمعدات التي تضمن كفاءة وسرعة في إنجاز أصعب مهام التنظيف.</p>
                     </div>
                     <div class="card">
                         <div class="icon">🌿</div>
@@ -204,7 +202,7 @@
         </section>
         <section id="gallery">
             <div class="container">
-                <h2 class="section-title">شاهد جودة عملنا: قبل وبعد</h2>
+                <h2 class="section-title">شاهد <span>جودة عملنا</span></h2>
                 <div class="gallery-grid">
                     <img src="https://images.unsplash.com/photo-1545161296-d9c2c241f2ad?q=80&w=1974&auto=format&fit=crop" alt="عامل يقوم بالتنظيف العميق بعد البناء" loading="lazy">
                     <img src="https://images.unsplash.com/photo-1528740561666-dc2479703592?q=80&w=1974&auto=format&fit=crop" alt="أرضية لامعة بعد التنظيف والجلي" loading="lazy">
@@ -215,7 +213,7 @@
 
         <section id="testimonials" class="testimonials">
             <div class="container">
-                <h2 class="section-title">عملاؤنا في البحرين يثقون بنا</h2>
+                <h2 class="section-title">عملاؤنا في البحرين <span>يثقون بنا</span></h2>
                 <div class="testimonial-card">
                     <p>"من أفضل شركات التنظيف في البحرين. استلمت بيتي الجديد في ديار المحرق يلمع وكأنه لم يكن موقع بناء. شكراً لفريق تنظيفات البحرين."</p>
                     <cite>– السيد/ جاسم محمد، ديار المحرق</cite>
@@ -229,7 +227,7 @@
 
         <section id="faq" class="light-bg">
             <div class="container">
-                <h2 class="section-title">أسئلة متكررة</h2>
+                <h2 class="section-title">أسئلة <span>متكررة</span></h2>
                 <details class="faq-item">
                     <summary class="faq-question">هل تغطون جميع مناطق مملكة البحرين؟</summary>
                     <div class="faq-answer">
@@ -253,8 +251,8 @@
 
         <section class="final-cta">
             <div class="container">
-                <h2>جاهز لاستلام عقارك الجديد نظيفاً بالكامل؟</h2>
-                <p>لا تدع فوضى البناء تؤخر فرحتك. تواصل معنا اليوم عبر WhatsApp واحصل على معاينة وعرض سعر مجاني.</p>
+                <h2 style="font-size: 2.2rem;">جاهز لاستلام عقارك الجديد نظيفاً بالكامل؟</h2>
+                <p style="font-size: 1.1rem; max-width: 600px; margin: 15px auto 30px auto;">لا تدع فوضى البناء تؤخر فرحتك. تواصل معنا اليوم عبر WhatsApp واحصل على معاينة وعرض سعر مجاني.</p>
                 <a href="https://wa.me/97333375858" class="cta-button" target="_blank">
                     <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.61 15.36 3.48 16.84L2 22L7.32 20.55C8.75 21.33 10.37 21.8 12.04 21.8C17.5 21.8 21.95 17.35 21.95 11.89C21.95 6.43 17.5 2 12.04 2M12.04 20.13C10.56 20.13 9.12 19.7 7.89 18.9L7.5 18.66L3.81 19.59L4.77 16.04L4.48 15.65C3.63 14.31 3.18 12.79 3.18 11.23C3.18 7.04 7.2 3.03 12.04 3.03C16.88 3.03 20.9 7.04 20.9 11.88C20.9 16.72 16.88 20.13 12.04 20.13M17.44 14.43C17.24 14.93 16.39 15.42 15.9 15.52C15.41 15.62 14.82 15.64 14.37 15.49C13.92 15.34 12.96 15.03 11.81 14.03C10.38 12.78 9.42 11.23 9.22 10.73C9.02 10.23 9.24 9.97 9.42 9.79C9.57 9.64 9.76 9.45 9.96 9.25C10.16 9.05 10.26 8.9 10.41 8.65C10.56 8.4 10.51 8.2 10.41 8C10.31 7.8 9.87 6.65 9.67 6.15C9.47 5.65 9.27 5.7 9.12 5.7C8.97 5.7 8.77 5.7 8.57 5.7C8.37 5.7 8.07 5.75 7.82 6C7.57 6.25 7.06 6.75 7.06 7.9C7.06 9.05 8.32 10.25 8.47 10.45C8.62 10.65 9.87 12.65 11.82 13.54C13.77 14.44 14.32 14.74 14.82 14.89C15.32 15.04 15.97 14.99 16.32 14.69C16.72 14.34 17.19 13.74 17.34 13.39C17.49 13.04 17.54 12.74 17.44 12.49C17.34 12.24 17.24 12.14 17.04 11.94C16.84 11.74 16.69 11.64 16.54 11.49C16.39 11.34 16.24 11.19 16.39 10.94C16.54 10.69 16.99 11.29 17.19 11.49C17.39 11.69 17.54 11.84 17.64 11.99C17.74 12.14 17.84 12.44 17.74 12.84C17.64 13.24 17.64 13.93 17.44 14.43Z"/></svg>
                     اطلب معاينة مجانية الآن
