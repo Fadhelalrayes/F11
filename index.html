@@ -16,13 +16,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&display=swap" rel="stylesheet">
 
-    <!-- CSS with New Elegant & Professional Theme -->
+    <!-- CSS with New Creative & Professional Theme -->
     <style>
         :root {
-            --primary-gold: #BFA15F; /* ذهبي أنيق وغير لامع */
-            --dark-gray: #333333;   /* رمادي داكن للنصوص الرئيسية */
-            --medium-gray: #555555; /* رمادي متوسط للنصوص الفرعية */
-            --light-gray-bg: #f8f9fa; /* خلفية رمادية فاتحة جداً للأقسام */
+            --primary-gold: #BFA15F;
+            --dark-gray: #333333;
+            --medium-gray: #555555;
+            --light-gray-bg: #f8f9fa;
             --whatsapp-color: #25D366;
             --white-color: #ffffff;
             --font-family: 'Cairo', sans-serif;
@@ -41,76 +41,74 @@
         }
         .container { width: 90%; max-width: 1100px; margin: 0 auto; }
         
-        /* --- New Header Design --- */
+        /* --- New Creative Header --- */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         header {
             background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1585421514284-efb74c2b69ba?q=80&w=2070&auto=format&fit=crop') no-repeat center center/cover;
             padding: 100px 20px;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             min-height: 90vh;
-        }
-        .header-box {
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            padding: 40px;
-            border-radius: var(--border-radius);
             text-align: center;
-            max-width: 750px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--white-color);
         }
-        .header-box .brand {
+        header .brand {
             font-weight: 800;
             font-size: clamp(1.5rem, 4vw, 2.2rem);
-            color: var(--white-color);
+            color: var(--primary-gold);
             margin: 0;
-            position: relative;
-            padding-bottom: 15px;
-            margin-bottom: 15px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+            animation: fadeInDown 0.8s ease-out;
         }
-        .header-box .brand::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60px;
-            height: 3px;
-            background-color: var(--primary-gold);
-        }
-        .header-box h1 {
-            font-size: clamp(1.8rem, 5vw, 2.8rem);
+        header h1 {
+            font-size: clamp(2.2rem, 6vw, 3.5rem);
             margin: 10px 0 15px 0;
-            font-weight: 600;
+            font-weight: 800;
             line-height: 1.4;
-            color: var(--white-color);
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+            animation: fadeInDown 0.8s ease-out 0.2s;
+            animation-fill-mode: backwards;
         }
-        .header-box p {
+        header p {
             font-size: 1.1rem;
+            max-width: 600px;
             margin: 0 auto 30px auto;
-            opacity: 0.9;
-            color: #e0e0e0;
+            opacity: 0.95;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+            animation: fadeInUp 0.8s ease-out 0.4s;
+            animation-fill-mode: backwards;
         }
         
         .cta-button {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 8px; /* Reduced gap */
             background: var(--whatsapp-color);
             color: var(--white-color);
-            padding: 15px 35px;
+            padding: 12px 28px; /* Adjusted padding */
             text-decoration: none;
             border-radius: 50px;
-            font-weight: 700;
-            font-size: 1.1rem;
-            transition: transform 0.3s ease, background-color 0.3s ease;
+            font-weight: 600; /* Slightly less bold */
+            font-size: 1rem; /* Adjusted size */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
             border: none;
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            animation: fadeInUp 0.8s ease-out 0.6s;
+            animation-fill-mode: backwards;
         }
-        .cta-button:hover { background-color: #1EBE5A; transform: scale(1.05); }
-        .cta-button svg { width: 24px; height: 24px; fill: currentColor; }
+        .cta-button:hover { background-color: #1EBE5A; transform: scale(1.05); box-shadow: 0 6px 20px rgba(0,0,0,0.25); }
+        .cta-button svg { width: 20px; height: 20px; fill: currentColor; } /* Smaller icon */
         
         section { padding: 80px 20px; }
         section.light-bg { background-color: var(--light-gray-bg); }
@@ -153,22 +151,47 @@
         }
         details[open] > summary.faq-question::after { transform: translateY(-50%) rotate(45deg); }
         .faq-answer { padding: 20px; background: var(--light-gray-bg); }
-        .final-cta { background: var(--dark-gray); color: var(--white-color); text-align: center; padding: 80px 20px; }
+        
+        /* --- New Final CTA Card --- */
+        .final-cta-section {
+            background-color: var(--white-color);
+            padding: 80px 20px;
+        }
+        .final-cta-card {
+            background: var(--light-gray-bg);
+            border-radius: var(--border-radius);
+            padding: 50px 40px;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+            box-shadow: var(--shadow);
+        }
+        .final-cta-card h2 {
+            font-size: 1.8rem; /* Smaller font */
+            font-weight: 800;
+            color: var(--dark-gray);
+            margin: 0 0 10px 0;
+        }
+        .final-cta-card p {
+            font-size: 1rem; /* Smaller font */
+            color: var(--medium-gray);
+            max-width: 500px;
+            margin: 0 auto 30px auto;
+        }
+
         footer { background: #222; color: #aaa; text-align: center; padding: 20px 0; font-size: 0.9rem; }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="header-box">
-            <h2 class="brand">تنظيفات البحرين</h2>
-            <h1>نحول فوضى البناء إلى مساحات جاهزة للسكن</h1>
-            <p>خدمة تنظيف احترافية بعد البناء والتشطيب في جميع مناطق مملكة البحرين. دقة، جودة، والتزام بالمواعيد.</p>
-            <a href="https://wa.me/97333375858" class="cta-button" target="_blank">
-                <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.61 15.36 3.48 16.84L2 22L7.32 20.55C8.75 21.33 10.37 21.8 12.04 21.8C17.5 21.8 21.95 17.35 21.95 11.89C21.95 6.43 17.5 2 12.04 2M12.04 20.13C10.56 20.13 9.12 19.7 7.89 18.9L7.5 18.66L3.81 19.59L4.77 16.04L4.48 15.65C3.63 14.31 3.18 12.79 3.18 11.23C3.18 7.04 7.2 3.03 12.04 3.03C16.88 3.03 20.9 7.04 20.9 11.88C20.9 16.72 16.88 20.13 12.04 20.13M17.44 14.43C17.24 14.93 16.39 15.42 15.9 15.52C15.41 15.62 14.82 15.64 14.37 15.49C13.92 15.34 12.96 15.03 11.81 14.03C10.38 12.78 9.42 11.23 9.22 10.73C9.02 10.23 9.24 9.97 9.42 9.79C9.57 9.64 9.76 9.45 9.96 9.25C10.16 9.05 10.26 8.9 10.41 8.65C10.56 8.4 10.51 8.2 10.41 8C10.31 7.8 9.87 6.65 9.67 6.15C9.47 5.65 9.27 5.7 9.12 5.7C8.97 5.7 8.77 5.7 8.57 5.7C8.37 5.7 8.07 5.75 7.82 6C7.57 6.25 7.06 6.75 7.06 7.9C7.06 9.05 8.32 10.25 8.47 10.45C8.62 10.65 9.87 12.65 11.82 13.54C13.77 14.44 14.32 14.74 14.82 14.89C15.32 15.04 15.97 14.99 16.32 14.69C16.72 14.34 17.19 13.74 17.34 13.39C17.49 13.04 17.54 12.74 17.44 12.49C17.34 12.24 17.24 12.14 17.04 11.94C16.84 11.74 16.69 11.64 16.54 11.49C16.39 11.34 16.24 11.19 16.39 10.94C16.54 10.69 16.99 11.29 17.19 11.49C17.39 11.69 17.54 11.84 17.64 11.99C17.74 12.14 17.84 12.44 17.74 12.84C17.64 13.24 17.64 13.93 17.44 14.43Z"/></svg>
-                اطلب معاينة مجانية
-            </a>
-        </div>
+        <h2 class="brand">تنظيفات البحرين</h2>
+        <h1>نحول فوضى البناء إلى مساحات جاهزة للسكن</h1>
+        <p>خدمة تنظيف احترافية بعد البناء والتشطيب في جميع مناطق مملكة البحرين. دقة، جودة، والتزام بالمواعيد.</p>
+        <a href="https://wa.me/97333375858" class="cta-button" target="_blank">
+            <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.61 15.36 3.48 16.84L2 22L7.32 20.55C8.75 21.33 10.37 21.8 12.04 21.8C17.5 21.8 21.95 17.35 21.95 11.89C21.95 6.43 17.5 2 12.04 2M12.04 20.13C10.56 20.13 9.12 19.7 7.89 18.9L7.5 18.66L3.81 19.59L4.77 16.04L4.48 15.65C3.63 14.31 3.18 12.79 3.18 11.23C3.18 7.04 7.2 3.03 12.04 3.03C16.88 3.03 20.9 7.04 20.9 11.88C20.9 16.72 16.88 20.13 12.04 20.13M17.44 14.43C17.24 14.93 16.39 15.42 15.9 15.52C15.41 15.62 14.82 15.64 14.37 15.49C13.92 15.34 12.96 15.03 11.81 14.03C10.38 12.78 9.42 11.23 9.22 10.73C9.02 10.23 9.24 9.97 9.42 9.79C9.57 9.64 9.76 9.45 9.96 9.25C10.16 9.05 10.26 8.9 10.41 8.65C10.56 8.4 10.51 8.2 10.41 8C10.31 7.8 9.87 6.65 9.67 6.15C9.47 5.65 9.27 5.7 9.12 5.7C8.97 5.7 8.77 5.7 8.57 5.7C8.37 5.7 8.07 5.75 7.82 6C7.57 6.25 7.06 6.75 7.06 7.9C7.06 9.05 8.32 10.25 8.47 10.45C8.62 10.65 9.87 12.65 11.82 13.54C13.77 14.44 14.32 14.74 14.82 14.89C15.32 15.04 15.97 14.99 16.32 14.69C16.72 14.34 17.19 13.74 17.34 13.39C17.49 13.04 17.54 12.74 17.44 12.49C17.34 12.24 17.24 12.14 17.04 11.94C16.84 11.74 16.69 11.64 16.54 11.49C16.39 11.34 16.24 11.19 16.39 10.94C16.54 10.69 16.99 11.29 17.19 11.49C17.39 11.69 17.54 11.84 17.64 11.99C17.74 12.14 17.84 12.44 17.74 12.84C17.64 13.24 17.64 13.93 17.44 14.43Z"/></svg>
+            اطلب معاينة مجانية
+        </a>
     </header>
 
     <main>
@@ -241,10 +264,10 @@
             </div>
         </section>
 
-        <section class="final-cta">
-            <div class="container">
-                <h2 style="font-size: 2.2rem;">جاهز لاستلام عقارك الجديد نظيفاً بالكامل؟</h2>
-                <p style="font-size: 1.1rem; max-width: 600px; margin: 15px auto 30px auto;">لا تدع فوضى البناء تؤخر فرحتك. تواصل معنا اليوم عبر WhatsApp واحصل على معاينة وعرض سعر مجاني.</p>
+        <section class="final-cta-section">
+            <div class="final-cta-card">
+                <h2>جاهز لاستلام عقارك الجديد نظيفاً بالكامل؟</h2>
+                <p>لا تدع فوضى البناء تؤخر فرحتك. تواصل معنا اليوم عبر WhatsApp واحصل على معاينة وعرض سعر مجاني.</p>
                 <a href="https://wa.me/97333375858" class="cta-button" target="_blank">
                     <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.61 15.36 3.48 16.84L2 22L7.32 20.55C8.75 21.33 10.37 21.8 12.04 21.8C17.5 21.8 21.95 17.35 21.95 11.89C21.95 6.43 17.5 2 12.04 2M12.04 20.13C10.56 20.13 9.12 19.7 7.89 18.9L7.5 18.66L3.81 19.59L4.77 16.04L4.48 15.65C3.63 14.31 3.18 12.79 3.18 11.23C3.18 7.04 7.2 3.03 12.04 3.03C16.88 3.03 20.9 7.04 20.9 11.88C20.9 16.72 16.88 20.13 12.04 20.13M17.44 14.43C17.24 14.93 16.39 15.42 15.9 15.52C15.41 15.62 14.82 15.64 14.37 15.49C13.92 15.34 12.96 15.03 11.81 14.03C10.38 12.78 9.42 11.23 9.22 10.73C9.02 10.23 9.24 9.97 9.42 9.79C9.57 9.64 9.76 9.45 9.96 9.25C10.16 9.05 10.26 8.9 10.41 8.65C10.56 8.4 10.51 8.2 10.41 8C10.31 7.8 9.87 6.65 9.67 6.15C9.47 5.65 9.27 5.7 9.12 5.7C8.97 5.7 8.77 5.7 8.57 5.7C8.37 5.7 8.07 5.75 7.82 6C7.57 6.25 7.06 6.75 7.06 7.9C7.06 9.05 8.32 10.25 8.47 10.45C8.62 10.65 9.87 12.65 11.82 13.54C13.77 14.44 14.32 14.74 14.82 14.89C15.32 15.04 15.97 14.99 16.32 14.69C16.72 14.34 17.19 13.74 17.34 13.39C17.49 13.04 17.54 12.74 17.44 12.49C17.34 12.24 17.24 12.14 17.04 11.94C16.84 11.74 16.69 11.64 16.54 11.49C16.39 11.34 16.24 11.19 16.39 10.94C16.54 10.69 16.99 11.29 17.19 11.49C17.39 11.69 17.54 11.84 17.64 11.99C17.74 12.14 17.84 12.44 17.74 12.84C17.64 13.24 17.64 13.93 17.44 14.43Z"/></svg>
                     اطلب معاينة مجانية الآن
