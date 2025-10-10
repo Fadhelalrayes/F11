@@ -1,242 +1,83 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أخبارنا وبحوثنا - بوابتك الإخبارية</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Changa:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
 <body>
-  <div class="container">
-    <header class="hero" role="banner">
-      <h1 class="heroTitle">تقويم الخسوف والكسوف | صلاة الآيات</h1>
+    <header class="main-header">
+        <div class="container">
+            <h1 class="logo">أخبارنا</h1>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="#">الرئيسية</a></li>
+                    <li><a href="#news-section">آخر الأخبار</a></li>
+                    <li><a href="#research-section">بحوث ومقالات</a></li>
+                    <li><a href="#">اقتصاد</a></li>
+                    <li><a href="#">تكنولوجيا</a></li>
+                    <li><a href="#">اتصل بنا</a></li>
+                </ul>
+            </nav>
+        </div>
     </header>
-    <main>
-      <section class="nextBox" id="nextBox" aria-live="polite" aria-labelledby="next-title">
-        <h2 id="next-title" class="nextTitle">الحدث الفلكي القادم</h2>
-        <div class="nextDate" id="nextDate">—</div>
-        <div class="eventName" id="eventName">—</div>
-        <div class="whenCol">
-          <span class="tag" id="tStart">يبدأ: —</span>
-          <span class="tag" id="tMax">الأعظم: —</span>
-          <span class="tag" id="tEnd">ينتهي: —</span>
+
+    <div class="hero-section">
+        <div class="container">
+            <div class="hero-news">
+                <h2>أحدث المستجدات في عالم الأخبار والبحوث</h2>
+                <p>تابع أهم الأحداث والتحليلات العميقة من مصادر موثوقة.</p>
+                <a href="#news-section" class="btn-read-more">تصفح الآن</a>
+            </div>
         </div>
-        <div class="ruleLine" id="nextRuling">الحكم الشرعي للصلاة : واجبة</div>
-      </section>
-      <div class="tzActions"><button class="btn primary" id="openTZ" type="button">تغيير المنطقة الزمنية</button></div>
-      <section class="row" aria-label="معلومات التوقيت الحالية">
-        <div class="chip"><div class="stack"><div class="label">التاريخ الميلادي</div><div class="value" id="greg">—</div></div></div>
-        <div class="chip"><div class="stack"><div class="label">المنطقة الزمنية</div><div class="value" id="tzLabel">—</div></div></div>
-      </section>
-      <section class="rulingBox" aria-labelledby="rulings-title">
-        <h2 id="rulings-title">أحكام صلاة الآيات</h2>
-        <div class="rulingGrid">
-          <article class="rCard" aria-labelledby="rule-def-title">
-            <h3 id="rule-def-title">تعريف</h3><p>صلاة واجبة عند الظواهر المخوفة مثل الكسوف والخسوف، وتؤدّى بنية صلاة الآيات تقربًا إلى الله تعالى.</p>
-          </article>
-          <article class="rCard" aria-labelledby="rule-how-title">
-            <h3 id="rule-how-title">الطريقة</h3><p>ركعتان، في كل ركعة خمسة ركوعات ثم سجدتان. تعاد الركعة الثانية كذلك، ثم التشهد والسلام.</p><p>القراءة: إمّا الفاتحة وسورة كاملة لكل قيام، أو تجزئة سورة واحدة على القيامات الخمسة.</p>
-          </article>
-          <article class="rCard" aria-labelledby="rule-gen-title">
-            <h3 id="rule-gen-title">الأحكام العامة</h3><ul class="rList"><li>واجبة عند حدوث الكسوف أو الخسوف ولو جزئيًا.</li><li>وقتها: من ابتداء الظاهرة إلى تمام الانجلاء.</li><li>القضاء: من علم بالظاهرة ولم يصلِّ حتى انجلت وجب عليه القضاء. من لم يعلم بها: يقضي إن كان كليًا فقط.</li></ul>
-          </article>
-          <article class="rCard" aria-labelledby="rule-exc-title">
-            <h3 id="rule-exc-title">ذوو الأعذار (النساء)</h3><ul class="rList"><li>الحائض والنفساء: لا تجب الصلاة حال العذر، ولا قضاء لما فات زمن العذر.</li><li>إن طهرت أثناء بقاء وقت الظاهرة صلّت ما دام الوقت باقيًا.</li></ul>
-          </article>
-        </div>
-      </section>
-      <section class="defsGrid" aria-labelledby="defs-title">
-        <article class="defCard defWide">
-          <h2 id="defs-title">الكسوف والخسوف: التعريف الفلكي</h2>
-          <p>ظاهرتان فلكيتان مختلفتان تمامًا: الكسوف للشمس والخسوف للقمر.</p>
-        </article>
-        <article class="defCard" aria-labelledby="solar-eclipse-title">
-          <h3 id="solar-eclipse-title">الكسوف الشمسي</h3><p>حجب الشمس عن الأرض عندما يمرّ القمر بين الشمس والأرض فيَحجُب ضوءها كليًا أو جزئيًا.</p><ul class="bul"><li>المحجوب: الشمس</li><li>الترتيب: الشمس - القمر - الأرض</li></ul>
-        </article>
-        <article class="defCard" aria-labelledby="lunar-eclipse-title">
-          <h3 id="lunar-eclipse-title">الخسوف القمري</h3><p>وقوع القمر في ظلّ الأرض عندما تكون الأرض بين الشمس والقمر؛ فيبدو القمر مظلمًا أو محمرًا.</p><ul class="bul"><li>المحجوب: القمر</li><li>الترتيب: الشمس - الأرض - القمر</li></ul>
-        </article>
-      </section>
-      <section class="upcoming" id="upcoming" aria-labelledby="upcoming-title">
-        <h2 id="upcoming-title">الخسوف والكسوف القادمة</h2>
-        <p class="uDesc">أقرب خمسة أحداث قادمة عالميًا: التاريخ بالعربية، ووقت أعظم الظاهرة محليًا وبتوقيت UTC.</p>
-        <div class="uList" id="uList"><div class="uItem"><div class="uName">جارٍ التحميل</div><div class="uWhen"><span class="l">...</span><span class="z">...</span></div></div></div>
-      </section>
-    </main>
-    <aside class="sourcesBar" aria-label="مصادر معتمدة">
-      <label for="srcSel">المصادر المعتمدة:</label>
-      <select id="srcSel" aria-label="اختيار مصدر">
-        <optgroup label="مصادر فلكية">
-          <option value="https://eclipse.gsfc.nasa.gov/SEdecade/SEdecade2021.html">NASA GSFC — Solar Eclipses 2021-2030</option>
-          <option value="https://eclipse.gsfc.nasa.gov/LEdecade/LEdecade2021.html">NASA GSFC — Lunar Eclipses 2021-2030</option>
-          <option value="https://www.timeanddate.com/eclipse/">TimeandDate — Eclipses</option>
-          <option value="https://www.eclipsewise.com/">EclipseWise</option>
-        </optgroup>
-        <optgroup label="مصادر فقهية (موقع السيد السيستاني)">
-          <option value="https://www.sistani.org/arabic/qa/0551/">استفتاءات صلاة الآيات</option>
-          <option value="https://www.sistani.org/arabic/book/23720/4663/">موارد وجوب صلاة الآيات</option>
-          <option value="https://www.sistani.org/arabic/book/23720/4664/">وقت صلاة الآيات</option>
-          <option value="https://www.sistani.org/arabic/book/23720/4665/">كيفية صلاة الآيات</option>
-        </optgroup>
-      </select>
-      <button type="button" id="openSrc" class="btn primary">فتح المصدر المحدد</button>
-    </aside>
-    <footer><p class="credit">برمجة وتطوير فاضل الريس</p></footer>
-  </div>
-  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-    <div class="box">
-      <h2 id="modal-title" style="text-align:center; margin-top:0;">تغيير المنطقة الزمنية</h2>
-      <div class="rowCtrl"><label for="tzSel">اختر المنطقة:</label><select id="tzSel"></select></div>
-      <div class="actions">
-        <button class="btn" id="cancelTZ" type="button">إلغاء</button>
-        <button class="btn primary" id="saveTZ" type="button">حفظ</button>
-      </div>
     </div>
-  </div>
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  const SYSTEM_TZ = Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC';
-  let tz = localStorage.getItem('eclipse_tz') || SYSTEM_TZ;
+    <div class="container main-content">
+        <aside class="sidebar">
+            <div class="sidebar-widget">
+                <h3>أخبار عاجلة</h3>
+                <ul class="breaking-news" id="breaking-news-list">
+                    <li><a href="#">جاري التحميل...</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-widget">
+                <h3>الأكثر قراءة (قريبًا)</h3>
+                <ul class="most-read">
+                    <li><a href="#">سيتم عرض المقالات الأكثر قراءة هنا.</a></li>
+                </ul>
+            </div>
+        </aside>
 
-  function fmtDateFull(d, zone){ return new Intl.DateTimeFormat('ar', {timeZone: zone, weekday:'long', year:'numeric', month:'long', day:'numeric'}).format(d); }
-  function fmtHMS12(d, zone){ return new Intl.DateTimeFormat('en-US', {timeZone: zone, hour:'2-digit', minute:'2-digit', second:'2-digit', hour12:true}).format(d); }
-  function fmtHMS12UTC(iso){ return new Intl.DateTimeFormat('en-US', {timeZone: 'UTC', hour:'2-digit', minute:'2-digit', second:'2-digit', hour12:true}).format(new Date(iso)); }
-  function toTZ(iso, zone){
-    const d = new Date(iso);
-    const parts = new Intl.DateTimeFormat('en-CA', { timeZone: zone, year:'numeric', month:'2-digit', day:'2-digit', hour:'2-digit', minute:'2-digit', second:'2-digit', hourCycle: 'h23' }).formatToParts(d);
-    const g = t => +(parts.find(p=>p.type===t)?.value || 0);
-    return new Date(Date.UTC(g('year'), g('month')-1, g('day'), g('hour') === 24 ? 0 : g('hour'), g('minute'), g('second')));
-  }
+        <main class="news-main">
+            <h2 class="section-title" id="news-section">آخر الأخبار</h2>
+            <div class="news-grid" id="news-container">
+                <p class="loading-message">جاري تحميل آخر الأخبار...</p>
+                <!-- الأخبار سيتم إضافتها هنا بواسطة JavaScript -->
+            </div>
 
-  const EVENTS = [
-    { id:"LE-2025-09-07", kind:"خسوف قمري كلي", p1:"2025-09-07T15:28:21Z", u1:"2025-09-07T16:27:02Z", u2:"2025-09-07T17:30:41Z", greatest:"2025-09-07T18:11:43Z", u3:"2025-09-07T18:52:47Z", u4:"2025-09-07T19:56:26Z", p4:"2025-09-07T20:55:00Z" },
-    { id:"SE-2025-09-21", kind:"كسوف شمسي جزئي", p1:"2025-09-21T17:30:51Z", greatest:"2025-09-21T19:43:04Z", p4:"2025-09-21T21:54:55Z" },
-    { id:"SE-2026-02-17", kind:"كسوف شمسي حلقي", p1:"2026-02-17T09:57:36Z", greatest:"2026-02-17T12:13:06Z", p4:"2026-02-17T14:28:51Z" },
-    { id:"LE-2026-03-03", kind:"خسوف قمري كلي", p1:"2026-03-03T08:44:22Z", u1:"2026-03-03T09:50:00Z", u2:"2026-03-03T11:04:26Z", greatest:"2026-03-03T11:33:37Z", u3:"2026-03-03T12:02:45Z", u4:"2026-03-03T13:17:10Z", p4:"2026-03-03T14:22:59Z" },
-    { id:"SE-2026-08-12", kind:"كسوف شمسي كلي", p1:"2026-08-12T15:34:15Z", greatest:"2026-08-12T17:46:06Z", p4:"2026-08-12T19:57:57Z" },
-    { id:"LE-2026-08-28", kind:"خسوف قمري جزئي", p1:"2026-08-28T01:23:58Z", u1:"2026-08-28T02:33:54Z", greatest:"2026-08-28T04:12:53Z", u4:"2026-08-28T05:51:59Z", p4:"2026-08-28T07:01:47Z" },
-    { id:"SE-2027-02-06", kind:"كسوف شمسي حلقي", p1:"2027-02-06T12:58:47Z", greatest:"2027-02-06T16:00:48Z", p4:"2027-02-06T19:02:50Z" },
-    { id:"SE-2027-08-02", kind:"كسوف شمسي كلي", p1:"2027-08-02T07:30:11Z", greatest:"2027-08-02T10:06:40Z", p4:"2027-08-02T12:43:10Z" }
-  ];
+            <h2 class="section-title" id="research-section">بحوث ومقالات متخصصة</h2>
+            <div class="news-grid" id="research-container">
+                <p class="loading-message">جاري تحميل البحوث والمقالات...</p>
+                <!-- البحوث سيتم إضافتها هنا بواسطة JavaScript -->
+            </div>
+        </main>
+    </div>
 
-  function nextOrCurrent(){
-    const now = new Date();
-    const sorted = [...EVENTS].sort((a,b)=> new Date(a.p1 || a.greatest) - new Date(b.p1 || b.greatest));
-    for(const ev of sorted){
-      const end = new Date(ev.p4 || ev.u4 || ev.greatest);
-      if(now <= end) return {ev, state: 'upcoming'};
-    }
-    return {ev: sorted[sorted.length-1], state:'past'};
-  }
+    <footer class="main-footer">
+        <div class="container">
+            <p>&copy; 2023 أخبارنا وبحوثنا. جميع الحقوق محفوظة.</p>
+            <div class="social-links">
+                <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </footer>
 
-  function renderEvent(){
-    const {ev, state} = nextOrCurrent();
-    document.getElementById('eventName').textContent = ev.kind;
-    const startLocal = toTZ(ev.p1 || ev.greatest, tz);
-    document.getElementById('nextDate').textContent = fmtDateFull(startLocal, tz);
-    const s = ev.p1 ? fmtHMS12(toTZ(ev.p1, tz), tz) : '—';
-    const g = ev.greatest ? fmtHMS12(toTZ(ev.greatest, tz), tz) : '—';
-    const e = (ev.p4 || ev.u4) ? fmtHMS12(toTZ(ev.p4 || ev.u4, tz), tz) : '—';
-    document.getElementById('tStart').textContent = "يبدأ: " + s;
-    document.getElementById('tMax').textContent   = "الأعظم: " + g;
-    document.getElementById('tEnd').textContent   = "ينتهي: " + e;
-    document.getElementById('nextRuling').textContent = "الحكم الشرعي للصلاة : واجبة";
-    updateEventSchema(ev, state);
-  }
-
-  function renderUpcoming(){
-    const now = new Date();
-    const future = [...EVENTS]
-      .filter(e => new Date(e.p1 || e.greatest) > now)
-      .sort((a,b)=> new Date(a.p1||a.greatest) - new Date(b.p1||b.greatest))
-      .slice(0,5);
-
-    const uList = document.getElementById('uList');
-    if(!future.length){
-      uList.innerHTML = `<div class="uItem"><div class="uName">لا توجد أحداث قادمة ضمن البيانات الحالية</div></div>`;
-    } else {
-      uList.innerHTML = future.map(e=>{
-        const dLocal = fmtDateFull(toTZ(e.greatest || e.p1, tz), tz);
-        const tLocal = fmtHMS12(toTZ(e.greatest || e.p1, tz), tz);
-        const tUTC   = fmtHMS12UTC(e.greatest || e.p1);
-        return `<div class="uItem"><div class="uName">${e.kind}</div><div class="uWhen"><span class="l">${dLocal} - ${tLocal}</span><span class="z">UTC: ${tUTC}</span></div></div>`;
-      }).join('');
-    }
-    updateListSchema(future);
-  }
-
-  const pageUrl = "https://fadhelalrayes.github.io/F11/";
-  const mainUrl = "https://fadhelalrayes.github.io/";
-
-  function updateEventSchema(ev, state) {
-    const ld = {
-      "@context": "https://schema.org",
-      "@type": "Event",
-      "name": ev.kind,
-      "startDate": ev.p1 || ev.greatest,
-      "endDate": ev.p4 || ev.u4 || ev.greatest,
-      "description": `تقويم فلكي لظاهرة ${ev.kind} مع مواعيد البداية والنهاية والذروة حسب التوقيت المحلي، بالإضافة إلى الأحكام الشرعية المتعلقة بصلاة الآيات.`,
-      "eventStatus": state === 'past' ? "https://schema.org/EventPostponed" : "https://schema.org/EventScheduled",
-      "eventAttendanceMode": "https://schema.org/OnlineEventAttendanceMode",
-      "location": { "@type": "VirtualLocation", "url": pageUrl },
-      "organizer": { "@type": "Person", "name": "فاضل الريس", "url": mainUrl },
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "SAR",
-        "availability": "https://schema.org/InStock",
-        "url": pageUrl
-      }
-    };
-    document.getElementById('ld-json').textContent = JSON.stringify(ld, null, 2);
-  }
-
-  function updateListSchema(futureEvents) {
-    const list = {
-      "@context": "https://schema.org",
-      "@type": "ItemList",
-      "name": "الأحداث الفلكية القادمة - الخسوف والكسوف",
-      "itemListElement": futureEvents.map((e,i)=>({
-        "@type": "ListItem",
-        "position": i+1,
-        "item": {
-          "@type": "Event",
-          "name": e.kind,
-          "startDate": e.p1 || e.greatest,
-          "endDate": e.p4 || e.u4 || e.greatest,
-          "location": { "@type": "VirtualLocation", "url": pageUrl },
-          "organizer": { "@type": "Person", "name": "فاضل الريس", "url": mainUrl }
-        }
-      }))
-    };
-    document.getElementById('ld-list').textContent = JSON.stringify(list, null, 2);
-  }
-
-  const TZ_LIST = ["UTC","Asia/Bahrain","Asia/Riyadh","Asia/Kuwait","Asia/Baghdad","Asia/Tehran","Asia/Beirut","Asia/Dubai","Asia/Qatar","Africa/Cairo","Europe/Istanbul","Europe/Athens","Europe/Paris","Europe/London","America/New_York","America/Toronto","Asia/Karachi","Asia/Kolkata","Asia/Tokyo"];
-  function renderMeta(){
-    document.getElementById('tzLabel').textContent = tz;
-    document.getElementById('greg').textContent = fmtDateFull(new Date(), tz);
-  }
-  const modal = document.getElementById('modal');
-  const tzSel  = document.getElementById('tzSel');
-  document.getElementById('openTZ').addEventListener('click', ()=>{
-    tzSel.innerHTML = TZ_LIST.map(z=>`<option value="${z}" ${z === tz ? 'selected' : ''}>${z}</option>`).join("");
-    modal.classList.add('open'); document.body.style.overflow='hidden';
-  });
-  document.getElementById('cancelTZ').addEventListener('click', ()=>{ modal.classList.remove('open'); document.body.style.overflow=''; });
-  document.getElementById('saveTZ').addEventListener('click', ()=>{
-    tz = tzSel.value || SYSTEM_TZ;
-    localStorage.setItem('eclipse_tz', tz);
-    modal.classList.remove('open');
-    document.body.style.overflow='';
-    renderMeta(); renderEvent(); renderUpcoming();
-  });
-  modal.addEventListener('click', (e)=>{ if(e.target===modal){ modal.classList.remove('open'); document.body.style.overflow=''; } });
-
-  /* زر فتح المصدر */
-  document.getElementById('openSrc').addEventListener('click', ()=>{
-    const url = document.getElementById('srcSel').value;
-    if(url) window.open(url, '_blank', 'noopener,noreferrer');
-  });
-
-  /* تشغيل أولي */
-  renderMeta();
-  renderEvent();
-  renderUpcoming();
-});
-</script>
+    <script src="script.js"></script>
 </body>
 </html>
