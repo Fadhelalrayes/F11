@@ -1,427 +1,588 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>حِكم وأقوال رسول الله صلى الله عليه وآله وسلم</title>
-    <style>
-        /* --- إعدادات الخطوط والألوان --- */
-        :root {
-            --page-bg: #f4f1eb; /* لون ورق قديم أكثر دفئًا */
-            --book-bg: #fff;
-            --text-color: #4a403a; /* لون بني داكن للنص */
-            --title-color: #8a6d3b; /* لون بني ذهبي للعناوين */
-            --decorator-color: #c8b59a; /* لون الزخرفة */
-            --border-color: #e0d9ce;
-        }
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
 
-        /* --- تنسيق أساسي للجسم --- */
-        html {
-            scroll-behavior: smooth; /* تفعيل التمرير الناعم */
-        }
-        body {
-            font-family: 'Amiri', 'Noto Naskh Arabic', serif;
-            background-color: var(--page-bg);
-            color: var(--text-color);
-            margin: 0;
-            padding: 0;
-        }
+<title>مواقيت الصلاة وفق المذهب الجعفري | أبيض–ذهبي–أسود</title>
+<meta name="description" content="مواقيت الصلاة وفق المذهب الجعفري بتصميم فاتح أبيض مع لمسات ذهبية وسوداء؛ عرض الحدث القادم والعدّاد الذكي والتاريخ الهجري.">
+<link rel="canonical" href="">
+<link rel="alternate" hreflang="ar" href="">
 
-        /* --- الحاوية الرئيسية بتصميم الكتاب --- */
-        .book-container {
-            max-width: 800px;
-            margin: 50px auto;
-            padding: 50px 70px;
-            background-color: var(--book-bg);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.12);
-            border: 1px solid var(--border-color);
-            position: relative;
-        }
+<!-- Open Graph / Twitter -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="مواقيت الصلاة الجعفرية — أبيض–ذهبي–أسود">
+<meta property="og:description" content="مواقيت دقيقة، حدث قادم، عدّاد، وتاريخ هجري بتصميم رسمي فاتح.">
+<meta property="og:locale" content="ar_AR">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="مواقيت الصلاة الجعفرية — أبيض–ذهبي–أسود">
+<meta name="twitter:description" content="مواقيت دقيقة، حدث قادم، عدّاد، وتاريخ هجري بتصميم رسمي فاتح.">
 
-        /* --- تنسيق العنوان الرئيسي --- */
-        .main-title {
-            text-align: center;
-            font-size: 3.2em;
-            color: var(--title-color);
-            margin-bottom: 10px;
-            font-weight: 700;
-        }
-        
-        .subtitle {
-            text-align: center;
-            font-size: 1.3em;
-            color: var(--decorator-color);
-            margin-top: 0;
-            margin-bottom: 50px;
-            font-style: italic;
-        }
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Reem+Kufi:wght@600&family=Tajawal:wght@400;700;800&display=swap" rel="stylesheet">
 
-        /* --- تنسيق فقرة الحديث --- */
-        .hadith-block {
-            margin-bottom: 30px;
-            /* إعدادات تأثير الظهور التدريجي */
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-        }
-        .hadith-block.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        /* --- تنسيق نص الحديث --- */
-        .hadith-text {
-            font-size: 1.5em; /* تكبير طفيف لزيادة الوضوح */
-            font-weight: bold;
-            line-height: 1.9;
-            text-align: justify;
-            margin-bottom: 15px;
-        }
-        
-        .hadith-text .number {
-            color: var(--title-color);
-            font-weight: bold;
-            font-size: 1.2em;
-            margin-left: 10px;
-        }
+<!-- Structured Data -->
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"WebApplication",
+  "name":"مواقيت الصلاة وفق المذهب الجعفري",
+  "applicationCategory":"UtilitiesApplication",
+  "operatingSystem":"Web",
+  "inLanguage":"ar",
+  "description":"مواقيت الصلاة وفق المذهب الجعفري مع حدث قادم وعدّاد وتاريخ هجري.",
+  "url":""
+}
+</script>
 
-        /* --- تنسيق نص الشرح --- */
-        .explanation-text {
-            font-size: 1.15em;
-            line-height: 2.0; /* زيادة ارتفاع السطر لراحة أكبر في القراءة */
-            text-align: justify;
-            color: var(--text-color);
-            padding-right: 20px;
-            border-right: 2px solid var(--decorator-color);
-        }
+<style>
+  /* لوحة فاتحة: أبيض مع ذهبي وأسود */
+  :root{
+    --bg:#fafafa;
+    --card:#ffffff;
+    --ink:#111111;
+    --muted:#6b7280;
+    --gold:#d4af37;
+    --gold-2:#b28d2b;
+    --border:#e6e2d2;
+    --glow:0 10px 26px rgba(180,150,40,.12);
+    --hadith:#7a5a00;
+    --row-grad:linear-gradient(90deg, rgba(212,175,55,.16), rgba(0,0,0,.03) 60%, transparent);
+    --chip-grad:linear-gradient(135deg, rgba(212,175,55,.10), rgba(0,0,0,.02));
+    --accent-txt:linear-gradient(90deg, var(--gold), #ffdf7f);
+  }
 
-        /* --- فاصل مزخرف --- */
-        .decorator {
-            text-align: center;
-            margin: 45px 0;
-            color: var(--decorator-color);
-            font-size: 1.8em;
-            opacity: 0; /* للتحريك */
-            transform: translateY(20px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-        }
-        .decorator.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        .decorator::before, .decorator::after {
-            content: '';
-            display: inline-block;
-            width: 35%;
-            height: 1px;
-            background: linear-gradient(to left, var(--decorator-color), transparent);
-            vertical-align: middle;
-            margin: 0 15px;
-        }
-        .decorator::after {
-             background: linear-gradient(to right, var(--decorator-color), transparent);
-        }
+  *{box-sizing:border-box}
+  body{
+    margin:0; padding:20px; background:var(--bg);
+    color:var(--ink);
+    font-family:"Tajawal",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+  }
+  .container{width:min(1100px,100%); margin:auto; display:flex; flex-direction:column; gap:18px}
 
-        /* --- تنسيق التذييل --- */
-        .footer {
-            text-align: left;
-            margin-top: 60px;
-            padding-top: 20px;
-            border-top: 1px solid var(--border-color);
-            font-size: 1.1em;
-            color: var(--title-color);
-            font-style: italic;
-            opacity: 0; /* للتحريك */
-            transform: translateY(20px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-        }
-        .footer.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        /* --- زر العودة للأعلى --- */
-        #scrollTopBtn {
-            display: none;
-            position: fixed;
-            bottom: 25px;
-            right: 25px;
-            z-index: 99;
-            border: none;
-            outline: none;
-            background-color: var(--title-color);
-            color: white;
-            cursor: pointer;
-            padding: 12px;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            font-size: 20px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            transition: background-color 0.3s, opacity 0.3s;
-        }
-        #scrollTopBtn:hover {
-            background-color: #6c542d;
-        }
+  .hero{
+    position:relative; overflow:hidden;
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:18px;
+    box-shadow:var(--glow);
+    padding:22px; text-align:center;
+  }
+  .hero::before{
+    content:""; position:absolute; inset:-35% -20% auto auto; height:210px; width:65%;
+    background: radial-gradient(closest-side, rgba(212,175,55,.18), rgba(212,175,55,.08) 60%, transparent);
+    filter: blur(18px); pointer-events:none;
+  }
+  .heroTitle{
+    margin:0; font-family:"Reem Kufi",sans-serif; font-size:1.8rem; letter-spacing:.2px;
+    background:var(--accent-txt); -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
 
-        /* --- تعديل للشاشات الصغيرة --- */
-        @media (max-width: 768px) {
-            .book-container {
-                margin: 0;
-                padding: 25px;
-                border: none;
-                box-shadow: none;
-            }
-            .main-title { font-size: 2.2em; }
-            .hadith-text { font-size: 1.3em; }
-            .explanation-text { font-size: 1.05em; }
-        }
+  .locationBox{
+    display:flex; justify-content:space-between; align-items:center; gap:10px;
+    background:var(--card); border:1px solid var(--border);
+    border-radius:16px; box-shadow:var(--glow); padding:14px;
+  }
+  .place{font-weight:900; font-size:1.08rem; color:#0b0b0b}
+  .subPlace{font-size:.9rem; color:var(--muted)}
 
-    </style>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  .nextBox{
+    background:var(--card); border:1px solid var(--border); border-radius:16px; box-shadow:var(--glow); padding:16px; display:grid; gap:10px
+  }
+  .nextTitle{
+    font-weight:900; text-align:center;
+    background:var(--accent-txt); -webkit-background-clip:text; background-clip:text; color:transparent;
+    letter-spacing:.35px;
+  }
+  .nextRow{display:flex; justify-content:space-between; align-items:center; font-weight:800}
+  .nextName{font-size:1.06rem}
+  .nextAt{
+    font-variant-numeric:tabular-nums;
+    color:#111; padding:.28rem .6rem; border:1px solid var(--border); border-radius:10px; background:#fff;
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,.02);
+  }
+  .countdown{display:flex; justify-content:center; gap:10px; font-weight:900; font-size:1.6rem; letter-spacing:.5px; direction:ltr}
+  .cd-seg{
+    min-width:2ch; text-align:center; padding:.32rem .72rem;
+    border:1px solid #eadfb7;
+    border-radius:12px; background:#fff
+  }
+  .cd-colon{opacity:.7}
+  .note{font-size:.92rem; color:var(--muted); text-align:center}
+
+  .infoRow{display:grid; grid-template-columns:1fr 1fr; gap:16px}
+  @media(max-width:720px){.infoRow{grid-template-columns:1fr}}
+  .chip{
+    background:var(--card); border:1px solid var(--border); border-radius:16px; box-shadow:var(--glow); padding:12px;
+    display:flex; align-items:center; gap:12px;
+    background-image:var(--chip-grad);
+  }
+  .ico{
+    width:38px; height:38px; display:grid; place-items:center; border-radius:10px;
+    background:radial-gradient(circle at 30% 30%, rgba(212,175,55,.28), rgba(212,175,55,.08) 60%, transparent);
+    border:1px solid #eadfb7;
+    color:#111; font-size:1.2rem
+  }
+  .stack{display:flex; flex-direction:column}
+  .label{font-size:.86rem; color:var(--muted); font-weight:800}
+  .value{font-weight:900; font-size:1.02rem; font-variant-numeric:tabular-nums}
+
+  .card{
+    background:var(--card); border:1px solid var(--border); border-radius:16px; box-shadow:var(--glow); padding:12px
+  }
+  .card h3{
+    margin:0 0 10px; font-size:1.05rem; font-weight:900; text-align:center;
+    background:var(--accent-txt); -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  table{width:100%; border-collapse:collapse}
+  th,td{padding:12px; border-bottom:1px solid #eee7c9; font-size:1rem}
+  th{background:#fffaf0; font-weight:900; color:#111}
+  td.name{text-align:right; font-weight:800}
+  td.time{text-align:left; font-weight:900}
+  tr.next td{background:var(--row-grad)}
+
+  .events{display:none; background:var(--card); border:1px solid var(--border); border-radius:16px; box-shadow:var(--glow); padding:14px}
+  .events h3{
+    margin:0 0 8px; font-size:1.02rem; font-weight:900; text-align:center;
+    background:var(--accent-txt); -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .evtGrid{display:grid; grid-template-columns:1fr 1fr; gap:12px}
+  @media(max-width:720px){.evtGrid{grid-template-columns:1fr}}
+  .evtCol{border:1px dashed #eadfb7; border-radius:12px; padding:10px; background:#fff}
+  .evtCol h4{margin:0 0 6px; font-size:.95rem; color:#111}
+  .evtItem{padding:6px 0; border-bottom:1px solid #eee7c9}
+  .evtItem:last-child{border-bottom:none}
+  .evtText{font-weight:800}
+
+  .hadith{background:var(--card); border:1px solid var(--border); border-radius:16px; box-shadow:var(--glow); padding:16px; text-align:center}
+  .htext{margin:0; font-size:1.08rem; color:var(--hadith); line-height:1.9}
+  .hsrc{
+    display:inline-block; margin-top:12px; padding:6px 14px; border-radius:12px;
+    background:#fff; border:1px solid #eadfb7;
+    font-weight:800; color:#333
+  }
+
+  footer{text-align:center; margin-top:8px}
+  .credit{color:var(--hadith); font-weight:800}
+</style>
 </head>
 <body>
+  <div class="container">
+    <section class="hero" aria-labelledby="title">
+      <h1 id="title" class="heroTitle">مواقيت الصلاة وفق المذهب الجعفري</h1>
+    </section>
 
-    <div class="book-container">
-        <h1 class="main-title">حِكم وأقوال رسول الله</h1>
-        <p class="subtitle">صلى الله عليه وآله وسلم</p>
-
-        <!-- الحديث 1 -->
-        <div class="hadith-block">
-            <p class="hadith-text"><span class="number">١.</span>قال رسول الله(ص): يا ابن مسعود من اشتاق إلى الجنة سارع إلى الخيرات و من خاف النار ترك الشهوات و من ترقب الموت أعرض عن اللذات و من زهد في الدنيا هانت عليه المصيبات.</p>
-            <p class="explanation-text">يرشدنا هذا الحديث إلى أن الطريق إلى الجنة يمر عبر الإسراع في عمل الخير، وأن الخوف من عذاب النار يدفع المؤمن لترك ما تشتهيه النفس من المحرمات. كما أن تذكر الموت باستمرار يجعل الإنسان يزهد في ملذات الدنيا الفانية، ومن يترك التعلق بالدنيا تصبح مواجهة الصعاب والمصائب أسهل عليه.</p>
-        </div>
-
-        <div class="decorator">۞</div>
-
-        <!-- الحديث 2 -->
-        <div class="hadith-block">
-            <p class="hadith-text"><span class="number">٢.</span>قال النبي(ص): يا ابن مسعود فمن شرح الله صدره للإسلام فهو على نور من ربه فإن النور إذا وقع في القلب انشرح و انفسح فقيل يا رسول الله فهل لذلك من علامة فقال نعم التجافي عن دار الغرور و الإنابة إلى دار الخلود والاستعداد للموت قبل نزوله فمن زهد في الدنيا قصر أمله فيها وتركها لأهلها.</p>
-            <p class="explanation-text">يوضح الحديث أن الهداية نور من الله يقذفه في قلب المؤمن، فينشرح صدره للإسلام ويتقبله. علامة هذا الانشراح هي الابتعاد عن الدنيا الفانية (دار الغرور)، والشوق إلى الآخرة الباقية (دار الخلود)، والاستعداد الدائم للموت. من يصل لهذه المرحلة يقل تعلقه بالدنيا ويتركها لمن يسعى خلفها.</p>
-        </div>
-
-        <div class="decorator">۞</div>
-
-        <!-- الحديث 3 -->
-        <div class="hadith-block">
-            <p class="hadith-text"><span class="number">٣.</span>سُئل رسول الله (ص) أي المؤمنين أَكْيَسُ؟ قال أكثرهم ذكرا للموت و أشدهم استعدادا له.</p>
-            <p class="explanation-text">الإنسان الأكثر حكمة وفطنة بين المؤمنين هو الذي لا يغفل عن حقيقة الموت، ويعمل بجد واستمرار للاستعداد له من خلال الطاعات والأعمال الصالحة.</p>
-        </div>
-
-        <div class="decorator">۞</div>
-
-        <!-- الحديث 4 -->
-        <div class="hadith-block">
-            <p class="hadith-text"><span class="number">٤.</span>قال النبي(ص): لا يحملنكم استبطاء شي‏ء من الرزق أن تطلبوه بشي‏ء من معصية الله فإن الله تعالى قسم الأرزاق بين خلقه حلالا و لم يقسمها حراما فمن اتقى الله و صبر أتاه رزقه من حله و من هتك حجاب ستر الله عز و جل و أخذه من‏ غير حله قص به من رزقه الحلال و حوسب عليه.</p>
-            <p class="explanation-text">يحذر الحديث من التعجل في طلب الرزق واللجوء إلى الطرق المحرمة إذا تأخر. فالله قد قدر الأرزاق وجعلها حلالًا، ومن يصبر ويتقي الله سيأتيه رزقه من حيث لا يحتسب. أما من يستعجل ويأخذه بالحرام، فإن ذلك ينقص من رزقه الحلال الذي كان مقدرًا له وسيحاسب عليه.</p>
-        </div>
-
-        <div class="decorator">۞</div>
-
-        <!-- الحديث 5 -->
-        <div class="hadith-block">
-            <p class="hadith-text"><span class="number">٥.</span>عن رسول الله (ص):يا عباد الله أنتم كالمرضى و الله رب العالمين كالطبيب فصلاح المرضى فيما يعلمه الطبيب و يدبره به لا فيما يشتهيه المريض و يقترحه‏ ألا فسلموا لله أمره تكونوا من الفائزين.</p>
-            <p class="explanation-text">يشبه الحديث علاقة العبد بربه بعلاقة المريض بالطبيب. فكما أن شفاء المريض يكمن في اتباعه لوصفة الطبيب وليس ما تشتهيه نفسه، فإن صلاح العبد وفوزه يكمن في التسليم الكامل لأوامر الله وقضائه، لأنه سبحانه أعلم بما يصلح عباده.</p>
-        </div>
-
-        <div class="decorator">۞</div>
-
-        <!-- الحديث 6 -->
-        <div class="hadith-block">
-            <p class="hadith-text"><span class="number">٦.</span>قال النبي(ص): في القلب نور لا يضي‏ء إلا من اتباع الحق و قصد السبيل و هو نور من المرسلين الأنبياء مودع في قلوب المؤمنين.</p>
-            <p class="explanation-text">يؤكد هذا الحديث أن قلب المؤمن يحتوي على نور إلهي، وهذا النور لا يزداد إشراقًا إلا باتباع طريق الحق والصراط المستقيم. هذا النور هو إرث من الأنبياء والمرسلين يودعه الله في قلوب عباده المؤمنين ليهتدوا به.</p>
-        </div>
-
-        <div class="decorator">۞</div>
-
-        <!-- الحديث 7 -->
-        <div class="hadith-block">
-            <p class="hadith-text"><span class="number">٧.</span>قال النبي(ص): دع ما يريبك إلى ما لا يريبك فإنك لن تجد فقد شي‏ء تركته لله عز و جل.</p>
-            <p class="explanation-text">هذا الحديث قاعدة عظيمة في الورع والتقوى، حيث يدعو المسلم إلى ترك الأمور التي يشك في حرمتها أو ضررها، والأخذ بالأمور الواضحة الحلال التي لا شك فيها. ويؤكد أن من يترك شيئًا من أجل الله، فإن الله سيعوضه خيرًا منه.</p>
-        </div>
-
-        <div class="decorator">۞</div>
-
-        <!-- الحديث 8 -->
-        <div class="hadith-block">
-            <p class="hadith-text"><span class="number">٨.</span>قال النبي(ص): من تعلم حديثين اثنين ينفع بهما نفسه أو يعلمهما غيره فينتفع بهما كان خيرا من عبادة ستين سنة.</p>
-            <p class="explanation-text">يبرز هذا الحديث فضل العلم ونشره، وأن تعلم ونشر العلم النافع، ولو كان قليلًا كحديثين، له أجر عظيم يفوق أجر عبادة طويلة، لما فيه من نفع ذاتي ونفع متعدٍّ للآخرين.</p>
-        </div>
-
-        <div class="decorator">۞</div>
-
-        <!-- الحديث 9 -->
-        <div class="hadith-block">
-            <p class="hadith-text"><span class="number">٩.</span>قال رسول الله(ص): من أدى إلى أمتي حديثا يقام به سنة أو يثلم به بدعة فله الجنة.</p>
-            <p class="explanation-text">يبين الحديث الأجر العظيم لمن يساهم في نشر سنة النبي صلى الله عليه وآله وسلم أو محاربة البدع من خلال نقل حديث واحد. فمن يفعل ذلك بنية صادقة، فإن جزاءه الجنة، لما لعمله من أثر كبير في حفظ الدين.</p>
-        </div>
-
-        <div class="decorator">۞</div>
-
-        <!-- الحديث 10 -->
-        <div class="hadith-block">
-            <p class="hadith-text"><span class="number">١٠.</span>قال رسول الله(ص): ثلاث من لقي الله بهن دخل الجنة من أي باب شاء من حسن خلقه و خشي الله في المغيب و المحضر و ترك المراء و إن كان محقا.</p>
-            <p class="explanation-text">يوضح الحديث ثلاث خصال عظيمة تكون سببًا لدخول الجنة من أي أبوابها: أولها حُسن الخلق في التعامل مع الناس، وثانيها خشية الله في السر والعلن، وثالثها ترك الجدال العقيم (المراء) حتى لو كان الشخص على حق، لما في ذلك من حفظ للود ودرء للفتنة.</p>
-        </div>
-
-        <div class="decorator">۞</div>
-
-        <!-- الحديث 11 -->
-        <div class="hadith-block">
-            <p class="hadith-text"><span class="number">١١.</span>قال رسول الله(ص): أنا زعيم ببيت في ربض الجنة و بيت في وسط الجنة و بيت في أعلى الجنة لمن ترك المراء و إن كان محقا و لمن ترك الكذب و إن كان هازلا و لمن حسن خلقه.</p>
-            <p class="explanation-text">يضمن النبي صلى الله عليه وآله وسلم بيوتًا في الجنة لمن يتحلى بصفات ثلاث: بيت في أطراف الجنة لمن يترك الجدال حتى لو كان على صواب، وبيت في وسطها لمن يترك الكذب حتى في المزاح، وبيت في أعلاها لمن يحسن خلقه مع الناس.</p>
-        </div>
-
-        <div class="decorator">۞</div>
-
-        <!-- الحديث 12 -->
-        <div class="hadith-block">
-            <p class="hadith-text"><span class="number">١٢.</span>قال النبي(ص): إني لا أتخوف على أمتي مؤمنا و لا مشركا فأما المؤمن فيحجزه إيمانه و أما المشرك فيقمعه كفره‏ و لكن أتخوف عليكم منافقا عليم اللسان يقول ما تعرفون و يعمل ما تنكرون.</p>
-            <p class="explanation-text">يعبر النبي عن خوفه الشديد على أمته ليس من المؤمن الواضح أو الكافر الصريح، بل من المنافق الذي يمتلك فصاحة اللسان ويظهر الخير بلسانه بينما أفعاله تناقض أقواله وتخالف الشرع. فهذا النوع من الناس هو الأخطر لقدرته على تضليل الناس بكلامه المعسول.</p>
-        </div>
-
-        <div class="decorator">۞</div>
-
-        <!-- الحديث 13 -->
-        <div class="hadith-block">
-            <p class="hadith-text"><span class="number">١٣.</span>قال رسول الله(ص): من تعلم علما ليماري به السفهاء أو ليباهي به العلماء أو يصرف به الناس إلى نفسه يقول أنا رئيسكم فليتبوأ مقعده من النار إن الرئاسة لا تصلح إلا لأهلها فمن دعا الناس إلى نفسه و فيهم من هو أعلم منه لم ينظر الله إليه يوم القيامة.</p>
-            <p class="explanation-text">يحذر الحديث بشدة من طلب العلم لغير وجه الله، كأن يكون الهدف منه مجادلة الجهلاء، أو التفاخر على العلماء، أو جذب انتباه الناس طلبًا للرئاسة والشهرة. فمن كانت هذه نيته فقد استحق النار. كما أن طلب الرئاسة والزعامة لا يصلح إلا لمن هو أهل لها، ومن يتصدر الناس وفيهم من هو أعلم منه فقد عرض نفسه لغضب الله.</p>
-        </div>
-
-        <div class="decorator">۞</div>
-
-        <!-- الحديث 14 -->
-        <div class="hadith-block">
-            <p class="hadith-text"><span class="number">١٤.</span>قال رسول الله(ص): أيما رجل آتاه الله علما فكتمه و هو يعلمه لقي الله عز و جل يوم القيامة ملجما بلجام من نار.</p>
-            <p class="explanation-text">وعيد شديد لمن يبخل بعلمه الذي آتاه الله إياه ولا يعلمه للناس. فمن يكتم العلم النافع الذي يحتاجه الناس، يأتي يوم القيامة معاقبًا بأن يُلجم بلجام من نار.</p>
-        </div>
-
-        <div class="decorator">۞</div>
-
-        <!-- الحديث 15 -->
-        <div class="hadith-block">
-            <p class="hadith-text"><span class="number">١٥.</span>قال رسول الله(ص): ان الله يحب الصوت الخفيض و يبغض الصوت الرفيع.</p>
-            <p class="explanation-text">يرشد هذا الحديث إلى أدب من آداب الحديث وهو خفض الصوت. فالله سبحانه وتعالى يحب الحديث بصوت هادئ ومعتدل، ويكره رفع الصوت والصياح بغير حاجة، لما فيه من وقار وأدب.</p>
-        </div>
-
-        <div class="decorator">۞</div>
-
-        <!-- الحديث 16 -->
-        <div class="hadith-block">
-            <p class="hadith-text"><span class="number">١٦.</span>قال رسول الله(ص): من فقه الرجل قلة كلامه فيما لا يعنيه.</p>
-            <p class="explanation-text">من علامات حكمة الإنسان وفهمه لدينه أن يبتعد عن كثرة الكلام في الأمور التي لا تخصه ولا تعود عليه بالنفع في دينه أو دنياه.</p>
-        </div>
-
-        <div class="decorator">۞</div>
-
-        <!-- الحديث 17 -->
-        <div class="hadith-block">
-            <p class="hadith-text"><span class="number">١٧.</span>قال رسول الله(ص): أشد ما يتخوف على أمتي ثلاثة زلة عالم أو جدال منافق بالقرآن أو دنيا تقطع رقابكم فاتهموها على أنفسكم.</p>
-            <p class="explanation-text">يبين النبي صلى الله عليه وآله وسلم أشد ثلاثة أمور يخافها على أمته: الخطأ الذي يصدر من عالم ويتبعه الناس، وجدال المنافق الذي يستخدم القرآن ليحرف معانيه ويضلل به الناس، والانغماس في ملذات الدنيا والتنافس عليها مما يؤدي إلى الهلاك.</p>
-        </div>
-
-        <div class="decorator">۞</div>
-
-        <!-- الحديث 18 -->
-        <div class="hadith-block">
-            <p class="hadith-text"><span class="number">١٨.</span>قال رسول الله(ص): صنفان من أمتي إذا صلحا صلحت أمتي و إذا فسدا فسدت أمتي قيل يا رسول الله و من هما قال الفقهاء و الأمراء.</p>
-            <p class="explanation-text">يوضح الحديث أن صلاح الأمة كلها مرتبط بصلاح فئتين أساسيتين فيها: العلماء (الفقهاء) الذين يوجهون الناس بالعلم والحكمة، والحكام (الأمراء) الذين يديرون شؤون الناس بالعدل. فإذا صلحوا، صلحت الأمة، وإذا فسدوا، انتشر الفساد في الأمة.</p>
-        </div>
-
-        <div class="decorator">۞</div>
-
-        <!-- الحديث 19 -->
-        <div class="hadith-block">
-            <p class="hadith-text"><span class="number">١٩.</span>قال رسول الله(ص): و الذي نفسي بيده ما جمع شي‏ء إلى شي‏ء أفضل من حلم إلى علم.</p>
-            <p class="explanation-text">يقسم النبي صلى الله عليه وآله وسلم أن أفضل ما يمكن أن يجتمع في شخص واحد من خصال الخير هو الحلم (ضبط النفس والصبر) مع العلم. فالعلم بدون حلم قد يؤدي إلى الغرور والبطش، والحلم بدون علم قد يؤدي إلى الجهل والضعف.</p>
-        </div>
-
-        <div class="decorator">۞</div>
-
-        <!-- الحديث 20 -->
-        <div class="hadith-block">
-            <p class="hadith-text"><span class="number">٢٠.</span>قال النبي(ص): نعم وزير الإيمان العلم و نعم وزير العلم الحلم و نعم وزير الحلم الرفق و نعم وزير الرفق اللين.</p>
-            <p class="explanation-text">يصور الحديث مجموعة من الأخلاق المتكاملة التي يعزز بعضها بعضًا. فالعلم هو أفضل معين ومساعد للإيمان، والحلم هو أفضل معين للعلم، والرفق هو أفضل معين للحلم، واللين هو أفضل معين للرفق.</p>
-        </div>
-
-        <div class="decorator">۞</div>
-
-        <!-- الحديث 21 -->
-        <div class="hadith-block">
-            <p class="hadith-text"><span class="number">٢١.</span>قال النبي(ص): ليس من أخلاق المؤمن الملق إلا في طلب العلم.</p>
-            <p class="explanation-text">الملق وهو التودد الزائد والتملق، هو خلق مذموم بشكل عام في شخصية المؤمن. ولكن يُستثنى من ذلك إذا كان بهدف طلب العلم، حيث يُقبل التواضع والتودد للمعلم من أجل الحصول على المعرفة.</p>
-        </div>
-
-        <div class="decorator">۞</div>
-
-        <!-- الحديث 22 -->
-        <div class="hadith-block">
-            <p class="hadith-text"><span class="number">٢٢.</span>قال رسول الله(ص): غريبتان فاحتملوهما كلمة حكمة من سفيه فاقبلوها و كلمة سفه من حكيم فاغفروها.</p>
-            <p class="explanation-text">يوجهنا هذا الحديث إلى كيفية التعامل مع موقفين قد يبدوان غريبين: الأول هو أن نسمع كلمة حكمة من شخص غير حكيم (سفيه)، فعلينا أن نقبل الحكمة ولا نرفضها بسبب قائلها. والثاني هو أن نسمع كلمة غير لائقة (سفه) من شخص حكيم، فعلينا أن نلتمس له العذر ونغفر له زلته.</p>
-        </div>
-
-        <div class="decorator">۞</div>
-
-        <!-- الحديث 23 -->
-        <div class="hadith-block">
-            <p class="hadith-text"><span class="number">٢٣.</span>قال رسول الله(ص): ارحموا عزيزا ذل و غنيا افتقر و عالما ضاع في زمان جهال.</p>
-            <p class="explanation-text">يدعو الحديث إلى التحلي بالرحمة والشفقة تجاه ثلاث فئات من الناس يمرون بظروف قاسية: الشخص الذي كان له منصب ومكانة ثم فقدها، والشخص الغني الذي أصبح فقيرًا، والعالم الذي يعيش في مجتمع لا يقدر علمه ويضيع بين الجهلاء.</p>
-        </div>
-
-        <div class="decorator">۞</div>
-
-        <!-- الحديث 24 -->
-        <div class="hadith-block">
-            <p class="hadith-text"><span class="number">٢٤.</span>قال رسول الله(ص): من طلب العلم لأربع دخل النار ليباهي به العلماء أو يماري به السفهاء أو ليصرف به وجوه الناس إليه أو يأخذ به من الأمراء.</p>
-            <p class="explanation-text">هذا الحديث هو تحذير آخر حول خطورة النوايا السيئة في طلب العلم. فمن يطلب العلم لأحد هذه الأغراض الأربعة: التفاخر على العلماء، أو مجادلة السفهاء، أو لفت أنظار الناس إليه، أو كوسيلة للتقرب من الحكام ونيل عطاياهم، فإن جزاءه هو النار.</p>
-        </div>
-
-        <div class="decorator">۞</div>
-
-        <!-- الحديث 25 -->
-        <div class="hadith-block">
-            <p class="hadith-text"><span class="number">٢٥.</span>قال رسول الله(ص): لا تعلموا العلم لتماروا به السفهاء وتجادلوا به العلماء ولتصرفوا وجوه الناس إليكم و ابتغوا بقولكم ما عند الله فإنه يدوم ويبقى وينفد ما سواه كونوا ينابيع الحكمة مصابيح الهدى أحلاس البيوت‏ سرج الليل جدد القلوب‏ خلقان الثياب‏ تعرفون في أهل السماء وتخفون في أهل الأرض.</p>
-            <p class="explanation-text">يختتم بهذه الوصية الجامعة التي تنهى عن طلب العلم للمباهاة والجدال ولفت الأنظار، وتأمر بإخلاص النية لله وابتغاء ما عنده. ثم يرسم صورة للمؤمن الحقيقي: فهو ينبوع للحكمة، ومصباح للهداية، ملازم لبيته بعيدًا عن الفتن، منير ليله بالعبادة، قلبه متجدد بالإيمان وإن كانت ثيابه بالية، مشهور بالصلاح عند أهل السماء ومغمور بين أهل الأرض.</p>
-        </div>
-
-        <div class="footer">
-            <p>جمع وإعداد: فاضل الريس</p>
-        </div>
+    <div class="locationBox" aria-live="polite">
+      <div>
+        <div class="place" id="place">—</div>
+        <div class="subPlace" id="subPlace"></div>
+      </div>
+      <!-- لا أزرار حسب طلبك -->
     </div>
 
-    <button id="scrollTopBtn" title="العودة للأعلى">↑</button>
+    <section class="nextBox" id="nextBox">
+      <div class="nextTitle">الحدث القادم</div>
+      <div class="nextRow">
+        <span class="nextName" id="nextName">--</span>
+        <span class="nextAt" id="nextAt">--:-- --</span>
+      </div>
+      <div class="countdown" aria-live="polite">
+        <span class="cd-seg" id="cdH">00</span><span class="cd-colon">:</span>
+        <span class="cd-seg" id="cdM">00</span><span class="cd-colon">:</span>
+        <span class="cd-seg" id="cdS">00</span>
+      </div>
+      <div class="note" id="nextNote"></div>
+    </section>
 
-    <script>
-        // --- كود جافاسكريبت لتفعيل اللمسات الاحترافية ---
+    <section class="infoRow" aria-label="التواريخ">
+      <div class="chip">
+        <div class="ico">🗓</div>
+        <div class="stack"><div class="label">التاريخ الهجري</div><div class="value" id="hijri">--</div></div>
+      </div>
+      <div class="chip">
+        <div class="ico">📅</div>
+        <div class="stack"><div class="label">التاريخ الميلادي</div><div class="value" id="greg">--</div></div>
+      </div>
+    </section>
 
-        // 1. تأثير الظهور التدريجي عند التمرير
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, { threshold: 0.1 }); // يظهر العنصر عند ظهور 10% منه
+    <section class="card" aria-label="الجدول اليومي">
+      <h3>الجدول اليومي</h3>
+      <table>
+        <thead><tr><th>الحدث</th><th>الوقت</th></tr></thead>
+        <tbody id="times"><tr><td colspan="2">جاري التحميل…</td></tr></tbody>
+      </table>
+    </section>
 
-        document.querySelectorAll('.hadith-block, .decorator, .footer').forEach(el => {
-            observer.observe(el);
-        });
+    <section class="events" id="eventsBox">
+      <h3>مناسبات اليوم</h3>
+      <div class="evtGrid">
+        <div class="evtCol" id="colToday"><h4>اليوم</h4><div id="eventsToday"></div></div>
+        <div class="evtCol" id="colNight"><h4>الليلة</h4><div id="eventsTonight"></div></div>
+      </div>
+    </section>
 
-        // 2. زر العودة للأعلى
-        const scrollTopBtn = document.getElementById('scrollTopBtn');
-        window.onscroll = function() {
-            if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
-                scrollTopBtn.style.display = "block";
-            } else {
-                scrollTopBtn.style.display = "none";
-            }
-        };
-        scrollTopBtn.addEventListener('click', () => {
-            window.scrollTo({top: 0, behavior: 'smooth'});
-        });
-    </script>
+    <section class="hadith" aria-label="حديث اليوم">
+      <p class="htext" id="hadithText"></p>
+      <div class="hsrc" id="hadithSource"></div>
+    </section>
 
+    <footer><span class="credit">برمجة وتطوير فاضل الريس</span></footer>
+  </div>
+
+<script>
+/* ========================= SEO: canonical/alternate ========================= */
+document.querySelector('link[rel="canonical"]').setAttribute('href', location.href.split('#')[0]);
+document.querySelector('link[rel="alternate"]').setAttribute('href', location.href.split('#')[0]);
+
+/* ========================= الحالة والتخزين ========================= */
+const DEFAULT = { nameAr:"موقعي الحالي", nameEn:"My Location", lat:26.2235, lon:50.5876, tz:Intl.DateTimeFormat().resolvedOptions().timeZone || "Asia/Bahrain" };
+let state = JSON.parse(localStorage.getItem("pr_times_state")||"null") || {...DEFAULT};
+let HIJRI_OFFSET_DAYS = Number(localStorage.getItem("pr_hijri_offset_days")||"0");
+let lastTimings = null;
+let cdTimer = null;
+
+/* ========================= نصوص ثابتة ========================= */
+const NAMES = {
+  Imsak:"الإمساك", Fajr:"أذان الفجر", Sunrise:"الشروق",
+  Dhuhr:"أذان الظهر", Asr:"أذان العصر", Sunset:"الغروب",
+  Maghrib:"أذان المغرب", Isha:"أذان العشاء", Midnight:"منتصف الليل"
+};
+const HADITHS=[
+  {t:"قال الإمام الباقر (عليه السلام): إذا استقبل المصلي القبلة استقبل الرحمن بوجهه لا إله غيره.",s:"المصدر: ميزان الحكمة"},
+  {t:"قال الإمام علي (عليه السلام): إذا قام الرجل إلى الصلاة أقبل إبليس ينظر إليه حسداً لما يرى من رحمة الله التي تغشاه.",s:"المصدر: ميزان الحكمة"},
+  {t:"قال الإمام الرضا (عليه السلام): الصلاة لها أربعة آلاف باب.",s:"المصدر: ميزان الحكمة"},
+  {t:"قال الإمام علي (عليه السلام): يا كميل! ليس الشأن أن تصلي وتصوم وتتصدق، إنما الشأن أن تكون الصلاة فعلت بقلب نقي، وعمل عند الله مرضي، وخشوع سوي.",s:"المصدر: ميزان الحكمة"},
+  {t:"قال رسول الله صلى الله عليه وآله: من ترك صلاته متعمداً فقد هدم دينه…",s:"المصدر: جامع الأخبار"},
+  {t:"قال عبد الله بن مسعود: أيّ الأعمال أحب إلى الله؟ قال: الصلاة لوقتها.",s:"المصدر: الخصال"}
+];
+const HIJRI_MONTHS_AR=["","محرم","صفر","ربيع الأول","ربيع الآخر","جمادى الأولى","جمادى الآخرة","رجب","شعبان","رمضان","شوال","ذو القعدة","ذو الحجة"];
+
+/* ========================= أدوات وقت/تنسيق ========================= */
+function to12h(raw){
+  if(!raw) return "--:-- --";
+  const pure=String(raw).replace(/\s*\(.*?\)\s*/g,"").trim();
+  if(!/^\d{1,2}:\d{2}$/.test(pure)) return raw;
+  let [H,M]=pure.split(":").map(Number);
+  H = (H===24)?0:H;
+  const h=H%12||12; return `${h}:${String(M).padStart(2,"0")} ${H<12?"AM":"PM"}`;
+}
+function ymdInTZ(date, tz){
+  const p=new Intl.DateTimeFormat('en-CA',{timeZone:tz,year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(date);
+  return {Y:p.find(x=>x.type==='year').value, M:p.find(x=>x.type==='month').value, D:p.find(x=>x.type==='day').value};
+}
+
+/* تحويلات هجري محلية + رياضيات اليوجوليان */
+function g2jd(y,m,d){ const a=Math.floor((14-m)/12); y=y+4800-a; m=m+12*a-3; return d + Math.floor((153*m+2)/5) + 365*y + Math.floor(y/4) - Math.floor(y/100) + Math.floor(y/400) - 32045; }
+function jd2islamic(jd){
+  const l = jd - 1948440 + 10632;
+  const n = Math.floor((l - 1) / 10631);
+  let l2 = l - 10631*n + 354;
+  const j = (Math.floor((10985 - l2)/5316)) * (Math.floor((50*l2)/17719)) + (Math.floor(l2/5670)) * (Math.floor((43*l2)/15238));
+  l2 = l2 - (Math.floor((30 - j)/15)) * (Math.floor((17719*j)/50)) - (Math.floor(j/16)) * (Math.floor((15238*j)/43)) + 29;
+  const m = Math.floor((24*l2)/709);
+  const d = l2 - Math.floor((709*m)/24);
+  const y = 30*n + j - 30;
+  return {y,m,d};
+}
+
+/* مُطهّر لاستخراج HH:MM من أي صيغة */
+function hmFromAny(s){
+  if(!s) return "";
+  const m = String(s).match(/(\d{1,2}):(\d{2})/);
+  return m ? `${m[1].padStart(2,'0')}:${m[2]}` : "";
+}
+
+/* أحاديث */
+(function setHadith(){
+  const h=HADITHS[Math.floor(Math.random()*HADITHS.length)];
+  hadithText.textContent=h.t; hadithSource.textContent=h.s;
+})();
+
+/* مناسبات مختصرة (يمكن التوسعة) */
+const EVENTS={
+  "1-10":[{t:"عاشوراء – شهادة الإمام الحسين ع"}],
+  "2-20":[{t:"الأربعين – زيارة الإمام الحسين ع"}],
+  "7-27":[{t:"المبعث النبوي"}],
+  "10-1":[{t:"عيد الفطر المبارك"}],
+  "12-10":[{t:"عيد الأضحى المبارك"}],
+  "12-18":[{t:"عيد الغدير"}]
+};
+function drawEvents(todayM,todayD,nightM,nightD){
+  const box=document.getElementById('eventsBox');
+  const colToday=document.getElementById('colToday');
+  const colNight=document.getElementById('colNight');
+  const todayEl=document.getElementById('eventsToday');
+  const nightEl=document.getElementById('eventsTonight');
+
+  const todayList = EVENTS[`${todayM}-${todayD}`] || [];
+  const nightList = EVENTS[`${nightM}-${nightD}`] || [];
+
+  if(!todayList.length && !nightList.length){
+    box.style.display='none'; todayEl.innerHTML=""; nightEl.innerHTML=""; return;
+  }
+  box.style.display='block';
+  if(todayList.length){
+    colToday.style.display='block';
+    todayEl.innerHTML = todayList.map(e=>`<div class="evtItem"><span class="evtText">${e.t}</span></div>`).join("");
+  }else{ colToday.style.display='none'; todayEl.innerHTML=""; }
+  if(nightList.length){
+    colNight.style.display='block';
+    nightEl.innerHTML = nightList.map(e=>`<div class="evtItem"><span class="evtText">${e.t}</span></div>`).join("");
+  }else{ colNight.style.display='none'; nightEl.innerHTML=""; }
+}
+
+/* ========================= API حقيبة المؤمن (أساسي) ========================= */
+/* يحسب إزاحة المنطقة الزمنية بصيغة +3 أو -5.5 */
+function tzOffsetParam(){
+  const offMin = new Date().getTimezoneOffset(); // +للشرق نحول الإشارة لاحقاً
+  const hours = -offMin / 60;
+  return (hours >= 0 ? "+" : "") + String(hours);
+}
+
+/* تطبيع استجابة حقيبة المؤمن إلى مفاتيح موحّدة */
+function normalizeHaqibat(resp){
+  // أمثلة مفاتيح محتملة من المصدر: fajir, sunrise, doher, maghrib, isha, sunset, date
+  return {
+    timings: {
+      Imsak: "", // سنشتقه من الفجر -10 دقائق لاحقاً
+      Fajr: hmFromAny(resp.Fajr || resp.fajir || resp.fajer),
+      Sunrise: hmFromAny(resp.Sunrise || resp.sunrise),
+      Dhuhr: hmFromAny(resp.Dhuhr || resp.doher || resp.zuhr),
+      Asr: hmFromAny(resp.Asr || resp.asr),
+      Sunset: hmFromAny(resp.Sunset || resp.sunset),
+      Maghrib: hmFromAny(resp.Maghrib || resp.maghrib),
+      Isha: hmFromAny(resp.Isha || resp.isha),
+      Midnight: "" // غير متاح بالمصدر
+    },
+    date: { hijri: null, readable: resp.date || "" },
+    meta: { timezone: state.tz || Intl.DateTimeFormat().resolvedOptions().timeZone }
+  };
+}
+
+/* استدعاء حقيبة المؤمن عبر الإحداثيات */
+async function fetchFromHaqibat(lat, lon){
+  const url = new URL("https://hq.alkafeel.net/Api/init/init.php");
+  url.searchParams.set("v","jsonPrayerTimes");
+  url.searchParams.set("timezone", tzOffsetParam()); // مثل +3 أو -5
+  url.searchParams.set("long", String(lon));
+  url.searchParams.set("lati", String(lat));
+
+  const res = await fetch(url.toString(), { headers: { "Accept":"application/json" }, cache:"no-store" });
+  if(!res.ok) throw new Error("HAQIBAT_HTTP_"+res.status);
+  const json = await res.json();
+  // بعض النُّسخ قد ترجع مصفوفة/نص؛ نتأكد أنه كائن
+  if (!json || typeof json !== "object") throw new Error("HAQIBAT_BAD_JSON");
+  return normalizeHaqibat(json);
+}
+
+/* ========================= بديل Aladhan (احتياطي) ========================= */
+async function fetchFromAladhan(lat, lon){
+  const url=`https://api.aladhan.com/v1/timings?latitude=${encodeURIComponent(lat)}&longitude=${encodeURIComponent(lon)}&method=0&adjustment=${encodeURIComponent(HIJRI_OFFSET_DAYS||0)}`;
+  const r=await fetch(url,{cache:"no-store"});
+  if(!r.ok) throw new Error("ALADHAN_HTTP_"+r.status);
+  const j=await r.json();
+  const data=j?.data;
+  if(!data?.timings) throw new Error("ALADHAN_BAD_JSON");
+  return data; // له نفس البنية التي كان عليها كودك السابق
+}
+
+/* واجهة موحّدة: تحاول حقيبة المؤمن، وإلا fallback */
+async function fetchTimingsByCoords(lat, lon){
+  try{
+    const hq = await fetchFromHaqibat(lat, lon);
+    return hq; // الأوقات موحّدة بالبنية {timings,date,meta}
+  }catch(e){
+    // فشل المصدر الأساسي → استخدام البديل لكي لا تتعطّل الصفحة
+    // console.warn("Haqibat fallback → Aladhan", e);
+    const alt = await fetchFromAladhan(lat, lon);
+    return alt;
+  }
+}
+
+/* ======= حساب الحدث القادم والعدّاد ======= */
+function nextKey(t, tz){
+  const order=["Imsak","Fajr","Sunrise","Dhuhr","Asr","Sunset","Maghrib","Isha","Midnight"];
+  const nowTZ=new Date(new Date().toLocaleString('en-US',{timeZone:tz}));
+  const {Y,M,D}=ymdInTZ(nowTZ, tz);
+  const cand=order.map(k=>{
+    const hm = hmFromAny(t[k]);
+    if(!/^\d{2}:\d{2}$/.test(hm)) return {k,diff:Infinity};
+    let [HH,MM]=hm.split(':').map(Number); HH=(HH===24)?0:HH;
+    return {k,diff:new Date(+Y,+M-1,+D,HH||0,MM||0,0)-nowTZ};
+  });
+  let n=cand.filter(x=>x.diff>=0).sort((a,b)=>a.diff-b.diff)[0];
+  if(!n) n=cand.sort((a,b)=>Math.abs(a.diff)-Math.abs(b.diff))[0];
+  return n?.k||null;
+}
+function dateForKeyToday(tz, timings, key){
+  const nowTZ=new Date(new Date().toLocaleString('en-US',{timeZone:tz}));
+  const {Y,M,D}=ymdInTZ(nowTZ, tz);
+  const hm = hmFromAny(timings[key]);
+  if(!/^\d{2}:\d{2}$/.test(hm)) return null;
+  let [H,Min]=hm.split(':').map(Number); H=(H===24)?0:H;
+  return new Date(+Y,+M-1,+D,H||0,Min||0,0);
+}
+function ensureImsak(t){
+  if(!t.Imsak && t.Fajr){
+    const pure=hmFromAny(t.Fajr);
+    let [H,M]=pure.split(":").map(Number);
+    const d=new Date(); d.setHours((H||0), (M||0)-10, 0, 0);
+    t.Imsak = `${String(d.getHours()).padStart(2,"0")}:${String(d.getMinutes()).padStart(2,"0")}`;
+  }
+  return t;
+}
+function setCD(ms){
+  ms = Math.max(0, ms|0);
+  let s = Math.floor(ms/1000);
+  const h = Math.floor(s/3600); s%=3600;
+  const m = Math.floor(s/60); s%=60;
+  cdH.textContent = String(h).padStart(2,'0');
+  cdM.textContent = String(m).padStart(2,'0');
+  cdS.textContent = String(s).padStart(2,'0');
+}
+function tickCountdown(target,key){
+  const tz = state.tz || Intl.DateTimeFormat().resolvedOptions().timeZone;
+  const now=new Date(new Date().toLocaleString('en-US',{timeZone:tz}));
+  const diff = target - now;
+  setCD(diff);
+  if(diff<=0){ clearInterval(cdTimer); load(); }
+}
+
+/* ========================= العرض الرئيسي ========================= */
+async function render(data){
+  if(data?.meta?.timezone) state.tz = data.meta.timezone;
+
+  let t = ensureImsak({...data.timings});
+  lastTimings = t;
+
+  const rows=[
+    {n:"الإمساك",k:"Imsak"},
+    {n:"أذان الفجر",k:"Fajr"},
+    {n:"الشروق",k:"Sunrise"},
+    {n:"أذان الظهر",k:"Dhuhr"},
+    {n:"أذان العصر",k:"Asr"},
+    {n:"الغروب",k:"Sunset"},
+    {n:"أذان المغرب",k:"Maghrib"},
+    {n:"أذان العشاء",k:"Isha"},
+    {n:"منتصف الليل",k:"Midnight"}
+  ];
+
+  const k=nextKey(t,state.tz);
+  times.innerHTML=rows.map(r=>{
+    const hm = hmFromAny(t[r.k]);
+    return `<tr class="${r.k===k?'next':''}"><td class="name">${r.n}</td><td class="time">${to12h(hm)}</td></tr>`;
+  }).join("");
+
+  // صندوق الحدث القادم
+  const target = k ? dateForKeyToday(state.tz, t, k) : null;
+  const hmNext = k ? hmFromAny(t[k]) : "";
+  nextName.textContent = NAMES[k] || (k||"--");
+  nextAt.textContent = hmNext ? to12h(hmNext) : "--:-- --";
+  nextNote.textContent = (k==="Sunrise" ? "زمن الشروق" : k==="Sunset" ? "وقت الغروب" : "الوقت المتبقي");
+  if(cdTimer) clearInterval(cdTimer);
+  if(target) { cdTimer = setInterval(()=>tickCountdown(target,k),1000); tickCountdown(target,k); }
+
+  // التواريخ
+  const nowTZ = new Date(new Date().toLocaleString('en-US',{timeZone:state.tz}));
+  greg.textContent = new Intl.DateTimeFormat('ar',{timeZone:state.tz,weekday:'long',year:'numeric',month:'long',day:'numeric'}).format(nowTZ);
+
+  // الهجري من الاستجابة إن توفّر (Aladhan يرجعه؛ حقيبة المؤمن لا يرجّع هيكل هجري قياسي)
+  try{
+    const h = data?.date?.hijri;
+    if(h){
+      const wd = new Intl.DateTimeFormat('ar',{timeZone:state.tz,weekday:'long'}).format(nowTZ);
+      hijri.textContent = `${formatHijriFromObj(h, wd)}`;
+      // مناسبات اليوم/الليلة
+      const todayM = Number(h?.month?.number||0), todayD=Number(h?.day||0);
+      const refTonight = new Date(nowTZ.getTime()+86400000);
+      let h2 = h;
+      try{
+        const d2 = await fetch(`https://api.aladhan.com/v1/gToH?date=${encodeURIComponent(new Intl.DateTimeFormat('en-GB',{timeZone:state.tz,day:'2-digit',month:'2-digit',year:'numeric'}).format(refTonight).replace(/\//g,'-'))}&adjustment=${encodeURIComponent(HIJRI_OFFSET_DAYS||0)}`).then(x=>x.json());
+        h2 = d2?.data?.hijri || h;
+      }catch{}
+      const nightM = Number(h2?.month?.number||0), nightD=Number(h2?.day||0);
+      drawEvents(todayM,todayD,nightM,nightD);
+    }else{
+      throw 0;
+    }
+  }catch{
+    const nowTZ = new Date(new Date().toLocaleString('en-US',{timeZone:state.tz}));
+    const civilWeekday = new Intl.DateTimeFormat('ar',{timeZone:state.tz,weekday:'long'}).format(nowTZ);
+    try{
+      const parts=new Intl.DateTimeFormat('en-TN-u-ca-islamic',{timeZone:state.tz,year:'numeric',month:'numeric',day:'numeric'}).formatToParts(nowTZ);
+      const y=+parts.find(p=>p.type==='year').value, m=+parts.find(p=>p.type==='month').value, d=+parts.find(p=>p.type==='day').value;
+      hijri.textContent = `${civilWeekday}، ${d} ${HIJRI_MONTHS_AR[m]} ${y} هـ`;
+    }catch{
+      const {Y,M,D}=ymdInTZ(nowTZ,state.tz);
+      const h=jd2islamic(g2jd(+Y,+M,+D));
+      hijri.textContent = `${civilWeekday}، ${h.d} ${HIJRI_MONTHS_AR[h.m]} ${h.y} هـ`;
+    }
+  }
+}
+
+/* ========================= تنسيق التاريخ الهجري ========================= */
+function formatHijriFromObj(h, civilWeekday){
+  const day = Number(h.day||h.date?.split('-')[0]);
+  const monthName = h?.month?.ar || HIJRI_MONTHS_AR[h?.month?.number||0] || '';
+  const year = h.year || (h.date? h.date.split('-')[2] : '');
+  return `${civilWeekday}، ${day} ${monthName} ${year} هـ`;
+}
+
+/* ========================= النص الظاهر للمكان ========================= */
+function setPlaceTexts(customLabel){
+  if(customLabel){
+    place.textContent = customLabel;
+  }else{
+    const niceName = state.nameAr || state.nameEn || "الموقع المحدد";
+    place.textContent = niceName.replace(/\(\s*[-\d.]+\s*,\s*[-\d.]+\s*\)/g,'').replace(/\s*،\s*$/,'');
+  }
+  subPlace.textContent = state.tz ? `المنطقة الزمنية: ${state.tz}` : "";
+}
+
+/* ========================= GeoLocation تلقائي ========================= */
+function acquireBrowserLocation(){
+  return new Promise((resolve)=>{
+    if(!("geolocation" in navigator)) return resolve(null);
+    navigator.geolocation.getCurrentPosition(
+      (pos)=> resolve({ lat: pos.coords.latitude, lon: pos.coords.longitude }),
+      ()=> resolve(null),
+      { enableHighAccuracy:true, timeout:10000, maximumAge:60000 }
+    );
+  });
+}
+
+/* ========================= تحميل أساسي ========================= */
+async function load(){
+  hijri.textContent="--";
+  greg.textContent="—";
+  times.innerHTML="<tr><td colspan=2>...</td></tr>";
+
+  // حدّث المنطقة الزمنية دائماً من الجهاز
+  state.tz = Intl.DateTimeFormat().resolvedOptions().timeZone || state.tz || "Asia/Bahrain";
+
+  // جرّب أخذ الموقع من المتصفح
+  const geo = await acquireBrowserLocation();
+  if(geo){
+    state.lat = geo.lat;
+    state.lon = geo.lon;
+    setPlaceTexts("موقعي الحالي");
+  }else{
+    // fallback للمنامة إذا تعذّر تحديد الموقع
+    state = { ...state, nameAr:"المنامة، البحرين", nameEn:"Manama, Bahrain", lat:26.2235, lon:50.5876 };
+    setPlaceTexts();
+  }
+
+  try{
+    const data=await fetchTimingsByCoords(state.lat,state.lon);
+    await render(data);
+  }catch(e){
+    times.innerHTML=`<tr><td colspan="2" style="color:#9b1c1c">تعذّر جلب المواقيت.</td></tr>`;
+    document.getElementById('eventsBox').style.display='none';
+  }
+
+  localStorage.setItem("pr_times_state", JSON.stringify(state));
+}
+load();
+</script>
 </body>
 </html>
