@@ -1,19 +1,19 @@
 <!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-  <!-- صفحة مواقيت صلاة — تصميم مُنظَّم يشبه الصورة، والبيانات تُجلب مباشرة من واجهة "حقيبة المؤمن" -->
+  <!-- مواقيت الصلاة — وفق المذهب الجعفري (الاثنا عشري) باستخدام Aladhan API (طريقة Jafari/Leva Institute) -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <title>مواقيت الصلاة — حقيبة المؤمن</title>
-  <meta name="description" content="واجهة عربية أنيقة تعرض مواقيت الصلاة مباشرة من API حقيبة المؤمن، مع عد تنازلي للأذان، ودعم الهواتف.">
+  <title>مواقيت الصلاة — المذهب الجعفري</title>
+  <meta name="description" content="موقع بسيط واحترافي لعرض مواقيت الصلاة وفق المذهب الجعفري مباشرةً من Aladhan API، مع دعم الموقع الجغرافي والإدخال اليدوي وعدّ تنازلي للصلاة القادمة.">
 
-  <!-- سياسة أمان تسمح بالاتصال بـ hq.alkafeel.net فقط -->
+  <!-- أمان: السماح بالاتصال بـ api.aladhan.com فقط -->
   <meta http-equiv="Content-Security-Policy"
         content="default-src 'self';
-                 script-src 'self' 'nonce-pt123';
+                 script-src 'self' 'nonce-jafari1';
                  style-src 'self' 'unsafe-inline';
                  img-src 'self' data:;
-                 connect-src 'self' https://hq.alkafeel.net;
+                 connect-src 'self' https://api.aladhan.com;
                  object-src 'none';
                  base-uri 'none';
                  frame-ancestors 'none';
@@ -23,332 +23,257 @@
 
   <style>
     :root{
-      --bg:#f3f3f5;          /* خلفية فاتحة تشبه التطبيق */
-      --bar:#b99f6a;         /* لون شريط العنوان */
-      --card:#ffffff;        /* بطاقات القوائم */
-      --text:#191c1f;
-      --muted:#6c747c;
-      --accent:#00b563;
-      --bd:#e8e8ea;
-      --radius:14px;
-      --shadow:0 6px 20px rgba(0,0,0,.06);
-      --maxw: 560px;
+      --bg:#f7f8fa; --text:#0f1720; --muted:#6b7280; --brand:#0ea76b; --ink:#063d29;
+      --card:#ffffff; --bd:#e6e8ec; --shadow:0 10px 30px rgba(0,0,0,.06); --radius:16px; --maxw:760px;
     }
     @media (prefers-color-scheme: dark){
-      :root{
-        --bg:#0e1113; --bar:#8f7a4f; --card:#161a1c; --text:#e8edf0; --muted:#9aa4ad; --bd:#283036; --shadow:0 10px 26px rgba(0,0,0,.35);
-      }
+      :root{ --bg:#0b0f12; --text:#e8edf3; --muted:#aeb7c2; --card:#12181f; --bd:#223040; --shadow:0 12px 30px rgba(0,0,0,.35) }
     }
+    *{box-sizing:border-box} html{scroll-behavior:smooth}
+    body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Noto Kufi Arabic","Noto Naskh Arabic",Arial}
+    header{position:sticky;top:0;z-index:10;background:radial-gradient(1200px 200px at 50% -60px, color-mix(in oklab, var(--brand) 22%, var(--bg)), var(--bg));border-bottom:1px solid color-mix(in oklab,var(--text) 12%,transparent);backdrop-filter:saturate(140%) blur(10px)}
+    .container{max-width:var(--maxw);margin:auto;padding:16px}
+    .bar{display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:900}
+    .logo{inline-size:40px;block-size:40px;border-radius:12px;display:grid;place-items:center;color:#fff;background:linear-gradient(135deg,#1cd184,#0ea76b)}
+    nav{display:flex;gap:8px;flex-wrap:wrap}
+    nav a{color:inherit;text-decoration:none;padding:.45rem .7rem;border-radius:10px}
+    nav a:hover{background:color-mix(in oklab,var(--brand) 14%,transparent)}
 
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{
-      margin:0; background:var(--bg); color:var(--text);
-      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Kufi Arabic", "Noto Naskh Arabic", Arial, sans-serif;
-      -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
-      display:grid; place-items:start center; min-height:100vh;
-    }
+    h1{margin:.4rem 0 .2rem;font-size:clamp(1.4rem,1rem + 2vw,2.2rem)}
+    .lead{color:var(--muted);margin:0 0 8px}
+    .panel{background:var(--card);border:1px solid var(--bd);box-shadow:var(--shadow);border-radius:var(--radius);padding:14px;margin:14px auto 0;max-width:var(--maxw)}
+    .row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+    @media (max-width:800px){.row{grid-template-columns:1fr 1fr}}
+    @media (max-width:520px){.row{grid-template-columns:1fr}}
+    label{display:flex;flex-direction:column;gap:6px;font-size:.95rem}
+    input{padding:.8rem 1rem;border:1px solid var(--bd);background:color-mix(in oklab,var(--card) 70%,transparent);color:inherit;border-radius:12px;width:100%}
+    .actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+    .btn{display:inline-flex;align-items:center;gap:.5rem;border-radius:12px;cursor:pointer;border:2px solid color-mix(in oklab,var(--brand) 65%,var(--text));background:var(--brand);color:#fff;font-weight:800;padding:.8rem 1rem}
+    .btn.secondary{background:transparent;color:inherit}
+    .badge{display:inline-block;padding:.25rem .6rem;border-radius:999px;background:color-mix(in oklab,var(--brand) 16%,var(--card));color:var(--ink);font-weight:800}
 
-    /* شريط علوي */
-    .appbar{
-      position:sticky; top:0; z-index:10; width:100%;
-      background: var(--bar); color:#fff;
-      box-shadow: 0 1px 0 rgba(0,0,0,.08);
-    }
-    .barin{
-      max-width: var(--maxw); margin:auto; padding:10px 12px; display:flex; align-items:center; gap:10px; justify-content:space-between;
-    }
-    .title{
-      display:flex; flex-direction:column; gap:2px
-    }
-    .title b{font-size:1.05rem; letter-spacing:.2px}
-    .title small{opacity:.9}
-
-    .wrap{inline-size:100%; max-width: var(--maxw); padding:14px; margin:auto}
-
-    .datecard{
-      background: var(--card); border:1px solid var(--bd); border-radius: var(--radius);
-      box-shadow: var(--shadow); padding:12px; display:grid; grid-template-columns: auto 1fr auto; align-items:center; gap:10px;
-    }
-    .arrow{
-      inline-size:38px; block-size:38px; display:grid; place-items:center;
-      border-radius:10px; border:1px solid var(--bd); background:#fff0; color:#fff;
-      opacity:.55; cursor:not-allowed; /* تُركت لواجهة فقط (لا تاريخ مخصّص من API) */
-    }
-    @media (prefers-color-scheme: light){ .arrow{ color:#000 } }
-    .dates{
-      display:flex; flex-direction:column; text-align:center;
-    }
-    .dates b{font-size:1rem}
-    .dates small{color:var(--muted)}
-
-    /* بطاقة كل صلاة */
-    .list{
-      margin-top:12px; display:flex; flex-direction:column; gap:10px;
-    }
-    .item{
-      background: var(--card); border:1px solid var(--bd); border-radius:12px; box-shadow: var(--shadow);
-      padding:12px 14px;
-    }
-    .row{
-      display:grid; grid-template-columns: 1fr auto; align-items:center; gap:10px;
-    }
-    .label{ font-weight:700 }
-    .time{ font-size:1.25rem; font-weight:800 }
-    .sub{ margin:.5rem 0 0; color: var(--muted); font-size:.95rem }
-
-    /* أزرار تحكم سفلية */
-    .controls{
-      margin-top:14px; display:flex; gap:8px; flex-wrap:wrap
-    }
-    .btn{
-      border:1px solid var(--bd); border-radius:12px; padding:.7rem .9rem; background:var(--card); box-shadow: var(--shadow); cursor:pointer;
-    }
-    .btn.primary{ background: var(--accent); border-color: transparent; color:#fff; font-weight:800 }
-    .note{ margin:10px 2px 0; color: var(--muted); font-size:.95rem }
-
-    /* رسالة خطأ/تنبيه */
-    .alert{
-      margin-top:12px; background:#ffeeee; color:#8b1c1c; border:1px solid #f3c9c9; border-radius:12px; padding:.8rem .9rem; display:none;
-    }
-    @media (prefers-color-scheme: dark){
-      .alert{ background:#311; color:#f7bcbc; border-color:#522 }
-    }
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    @media (max-width:600px){.grid{grid-template-columns:1fr}}
+    .card{background:var(--card);border:1px solid var(--bd);border-radius:14px;box-shadow:var(--shadow);padding:12px 14px}
+    .item{display:flex;align-items:center;justify-content:space-between;padding:.6rem .1rem;border-bottom:1px dashed color-mix(in oklab,var(--text) 12%,transparent)}
+    .item:last-child{border-bottom:none}
+    .label{font-weight:800}
+    .time{font-variant-numeric:tabular-nums;font-weight:800;font-size:1.2rem}
+    .datebox{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
+    .muted{color:var(--muted)}
+    .alert{display:none;margin-top:10px;padding:.8rem 1rem;border:1px solid #f2c6c6;color:#8b1c1c;background:#ffeeee;border-radius:12px}
+    @media (prefers-color-scheme: dark){.alert{border-color:#633;background:#311;color:#f3bbbb}}
+    footer{margin:28px 0 18px;color:var(--muted);text-align:center}
   </style>
 </head>
 <body>
-  <!-- الشريط العلوي -->
-  <div class="appbar" role="banner">
-    <div class="barin">
-      <button class="btn" id="geoBtn" title="استخدم موقعي">📍 موقعي</button>
-      <div class="title" aria-live="polite">
-        <b id="city">Tubli – Bahrain</b>
-        <small id="todayTitles">الأحد 26 ربيع الثاني 1447 · 19 أكتوبر 2025</small>
+  <header>
+    <div class="container bar">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">🕰️</div>
+        <div>مواقيت الصلاة</div>
       </div>
-      <button class="btn" id="refreshBtn" title="تحديث">↻ تحديث</button>
+      <nav aria-label="التنقّل">
+        <a href="#controls">الإعدادات</a>
+        <a href="#today">مواقيت اليوم</a>
+      </nav>
     </div>
-  </div>
+  </header>
 
-  <!-- المحتوى -->
-  <main class="wrap" role="main" aria-labelledby="pageTitle">
-    <h1 id="pageTitle" class="sr-only">مواقيت الصلاة — حقيبة المؤمن</h1>
+  <section class="container">
+    <h1>وفق <span class="badge">المذهب الجعفري (Shia Jafari)</span></h1>
+    <p class="lead">يعتمد الحساب على <b>طريقة Jafari (Leva Institute, Qum)</b> من Aladhan API. يعمل على الهاتف والكمبيوتر مع دعم الموقع أو الإدخال اليدوي.</p>
+  </section>
 
-    <!-- بطاقة التاريخ -->
-    <section class="datecard" aria-label="العناوين والتاريخ">
-      <button class="arrow" aria-label="اليوم السابق" title="اليوم السابق">‹</button>
-      <div class="dates">
-        <b id="hijriDate">—</b>
-        <small id="gregDate">—</small>
+  <!-- لوحة التحكم -->
+  <section id="controls" class="panel" aria-labelledby="ctlh">
+    <h2 id="ctlh" style="margin:.2rem 0 .8rem">إعدادات جلب المواقيت</h2>
+    <div class="row">
+      <label><span>الدولة (اختياري)</span><input id="country" placeholder="مثال: Bahrain"></label>
+      <label><span>المدينة (اختياري)</span><input id="city" placeholder="مثال: Manama / Najaf / Qom"></label>
+      <label><span>خط العرض (lat)</span><input id="lat" inputmode="decimal" placeholder="26.2189"></label>
+      <label><span>خط الطول (lon)</span><input id="lon" inputmode="decimal" placeholder="50.5903"></label>
+    </div>
+    <div class="row" style="margin-top:8px">
+      <label><span>الطريقة</span><input value="Jafari – Leva Institute (method=0)" readonly></label>
+      <label><span>المنطقة الزمنية (عرض فقط)</span><input id="tz" readonly></label>
+      <label><span>اختصار سريع</span><input id="quick" placeholder="مثال: Najaf, Iraq / Qom, Iran / Karbala, Iraq"></label>
+      <label><span>—</span><input style="opacity:.001;border:0;background:transparent" tabindex="-1" aria-hidden="true"></label>
+    </div>
+    <div class="actions">
+      <button class="btn" id="useLoc">📍 استخدم موقعي</button>
+      <button class="btn secondary" id="byCity">جلب حسب المدينة</button>
+      <button class="btn secondary" id="byCoords">جلب حسب الإحداثيات</button>
+      <button class="btn" id="presetNajaf">نجف</button>
+      <button class="btn" id="presetQom">قم</button>
+      <button class="btn" id="presetKarbala">كربلاء</button>
+      <button class="btn" id="reset">تهيئة افتراضية</button>
+    </div>
+    <div class="alert" id="errorBox" role="alert"></div>
+  </section>
+
+  <!-- مواقيت اليوم -->
+  <section id="today" class="panel" aria-labelledby="todayh">
+    <div class="datebox">
+      <div>
+        <div class="badge" id="place">—</div>
+        <div class="muted" id="gregDate">—</div>
       </div>
-      <button class="arrow" aria-label="اليوم التالي" title="اليوم التالي">›</button>
-    </section>
+      <div class="muted" id="hijriDate">—</div>
+    </div>
 
-    <!-- قائمة المواقيت على شكل بطاقات مثل الصورة -->
-    <section class="list" aria-live="polite" id="timesWrap" aria-busy="false">
-      <article class="item">
-        <div class="row">
-          <div class="label">الفجر</div>
-          <div class="time" id="t-fajr">—</div>
-        </div>
-        <div class="sub" id="fajrCountdown" aria-hidden="true">متبقي على الأذان —:—:—</div>
-      </article>
+    <div class="grid">
+      <div class="card">
+        <div class="item"><span class="label">الفجر</span>   <span class="time" id="Fajr">—</span></div>
+        <div class="item"><span class="label">الشروق</span> <span class="time" id="Sunrise">—</span></div>
+        <div class="item"><span class="label">الظهر</span>   <span class="time" id="Dhuhr">—</span></div>
+      </div>
+      <div class="card">
+        <div class="item"><span class="label">العصر</span>   <span class="time" id="Asr">—</span></div>
+        <div class="item"><span class="label">المغرب</span>  <span class="time" id="Maghrib">—</span></div>
+        <div class="item"><span class="label">العشاء</span>  <span class="time" id="Isha">—</span></div>
+      </div>
+    </div>
 
-      <article class="item">
-        <div class="row">
-          <div class="label">الشروق</div>
-          <div class="time" id="t-sunrise">—</div>
-        </div>
-      </article>
+    <div class="card" style="margin-top:10px">
+      <div class="item"><span class="label">الغروب</span>     <span class="time" id="Sunset">—</span></div>
+      <div class="item"><span class="label">منتصف الليل (جعفري)</span><span class="time" id="Midnight">—</span></div>
+      <div class="item"><span class="label">العد التنازلي للصلاة القادمة</span> <span class="time" id="countdown">—</span></div>
+    </div>
+  </section>
 
-      <article class="item">
-        <div class="row">
-          <div class="label">الظهر</div>
-          <div class="time" id="t-dhuhr">—</div>
-        </div>
-      </article>
+  <footer>© <span id="year"></span> مواقيت الصلاة — المذهب الجعفري</footer>
 
-      <article class="item">
-        <div class="row">
-          <div class="label">الغروب</div>
-          <div class="time" id="t-sunset">—</div>
-        </div>
-      </article>
-
-      <article class="item">
-        <div class="row">
-          <div class="label">المغرب</div>
-          <div class="time" id="t-maghrib">—</div>
-        </div>
-      </article>
-
-      <article class="item">
-        <div class="row">
-          <div class="label">منتصف الليل</div>
-          <div class="time" id="t-midnight">—</div>
-        </div>
-      </article>
-    </section>
-
-    <!-- تحكم يدوي (للضبط السريع) -->
-    <section class="controls" aria-label="إعدادات سريعة">
-      <button class="btn primary" id="applyBahrain" type="button">تعيين: البحرين (Tubli) +3</button>
-      <button class="btn" id="customBtn" type="button">إدخال إحداثيات يدويًا</button>
-      <small class="note">لا نُخزن موقعك. نُرسل الإحداثيات فقط لواجهة حقيبة المؤمن لحساب المواقيت.</small>
-      <div class="alert" id="errorBox" role="alert"></div>
-    </section>
-  </main>
-
-  <!-- سكربت جلب وعرض المواقيت (Nonce مطابق لـ CSP) -->
-  <script nonce="pt123">
+  <!-- سكربت العمل (Jafari method = 0) -->
+  <script nonce="jafari1">
   (function(){
     'use strict';
 
-    /* عناصر DOM */
-    const el = {
-      city:   document.getElementById('city'),
-      hdate:  document.getElementById('hijriDate'),
-      gdate:  document.getElementById('gregDate'),
-      wrap:   document.getElementById('timesWrap'),
-      fajr:   document.getElementById('t-fajr'),
-      sunrise:document.getElementById('t-sunrise'),
-      dhuhr:  document.getElementById('t-dhuhr'),
-      sunset: document.getElementById('t-sunset'),
-      maghrib:document.getElementById('t-maghrib'),
-      midnight:document.getElementById('t-midnight'),
-      fajrCd: document.getElementById('fajrCountdown'),
-      error:  document.getElementById('errorBox'),
-      titles: document.getElementById('todayTitles'),
-      geoBtn: document.getElementById('geoBtn'),
-      refreshBtn: document.getElementById('refreshBtn'),
-      applyBH: document.getElementById('applyBahrain'),
-      customBtn: document.getElementById('customBtn')
-    };
+    const $ = id => document.getElementById(id);
+    const out = ['Fajr','Sunrise','Dhuhr','Asr','Maghrib','Isha','Sunset','Midnight']
+      .reduce((o,k)=> (o[k]=$ (k), o), {});
+    const placeEl = $('place'), gEl = $('gregDate'), hEl = $('hijriDate'), err = $('errorBox'), cd = $('countdown');
 
-    /* تنسيقات مساعدة */
-    const fmtTime = v => (v && /^\d{1,2}:\d{2}/.test(v)) ? v : '—';
-    const busy = b => el.wrap.setAttribute('aria-busy', b ? 'true' : 'false');
+    // الحالة الافتراضية: توبلي، البحرين
+    let state = { country:'Bahrain', city:'Tubli', lat:26.2189, lon:50.5903 };
 
-    /* نَسق افتراضي: Tubli – Bahrain */
-    let state = {
-      lat: 26.2189,
-      lon: 50.5903,
-      tz: '+3',
-      place: 'Tubli – Bahrain'
-    };
+    const clean = t => (t||'—').toString().replace(/\s*\(.+\)$/, '');
+    const busy = b => document.body.style.cursor = b ? 'progress' : 'auto';
+    const tzText = () => { const z = -(new Date().getTimezoneOffset())/60; return (z>=0?`+${z}`:z); };
+    $('tz').value = `UTC${tzText()}`;
+    $('year').textContent = new Date().getFullYear();
 
-    /* جلب من واجهة حقيبة المؤمن */
-    async function fetchFromKafeel(lat, lon, tz){
-      const url = `https://hq.alkafeel.net/Api/init/init.php?timezone=${encodeURIComponent(tz)}&long=${encodeURIComponent(lon)}&lati=${encodeURIComponent(lat)}&v=jsonPrayerTimes`;
-      const res = await fetch(url, { method:'GET', mode:'cors', cache:'no-store', referrerPolicy:'no-referrer' });
-      if(!res.ok) throw new Error('تعذّر الاتصال بواجهة حقيبة المؤمن');
-      return await res.json();
+    // Aladhan (Jafari method = 0). لا نستخدم school لأنه خاص بالمذاهب السنية.
+    const byCityURL = (city, country) =>
+      `https://api.aladhan.com/v1/timingsByCity?city=${encodeURIComponent(city)}&country=${encodeURIComponent(country)}&method=0`;
+    const byCoordsURL = (lat, lon) =>
+      `https://api.aladhan.com/v1/timings?latitude=${encodeURIComponent(lat)}&longitude=${encodeURIComponent(lon)}&method=0`;
+
+    async function fetchJSON(url){
+      const r = await fetch(url, {cache:'no-store', mode:'cors', referrerPolicy:'no-referrer'});
+      if(!r.ok) throw new Error('HTTP '+r.status);
+      const j = await r.json();
+      if(j.code!==200) throw new Error('API error');
+      return j.data;
     }
 
-    /* عرض القيم على الواجهة (يشبه تطبيق البطائق في الصورة) */
-    function paint(data){
-      // العناوين والتواريخ
-      el.hdate.textContent = data.date || data.hDate || '—';
-      const now = new Date();
-      el.gdate.textContent = now.toLocaleDateString('ar', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
-      el.titles.textContent = `${el.hdate.textContent} · ${el.gdate.textContent}`;
+    function paint(data, placelabel){
+      gEl.textContent = new Date().toLocaleDateString('ar', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
+      hEl.textContent = `${data.date.hijri.weekday.ar} ${data.date.hijri.day} ${data.date.hijri.month.ar} ${data.date.hijri.year} هـ`;
+      placeEl.textContent = placelabel;
 
-      // المواقيت
-      el.fajr.textContent    = fmtTime(data.fajir) || fmtTime(data.fajr);
-      el.sunrise.textContent = fmtTime(data.sunrise);
-      el.dhuhr.textContent   = fmtTime(data.dhuhr);
-      el.sunset.textContent  = fmtTime(data.sunset);
-      el.maghrib.textContent = fmtTime(data.maghrib);
-      el.midnight.textContent= fmtTime(data.midnight) || fmtTime(data.midNight);
+      const t = data.timings;
+      out.Fajr.textContent    = clean(t.Fajr);
+      out.Sunrise.textContent = clean(t.Sunrise);
+      out.Dhuhr.textContent   = clean(t.Dhuhr);
+      out.Asr.textContent     = clean(t.Asr);
+      out.Maghrib.textContent = clean(t.Maghrib);
+      out.Isha.textContent    = clean(t.Isha);
+      out.Sunset.textContent  = clean(t.Sunset);
+      out.Midnight.textContent= clean(t.Midnight); // Aladhan يعيد "Midnight" بطريقة جعفرية لطريقة 0
 
-      // عدّ تنازلي للفجر إذا كان القادم
-      setupCountdown(data);
+      setupCountdown([t.Fajr, t.Dhuhr, t.Asr, t.Maghrib, t.Isha].map(clean));
     }
 
-    /* تحويل "HH:MM" لوقت اليوم */
-    function todayAt(hhmm){
-      if(!/^\d{1,2}:\d{2}$/.test(hhmm)) return null;
-      const [h,m] = hhmm.split(':').map(Number);
-      const d = new Date(); d.setSeconds(0,0); d.setHours(h, m, 0, 0);
+    function atToday(hm){
+      if(!/^\d{1,2}:\d{2}$/.test(hm)) return null;
+      const [h,m] = hm.split(':').map(Number);
+      const d = new Date(); d.setHours(h,m,0,0);
       return d;
     }
 
-    /* تحديد الصلاة القادمة وبناء العد التنازلي (نُظهره تحت الفجر مثل الصورة) */
-    let cdTimer = null;
-    function setupCountdown(times){
-      if(cdTimer) clearInterval(cdTimer);
-      el.fajrCd.setAttribute('aria-hidden','true');
-      el.fajrCd.textContent = 'متبقي على الأذان —:—:—';
-
-      const order = [
-        { id:'الفجر',    t: todayAt(times.fajir || times.fajr) },
-        { id:'الظهر',    t: todayAt(times.dhuhr) },
-        { id:'العصر',    t: todayAt(times.asr) },
-        { id:'المغرب',   t: todayAt(times.maghrib) },
-        { id:'العشاء',   t: todayAt(times.isha) }
-      ].filter(x => x.t);
-
-      const now = new Date();
-      let next = order.find(x => x.t > now);
-
-      // إن لم يوجد وقت متبقٍ اليوم، لا نعرض العد — (تبسيط)
-      if(!next) return;
-
-      // نعرض العد تحت أول بطاقة (كما في الصورة "متبقي على الأذان")
-      el.fajrCd.removeAttribute('aria-hidden');
-
+    let timer;
+    function setupCountdown(list){
+      if(timer) clearInterval(timer);
+      function nextPrayer(){
+        const now = new Date();
+        const times = list.map(atToday).filter(Boolean);
+        return times.find(t => t > now);
+      }
       function tick(){
-        const diff = next.t - new Date();
-        if(diff <= 0){ el.fajrCd.textContent = 'حان وقت الأذان'; clearInterval(cdTimer); return; }
+        const nxt = nextPrayer();
+        if(!nxt){ cd.textContent = '—'; return; }
+        const diff = nxt - new Date();
+        if(diff <= 0){ cd.textContent = 'حان الأذان'; return; }
         const hh = Math.floor(diff/3_600_000);
         const mm = Math.floor((diff%3_600_000)/60_000);
-        const ss = Math.floor((diff%60_000)/1_000);
-        el.fajrCd.textContent = `متبقي على الأذان ${String(hh).padStart(2,'0')}:${String(mm).padStart(2,'0')}:${String(ss).padStart(2,'0')}`;
+        const ss = Math.floor((diff%60_000)/1000);
+        cd.textContent = `${String(hh).padStart(2,'0')}:${String(mm).padStart(2,'0')}:${String(ss).padStart(2,'0')}`;
       }
-      tick();
-      cdTimer = setInterval(tick, 1000);
+      tick(); timer = setInterval(tick, 1000);
     }
 
-    /* تحميل المواقيت */
-    async function loadTimes(){
-      try{
-        busy(true);
-        el.error.style.display = 'none';
-        el.city.textContent = state.place;
-        const data = await fetchFromKafeel(state.lat, state.lon, state.tz);
-        paint(data || {});
-      }catch(err){
-        console.error(err);
-        el.error.textContent = 'حدثت مشكلة في جلب المواقيت. تحقق من الاتصال أو جرّب لاحقًا.';
-        el.error.style.display = 'block';
-      }finally{
-        busy(false);
-      }
+    async function loadByCity(){
+      try{ err.style.display='none'; busy(true);
+        const data = await fetchJSON(byCityURL(state.city, state.country));
+        paint(data, `${state.city}, ${state.country}`);
+      }catch(e){ err.textContent = 'تعذّر الجلب حسب المدينة. جرّب الإحداثيات أو تحقق من اتصالك.'; err.style.display='block';
+      }finally{ busy(false) }
     }
 
-    /* أزرار التحكم */
-    el.applyBH.addEventListener('click', ()=>{ state = { lat:26.2189, lon:50.5903, tz:'+3', place:'Tubli – Bahrain' }; loadTimes(); });
-    el.refreshBtn.addEventListener('click', loadTimes);
-    el.geoBtn.addEventListener('click', ()=>{
-      if(!('geolocation' in navigator)){ el.error.textContent = 'متصفحك لا يدعم تحديد الموقع.'; el.error.style.display='block'; return; }
+    async function loadByCoords(){
+      try{ err.style.display='none'; busy(true);
+        const data = await fetchJSON(byCoordsURL(state.lat, state.lon));
+        paint(data, `lat ${state.lat}, lon ${state.lon}`);
+      }catch(e){ err.textContent = 'تعذّر الجلب حسب الإحداثيات. تحقق من القيم أو جرّب لاحقًا.'; err.style.display='block';
+      }finally{ busy(false) }
+    }
+
+    // أزرار
+    $('useLoc').addEventListener('click', ()=>{
+      if(!('geolocation' in navigator)){ err.textContent='المتصفح لا يدعم تحديد الموقع.'; err.style.display='block'; return; }
       navigator.geolocation.getCurrentPosition(p=>{
-        const tz = (new Date().getTimezoneOffset() / -60) || +3;
-        state = { lat:+p.coords.latitude.toFixed(6), lon:+p.coords.longitude.toFixed(6), tz: (tz>0?`+${tz}`:`${tz}`), place:'موقعي الحالي' };
-        loadTimes();
-      }, e=>{
-        el.error.textContent = 'تم رفض إذن الموقع أو حدث خطأ. يمكنك استخدام زر "تعيين: البحرين".';
-        el.error.style.display = 'block';
-      }, { enableHighAccuracy:false, timeout:10000, maximumAge:0 });
+        state.lat=+p.coords.latitude.toFixed(6); state.lon=+p.coords.longitude.toFixed(6);
+        loadByCoords();
+      }, _=>{ err.textContent='رُفض إذن الموقع. استخدم المدينة أو أدخل الإحداثيات.'; err.style.display='block'; },
+      {enableHighAccuracy:false, timeout:10000, maximumAge:0});
     });
 
-    el.customBtn.addEventListener('click', ()=>{
-      const lat = prompt('أدخل خط العرض (lat):', state.lat);
-      const lon = prompt('أدخل خط الطول (lon):', state.lon);
-      const tz  = prompt('أدخل المنطقة الزمنية (مثال: +3 أو -4):', state.tz);
-      if(lat && lon && tz){ state = { lat:+lat, lon:+lon, tz:tz.trim(), place:'إحداثيات مخصّصة' }; loadTimes(); }
+    $('byCity').addEventListener('click', ()=>{
+      state.city = $('city').value.trim() || state.city;
+      state.country = $('country').value.trim() || state.country;
+      loadByCity();
     });
 
-    // تشغيل أولي — البحرين Tubli
-    loadTimes();
+    $('byCoords').addEventListener('click', ()=>{
+      const lat = parseFloat($('lat').value), lon = parseFloat($('lon').value);
+      if(!isFinite(lat) || !isFinite(lon)){ err.textContent='أدخل خط العرض والطول بشكل صحيح.'; err.style.display='block'; return; }
+      state.lat = lat; state.lon = lon; loadByCoords();
+    });
+
+    $('presetNajaf').addEventListener('click', ()=>{ state={country:'Iraq', city:'Najaf', lat:31.997, lon:44.314}; loadByCity(); });
+    $('presetQom').addEventListener('click',   ()=>{ state={country:'Iran', city:'Qom',   lat:34.6416, lon:50.8746}; loadByCity(); });
+    $('presetKarbala').addEventListener('click',()=>{ state={country:'Iraq', city:'Karbala', lat:32.6160, lon:44.0249}; loadByCity(); });
+
+    $('reset').addEventListener('click', ()=>{
+      state = { country:'Bahrain', city:'Tubli', lat:26.2189, lon:50.5903 };
+      $('country').value='Bahrain'; $('city').value='Tubli'; $('lat').value='26.2189'; $('lon').value='50.5903';
+      loadByCity();
+    });
+
+    // تشغيل أولي
+    $('reset').click();
   })();
   </script>
 </body>
