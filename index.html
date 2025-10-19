@@ -1,19 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Currency Converter</title>
+    <title>محول العملات</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f7fa;
             margin: 0;
             padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
         }
         .container {
-            max-width: 400px;
-            margin: 0 auto;
+            width: 100%;
+            max-width: 600px;
             background: white;
             padding: 20px;
             border-radius: 8px;
@@ -52,10 +56,18 @@
         }
         .amount {
             text-align: right;
+            white-space: nowrap;
+        }
+        .amount input {
+            width: 100px;
+            text-align: right;
         }
         .rate {
             font-size: 0.8em;
             color: #666;
+            margin-top: 5px;
+            width: 100%;
+            text-align: right;
         }
         #add-currency {
             background: transparent;
@@ -70,194 +82,206 @@
             color: #666;
             font-size: 0.8em;
         }
-        .attribution {
+        .footer {
             text-align: center;
-            font-size: 0.7em;
+            font-size: 0.9em;
+            color: #333;
             margin-top: 20px;
+        }
+        @media (max-width: 600px) {
+            .currency-row {
+                flex-wrap: wrap;
+            }
+            .amount {
+                margin-top: 5px;
+                width: 100%;
+                text-align: right;
+            }
+            select {
+                max-width: 150px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Convert</h1>
-        <p class="last-updated">Last updated: <span id="last-updated"></span></p>
+        <h1>محول العملات</h1>
+        <p class="last-updated">آخر تحديث: <span id="last-updated"></span></p>
         <div id="base-currency" class="currency-row">
             <!-- Populated by JS -->
         </div>
         <div id="target-currencies">
             <!-- Target currencies will be added here -->
         </div>
-        <button id="add-currency">+ Add currency</button>
-        <p class="mid-market">Mid-market rates <span id="info-icon">i</span></p>
+        <button id="add-currency">+ إضافة عملة</button>
+        <p class="mid-market">أسعار منتصف السوق <span id="info-icon">i</span></p>
     </div>
-    <div class="attribution">
-        <a href="https://www.exchangerate-api.com">Rates By Exchange Rate API</a>
-    </div>
+    <p class="footer">برمجة وتطوير: فاضل الريس</p>
 
     <script>
         // List of supported currencies from API
         const currencies = [
-            {code: "AED", name: "UAE Dirham"},
-            {code: "AFN", name: "Afghan Afghani"},
-            {code: "ALL", name: "Albanian Lek"},
-            {code: "AMD", name: "Armenian Dram"},
-            {code: "ANG", name: "Netherlands Antillian Guilder"},
-            {code: "AOA", name: "Angolan Kwanza"},
-            {code: "ARS", name: "Argentine Peso"},
-            {code: "AUD", name: "Australian Dollar"},
-            {code: "AWG", name: "Aruban Florin"},
-            {code: "AZN", name: "Azerbaijani Manat"},
-            {code: "BAM", name: "Bosnia and Herzegovina Mark"},
-            {code: "BBD", name: "Barbados Dollar"},
-            {code: "BDT", name: "Bangladeshi Taka"},
-            {code: "BGN", name: "Bulgarian Lev"},
-            {code: "BHD", name: "Bahraini Dinar"},
-            {code: "BIF", name: "Burundian Franc"},
-            {code: "BMD", name: "Bermudian Dollar"},
-            {code: "BND", name: "Brunei Dollar"},
-            {code: "BOB", name: "Bolivian Boliviano"},
-            {code: "BRL", name: "Brazilian Real"},
-            {code: "BSD", name: "Bahamian Dollar"},
-            {code: "BTN", name: "Bhutanese Ngultrum"},
-            {code: "BWP", name: "Botswana Pula"},
-            {code: "BYN", name: "Belarusian Ruble"},
-            {code: "BZD", name: "Belize Dollar"},
-            {code: "CAD", name: "Canadian Dollar"},
-            {code: "CDF", name: "Congolese Franc"},
-            {code: "CHF", name: "Swiss Franc"},
-            {code: "CLP", name: "Chilean Peso"},
-            {code: "CNY", name: "Chinese Renminbi"},
-            {code: "COP", name: "Colombian Peso"},
-            {code: "CRC", name: "Costa Rican Colon"},
-            {code: "CUP", name: "Cuban Peso"},
-            {code: "CVE", name: "Cape Verdean Escudo"},
-            {code: "CZK", name: "Czech Koruna"},
-            {code: "DJF", name: "Djiboutian Franc"},
-            {code: "DKK", name: "Danish Krone"},
-            {code: "DOP", name: "Dominican Peso"},
-            {code: "DZD", name: "Algerian Dinar"},
-            {code: "EGP", name: "Egyptian Pound"},
-            {code: "ERN", name: "Eritrean Nakfa"},
-            {code: "ETB", name: "Ethiopian Birr"},
-            {code: "EUR", name: "Euro"},
-            {code: "FJD", name: "Fiji Dollar"},
-            {code: "FKP", name: "Falkland Islands Pound"},
-            {code: "FOK", name: "Faroese Króna"},
-            {code: "GBP", name: "Pound Sterling"},
-            {code: "GEL", name: "Georgian Lari"},
-            {code: "GGP", name: "Guernsey Pound"},
-            {code: "GHS", name: "Ghanaian Cedi"},
-            {code: "GIP", name: "Gibraltar Pound"},
-            {code: "GMD", name: "Gambian Dalasi"},
-            {code: "GNF", name: "Guinean Franc"},
-            {code: "GTQ", name: "Guatemalan Quetzal"},
-            {code: "GYD", name: "Guyanese Dollar"},
-            {code: "HKD", name: "Hong Kong Dollar"},
-            {code: "HNL", name: "Honduran Lempira"},
-            {code: "HRK", name: "Croatian Kuna"},
-            {code: "HTG", name: "Haitian Gourde"},
-            {code: "HUF", name: "Hungarian Forint"},
-            {code: "IDR", name: "Indonesian Rupiah"},
-            {code: "ILS", name: "Israeli New Shekel"},
-            {code: "IMP", name: "Manx Pound"},
-            {code: "INR", name: "Indian Rupee"},
-            {code: "IQD", name: "Iraqi Dinar"},
-            {code: "IRR", name: "Iranian Rial"},
-            {code: "ISK", name: "Icelandic Króna"},
-            {code: "JEP", name: "Jersey Pound"},
-            {code: "JMD", name: "Jamaican Dollar"},
-            {code: "JOD", name: "Jordanian Dinar"},
-            {code: "JPY", name: "Japanese Yen"},
-            {code: "KES", name: "Kenyan Shilling"},
-            {code: "KGS", name: "Kyrgyzstani Som"},
-            {code: "KHR", name: "Cambodian Riel"},
-            {code: "KID", name: "Kiribati Dollar"},
-            {code: "KMF", name: "Comorian Franc"},
-            {code: "KRW", name: "South Korean Won"},
-            {code: "KWD", name: "Kuwaiti Dinar"},
-            {code: "KYD", name: "Cayman Islands Dollar"},
-            {code: "KZT", name: "Kazakhstani Tenge"},
-            {code: "LAK", name: "Lao Kip"},
-            {code: "LBP", name: "Lebanese Pound"},
-            {code: "LKR", name: "Sri Lanka Rupee"},
-            {code: "LRD", name: "Liberian Dollar"},
-            {code: "LSL", name: "Lesotho Loti"},
-            {code: "LYD", name: "Libyan Dinar"},
-            {code: "MAD", name: "Moroccan Dirham"},
-            {code: "MDL", name: "Moldovan Leu"},
-            {code: "MGA", name: "Malagasy Ariary"},
-            {code: "MKD", name: "Macedonian Denar"},
-            {code: "MMK", name: "Burmese Kyat"},
-            {code: "MNT", name: "Mongolian Tögrög"},
-            {code: "MOP", name: "Macanese Pataca"},
-            {code: "MRU", name: "Mauritanian Ouguiya"},
-            {code: "MUR", name: "Mauritian Rupee"},
-            {code: "MVR", name: "Maldivian Rufiyaa"},
-            {code: "MWK", name: "Malawian Kwacha"},
-            {code: "MXN", name: "Mexican Peso"},
-            {code: "MYR", name: "Malaysian Ringgit"},
-            {code: "MZN", name: "Mozambican Metical"},
-            {code: "NAD", name: "Namibian Dollar"},
-            {code: "NGN", name: "Nigerian Naira"},
-            {code: "NIO", name: "Nicaraguan Córdoba"},
-            {code: "NOK", name: "Norwegian Krone"},
-            {code: "NPR", name: "Nepalese Rupee"},
-            {code: "NZD", name: "New Zealand Dollar"},
-            {code: "OMR", name: "Omani Rial"},
-            {code: "PAB", name: "Panamanian Balboa"},
-            {code: "PEN", name: "Peruvian Sol"},
-            {code: "PGK", name: "Papua New Guinean Kina"},
-            {code: "PHP", name: "Philippine Peso"},
-            {code: "PKR", name: "Pakistani Rupee"},
-            {code: "PLN", name: "Polish Złoty"},
-            {code: "PYG", name: "Paraguayan Guaraní"},
-            {code: "QAR", name: "Qatari Riyal"},
-            {code: "RON", name: "Romanian Leu"},
-            {code: "RSD", name: "Serbian Dinar"},
-            {code: "RUB", name: "Russian Ruble"},
-            {code: "RWF", name: "Rwandan Franc"},
-            {code: "SAR", name: "Saudi Riyal"},
-            {code: "SBD", name: "Solomon Islands Dollar"},
-            {code: "SCR", name: "Seychellois Rupee"},
-            {code: "SDG", name: "Sudanese Pound"},
-            {code: "SEK", name: "Swedish Krona"},
-            {code: "SGD", name: "Singapore Dollar"},
-            {code: "SHP", name: "Saint Helena Pound"},
-            {code: "SLE", name: "Sierra Leonean Leone"},
-            {code: "SOS", name: "Somali Shilling"},
-            {code: "SRD", name: "Surinamese Dollar"},
-            {code: "SSP", name: "South Sudanese Pound"},
-            {code: "STN", name: "São Tomé and Príncipe Dobra"},
-            {code: "SYP", name: "Syrian Pound"},
-            {code: "SZL", name: "Eswatini Lilangeni"},
-            {code: "THB", name: "Thai Baht"},
-            {code: "TJS", name: "Tajikistani Somoni"},
-            {code: "TMT", name: "Turkmenistan Manat"},
-            {code: "TND", name: "Tunisian Dinar"},
-            {code: "TOP", name: "Tongan Paʻanga"},
-            {code: "TRY", name: "Turkish Lira"},
-            {code: "TTD", name: "Trinidad and Tobago Dollar"},
-            {code: "TVD", name: "Tuvaluan Dollar"},
-            {code: "TWD", name: "New Taiwan Dollar"},
-            {code: "TZS", name: "Tanzanian Shilling"},
-            {code: "UAH", name: "Ukrainian Hryvnia"},
-            {code: "UGX", name: "Ugandan Shilling"},
-            {code: "USD", name: "United States Dollar"},
-            {code: "UYU", name: "Uruguayan Peso"},
-            {code: "UZS", name: "Uzbekistani So'm"},
-            {code: "VES", name: "Venezuelan Bolívar Soberano"},
-            {code: "VND", name: "Vietnamese Đồng"},
-            {code: "VUV", name: "Vanuatu Vatu"},
-            {code: "WST", name: "Samoan Tālā"},
-            {code: "XAF", name: "Central African CFA Franc"},
-            {code: "XCD", name: "East Caribbean Dollar"},
-            {code: "XDR", name: "Special Drawing Rights"},
-            {code: "XOF", name: "West African CFA franc"},
-            {code: "XPF", name: "CFP Franc"},
-            {code: "YER", name: "Yemeni Rial"},
-            {code: "ZAR", name: "South African Rand"},
-            {code: "ZMW", name: "Zambian Kwacha"},
-            {code: "ZWL", name: "Zimbabwean Dollar"}
+            {code: "AED", name: "درهم إماراتي"},
+            {code: "AFN", name: "أفغاني أفغانستان"},
+            {code: "ALL", name: "ليك ألباني"},
+            {code: "AMD", name: "درام أرميني"},
+            {code: "ANG", name: "غيلدر أنتيلي هولندي"},
+            {code: "AOA", name: "كوانزا أنغولي"},
+            {code: "ARS", name: "بيزو أرجنتيني"},
+            {code: "AUD", name: "دولار أسترالي"},
+            {code: "AWG", name: "فلورن أروبي"},
+            {code: "AZN", name: "مانات أذربيجاني"},
+            {code: "BAM", name: "مارك بوسني وهرسكي"},
+            {code: "BBD", name: "دولار بربادوسي"},
+            {code: "BDT", name: "تاكا بنغلاديشي"},
+            {code: "BGN", name: "ليف بلغاري"},
+            {code: "BHD", name: "دينار بحريني"},
+            {code: "BIF", name: "فرنك بوروندي"},
+            {code: "BMD", name: "دولار برمودي"},
+            {code: "BND", name: "دولار بروناي"},
+            {code: "BOB", name: "بوليفيانو بوليفي"},
+            {code: "BRL", name: "ريال برازيلي"},
+            {code: "BSD", name: "دولار بهامي"},
+            {code: "BTN", name: "نغولترم بوتاني"},
+            {code: "BWP", name: "بولا بوتسواني"},
+            {code: "BYN", name: "روبل بيلاروسي"},
+            {code: "BZD", name: "دولار بليزي"},
+            {code: "CAD", name: "دولار كندي"},
+            {code: "CDF", name: "فرنك كونغولي"},
+            {code: "CHF", name: "فرنك سويسري"},
+            {code: "CLP", name: "بيزو تشيلي"},
+            {code: "CNY", name: "يوان صيني"},
+            {code: "COP", name: "بيزو كولومبي"},
+            {code: "CRC", name: "كولون كوستاريكي"},
+            {code: "CUP", name: "بيزو كوبي"},
+            {code: "CVE", name: "إسكودو كاب فيردي"},
+            {code: "CZK", name: "كرونة تشيكية"},
+            {code: "DJF", name: "فرنك جيبوتي"},
+            {code: "DKK", name: "كرونة دانمركية"},
+            {code: "DOP", name: "بيزو دومينيكاني"},
+            {code: "DZD", name: "دينار جزائري"},
+            {code: "EGP", name: "جنيه مصري"},
+            {code: "ERN", name: "ناكفا إريتري"},
+            {code: "ETB", name: "بير إثيوبي"},
+            {code: "EUR", name: "يورو"},
+            {code: "FJD", name: "دولار فيجي"},
+            {code: "FKP", name: "جنيه جزر فوكلاند"},
+            {code: "FOK", name: "كرونة فاروية"},
+            {code: "GBP", name: "جنيه إسترليني"},
+            {code: "GEL", name: "لاري جورجي"},
+            {code: "GGP", name: "جنيه غيرنزي"},
+            {code: "GHS", name: "سيدي غاني"},
+            {code: "GIP", name: "جنيه جبل طارق"},
+            {code: "GMD", name: "دالاسي غامبي"},
+            {code: "GNF", name: "فرنك غيني"},
+            {code: "GTQ", name: "كيتزال غواتيمالي"},
+            {code: "GYD", name: "دولار غياني"},
+            {code: "HKD", name: "دولار هونغ كونغ"},
+            {code: "HNL", name: "ليمبيرا هندوراسي"},
+            {code: "HRK", name: "كونا كرواتية"},
+            {code: "HTG", name: "غورد هاييتي"},
+            {code: "HUF", name: "فورنت مجري"},
+            {code: "IDR", name: "روبية إندونيسية"},
+            {code: "ILS", name: "شيكل إسرائيلي جديد"},
+            {code: "IMP", name: "جنيه مانكس"},
+            {code: "INR", name: "روبية هندية"},
+            {code: "IQD", name: "دينار عراقي"},
+            {code: "IRR", name: "ريال إيراني"},
+            {code: "ISK", name: "كرونة آيسلندية"},
+            {code: "JEP", name: "جنيه جيرسي"},
+            {code: "JMD", name: "دولار جامايكي"},
+            {code: "JOD", name: "دينار أردني"},
+            {code: "JPY", name: "ين ياباني"},
+            {code: "KES", name: "شلن كيني"},
+            {code: "KGS", name: "سوم قيرغيزستاني"},
+            {code: "KHR", name: "ريال كمبودي"},
+            {code: "KID", name: "دولار كيريباتي"},
+            {code: "KMF", name: "فرنك قمري"},
+            {code: "KRW", name: "وون كوري جنوبي"},
+            {code: "KWD", name: "دينار كويتي"},
+            {code: "KYD", name: "دولار جزر كايمان"},
+            {code: "KZT", name: "تينغ كازاخستاني"},
+            {code: "LAK", name: "كيب لاوسي"},
+            {code: "LBP", name: "ليرة لبنانية"},
+            {code: "LKR", name: "روبية سريلانكية"},
+            {code: "LRD", name: "دولار ليبيري"},
+            {code: "LSL", name: "لوتي ليسوتو"},
+            {code: "LYD", name: "دينار ليبي"},
+            {code: "MAD", name: "درهم مغربي"},
+            {code: "MDL", name: "ليو مولدوفي"},
+            {code: "MGA", name: "أرياري مدغشقري"},
+            {code: "MKD", name: "دينار مقدوني"},
+            {code: "MMK", name: "كيات ميانماري"},
+            {code: "MNT", name: "توغروغ منغولي"},
+            {code: "MOP", name: "باتاكا ماكاوية"},
+            {code: "MRU", name: "أوقية موريتانية"},
+            {code: "MUR", name: "روبية موريشيوسية"},
+            {code: "MVR", name: "روفية مالديفية"},
+            {code: "MWK", name: "كواتشا ملاوية"},
+            {code: "MXN", name: "بيزو مكسيكي"},
+            {code: "MYR", name: "رينغيت ماليزي"},
+            {code: "MZN", name: "ميتيكال موزمبيقي"},
+            {code: "NAD", name: "دولار ناميبي"},
+            {code: "NGN", name: "نايرا نيجيرية"},
+            {code: "NIO", name: "كوردوبا نيكاراغوي"},
+            {code: "NOK", name: "كرونة نرويجية"},
+            {code: "NPR", name: "روبية نيبالية"},
+            {code: "NZD", name: "دولار نيوزيلندي"},
+            {code: "OMR", name: "ريال عماني"},
+            {code: "PAB", name: "بالبوا بنمي"},
+            {code: "PEN", name: "سول بيروفي"},
+            {code: "PGK", name: "كينا بابوا غينيا الجديدة"},
+            {code: "PHP", name: "بيزو فلبيني"},
+            {code: "PKR", name: "روبية باكستانية"},
+            {code: "PLN", name: "زلوتي بولندي"},
+            {code: "PYG", name: "غواراني باراغواي"},
+            {code: "QAR", name: "ريال قطري"},
+            {code: "RON", name: "ليو روماني"},
+            {code: "RSD", name: "دينار صربي"},
+            {code: "RUB", name: "روبل روسي"},
+            {code: "RWF", name: "فرنك رواندي"},
+            {code: "SAR", name: "ريال سعودي"},
+            {code: "SBD", name: "دولار جزر سليمان"},
+            {code: "SCR", name: "روبية سيشلية"},
+            {code: "SDG", name: "جنيه سوداني"},
+            {code: "SEK", name: "كرونة سويدية"},
+            {code: "SGD", name: "دولار سنغافوري"},
+            {code: "SHP", name: "جنيه سانت هيلينا"},
+            {code: "SLE", name: "ليون سيراليوني"},
+            {code: "SOS", name: "شلن صومالي"},
+            {code: "SRD", name: "دولار سورينامي"},
+            {code: "SSP", name: "جنيه جنوب سوداني"},
+            {code: "STN", name: "دوبرا ساو تومي وبرينسيبي"},
+            {code: "SYP", name: "ليرة سورية"},
+            {code: "SZL", name: "ليلانغيني سوازيلندي"},
+            {code: "THB", name: "بات تايلاندي"},
+            {code: "TJS", name: "سوموني طاجيكستاني"},
+            {code: "TMT", name: "مانات تركمانستاني"},
+            {code: "TND", name: "دينار تونسي"},
+            {code: "TOP", name: "بانغا تونغي"},
+            {code: "TRY", name: "ليرة تركية"},
+            {code: "TTD", name: "دولار ترينيداد وتوباغو"},
+            {code: "TVD", name: "دولار توفالو"},
+            {code: "TWD", name: "دولار تايواني جديد"},
+            {code: "TZS", name: "شلن تنزاني"},
+            {code: "UAH", name: "هريفنا أوكرانية"},
+            {code: "UGX", name: "شلن أوغندي"},
+            {code: "USD", name: "دولار أمريكي"},
+            {code: "UYU", name: "بيزو أوروغواي"},
+            {code: "UZS", name: "سوم أوزبكستاني"},
+            {code: "VES", name: "بوليفار فنزويلي"},
+            {code: "VND", name: "دونغ فيتنامي"},
+            {code: "VUV", name: "فاتو فانواتي"},
+            {code: "WST", name: "تالا ساموي"},
+            {code: "XAF", name: "فرنك وسط أفريقي"},
+            {code: "XCD", name: "دولار شرق الكاريبي"},
+            {code: "XDR", name: "حقوق سحب خاصة"},
+            {code: "XOF", name: "فرنك غرب أفريقي"},
+            {code: "XPF", name: "فرنك سي إف بي"},
+            {code: "YER", name: "ريال يمني"},
+            {code: "ZAR", name: "راند جنوب أفريقي"},
+            {code: "ZMW", name: "كواتشا زامبية"},
+            {code: "ZWL", name: "دولار زيمبابوي"}
         ];
 
         // Map from currency code to country code for flags (partial, based on common associations)
@@ -430,13 +454,13 @@
                 const data = await response.json();
                 if (data.result === 'success') {
                     rates = data.rates;
-                    document.getElementById('last-updated').innerText = new Date(data.time_last_update_utc).toLocaleString();
+                    document.getElementById('last-updated').innerText = new Date(data.time_last_update_utc).toLocaleString('ar');
                     updateConversions();
                 } else {
-                    alert('Error fetching rates');
+                    alert('خطأ في جلب الأسعار');
                 }
             } catch (error) {
-                alert('Network error');
+                alert('خطأ في الشبكة');
             }
         }
 
@@ -469,7 +493,7 @@
             const country = currencyToCountry[code] || 'un';
             const flagUrl = `https://flagcdn.com/w40/${country}.png`;
             div.innerHTML = `
-                <img src="${flagUrl}" alt="${code} flag" class="flag">
+                <img src="${flagUrl}" alt="علم ${code}" class="flag">
                 <select ${isBase ? 'id="base-select"' : ''}></select>
                 <span class="amount">${getSymbol(code)} <input type="number" ${isBase ? 'id="amount-input" value="' + amount + '"' : 'disabled'}></span>
                 <div class="rate"></div>
