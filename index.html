@@ -116,9 +116,8 @@
             sagittarius: "القوس", capricorn: "الجدي", aquarius: "الدلو", pisces: "الحوت"
         };
         
-        let currentDay = 'today'; // لتتبع اليوم الحالي
+        let currentDay = 'today';
 
-        // --- دالة جلب البيانات الحقيقية ---
         async function fetchHoroscopeData(day) {
             loadingIndicator.style.display = 'block';
             contentGrid.innerHTML = '';
@@ -126,13 +125,17 @@
             const signKeys = Object.keys(HOROSCOPE_SIGNS);
             let allHoroscopes = [];
 
-            // جلب البيانات لكل برج
             for (const sign of signKeys) {
                 try {
-                    const response = await fetch(`https://aztro.sameerkumar.website/?sign=${sign}&day=${day}`, { method: 'POST' });
-                    const data = await response.json();
+                    // *** التغيير الوحيد هنا ***
+                    // استخدام بروكسي لتجاوز مشكلة CORS
+                    const apiUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(`https://aztro.sameerkumar.website/?sign=${sign}&day=${day}`)}`;
+                    const response = await fetch(apiUrl, { method: 'GET' }); // تغيير POST إلى GET لأن البروكسي يتطلب ذلك
+                    const proxyData = await response.json();
                     
-                    // إضافة اسم البرج بالعربي للبيانات
+                    // البيانات الحقيقية تكون داخل خاصية contents
+                    const data = JSON.parse(proxyData.contents);
+                    
                     data.arabic_sign = HOROSCOPE_SIGNS[sign];
                     allHoroscopes.push(data);
                 } catch (error) {
@@ -144,7 +147,6 @@
             return allHoroscopes;
         }
 
-        // --- دالة عرض البطاقات ---
         function renderCards(data) {
             contentGrid.innerHTML = '';
             data.forEach(item => {
@@ -156,10 +158,10 @@
                         <div class="card-content">
                             <p class="card-summary">${item.description}</p>
                             <div class="card-meta">
-                                <div class="meta-item"><span>التوافق</span> ${item.compatibility}</div>
-                                <div class="meta-item"><span>المزاج</span> ${item.mood}</div>
-                                <div class="meta-item"><span>اللون</span> ${item.color}</div>
-                                <div class="meta-item"><span>رقم الحظ</span> ${item.lucky_number}</div>
+                                <div class="meta-item"><span>التوافق</span> ${item.compatibility || 'غير محدد'}</div>
+                                <div class="meta-item"><span>المزاج</span> ${item.mood || 'غير محدد'}</div>
+                                <div class="meta-item"><span>اللون</span> ${item.color || 'غير محدد'}</div>
+                                <div class="meta-item"><span>رقم الحظ</span> ${item.lucky_number || 'غير محدد'}</div>
                             </div>
                         </div>
                     </article>
@@ -168,7 +170,6 @@
             });
         }
         
-        // --- دالة رئيسية للتشغيل ---
         async function initializePage(day) {
             const data = await fetchHoroscopeData(day);
             if (data && data.length > 0) {
@@ -178,30 +179,22 @@
             }
         }
 
-        // --- آلية محاكاة التحديث ---
         function simulateNewDay() {
-            // في تطبيق حقيقي، ستتحقق من التاريخ الفعلي
-            // هنا، سنظهر الإشعار بعد دقيقتين لمحاكاة يوم جديد
             setTimeout(() => {
                 if (currentDay === 'today') {
-                    console.log("محاكاة يوم جديد: التحديثات متاحة!");
                     updateNotification.style.display = 'block';
                 }
-            }, 120000); // دقيقتان
+            }, 120000);
         }
 
-        // --- بدء تشغيل التطبيق ---
-
-        // 1. عند تحميل الصفحة، اعرض بيانات "اليوم"
         document.addEventListener('DOMContentLoaded', () => {
             initializePage('today');
-            simulateNewDay(); // ابدأ محاكاة انتظار اليوم الجديد
+            simulateNewDay();
         });
         
-        // 2. عند الضغط على زر التحديث، اعرض بيانات "الغد" (كمحاكاة لليوم الجديد)
         updateNotification.addEventListener('click', () => {
             updateNotification.style.display = 'none';
-            currentDay = 'tomorrow'; // تغيير اليوم المطلوب
+            currentDay = 'tomorrow';
             initializePage('tomorrow');
         });
     </script>
