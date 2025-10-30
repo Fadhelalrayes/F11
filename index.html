@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- Security: Content Security Policy -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self' 'unsafe-inline' https://unpkg.com; img-src 'self' https://images.pexels.com data:;">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self' 'unsafe-inline' https://unpkg.com; img-src 'self' https: data:;">
 
     <!-- SEO: Title and Meta Tags -->
     <title>الذرية الصالحة | أدعية وأعمال مأثورة ومجربة لطلب الولد</title>
@@ -17,21 +17,22 @@
     <meta property="og:description" content="مرجع شامل للأدعية والأعمال المأثورة عن أهل البيت (عليهم السلام) لطلب الذرية الصالحة.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="">
-    <meta property="og:image" content="https://images.pexels.com/photos/236445/pexels-photo-236445.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2">
+    <meta property="og:image" content="https://i.imgur.com/wP0v7gH.jpeg">
 
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;700&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap');
 
         :root {
-            --bg-color: #ffffff;
+            --bg-color: #f4f4f4;
             --text-color: #333333;
             --heading-color: #000000;
-            --accent-color: #D4AF37; /* Gold */
+            --accent-color: #c5a675; /* Gold-Brown from template */
             --card-bg: #ffffff;
-            --border-color: #f0f0f0;
-            --shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
-            --header-overlay: rgba(0, 0, 0, 0.6);
+            --top-bar-bg: #363636;
+            --footer-bg: #363636;
+            --border-color: #e9e9e9;
+            --shadow: 0 5px 25px rgba(0, 0, 0, 0.07);
         }
 
         @keyframes fadeIn {
@@ -40,64 +41,76 @@
         }
 
         body {
-            font-family: 'IBM Plex Sans Arabic', sans-serif;
-            font-size: 18px;
-            line-height: 2.1;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 17px;
+            line-height: 1.9;
             color: var(--text-color);
             background-color: var(--bg-color);
             margin: 0;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
-
-        .main-header {
-            position: relative;
-            text-align: center;
-            padding: 80px 20px;
+        
+        .top-bar {
+            background-color: var(--top-bar-bg);
             color: #fff;
-            background-image: url('https://images.pexels.com/photos/236445/pexels-photo-236445.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
-            background-size: cover;
-            background-position: center;
-        }
-        .main-header::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: var(--header-overlay);
-            z-index: 1;
-        }
-        .header-content { position: relative; z-index: 2; }
-        .main-header h1 {
-            font-size: clamp(2.5rem, 6vw, 3.5rem);
-            font-weight: 700;
-            margin: 0 0 15px 0;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
-        }
-        .main-header p {
-            font-size: 1.15rem;
-            max-width: 700px;
-            margin: 0 auto;
-            color: rgba(255, 255, 255, 0.95);
-            text-shadow: 0 1px 5px rgba(0,0,0,0.4);
+            padding: 8px 20px;
+            text-align: left;
         }
         .live-clock {
             font-family: 'monospace';
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .site-header {
+            background-color: #fff;
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .site-header h1 {
+            font-size: 2rem;
+            color: var(--heading-color);
+            margin: 0;
+            font-weight: 700;
+        }
+
+        .hero-section {
+            position: relative;
+            text-align: center;
+            height: 400px;
+            color: #fff;
+            background-image: url('https://i.imgur.com/wP0v7gH.jpeg');
+            background-size: cover;
+            background-position: center 35%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.3);
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            padding: 20px;
+        }
+        .hero-content p {
             font-size: 1.2rem;
-            background: rgba(0,0,0,0.4);
-            display: inline-block;
-            padding: 5px 15px;
-            border-radius: 8px;
-            margin-top: 20px;
-            border: 1px solid rgba(255,255,255,0.2);
+            max-width: 600px;
+            margin: 0 auto;
+            text-shadow: 0 1px 8px rgba(0,0,0,0.6);
         }
 
         .container {
             max-width: 900px;
-            margin: -60px auto 40px auto;
-            background: var(--card-bg);
-            border-radius: 16px;
-            box-shadow: var(--shadow);
-            position: relative;
-            z-index: 10;
-            padding: clamp(25px, 5vw, 50px);
+            margin: 20px auto 40px auto;
+            background: transparent;
+            padding: 0 20px;
             animation: fadeIn 0.8s ease-out;
         }
 
@@ -112,37 +125,40 @@
         
         .card {
             background: var(--card-bg);
-            padding: 30px;
-            margin: 30px 0;
-            border-radius: 12px;
+            padding: 25px 30px;
+            margin: 25px 0;
+            border-radius: 8px;
             border: 1px solid var(--border-color);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            border-bottom: 3px solid var(--accent-color);
+            box-shadow: var(--shadow);
         }
         .card p { margin: 0; text-align: justify; }
         .card strong { color: var(--heading-color); font-weight: 700; }
-        .card em { font-family: 'Amiri', serif; font-style: italic; font-size: 1.1em; color: #000; }
+        .card em { font-family: 'Amiri', serif; font-style: normal; font-weight: 400; font-size: 1.1em; color: #000; }
         .card small { color: #999; font-size: 0.85em; display: inline; margin-right: 5px; }
 
         .quran-quote {
             font-family: 'Amiri', serif;
             font-weight: 700;
             text-align: center;
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             color: var(--heading-color);
-            background: #fafafa;
+            background: #fcfaf6;
             border-left: 4px solid var(--accent-color);
         }
 
         .actions-toolbar {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
             text-align: center;
             margin-top: 40px;
-            padding-top: 25px;
-            border-top: 1px solid var(--border-color);
         }
         .actions-toolbar h3 {
             font-size: 1.1rem;
             color: #777;
-            margin-bottom: 15px;
+            margin: 0 0 15px 0;
             font-weight: 500;
         }
         .action-buttons {
@@ -154,8 +170,8 @@
         .action-buttons button, .action-buttons a {
             display: grid;
             place-items: center;
-            width: 44px;
-            height: 44px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             border: 1px solid #eee;
             background: #fff;
@@ -170,22 +186,28 @@
             transform: translateY(-3px);
             border-color: var(--heading-color);
         }
-        .action-buttons i { font-size: 1.5rem; }
+        .action-buttons i { font-size: 1.3rem; }
 
-        .main-footer { text-align: center; padding: 30px 20px; background: var(--heading-color); color: rgba(255,255,255,0.7); font-size: 0.9rem; }
+        .main-footer { text-align: center; padding: 40px 20px; background: var(--footer-bg); color: rgba(255,255,255,0.7); font-size: 0.9rem; }
         
         @media (max-width: 768px) { body { font-size: 16px; } }
     </style>
 </head>
 <body>
 
-    <header class="main-header">
-        <div class="header-content">
-            <h1>الذرية الصالحة</h1>
-            <p>جمعنا لكم في هذه الصفحة المباركة كنزاً من الأعمال والأدعية المأثورة عن أهل البيت (عليهم السلام)، لتكون لكم عوناً في التوجه إلى الله وطلب نعمة الذرية الصالحة.</p>
-            <div id="live-clock" class="live-clock"></div>
-        </div>
+    <div class="top-bar">
+        <div id="live-clock" class="live-clock"></div>
+    </div>
+    
+    <header class="site-header">
+        <h1>الذرية الصالحة</h1>
     </header>
+
+    <section class="hero-section">
+        <div class="hero-content">
+            <p>جمعنا لكم في هذه الصفحة المباركة كنزاً من الأعمال والأدعية المأثورة عن أهل البيت (عليهم السلام)، لتكون لكم عوناً في التوجه إلى الله وطلب هذه النعمة العظيمة.</p>
+        </div>
+    </section>
 
     <div class="container">
         <main class="article-content">
@@ -234,19 +256,19 @@
             <div class="card">
                 <p><strong>صلاة بعد الجمعة:</strong> روى الكليني بسنده عن محمد بن مسلم عن أبي عبد الله (ع) من أراد ان يُحبل له فليصلِّ ركعتين بعد الجمعة يُطيل فيها الركوع والسجود ثم يقول: <em>(اللهم إني أسألك بما سألك به زكريا إذ ناداك ربَّ لا تذرني فرداً وأنت خير الوارثين، اللهم فهب لي ذريةً طيِّبة إنَّك سميع الدعاء، اللهم بإسمك استحللتُها، وهي أمانتك أخذتُها فإنْ قضيت في رحمها ولداً فاجعله غلاماً مباركاً زكيَّاً، ولا تجعل للشيطان فيه نصيباً ولا شَرَكاً)</em>. <small>(الكافي)</small></p>
             </div>
-        </main>
 
-        <section class="actions-toolbar">
-            <h3>شارك الصفحة</h3>
-            <div class="action-buttons">
-                <a href="#" id="share-whatsapp" title="مشاركة عبر واتساب" rel="noopener noreferrer"><i class="ph-bold ph-whatsapp-logo"></i></a>
-                <a href="#" id="share-telegram" title="مشاركة عبر تليجرام" rel="noopener noreferrer"><i class="ph-bold ph-telegram-logo"></i></a>
-                <a href="#" id="share-facebook" title="مشاركة عبر فيسبوك" rel="noopener noreferrer"><i class="ph-bold ph-facebook-logo"></i></a>
-                <a href="#" id="share-twitter" title="مشاركة عبر تويتر (X)" rel="noopener noreferrer"><i class="ph-bold ph-twitter-logo"></i></a>
-                <button id="copy-link" title="نسخ رابط الصفحة"><i class="ph-bold ph-link"></i></button>
-                <button id="print-page" title="طباعة الصفحة"><i class="ph-bold ph-printer"></i></button>
-            </div>
-        </section>
+            <section class="actions-toolbar">
+                <h3>شارك الصفحة</h3>
+                <div class="action-buttons">
+                    <a href="#" id="share-whatsapp" title="مشاركة عبر واتساب" target="_blank" rel="noopener noreferrer"><i class="ph-bold ph-whatsapp-logo"></i></a>
+                    <a href="#" id="share-telegram" title="مشاركة عبر تليجرام" target="_blank" rel="noopener noreferrer"><i class="ph-bold ph-telegram-logo"></i></a>
+                    <a href="#" id="share-facebook" title="مشاركة عبر فيسبوك" target="_blank" rel="noopener noreferrer"><i class="ph-bold ph-facebook-logo"></i></a>
+                    <a href="#" id="share-twitter" title="مشاركة عبر تويتر (X)" target="_blank" rel="noopener noreferrer"><i class="ph-bold ph-twitter-logo"></i></a>
+                    <button id="copy-link" title="نسخ رابط الصفحة"><i class="ph-bold ph-link"></i></button>
+                    <button id="print-page" title="طباعة الصفحة"><i class="ph-bold ph-printer"></i></button>
+                </div>
+            </section>
+        </main>
     </div>
 
     <footer class="main-footer">
@@ -277,9 +299,18 @@
             copyrightElement.textContent = `© ${currentYear} - نسألكم الدعاء`;
 
             // --- Share & Copy Functionality ---
+            // IMPORTANT: This needs a live server URL (http/https) to work correctly.
             const pageUrl = window.location.href;
             const pageTitle = document.title;
-            document.querySelector('meta[property="og:url"]').setAttribute('content', pageUrl);
+
+            // Set the canonical URL for SEO and sharing
+            const canonicalUrlTag = document.querySelector('meta[property="og:url"]') || document.createElement('meta');
+            if (!canonicalUrlTag.hasAttribute('property')) {
+                canonicalUrlTag.setAttribute('property', 'og:url');
+                document.head.appendChild(canonicalUrlTag);
+            }
+            canonicalUrlTag.setAttribute('content', pageUrl);
+
             const encodedUrl = encodeURIComponent(pageUrl);
             const encodedTitle = encodeURIComponent(pageTitle);
             
@@ -293,7 +324,13 @@
                 navigator.clipboard.writeText(pageUrl).then(() => {
                     const originalIcon = copyBtn.innerHTML;
                     copyBtn.innerHTML = '<i class="ph-fill ph-check-circle" style="color: #4caf50;"></i>';
-                    setTimeout(() => { copyBtn.innerHTML = originalIcon; }, 2000);
+                    copyBtn.title = "تم النسخ!";
+                    setTimeout(() => { 
+                        copyBtn.innerHTML = originalIcon; 
+                        copyBtn.title = "نسخ رابط الصفحة";
+                    }, 2000);
+                }, () => {
+                    alert("فشل نسخ الرابط. يرجى النسخ يدوياً.");
                 });
             });
             
