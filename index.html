@@ -6,18 +6,15 @@
     
     <!-- SEO Meta Tags -->
     <title>أدعية وصلوات مأثورة لطلب الولد والذرية الصالحة</title>
-    <meta name="description" content="مجموعة من الأدعية المأثورة والأعمال والصلوات المجربة لطلب الذرية الصالحة والولد، مستندة إلى روايات أهل البيت (ع) والقرآن الكريم.">
-    
-    <!-- الهاشتاجات المخفية (Meta Keywords) -->
+    <meta name="description" content="مجموعة كاملة من الأدعية المأثورة والأعمال والصلوات المجربة لطلب الذرية الصالحة والولد، مستندة إلى روايات أهل البيت (ع) والقرآن الكريم.">
     <meta name="keywords" content="طلب الولد, الذرية الصالحة, دعاء للحمل, دعاء الإنجاب, تأخر الحمل, علاج العقم بالقرآن, صلاة لطلب الولد, الاستغفار بنية الحمل, أدعية أهل البيت للحمل, مجربات للحمل, زيادة الرزق بالذرية, دعاء النبي زكريا, سورة نوح, الكافي, بحار الأنوار">
-    
     <meta name="author" content="محتوى إسلامي">
     
-    <!-- Social Media Meta Tags (Open Graph) -->
+    <!-- Open Graph Meta Tags -->
     <meta property="og:title" content="أدعية وصلوات مأثورة لطلب الولد والذرية الصالحة">
-    <meta property="og:description" content="تعرف على الأدعية والأعمال المجربة لطلب الذرية الصالحة كما ورد في المصادر المعتبرة.">
+    <meta property="og:description" content="تعرف على الأدعية والأعمال الكاملة والمجربة لطلب الذرية الصالحة كما ورد في المصادر المعتبرة.">
     <meta property="og:type" content="article">
-    <meta property="og:url" content=""> <!-- سيتم تعبئته تلقائياً بواسطة JavaScript -->
+    <meta property="og:url" content=""> <!-- Auto-filled by JS -->
     <meta property="og:image" content="[ضع هنا رابط صورة مميزة للمقالة]">
 
     <!-- Styling -->
@@ -25,158 +22,174 @@
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Amiri:wght@400;700&display=swap');
 
         :root {
-            --primary-color: #2c3e50;
-            --secondary-color: #3498db;
-            --background-color: #f8f9fa;
-            --text-color: #34495e;
-            --heading-color: #2c3e50;
-            --card-bg: #ffffff;
+            --primary-color: #005f73;
+            --secondary-color: #0a9396;
+            --background-gradient: linear-gradient(to top, #e9f5f7, #ffffff);
+            --text-color: #333;
+            --heading-color: #003440;
+            --card-bg: rgba(255, 255, 255, 0.85);
             --border-color: #dee2e6;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+            --quran-bg: #f0fdf4;
+            --quran-border: #22c55e;
+            --dua-bg: #f0f9ff;
+            --dua-border: #0ea5e9;
         }
 
         body {
             font-family: 'Cairo', sans-serif;
-            line-height: 1.8;
+            line-height: 1.9;
             color: var(--text-color);
-            background-color: var(--background-color);
+            background: var(--background-gradient);
             margin: 0;
             padding: 0;
-            font-size: 16px;
+            font-size: 17px;
         }
 
         .container {
             max-width: 900px;
-            margin: 20px auto;
-            padding: 20px;
+            margin: 40px auto;
+            padding: 40px;
             background-color: var(--card-bg);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
         }
 
         header {
             text-align: center;
-            border-bottom: 2px solid var(--border-color);
-            padding-bottom: 20px;
-            margin-bottom: 30px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 25px;
+            margin-bottom: 35px;
         }
 
         header .category {
-            color: var(--secondary-color);
-            font-weight: 600;
-            font-size: 1rem;
-            margin-bottom: 10px;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-bottom: 15px;
         }
 
         header h1 {
-            font-size: 2.5rem;
+            font-size: 2.8rem;
+            font-weight: 700;
             color: var(--heading-color);
-            margin: 10px 0;
+            margin: 0;
         }
 
         .article-content {
-            font-size: 1.1rem;
+            padding-top: 10px;
         }
-
+        
         .article-content h2 {
+            font-size: 2rem;
             color: var(--heading-color);
-            font-size: 1.8rem;
-            margin-top: 40px;
-            border-bottom: 2px solid var(--secondary-color);
+            margin-top: 45px;
             padding-bottom: 10px;
+            border-bottom: 2px solid var(--secondary-color);
+        }
+        
+        .dua-block, .quran-quote {
+            padding: 25px;
+            margin: 25px 0;
+            border-radius: 12px;
+            position: relative;
+            border: 1px solid var(--border-color);
+            font-size: 1.2rem;
         }
 
         .dua-block {
-            background-color: #eaf2f8;
-            border-right: 4px solid var(--secondary-color);
-            padding: 20px;
-            margin: 20px 0;
-            border-radius: 8px;
-            font-style: italic;
-            color: #283747;
+            background-color: var(--dua-bg);
+            border-right: 5px solid var(--dua-border);
+            color: #0c4a6e;
+        }
+        .quran-quote {
+            background-color: var(--quran-bg);
+            border-right: 5px solid var(--quran-border);
+            font-family: 'Amiri', serif;
+            font-size: 1.4rem;
+            text-align: center;
+            color: #14532d;
         }
         
-        .quran-quote {
-            background-color: #e9f7ef;
-            border-right: 4px solid #28a745;
-            padding: 15px;
-            margin: 20px 0;
+        .dua-block strong { color: var(--primary-color); }
+        .dua-block small { font-size: 0.8em; color: #555; }
+
+        .copy-btn {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: #fff;
+            border: 1px solid var(--border-color);
             border-radius: 8px;
-            font-family: 'Amiri', serif;
-            font-size: 1.2rem;
-            text-align: center;
+            padding: 8px 12px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-family: 'Cairo', sans-serif;
+            transition: all 0.2s ease;
         }
+        .copy-btn:hover { background: #f1f1f1; border-color: #aaa; }
+        .copy-btn.copied { background: var(--quran-border); color: white; border-color: var(--quran-border); }
 
         .footnote-section {
-            margin-top: 40px;
-            padding-top: 20px;
+            margin-top: 50px;
+            padding-top: 25px;
             border-top: 1px solid var(--border-color);
-            font-size: 0.9rem;
-            color: #7f8c8d;
+            font-size: 0.95rem;
+            color: #555;
         }
-        
-        .footnote-section h3 {
-            font-size: 1.2rem;
-            color: var(--heading-color);
-        }
+        .footnote-section h3 { font-size: 1.5rem; color: var(--heading-color); }
+        .footnote-section ol { padding-right: 20px; }
+        .footnote-section li { margin-bottom: 10px; }
 
-        .footnote-section ol {
-            padding-right: 20px;
-            list-style-type: decimal;
-        }
-        
-        .footnote-section li {
-            margin-bottom: 8px;
-        }
-        
-        /* قسم المشاركة */
-        .share-section {
+        .actions-section {
             text-align: center;
             margin-top: 40px;
-            padding: 25px 0;
+            padding: 30px 0;
             border-top: 1px solid var(--border-color);
         }
-        .share-section h3 {
-            margin-bottom: 20px;
-            font-size: 1.4rem;
-            color: var(--heading-color);
-        }
-        .share-buttons a {
+        .actions-section h3 { margin-bottom: 20px; font-size: 1.6rem; color: var(--heading-color); }
+        .action-buttons { display: flex; justify-content: center; align-items: center; gap: 15px; flex-wrap: wrap; }
+        .action-buttons a, .action-buttons button {
             display: inline-flex;
             align-items: center;
-            justify-content: center;
-            margin: 0 10px;
-            padding: 10px 20px;
-            border-radius: 25px;
+            gap: 10px;
+            padding: 12px 25px;
+            border-radius: 50px;
             text-decoration: none;
-            color: white;
             font-weight: 600;
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-family: 'Cairo', sans-serif;
+            font-size: 1rem;
         }
-        .share-buttons a:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-        }
-        .share-buttons svg {
-            width: 20px;
-            height: 20px;
-            margin-left: 8px;
-        }
-        .share-whatsapp { background-color: #25D366; }
-        .share-facebook { background-color: #1877F2; }
+        .action-buttons a:hover, .action-buttons button:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
+        
+        .btn-whatsapp { background-color: #25D366; color: white; }
+        .btn-facebook { background-color: #1877F2; color: white; }
+        .btn-print { background-color: #6c757d; color: white; }
+        .action-buttons svg { width: 22px; height: 22px; }
 
         footer {
             text-align: center;
-            margin-top: 20px;
+            margin-top: 30px;
             padding-top: 20px;
-            border-top: 1px solid var(--border-color);
-            color: #95a5a6;
+            color: #777;
             font-size: 0.9rem;
         }
 
         @media (max-width: 768px) {
-            header h1 { font-size: 2rem; }
-            .container { margin: 10px; padding: 15px; }
-            .share-buttons a { margin-bottom: 10px; }
+            body { font-size: 16px; }
+            .container { margin: 20px; padding: 20px; }
+            header h1 { font-size: 2.2rem; }
+            .dua-block, .quran-quote { padding: 20px; font-size: 1.1rem; }
+            .quran-quote { font-size: 1.2rem; }
+            .copy-btn { padding: 6px 10px; font-size: 0.7rem; }
         }
     </style>
 </head>
@@ -192,35 +205,52 @@
             <p><strong>بسم الله الرحمن الرحيم</strong></p>
             <p><strong>اللهمَّ صلِّ على محمد وآل محمد</strong></p>
 
-            <h3>هل تُوجد أدعيةً خاصة لطلب الولد والذرية الصالحة؟</h3>
-            <p>نعم وردت في ذلك رواياتٌ عديدة عن أهل البيت (عليهم السلام):</p>
-
             <div class="dua-block">
-                <strong>منها:</strong> ما روي عن الإمام زين العابدين (ع) انَّه قال: قل لطلب الولد: "ربِّ لا تذرني فرداً وأنت خيرُ الوارثين..." (سبعين مرة). <small>[المصدر: 1]</small>
+                <button class="copy-btn">نسخ الدعاء</button>
+                <strong>منها:</strong> ما روي عن الإمام زين العابدين (ع) انَّه قال لبعض أصحابه: قل لطلب الولد: <br><em>"ربِّ لا تذرني فرداً وأنت خيرُ الوارثين، واجعل لي من لدنك وليَّاً يرثني في حياتي ويستغفر لي بعد وفاتي، واجعله خلقاً سوِّياً ولا تجعل للشيطان فيه نصيباً، اللهم إنِّي أستغفرك وأتوب إليك إنَّك أنت التواب الرحيم"</em> (سبعين مرة). <small>[المصدر: 1]</small>
             </div>
+            <p>فإنَّه مَن أكثر من هذا القول رزقه الله ما تمنَّى من مالٍ وولد ومن خير الدنيا والآخرة فإنَّه يقول:</p>
             <div class="quran-quote">
-                ﴿اسْتَغْفِرُوا رَبَّكُمْ إِنَّهُ كَانَ غَفَّارًا / يُرْسِلِ السَّمَاء عَلَيْكُم مِّدْرَارًا / وَيُمْدِدْكُمْ بِأَمْوَالٍ وَبَنِينَ...﴾ <small>[المصدر: 2]</small>
+                ﴿اسْتَغْفِرُوا رَبَّكُمْ إِنَّهُ كَانَ غَفَّارًا / يُرْسِلِ السَّمَاء عَلَيْكُم مِّدْرَارًا / وَيُمْدِدْكُمْ بِأَمْوَالٍ وَبَنِينَ وَيَجْعَل لَّكُمْ جَنَّاتٍ وَيَجْعَل لَّكُمْ أَنْهَارًا﴾ <small>[المصدر: 2]</small>
             </div>
 
             <div class="dua-block">
-                <strong>ومنها:</strong> ما روي عن الإمام الحسن (ع) أنه نصح رجلاً بالإكثار من الاستغفار ليرزقه الله ولداً، ففعل ورُزق. <small>[المصدر: 3]</small>
+                <strong>ومنها:</strong> ما روي عن الإمام الحسن (ع) انَّ أحدهم قال له: إنِّي رجلٌ ذو مال ولا يُولد لي، فعلِّمني شيئاً لعل الله يرزقني ولداً، فقال (ع): "عليك بالاستغفار"، فكان يُكثر من الاستغفار حتى ربَّما استغفر في اليوم سبعمائة مرة، فوُلد له عشر بنين. <small>[المصدر: 3]</small>
+            </div>
+            
+            <div class="dua-block">
+                <button class="copy-btn">نسخ الدعاء</button>
+                <strong>ومنها:</strong> ما روي عن أبي عبد الله الصادق (ع) قال: "إذا أبطأ على أحدكم الولد فليقل: <br><em>اللهم لا تذرني فرداً وأنت خير الوارثين وحيداً وحشاً فيقصُر شكري عن تفكُّري بل هب لي عاقبةَ صدقٍ ذكوراً وإناثاً آنس بهم من الوحشة وأسكن إليهم من الوحدة، وأشكرك عند تمام النعمة، يا وهاب يا عظيم، ثم أعطني في كلِّ عافيةٍ شكراً حتى تُبلِّغني منها رضوانك في صدق الحديث وأداء الأمانة ووفاءً بالعهد</em>". <small>[المصدر: 5]</small>
             </div>
 
-            <!-- ... بقية الأدعية ... -->
+            <div class="dua-block">
+                <button class="copy-btn">نسخ الدعاء</button>
+                <strong>ومنها:</strong> ما روي عن أبي عبد الله (ع) أنه قال لمن ليس له ولد: "ادعُ وأنت ساجد: <br><em>(ربِّ هب لي من لدنك ولياً يرثني، ربِّ هب لي من لدنك ذريةً طيبِّة إنَّك سميع الدعاء، ربِّ لا تذرني فرداً وأنت خير الوارثين)</em>". <small>[المصدر: 6]</small>
+            </div>
+            
+            <div class="dua-block">
+                <button class="copy-btn">نسخ الدعاء</button>
+                <strong>ومنها:</strong> ما روي عن أبي جعفر (ع) قال: "إذا أردتَ الولد فقل عند الجماع: <br><em>(اللهم ارزقني ولداً واجعله تقيَّاً ليس في خلقه زيادةٌ ولا نقصان، واجعل عاقبته إلى خير)</em>". <small>[المصدر: 7]</small>
+            </div>
+            
+            <div class="dua-block">
+                <strong>ومنها:</strong> روي أن رفع الصوت بالأذان في البيت يُوجب كثرة الولد، فقد أمر به الإمام الرضا (ع) رجلاً شكى إليه أنه لا يولد له، ففعل وكثر ولده. <small>[المصدر: 9]</small>
+            </div>
 
             <h2>الصلاة لطلب الولد</h2>
             <div class="dua-block">
-                روي عن أمير المؤمنين (ع) صلاة من ركعتين وسجدة بعدها يُقال فيها (استغفر الله) 71 مرة. <small>[المصدر: 11]</small>
+                <strong>صلاة أمير المؤمنين (ع):</strong> إذا أردت الولد فتوضأ وصلِّ ركعتين وحسِّنها واسجد بعدهما سجدةً وقل: <em>(استغفر الله)</em> إحدى وسبعين مرة، ثم تغشى امرأتك، وقل: <em>(اللهم ارزقني ولداً لأُسميه بإسم نبيِّك (ص))</em> فإنَّ الله يفعل ذلك. <small>[المصدر: 11]</small>
             </div>
             <div class="dua-block">
-                روي عن أبي عبد الله (ع) صلاة من ركعتين بعد الجمعة مع دعاء مخصوص. <small>[المصدر: 12]</small>
+                <button class="copy-btn">نسخ الدعاء</button>
+                <strong>صلاة بعد الجمعة:</strong> من أراد ان يُحبل له فليصلِّ ركعتين بعد الجمعة يُطيل فيها الركوع والسجود ثم يقول: <br><em>(اللهم إني أسألك بما سألك به زكريا إذ ناداك ربَّ لا تذرني فرداً وأنت خير الوارثين، اللهم فهب لي ذريةً طيِّبة إنَّك سميع الدعاء، اللهم بإسمك استحللتُها، وهي أمانتك أخذتُها فإنْ قضيت في رحمها ولداً فاجعله غلاماً مباركاً زكيَّاً، ولا تجعل للشيطان فيه نصيباً ولا شَرَكاً)</em>. <small>[المصدر: 12]</small>
             </div>
 
-            <p>هذا بعض ما ورد في طلب الولد، وليس من شيء أسرع لتحصيل هذه الغاية من الاستغفار والدعاء... والحمد لله رب العالمين.</p>
+            <p>هذا بعض ما ورد في طلب الولد، وليس من شيء أسرع لتحصيل هذه الغاية من الاستغفار والدعاء بما هو مأثور مع الوثوق بأنَّ الله عز وجل يُجيب دعوة الداعي إذا دعاه. والحمد لله رب العالمين.</p>
         </main>
 
         <section class="footnote-section">
-            <h3>المصادر:</h3>
+            <h3>المصادر</h3>
             <ol>
                 <li>من لا يحضره الفقيه - الشيخ الصدوق - ج 3 ص 474.</li>
                 <li>سورة نوح / 10-12.</li>
@@ -237,46 +267,62 @@
             </ol>
         </section>
 
-        <!-- قسم المشاركة الجديد -->
-        <section class="share-section">
+        <section class="actions-section">
             <h3>شارك الخير</h3>
-            <div class="share-buttons">
-                <a href="#" id="share-whatsapp" class="share-whatsapp" target="_blank" rel="noopener noreferrer">
+            <div class="action-buttons">
+                <a href="#" id="share-whatsapp" class="btn-whatsapp" target="_blank" rel="noopener noreferrer">
+                    <svg fill="currentColor" viewBox="0 0 24 24"><path d="M16.6,14.2l-1.5-0.8c-0.4-0.2-0.7-0.3-1,0.1l-0.8,0.9c-0.8-0.5-1.9-1.3-2.9-2.3s-1.8-2.1-2.3-2.9l0.9-0.8c0.4-0.3,0.3-0.6,0.1-1l-0.8-1.5c-0.2-0.5-0.6-0.6-1-0.4l-1.6,0.7c-0.4,0.2-0.7,0.5-0.7,1c0,3.4,2.8,6.2,6.2,6.2c0.5,0,0.8-0.3,1-0.7L17,15.2C17.2,14.8,17.1,14.4,16.6,14.2z M12,2C6.5,2,2,6.5,2,12s4.5,10,10,10c5.5,0,10-4.5,10-10S17.5,2,12,2z M12,20c-4.4,0-8-3.6-8-8s3.6-8,8-8s8,3.6,8,8S16.4,20,12,20z"/></svg>
                     واتساب
-                    <svg fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.487 5.235 3.487 8.413 0 6.557-5.338 11.892-11.894 11.892-1.99 0-3.903-.52-5.586-1.459L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.886-.001 2.269.655 4.357 1.849 6.081l-1.214 4.439 4.562-1.195z"/></svg>
                 </a>
-                <a href="#" id="share-facebook" class="share-facebook" target="_blank" rel="noopener noreferrer">
+                <a href="#" id="share-facebook" class="btn-facebook" target="_blank" rel="noopener noreferrer">
+                    <svg fill="currentColor" viewBox="0 0 24 24"><path d="M15.6,12.5l0.6-3.8h-3.5V6.2c0-1,0.5-2,2.1-2h1.6V1.1c-0.9-0.1-2-0.2-3.1-0.2c-3.2,0-5.3,1.9-5.3,5.5v2.3H7.6v3.8h3.5v9.3h4.2v-9.3H15.6z"/></svg>
                     فيسبوك
-                    <svg fill="currentColor" viewBox="0 0 24 24"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/></svg>
                 </a>
+                <button id="print-page" class="btn-print">
+                    <svg fill="currentColor" viewBox="0 0 24 24"><path d="M19,8H5c-1.7,0-3,1.3-3,3v6h4v4h12v-4h4v-6C22,9.3,20.7,8,19,8z M16,19H8v-5h8V19z M19,12c-0.6,0-1-0.4-1-1s0.4-1,1-1s1,0.4,1,1S19.6,12,19,12z M18,3H6v4h12V3z"/></svg>
+                    طباعة
+                </button>
             </div>
         </section>
 
         <footer>
-            <p>&copy; 2025 - جميع الحقوق محفوظة</p>
+            <p>&copy; 2025 - نسألكم الدعاء</p>
         </footer>
     </div>
 
-    <!-- JavaScript لجعل المشاركة تلقائية -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const pageUrl = window.location.href;
-            const pageTitle = document.title;
-            const text = encodeURIComponent(pageTitle + " - " + pageUrl);
-
-            // تحديث رابط OG URL
+            // Auto-fill OG URL
             const ogUrlMeta = document.querySelector('meta[property="og:url"]');
-            if (ogUrlMeta) {
-                ogUrlMeta.setAttribute('content', pageUrl);
-            }
+            if (ogUrlMeta) ogUrlMeta.setAttribute('content', window.location.href);
 
-            // تحديث رابط واتساب
-            const whatsappLink = document.getElementById('share-whatsapp');
-            whatsappLink.href = `https://api.whatsapp.com/send?text=${text}`;
+            // Share functionality
+            const pageUrl = encodeURIComponent(window.location.href);
+            const pageTitle = encodeURIComponent(document.title);
+            document.getElementById('share-whatsapp').href = `https://api.whatsapp.com/send?text=${pageTitle}%0A${pageUrl}`;
+            document.getElementById('share-facebook').href = `https://www.facebook.com/sharer/sharer.php?u=${pageUrl}`;
+            
+            // Print functionality
+            document.getElementById('print-page').addEventListener('click', () => window.print());
 
-            // تحديث رابط فيسبوك
-            const facebookLink = document.getElementById('share-facebook');
-            facebookLink.href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(pageUrl)}`;
+            // Copy functionality
+            document.querySelectorAll('.copy-btn').forEach(button => {
+                button.addEventListener('click', () => {
+                    const duaBlock = button.closest('.dua-block');
+                    const textToCopy = duaBlock.querySelector('em').innerText;
+                    
+                    navigator.clipboard.writeText(textToCopy).then(() => {
+                        button.textContent = 'تم النسخ!';
+                        button.classList.add('copied');
+                        setTimeout(() => {
+                            button.textContent = 'نسخ الدعاء';
+                            button.classList.remove('copied');
+                        }, 2000);
+                    }).catch(err => {
+                        console.error('Failed to copy: ', err);
+                    });
+                });
+            });
         });
     </script>
 
