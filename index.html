@@ -3,9 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- Security: Content Security Policy -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self' 'unsafe-inline' https://unpkg.com; img-src 'self' https: data:;">
 
     <!-- SEO: Title and Meta Tags -->
     <title>الذرية الصالحة | أدعية وأعمال مأثورة ومجربة لطلب الولد</title>
@@ -20,6 +17,7 @@
     <meta property="og:image" content="https://i.imgur.com/wP0v7gH.jpeg">
 
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&family=Amiri:ital,wght@0,400;0,700&display=swap');
 
@@ -197,7 +195,13 @@
         }
         .action-buttons i { font-size: 1.3rem; }
 
-        .main-footer { text-align: center; padding: 40px 20px; background: var(--footer-bg); color: rgba(255,255,255,0.7); font-size: 0.9rem; }
+        .main-footer {
+            text-align: center;
+            padding: 40px 20px;
+            background: var(--footer-bg);
+            color: rgba(255,255,255,0.7);
+            font-size: 0.9rem;
+        }
         
         @media (max-width: 768px) { 
             body { font-size: 16px; } 
@@ -293,73 +297,75 @@
         document.addEventListener('DOMContentLoaded', function() {
             // --- Live Clock ---
             const clockElement = document.getElementById('live-clock');
-            function updateClock() {
-                const now = new Date();
-                let hours = now.getHours();
-                const minutes = now.getMinutes().toString().padStart(2, '0');
-                const seconds = now.getSeconds().toString().padStart(2, '0');
-                const ampm = hours >= 12 ? 'PM' : 'AM';
-                hours = hours % 12;
-                hours = hours ? hours : 12;
-                const hoursStr = hours.toString().padStart(2, '0');
-                clockElement.textContent = `${hoursStr}:${minutes}:${seconds} ${ampm}`;
+            if (clockElement) {
+                function updateClock() {
+                    const now = new Date();
+                    let hours = now.getHours();
+                    const minutes = now.getMinutes().toString().padStart(2, '0');
+                    const seconds = now.getSeconds().toString().padStart(2, '0');
+                    const ampm = hours >= 12 ? 'PM' : 'AM';
+                    hours = hours % 12;
+                    hours = hours ? hours : 12; // the hour '0' should be '12'
+                    const hoursStr = hours.toString().padStart(2, '0');
+                    clockElement.textContent = `${hoursStr}:${minutes}:${seconds} ${ampm}`;
+                }
+                setInterval(updateClock, 1000);
+                updateClock();
             }
-            setInterval(updateClock, 1000);
-            updateClock();
 
             // --- Dynamic Copyright Year ---
             const copyrightElement = document.getElementById('copyright-notice');
-            const currentYear = new Date().getFullYear();
-            copyrightElement.textContent = `© ${currentYear} - نسألكم الدعاء`;
+            if (copyrightElement) {
+                const currentYear = new Date().getFullYear();
+                copyrightElement.textContent = `© ${currentYear} - نسألكم الدعاء`;
+            }
 
             // --- Share & Copy Functionality ---
-            // This function checks if the page is on a live server or a local file.
-            function getPageUrl() {
-                if (window.location.protocol.startsWith('http')) {
-                    return window.location.href;
-                }
-                // Fallback for local testing. Replace with your actual domain when you go live.
-                return 'https://example.com/page-for-child.html'; 
-            }
-
-            const pageUrl = getPageUrl();
+            const pageUrl = window.location.href;
             const pageTitle = document.title;
             
-            // Set the canonical URL for SEO and sharing
-            const canonicalUrlTag = document.querySelector('meta[property="og:url"]') || document.createElement('meta');
-            if (!canonicalUrlTag.hasAttribute('property')) {
-                canonicalUrlTag.setAttribute('property', 'og:url');
-                document.head.appendChild(canonicalUrlTag);
-            }
-            canonicalUrlTag.setAttribute('content', pageUrl);
-
             const encodedUrl = encodeURIComponent(pageUrl);
             const encodedTitle = encodeURIComponent(pageTitle);
             
-            document.getElementById('share-whatsapp').href = `https://api.whatsapp.com/send?text=${encodedTitle}%0A${encodedUrl}`;
-            document.getElementById('share-telegram').href = `https://t.me/share/url?url=${encodedUrl}&text=${encodedTitle}`;
-            document.getElementById('share-facebook').href = `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`;
-            document.getElementById('share-twitter').href = `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}`;
+            const shareWhatsapp = document.getElementById('share-whatsapp');
+            if(shareWhatsapp) shareWhatsapp.href = `https://api.whatsapp.com/send?text=${encodedTitle}%0A${encodedUrl}`;
+            
+            const shareTelegram = document.getElementById('share-telegram');
+            if(shareTelegram) shareTelegram.href = `https://t.me/share/url?url=${encodedUrl}&text=${encodedTitle}`;
+
+            const shareFacebook = document.getElementById('share-facebook');
+            if(shareFacebook) shareFacebook.href = `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`;
+
+            const shareTwitter = document.getElementById('share-twitter');
+            if(shareTwitter) shareTwitter.href = `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}`;
             
             const copyBtn = document.getElementById('copy-link');
-            copyBtn.addEventListener('click', () => {
-                navigator.clipboard.writeText(pageUrl).then(() => {
-                    const originalIcon = copyBtn.innerHTML;
-                    copyBtn.innerHTML = '<i class="ph-fill ph-check-circle" style="color: #28a745;"></i>';
-                    copyBtn.title = "تم النسخ!";
-                    setTimeout(() => { 
-                        copyBtn.innerHTML = originalIcon; 
-                        copyBtn.title = "نسخ رابط الصفحة";
-                    }, 2000);
-                }, () => {
-                    alert("فشل نسخ الرابط. يرجى النسخ يدوياً.");
+            if (copyBtn) {
+                copyBtn.addEventListener('click', (e) => {
+                    e.preventDefault(); // Prevent page jump
+                    navigator.clipboard.writeText(pageUrl).then(() => {
+                        const originalIcon = copyBtn.innerHTML;
+                        copyBtn.innerHTML = '<i class="ph-fill ph-check-circle" style="color: #28a745;"></i>';
+                        copyBtn.title = "تم النسخ!";
+                        setTimeout(() => { 
+                            copyBtn.innerHTML = originalIcon; 
+                            copyBtn.title = "نسخ رابط الصفحة";
+                        }, 2000);
+                    }, () => {
+                        alert("فشل نسخ الرابط. يرجى النسخ يدوياً.");
+                    });
                 });
-            });
+            }
             
             // --- Print Functionality ---
-            document.getElementById('print-page').addEventListener('click', () => window.print());
+            const printBtn = document.getElementById('print-page');
+            if (printBtn) {
+                printBtn.addEventListener('click', (e) => {
+                    e.preventDefault(); // Prevent page jump
+                    window.print();
+                });
+            }
         });
     </script>
-
 </body>
 </html>
