@@ -20,14 +20,13 @@
         @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap');
 
         :root {
-            --bg-color: #f8f9fa;
-            --header-bg: #0d1b2a;
-            --text-color: #1b263b;
-            --heading-color: #0d1b2a;
-            --accent-color: #c9a259; /* Gold */
+            --bg-color: #f5f5f5;
+            --text-color: #3d403a;
+            --heading-color: #4a5740; /* Olive Green */
+            --accent-color: #b08d57; /* Soft Gold */
             --card-bg: #ffffff;
-            --border-color: #e0e1dd;
-            --shadow: 0 8px 25px rgba(27, 38, 59, 0.05);
+            --border-color: #e5e5e5;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
         }
 
         @keyframes fadeIn {
@@ -38,45 +37,70 @@
         body {
             font-family: 'Tajawal', sans-serif;
             font-size: 18px;
-            line-height: 1.9;
+            line-height: 2;
             color: var(--text-color);
             background-color: var(--bg-color);
             margin: 0;
         }
 
         .main-header {
-            background-color: var(--header-bg);
-            color: #fff;
+            position: relative;
             text-align: center;
-            padding: 50px 20px;
+            padding: 80px 20px;
+            color: #fff;
+            background-image: url('https://images.pexels.com/photos/164835/pexels-photo-164835.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
+            background-size: cover;
+            background-position: center;
+        }
+        .main-header::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(42, 62, 43, 0.6); /* Dark Green Overlay */
+            z-index: 1;
+        }
+        .header-content {
+            position: relative;
+            z-index: 2;
         }
         .main-header h1 {
-            font-size: clamp(2.2rem, 5vw, 3rem);
+            font-size: clamp(2.5rem, 6vw, 3.5rem);
             font-weight: 700;
             margin: 0 0 15px 0;
-            color: #fff;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
         }
         .main-header p {
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             max-width: 700px;
             margin: 0 auto;
-            color: rgba(255, 255, 255, 0.8);
+            color: rgba(255, 255, 255, 0.9);
+            text-shadow: 0 1px 5px rgba(0,0,0,0.4);
+        }
+        .live-clock {
+            font-family: 'monospace';
+            font-size: 1.2rem;
+            background: rgba(0,0,0,0.3);
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            min-width: 150px;
         }
 
         .container {
             max-width: 900px;
-            margin: -40px auto 40px auto;
-            padding: clamp(20px, 4vw, 40px);
+            margin: -60px auto 40px auto;
             background: var(--card-bg);
             border-radius: 16px;
             box-shadow: var(--shadow);
             position: relative;
             z-index: 10;
+            padding: clamp(25px, 5vw, 50px);
             animation: fadeIn 0.8s ease-out;
         }
 
         .article-content h2 {
-            font-size: 1.7rem;
+            font-size: 1.8rem;
             color: var(--heading-color);
             margin: 40px 0 20px;
             padding-bottom: 10px;
@@ -86,41 +110,34 @@
         
         .card {
             background: var(--card-bg);
-            padding: 25px;
-            margin: 25px 0;
+            padding: 30px;
+            margin: 30px 0;
             border-radius: 12px;
             border: 1px solid var(--border-color);
-            border-left: 4px solid var(--accent-color);
-            position: relative;
-            transition: box-shadow 0.3s;
+            border-bottom: 4px solid var(--accent-color);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02), inset 0 1px 3px rgba(0,0,0,0.03);
+            transition: transform 0.3s, box-shadow 0.3s;
         }
-        .card:hover { box-shadow: 0 12px 30px rgba(27, 38, 59, 0.08); }
-        .card p { margin: 0; }
+        .card:hover { 
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.07), inset 0 1px 3px rgba(0,0,0,0.03);
+        }
+        .card p { 
+            margin: 0;
+            text-align: justify; /* Justified text like a book */
+        }
         .card strong { color: var(--heading-color); font-weight: 700; }
         .card em { font-family: 'Amiri', serif; font-style: italic; font-size: 1.1em; color: #000; }
-        .card small { color: #8d99ae; font-size: 0.85em; display: block; margin-top: 10px; }
+        .card small { color: #8a8a8a; font-size: 0.85em; display: block; margin-top: 15px; text-align: right; }
 
         .quran-quote {
             font-family: 'Amiri', serif;
             font-weight: 700;
             text-align: center;
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             color: var(--heading-color);
-            background: #fefbf3;
+            background: #faf8f2;
         }
-        
-        .copy-btn {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            background: transparent;
-            border: none;
-            cursor: pointer;
-            color: #adb5bd;
-            transition: color 0.2s;
-        }
-        .copy-btn:hover { color: var(--accent-color); }
-        .copy-btn i { font-size: 1.5rem; }
 
         .actions-footer {
             text-align: center;
@@ -136,7 +153,7 @@
         .action-buttons { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
         .action-btn {
             display: flex; align-items: center; gap: 10px; padding: 10px 20px;
-            border-radius: 8px; text-decoration: none; font-weight: 500;
+            border-radius: 50px; text-decoration: none; font-weight: 500;
             transition: all 0.3s; font-size: 1rem;
             border: 1px solid var(--border-color);
             color: var(--text-color);
@@ -147,33 +164,32 @@
             color: #fff;
             border-color: var(--heading-color);
         }
-        .action-btn i { font-size: 1.3rem; color: var(--accent-color); }
+        .action-btn i { font-size: 1.3rem; color: var(--accent-color); transition: color 0.3s; }
         .action-btn:hover i { color: #fff; }
 
-        footer { text-align: center; padding: 30px 20px; background: var(--header-bg); color: rgba(255,255,255,0.7); font-size: 0.9rem; }
+        .main-footer { text-align: center; padding: 30px 20px; background: #2a3e2b; color: rgba(255,255,255,0.7); font-size: 0.9rem; }
         
-        @media (max-width: 768px) {
-            body { font-size: 16px; }
-            .copy-btn { top: 15px; left: 15px; }
-        }
+        @media (max-width: 768px) { body { font-size: 16px; } }
     </style>
 </head>
 <body>
 
     <header class="main-header">
-        <h1>الذرية الطيبة</h1>
-        <p>إن من أعظم نعم الله على عباده هي الذرية الصالحة. وهذه الصفحة تجمع لكم باقة من الأدعية والأعمال المباركة المأثورة عن أهل بيت النبوة، لتكون لكم عونًا في التوجه إلى الله وطلب هذه النعمة العظيمة.</p>
+        <div class="header-content">
+            <h1>الذرية الطيبة</h1>
+            <p>إن من أعظم نعم الله على عباده هي الذرية الصالحة. وهذه الصفحة تجمع لكم باقة من الأدعية والأعمال المباركة المأثورة، لتكون لكم عونًا في التوجه إلى الله وطلب هذه النعمة العظيمة.</p>
+            <div id="live-clock" class="live-clock"></div>
+        </div>
     </header>
 
     <div class="container">
         <main class="article-content">
 
             <div class="card">
-                <button class="copy-btn" title="نسخ الدعاء"><i class="ph-light ph-copy"></i></button>
-                <p><strong>منها:</strong> ما رواه الصدوق في الفقيه عن الإمام زين العابدين (ع) انَّه قال لبعض أصحابه: قل لطلب الولد: <br><em>"ربِّ لا تذرني فرداً وأنت خيرُ الوارثين، واجعل لي من لدنك وليَّاً يرثني في حياتي ويستغفر لي بعد وفاتي، واجعله خلقاً سوِّياً ولا تجعل للشيطان فيه نصيباً، اللهم إنِّي أستغفرك وأتوب إليك إنَّك أنت التواب الرحيم"</em> (سبعين مرة). <small>[المصدر: 1]</small></p>
+                <p><strong>منها:</strong> ما رواه الصدوق في الفقيه عن الإمام زين العابدين (ع) انَّه قال لبعض أصحابه: قل لطلب الولد: <em>"ربِّ لا تذرني فرداً وأنت خيرُ الوارثين، واجعل لي من لدنك وليَّاً يرثني في حياتي ويستغفر لي بعد وفاتي، واجعله خلقاً سوِّياً ولا تجعل للشيطان فيه نصيباً، اللهم إنِّي أستغفرك وأتوب إليك إنَّك أنت التواب الرحيم"</em> (سبعين مرة). <small>[المصدر: 1]</small></p>
             </div>
 
-            <p>فإنَّه مَن أكثر من هذا القول رزقه الله ما تمنَّى من مالٍ وولد ومن خير الدنيا والآخرة فإنَّه يقول:</p>
+            <p style="text-align:center;">فإنَّه مَن أكثر من هذا القول رزقه الله ما تمنَّى من مالٍ وولد ومن خير الدنيا والآخرة فإنَّه يقول:</p>
             <div class="card quran-quote">
                 <p>﴿اسْتَغْفِرُوا رَبَّكُمْ إِنَّهُ كَانَ غَفَّارًا / يُرْسِلِ السَّمَاء عَلَيْكُم مِّدْرَارًا / وَيُمْدِدْكُمْ بِأَمْوَالٍ وَبَنِينَ وَيَجْعَل لَّكُمْ جَنَّاتٍ وَيَجْعَل لَّكُمْ أَنْهَارًا﴾ <small>[المصدر: 2]</small></p>
             </div>
@@ -183,18 +199,15 @@
             </div>
             
             <div class="card">
-                <button class="copy-btn" title="نسخ الدعاء"><i class="ph-light ph-copy"></i></button>
-                <p><strong>ومنها:</strong> مارواه الكليني بسنده عن أبي بصير عن أبي عبد الله الصادق (ع) قال: "إذا أبطأ على أحدكم الولد فليقل: <br><em>اللهم لا تذرني فرداً وأنت خير الوارثين وحيداً وحشاً فيقصُر شكري عن تفكُّري بل هب لي عاقبةَ صدقٍ ذكوراً وإناثاً آنس بهم من الوحشة وأسكن إليهم من الوحدة، وأشكرك عند تمام النعمة، يا وهاب يا عظيم، ثم أعطني في كلِّ عافيةٍ شكراً حتى تُبلِّغني منها رضوانك في صدق الحديث وأداء الأمانة ووفاءً بالعهد</em>". <small>[المصدر: 5]</small></p>
+                <p><strong>ومنها:</strong> مارواه الكليني بسنده عن أبي بصير عن أبي عبد الله الصادق (ع) قال: "إذا أبطأ على أحدكم الولد فليقل: <em>اللهم لا تذرني فرداً وأنت خير الوارثين وحيداً وحشاً فيقصُر شكري عن تفكُّري بل هب لي عاقبةَ صدقٍ ذكوراً وإناثاً آنس بهم من الوحشة وأسكن إليهم من الوحدة، وأشكرك عند تمام النعمة، يا وهاب يا عظيم، ثم أعطني في كلِّ عافيةٍ شكراً حتى تُبلِّغني منها رضوانك في صدق الحديث وأداء الأمانة ووفاءً بالعهد</em>". <small>[المصدر: 5]</small></p>
             </div>
 
             <div class="card">
-                <button class="copy-btn" title="نسخ الدعاء"><i class="ph-light ph-copy"></i></button>
-                <p><strong>ومنها:</strong> مارواه الكليني بسنده عن الحارث قال: قلتُ لأبي عبد الله (ع) إنِّي من أهل بيتٍ انقرضوا وليس لي ولد، قال (ع): "ادعُ وأنت ساجد: <br><em>(ربِّ هب لي من لدنك ولياً يرثني، ربِّ هب لي من لدنك ذريةً طيبِّة إنَّك سميع الدعاء، ربِّ لا تذرني فرداً وأنت خير الوارثين)</em>". <small>[المصدر: 6]</small></p>
+                <p><strong>ومنها:</strong> مارواه الكليني بسنده عن الحارث قال: قلتُ لأبي عبد الله (ع) إنِّي من أهل بيتٍ انقرضوا وليس لي ولد، قال (ع): "ادعُ وأنت ساجد: <em>(ربِّ هب لي من لدنك ولياً يرثني، ربِّ هب لي من لدنك ذريةً طيبِّة إنَّك سميع الدعاء، ربِّ لا تذرني فرداً وأنت خير الوارثين)</em>". <small>[المصدر: 6]</small></p>
             </div>
             
             <div class="card">
-                <button class="copy-btn" title="نسخ الدعاء"><i class="ph-light ph-copy"></i></button>
-                <p><strong>ومنها:</strong> مارواه الكليني بسنده عن محمد بن مسلم عن أبي جعفر (ع) قال: "إذا أردتَ الولد فقل عند الجماع: <br><em>(اللهم ارزقني ولداً واجعله تقيَّاً ليس في خلقه زيادةٌ ولا نقصان، واجعل عاقبته إلى خير)</em>". <small>[المصدر: 7]</small></p>
+                <p><strong>ومنها:</strong> مارواه الكليني بسنده عن محمد بن مسلم عن أبي جعفر (ع) قال: "إذا أردتَ الولد فقل عند الجماع: <em>(اللهم ارزقني ولداً واجعله تقيَّاً ليس في خلقه زيادةٌ ولا نقصان، واجعل عاقبته إلى خير)</em>". <small>[المصدر: 7]</small></p>
             </div>
             
             <div class="card">
@@ -214,8 +227,7 @@
                 <p><strong>صلاة أمير المؤمنين (ع):</strong> روى الحسن بن الفضل الطبرسي في مكارم الأخلاق عن أمير المؤمنين (ع) إذا أردت الولد فتوضأ وضوءً وصلِّ ركعتين وحسِّنها واسجد بعدهما سجدةً وقل: <em>(استغفر الله)</em> إحدى وسبعين مرة، ثم تغشى امرأتك، وقل: <em>(اللهم ارزقني ولداً لأُسميه بإسم نبيِّك (ص))</em> فإنَّ الله يفعل ذلك. <small>[المصدر: 11]</small></p>
             </div>
             <div class="card">
-                <button class="copy-btn" title="نسخ الدعاء"><i class="ph-light ph-copy"></i></button>
-                <p><strong>صلاة بعد الجمعة:</strong> روى الكليني بسنده عن محمد بن مسلم عن أبي عبد الله (ع) من أراد ان يُحبل له فليصلِّ ركعتين بعد الجمعة يُطيل فيها الركوع والسجود ثم يقول: <br><em>(اللهم إني أسألك بما سألك به زكريا إذ ناداك ربَّ لا تذرني فرداً وأنت خير الوارثين، اللهم فهب لي ذريةً طيِّبة إنَّك سميع الدعاء، اللهم بإسمك استحللتُها، وهي أمانتك أخذتُها فإنْ قضيت في رحمها ولداً فاجعله غلاماً مباركاً زكيَّاً، ولا تجعل للشيطان فيه نصيباً ولا شَرَكاً)</em>. <small>[المصدر: 12]</small></p>
+                <p><strong>صلاة بعد الجمعة:</strong> روى الكليني بسنده عن محمد بن مسلم عن أبي عبد الله (ع) من أراد ان يُحبل له فليصلِّ ركعتين بعد الجمعة يُطيل فيها الركوع والسجود ثم يقول: <em>(اللهم إني أسألك بما سألك به زكريا إذ ناداك ربَّ لا تذرني فرداً وأنت خير الوارثين، اللهم فهب لي ذريةً طيِّبة إنَّك سميع الدعاء، اللهم بإسمك استحللتُها، وهي أمانتك أخذتُها فإنْ قضيت في رحمها ولداً فاجعله غلاماً مباركاً زكيَّاً، ولا تجعل للشيطان فيه نصيباً ولا شَرَكاً)</em>. <small>[المصدر: 12]</small></p>
             </div>
             
             <p style="text-align:center; margin-top:30px;">هذا بعض ما ورد في طلب الولد، وليس من شيئ أسرع لتحصيل هذه الغاية من الإستغفار والدعاء مع الوثوق بأنَّ الله عز وجل يُجيب دعوة الداعي إذا دعاه. والحمد لله رب العالمين.</p>
@@ -240,38 +252,44 @@
         </section>
     </div>
 
-    <footer>
-        <p>&copy; 2025 - نسألكم الدعاء</p>
+    <footer class="main-footer">
+        <p id="copyright-notice"></p>
     </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // --- Live Clock ---
+            const clockElement = document.getElementById('live-clock');
+            function updateClock() {
+                const now = new Date();
+                let hours = now.getHours();
+                const minutes = now.getMinutes().toString().padStart(2, '0');
+                const seconds = now.getSeconds().toString().padStart(2, '0');
+                const ampm = hours >= 12 ? 'PM' : 'AM';
+                hours = hours % 12;
+                hours = hours ? hours : 12; // the hour '0' should be '12'
+                const hoursStr = hours.toString().padStart(2, '0');
+                clockElement.textContent = `${hoursStr}:${minutes}:${seconds} ${ampm}`;
+            }
+            setInterval(updateClock, 1000);
+            updateClock();
+
+            // --- Dynamic Copyright Year ---
+            const copyrightElement = document.getElementById('copyright-notice');
+            const currentYear = new Date().getFullYear();
+            copyrightElement.textContent = `© ${currentYear} - نسألكم الدعاء`;
+
+            // --- Share Functionality ---
             const pageUrl = window.location.href;
             const pageTitle = document.title;
-            
             document.querySelector('meta[property="og:url"]').setAttribute('content', pageUrl);
-            
             const encodedUrl = encodeURIComponent(pageUrl);
             const encodedTitle = encodeURIComponent(pageTitle);
-
             document.getElementById('share-whatsapp').href = `https://api.whatsapp.com/send?text=${encodedTitle}%0A${encodedUrl}`;
             document.getElementById('share-facebook').href = `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`;
             
+            // --- Print Functionality ---
             document.getElementById('print-page').addEventListener('click', () => window.print());
-
-            document.querySelectorAll('.copy-btn').forEach(button => {
-                button.addEventListener('click', (e) => {
-                    const card = e.currentTarget.closest('.card');
-                    const textToCopy = card.querySelector('em')?.innerText;
-                    if (!textToCopy) return;
-
-                    navigator.clipboard.writeText(textToCopy).then(() => {
-                        const originalIcon = e.currentTarget.innerHTML;
-                        e.currentTarget.innerHTML = '<i class="ph-fill ph-check-circle" style="color: #4caf50;"></i>';
-                        setTimeout(() => { e.currentTarget.innerHTML = originalIcon; }, 2000);
-                    });
-                });
-            });
         });
     </script>
 
